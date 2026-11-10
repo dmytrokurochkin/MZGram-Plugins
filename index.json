@@ -8308,6 +8308,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "ping",
+      "name": "Ping",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/ping/1.1.0/ping.plugin",
+      "sha256": "ed4cd6ecf4df3cd1680b834c7c2a5c0d36480e4ce540256ae2309638f8681d59",
+      "size": 1584,
+      "description": "Shows Telegram response delay.",
+      "description_i18n": {
+        "en": "Shows Telegram response delay.",
+        "uk": "Показує затримку відповіді Telegram.",
+        "ru": "Показывает задержку ответа Telegram.",
+        "pl": "Pokazuje opóźnienie odpowiedzi na telegram.",
+        "es": "Muestra el retraso de respuesta de Telegram.",
+        "de": "Zeigt die Verzögerung der Telegrammantwort an.",
+        "fr": "Affiche le délai de réponse du télégramme.",
+        "pt-BR": "Mostra o atraso de resposta do Telegram.",
+        "tr": "Telegram yanıt gecikmesini gösterir.",
+        "ar": "يظهر تأخير استجابة Telegram.",
+        "be": "Паказвае затрымку адказу Telegram.",
+        "kk": "Telegram жауап беру кідірісін көрсетеді."
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
