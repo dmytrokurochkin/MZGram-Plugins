@@ -2751,6 +2751,33 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "confirm_unpin_all",
+      "name": "Confirm Unpin All",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/confirm_unpin_all/1.1/confirm_unpin_all.plugin",
+      "sha256": "34407d3d8d97f0d38d7d0bc30b1d75e90a548b21269d23751b4780cff600b42b",
+      "size": 4154,
+      "description": "Shows a confirmation dialog after unpinning all messages (precisely at the moment when the notification with the cancel button disappears).",
+      "description_i18n": {
+        "en": "Shows a confirmation dialog after unpinning all messages (precisely at the moment when the notification with the cancel button disappears).",
+        "uk": "Показує діалогове вікно підтвердження після відкріплення всіх повідомлень (саме в момент, коли сповіщення з кнопкою скасування зникає).",
+        "ru": "Показывает диалог подтверждения после открепления всех сообщений (точно в тот момент, когда пропадает уведомление с кнопкой отмены).",
+        "pl": "Wyświetla okno potwierdzenia po odpięciu wszystkich wiadomości (dokładnie w momencie, gdy zniknie powiadomienie z przyciskiem anulowania).",
+        "es": "Muestra un cuadro de diálogo de confirmación tras desanclar todos los mensajes (precisamente en el momento en que desaparece la notificación con el botón cancelar).",
+        "de": "Zeigt einen Bestätigungsdialog nach dem Lösen aller Nachrichten an (genau in dem Moment, in dem die Benachrichtigung mit der Schaltfläche „Abbrechen\" verschwindet).",
+        "fr": "Affiche une boîte de dialogue de confirmation après avoir désépinglé tous les messages (précisément au moment où la notification avec le bouton Annuler disparaît).",
+        "pt-BR": "Mostra uma caixa de diálogo de confirmação após desafixar todas as mensagens (precisamente no momento em que a notificação com o botão cancelar desaparece).",
+        "tr": "Tüm mesajların sabitlemesi kaldırıldıktan sonra bir onay iletişim kutusu görüntüler (tam olarak iptal düğmeli bildirimin kaybolduğu anda).",
+        "ar": "يعرض مربع حوار التأكيد بعد إلغاء تثبيت جميع الرسائل (على وجه التحديد في اللحظة التي يختفي فيها الإشعار باستخدام زر الإلغاء).",
+        "be": "Паказвае дыялогавае акно пацверджання пасля адмацавання ўсіх паведамленняў (менавіта ў той момант, калі знікне паведамленне з кнопкай адмены).",
+        "kk": "Барлық хабарламаларды босатқаннан кейін растау диалогын көрсетеді (дәл бас тарту түймесі бар хабарландыру жоғалған кезде)."
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }

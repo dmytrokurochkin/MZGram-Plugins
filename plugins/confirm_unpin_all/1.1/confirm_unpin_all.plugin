@@ -1,0 +1,106 @@
+from typing import Any, List
+from base_plugin import BasePlugin, HookResult, HookStrategy
+from android_utils import log, run_on_ui_thread
+from ui.alert import AlertDialogBuilder
+from ui.bulletin import BulletinHelper
+from client_utils import send_request, get_last_fragment
+
+__id__ = "confirm_unpin_all"
+__name__ = "Confirm Unpin All"
+__description__ = "Показывает диалог подтверждения после открепления всех сообщений (именно в тот момент когда уведомление с кнопкой отмена пропадает) . @bobrplugins"
+__author__ = "@bober41"
+__version__ = "1.1"
+__icon__ = "bobrplugins/16"
+__app_version__ = ">=12.5.1"
+__category__ = ["chats"]
+__sdk_version__ = ">=1.4.3.3"
+
+UNPIN_REQUESTS = (
+    "TL_messages_unpinAllMessages",
+    "TL_channels_unpinAllMessages",
+)
+
+
+class ConfirmUnpinPlugin(BasePlugin):
+    def on_plugin_load(self):
+        for req in UNPIN_REQUESTS:
+            self.add_hook(req)
+        self._pending_request = None
+        self._skip_next = False
+        log("ConfirmUnpinPlugin loaded")
+
+    def on_plugin_unload(self):
+        self._pending_request = None
+        self._skip_next = False
+        log("ConfirmUnpinPlugin unloaded")
+
+    def pre_request_hook(self, request_name: str, account: int, request: Any) -> HookResult:
+        # Пропускаем всё, кроме открепления
+        if request_name not in UNPIN_REQUESTS:
+            return HookResult()
+
+        # Если мы сами переотправляем подтверждённый запрос — пропускаем
+        if self._skip_next:
+            self._skip_next = False
+            return HookResult()
+
+        # Сохраняем запрос и показываем диалог на UI-потоке
+        self._pending_request = request
+        run_on_ui_thread(self._show_confirm_dialog)
+
+        # Отменяем текущий запрос — мы отправим его сами, если пользователь согласится
+        return HookResult(strategy=HookStrategy.CANCEL)
+
+    def _show_confirm_dialog(self):
+        try:
+            fragment = get_last_fragment()
+            if not fragment:
+                self._proceed()
+                return
+
+            activity = fragment.getParentActivity()
+            if not activity:
+                self._proceed()
+                return
+
+            builder = AlertDialogBuilder(activity)
+            builder.set_title("Открепить все сообщения?")
+            builder.set_message("Вы точно хотите открепить все сообщения?")
+
+            def on_yes(bld, which):
+                bld.dismiss()
+                self._proceed()
+
+            def on_no(bld, which):
+                bld.dismiss()
+                self._pending_request = None
+                BulletinHelper.show_info("Открепление отменено")
+
+            builder.set_positive_button("Открепить", on_yes)
+            builder.set_negative_button("Отмена", on_no)
+            builder.show()
+        except Exception as e:
+            log("Dialog error: " + str(e))
+            self._proceed()
+
+    def _proceed(self):
+        """Отправляет сохранённый запрос, пропуская хук один раз."""
+        if self._pending_request:
+            request = self._pending_request
+            self._pending_request = None
+            self._skip_next = True
+            try:
+                send_request(request, lambda resp, err: None)
+            except Exception as e:
+                log("Send request error: " + str(e))
+                self._skip_next = False
+
+    def create_settings(self) -> List[Any]:
+        from ui.settings import Header, Text
+        return [
+            Header(text="Confirm Unpin All"),
+            Text(
+                text="Плагин активен",
+                subtext="Перехватывает запрос открепления на уровне API — работает с любой кнопкой",
+            ),
+        ]
