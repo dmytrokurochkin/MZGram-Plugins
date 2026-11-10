@@ -8571,6 +8571,33 @@
       "permissions": [
         "files"
       ]
+    },
+    {
+      "id": "plugins_command_scanner",
+      "name": "Plugin Commands Scanner",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/plugins_command_scanner/1.1.0/plugins_command_scanner.plugin",
+      "sha256": "624240a39f7f9d05975c7381742cbc571360b9c7c9a38175b97eba66670be60f",
+      "size": 24072,
+      "description": "EN: Displays an interactive pop-up menu of all plugin commands. EN: Displays an interactive popup menu of all plugin commands.",
+      "description_i18n": {
+        "en": "EN: Displays an interactive pop-up menu of all plugin commands. EN: Displays an interactive popup menu of all plugin commands.",
+        "uk": "EN: Відображає інтерактивне спливаюче меню всіх команд плагіна. EN: Відображає інтерактивне спливаюче меню всіх команд плагіна.",
+        "ru": "RU: Отображает интерактивное всплывающее меню всех команд плагина. RU: Отображает интерактивное всплывающее меню всех команд плагина.",
+        "pl": "PL: Wyświetla interaktywne menu podręczne zawierające wszystkie polecenia wtyczki. PL: Wyświetla interaktywne menu podręczne ze wszystkimi poleceniami wtyczek.",
+        "es": "ES: Muestra un menú emergente interactivo de todos los comandos del complemento. ES: Muestra un menú emergente interactivo de todos los comandos del complemento.",
+        "de": "DE: Zeigt ein interaktives Popup-Menü aller Plugin-Befehle an. DE: Zeigt ein interaktives Popup-Menü aller Plugin-Befehle an.",
+        "fr": "FR : Affiche un menu contextuel interactif de toutes les commandes du plugin. FR : Affiche un menu contextuel interactif de toutes les commandes du plugin.",
+        "pt-BR": "PT: Exibe um menu pop-up interativo com todos os comandos do plugin. PT: Exibe um menu popup interativo de todos os comandos do plugin.",
+        "tr": "TR: Tüm eklenti komutlarının etkileşimli bir açılır menüsünü görüntüler. TR: Tüm eklenti komutlarının etkileşimli bir açılır menüsünü görüntüler.",
+        "ar": "AR: يعرض قائمة منبثقة تفاعلية لجميع أوامر المكونات الإضافية. AR: يعرض قائمة منبثقة تفاعلية لجميع أوامر المكونات الإضافية.",
+        "be": "EN: Адлюстроўвае інтэрактыўнае ўсплывальнае меню ўсіх каманд плагіна. EN: Адлюстроўвае інтэрактыўнае ўсплывальнае меню ўсіх каманд плагіна.",
+        "kk": "KK: Барлық плагин пәрмендерінің интерактивті қалқымалы мәзірін көрсетеді. KK: Барлық плагин пәрмендерінің интерактивті қалқымалы мәзірін көрсетеді."
+      },
+      "permissions": [
+        "files"
+      ]
     }
   ]
 }
