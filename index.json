@@ -7522,6 +7522,35 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "nes_emulator",
+      "name": "NesEMU",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/nes_emulator/1.0.0/nes_emulator.plugin",
+      "sha256": "06d1552f013f3ca908a7d0937b3d1b51ec80cb0986398959a12f4106f03720ca",
+      "size": 232569,
+      "description": "NES (Dendy) emulator for Extragram",
+      "description_i18n": {
+        "en": "NES (Dendy) emulator for Extragram",
+        "uk": "Емулятор NES (Dendy) для Extragram",
+        "ru": "Эмулятор NES (Dendy) для Extragram",
+        "pl": "Emulator NES (Dendy) dla Extragramu",
+        "es": "Emulador de NES (Dendy) para Extragram",
+        "de": "NES (Dendy)-Emulator für Extragram",
+        "fr": "Émulateur NES (Dendy) pour Extragram",
+        "pt-BR": "Emulador NES (Dendy) para Extragram",
+        "tr": "Extragram için NES (Dendy) emülatörü",
+        "ar": "محاكي NES (Dendy) لـ Extragram",
+        "be": "Эмулятар NES (Dendy) для Extragram",
+        "kk": "Extragram үшін NES (Dendy) эмуляторы"
+      },
+      "permissions": [
+        "messages.read",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
