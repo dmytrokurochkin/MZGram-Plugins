@@ -8028,6 +8028,35 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "participants_channels",
+      "name": "Participants Channels",
+      "version": "5.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/participants_channels/5.2/participants_channels.plugin",
+      "sha256": "4e91afe75bb69bc9697217e2b0b69cfbfd04bec6f0b5b06e56e353f4396c7f7d",
+      "size": 36687,
+      "description": "Adds a native Channels tab to group and channel profiles showing participants' personal channels. Tap a channel = open channel.",
+      "description_i18n": {
+        "en": "Adds a native Channels tab to group and channel profiles showing participants' personal channels. Tap a channel = open channel.",
+        "uk": "Додає власну вкладку «Канали» до профілів груп і каналів, де відображаються особисті канали учасників. Торкніться каналу = відкрити канал.",
+        "ru": "Добавляет вкладку «Каналы» в профили групп и каналов, показывающую личные каналы участников. Коснитесь канала = открыть канал.",
+        "pl": "Dodaje natywną kartę Kanały do ​​profili grup i kanałów, pokazującą osobiste kanały uczestników. Kliknij kanał = otwórz kanał.",
+        "es": "Agrega una pestaña de Canales nativa a los perfiles de grupos y canales que muestra los canales personales de los participantes. Toque un canal = abrir canal.",
+        "de": "Fügt Gruppen- und Kanalprofilen eine native Registerkarte „Kanäle\" hinzu, auf der die persönlichen Kanäle der Teilnehmer angezeigt werden. Auf einen Kanal tippen = Kanal öffnen.",
+        "fr": "Ajoute un onglet Canaux natif aux profils de groupe et de chaîne affichant les chaînes personnelles des participants. Appuyez sur une chaîne = chaîne ouverte.",
+        "pt-BR": "Adiciona uma guia Canais nativa para perfis de grupos e canais mostrando os canais pessoais dos participantes. Toque em um canal = canal aberto.",
+        "tr": "Katılımcıların kişisel kanallarını gösteren grup ve kanal profillerine yerel bir Kanallar sekmesi ekler. Bir kanala dokunun = kanalı açın.",
+        "ar": "إضافة علامة تبويب القنوات الأصلية إلى ملفات تعريف المجموعة والقناة التي تعرض القنوات الشخصية للمشاركين. اضغط على قناة = قناة مفتوحة.",
+        "be": "Дадае ўласную ўкладку \"Каналы\" ў профілі груп і каналаў, дзе паказваюцца асабістыя каналы ўдзельнікаў. Дакраніцеся да канала = адкрыйце канал.",
+        "kk": "Қатысушылардың жеке арналарын көрсететін топтық және арна профильдеріне \"Арналар\" қойындысын қосады. Арнаны түртіңіз = арнаны ашыңыз."
+      },
+      "permissions": [
+        "messages.send",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
