@@ -10395,6 +10395,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "shareui_exteragit",
+      "name": "exteraGit",
+      "version": "1.0.0 realease",
+      "min_app_version": "1.0.0",
+      "file": "plugins/shareui_exteragit/1.0.0 realease/exteraGit.plugin",
+      "sha256": "1c8d7655a069282c9188ca7ae66bd08c91f27be245ab70d4db8d194c5e8501bb",
+      "size": 31723,
+      "description": "Search GitHub and GitLab resources. Commands in the plugin settings.",
+      "description_i18n": {
+        "en": "Search GitHub and GitLab resources. Commands in the plugin settings.",
+        "uk": "Шукайте ресурси GitHub і GitLab. Команди в налаштуваннях плагіна.",
+        "ru": "Найдите ресурсы GitHub и GitLab. Команды в настройках плагина.",
+        "pl": "Przeszukaj zasoby GitHub i GitLab. Polecenia w ustawieniach wtyczki.",
+        "es": "Busque recursos de GitHub y GitLab. Comandos en la configuración del complemento.",
+        "de": "Durchsuchen Sie GitHub- und GitLab-Ressourcen. Befehle in den Plugin-Einstellungen.",
+        "fr": "Recherchez les ressources GitHub et GitLab. Commandes dans les paramètres du plugin.",
+        "pt-BR": "Pesquise recursos do GitHub e do GitLab. Comandos nas configurações do plugin.",
+        "tr": "GitHub ve GitLab kaynaklarını arayın. Eklenti ayarlarındaki komutlar.",
+        "ar": "ابحث في موارد GitHub وGitLab. الأوامر في إعدادات البرنامج المساعد.",
+        "be": "Пошук у рэсурсах GitHub і GitLab. Каманды ў наладах плагіна.",
+        "kk": "GitHub және GitLab ресурстарын іздеңіз. Плагин параметрлеріндегі пәрмендер."
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
