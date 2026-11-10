@@ -9686,6 +9686,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "rounder",
+      "name": "Rounder",
+      "version": "4.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/rounder/4.0/rounder.plugin",
+      "sha256": "33db3ae9e70c7d0f9d0d57deeafd85c4342173e1398a8c7fb907e0dc7c1156dc",
+      "size": 21721,
+      "description": "Allows you to send videos as round videos",
+      "description_i18n": {
+        "en": "Allows you to send videos as round videos",
+        "uk": "Дозволяє надсилати відео як круглі відео",
+        "ru": "Позволяет отправлять видео в виде круглых видео.",
+        "pl": "Umożliwia wysyłanie filmów w postaci okrągłych filmów",
+        "es": "Le permite enviar videos como videos redondos.",
+        "de": "Ermöglicht das Versenden von Videos als Rundvideos",
+        "fr": "Vous permet d'envoyer des vidéos sous forme de vidéos rondes",
+        "pt-BR": "Permite enviar vídeos como vídeos redondos",
+        "tr": "Videoları yuvarlak videolar olarak göndermenizi sağlar",
+        "ar": "يسمح لك بإرسال مقاطع الفيديو كمقاطع فيديو مستديرة",
+        "be": "Дазваляе адпраўляць відэа ў выглядзе круглых відэа",
+        "kk": "Бейнелерді дөңгелек бейнелер ретінде жіберуге мүмкіндік береді"
+      },
+      "permissions": [
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
