@@ -705,6 +705,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "SmartNotifs",
+      "name": "SmartNotifs",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/SmartNotifs/1.0.0/SmartNotifs.plugin",
+      "sha256": "9bdea84a7bdce1269a495cf1849360a63d01a3cd22b8b693317bd579181483b9",
+      "size": 21887,
+      "description": "Sleep reminder, time control in TG, auto profile change, statistics",
+      "description_i18n": {
+        "en": "Sleep reminder, time control in TG, auto profile change, statistics",
+        "uk": "Нагадування про сон, контроль часу в ТГ, автозміна профілю, статистика",
+        "ru": "Напоминание о сне, контроль времени в ТГ, автосмена профиля, статистика",
+        "pl": "Przypomnienie o śnie, kontrola czasu w TG, automatyczna zmiana profilu, statystyki",
+        "es": "Recordatorio de sueño, control de tiempo en TG, cambio automático de perfil, estadísticas",
+        "de": "Schlaferinnerung, Zeitsteuerung in TG, automatische Profiländerung, Statistiken",
+        "fr": "Rappel de sommeil, contrôle du temps dans TG, changement de profil automatique, statistiques",
+        "pt-BR": "Lembrete de sono, controle de tempo em TG, alteração automática de perfil, estatísticas",
+        "tr": "Uyku hatırlatıcısı, TG'de zaman kontrolü, otomatik profil değişikliği, istatistikler",
+        "ar": "تذكير بالنوم والتحكم في الوقت في TG وتغيير الوضع التلقائي والإحصائيات",
+        "be": "Напамін пра сон, кантроль часу ў ТГ, аўтаматычная змена профілю, статыстыка",
+        "kk": "Ұйқы туралы еске салғыш, TG-де уақытты басқару, профильді автоматты өзгерту, статистика"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send"
+      ]
     }
   ]
 }
