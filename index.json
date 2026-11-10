@@ -4822,6 +4822,34 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "genius_lyrics",
+      "name": "Genius Lyrics",
+      "version": "1.2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/genius_lyrics/1.2.0/genius_lyrics.plugin",
+      "sha256": "5fc28fc9c303c89c76bb3f54de8dce7ada749fb247b317c60fcfdb7cc9dd0c03",
+      "size": 14055,
+      "description": "Get song lyrics from Genius, use .lyrics [song name].",
+      "description_i18n": {
+        "en": "Get song lyrics from Genius, use .lyrics [song name].",
+        "uk": "Отримайте текст пісні від Genius, використовуйте .lyrics [назва пісні].",
+        "ru": "Получите тексты песен от Genius, используйте .lyrics [название песни].",
+        "pl": "Pobierz teksty piosenek od Genius, użyj .lyrics [nazwa utworu].",
+        "es": "Obtenga letras de canciones de Genius, use .lyrics [nombre de la canción].",
+        "de": "Holen Sie sich Songtexte von Genius und verwenden Sie .lyrics [Songname].",
+        "fr": "Obtenez les paroles des chansons de Genius, utilisez .lyrics [nom de la chanson].",
+        "pt-BR": "Obtenha letras de músicas do Genius, use .lyrics [nome da música].",
+        "tr": "Genius'tan şarkı sözlerini alın, .lyrics [şarkı adı] kullanın.",
+        "ar": "احصل على كلمات الأغاني من Genius، واستخدم .lyrics [اسم الأغنية].",
+        "be": "Атрымлівайце тэксты песень ад Genius, выкарыстоўвайце .lyrics [назва песні].",
+        "kk": "Genius қолданбасынан ән сөздерін алыңыз, .lyrics [ән атауы] пайдаланыңыз."
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
