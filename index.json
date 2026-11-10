@@ -10137,6 +10137,34 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "service_cleaner",
+      "name": "Service Cleaner",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/service_cleaner/1.0.0/service_cleaner.plugin",
+      "sha256": "a9077f450d179c1db68044d4e59da83e3c346a055cd42454cad7c1f67e99bc24",
+      "size": 25792,
+      "description": "Mass deletion of service messages: \"entered the chat\", \"added an option to the survey\" and others. Chat menu (⋮) → **Delete service messages...**, or long press on a service message → **Delete all the same**.",
+      "description_i18n": {
+        "en": "Mass deletion of service messages: \"entered the chat\", \"added an option to the survey\" and others. Chat menu (⋮) → **Delete service messages...**, or long press on a service message → **Delete all the same**.",
+        "uk": "Масове видалення службових повідомлень: «зайшов в чат», «додав опцію в опитуванні» та інші. Меню чату (⋮) → **Видалити сервісні повідомлення...** або довго натискати на службове повідомлення → **Видалити все одно**.",
+        "ru": "Массовое удаление сервисных сообщений: \"зашёл в чат\", \"добавил опцию в опрос\" и других. Меню чата (⋮) → **Удалить служебные сообщения...** или долгое нажатие на служебное сообщение → **Удалить всё равно**.",
+        "pl": "Masowe usuwanie wiadomości serwisowych: „wszedł na czat\", „dodano opcję do ankiety\" i inne. Menu czatu (⋮) → **Usuń wiadomości serwisowe...** lub naciśnij długo wiadomość serwisową → **Usuń wszystko**.",
+        "es": "Eliminación masiva de mensajes de servicio: \"ingresé al chat\", \"agregué una opción a la encuesta\" y otros. Menú de chat (⋮) → **Eliminar mensajes de servicio...**, o mantenga presionado un mensaje de servicio → **Eliminar todos iguales**.",
+        "de": "Massenlöschung von Servicenachrichten: „Den Chat betreten\", „Option zur Umfrage hinzugefügt\" und andere. Chat-Menü (⋮) → **Dienstnachrichten löschen...**, oder lange auf eine Dienstnachricht drücken → **Alles löschen**.",
+        "fr": "Suppression massive des messages de service : « entré dans le chat », « ajouté une option à l'enquête » et autres. Menu Chat (⋮) → **Supprimer les messages de service...**, ou appui long sur un message de service → **Supprimer tout de même**.",
+        "pt-BR": "Exclusão em massa de mensagens de atendimento: \"entrou no chat\", \"adicionou opção na pesquisa\" e outras. Menu de bate-papo (⋮) → **Excluir mensagens de serviço...** ou manter pressionada uma mensagem de serviço → **Excluir todas iguais**.",
+        "tr": "Hizmet mesajlarının toplu olarak silinmesi: \"sohbete girildi\", \"ankete bir seçenek eklendi\" ve diğerleri. Sohbet menüsü (⋮) → **Servis mesajlarını sil...** veya bir servis mesajına uzun basın → **Yine de hepsini silin**.",
+        "ar": "الحذف الجماعي لرسائل الخدمة: \"دخلت إلى الدردشة\"، \"أضفت خيارًا للاستبيان\" وغيرها. قائمة الدردشة (⋮) → **حذف رسائل الخدمة...**، أو الضغط لفترة طويلة على رسالة الخدمة → **حذف كل نفس**.",
+        "be": "Масавае выдаленне службовых паведамленняў: «увайшоў у чат», «дадаў опцыю ў апытанне» і інш. Меню чата (⋮) → **Выдаліць службовыя паведамленні...** або доўгае націсканне на службовым паведамленні → **Выдаліць усё роўна**.",
+        "kk": "Қызметтік хабарламаларды жаппай жою: «чатқа кірді», «сауалнамаға опция қосылды» және т.б. Чат мәзірі (⋮) → **Қызметтік хабарларды жою...** немесе қызметтік хабарды ұзақ басыңыз → **Барлығын жою**."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send"
+      ]
     }
   ]
 }
