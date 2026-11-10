@@ -4063,6 +4063,34 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "extera_clean",
+      "name": "exteraClean",
+      "version": "1.0.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/extera_clean/1.0.2/extera_clean.plugin",
+      "sha256": "56cead328ca5124aeb7dc8865d0ca4c29dea49d1b6ecd596837afc28215b7bb6",
+      "size": 124459,
+      "description": "Mass clearing of inactive and useless chats",
+      "description_i18n": {
+        "en": "Mass clearing of inactive and useless chats",
+        "uk": "Масове очищення неактивних і непотрібних чатів",
+        "ru": "Массовая очистка неактивных и бесполезных чатов",
+        "pl": "Masowe usuwanie nieaktywnych i bezużytecznych czatów",
+        "es": "Limpieza masiva de chats inactivos e inútiles",
+        "de": "Massenlöschung inaktiver und nutzloser Chats",
+        "fr": "Suppression massive des discussions inactives et inutiles",
+        "pt-BR": "Limpeza em massa de chats inativos e inúteis",
+        "tr": "Etkin olmayan ve işe yaramaz sohbetlerin toplu olarak temizlenmesi",
+        "ar": "مسح جماعي للدردشات غير النشطة وغير المفيدة",
+        "be": "Масавая ачыстка неактыўных і бескарысных чатаў",
+        "kk": "Белсенді және пайдасыз чаттарды жаппай тазарту"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send"
+      ]
     }
   ]
 }
