@@ -9854,6 +9854,33 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "saved_cleaner_ultimate",
+      "name": "Saved Cleaner",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/saved_cleaner_ultimate/1.0.0/saved_cleaner_ultimate.plugin",
+      "sha256": "76ea5f78f59a0937652bcedf39619c5d77808c3f9fecb98b12889b7f482f36bd",
+      "size": 14844,
+      "description": "Removing duplicates from Favorites",
+      "description_i18n": {
+        "en": "Removing duplicates from Favorites",
+        "uk": "Видалення дублікатів із Вибраного",
+        "ru": "Удаление дубликатов из избранного",
+        "pl": "Usuwanie duplikatów z Ulubionych",
+        "es": "Eliminar duplicados de Favoritos",
+        "de": "Duplikate aus Favoriten entfernen",
+        "fr": "Supprimer les doublons des favoris",
+        "pt-BR": "Removendo duplicatas dos Favoritos",
+        "tr": "Yinelenenleri Sık Kullanılanlardan kaldırma",
+        "ar": "إزالة التكرارات من المفضلة",
+        "be": "Выдаленне дублікатаў з абранага",
+        "kk": "Таңдаулылардан көшірмелерді жою"
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }
