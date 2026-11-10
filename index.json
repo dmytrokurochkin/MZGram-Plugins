@@ -11862,6 +11862,33 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "voice_changer",
+      "name": "VoiceChanger",
+      "version": "2.3.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/voice_changer/2.3.0/voice_changer.plugin",
+      "sha256": "32754519920b0ed76ba3325080facaa6a164a072e3bf005874605991834fd2df",
+      "size": 4620,
+      "description": "Change your voice",
+      "description_i18n": {
+        "en": "Change your voice",
+        "uk": "Змініть свій голос",
+        "ru": "Измени свой голос",
+        "pl": "Zmień swój głos",
+        "es": "cambia tu voz",
+        "de": "Ändere deine Stimme",
+        "fr": "Changez de voix",
+        "pt-BR": "Mude sua voz",
+        "tr": "Sesini değiştir",
+        "ar": "تغيير صوتك",
+        "be": "Змяніць свой голас",
+        "kk": "Дауысыңызды өзгертіңіз"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
