@@ -2218,6 +2218,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "centered_header_fork",
+      "name": "Centered header (fork)",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/centered_header_fork/1.0.0/centered_header_fork.plugin",
+      "sha256": "194088c60893b27a76709775d1f64cca6dda435c66c474da4560e2ae26e74f38",
+      "size": 19364,
+      "description": "Centered header for chats",
+      "description_i18n": {
+        "en": "Centered header for chats",
+        "uk": "Центральний заголовок для чатів",
+        "ru": "Центрированный заголовок для чатов",
+        "pl": "Wyśrodkowany nagłówek czatów",
+        "es": "Encabezado centrado para chats",
+        "de": "Zentrierter Header für Chats",
+        "fr": "En-tête centré pour les discussions",
+        "pt-BR": "Cabeçalho centralizado para bate-papos",
+        "tr": "Sohbetler için ortalanmış başlık",
+        "ar": "رأس مركزي للمحادثات",
+        "be": "Цэнтраваны загаловак для чатаў",
+        "kk": "Чаттар үшін орталықтандырылған тақырып"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
