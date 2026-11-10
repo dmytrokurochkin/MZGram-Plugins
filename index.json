@@ -8652,6 +8652,35 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "pokedex",
+      "name": "Pokédex",
+      "version": "1.0.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/pokedex/1.0.2/pokedex.plugin",
+      "sha256": "eb3f920474cab4f8f6ff60b076fb2a41fc92a7d052ace61210f7a267f24c1aaf",
+      "size": 14727,
+      "description": "Gets Pokémon information",
+      "description_i18n": {
+        "en": "Gets Pokémon information",
+        "uk": "Отримує інформацію про покемонів",
+        "ru": "Получает информацию о покемонах",
+        "pl": "Pobiera informacje o Pokémonach",
+        "es": "Obtiene información de Pokémon",
+        "de": "Ruft Pokémon-Informationen ab",
+        "fr": "Obtient des informations sur les Pokémon",
+        "pt-BR": "Obtém informações de Pokémon",
+        "tr": "Pokémon bilgilerini alır",
+        "ar": "يحصل على معلومات بوكيمون",
+        "be": "Атрымлівае інфармацыю пра покемонаў",
+        "kk": "Покемон туралы ақпаратты алады"
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "files"
+      ]
     }
   ]
 }
