@@ -2976,6 +2976,33 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "custom_chats_title",
+      "name": "Custom Header",
+      "version": "3.1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/custom_chats_title/3.1.1/custom_chats_title.plugin",
+      "sha256": "5fefd14a82018ace38c1d06d95c15f5d63b7992be821324f97497416452bc814",
+      "size": 23182,
+      "description": "Replaces the exteraGram / AyuGram title above the chat list with your own text. A separate title can be set for every account, or the original Telegram logo can be shown instead.",
+      "description_i18n": {
+        "en": "Replaces the exteraGram / AyuGram title above the chat list with your own text. A separate title can be set for every account, or the original Telegram logo can be shown instead.",
+        "uk": "Замінює заголовок exteraGram / AyuGram над списком чату на ваш власний текст. Для кожного облікового запису можна встановити окремий заголовок або замість нього можна показати оригінальний логотип Telegram.",
+        "ru": "Заменяет заголовок exteraGram/AyuGram над списком чата на ваш собственный текст. Для каждой учетной записи можно установить отдельный заголовок или вместо него показать оригинальный логотип Telegram.",
+        "pl": "Zastępuje tytuł exteraGram / AyuGram nad listą czatów własnym tekstem. Dla każdego konta można ustawić oddzielny tytuł lub zamiast niego wyświetlać oryginalne logo Telegramu.",
+        "es": "Reemplaza el título de exteraGram/AyuGram encima de la lista de chat con tu propio texto. Se puede establecer un título separado para cada cuenta o, en su lugar, se puede mostrar el logotipo original de Telegram.",
+        "de": "Ersetzt den exteraGram-/AyuGram-Titel über der Chat-Liste durch Ihren eigenen Text. Für jedes Konto kann ein eigener Titel festgelegt oder stattdessen das Original-Telegram-Logo angezeigt werden.",
+        "fr": "Remplace le titre exteraGram / AyuGram au-dessus de la liste de discussion par votre propre texte. Un titre distinct peut être défini pour chaque compte, ou le logo Telegram original peut être affiché à la place.",
+        "pt-BR": "Substitui o título exteraGram / AyuGram acima da lista de bate-papo pelo seu próprio texto. Um título separado pode ser definido para cada conta ou o logotipo original do Telegram pode ser mostrado.",
+        "tr": "Sohbet listesinin üzerindeki exteraGram / AyuGram başlığını kendi metninizle değiştirir. Her hesap için ayrı bir başlık belirlenebilir veya bunun yerine orijinal Telegram logosu gösterilebilir.",
+        "ar": "يستبدل عنوان exteraGram / AyuGram أعلى قائمة الدردشة بالنص الخاص بك. يمكن تعيين عنوان منفصل لكل حساب، أو يمكن إظهار شعار Telegram الأصلي بدلاً من ذلك.",
+        "be": "Замяняе загаловак exteraGram / AyuGram над спісам чата вашым уласным тэкстам. Для кожнага ўліковага запісу можна ўсталяваць асобны загаловак або замест яго можна паказаць арыгінальны лагатып Telegram.",
+        "kk": "Чат тізімінің үстіндегі exteraGram / AyuGram тақырыбын өз мәтініңізбен ауыстырады. Әрбір тіркелгі үшін бөлек тақырып қоюға болады немесе оның орнына түпнұсқа Telegram логотипін көрсетуге болады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
