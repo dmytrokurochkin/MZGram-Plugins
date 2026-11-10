@@ -427,6 +427,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "NoColorButton",
+      "name": "No Color Button",
+      "version": "1.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/NoColorButton/1.4/NoColorButton (1).plugin",
+      "sha256": "82e7e476ed9a370bf004c859b41171af436239493dec9cb0821be98afd466887",
+      "size": 3949,
+      "description": "Removes the damn colored buttons from bots (any kind).",
+      "description_i18n": {
+        "en": "Removes the damn colored buttons from bots (any kind).",
+        "uk": "Видаляє кляті кольорові кнопки з ботів (будь-яких).",
+        "ru": "Удаляет чертовы цветные кнопки у ботов (любых).",
+        "pl": "Usuwa te cholerne kolorowe przyciski z botów (dowolnego rodzaju).",
+        "es": "Elimina los malditos botones de colores de los bots (de cualquier tipo).",
+        "de": "Entfernt die verdammt farbigen Schaltflächen von Bots (jeglicher Art).",
+        "fr": "Supprime les fichus boutons colorés des robots (de tout type).",
+        "pt-BR": "Remove os malditos botões coloridos dos bots (qualquer tipo).",
+        "tr": "Lanet renkli düğmeleri botlardan (her türlü) kaldırır.",
+        "ar": "يزيل الأزرار الملونة اللعينة من الروبوتات (أي نوع).",
+        "be": "Выдаляе праклятыя каляровыя кнопкі з ботаў (любога выгляду).",
+        "kk": "Боттардан (кез келген түрдегі) қарғыс түсті түймелерді жояды."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
