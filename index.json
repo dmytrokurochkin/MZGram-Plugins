@@ -2646,6 +2646,33 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "coin_flip",
+      "name": "Coin Flip",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/coin_flip/1.0/coin_flip.plugin",
+      "sha256": "7b124aa57263e1afb5e5ff12538b854656c79ca8d4980ff0e51b6166b47b747c",
+      "size": 5225,
+      "description": "Plugin for playing Heads or Tails",
+      "description_i18n": {
+        "en": "Plugin for playing Heads or Tails",
+        "uk": "Плагін для гри Heads or Tails",
+        "ru": "Плагин для игры в «Орел или Решка»",
+        "pl": "Wtyczka do gry w Heads or Tails",
+        "es": "Complemento para jugar cara o cruz",
+        "de": "Plugin zum Spielen von Heads or Tails",
+        "fr": "Plugin pour jouer à Face ou Face",
+        "pt-BR": "Plugin para jogar cara ou coroa",
+        "tr": "Tura veya Kuyruk oynamak için eklenti",
+        "ar": "البرنامج المساعد للعب الرؤوس أو الذيول",
+        "be": "Убудова для гульні Heads or Tails",
+        "kk": "Heads немесе Tails ойнауға арналған плагин"
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
