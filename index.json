@@ -11375,6 +11375,34 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "temp_sub",
+      "name": "TempSub",
+      "version": "3.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/temp_sub/3.1.0/temp_sub.plugin",
+      "sha256": "52327078d553433a3ca66485f09281144010d39f5d7f947c7f906f19ea60e464",
+      "size": 41372,
+      "description": "Temporary subscriptions to channels with automatic unsubscription according to a schedule.",
+      "description_i18n": {
+        "en": "Temporary subscriptions to channels with automatic unsubscription according to a schedule.",
+        "uk": "Тимчасові підписки на канали з автоматичною відпискою за розкладом.",
+        "ru": "Временная подписка на каналы с автоматической отпиской по расписанию.",
+        "pl": "Tymczasowe subskrypcje kanałów z automatyczną rezygnacją z subskrypcji zgodnie z harmonogramem.",
+        "es": "Suscripciones temporales a canales con baja automática según horario.",
+        "de": "Temporäre Abonnements von Kanälen mit automatischer Abmeldung nach Zeitplan.",
+        "fr": "Abonnements temporaires aux chaînes avec désabonnement automatique selon un planning.",
+        "pt-BR": "Assinaturas temporárias de canais com cancelamento automático de acordo com uma programação.",
+        "tr": "Belirli bir programa göre otomatik abonelik iptali ile kanallara geçici abonelikler.",
+        "ar": "اشتراكات مؤقتة في القنوات مع إلغاء الاشتراك التلقائي وفق جدول زمني.",
+        "be": "Часовыя падпіскі на каналы з аўтаматычнай адпіскай па раскладзе.",
+        "kk": "Кестеге сәйкес автоматты түрде жазылуды тоқтату арқылы арналарға уақытша жазылымдар."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
