@@ -3144,6 +3144,36 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "customcrash",
+      "name": "Custom Crash",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/customcrash/1.0.0/customcrash.plugin",
+      "sha256": "d7dce73e631d6415a8c8508ec26316ebc42e2199cec2146c6348511634559c2d",
+      "size": 44701,
+      "description": "Plugin for customizing crash log ETG/AY",
+      "description_i18n": {
+        "en": "Plugin for customizing crash log ETG/AY",
+        "uk": "Плагін для налаштування журналу збоїв ETG/AY",
+        "ru": "Плагин для настройки журнала сбоев ETG/AY",
+        "pl": "Wtyczka do dostosowywania dziennika awarii ETG/AY",
+        "es": "Complemento para personalizar el registro de fallos ETG/AY",
+        "de": "Plugin zum Anpassen des Absturzprotokolls ETG/AY",
+        "fr": "Plugin pour personnaliser le journal de crash ETG/AY",
+        "pt-BR": "Plugin para personalizar o log de falhas ETG/AY",
+        "tr": "ETG/AY kilitlenme günlüğünü özelleştirmek için eklenti",
+        "ar": "البرنامج المساعد لتخصيص سجل الأعطال ETG/AY",
+        "be": "Убудова для наладжвання журнала збояў ETG/AY",
+        "kk": "ETG/AY бұзылу журналын теңшеуге арналған плагин"
+      },
+      "permissions": [
+        "network",
+        "intents",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
