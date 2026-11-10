@@ -1432,6 +1432,34 @@
         "messages.send",
         "files"
       ]
+    },
+    {
+      "id": "audio_quality_chip",
+      "name": "Audio Quality Chip",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/audio_quality_chip/1.1.0/audio_quality_chip.plugin",
+      "sha256": "5cf9b31d8c30f523851f303917c74a3a919a61eea24e76731ad7713d889f207d",
+      "size": 10743,
+      "description": "Shows the audio format and average bitrate below the progress bar in the music player.",
+      "description_i18n": {
+        "en": "Shows the audio format and average bitrate below the progress bar in the music player.",
+        "uk": "Показує аудіоформат і середній бітрейт під індикатором прогресу в музичному плеєрі.",
+        "ru": "Показывает аудиоформат и средний битрейт под индикатором выполнения в музыкальном проигрывателе.",
+        "pl": "Pokazuje format audio i średnią przepływność poniżej paska postępu w odtwarzaczu muzyki.",
+        "es": "Muestra el formato de audio y la tasa de bits promedio debajo de la barra de progreso en el reproductor de música.",
+        "de": "Zeigt das Audioformat und die durchschnittliche Bitrate unterhalb des Fortschrittsbalkens im Musikplayer an.",
+        "fr": "Affiche le format audio et le débit moyen sous la barre de progression dans le lecteur de musique.",
+        "pt-BR": "Mostra o formato de áudio e a taxa de bits média abaixo da barra de progresso no reprodutor de música.",
+        "tr": "Müzik çalardaki ilerleme çubuğunun altında ses formatını ve ortalama bit hızını gösterir.",
+        "ar": "يعرض تنسيق الصوت ومتوسط ​​معدل البت أسفل شريط التقدم في مشغل الموسيقى.",
+        "be": "Паказвае аўдыяфармат і сярэдні бітрэйт пад панэллю прагрэсу ў музычным прайгравальніку.",
+        "kk": "Музыкалық ойнатқыштағы орындалу жолағы астындағы дыбыс пішімін және орташа бит жылдамдығын көрсетеді."
+      },
+      "permissions": [
+        "network",
+        "hooks"
+      ]
     }
   ]
 }
