@@ -482,6 +482,35 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "PremiumDialogCards",
+      "name": "Premium Dialog Cards",
+      "version": "2.1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/PremiumDialogCards/2.1.1/PremiumDialogCards.plugin",
+      "sha256": "0bb3f720881d6921101c17691127ed4833ebcde0a10ac8ee1dd8fecb55ef4180",
+      "size": 57961,
+      "description": "Extension Premium Dialog Cards for Telegram.",
+      "description_i18n": {
+        "en": "Extension Premium Dialog Cards for Telegram.",
+        "uk": "Розширення Premium Dialog Cards для Telegram.",
+        "ru": "Диалоговые карточки расширения Premium для Telegram.",
+        "pl": "Karty dialogowe rozszerzenia Premium dla telegramu.",
+        "es": "Extensión Tarjetas de Diálogo Premium para Telegram.",
+        "de": "Erweiterung Premium-Dialogkarten für Telegram.",
+        "fr": "Cartes de dialogue Extension Premium pour Telegram.",
+        "pt-BR": "Cartões de diálogo Premium de extensão para Telegram.",
+        "tr": "Telegram için Uzatma Premium İletişim Kartları.",
+        "ar": "تمديد بطاقات الحوار المميزة لـ Telegram.",
+        "be": "Пашырэнне Premium Dialog Cards для Telegram.",
+        "kk": "Telegram үшін кеңейтілген премиум диалогтық карталар."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
