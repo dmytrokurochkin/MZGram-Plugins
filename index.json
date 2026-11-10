@@ -5158,6 +5158,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "header_call_button",
+      "name": "Header Call Button",
+      "version": "1.3.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/header_call_button/1.3.0/header_call_button.plugin",
+      "sha256": "af8fa913c3cc93e8e9eb43d9dfd9bd37067fae904f622e4822a1f7e7eedd67d1",
+      "size": 15762,
+      "description": "Call button in the personal chat header, like in the official Telegram",
+      "description_i18n": {
+        "en": "Call button in the personal chat header, like in the official Telegram",
+        "uk": "Кнопка виклику в шапці особистого чату, як в офіційному Telegram",
+        "ru": "Кнопка «Позвонить» в шапке личного чата, как в официальном Telegram.",
+        "pl": "Przycisk połączenia w nagłówku czatu osobistego, jak w oficjalnym Telegramie",
+        "es": "Botón de llamada en el encabezado del chat personal, como en el Telegram oficial",
+        "de": "Anruf-Button im persönlichen Chat-Header, wie im offiziellen Telegram",
+        "fr": "Bouton d'appel dans l'en-tête du chat personnel, comme dans le Telegram officiel",
+        "pt-BR": "Botão de chamada no cabeçalho do chat pessoal, como no Telegram oficial",
+        "tr": "Resmi Telegram'daki gibi kişisel sohbet başlığındaki arama düğmesi",
+        "ar": "زر الاتصال في رأس الدردشة الشخصية، كما هو الحال في Telegram الرسمي",
+        "be": "Кнопка выкліку ў шапцы асабістага чата, як у афіцыйным Telegram",
+        "kk": "Ресми Telegram-дағы сияқты жеке чат тақырыбындағы қоңырау шалу түймесі"
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
