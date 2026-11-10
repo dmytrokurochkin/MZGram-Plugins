@@ -5803,6 +5803,33 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "iphone_like_Portret",
+      "name": "iPhone Like Portret",
+      "version": "1.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/iphone_like_Portret/1.4/iphone_like_Portret.plugin",
+      "sha256": "2e5ed344e269dc586f52199a35c4bd637c8d83ec049b005a3e42561b33c77d92",
+      "size": 26365,
+      "description": "Portrait mode ala iPhone based on MLkit. THE BLUR IS VISIBLE ONLY AFTER SENDING THE MUG",
+      "description_i18n": {
+        "en": "Portrait mode ala iPhone based on MLkit. THE BLUR IS VISIBLE ONLY AFTER SENDING THE MUG",
+        "uk": "Портретний режим аля iPhone на основі MLkit. РОЗМИТТЯ ВИДИТЬСЯ ТІЛЬКИ ПІСЛЯ ВІДПРАВКИ ГРУЖКИ",
+        "ru": "Портретный режим в стиле iPhone на основе MLkit. РАЗМЫТИЕ ВИДНО ТОЛЬКО ПОСЛЕ ОТПРАВКИ КРУЖКИ",
+        "pl": "Tryb portretowy jak iPhone oparty na MLkit. ROZMYCIE JEST WIDOCZNE TYLKO PO WYSŁANIU KUBKA",
+        "es": "Modo retrato en iPhone basado en MLkit. EL DESENFOQUE ES VISIBLE SOLO DESPUÉS DE ENVIAR LA TAZA",
+        "de": "Porträtmodus ala iPhone basierend auf MLkit. Die Unschärfe ist erst nach dem Versenden der Tasse sichtbar",
+        "fr": "Mode portrait comme sur iPhone basé sur MLkit. LE FLOU N'EST VISIBLE QU'APRÈS L'ENVOI DU MUG",
+        "pt-BR": "Modo retrato como iPhone baseado em MLkit. O BORRÃO SÓ É VISÍVEL APÓS O ENVIO DA CANECA",
+        "tr": "Portre modu ala iPhone, MLkit'i temel alıyor. BULANIKLIK SADECE KUPA GÖNDERİLDİKTEN SONRA GÖRÜNÜYOR",
+        "ar": "الوضع الرأسي مثل iPhone استنادًا إلى MLkit. لا يمكن رؤية الضبابية إلا بعد إرسال الكوب",
+        "be": "Партрэтны рэжым аля iPhone на аснове MLkit. РАЗМЫТЫНЕ БАЧНА ТОЛЬКІ ПАСЛЯ АДПРАВЛІКІ ГРУЖКІ",
+        "kk": "MLkit негізіндегі iPhone портреттік режимі. БҰДЫРЫЛУ КРУЖКА ЖІБЕРГЕНДЕН КЕЙІН ҒАНА КӨРІНЕДІ"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
