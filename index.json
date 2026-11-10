@@ -10968,6 +10968,33 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "square_liquid_glass",
+      "name": "Square Liquid Glass",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/square_liquid_glass/1.0.0/square_liquid_glass.plugin",
+      "sha256": "4ae2333f0f6d6a2cddf9d30412de51d84742adbc0db4ee6aa60b5085512b4f0e",
+      "size": 8973,
+      "description": "Reduces the corner radius of blurred backgrounds by half.",
+      "description_i18n": {
+        "en": "Reduces the corner radius of blurred backgrounds by half.",
+        "uk": "Зменшує кутовий радіус розмитого фону вдвічі.",
+        "ru": "Уменьшает угловой радиус размытого фона вдвое.",
+        "pl": "Zmniejsza promień narożnika rozmytego tła o połowę.",
+        "es": "Reduce a la mitad el radio de las esquinas de los fondos borrosos.",
+        "de": "Reduziert den Eckenradius unscharfer Hintergründe um die Hälfte.",
+        "fr": "Réduit de moitié le rayon des coins des arrière-plans flous.",
+        "pt-BR": "Reduz pela metade o raio do canto dos fundos desfocados.",
+        "tr": "Bulanık arka planların köşe yarıçapını yarı yarıya azaltır.",
+        "ar": "يقلل نصف قطر زاوية الخلفيات غير الواضحة بمقدار النصف.",
+        "be": "Памяншае радыус кута размытага фону ўдвая.",
+        "kk": "Бұлыңғыр фонның бұрыштық радиусын екі есе азайтады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
