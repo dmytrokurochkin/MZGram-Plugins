@@ -8739,6 +8739,35 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "profile_wallpaper",
+      "name": "Profile Wallpaper",
+      "version": "1.4.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/profile_wallpaper/1.4.4/profile_wallpaper.plugin",
+      "sha256": "2a23e126d38429aa5e6a72954aee583fe1a911d96101df46878795dec5bcd01d",
+      "size": 12522,
+      "description": "Your own background for your profile page: photo from the gallery, blur, darken and adjustable transparency of blocks. Fixed: Error launching \"getName\" on some versions of exteraGram.",
+      "description_i18n": {
+        "en": "Your own background for your profile page: photo from the gallery, blur, darken and adjustable transparency of blocks. Fixed: Error launching \"getName\" on some versions of exteraGram.",
+        "uk": "Власний фон для сторінки профілю: фото з галереї, розмиття, затемнення і регульована прозорість блоків. Виправлено: помилка запуску \"getName\" у деяких версіях exteraGram.",
+        "ru": "Свой фон для страницы профиля: фото из галереи, размытие, затемнение и настройка прозрачности блоков. Исправлено: ошибка при запуске getName в некоторых версиях exteraGram.",
+        "pl": "Własne tło dla Twojej strony profilowej: zdjęcie z galerii, rozmycie, przyciemnienie i możliwość regulacji przezroczystości bloków. Naprawiono: Błąd podczas uruchamiania „getName\" w niektórych wersjach exteraGram.",
+        "es": "Tu propio fondo para tu página de perfil: foto de la galería, desenfoque, oscurecimiento y transparencia de bloques ajustable. Corregido: Error al iniciar \"getName\" en algunas versiones de exteraGram.",
+        "de": "Ihr eigener Hintergrund für Ihre Profilseite: Foto aus der Galerie, Unschärfe, Abdunkelung und einstellbare Transparenz der Blöcke. Behoben: Fehler beim Starten von „getName\" bei einigen Versionen von exteraGram.",
+        "fr": "Votre propre arrière-plan pour votre page de profil : photo de la galerie, flou, assombrir et transparence réglable des blocs. Corrigé : Erreur de lancement de \"getName\" sur certaines versions d'exteraGram.",
+        "pt-BR": "Seu próprio plano de fundo para sua página de perfil: foto da galeria, desfoque, escurecimento e transparência ajustável dos blocos. Corrigido: Erro ao iniciar \"getName\" em algumas versões do exteraGram.",
+        "tr": "Profil sayfanız için kendi arka planınız: galeriden fotoğraf, blokların bulanıklaştırılması, karartılması ve ayarlanabilir şeffaflığı. Düzeltildi: exteraGram'ın bazı sürümlerinde \"getName\" başlatılırken hata oluştu.",
+        "ar": "الخلفية الخاصة بك لصفحة ملفك الشخصي: صورة من المعرض، وطمس، وتغميق، وشفافية الكتل القابلة للتعديل. تم إصلاح: خطأ في تشغيل \"getName\" على بعض إصدارات exteraGram.",
+        "be": "Уласны фон для старонкі профілю: фота з галерэі, размыццё, зацямненне і рэгуляваная празрыстасць блокаў. Выпраўлена: памылка запуску «getName» у некаторых версіях exteraGram.",
+        "kk": "Профиль бетіңіздің жеке фоныңыз: галереядағы фотосурет, бұлыңғырлау, күңгірттеу және блоктардың реттелетін мөлдірлігі. Түзетілген: exteraGram бағдарламасының кейбір нұсқаларында \"getName\" іске қосу қатесі."
+      },
+      "permissions": [
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
