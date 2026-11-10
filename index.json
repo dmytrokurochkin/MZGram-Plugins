@@ -11539,6 +11539,34 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "todo_list",
+      "name": "Todo List",
+      "version": "1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/todo_list/1.2/todo_list.plugin",
+      "sha256": "41148705b26d1a15893a3ea28087e55b06817d1ec373b38df3c434d4756e9a29",
+      "size": 53823,
+      "description": "[eng] Interactive task lists in chat. Create: attachment menu → Todo List.",
+      "description_i18n": {
+        "en": "[eng] Interactive task lists in chat. Create: attachment menu → Todo List.",
+        "uk": "[eng] Інтерактивні списки завдань у чаті. Створити: меню вкладень → Список завдань.",
+        "ru": "[rus] Интерактивные списки задач в чате. Создать: меню вложений → Список дел.",
+        "pl": "[pol] Interaktywne listy zadań na czacie. Utwórz: menu załączników → Lista rzeczy do zrobienia.",
+        "es": "[spa] Listas de tareas interactivas en el chat. Crear: menú adjunto → Lista de tareas pendientes.",
+        "de": "[eng] Interaktive Aufgabenlisten im Chat. Erstellen: Anhangsmenü → Todo-Liste.",
+        "fr": "[fre] Listes de tâches interactives dans le chat. Créer : menu de pièces jointes → Liste de tâches.",
+        "pt-BR": "[por] Listas de tarefas interativas no chat. Criar: menu anexo → Lista de tarefas.",
+        "tr": "[tur] Sohbetteki etkileşimli görev listeleri. Oluştur: ek menüsü → Yapılacaklar Listesi.",
+        "ar": "[eng] قوائم المهام التفاعلية في الدردشة. إنشاء: قائمة المرفقات → قائمة المهام.",
+        "be": "[eng] Інтэрактыўныя спісы задач у чаце. Стварыць: меню ўкладанняў → Спіс спраў.",
+        "kk": "[kazak] Чаттағы интерактивті тапсырмалар тізімдері. Жасау: тіркеме мәзірі → Істер тізімі."
+      },
+      "permissions": [
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
