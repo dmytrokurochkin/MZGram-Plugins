@@ -2245,6 +2245,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "channel_autoread",
+      "name": "Channel Post Auto-Read",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/channel_autoread/1.0/channel_autoread.plugin",
+      "sha256": "8f1658f19a9baeda4b1c785bf3a825af0d2f6bce2fe4f08bd884b544e6352c78",
+      "size": 11706,
+      "description": "In channel discussions, it automatically marks posts from the channel itself as read and removes notifications for them. Comments from living people are not affected.",
+      "description_i18n": {
+        "en": "In channel discussions, it automatically marks posts from the channel itself as read and removes notifications for them. Comments from living people are not affected.",
+        "uk": "В обговореннях каналу він автоматично позначає дописи з самого каналу як прочитані та видаляє сповіщення для них. Коментарі живих людей не зачіпаються.",
+        "ru": "В обсуждениях канала он автоматически помечает публикации с самого канала как прочитанные и удаляет о них уведомления. Комментарии живых людей не затрагиваются.",
+        "pl": "Podczas dyskusji na kanale automatycznie oznacza posty z samego kanału jako przeczytane i usuwa dla nich powiadomienia. Nie ma to wpływu na komentarze żyjących osób.",
+        "es": "En las discusiones del canal, marca automáticamente las publicaciones del canal como leídas y elimina las notificaciones correspondientes. Los comentarios de personas vivas no se ven afectados.",
+        "de": "In Kanaldiskussionen markiert es automatisch Beiträge aus dem Kanal selbst als gelesen und entfernt Benachrichtigungen für sie. Kommentare von lebenden Personen sind nicht betroffen.",
+        "fr": "Dans les discussions de la chaîne, il marque automatiquement les publications de la chaîne elle-même comme lues et supprime les notifications les concernant. Les commentaires des personnes vivantes ne sont pas affectés.",
+        "pt-BR": "Nas discussões do canal, ele marca automaticamente as postagens do próprio canal como lidas e remove as notificações delas. Comentários de pessoas vivas não são afetados.",
+        "tr": "Kanal tartışmalarında, kanalın gönderilerini otomatik olarak okundu olarak işaretler ve bunlarla ilgili bildirimleri kaldırır. Yaşayan kişilerin yorumları etkilenmez.",
+        "ar": "وفي مناقشات القناة، يتم تلقائيًا وضع علامة على المنشورات من القناة نفسها كمقروءة وإزالة الإشعارات الخاصة بها. تعليقات من الناس الذين يعيشون لا تتأثر.",
+        "be": "У абмеркаваннях канала ён аўтаматычна пазначае паведамленні з самога канала як прачытаныя і выдаляе апавяшчэнні для іх. Каментары жывых людзей не закранаюцца.",
+        "kk": "Арна талқылауларында ол автоматты түрде арнадағы жазбаларды оқылған деп белгілейді және олар үшін хабарландыруларды жояды. Тірі адамдардың пікірлері әсер етпейді."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
