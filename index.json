@@ -12239,6 +12239,30 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "wpm_test",
+      "name": "Тест ВПМ",
+      "version": "Alpha",
+      "min_app_version": "1.0.0",
+      "file": "plugins/wpm_test/Alpha/wpm_test.plugin",
+      "sha256": "a7d92f206079186b5a68761abcf1b11401f4873142a158efc897662a8ecea9e8",
+      "size": 56565,
+      "description": "Typing speed test (words per minute)",
+      "description_i18n": {
+        "en": "Typing speed test (words per minute)",
+        "uk": "Перевірка швидкості друку (слів за хвилину)",
+        "ru": "Тест скорости набора текста (слов в минуту)",
+        "pl": "Test szybkości pisania (słów na minutę)",
+        "es": "Prueba de velocidad de mecanografía (palabras por minuto)",
+        "de": "Tippgeschwindigkeitstest (Wörter pro Minute)",
+        "fr": "Test de vitesse de frappe (mots par minute)",
+        "pt-BR": "Teste de velocidade de digitação (palavras por minuto)",
+        "tr": "Yazma hızı testi (dakika başına kelime sayısı)",
+        "ar": "اختبار سرعة الكتابة (كلمة في الدقيقة)",
+        "be": "Тэст хуткасці ўводу (слоў у хвіліну)",
+        "kk": "Теру жылдамдығы сынағы (минутына сөз)"
+      }
     }
   ]
 }
