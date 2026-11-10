@@ -6175,6 +6175,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "local_chat_cleaner",
+      "name": "Local_Chat_Cleaner",
+      "version": "0.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/local_chat_cleaner/0.1.0/Local_Chat_Cleaner.plugin",
+      "sha256": "4fc045544b86d36375532545b02e8490c2c1f80c06e0a47cb71fbe8a5042ae23",
+      "size": 13750,
+      "description": "🗑️ Hide spam from users locally! Click on the message → Plugin → Hide user",
+      "description_i18n": {
+        "en": "🗑️ Hide spam from users locally! Click on the message → Plugin → Hide user",
+        "uk": "🗑️ Приховайте спам від користувачів локально! Натисніть на повідомлення → Плагін → Приховати користувача",
+        "ru": "🗑️ Скрывайте спам от пользователей локально! Нажмите на сообщение → Плагин → Скрыть пользователя.",
+        "pl": "🗑️ Ukryj spam przed użytkownikami lokalnie! Kliknij na wiadomość → Wtyczka → Ukryj użytkownika",
+        "es": "🗑️ ¡Oculta el spam de los usuarios localmente! Haga clic en el mensaje → Complemento → Ocultar usuario",
+        "de": "🗑️ Spam lokal vor Benutzern verbergen! Klicken Sie auf die Nachricht → Plugin → Benutzer ausblenden",
+        "fr": "🗑️ Cachez le spam des utilisateurs localement ! Cliquez sur le message → Plugin → Masquer l'utilisateur",
+        "pt-BR": "🗑️ Oculte spam de usuários localmente! Clique na mensagem → Plugin → Ocultar usuário",
+        "tr": "🗑️ Spamı yerel olarak kullanıcılardan gizleyin! Mesaja tıklayın → Eklenti → Kullanıcıyı gizle",
+        "ar": "🗑️ إخفاء البريد العشوائي عن المستخدمين محليًا! انقر على الرسالة → البرنامج المساعد → إخفاء المستخدم",
+        "be": "🗑️ Хавайце спам ад карыстальнікаў лакальна! Націсніце на паведамленне → Убудова → Схаваць карыстальніка",
+        "kk": "🗑️ Жергілікті пайдаланушылардан спамды жасырыңыз! Хабарламаны басыңыз → Плагин → Пайдаланушыны жасыру"
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }
