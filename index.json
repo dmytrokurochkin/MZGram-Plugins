@@ -3773,6 +3773,34 @@
         "files",
         "intents"
       ]
+    },
+    {
+      "id": "emoji_downloader",
+      "name": "Emoji Downloader",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/emoji_downloader/1.1/emoji_downloader.plugin",
+      "sha256": "ef5a892595a531847fa91599dd945debbf49414fa62ee02fff3598bec5fbcc0b",
+      "size": 5919,
+      "description": "Easily download emojis and stickers by long-pressing on them in the context menu.",
+      "description_i18n": {
+        "en": "Easily download emojis and stickers by long-pressing on them in the context menu.",
+        "uk": "Легко завантажуйте емодзі та стікери, утримуючи їх у контекстному меню.",
+        "ru": "Легко загружайте смайлы и стикеры, нажав и удерживая их в контекстном меню.",
+        "pl": "Z łatwością pobieraj emoji i naklejki, naciskając je długo w menu kontekstowym.",
+        "es": "Descarga fácilmente emojis y stickers manteniéndolos presionados en el menú contextual.",
+        "de": "Laden Sie Emojis und Sticker ganz einfach herunter, indem Sie im Kontextmenü lange darauf drücken.",
+        "fr": "Téléchargez facilement des emojis et des autocollants en appuyant longuement dessus dans le menu contextuel.",
+        "pt-BR": "Baixe facilmente emojis e adesivos mantendo-os pressionados no menu de contexto.",
+        "tr": "İçerik menüsünde üzerlerine uzun basarak emojileri ve çıkartmaları kolayca indirin.",
+        "ar": "قم بتنزيل الرموز التعبيرية والملصقات بسهولة عن طريق الضغط عليها لفترة طويلة في قائمة السياق.",
+        "be": "Лёгка загружайце эмодзі і стыкеры, доўга націскаючы на ​​іх у кантэкстным меню.",
+        "kk": "Эмодзилер мен стикерлерді мәтінмәндік мәзірде ұзақ басу арқылы оңай жүктеп алыңыз."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
