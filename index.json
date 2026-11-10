@@ -7890,6 +7890,35 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "osu_mur_stats",
+      "name": "osu! Search",
+      "version": "4.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/osu_mur_stats/4.1/osu_mur_stats.plugin",
+      "sha256": "d855106bba881843805a3feafbcb206c3fb525ef5e06397dea867fb80b515140",
+      "size": 152562,
+      "description": "Adds the ability to search for maps and profiles from the site \"osu.ppy.sh\" with flexible customization settings, and also allows you to download maps and music by sending the file to the chat. Russian/English supported.",
+      "description_i18n": {
+        "en": "Adds the ability to search for maps and profiles from the site \"osu.ppy.sh\" with flexible customization settings, and also allows you to download maps and music by sending the file to the chat. Russian/English supported.",
+        "uk": "Додає можливість пошуку карт і профілів із сайту «osu.ppy.sh» з гнучкими налаштуваннями налаштування, а також дозволяє завантажувати карти та музику, відправивши файл у чат. Підтримується російська/англійська.",
+        "ru": "Добавляет возможность поиска карт и профилей с сайта \"osu.ppy.sh\" с гибкой настройкой настроек, а также позволяет загружать карты и музыку, отправив файл в чат. Поддерживается русский/английский.",
+        "pl": "Dodaje możliwość wyszukiwania map i profili ze strony „osu.ppy.sh\" z elastycznymi ustawieniami dostosowywania, a także umożliwia pobieranie map i muzyki poprzez wysłanie pliku na czat. Obsługiwany język rosyjski/angielski.",
+        "es": "Agrega la capacidad de buscar mapas y perfiles desde el sitio \"osu.ppy.sh\" con configuraciones de personalización flexibles y también le permite descargar mapas y música enviando el archivo al chat. Compatible con ruso/inglés.",
+        "de": "Fügt die Möglichkeit hinzu, auf der Website „osu.ppy.sh\" nach Karten und Profilen mit flexiblen Anpassungseinstellungen zu suchen, und ermöglicht Ihnen außerdem das Herunterladen von Karten und Musik durch Senden der Datei an den Chat. Russisch/Englisch unterstützt.",
+        "fr": "Ajoute la possibilité de rechercher des cartes et des profils à partir du site \"osu.ppy.sh\" avec des paramètres de personnalisation flexibles, et vous permet également de télécharger des cartes et de la musique en envoyant le fichier au chat. Russe/anglais pris en charge.",
+        "pt-BR": "Adiciona a capacidade de pesquisar mapas e perfis do site \"osu.ppy.sh\" com configurações de personalização flexíveis, e também permite baixar mapas e músicas enviando o arquivo para o chat. Russo/Inglês suportado.",
+        "tr": "Esnek özelleştirme ayarlarıyla \"osu.ppy.sh\" sitesinden harita ve profil arama özelliğini ekler ve ayrıca dosyayı sohbete göndererek harita ve müzik indirmenize olanak tanır. Rusça/İngilizce desteklenmektedir.",
+        "ar": "يضيف إمكانية البحث عن الخرائط والملفات الشخصية من موقع \"osu.ppy.sh\" مع إعدادات تخصيص مرنة، كما يتيح لك تنزيل الخرائط والموسيقى عن طريق إرسال الملف إلى الدردشة. الروسية/الإنجليزية المدعومة.",
+        "be": "Дадае магчымасць пошуку карт і профіляў з сайта «osu.ppy.sh» з гнуткімі наладамі налады, а таксама дазваляе спампоўваць карты і музыку, адправіўшы файл у чат. Руская/англійская падтрымліваецца.",
+        "kk": "Икемді теңшеу параметрлері бар «osu.ppy.sh» сайтынан карталар мен профильдерді іздеу мүмкіндігін қосады, сонымен қатар файлды чатқа жіберу арқылы карталар мен музыканы жүктеп алуға мүмкіндік береді. Орыс/ағылшын тілдеріне қолдау көрсетіледі."
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "files"
+      ]
     }
   ]
 }
