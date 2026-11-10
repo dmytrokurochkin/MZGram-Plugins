@@ -6202,6 +6202,34 @@
       "permissions": [
         "messages.read"
       ]
+    },
+    {
+      "id": "local_contact_override",
+      "name": "Local Contact Override",
+      "version": "7.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/local_contact_override/7.0.0/local_contact_override.plugin",
+      "sha256": "9dfa6d17153955f65199c423951f9d6e98695950cc014a77cf5c8a61d20d7326",
+      "size": 24292,
+      "description": "Local names for people, bots, groups and channels. Only the display on your device changes.",
+      "description_i18n": {
+        "en": "Local names for people, bots, groups and channels. Only the display on your device changes.",
+        "uk": "Локальні імена для людей, ботів, груп і каналів. Змінюється лише дисплей на вашому пристрої.",
+        "ru": "Локальные имена для людей, ботов, групп и каналов. Меняется только дисплей на вашем устройстве.",
+        "pl": "Lokalne nazwy osób, botów, grup i kanałów. Zmienia się tylko wyświetlacz na Twoim urządzeniu.",
+        "es": "Nombres locales para personas, bots, grupos y canales. Sólo cambia la pantalla de su dispositivo.",
+        "de": "Lokale Namen für Personen, Bots, Gruppen und Kanäle. Lediglich die Anzeige auf Ihrem Gerät ändert sich.",
+        "fr": "Noms locaux des personnes, des robots, des groupes et des canaux. Seul l'affichage sur votre appareil change.",
+        "pt-BR": "Nomes locais para pessoas, bots, grupos e canais. Apenas a exibição do seu dispositivo muda.",
+        "tr": "Kişiler, botlar, gruplar ve kanallar için yerel adlar. Yalnızca cihazınızın ekranı değişir.",
+        "ar": "الأسماء المحلية للأشخاص والروبوتات والمجموعات والقنوات. يتغير العرض الموجود على جهازك فقط.",
+        "be": "Лакальныя назвы для людзей, ботаў, груп і каналаў. Змяняецца толькі дысплей на вашым прыладзе.",
+        "kk": "Адамдарға, боттарға, топтарға және арналарға арналған жергілікті атаулар. Құрылғыдағы дисплей ғана өзгереді."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
