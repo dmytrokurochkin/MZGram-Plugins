@@ -1650,6 +1650,37 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "ayu_rofls",
+      "name": "Ayu Rofls",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/ayu_rofls/1.1/ayu_rofls.plugin",
+      "sha256": "38a4fc90c0ef8ae32be411d73efd3513d75bc6eb21d0715930c1787f6f00a976",
+      "size": 24538,
+      "description": "Adds AyuGram rofl links support.",
+      "description_i18n": {
+        "en": "Adds AyuGram rofl links support.",
+        "uk": "Додає підтримку посилань AyuGram rofl.",
+        "ru": "Добавляет поддержку рофл-ссылок AyuGram.",
+        "pl": "Dodaje obsługę linków AyuGram Rofl.",
+        "es": "Agrega compatibilidad con enlaces AyuGram rofl.",
+        "de": "Integriert die Unterstützung für AyuGram-ROFL-Links.",
+        "fr": "Ajoute la prise en charge des liens AyuGram rofl.",
+        "pt-BR": "Adiciona suporte a links rofl do AyuGram.",
+        "tr": "AyuGram rofl bağlantıları desteğini ekler.",
+        "ar": "يضيف دعم روابط AyuGram rofl.",
+        "be": "Дадае падтрымку спасылак AyuGram rofl.",
+        "kk": "AyuGram rofl сілтемелерін қолдауды қосады."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "intents",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
