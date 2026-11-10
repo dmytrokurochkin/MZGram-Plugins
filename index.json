@@ -11977,6 +11977,34 @@
         "files",
         "intents"
       ]
+    },
+    {
+      "id": "voice_relay",
+      "name": "Voice Relay",
+      "version": "2.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/voice_relay/2.0.0/voice_relay.plugin",
+      "sha256": "752c1824313f79c8dae96dfbb383116df257d67b0f284ba2b2c82ebdd9885a37",
+      "size": 15961,
+      "description": "Proxy for calls",
+      "description_i18n": {
+        "en": "Proxy for calls",
+        "uk": "Проксі для дзвінків",
+        "ru": "Прокси для звонков",
+        "pl": "Pełnomocnik do połączeń",
+        "es": "proxy para llamadas",
+        "de": "Proxy für Anrufe",
+        "fr": "Proxy pour les appels",
+        "pt-BR": "Proxy para chamadas",
+        "tr": "Aramalar için proxy",
+        "ar": "وكيل للمكالمات",
+        "be": "Проксі для званкоў",
+        "kk": "Қоңырауларға арналған прокси"
+      },
+      "permissions": [
+        "network",
+        "hooks"
+      ]
     }
   ]
 }
