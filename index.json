@@ -784,6 +784,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "TheLooker",
+      "name": "TheLooker",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/TheLooker/1.0/TheLooker.plugin",
+      "sha256": "8d7bc332657fa4c18363d24dc07c21c0c33ce35b70b1c025e6e2d6b66b809a2b",
+      "size": 35270,
+      "description": "Plugin for spying on what chat the interlocutor is in",
+      "description_i18n": {
+        "en": "Plugin for spying on what chat the interlocutor is in",
+        "uk": "Плагін для стеження за тим, в якому чаті знаходиться співрозмовник",
+        "ru": "Плагин для слежки за тем, в каком чате находится собеседник",
+        "pl": "Wtyczka do podglądania, na jakim czacie znajduje się rozmówca",
+        "es": "Complemento para espiar en qué chat se encuentra el interlocutor",
+        "de": "Plugin zum Ausspionieren des Chats, in dem sich der Gesprächspartner befindet",
+        "fr": "Plugin pour espionner le chat dans lequel se trouve l'interlocuteur",
+        "pt-BR": "Plugin para espionar em que chat o interlocutor está",
+        "tr": "Muhatabın hangi sohbette olduğunu gözetlemek için eklenti",
+        "ar": "البرنامج المساعد للتجسس على الدردشة التي يجريها المحاور",
+        "be": "Убудова для падглядвання за тым, у якім чаце знаходзіцца суразмоўца",
+        "kk": "Әңгімелесушінің чатта тыңшылық жасауға арналған плагин"
+      },
+      "permissions": [
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
