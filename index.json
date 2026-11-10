@@ -6562,6 +6562,36 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "media_folders",
+      "name": "Media Folders",
+      "version": "3.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/media_folders/3.0/media_folders.plugin",
+      "sha256": "ce333312ff919abd3bf34e538f7b8c6e6b166555efe22d956560a8d2a97f5a78",
+      "size": 72695,
+      "description": "Adds folder tabs to GIF, Sticker, and Emoji panels for organizing your media into custom categories.",
+      "description_i18n": {
+        "en": "Adds folder tabs to GIF, Sticker, and Emoji panels for organizing your media into custom categories.",
+        "uk": "Додає вкладки папок до панелей GIF, наклейок і емодзі для впорядкування медіафайлів у спеціальні категорії.",
+        "ru": "Добавляет вкладки папок на панели GIF, стикеров и эмодзи для организации медиафайлов по пользовательским категориям.",
+        "pl": "Dodaje zakładki folderów do paneli GIF, naklejek i emoji, umożliwiające organizowanie multimediów w niestandardowe kategorie.",
+        "es": "Agrega pestañas de carpetas a los paneles GIF, calcomanías y emojis para organizar sus medios en categorías personalizadas.",
+        "de": "Fügt den GIF-, Sticker- und Emoji-Bedienfeldern Ordnerregisterkarten hinzu, um Ihre Medien in benutzerdefinierten Kategorien zu organisieren.",
+        "fr": "Ajoute des onglets de dossier aux panneaux GIF, Autocollants et Emoji pour organiser vos médias en catégories personnalisées.",
+        "pt-BR": "Adiciona guias de pasta aos painéis GIF, Adesivos e Emoji para organizar sua mídia em categorias personalizadas.",
+        "tr": "Medyanızı özel kategoriler halinde düzenlemek için GIF, Çıkartma ve Emoji panellerine klasör sekmeleri ekler.",
+        "ar": "يضيف علامات تبويب المجلدات إلى لوحات GIF والملصقات والرموز التعبيرية لتنظيم الوسائط الخاصة بك في فئات مخصصة.",
+        "be": "Дадае ўкладкі тэчак на панэлі GIF, стыкераў і Emoji для арганізацыі мультымедыя ў карыстальніцкія катэгорыі.",
+        "kk": "Мультимедианы реттелетін санаттарға реттеу үшін GIF, стикер және эмодзи тақталарына қалта қойындыларын қосады."
+      },
+      "permissions": [
+        "messages.send",
+        "files",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
