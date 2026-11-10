@@ -2891,6 +2891,34 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "crypto_converter",
+      "name": "Crypto Converter",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/crypto_converter/1.0/crypto_converter.plugin",
+      "sha256": "4d25afc1a830e7d5224206cb47cb8ec9460c84b41284df8d3f39dc7e328e8395",
+      "size": 15816,
+      "description": "Plugin for tracking cryptocurrency rates and conversion",
+      "description_i18n": {
+        "en": "Plugin for tracking cryptocurrency rates and conversion",
+        "uk": "Плагін для відстеження курсів і конвертації криптовалют",
+        "ru": "Плагин для отслеживания курсов и конвертации криптовалют",
+        "pl": "Wtyczka do śledzenia kursów i konwersji kryptowalut",
+        "es": "Complemento para rastrear tasas y conversión de criptomonedas",
+        "de": "Plugin zum Verfolgen von Kryptowährungskursen und -umrechnungen",
+        "fr": "Plugin pour suivre les taux et la conversion des crypto-monnaies",
+        "pt-BR": "Plugin para rastrear taxas e conversões de criptomoedas",
+        "tr": "Kripto para birimi oranlarını ve dönüşümünü izlemek için eklenti",
+        "ar": "البرنامج المساعد لتتبع أسعار العملة المشفرة والتحويل",
+        "be": "Убудова для адсочвання курсаў і канверсіі криптовалют",
+        "kk": "Криптовалюта бағамдарын және конверсиясын қадағалауға арналған плагин"
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
