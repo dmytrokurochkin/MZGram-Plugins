@@ -11485,6 +11485,30 @@
       "permissions": [
         "messages.read"
       ]
+    },
+    {
+      "id": "tictactoe",
+      "name": "Tic-Tac-Toe",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/tictactoe/1.0.0/tictactoe.plugin",
+      "sha256": "be2cb761405693425ae33247ac89439992779dd6c64df60546585a365213789c",
+      "size": 14509,
+      "description": "Play Tic-Tac-Toe against the AI. Access via 3dot chat menu.",
+      "description_i18n": {
+        "en": "Play Tic-Tac-Toe against the AI. Access via 3dot chat menu.",
+        "uk": "Грайте в хрестики-нулики проти ШІ. Доступ через меню чату з 3 точками.",
+        "ru": "Играйте в крестики-нолики против ИИ. Доступ через меню чата 3dot.",
+        "pl": "Zagraj w kółko i krzyżyk przeciwko sztucznej inteligencji. Dostęp poprzez menu czatu 3dot.",
+        "es": "Juega al Tic-Tac-Toe contra la IA. Accede a través del menú de chat de 3dot.",
+        "de": "Spielen Sie Tic-Tac-Toe gegen die KI. Zugriff über das 3dot-Chat-Menü.",
+        "fr": "Jouez au Tic-Tac-Toe contre l'IA. Accès via le menu de discussion 3dot.",
+        "pt-BR": "Jogue Tic-Tac-Toe contra a IA. Acesso através do menu de bate-papo 3dot.",
+        "tr": "Yapay zekaya karşı Tic-Tac-Toe oynayın. 3 nokta sohbet menüsü üzerinden erişim.",
+        "ar": "العب تيك تاك تو ضد الذكاء الاصطناعي. الوصول عبر قائمة الدردشة 3dot.",
+        "be": "Гуляйце ў крыжыкі-нулікі супраць ІІ. Доступ праз меню чата 3dot.",
+        "kk": "Жасанды интеллектке қарсы Tic-Tac-Toe ойнаңыз. 3dot чат мәзірі арқылы қол жеткізу."
+      }
     }
   ]
 }
