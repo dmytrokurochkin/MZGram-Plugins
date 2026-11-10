@@ -2919,6 +2919,34 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "currency",
+      "name": "Currency Converter",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/currency/1.0/currency.plugin",
+      "sha256": "0ac7c4baca1aa22074b3ad06323288056006efcf35ab2d51de39d6b2d823dd0b",
+      "size": 10799,
+      "description": "Converts currencies using the command .cr [amount] [currency code]",
+      "description_i18n": {
+        "en": "Converts currencies using the command .cr [amount] [currency code]",
+        "uk": "Конвертує валюту за допомогою команди .cr [сума] [код валюти]",
+        "ru": "Конвертирует валюты с помощью команды .cr [сумма] [код валюты]",
+        "pl": "Przelicza waluty za pomocą polecenia .cr [kwota] [kod waluty]",
+        "es": "Convierte monedas usando el comando .cr [monto] [código de moneda]",
+        "de": "Konvertiert Währungen mit dem Befehl .cr [Betrag] [Währungscode]",
+        "fr": "Convertit les devises à l'aide de la commande .cr [montant] [code de devise]",
+        "pt-BR": "Converte moedas usando o comando .cr [valor] [código da moeda]",
+        "tr": ".cr [tutar] [para birimi kodu] komutunu kullanarak para birimlerini dönüştürür",
+        "ar": "تحويل العملات باستخدام الأمر .cr [المبلغ] [رمز العملة]",
+        "be": "Канвертуе валюты з дапамогай каманды .cr [сума] [код валюты]",
+        "kk": ".cr [сома] [валюта коды] пәрмені арқылы валюталарды түрлендіреді."
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }

@@ -1,0 +1,245 @@
+import requests
+from ui.settings import Header, Input, Divider
+from base_plugin import BasePlugin, HookResult, HookStrategy
+from android_utils import log
+from org.telegram.tgnet import TLRPC
+from java.util import Locale
+
+__id__ = "currency"
+__name__ = "Currency Converter"
+__description__ = "Converts currencies using the command .cr [amount] [currency code]"
+__author__ = "exteraDev, @mgebrat228"
+__min_version__ = "11.9.0"
+__icon__ = "DMJDuckX2/45"
+__category__ = ["integrations", "tools"]
+
+FLAGS = {
+    "USD": "🇺🇸", "RUB": "🇷🇺", "EUR": "🇪🇺",
+    "UAH": "🇺🇦", "UZS": "🇺🇿", "BRL": "🇧🇷",
+    "KZT": "🇰🇿", "GBP": "🇬🇧", "JPY": "🇯🇵",
+    "CAD": "🇨🇦", "AUD": "🇦🇺", "CHF": "🇨🇭",
+    "CNY": "🇨🇳", "INR": "🇮🇳", "BYN": "🇧🇾",
+    "MXN": "🇲🇽", "TRY": "🇹🇷", "ZAR": "🇿🇦",
+    "PLN": "🇵🇱", "SEK": "🇸🇪", "NOK": "🇳🇴",
+    "DKK": "🇩🇰", "CZK": "🇨🇿", "SGD": "🇸🇬",
+    "HKD": "🇭🇰", "KRW": "🇰🇷", "THB": "🇹🇭",
+    "IDR": "🇮🇩", "MYR": "🇲🇾", "PHP": "🇵🇭",
+    "ILS": "🇮🇱", "SAR": "🇸🇦", "AED": "🇦🇪",
+    "EGP": "🇪🇬", "ARS": "🇦🇷", "CLP": "🇨🇱",
+    "COP": "🇨🇴", "VND": "🇻🇳", "TWD": "🇹🇼",
+    "NZD": "🇳🇿", "HUF": "🇭🇺", "RON": "🇷🇴",
+    "BGN": "🇧🇬", "HRK": "🇭🇷", "PKR": "🇵🇰",
+    "LKR": "🇱🇰", "BDT": "🇧🇩", "NGN": "🇳🇬",
+    "GHS": "🇬🇭", "MAD": "🇲🇦", "DZD": "🇩🇿",
+    "KWD": "🇰🇼", "QAR": "🇶🇦", "JOD": "🇯🇴",
+    "OMR": "🇴🇲", "BHD": "🇧🇭", "TND": "🇹🇳"
+}
+
+class CurrencyConverter(BasePlugin):
+    def create_settings(self):
+        lang = Locale.getDefault().getLanguage()
+        if lang.startswith("ru"):
+            header_text = "Настройки конвертера валют"
+            input_text = "Валюта по умолчанию"
+            input_subtext = "Введите код валюты по умолчанию (например, USD, EUR, RUB)"
+            divider_text = "Использование: .cr [сумма] [код валюты]"
+        elif lang.startswith("pt"):
+            header_text = "Configurações do Conversor de Moedas"
+            input_text = "Moeda padrão"
+            input_subtext = "Digite o código da moeda padrão (ex: USD, EUR, BRL)"
+            divider_text = "Uso: .cr [quantia] [código da moeda]"
+        else:
+            header_text = "Currency Converter Settings"
+            input_text = "Default Currency"
+            input_subtext = "Enter the default currency code (e.g., USD, EUR, GBP)"
+            divider_text = "Usage: .cr [amount] [currency code]"
+        return [
+            Header(text=header_text),
+            Input(
+                key="default_currency",
+                text=input_text,
+                default="USD",
+                subtext=input_subtext
+            ),
+            Divider(text=divider_text)
+        ]
+
+    def on_plugin_load(self):
+        self.add_on_send_message_hook()
+        log("Currency Converter plugin loaded")
+
+    def on_plugin_unload(self):
+        log("Currency Converter plugin unloaded")
+
+    def on_send_message_hook(self, account, params):
+        try:
+            if not hasattr(params, "message") or not isinstance(params.message, str):
+                return HookResult()
+
+            if not params.message.startswith(".cr"):
+                return HookResult()
+                
+            # Handle the case where only .cr is sent
+            if params.message.strip() == ".cr":
+                params.message = self._usage_message()
+                return HookResult(strategy=HookStrategy.MODIFY, params=params)
+
+            parts = params.message.strip().split()
+            if len(parts) < 2:
+                params.message = self._usage_message()
+                return HookResult(strategy=HookStrategy.MODIFY, params=params)
+
+            amount = float(parts[1])
+            currency = parts[2].upper() if len(parts) > 2 else self.get_setting("default_currency", "USD").upper()
+
+            if currency not in FLAGS:
+                params.message = self._unsupported_currency_message(currency)
+                return HookResult(strategy=HookStrategy.MODIFY, params=params)
+
+            # Try multiple exchange rate APIs with fallbacks
+            api_endpoints = [
+                f"https://api.exchangerate.host/latest?base={currency}",
+                f"https://open.er-api.com/v6/latest/{currency}"
+            ]
+            
+            rates = {}
+            last_error = None
+            
+            for url in api_endpoints:
+                try:
+                    log(f"Trying API: {url}")
+                    response = requests.get(url, timeout=10)
+                    if response.status_code == 200:
+                        data = response.json()
+                        if 'rates' in data and data['rates']:
+                            rates = data['rates']
+                            log(f"Successfully got rates from {url}")
+                            break
+                        else:
+                            raise Exception("No rates in response")
+                except Exception as e:
+                    last_error = str(e)
+                    log(f"API error ({url}): {last_error}")
+            
+            if not rates:
+                log(f"All API attempts failed. Last error: {last_error}")
+                params.message = self._fetch_error_message(currency)
+                return HookResult(strategy=HookStrategy.MODIFY, params=params)
+            if not rates:
+                params.message = self._no_rates_message(currency)
+                return HookResult(strategy=HookStrategy.MODIFY, params=params)
+
+            header = [
+                f"💱 {self._format_number(amount)} {FLAGS.get(currency, '')} {currency}",
+                "-----------------------------------",
+                self._conversions_label()
+            ]
+            header_text = "\n".join(header)
+
+            conversions_list = []
+            for target in FLAGS.keys():
+                if target != currency and target in rates:
+                    converted = amount * rates[target]
+                    flag = FLAGS.get(target, '')
+                    conversions_list.append(f"- {self._format_number(converted)} {flag} {target}")
+
+            conversions_text = "\n".join(conversions_list)
+
+            params.message = header_text + "\n" + conversions_text
+
+            if not hasattr(params, "entities") or params.entities is None:
+                params.entities = []
+
+            offset = len(header_text) + 4
+
+            entity = TLRPC.TL_messageEntityBlockquote()
+            entity.collapsed = True
+            entity.offset = offset
+            entity.length = int(len(conversions_text.encode(encoding='utf_16_le')) / 2)
+
+            if not hasattr(params, 'entities') or params.entities is None:
+                from java.util import ArrayList
+                params.entities = ArrayList()
+            params.entities.add(entity)
+
+            log(params.message)
+            return HookResult(strategy=HookStrategy.MODIFY, params=params)
+
+        except ValueError:
+            params.message = self._invalid_amount_message()
+            return HookResult(strategy=HookStrategy.MODIFY, params=params)
+
+        except Exception as e:
+            import traceback
+            error_details = traceback.format_exc()
+            log(f"Currency Converter Error: {error_details}")
+            params.message = f"{self._unexpected_error_message()}\n\nError: {str(e)}"
+            return HookResult(strategy=HookStrategy.MODIFY, params=params)
+
+    def _format_number(self, value):
+        if value == int(value):
+            return f"{int(value):,}"
+        return f"{value:,.2f}"
+
+    def _usage_message(self):
+        lang = Locale.getDefault().getLanguage()
+        if lang.startswith("ru"):
+            return "Использование: .cr [сумма] [код валюты]"
+        elif lang.startswith("pt"):
+            return "Uso: .cr [quantia] [código da moeda]"
+        else:
+            return "Usage: .cr [amount] [currency code]"
+
+    def _unsupported_currency_message(self, currency):
+        lang = Locale.getDefault().getLanguage()
+        if lang.startswith("ru"):
+            return f"Ошибка: код валюты '{currency}' не поддерживается."
+        elif lang.startswith("pt"):
+            return f"Erro: código de moeda '{currency}' não suportado."
+        else:
+            return f"Error: Unsupported currency code '{currency}'."
+
+    def _fetch_error_message(self, currency):
+        lang = Locale.getDefault().getLanguage()
+        if lang.startswith("ru"):
+            return f"Ошибка: не удалось получить курсы валют для {currency}."
+        elif lang.startswith("pt"):
+            return f"Erro: não foi possível obter taxas de câmbio para {currency}."
+        else:
+            return f"Error: Unable to fetch exchange rates for {currency}."
+
+    def _no_rates_message(self, currency):
+        lang = Locale.getDefault().getLanguage()
+        if lang.startswith("ru"):
+            return f"Ошибка: нет доступных курсов валют для {currency}."
+        elif lang.startswith("pt"):
+            return f"Erro: não há taxas de câmbio disponíveis para {currency}."
+        else:
+            return f"Error: No exchange rates available for {currency}."
+
+    def _invalid_amount_message(self):
+        lang = Locale.getDefault().getLanguage()
+        if lang.startswith("ru"):
+            return "Ошибка: неверная сумма. Пожалуйста, введите корректное число."
+        elif lang.startswith("pt"):
+            return "Erro: quantia inválida. Por favor, forneça um número válido."
+        else:
+            return "Error: Invalid amount. Please provide a valid number."
+
+    def _unexpected_error_message(self):
+        lang = Locale.getDefault().getLanguage()
+        if lang.startswith("ru"):
+            return "Ошибка: произошла непредвиденная ошибка. Пожалуйста, попробуйте позже."
+        elif lang.startswith("pt"):
+            return "Erro: ocorreu um erro inesperado. Por favor, tente novamente mais tarde."
+        else:
+            return "Error: An unexpected error occurred. Please try again later."
+
+    def _conversions_label(self):
+        lang = Locale.getDefault().getLanguage()
+        if lang.startswith("ru"):
+            return "Конвертации:"
+        elif lang.startswith("pt"):
+            return "Conversões:"
+        else:
+            return "Conversions:"
