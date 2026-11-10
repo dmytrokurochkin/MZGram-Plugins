@@ -3597,6 +3597,36 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "docky",
+      "name": "Docky",
+      "version": "1.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/docky/1.0.1/docky.plugin",
+      "sha256": "f6dd8548e15bf54817a31a0302ab3b131157076e745eaaab6e0ab8c5dee234af",
+      "size": 325502,
+      "description": "A dock for favorite chats inside conversations, allowing quick access and preview without leaving the current chat. • Powered by [Dotted Plugins](https://t.me/exteraDevPlugins)",
+      "description_i18n": {
+        "en": "A dock for favorite chats inside conversations, allowing quick access and preview without leaving the current chat. • Powered by [Dotted Plugins](https://t.me/exteraDevPlugins)",
+        "uk": "Док-станція для улюблених чатів у розмовах, що дозволяє швидко отримати доступ і переглянути, не виходячи з поточного чату. • На основі [Dotted Plugins](https://t.me/exteraDevPlugins)",
+        "ru": "Док для избранных чатов внутри разговоров, обеспечивающий быстрый доступ и предварительный просмотр, не выходя из текущего чата. • Работает на основе [Dotted Plugins](https://t.me/exteraDevPlugins).",
+        "pl": "Stacja dokująca do ulubionych czatów w rozmowach, umożliwiająca szybki dostęp i podgląd bez opuszczania bieżącego czatu. • Obsługiwane przez [Wtyczki z kropkami](https://t.me/exteraDevPlugins)",
+        "es": "Una base para los chats favoritos dentro de las conversaciones, que permite un acceso rápido y una vista previa sin salir del chat actual. • Desarrollado por [Complementos punteados] (https://t.me/exteraDevPlugins)",
+        "de": "Ein Dock für Lieblingschats innerhalb von Konversationen, das schnellen Zugriff und eine Vorschau ermöglicht, ohne den aktuellen Chat zu verlassen. • Unterstützt von [Dotted Plugins](https://t.me/exteraDevPlugins)",
+        "fr": "Un dock pour les discussions préférées dans les conversations, permettant un accès rapide et un aperçu sans quitter la discussion en cours. • Propulsé par [Plugins pointillés](https://t.me/exteraDevPlugins)",
+        "pt-BR": "Um dock para chats favoritos dentro de conversas, permitindo acesso rápido e visualização sem sair do chat atual. • Desenvolvido por [Plugins Pontilhados](https://t.me/exteraDevPlugins)",
+        "tr": "Mevcut sohbetten ayrılmadan hızlı erişime ve önizlemeye olanak tanıyan, konuşmalar içindeki favori sohbetler için bir yuva. • [Noktalı Eklentiler](https://t.me/exteraDevPlugins) tarafından desteklenmektedir",
+        "ar": "قاعدة للدردشات المفضلة داخل المحادثات، مما يتيح الوصول السريع والمعاينة دون مغادرة الدردشة الحالية. • مدعوم من [المكونات الإضافية المنقطة](https://t.me/exteraDevPlugins)",
+        "be": "Док-станцыя для любімых чатаў у размовах, якая дазваляе хуткі доступ і папярэдні прагляд, не пакідаючы бягучага чата. • Працуе на [Dotted Plugins](https://t.me/exteraDevPlugins)",
+        "kk": "Сөйлесулер ішіндегі таңдаулы чаттарға арналған док, ағымдағы чаттан шықпай-ақ жылдам қол жеткізуге және алдын ала қарауға мүмкіндік береді. • [Notted Plugins] арқылы қуатталған (https://t.me/exteraDevPlugins)"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "hooks"
+      ]
     }
   ]
 }
