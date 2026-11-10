@@ -1936,6 +1936,35 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "browser_shortcut",
+      "name": "Browser Shortcut",
+      "version": "1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/browser_shortcut/1.2/browser_shortcut.plugin",
+      "sha256": "34be3df693a0c36c3aeb7a1c1d55424f9d2fcb97620dcf9d4334004af9ec18f3",
+      "size": 16735,
+      "description": "Create a home screen shortcut with a custom name and icon that opens a URL in the app's built-in browser. Create a home screen shortcut with a custom name and icon that opens a URL in the client's in-app browser",
+      "description_i18n": {
+        "en": "Create a home screen shortcut with a custom name and icon that opens a URL in the app's built-in browser. Create a home screen shortcut with a custom name and icon that opens a URL in the client's in-app browser",
+        "uk": "Створіть ярлик на головному екрані зі спеціальною назвою та значком, який відкриває URL-адресу у вбудованому браузері програми. Створіть ярлик на головному екрані зі спеціальним ім'ям і піктограмою, який відкриває URL-адресу в браузері програми клієнта",
+        "ru": "Создайте ярлык на главном экране с собственным именем и значком, который открывает URL-адрес во встроенном браузере приложения. Создайте ярлык на главном экране с собственным именем и значком, который открывает URL-адрес в браузере приложения клиента.",
+        "pl": "Utwórz skrót na ekranie głównym z niestandardową nazwą i ikoną, która otwiera adres URL we wbudowanej przeglądarce aplikacji. Utwórz skrót na ekranie głównym z niestandardową nazwą i ikoną, która otwiera adres URL w przeglądarce w aplikacji klienta",
+        "es": "Cree un acceso directo a la pantalla de inicio con un nombre personalizado y un ícono que abra una URL en el navegador integrado de la aplicación. Cree un acceso directo a la pantalla de inicio con un nombre personalizado y un ícono que abra una URL en el navegador de la aplicación del cliente.",
+        "de": "Erstellen Sie eine Verknüpfung zum Startbildschirm mit einem benutzerdefinierten Namen und Symbol, die eine URL im integrierten Browser der App öffnet. Erstellen Sie eine Verknüpfung zum Startbildschirm mit einem benutzerdefinierten Namen und Symbol, die eine URL im In-App-Browser des Kunden öffnet",
+        "fr": "Créez un raccourci sur l'écran d'accueil avec un nom et une icône personnalisés qui ouvre une URL dans le navigateur intégré de l'application. Créez un raccourci sur l'écran d'accueil avec un nom et une icône personnalisés qui ouvre une URL dans le navigateur intégré à l'application du client.",
+        "pt-BR": "Crie um atalho na tela inicial com nome e ícone personalizados que abrem um URL no navegador integrado do aplicativo. Crie um atalho na tela inicial com um nome e ícone personalizados que abre um URL no navegador do aplicativo do cliente",
+        "tr": "Uygulamanın yerleşik tarayıcısında bir URL açan, özel bir ad ve simgeye sahip bir ana ekran kısayolu oluşturun. İstemcinin uygulama içi tarayıcısında bir URL açan, özel ad ve simgeye sahip bir ana ekran kısayolu oluşturun",
+        "ar": "أنشئ اختصارًا على الشاشة الرئيسية باسم مخصص وأيقونة تفتح عنوان URL في المتصفح المدمج في التطبيق. قم بإنشاء اختصار على الشاشة الرئيسية باسم مخصص وأيقونة تفتح عنوان URL في المتصفح داخل التطبيق الخاص بالعميل",
+        "be": "Стварыце ярлык на галоўным экране з уласным імем і значком, які адкрывае URL ва ўбудаваным браўзеры праграмы. Стварыце ярлык на галоўным экране з уласным імем і значком, які адкрывае URL-адрас у браўзеры праграмы кліента",
+        "kk": "Қолданбаның ендірілген шолғышында URL мекенжайын ашатын реттелетін атау мен белгішесі бар негізгі экран таңбашасын жасаңыз. Клиенттің қолданба ішіндегі шолғышында URL мекенжайын ашатын реттелетін атау мен белгішесі бар негізгі экран таңбашасын жасаңыз"
+      },
+      "permissions": [
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
