@@ -10768,6 +10768,37 @@
       "permissions": [
         "messages.read"
       ]
+    },
+    {
+      "id": "smart_bookmark",
+      "name": "Smart Bookmark",
+      "version": "1.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/smart_bookmark/1.3/smart_bookmark.plugin",
+      "sha256": "b7175a04e61e4f5c2f46fb3b3f022316cdb7c848b353f7826c2b482d9d48ab6e",
+      "size": 116864,
+      "description": "Personal notes and tasks for chats, locally and without forwarding",
+      "description_i18n": {
+        "en": "Personal notes and tasks for chats, locally and without forwarding",
+        "uk": "Особисті нотатки та завдання для чатів, локально та без пересилання",
+        "ru": "Личные заметки и задачи для чатов, локально и без переадресации",
+        "pl": "Osobiste notatki i zadania do czatów, lokalnie i bez przekazywania",
+        "es": "Notas personales y tareas para chats, de forma local y sin reenvío",
+        "de": "Persönliche Notizen und Aufgaben für Chats, lokal und ohne Weiterleitung",
+        "fr": "Notes personnelles et tâches pour les chats, localement et sans transfert",
+        "pt-BR": "Notas e tarefas pessoais para chats, localmente e sem encaminhamento",
+        "tr": "Yerel olarak ve iletmeden sohbetler için kişisel notlar ve görevler",
+        "ar": "الملاحظات والمهام الشخصية للمحادثات، محليًا وبدون إعادة توجيه",
+        "be": "Асабістыя нататкі і задачы для чатаў, лакальна і без пераадрасацыі",
+        "kk": "Жергілікті және қайта бағыттаусыз чаттарға арналған жеке жазбалар мен тапсырмалар"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
