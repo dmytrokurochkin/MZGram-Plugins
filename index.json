@@ -5294,6 +5294,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "hide_feed_ads",
+      "name": "Hide Feed Ads",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/hide_feed_ads/1.0/hide_feed_ads.plugin",
+      "sha256": "ce84a70b46bcc3cce60ae99ca375e91e9fcecd70346cbd5877cd2d97779c92bd",
+      "size": 1173,
+      "description": "Hides promotional posts inserted into the feed.",
+      "description_i18n": {
+        "en": "Hides promotional posts inserted into the feed.",
+        "uk": "Приховує рекламні пости, вставлені в стрічку.",
+        "ru": "Скрывает рекламные посты, вставленные в ленту.",
+        "pl": "Ukrywa posty promocyjne wstawione do kanału.",
+        "es": "Oculta publicaciones promocionales insertadas en el feed.",
+        "de": "Versteckt in den Feed eingefügte Werbebeiträge.",
+        "fr": "Masque les publications promotionnelles insérées dans le flux.",
+        "pt-BR": "Oculta postagens promocionais inseridas no feed.",
+        "tr": "Akışa eklenen tanıtım gönderilerini gizler.",
+        "ar": "إخفاء المنشورات الترويجية المدرجة في الخلاصة.",
+        "be": "Хавае рэкламныя паведамленні, устаўленыя ў стужку.",
+        "kk": "Арнаға енгізілген жарнамалық жазбаларды жасырады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
