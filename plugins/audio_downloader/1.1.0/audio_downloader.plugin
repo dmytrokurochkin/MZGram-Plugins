@@ -1,0 +1,775 @@
+import sys
+import time
+import types
+
+class _DynamicStub(types.ModuleType):
+    def __getattr__(self, name):
+        class _Dummy:
+            def __init__(self, *args, **kwargs):
+                pass
+            def __call__(self, *args, **kwargs):
+                return None
+        return _Dummy
+
+_real_utils = None
+for _name in ("client_utils", "extera_utils", "ayugram_utils"):
+    if _name in sys.modules:
+        _real_utils = sys.modules[_name]
+        break
+    try:
+        _real_utils = __import__(_name)
+        break
+    except Exception:
+        pass
+
+if _real_utils:
+    sys.modules["extera_utils"] = _real_utils
+    sys.modules["client_utils"] = _real_utils
+else:
+    _stub = _DynamicStub("extera_utils")
+    sys.modules["extera_utils"] = _stub
+    sys.modules["client_utils"] = _stub
+
+from base_plugin import BasePlugin, MenuItemData, MenuItemType
+try:
+    from base_plugin import HookResult, HookStrategy
+except Exception:
+    HookResult = None
+    HookStrategy = None
+
+from java import jclass, dynamic_proxy
+
+AndroidUtilities = jclass("org.telegram.messenger.AndroidUtilities")
+UserConfig = jclass("org.telegram.messenger.UserConfig")
+FileLoader = jclass("org.telegram.messenger.FileLoader")
+MessagesController = jclass("org.telegram.messenger.MessagesController")
+ConnectionsManager = jclass("org.telegram.tgnet.ConnectionsManager")
+TLRPC = jclass("org.telegram.tgnet.TLRPC")
+BulletinFactory = jclass("org.telegram.ui.Components.BulletinFactory")
+Runnable = jclass("java.lang.Runnable")
+RequestDelegate = jclass("org.telegram.tgnet.RequestDelegate")
+JavaFile = jclass("java.io.File")
+ApplicationLoader = jclass("org.telegram.messenger.ApplicationLoader")
+Context = jclass("android.content.Context")
+PowerManager = jclass("android.os.PowerManager")
+
+try:
+    WifiManager = jclass("android.net.wifi.WifiManager")
+except Exception:
+    WifiManager = None
+
+try:
+    MessageObject = jclass("org.telegram.messenger.MessageObject")
+except Exception:
+    MessageObject = None
+
+__id__ = "audio_downloader"
+__name__ = "Audio Downloader"
+__description__ = (
+    "RU: Загружает всю музыку из текущего чата/ канала напрямую в кэш.\n\n"
+    "EN: Downloads all music from the current chat/ channel directly into the cache."
+)
+__author__ = "@pluginsc"
+__version__ = "1.1.0"
+__icon__ = "open496/2"
+__min_version__ = "12.1.1"
+__category__ = ["media"]
+
+
+def is_track_downloaded(file_loader, doc, msg):
+    if not doc:
+        return False
+    doc_size = getattr(doc, "size", 0)
+
+    if msg is not None:
+        try:
+            f = file_loader.getPathToMessage(msg)
+            if f and f.exists() and f.isFile():
+                flen = f.length()
+                if doc_size > 0 and flen >= doc_size:
+                    return True
+                elif flen > 10000:
+                    return True
+        except Exception:
+            pass
+
+    try:
+        f = file_loader.getPathToAttach(doc, False)
+        if f and f.exists() and f.isFile():
+            flen = f.length()
+            if doc_size > 0 and flen >= doc_size:
+                return True
+            elif flen > 10000:
+                return True
+    except Exception:
+        pass
+
+    return False
+
+
+def recover_from_cache_if_needed(file_loader, doc, msg):
+    if not doc or not msg:
+        return False
+    doc_size = getattr(doc, "size", 0)
+    try:
+        target_file = file_loader.getPathToMessage(msg)
+        if target_file and target_file.exists() and target_file.isFile():
+            if doc_size == 0 or target_file.length() >= doc_size:
+                return True
+
+        cache_file = file_loader.getPathToAttach(doc, True)
+        if cache_file and cache_file.exists() and cache_file.isFile():
+            flen = cache_file.length()
+            if (doc_size > 0 and flen >= doc_size) or flen > 10000:
+                parent = target_file.getParentFile()
+                if parent and not parent.exists():
+                    parent.mkdirs()
+
+                fis = jclass("java.io.FileInputStream")(cache_file)
+                fos = jclass("java.io.FileOutputStream")(target_file)
+                buf = jclass("java.lang.reflect.Array").newInstance(jclass("java.lang.Byte").TYPE, 65536)
+                while True:
+                    n = fis.read(buf)
+                    if n <= 0:
+                        break
+                    fos.write(buf, 0, n)
+                fis.close()
+                fos.close()
+                return True
+    except Exception:
+        pass
+    return False
+
+
+class UIThreadTask(dynamic_proxy(Runnable)):
+    def __init__(self, action):
+        super().__init__()
+        self.action = action
+
+    def run(self):
+        try:
+            self.action()
+        except Exception:
+            pass
+
+
+class SearchDelegate(dynamic_proxy(RequestDelegate)):
+    def __init__(self, plugin, dialog_id, offset_id):
+        super().__init__()
+        self.plugin = plugin
+        self.dialog_id = dialog_id
+        self.offset_id = offset_id
+
+    def run(self, response, error):
+        def process():
+            if not self.plugin.is_processing:
+                return
+
+            if error is not None or response is None:
+                self.plugin.on_search_error("Ошибка загрузки списка сообщений")
+                return
+
+            messages = response.messages
+            if not messages or messages.isEmpty():
+                self.plugin.start_download_queue()
+                return
+
+            last_id = 0
+            for i in range(messages.size()):
+                msg = messages.get(i)
+                last_id = msg.id
+                msg.dialog_id = self.dialog_id
+
+                if hasattr(msg, "media") and msg.media and hasattr(msg.media, "document") and msg.media.document:
+                    doc = msg.media.document
+                    doc_id = getattr(doc, "id", 0)
+                    if doc_id not in self.plugin.seen_doc_ids:
+                        self.plugin.seen_doc_ids.add(doc_id)
+                        self.plugin.pending_queue.append((doc, msg))
+
+            if messages.size() < 100:
+                self.plugin.start_download_queue()
+            else:
+                def next_step():
+                    self.plugin.fetch_next_batch(self.dialog_id, last_id)
+
+                AndroidUtilities.runOnUIThread(UIThreadTask(next_step), 250)
+
+        AndroidUtilities.runOnUIThread(UIThreadTask(process))
+
+
+class AudioCacheDownloader(BasePlugin):
+    def on_plugin_load(self):
+        self.is_processing = False
+        self.menu_item_ids = []
+        self.pending_queue = []
+        self.active_items = []
+        self.all_items = []
+        self.seen_doc_ids = set()
+        self.total_found = 0
+        self.downloaded_count = 0
+        self.last_notified_count = 0
+        self.last_bulletin_time = 0
+        self.verification_pass = 0
+        self.wake_lock = None
+        self.wifi_lock = None
+
+        self.loop_task = UIThreadTask(self._queue_step)
+        self.log("Запуск Audio Downloader")
+
+        try:
+            start_id = self.add_menu_item(
+                MenuItemData(
+                    menu_type=MenuItemType.CHAT_ACTION_MENU,
+                    text="🎵 Скачать всю музыку",
+                    icon=None,
+                    on_click=self.on_start_menu_item_clicked
+                )
+            )
+            self.menu_item_ids.append(start_id)
+
+            stop_id = self.add_menu_item(
+                MenuItemData(
+                    menu_type=MenuItemType.CHAT_ACTION_MENU,
+                    text="🛑 Остановить загрузку",
+                    icon=None,
+                    on_click=self.on_stop_menu_item_clicked
+                )
+            )
+            self.menu_item_ids.append(stop_id)
+        except Exception as e:
+            self.log(f"Ошибка регистрации пунктов меню: {e}")
+
+        try:
+            self.add_on_send_message_hook()
+        except Exception as e:
+            self.log(f"Ошибка подключения хука отправки: {e}")
+
+    def on_plugin_unload(self):
+        self.stop_processing()
+        for item_id in self.menu_item_ids:
+            try:
+                self.remove_menu_item(item_id)
+            except Exception:
+                pass
+        self.menu_item_ids.clear()
+
+    def acquire_wake_locks(self):
+        try:
+            if not self.wake_lock:
+                pm = ApplicationLoader.applicationContext.getSystemService(Context.POWER_SERVICE)
+                self.wake_lock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AudioDownloader:WakeLock")
+                self.wake_lock.acquire(3 * 60 * 60 * 1000)
+        except Exception:
+            pass
+
+        try:
+            if not self.wifi_lock and WifiManager:
+                wm = ApplicationLoader.applicationContext.getSystemService(Context.WIFI_SERVICE)
+                if wm:
+                    self.wifi_lock = wm.createWifiLock(WifiManager.WIFI_MODE_FULL_HIGH_PERF, "AudioDownloader:WifiLock")
+                    self.wifi_lock.acquire()
+        except Exception:
+            pass
+
+    def release_wake_locks(self):
+        try:
+            if self.wake_lock and self.wake_lock.isHeld():
+                self.wake_lock.release()
+        except Exception:
+            pass
+        self.wake_lock = None
+
+        try:
+            if self.wifi_lock and self.wifi_lock.isHeld():
+                self.wifi_lock.release()
+        except Exception:
+            pass
+        self.wifi_lock = None
+
+    def stop_processing(self):
+        if not self.is_processing and not self.active_items:
+            return
+
+        self.is_processing = False
+        self.release_wake_locks()
+
+        try:
+            current_account = UserConfig.selectedAccount
+            file_loader = FileLoader.getInstance(current_account)
+            for item in self.active_items:
+                doc = item.get("doc")
+                if doc:
+                    file_loader.cancelLoadFile(doc)
+        except Exception:
+            pass
+
+        self.pending_queue.clear()
+        self.active_items.clear()
+        self.all_items.clear()
+        self.seen_doc_ids.clear()
+        self.verification_pass = 0
+
+    def on_start_menu_item_clicked(self, *args, **kwargs):
+        dialog_id = None
+        ctx = None
+
+        if args and isinstance(args[0], dict):
+            ctx = args[0]
+        elif "context" in kwargs and isinstance(kwargs["context"], dict):
+            ctx = kwargs["context"]
+
+        if ctx:
+            dialog_id = ctx.get("dialog_id") or ctx.get("chatId") or ctx.get("userId")
+
+        if not dialog_id:
+            dialog_id = self.get_current_dialog_id()
+
+        self.start_caching_process(dialog_id)
+
+    def on_stop_menu_item_clicked(self, *args, **kwargs):
+        self.stop_processing()
+        self.show_bulletin("🛑 Загрузка музыки остановлена")
+
+    def on_send_message_hook(self, acc: int, p: any):
+        try:
+            msg_text = getattr(p, "message", None)
+            if msg_text is not None:
+                cmd = str(msg_text).strip().lower()
+
+                if cmd in [".mcache", ".cacheaudio"]:
+                    def trigger_start():
+                        self.start_caching_process()
+
+                    AndroidUtilities.runOnUIThread(UIThreadTask(trigger_start))
+                    if HookResult and HookStrategy:
+                        return HookResult(strategy=HookStrategy.CANCEL)
+                    return None
+
+                elif cmd in [".mstop", ".stopcache"]:
+                    def trigger_stop():
+                        self.stop_processing()
+                        self.show_bulletin("🛑 Загрузка музыки остановлена")
+
+                    AndroidUtilities.runOnUIThread(UIThreadTask(trigger_stop))
+                    if HookResult and HookStrategy:
+                        return HookResult(strategy=HookStrategy.CANCEL)
+                    return None
+        except Exception as e:
+            self.log(f"Ошибка перехвата команды в on_send_message_hook: {e}")
+
+        if HookResult:
+            return HookResult()
+        return None
+
+    def get_current_dialog_id(self):
+        try:
+            import client_utils
+            fragment = client_utils.get_last_fragment()
+            if fragment and hasattr(fragment, "getDialogId"):
+                return fragment.getDialogId()
+        except Exception:
+            pass
+
+        try:
+            LaunchActivity = jclass("org.telegram.ui.LaunchActivity")
+            act = LaunchActivity.instance
+            if act:
+                fragment = act.getActionBarLayout().getLastFragment()
+                if fragment and hasattr(fragment, "getDialogId"):
+                    return fragment.getDialogId()
+        except Exception:
+            pass
+
+        return None
+
+    def start_caching_process(self, target_dialog_id=None):
+        if self.is_processing:
+            self.show_bulletin("Процесс уже запущен. Нажмите 🛑 для отмены.")
+            return
+
+        dialog_id = target_dialog_id or self.get_current_dialog_id()
+        if not dialog_id:
+            self.show_bulletin("Откройте чат или канал для скачивания музыки")
+            return
+
+        try:
+            self.stop_processing()
+            self.is_processing = True
+            self.acquire_wake_locks()
+            self.pending_queue.clear()
+            self.active_items.clear()
+            self.all_items.clear()
+            self.seen_doc_ids.clear()
+            self.downloaded_count = 0
+            self.total_found = 0
+            self.last_notified_count = 0
+            self.last_bulletin_time = 0
+            self.verification_pass = 0
+
+            self.show_bulletin("🔍 Поиск аудиозаписей в канале...")
+            self.fetch_next_batch(dialog_id, 0)
+        except Exception as e:
+            self.is_processing = False
+            self.release_wake_locks()
+            self.show_bulletin(f"⚠️ Ошибка старта: {e}")
+
+    def fetch_next_batch(self, dialog_id, offset_id):
+        if not self.is_processing:
+            return
+
+        try:
+            current_account = UserConfig.selectedAccount
+            req = TLRPC.TL_messages_search()
+
+            peer = MessagesController.getInstance(current_account).getInputPeer(dialog_id)
+            if not peer:
+                self.on_search_error("Не удалось определить чат")
+                return
+
+            req.peer = peer
+            req.q = ""
+            req.filter = TLRPC.TL_inputMessagesFilterMusic()
+            req.min_date = 0
+            req.max_date = 0
+            req.offset_id = offset_id
+            req.add_offset = 0
+            req.limit = 100
+            req.max_id = 0
+            req.min_id = 0
+            req.hash = 0
+
+            delegate = SearchDelegate(self, dialog_id, offset_id)
+            ConnectionsManager.getInstance(current_account).sendRequest(req, delegate)
+        except Exception as e:
+            self.log(f"Ошибка поиска: {e}")
+            self.on_search_error(f"Ошибка: {e}")
+
+    def on_search_error(self, error_msg):
+        self.stop_processing()
+        self.show_bulletin(f"⚠️ {error_msg}")
+
+    def start_download_queue(self):
+        self.total_found = len(self.pending_queue)
+        if self.total_found == 0:
+            self.stop_processing()
+            self.show_bulletin("В этом чате нет аудиофайлов.")
+            return
+
+        self.all_items = list(self.pending_queue)
+
+        order_mode = int(self.get_setting("download_order", 0))
+        if order_mode == 0:
+            self.pending_queue.reverse()
+
+        self.show_bulletin(f"🎵 Найдено треков: {self.total_found}. Запуск скачивания...")
+        AndroidUtilities.runOnUIThread(self.loop_task, 250)
+
+    def _maybe_show_progress(self, now, force=False):
+        if not self.is_processing or self.total_found == 0:
+            return
+
+        if not bool(self.get_setting("show_dynamic_progress", True)):
+            return
+
+        diff = self.downloaded_count - self.last_notified_count
+        time_diff = now - self.last_bulletin_time
+
+        if force or (diff >= 3 and time_diff >= 3.0) or time_diff >= 10.0:
+            percent = int((min(self.downloaded_count, self.total_found) / self.total_found) * 100)
+            self.show_bulletin(f"🎵 Загрузка: {self.downloaded_count}/{self.total_found} [{percent}%]")
+            self.last_notified_count = self.downloaded_count
+            self.last_bulletin_time = now
+
+    def _run_verification_or_finish(self, file_loader):
+        missing = []
+        for doc, msg in self.all_items:
+            if not is_track_downloaded(file_loader, doc, msg) and not recover_from_cache_if_needed(file_loader, doc, msg):
+                missing.append((doc, msg))
+
+        if missing and self.verification_pass < 3:
+            self.verification_pass += 1
+            self.show_bulletin(f"🔄 Докачиваем треки: осталось {len(missing)} (круг {self.verification_pass}/3)...")
+            self.pending_queue = list(missing)
+            self.downloaded_count = self.total_found - len(missing)
+            self.last_notified_count = self.downloaded_count
+            return False
+
+        downloaded = self.total_found - len(missing)
+        self.stop_processing()
+
+        if not missing:
+            self.show_bulletin(f"🎉 Все {self.total_found} треков сохранены и готовы к прослушиванию!")
+        else:
+            self.show_bulletin(f"✅ Загружено {downloaded} из {self.total_found} треков.")
+        return True
+
+    def _queue_step(self):
+        if not self.is_processing:
+            return
+
+        try:
+            current_account = UserConfig.selectedAccount
+            file_loader = FileLoader.getInstance(current_account)
+            now = time.time()
+
+            active_remaining = []
+            tracks_finished = 0
+
+            for item in self.active_items:
+                doc = item["doc"]
+                msg = item["msg"]
+                file_name = item["file_name"]
+
+                if is_track_downloaded(file_loader, doc, msg) or recover_from_cache_if_needed(file_loader, doc, msg):
+                    self.downloaded_count += 1
+                    tracks_finished += 1
+                    continue
+
+                if file_loader.isLoadingFile(file_name):
+                    item["last_progress_time"] = now
+                    active_remaining.append(item)
+                    continue
+
+                if now - item["last_progress_time"] > 12.0:
+                    item["last_progress_time"] = now
+                    item["stalls"] += 1
+
+                    if item["stalls"] >= 3:
+                        tracks_finished += 1
+                        continue
+
+                    try:
+                        file_loader.loadFile(doc, item["parent_obj"], 0, 0)
+                    except Exception:
+                        pass
+
+                active_remaining.append(item)
+
+            self.active_items = active_remaining
+
+            if tracks_finished > 0:
+                self._maybe_show_progress(now)
+
+            batch_size = int(self.get_setting("batch_size", 3))
+
+            while len(self.active_items) < batch_size and self.pending_queue:
+                doc, msg = self.pending_queue.pop(0)
+
+                if is_track_downloaded(file_loader, doc, msg) or recover_from_cache_if_needed(file_loader, doc, msg):
+                    self.downloaded_count += 1
+                    continue
+
+                parent_obj = None
+                if MessageObject:
+                    try:
+                        parent_obj = MessageObject(current_account, msg, False, False)
+                    except Exception:
+                        pass
+                if not parent_obj:
+                    parent_obj = msg
+
+                try:
+                    file_loader.loadFile(doc, parent_obj, 0, 0)
+                except Exception:
+                    pass
+
+                file_name = str(FileLoader.getAttachFileName(doc))
+                self.active_items.append({
+                    "doc": doc,
+                    "msg": msg,
+                    "parent_obj": parent_obj,
+                    "file_name": file_name,
+                    "last_progress_time": now,
+                    "stalls": 0
+                })
+
+            if not self.active_items and not self.pending_queue:
+                finished = self._run_verification_or_finish(file_loader)
+                if finished:
+                    return
+
+        except Exception as e:
+            self.log(f"Ошибка в цикле скачивания: {e}")
+        finally:
+            if self.is_processing:
+                AndroidUtilities.runOnUIThread(self.loop_task, 800)
+
+    def show_bulletin(self, text):
+        try:
+            import client_utils
+            fragment = client_utils.get_last_fragment()
+            can_use_bulletin = False
+
+            if fragment and hasattr(fragment, "getView"):
+                try:
+                    view = fragment.getView()
+                    if view is not None and not getattr(fragment, "isFinishing", lambda: False)():
+                        can_use_bulletin = True
+                except Exception:
+                    can_use_bulletin = False
+
+            if can_use_bulletin:
+                R_drawable = jclass("org.telegram.messenger.R$drawable")
+                icon_res = 0
+                for icon_name in ["msg_music", "msg_file", "ic_ab_other"]:
+                    if hasattr(R_drawable, icon_name):
+                        icon_res = getattr(R_drawable, icon_name)
+                        break
+
+                if icon_res != 0:
+                    BulletinFactory.of(fragment).createSimpleBulletin(icon_res, text).show()
+                    return
+        except Exception:
+            pass
+
+        try:
+            Toast = jclass("android.widget.Toast")
+            Toast.makeText(ApplicationLoader.applicationContext, text, Toast.LENGTH_SHORT).show()
+        except Exception:
+            pass
+
+    def on_order_setting_clicked(self, *args):
+        try:
+            import client_utils
+            fragment = client_utils.get_last_fragment()
+            act = fragment.getParentActivity() if fragment else None
+            if not act:
+                LaunchActivity = jclass("org.telegram.ui.LaunchActivity")
+                act = LaunchActivity.instance
+            if not act:
+                return
+
+            items = [
+                "Сначала старые (сверху вниз)",
+                "Сначала новые (снизу вверх)"
+            ]
+            current_order = int(self.get_setting("download_order", 0))
+
+            AlertDialogBuilder = jclass("org.telegram.ui.ActionBar.AlertDialog$Builder")
+            builder = AlertDialogBuilder(act)
+            builder.setTitle("Порядок скачивания")
+
+            dialog_holder = [None]
+
+            def choose_order(idx):
+                self.set_setting("download_order", idx)
+                if dialog_holder[0]:
+                    try:
+                        dialog_holder[0].dismiss()
+                    except Exception:
+                        pass
+
+            used_custom = False
+            try:
+                LinearLayout = jclass("android.widget.LinearLayout")
+                RadioColorCell = jclass("org.telegram.ui.Cells.RadioColorCell")
+                Theme = jclass("org.telegram.ui.ActionBar.Theme")
+                AndroidUtilities = jclass("org.telegram.messenger.AndroidUtilities")
+                ViewOnClickListener = jclass("android.view.View$OnClickListener")
+
+                linear = LinearLayout(act)
+                linear.setOrientation(LinearLayout.VERTICAL)
+
+                class CellClickListener(dynamic_proxy(ViewOnClickListener)):
+                    def __init__(self, index):
+                        super().__init__()
+                        self.index = index
+
+                    def onClick(self, v):
+                        choose_order(self.index)
+
+                pad = AndroidUtilities.dp(4)
+                for idx, text in enumerate(items):
+                    cell = RadioColorCell(act)
+                    cell.setPadding(pad, 0, pad, 0)
+                    try:
+                        cell.setCheckColor(
+                            Theme.getColor(Theme.key_radioBackground),
+                            Theme.getColor(Theme.key_radioBackgroundChecked)
+                        )
+                    except Exception:
+                        pass
+                    cell.setTextAndValue(text, idx == current_order)
+                    try:
+                        cell.setBackground(Theme.createSelectorDrawable(Theme.getColor(Theme.key_listSelector), 2))
+                    except Exception:
+                        pass
+                    cell.setOnClickListener(CellClickListener(idx))
+                    linear.addView(cell)
+
+                builder.setView(linear)
+                used_custom = True
+            except Exception as e_custom:
+                self.log(f"RadioColorCell недоступен, fallback на setItems: {e_custom}")
+
+            if not used_custom:
+                DialogInterfaceOnClickListener = jclass("android.content.DialogInterface$OnClickListener")
+
+                class DialogClickListener(dynamic_proxy(DialogInterfaceOnClickListener)):
+                    def onClick(self, dialog, which):
+                        choose_order(which)
+
+                JavaArray = jclass("java.lang.reflect.Array")
+                CharSequence_cls = jclass("java.lang.CharSequence")
+                arr = JavaArray.newInstance(CharSequence_cls, len(items))
+                for idx, it in enumerate(items):
+                    arr[idx] = jclass("java.lang.String")(it)
+
+                builder.setItems(arr, DialogClickListener())
+
+            builder.setNegativeButton("Отмена", None)
+            dialog = builder.create()
+            dialog_holder[0] = dialog
+            dialog.show()
+
+        except Exception as e:
+            self.log(f"Ошибка открытия диалога выбора порядка: {e}")
+
+    def create_settings(self):
+        try:
+            from ui.settings import Header, Switch, Input, Text, Divider
+
+            return [
+                Header(text="Управление процессом"),
+                Text(
+                    text="🛑 Остановить текущую загрузку",
+                    subtext="Прерывает текущее скачивание треков",
+                    on_click=lambda *args: (
+                        self.stop_processing(),
+                        self.show_bulletin("🛑 Загрузка музыки остановлена")
+                    )
+                ),
+                Header(text="Оповещения"),
+                Switch(
+                    key="show_dynamic_progress",
+                    text="Динамический прогресс",
+                    subtext="Показывать всплывающую плашку с текущим процентом скачивания",
+                    default=True,
+                    icon="msg_music"
+                ),
+                Header(text="Настройка очереди"),
+                Input(
+                    text="Одновременных загрузок",
+                    subtext="Рекомендуется 2-3",
+                    key="batch_size",
+                    default="3"
+                ),
+                Text(
+                    text="Порядок скачивания",
+                    on_click=self.on_order_setting_clicked
+                ),
+                Divider(text="Способы управления"),
+                Text(
+                    text="Меню чата (⋮ ➔ Плагины)",
+                    subtext="Доступны кнопки скачивания и остановки"
+                ),
+                Text(
+                    text="Команды в чате",
+                    subtext=".mcache — начать | .mstop — остановить"
+                )
+            ]
+        except Exception as e:
+            self.log(f"Ошибка создания настроек: {e}")
+            from ui.settings import Header
+            return [Header(text="Audio Downloader")]

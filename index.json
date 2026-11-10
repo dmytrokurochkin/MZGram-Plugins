@@ -1403,6 +1403,35 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "audio_downloader",
+      "name": "Audio Downloader",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/audio_downloader/1.1.0/audio_downloader.plugin",
+      "sha256": "e34a1e6b42ab9c3741c058eb0444a9b0aa8c17d922546d07a187b0a8b7c33422",
+      "size": 28691,
+      "description": "EN: Loads all music from the current chat/channel directly into the cache. EN: Downloads all music from the current chat/ channel directly into the cache.",
+      "description_i18n": {
+        "en": "EN: Loads all music from the current chat/channel directly into the cache. EN: Downloads all music from the current chat/ channel directly into the cache.",
+        "uk": "EN: завантажує всю музику з поточного чату/каналу безпосередньо в кеш. EN: завантажує всю музику з поточного чату/каналу безпосередньо в кеш.",
+        "ru": "RU: Загружает всю музыку из текущего чата/канала прямо в кеш. RU: Загружает всю музыку из текущего чата/канала прямо в кеш.",
+        "pl": "PL: Ładuje całą muzykę z bieżącego czatu/kanału bezpośrednio do pamięci podręcznej. PL: Pobiera całą muzykę z bieżącego czatu/kanału bezpośrednio do pamięci podręcznej.",
+        "es": "ES: Carga toda la música del chat/canal actual directamente en el caché. ES: Descarga toda la música del chat/canal actual directamente al caché.",
+        "de": "DE: Lädt die gesamte Musik aus dem aktuellen Chat/Kanal direkt in den Cache. DE: Lädt die gesamte Musik vom aktuellen Chat/Kanal direkt in den Cache herunter.",
+        "fr": "FR : Charge toute la musique du chat/chaîne actuel directement dans le cache. FR: Télécharge toute la musique du chat/canal actuel directement dans le cache.",
+        "pt-BR": "PT: Carrega todas as músicas do chat/canal atual diretamente no cache. PT: Baixa todas as músicas do chat/canal atual diretamente no cache.",
+        "tr": "TR: Geçerli sohbetteki/kanaldaki tüm müziği doğrudan önbelleğe yükler. TR: Geçerli sohbetteki/kanaldaki tüm müzikleri doğrudan önbelleğe indirir.",
+        "ar": "AR: تحميل جميع الموسيقى من الدردشة/القناة الحالية مباشرة إلى ذاكرة التخزين المؤقت. AR: تنزيل جميع الموسيقى من الدردشة/القناة الحالية مباشرةً إلى ذاكرة التخزين المؤقت.",
+        "be": "EN: Загружае ўсю музыку з бягучага чата/канала непасрэдна ў кэш. EN: Спампоўвае ўсю музыку з бягучага чата/канала непасрэдна ў кэш.",
+        "kk": "KK: Ағымдағы чаттағы/арнадағы барлық музыканы тікелей кэшке жүктейді. KK: Ағымдағы чаттағы/арнадағы барлық музыканы тікелей кэшке жүктейді."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "files"
+      ]
     }
   ]
 }
