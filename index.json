@@ -3229,6 +3229,35 @@
       "permissions": [
         "messages.read"
       ]
+    },
+    {
+      "id": "debug",
+      "name": "Debug",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/debug/1.0/debug.plugin",
+      "sha256": "bf13d457890cc86a80dc435c05e4800979837b1dabc1931a022d5ab74654fe0b",
+      "size": 20629,
+      "description": "Device & Plugin info [.dg]",
+      "description_i18n": {
+        "en": "Device & Plugin info [.dg]",
+        "uk": "Інформація про пристрій і плагін [.dg]",
+        "ru": "Информация об устройстве и плагине [.dg]",
+        "pl": "Informacje o urządzeniu i wtyczce [.dg]",
+        "es": "Información del dispositivo y complemento [.dg]",
+        "de": "Geräte- und Plugin-Informationen [.dg]",
+        "fr": "Informations sur l'appareil et le plugin [.dg]",
+        "pt-BR": "Informações do dispositivo e plug-in [.dg]",
+        "tr": "Cihaz ve Eklenti bilgisi [.dg]",
+        "ar": "معلومات الجهاز والمكونات الإضافية [.dg]",
+        "be": "Інфармацыя пра прыладу і плагін [.dg]",
+        "kk": "Құрылғы және плагин ақпараты [.dg]"
+      },
+      "permissions": [
+        "messages.send",
+        "files",
+        "settings"
+      ]
     }
   ]
 }
