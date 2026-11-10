@@ -5434,6 +5434,33 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "higal",
+      "name": "Hide Gallery",
+      "version": "1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/higal/1.2/higal.plugin",
+      "sha256": "76abc63f570a2d24f8e77db8d157b5f469a0c00ef2d9156aa184851c295f75e4",
+      "size": 32393,
+      "description": "Hides the entire gallery under blur Blurs the whole gallery Thx for optimization:",
+      "description_i18n": {
+        "en": "Hides the entire gallery under blur Blurs the whole gallery Thx for optimization:",
+        "uk": "Приховує всю галерею під розмиттям Розмиває всю галерею Дякую для оптимізації:",
+        "ru": "Скрывает всю галерею под размытием. Размывает всю галерею. Спасибо за оптимизацию:",
+        "pl": "Ukrywa całą galerię pod rozmyciem. Zamazuje całą galerię. Dzięki za optymalizację:",
+        "es": "Oculta toda la galería bajo desenfoque. Desenfoca toda la galería. Gracias por la optimización:",
+        "de": "Versteckt die gesamte Galerie unter Unschärfe. Verwischt die gesamte Galerie. Danke für die Optimierung:",
+        "fr": "Masque toute la galerie sous le flou Brouille toute la galerie Merci pour l'optimisation :",
+        "pt-BR": "Oculta toda a galeria sob desfoque. Desfoca toda a galeria Obrigado pela otimização:",
+        "tr": "Tüm galeriyi bulanıklaştırma altında gizler Tüm galeriyi bulanıklaştırır Optimizasyon için teşekkürler:",
+        "ar": "يخفي المعرض بأكمله تحت طمس يطمس المعرض بأكمله شكرا للتحسين:",
+        "be": "Хавае ўсю галерэю пад размыццём. Размывае ўсю галерэю Дзякуй за аптымізацыю:",
+        "kk": "Бүкіл галереяны бұлыңғырлық астында жасырады Оңтайландыру үшін бүкіл галереяны бұлдыратады Thx:"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
