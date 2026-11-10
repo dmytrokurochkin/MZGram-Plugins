@@ -2807,6 +2807,33 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "contact_time",
+      "name": "Contact Time",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/contact_time/1.1.0/contact_time.plugin",
+      "sha256": "78d5d3373ccd820290d8a7a4460d065f9103c9f05f294ed7c377bc2c3c159996",
+      "size": 47307,
+      "description": "Shows the contact's local time in profile, messages and last seen status.",
+      "description_i18n": {
+        "en": "Shows the contact's local time in profile, messages and last seen status.",
+        "uk": "Показує місцевий час контакту в профілі, повідомленнях і статусі останнього відвідування.",
+        "ru": "Показывает местное время контакта в профиле, сообщениях и статусе последнего посещения.",
+        "pl": "Pokazuje czas lokalny kontaktu w profilu, wiadomościach i statusie ostatniej obecności.",
+        "es": "Muestra la hora local del contacto en el perfil, mensajes y estado visto por última vez.",
+        "de": "Zeigt die Ortszeit des Kontakts im Profil, in den Nachrichten und im zuletzt gesehenen Status an.",
+        "fr": "Affiche l'heure locale du contact dans le profil, les messages et le dernier statut vu.",
+        "pt-BR": "Mostra a hora local do contato no perfil, mensagens e status de última visualização.",
+        "tr": "Profilde kişinin yerel saatini, mesajlarını ve son görülme durumunu gösterir.",
+        "ar": "يعرض التوقيت المحلي لجهة الاتصال في الملف الشخصي والرسائل وحالة آخر ظهور.",
+        "be": "Паказвае мясцовы час кантакту ў профілі, паведамленнях і статусе апошняга наведвання.",
+        "kk": "Контактінің жергілікті уақытын профильде, хабарларда және соңғы көрген күйінде көрсетеді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
