@@ -144,6 +144,33 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "Crypter",
+      "name": "Crypter",
+      "version": "2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/Crypter/2.0/Crypter.plugin",
+      "sha256": "8be9f9122c0fc307da97ec27fe6c0368a06ba13847ace7eb1abd319659de8af0",
+      "size": 20049,
+      "description": "A simple text encoder with a password. Example: .cip [password] [text]",
+      "description_i18n": {
+        "en": "A simple text encoder with a password. Example: .cip [password] [text]",
+        "uk": "Простий кодувальник тексту з паролем. Приклад: .cip [пароль] [текст]",
+        "ru": "Простой текстовый кодер с паролем. Пример: .cip [пароль] [текст]",
+        "pl": "Prosty koder tekstu z hasłem. Przykład: .cip [hasło] [tekst]",
+        "es": "Un codificador de texto simple con contraseña. Ejemplo: .cip [contraseña] [texto]",
+        "de": "Ein einfacher Text-Encoder mit Passwort. Beispiel: .cip [Passwort] [Text]",
+        "fr": "Un simple encodeur de texte avec un mot de passe. Exemple : .cip [mot de passe] [texte]",
+        "pt-BR": "Um codificador de texto simples com senha. Exemplo: .cip [senha] [texto]",
+        "tr": "Şifreli basit bir metin kodlayıcı. Örnek: .cip [şifre] [metin]",
+        "ar": "برنامج تشفير نص بسيط بكلمة مرور. مثال: .cip [كلمة المرور] [نص]",
+        "be": "Просты кадавальнік тэксту з паролем. Прыклад: .cip [пароль] [тэкст]",
+        "kk": "Құпия сөзбен қарапайым мәтіндік кодтаушы. Мысал: .cip [құпия сөз] [мәтін]"
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
