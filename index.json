@@ -8170,6 +8170,34 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "photo_picker_plus",
+      "name": "Photo Picker Plus",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/photo_picker_plus/1.0/photo_picker_plus.plugin",
+      "sha256": "a3b04c88e824b9838cebb837b36e84f42c7c624f5667f716dc4868d4b80f8941",
+      "size": 40824,
+      "description": "Improves off-TG photopicker, adds informative pills, dates, toolbar with custom folders",
+      "description_i18n": {
+        "en": "Improves off-TG photopicker, adds informative pills, dates, toolbar with custom folders",
+        "uk": "Покращує фотовибір поза ТГ, додає інформативні таблетки, дати, панель інструментів із власними папками",
+        "ru": "Улучшает средство выбора фотографий вне TG, добавляет информативные таблички, даты, панель инструментов с настраиваемыми папками.",
+        "pl": "Ulepsza photopicker poza TG, dodaje pigułki informacyjne, daty, pasek narzędzi z niestandardowymi folderami",
+        "es": "Mejora el selector de fotos fuera de TG, agrega píldoras informativas, fechas y barra de herramientas con carpetas personalizadas",
+        "de": "Verbessert die Off-TG-Fotoauswahl, fügt informative Pillen, Daten und eine Symbolleiste mit benutzerdefinierten Ordnern hinzu",
+        "fr": "Améliore le sélecteur de photos hors TG, ajoute des pilules informatives, des dates, une barre d'outils avec des dossiers personnalisés",
+        "pt-BR": "Melhora o photopicker fora do TG, adiciona pílulas informativas, datas, barra de ferramentas com pastas personalizadas",
+        "tr": "TG dışı fotoğraf seçiciyi geliştirir, bilgilendirici haplar, tarihler ve özel klasörlere sahip araç çubuğu ekler",
+        "ar": "يعمل على تحسين منتقي الصور خارج TG، ويضيف أقراصًا إعلامية وتواريخ وشريط أدوات مع مجلدات مخصصة",
+        "be": "Паляпшае фотавыбар па-за TG, дадае інфарматыўныя таблеткі, даты, панэль інструментаў з карыстацкімі папкамі",
+        "kk": "Off-TG фотопикерін жақсартады, ақпараттық таблеткаларды, күндерді, реттелетін қалталары бар құралдар тақтасын қосады"
+      },
+      "permissions": [
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
