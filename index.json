@@ -7120,6 +7120,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "more_features",
+      "name": "MoreFeatures",
+      "version": "3.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/more_features/3.1.0/morefeatures.plugin",
+      "sha256": "4ca8cf99d9f6f84cf4c884e2f4eea67519bfbb4a6c63701909b69a98af5a5720",
+      "size": 22164,
+      "description": "A collection of useful features, including call confirmation, hiding the video chat banner, and a device music controller.",
+      "description_i18n": {
+        "en": "A collection of useful features, including call confirmation, hiding the video chat banner, and a device music controller.",
+        "uk": "Набір корисних функцій, включаючи підтвердження виклику, приховування банера відеочату та музичний контролер пристрою.",
+        "ru": "Набор полезных функций, включая подтверждение звонка, скрытие баннера видеочата и музыкальный контроллер устройства.",
+        "pl": "Zbiór przydatnych funkcji, w tym potwierdzanie połączeń, ukrywanie banera czatu wideo i kontroler muzyki w urządzeniu.",
+        "es": "Una colección de funciones útiles, que incluyen confirmación de llamada, ocultación del banner del chat de video y un controlador de música del dispositivo.",
+        "de": "Eine Sammlung nützlicher Funktionen, darunter Anrufbestätigung, Ausblenden des Video-Chat-Banners und ein Musik-Controller für das Gerät.",
+        "fr": "Un ensemble de fonctionnalités utiles, notamment la confirmation d'appel, le masquage de la bannière de chat vidéo et un contrôleur de musique sur l'appareil.",
+        "pt-BR": "Uma coleção de recursos úteis, incluindo confirmação de chamada, ocultação do banner de chat de vídeo e um controlador de música do dispositivo.",
+        "tr": "Çağrı onayı, görüntülü sohbet başlığını gizleme ve cihaz müzik denetleyicisi gibi kullanışlı özelliklerden oluşan bir koleksiyon.",
+        "ar": "مجموعة من الميزات المفيدة، بما في ذلك تأكيد المكالمة وإخفاء شعار دردشة الفيديو ووحدة التحكم في موسيقى الجهاز.",
+        "be": "Калекцыя карысных функцый, у тым ліку пацвярджэнне выкліку, схаванне банэра відэачата і музычны кантролер прылады.",
+        "kk": "Пайдалы мүмкіндіктер жинағы, соның ішінде қоңырауды растау, бейне чат баннерін жасыру және құрылғы музыка контроллері."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
