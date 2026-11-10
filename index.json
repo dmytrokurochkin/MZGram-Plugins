@@ -4964,6 +4964,36 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "gift_stats",
+      "name": "Gift Stats",
+      "version": "1.6.16",
+      "min_app_version": "1.0.0",
+      "file": "plugins/gift_stats/1.6.16/gift_stats.plugin",
+      "sha256": "c82e19a0bc84a9780b4177a10e4e6db1778d967cdcdacfea49b8dfa266baa0ff",
+      "size": 91889,
+      "description": "Gift statistics: top donors in profile/chat, anonymous separately, breakdown by gift",
+      "description_i18n": {
+        "en": "Gift statistics: top donors in profile/chat, anonymous separately, breakdown by gift",
+        "uk": "Статистика подарунків: найпопулярніші донори в профілі/чаті, окремо анонімні, розподіл за подарунками",
+        "ru": "Статистика подарков: топ дарителей в профиле/чате, анонимно отдельно, по подаркам",
+        "pl": "Statystyki prezentów: najlepsi darczyńcy w profilu/czacie, osobno anonimowi, podział według prezentów",
+        "es": "Estadísticas de obsequios: principales donantes en el perfil/chat, anónimos por separado, desglosados ​​por obsequio",
+        "de": "Spendenstatistik: Top-Spender im Profil/Chat, separat anonym, Aufschlüsselung nach Spende",
+        "fr": "Statistiques sur les cadeaux : principaux donateurs dans le profil/chat, anonymes séparément, répartition par don",
+        "pt-BR": "Estatísticas de presentes: principais doadores no perfil/chat, anônimos separadamente, divididos por presente",
+        "tr": "Hediye istatistikleri: profil/sohbetteki en iyi bağışçılar, ayrı ayrı anonim, hediyeye göre döküm",
+        "ar": "إحصائيات الهدايا: أهم المتبرعين في الملف الشخصي/الدردشة، مجهول الهوية بشكل منفصل، مقسمة حسب الهدية",
+        "be": "Статыстыка падарункаў: топ донараў у профілі/чаце, асобна ананімныя, разбіўка па падарунках",
+        "kk": "Сыйлық статистикасы: профильдегі/чаттағы үздік донорлар, жеке жасырын, сыйлық бойынша бөлу"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
