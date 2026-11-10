@@ -9769,6 +9769,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "sans_fight",
+      "name": "Sans Fight",
+      "version": "game",
+      "min_app_version": "1.0.0",
+      "file": "plugins/sans_fight/game/sans_fight.plugin",
+      "sha256": "d4835e323584c671aedb4fefc908d4c03d47276e9c2b2cfd3aa774f5bcbee589",
+      "size": 14377,
+      "description": "Do you wanna have a bad time? Send .sans or launch the game via the side menu",
+      "description_i18n": {
+        "en": "Do you wanna have a bad time? Send .sans or launch the game via the side menu",
+        "uk": "Хочеш погано провести час? Надішліть .sans або запустіть гру через бокове меню",
+        "ru": "Хочешь плохо провести время? Отправьте .sans или запустите игру через боковое меню.",
+        "pl": "Chcesz się źle bawić? Wyślij .sans lub uruchom grę poprzez menu boczne",
+        "es": "¿Quieres pasar un mal rato? Envía .sans o inicia el juego a través del menú lateral",
+        "de": "Willst du eine schlechte Zeit haben? Senden Sie .sans oder starten Sie das Spiel über das Seitenmenü",
+        "fr": "Tu veux passer un mauvais moment ? Envoyez .sans ou lancez le jeu via le menu latéral",
+        "pt-BR": "Você quer se divertir? Envie .sans ou inicie o jogo através do menu lateral",
+        "tr": "Kötü vakit geçirmek ister misin? .sans gönderin veya oyunu yan menüden başlatın",
+        "ar": "هل تريد قضاء وقت سيء؟ أرسل .sans أو قم بتشغيل اللعبة عبر القائمة الجانبية",
+        "be": "Хочаш дрэнна правесці час? Адпраўце .sans або запусціце гульню праз бакавое меню",
+        "kk": "Жаман уақыт өткізгіңіз келе ме? .sans жіберіңіз немесе бүйірлік мәзір арқылы ойынды іске қосыңыз"
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
