@@ -2333,6 +2333,33 @@
         "messages.read",
         "files"
       ]
+    },
+    {
+      "id": "chatInputLines",
+      "name": "Input Line",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/chatInputLines/1.0.0/chat_input_lines.plugin",
+      "sha256": "ae883a4eacf981df78e5362e533d9299d9640034b0487998b58bdd8149a8c013",
+      "size": 2462,
+      "description": "Adjusts max lines of the chat input field",
+      "description_i18n": {
+        "en": "Adjusts max lines of the chat input field",
+        "uk": "Налаштовує максимальну кількість рядків у полі введення чату",
+        "ru": "Регулирует максимальное количество строк в поле ввода чата.",
+        "pl": "Dostosowuje maksymalną liczbę linii pola wejściowego czatu",
+        "es": "Ajusta el máximo de líneas del campo de entrada del chat.",
+        "de": "Passt die maximale Zeilenzahl des Chat-Eingabefelds an",
+        "fr": "Ajuste le nombre maximum de lignes du champ de saisie du chat",
+        "pt-BR": "Ajusta o máximo de linhas do campo de entrada do chat",
+        "tr": "Sohbet giriş alanının maksimum satırlarını ayarlar",
+        "ar": "يضبط الحد الأقصى للأسطر في حقل إدخال الدردشة",
+        "be": "Рэгулюе максімальную колькасць радкоў у полі ўводу ў чаце",
+        "kk": "Чат енгізу өрісінің максималды жолдарын реттейді"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
