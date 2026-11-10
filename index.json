@@ -1823,6 +1823,33 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "birthday_time",
+      "name": "BirthdayTime",
+      "version": "1.2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/birthday_time/1.2.0/data.plugin",
+      "sha256": "f193287f90854274e7e4edb89715bef709f6b3b3cc76b206e57f66c955e7270c",
+      "size": 4434,
+      "description": "Shows the number of days until your birthday.",
+      "description_i18n": {
+        "en": "Shows the number of days until your birthday.",
+        "uk": "Показує кількість днів до вашого дня народження.",
+        "ru": "Показывает количество дней до вашего дня рождения.",
+        "pl": "Pokazuje liczbę dni do Twoich urodzin.",
+        "es": "Muestra el número de días hasta tu cumpleaños.",
+        "de": "Zeigt die Anzahl der Tage bis zu Ihrem Geburtstag an.",
+        "fr": "Affiche le nombre de jours jusqu'à votre anniversaire.",
+        "pt-BR": "Mostra o número de dias até o seu aniversário.",
+        "tr": "Doğum gününüze kalan gün sayısını gösterir.",
+        "ar": "يظهر عدد الأيام حتى عيد ميلادك.",
+        "be": "Паказвае колькасць дзён да вашага дня нараджэння.",
+        "kk": "Туған күніңізге дейінгі күндер санын көрсетеді."
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
