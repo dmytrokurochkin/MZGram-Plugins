@@ -1740,6 +1740,34 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "beszel_stats",
+      "name": "Beszel Stats",
+      "version": "1.3.14",
+      "min_app_version": "1.0.0",
+      "file": "plugins/beszel_stats/1.3.14/beszel_stats.plugin",
+      "sha256": "f9111aa856d727a7acbdf5be801a9dfdc5b31fcc24a69332838d9f3edb1c6b9c",
+      "size": 33289,
+      "description": "Reports Beszel current bandwidth, CPU and RAM (.bz), with optional traffic commands (.bz today/.bz 24h/.bz 7d/.bz alltime)",
+      "description_i18n": {
+        "en": "Reports Beszel current bandwidth, CPU and RAM (.bz), with optional traffic commands (.bz today/.bz 24h/.bz 7d/.bz alltime)",
+        "uk": "Повідомляє про поточну пропускну здатність Beszel, процесор і оперативну пам'ять (.bz) із додатковими командами трафіку (.bz сьогодні/.bz цілодобово/.bz 7 днів/.bz весь час)",
+        "ru": "Сообщает текущую пропускную способность Безеля, процессор и оперативную память (.bz) с дополнительными командами трафика (.bz сегодня/.bz 24 часа/.bz 7d/.bz все время)",
+        "pl": "Raportuje aktualną przepustowość, procesor i pamięć RAM Beszel (.bz), z opcjonalnymi poleceniami ruchu (.bz Today/.bz 24h/.bz 7d/.bz alltime)",
+        "es": "Informa el ancho de banda, CPU y RAM actuales de Beszel (.bz), con comandos de tráfico opcionales (.bz hoy/.bz 24h/.bz 7d/.bz siempre)",
+        "de": "Meldet Beszel aktuelle Bandbreite, CPU und RAM (.bz), mit optionalen Verkehrsbefehlen (.bz heute/.bz 24h/.bz 7d/.bz alltime)",
+        "fr": "Rapporte la bande passante actuelle de Beszel, le processeur et la RAM (.bz), avec des commandes de trafic facultatives (.bz aujourd'hui/.bz 24h/.bz 7d/.bz alltime)",
+        "pt-BR": "Informa a largura de banda atual do Beszel, CPU e RAM (.bz), com comandos de tráfego opcionais (.bz hoje/.bz 24h/.bz 7d/.bz alltime)",
+        "tr": "İsteğe bağlı trafik komutlarıyla Beszel'in mevcut bant genişliğini, CPU'sunu ve RAM'ini (.bz) raporlar (.bz Today/.bz 24h/.bz 7d/.bz alltime)",
+        "ar": "تقارير النطاق الترددي الحالي لـ Beszel ووحدة المعالجة المركزية وذاكرة الوصول العشوائي (.bz)، مع أوامر مرور اختيارية (.bz today/.bz 24h/.bz 7d/.bz alltime)",
+        "be": "Справаздачы аб бягучай прапускной здольнасці Бесзеля, працэсары і аператыўнай памяці (.bz), з дадатковымі камандамі трафіку (.bz сёння/.bz 24 гадзіны/.bz 7 дзён/.bz увесь час)",
+        "kk": "Қосымша трафик пәрмендері (.bz today/.bz 24h/.bz 7d/.bz барлық уақытта) бар Beszel ағымдағы өткізу қабілеттілігі, CPU және RAM (.bz) туралы есеп береді."
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
