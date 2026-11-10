@@ -5321,6 +5321,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "hide_paid_reactions",
+      "name": "Hide Paid Reactions",
+      "version": "1.3.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/hide_paid_reactions/1.3.1/hide_paid_reactions.plugin",
+      "sha256": "81a2eb331ad624cdc5d2ab6924acf407c15f334ed95defe26300a8a2c6d2342d",
+      "size": 4224,
+      "description": "Hides paid reactions (stars) in messages",
+      "description_i18n": {
+        "en": "Hides paid reactions (stars) in messages",
+        "uk": "Приховує оплачені реакції (зірочки) у повідомленнях",
+        "ru": "Скрывает платные реакции (звездочки) в сообщениях",
+        "pl": "Ukrywa płatne reakcje (gwiazdki) w wiadomościach",
+        "es": "Oculta reacciones pagas (estrellas) en los mensajes.",
+        "de": "Versteckt bezahlte Reaktionen (Sterne) in Nachrichten",
+        "fr": "Masque les réactions payantes (étoiles) dans les messages",
+        "pt-BR": "Oculta reações pagas (estrelas) nas mensagens",
+        "tr": "Mesajlardaki ücretli tepkileri (yıldızları) gizler",
+        "ar": "إخفاء التفاعلات المدفوعة (النجوم) في الرسائل",
+        "be": "Хавае аплачаныя рэакцыі (зорачкі) у паведамленнях",
+        "kk": "Хабарламалардағы ақылы реакцияларды (жұлдызшаларды) жасырады"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
