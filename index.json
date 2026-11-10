@@ -10165,6 +10165,34 @@
         "messages.read",
         "messages.send"
       ]
+    },
+    {
+      "id": "sessions_manager",
+      "name": "Sessions Manager",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/sessions_manager/1.0.0/sessions_manager.plugin",
+      "sha256": "3bf79d6d842ee5ed6f9785ca708d92b7f963628d349e6d76c84f27280cec27df",
+      "size": 61875,
+      "description": "Full version of the Session Manager plugin",
+      "description_i18n": {
+        "en": "Full version of the Session Manager plugin",
+        "uk": "Повна версія плагіна Session Manager",
+        "ru": "Полная версия плагина Session Manager",
+        "pl": "Pełna wersja wtyczki Session Manager",
+        "es": "Versión completa del complemento Session Manager",
+        "de": "Vollversion des Session Manager-Plugins",
+        "fr": "Version complète du plugin Session Manager",
+        "pt-BR": "Versão completa do plugin Session Manager",
+        "tr": "Oturum Yöneticisi eklentisinin tam sürümü",
+        "ar": "النسخة الكاملة من البرنامج المساعد لإدارة الجلسة",
+        "be": "Поўная версія плагіна дыспетчара сеансаў",
+        "kk": "Session Manager плагинінің толық нұсқасы"
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
