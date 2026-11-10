@@ -10884,6 +10884,33 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "spam_collapse",
+      "name": "Spam Collapse",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/spam_collapse/1.0/spam_collapse.plugin",
+      "sha256": "49ea47d9c7f28f79b657963b4a68afa14afdd7e7ab997d2f8a0173c826b9e107",
+      "size": 46310,
+      "description": "Collapses repeated spam messages",
+      "description_i18n": {
+        "en": "Collapses repeated spam messages",
+        "uk": "Згортає повторювані спам-повідомлення",
+        "ru": "Сворачивает повторяющиеся спам-сообщения",
+        "pl": "Zwija powtarzające się wiadomości będące spamem",
+        "es": "Contrae los mensajes spam repetidos",
+        "de": "Reduziert wiederholte Spam-Nachrichten",
+        "fr": "Réduit les messages de spam répétés",
+        "pt-BR": "Recolhe mensagens de spam repetidas",
+        "tr": "Tekrarlanan spam mesajlarını daraltır",
+        "ar": "ينهار رسائل البريد العشوائي المتكررة",
+        "be": "Згортвае паўторныя спам-паведамленні",
+        "kk": "Қайталанатын спам-хабарламаларды жинайды"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
