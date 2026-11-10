@@ -4515,6 +4515,34 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "folder_control",
+      "name": "Folder Control",
+      "version": "2.8",
+      "min_app_version": "1.0.0",
+      "file": "plugins/folder_control/2.8/folder_control.plugin",
+      "sha256": "32378087575918da398f708610630abfb1fd516ea9eeb810d707aaa0153abc57",
+      "size": 8933,
+      "description": "Controlling hiding/showing folders",
+      "description_i18n": {
+        "en": "Controlling hiding/showing folders",
+        "uk": "Керування приховуванням/відображенням папок",
+        "ru": "Управление скрытием/показом папок",
+        "pl": "Kontrolowanie ukrywania/pokazywania folderów",
+        "es": "Controlar ocultar/mostrar carpetas",
+        "de": "Steuern des Ein-/Ausblendens von Ordnern",
+        "fr": "Contrôler le masquage/affichage des dossiers",
+        "pt-BR": "Controlando a ocultação/exibição de pastas",
+        "tr": "Klasörleri gizleme/göstermeyi kontrol etme",
+        "ar": "التحكم في إخفاء/إظهار المجلدات",
+        "be": "Кіраванне схаваннем/паказаннем тэчак",
+        "kk": "Қалталарды жасыру/көрсетуді басқару"
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
