@@ -2618,6 +2618,34 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "clearURLs",
+      "name": "ClearURLs",
+      "version": "1.0.6",
+      "min_app_version": "1.0.0",
+      "file": "plugins/clearURLs/1.0.6/clearURLs.plugin",
+      "sha256": "8a3ff5b91cf76892550ea45802d974f03896df17953edeb660278a281494bbc1",
+      "size": 9495,
+      "description": "Clear sent URLs from tracking shit. > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 or greater!",
+      "description_i18n": {
+        "en": "Clear sent URLs from tracking shit. > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 or greater!",
+        "uk": "Очистити надіслані URL-адреси від лайна відстеження. > Потрібен **[ZwyLib](https://t.me/zwyPlugins/48)** версії 2.0.0 або новішої!",
+        "ru": "Очистите отправленные URL-адреса от отслеживающего дерьма. > Требуется **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 или более поздняя версия!",
+        "pl": "Usuń wysłane adresy URL z gówna śledzącego. > Wymaga **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 lub nowszej!",
+        "es": "Elimina las URL enviadas del seguimiento. > ¡Requiere **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 o superior!",
+        "de": "Entfernen Sie gesendete URLs von Tracking-Scheiße. > Erfordert **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 oder höher!",
+        "fr": "Effacez les URL envoyées du suivi de la merde. > Nécessite **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 ou supérieur !",
+        "pt-BR": "Limpar URLs enviados de merda de rastreamento. > Requer **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 ou superior!",
+        "tr": "Gönderilen URL'leri izleme özelliğinden temizleyin. > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 veya üstünü gerektirir!",
+        "ar": "مسح عناوين URL المرسلة من التتبع. > يتطلب **[ZwyLib](https://t.me/zwyPlugins/48)** الإصدار 2.0.0 أو أحدث!",
+        "be": "Ачысціце адпраўленыя URL-адрасы ад адсочвання. > Патрабуецца **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 або вышэй!",
+        "kk": "Жіберілген URL мекенжайларын бақылаудан тазартыңыз. > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 немесе одан жоғары нұсқасын талап етеді!"
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
