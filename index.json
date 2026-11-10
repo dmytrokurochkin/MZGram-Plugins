@@ -12349,6 +12349,35 @@
         "messages.read",
         "settings"
       ]
+    },
+    {
+      "id": "zwyNoForwardLimit",
+      "name": "NoForwardLimit",
+      "version": "2.0.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/zwyNoForwardLimit/2.0.4/zwyNoForwardLimit.plugin",
+      "sha256": "f610e65016cd335cf1e92f4233d3ccc8a440ec396b78c8976c1ca27537be0468",
+      "size": 52535,
+      "description": "Removes the limit of 100 forward and delete messages. > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 or greater!",
+      "description_i18n": {
+        "en": "Removes the limit of 100 forward and delete messages. > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 or greater!",
+        "uk": "Скасовано обмеження на 100 пересилання та видалення повідомлень. > Потрібен **[ZwyLib](https://t.me/zwyPlugins/48)** версії 2.0.6 або новішої!",
+        "ru": "Снимает ограничение в 100 перенаправлений и удалений сообщений. > Требуется **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 или более поздняя версия!",
+        "pl": "Usuwa limit 100 wiadomości przesyłanych dalej i usuwanych. > Wymaga **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 lub nowszej!",
+        "es": "Elimina el límite de 100 mensajes reenviados y eliminados. > ¡Requiere **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 o superior!",
+        "de": "Entfernt das Limit von 100 Weiterleitungs- und Löschnachrichten. > Erfordert **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 oder höher!",
+        "fr": "Supprime la limite de 100 messages transférés et supprimés. > Nécessite **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 ou supérieur !",
+        "pt-BR": "Remove o limite de 100 mensagens encaminhadas e excluídas. > Requer **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 ou superior!",
+        "tr": "100 adet iletme ve silme mesajı sınırını kaldırır. > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 veya üzerini gerektirir!",
+        "ar": "يزيل حد 100 إعادة توجيه وحذف الرسائل. > يتطلب **[ZwyLib](https://t.me/zwyPlugins/48)** الإصدار 2.0.6 أو أحدث!",
+        "be": "Здымае абмежаванне ў 100 перасылак і выдалення паведамленняў. > Патрабуецца **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 або вышэй!",
+        "kk": "Хабарларды қайта жіберу және жою 100 шегін жояды. > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 немесе одан жоғары нұсқасын талап етеді!"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
