@@ -867,6 +867,37 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "account_hider",
+      "name": "AccountHider",
+      "version": "1.0.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/account_hider/1.0.3/account_hider.plugin",
+      "sha256": "bf5153b03ca70f3d3127c2a3fb896b69e38c7c370519868512d48609bac7276f",
+      "size": 118466,
+      "description": "Hides accounts from lists. Hold down \"Account\" in the settings, double-tap on your profile in the navigation or hold down the arrow in the side menu.",
+      "description_i18n": {
+        "en": "Hides accounts from lists. Hold down \"Account\" in the settings, double-tap on your profile in the navigation or hold down the arrow in the side menu.",
+        "uk": "Приховує облікові записи зі списків. Утримуйте «Обліковий запис» у налаштуваннях, двічі торкніться свого профілю в навігації або утримуйте стрілку в бічному меню.",
+        "ru": "Скрывает аккаунты из списков. Зажмите «Аккаунт» в настройках, дважды тапните по своему профилю в навигации или зажмите стрелку в боковом меню.",
+        "pl": "Ukrywa konta z list. W ustawieniach przytrzymaj przycisk „Konto\", kliknij dwukrotnie swój profil w nawigacji lub przytrzymaj strzałkę w menu bocznym.",
+        "es": "Oculta cuentas de las listas. Mantenga presionado \"Cuenta\" en la configuración, toque dos veces su perfil en la navegación o mantenga presionada la flecha en el menú lateral.",
+        "de": "Versteckt Konten aus Listen. Halten Sie in den Einstellungen „Konto\" gedrückt, doppeltippen Sie in der Navigation auf Ihr Profil oder halten Sie den Pfeil im Seitenmenü gedrückt.",
+        "fr": "Masque les comptes des listes. Maintenez « Compte » enfoncé dans les paramètres, appuyez deux fois sur votre profil dans la navigation ou maintenez la flèche enfoncée dans le menu latéral.",
+        "pt-BR": "Oculta contas das listas. Mantenha pressionada \"Conta\" nas configurações, toque duas vezes no seu perfil na navegação ou mantenha pressionada a seta no menu lateral.",
+        "tr": "Hesapları listelerden gizler. Ayarlarda \"Hesap\" tuşunu basılı tutun, gezinme bölümünde profilinize iki kez dokunun veya yan menüdeki oku basılı tutun.",
+        "ar": "إخفاء الحسابات من القوائم. اضغط باستمرار على \"الحساب\" في الإعدادات، وانقر نقرًا مزدوجًا على ملفك الشخصي في شريط التنقل أو اضغط باستمرار على السهم في القائمة الجانبية.",
+        "be": "Хавае ўліковыя запісы са спісаў. Утрымлівайце «Уліковы запіс» у наладах, двойчы націсніце на свой профіль у навігацыі або ўтрымлівайце стрэлку ў бакавым меню.",
+        "kk": "Тізімдердегі тіркелгілерді жасырады. Параметрлерде «Тіркелгі» түймесін басып тұрыңыз, навигациядағы профильді екі рет түртіңіз немесе бүйірлік мәзірдегі көрсеткіні басып тұрыңыз."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "files",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
