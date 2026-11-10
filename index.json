@@ -400,6 +400,33 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "NoCallConfirmation",
+      "name": "No Call Confirmation",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/NoCallConfirmation/1.0.0/NoCallConfimation.plugin",
+      "sha256": "84b35df4a9d19a6affeb951fc65593f81d7801ebd3e73b51d2d2f56570c00192",
+      "size": 1147,
+      "description": "Removes annoying call confirmation popup.",
+      "description_i18n": {
+        "en": "Removes annoying call confirmation popup.",
+        "uk": "Видаляє дратівливе спливаюче вікно підтвердження виклику.",
+        "ru": "Удаляет надоедливое всплывающее окно подтверждения звонка.",
+        "pl": "Usuwa irytujące wyskakujące okienko z potwierdzeniem połączenia.",
+        "es": "Elimina la molesta ventana emergente de confirmación de llamada.",
+        "de": "Entfernt lästiges Anrufbestätigungs-Popup.",
+        "fr": "Supprime la fenêtre contextuelle de confirmation d'appel ennuyeuse.",
+        "pt-BR": "Remove pop-up irritante de confirmação de chamada.",
+        "tr": "Sinir bozucu çağrı onayı açılır penceresini kaldırır.",
+        "ar": "يزيل النافذة المنبثقة المزعجة لتأكيد المكالمة.",
+        "be": "Выдаляе раздражняльнае ўсплывальнае акно пацверджання выкліку.",
+        "kk": "Тітіркендіргіш қоңырауды растау қалқымалы терезесін жояды."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
