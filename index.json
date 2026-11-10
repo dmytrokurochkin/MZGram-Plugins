@@ -8393,6 +8393,35 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "pixel_art",
+      "name": "PixelArt",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/pixel_art/1.0.0/pixel_art.plugin",
+      "sha256": "b5f36068cb447a6b2f054d957030cbeeef399c5668a0b629f9f3c42039601094",
+      "size": 18051,
+      "description": "Pixel art editor in overlay. Usage: .art [size]",
+      "description_i18n": {
+        "en": "Pixel art editor in overlay. Usage: .art [size]",
+        "uk": "Піксельний редактор у накладенні. Використання: .art [розмір]",
+        "ru": "Редактор пиксельной графики в режиме наложения. Использование: .art [размер]",
+        "pl": "Edytor grafiki pikselowej w nakładce. Użycie: .art [rozmiar]",
+        "es": "Editor de pixel art en superposición. Uso: .art [tamaño]",
+        "de": "Pixel-Art-Editor im Overlay. Verwendung: .art [Größe]",
+        "fr": "Éditeur de pixel art en superposition. Utilisation : .art [taille]",
+        "pt-BR": "Editor de pixel art em sobreposição. Uso: .art [tamanho]",
+        "tr": "Yer paylaşımında piksel sanat editörü. Kullanım: .art [boyut]",
+        "ar": "محرر بكسل الفني في التراكب. الاستخدام: .art [الحجم]",
+        "be": "Рэдактар ​​піксельных малюнкаў у накладцы. Выкарыстанне: .art [памер]",
+        "kk": "Қабаттасудағы пиксельдік арт-редактор. Қолданылуы: .art [өлшемі]"
+      },
+      "permissions": [
+        "messages.send",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
