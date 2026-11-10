@@ -1123,6 +1123,33 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "always-tabs-forums",
+      "name": "Always tabs forums",
+      "version": "1.0.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/always-tabs-forums/1.0.3/always-tabs-forums.plugin",
+      "sha256": "abb804d599c8e4674051c725ea086d71eca2e03e59a31d2c0f168c927d143ae2",
+      "size": 1637,
+      "description": "Enable tab view in all forums",
+      "description_i18n": {
+        "en": "Enable tab view in all forums",
+        "uk": "Увімкнути перегляд вкладок на всіх форумах",
+        "ru": "Включить просмотр вкладок на всех форумах",
+        "pl": "Włącz widok kart na wszystkich forach",
+        "es": "Habilitar la vista de pestañas en todos los foros",
+        "de": "Aktivieren Sie die Tab-Ansicht in allen Foren",
+        "fr": "Activer l'affichage par onglets dans tous les forums",
+        "pt-BR": "Ativar visualização de guias em todos os fóruns",
+        "tr": "Tüm forumlarda sekme görünümünü etkinleştir",
+        "ar": "تمكين عرض علامة التبويب في جميع المنتديات",
+        "be": "Уключыць прагляд укладак на ўсіх форумах",
+        "kk": "Барлық форумдарда қойынды көрінісін қосыңыз"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
