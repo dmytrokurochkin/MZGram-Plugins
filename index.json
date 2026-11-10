@@ -12036,6 +12036,33 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "volume_scroll",
+      "name": "Volume Scroll",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/volume_scroll/1.1/volume_scroll.plugin",
+      "sha256": "1af4d8d56643dbef0e81eba30a1ca0660a8e7dc43aa3edfab06dab8e68a5ccc6",
+      "size": 10896,
+      "description": "Use the volume buttons to scroll through any lists: chat, dialogues, settings, profile. Double pressing any volume button turns on/off mode.",
+      "description_i18n": {
+        "en": "Use the volume buttons to scroll through any lists: chat, dialogues, settings, profile. Double pressing any volume button turns on/off mode.",
+        "uk": "За допомогою кнопок гучності прокручуйте будь-які списки: чат, діалоги, налаштування, профіль. Подвійне натискання будь-якої кнопки гучності включає/вимикає режим.",
+        "ru": "Кнопками громкости пролистывайте любые списки: чат, диалоги, настройки, профиль. Двойное нажатие любой кнопки громкости включает/выключает режим.",
+        "pl": "Użyj przycisków głośności, aby przewijać dowolne listy: czat, dialogi, ustawienia, profil. Dwukrotne naciśnięcie dowolnego przycisku głośności włącza/wyłącza tryb.",
+        "es": "Utilice los botones de volumen para desplazarse por las listas: chat, diálogos, configuración, perfil. Al presionar dos veces cualquier botón de volumen se enciende/apaga el modo.",
+        "de": "Verwenden Sie die Lautstärketasten, um durch beliebige Listen zu scrollen: Chat, Dialoge, Einstellungen, Profil. Durch zweimaliges Drücken einer beliebigen Lautstärketaste wird der Modus ein-/ausgeschaltet.",
+        "fr": "Utilisez les boutons de volume pour faire défiler les listes : chat, dialogues, paramètres, profil. Une double pression sur n'importe quel bouton de volume active/désactive le mode.",
+        "pt-BR": "Use os botões de volume para percorrer qualquer lista: bate-papo, diálogos, configurações, perfil. Pressionar duas vezes qualquer botão de volume ativa/desativa o modo.",
+        "tr": "Herhangi bir listede gezinmek için ses seviyesi düğmelerini kullanın: sohbet, diyaloglar, ayarlar, profil. Herhangi bir ses düğmesine iki kez basmak modu açar/kapatır.",
+        "ar": "استخدم أزرار الصوت للتمرير عبر أي قوائم: الدردشة، والحوارات، والإعدادات، والملف الشخصي. يؤدي الضغط المزدوج على أي زر للتحكم في مستوى الصوت إلى تشغيل/إيقاف الوضع.",
+        "be": "Выкарыстоўвайце кнопкі гучнасці для пракруткі любых спісаў: чат, дыялогі, налады, профіль. Падвойнае націсканне любой кнопкі гучнасці ўключае/выключае рэжым.",
+        "kk": "Кез келген тізімдер бойынша жылжу үшін дыбыс деңгейі түймелерін пайдаланыңыз: чат, диалогтар, параметрлер, профиль. Кез келген дыбыс деңгейі түймесін екі рет басу қосу/өшіру режимін қосады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
