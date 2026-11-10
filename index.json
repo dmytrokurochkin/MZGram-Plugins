@@ -6088,6 +6088,35 @@
         "be": "Дадае пункт у кантэкстнае меню паведамлення: Listen. Выкарыстоўвае сістэму TextToSpeech (Google, калі ўсталявана), без знешніх API.",
         "kk": "Хабарламаның мәтінмәндік мәзіріне элемент қосады: Тыңдау. TextToSpeech жүйесін (орнатылған болса, Google) сыртқы API интерфейстерінсіз пайдаланады."
       }
+    },
+    {
+      "id": "litegram",
+      "name": "LiteGram",
+      "version": "1.6.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/litegram/1.6.2/litegram.plugin",
+      "sha256": "4081d6f953f5b2a9dcc4962e8e98e3d777265a5d157a9816c49618c87712821f",
+      "size": 100798,
+      "description": "A highly customizable plugin to **remove paid and bloated features** from Telegram.",
+      "description_i18n": {
+        "en": "A highly customizable plugin to **remove paid and bloated features** from Telegram.",
+        "uk": "Настроюваний плагін для **видалення платних і роздутих функцій** із Telegram.",
+        "ru": "Плагин с широкими возможностями настройки для **удаления платных и раздутых функций** из Telegram.",
+        "pl": "Wysoce konfigurowalna wtyczka do **usuwania płatnych i nadętych funkcji** z Telegramu.",
+        "es": "Un complemento altamente personalizable para **eliminar funciones pagas e infladas** de Telegram.",
+        "de": "Ein hochgradig anpassbares Plugin zum **Entfernen kostenpflichtiger und aufgeblähter Funktionen** aus Telegram.",
+        "fr": "Un plugin hautement personnalisable pour **supprimer les fonctionnalités payantes et gonflées** de Telegram.",
+        "pt-BR": "Um plugin altamente personalizável para **remover recursos pagos e inchados** do Telegram.",
+        "tr": "Telegram'dan **ücretli ve şişirilmiş özellikleri kaldırmak** için son derece özelleştirilebilir bir eklenti.",
+        "ar": "مكون إضافي قابل للتخصيص بدرجة كبيرة **لإزالة الميزات المدفوعة والمتضخمة** من Telegram.",
+        "be": "Вельмі наладжвальны плагін для **выдалення платных і раздутых функцый** з Telegram.",
+        "kk": "Telegram-дан **ақылы және толық емес мүмкіндіктерді жоюға** арналған жоғары теңшелетін плагин."
+      },
+      "permissions": [
+        "messages.read",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
