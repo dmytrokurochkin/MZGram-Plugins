@@ -2504,6 +2504,34 @@
       "permissions": [
         "messages.read"
       ]
+    },
+    {
+      "id": "chatstickers",
+      "name": "Chat Stickers",
+      "version": "1.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/chatstickers/1.4/chatstickers.plugin",
+      "sha256": "ed24435ce503267f93baece53b4d33d0100102b1e22d129ca325a89ef4b16a6c",
+      "size": 36866,
+      "description": "\"Chat Stickers\" screen: all stickers sent in chat - in a list or grid, with a filter by pack, sorting and pinch actions.",
+      "description_i18n": {
+        "en": "\"Chat Stickers\" screen: all stickers sent in chat - in a list or grid, with a filter by pack, sorting and pinch actions.",
+        "uk": "Екран «Наклейки чату»: усі наклейки, надіслані в чаті, у списку або сітці, з фільтром за пакетом, сортуванням і діями зведення.",
+        "ru": "Экран «Стикеры чата»: все стикеры, отправленные в чате, - списком или сеткой, с фильтром по упаковке, сортировкой и действиями сжатия.",
+        "pl": "Ekran „Naklejki na czacie\": wszystkie naklejki wysłane na czacie - w formie listy lub siatki, z filtrem według pakietu, sortowaniem i czynnościami „szczypania\".",
+        "es": "Pantalla \"Pegatinas de chat\": todas las pegatinas enviadas en el chat, en una lista o cuadrícula, con filtro por paquete, clasificación y acciones de pellizco.",
+        "de": "Bildschirm „Chat-Sticker\": Alle im Chat gesendeten Sticker - in einer Liste oder einem Raster, mit Filter nach Paket, Sortierung und Pinch-Aktionen.",
+        "fr": "Écran \"Chat Stickers\" : tous les autocollants envoyés dans le chat - dans une liste ou une grille, avec un filtre par pack, des actions de tri et de pincement.",
+        "pt-BR": "Tela \"Chat Stickers\": todos os stickers enviados no chat - em lista ou grade, com filtro por pacote, ordenação e ações de pinça.",
+        "tr": "\"Sohbet Çıkartmaları\" ekranı: sohbette gönderilen tüm çıkartmalar - bir liste veya ızgara halinde, pakete göre filtreleme, sıralama ve kıstırma eylemleriyle.",
+        "ar": "شاشة \"ملصقات الدردشة\": جميع الملصقات التي يتم إرسالها في الدردشة - في قائمة أو شبكة، مع تصفية حسب الحزمة وإجراءات الفرز والضغط.",
+        "be": "Экран «Стыкеры чата»: усе стыкеры, адпраўленыя ў чаце, у спісе або сетцы, з фільтрам па пакетах, сартаваннем і дзеяннямі паціскання.",
+        "kk": "«Чат стикерлері» экраны: чатта жіберілген барлық стикерлер - тізімде немесе торда, бума бойынша сүзгісі бар, сұрыптау және қысу әрекеттері."
+      },
+      "permissions": [
+        "messages.read",
+        "files"
+      ]
     }
   ]
 }
