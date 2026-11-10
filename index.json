@@ -6148,6 +6148,33 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "localPremium",
+      "name": "LocalPremium",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/localPremium/1.0/LocalPremium.plugin",
+      "sha256": "0c6943358d0db3d64b8342c915d22dbcaa26e1a4b444d2feb42eb60d8ddea9e7",
+      "size": 1164,
+      "description": "Unlock Local Premium",
+      "description_i18n": {
+        "en": "Unlock Local Premium",
+        "uk": "Розблокуйте Local Premium",
+        "ru": "Разблокировать локальный премиум",
+        "pl": "Odblokuj lokalną premię",
+        "es": "Desbloquear prima local",
+        "de": "Schalten Sie Local Premium frei",
+        "fr": "Débloquez la prime locale",
+        "pt-BR": "Desbloquear Premium Local",
+        "tr": "Yerel Premium'un kilidini açın",
+        "ar": "فتح قسط المحلية",
+        "be": "Адкрыйце Local Premium",
+        "kk": "Local Premium құлпын ашыңыз"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
