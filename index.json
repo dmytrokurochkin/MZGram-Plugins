@@ -8973,6 +8973,35 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "qrcode",
+      "name": "QR Generator",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/qrcode/1.0/qrcode.plugin",
+      "sha256": "11a4f67311d220757914d114f9a933cc6bb156f72174cfce9f284fc4d9de37f5",
+      "size": 11726,
+      "description": "Generate QR codes with .qr command",
+      "description_i18n": {
+        "en": "Generate QR codes with .qr command",
+        "uk": "Генеруйте QR-коди за допомогою команди .qr",
+        "ru": "Генерируйте QR-коды с помощью команды .qr",
+        "pl": "Generuj kody QR za pomocą polecenia .qr",
+        "es": "Genera códigos QR con el comando .qr",
+        "de": "Generieren Sie QR-Codes mit dem Befehl .qr",
+        "fr": "Générez des codes QR avec la commande .qr",
+        "pt-BR": "Gere códigos QR com o comando .qr",
+        "tr": ".qr komutuyla QR kodları oluşturun",
+        "ar": "قم بإنشاء رموز QR باستخدام الأمر .qr",
+        "be": "Стварайце QR-коды з дапамогай каманды .qr",
+        "kk": ".qr пәрменімен QR кодтарын жасаңыз"
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "files"
+      ]
     }
   ]
 }
