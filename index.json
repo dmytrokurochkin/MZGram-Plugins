@@ -7974,6 +7974,33 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "pacman_archive_chance",
+      "name": "Pac-Man Archive Chance",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/pacman_archive_chance/1.0/pacman_archive_chance.plugin",
+      "sha256": "04f04e835e15afd6388d93b3d4c9c64e191d01466e96b78ca5cff6541f1804b7",
+      "size": 10716,
+      "description": "Controls the chance of the hidden Pac-Man archive animation.",
+      "description_i18n": {
+        "en": "Controls the chance of the hidden Pac-Man archive animation.",
+        "uk": "Контролює ймовірність появи прихованої архівної анімації Pac-Man.",
+        "ru": "Управляет вероятностью скрытой анимации архива Pac-Man.",
+        "pl": "Kontroluje szansę na ukrytą animację archiwum Pac-Mana.",
+        "es": "Controla la posibilidad de que aparezca la animación del archivo oculto de Pac-Man.",
+        "de": "Steuert die Wahrscheinlichkeit der versteckten Pac-Man-Archivanimation.",
+        "fr": "Contrôle les chances de l'animation cachée des archives Pac-Man.",
+        "pt-BR": "Controla a chance da animação oculta do arquivo Pac-Man.",
+        "tr": "Gizli Pac-Man arşiv animasyonunun şansını kontrol eder.",
+        "ar": "يتحكم في فرصة الرسوم المتحركة المخفية لأرشيف Pac-Man.",
+        "be": "Кантралюе верагоднасць схаванай архіўнай анімацыі Pac-Man.",
+        "kk": "Жасырын Pac-Man мұрағат анимациясының мүмкіндігін басқарады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
