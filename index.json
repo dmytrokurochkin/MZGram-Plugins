@@ -11682,6 +11682,44 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "ui_tweaks",
+      "name": "UiTweaks",
+      "version": "1.8.5.8-Beta",
+      "min_app_version": "1.0.0",
+      "file": "plugins/ui_tweaks/1.8.5.8-Beta/ui_tweaks.plugin",
+      "sha256": "9df819eeb9462eee904f2ea148597f7a368e155a421ff6c2d794a7045d3ad91d",
+      "size": 650640,
+      "description": "Well sometimes you just need to tweak things... (requires [QuantaHut](https://t.me/QuantaPlugins/228))",
+      "description_i18n": {
+        "en": "Well sometimes you just need to tweak things... (requires [QuantaHut](https://t.me/QuantaPlugins/228))",
+        "uk": "Іноді вам просто потрібно щось налаштувати... (потрібно [QuantaHut](https://t.me/QuantaPlugins/228))",
+        "ru": "Ну, иногда вам просто нужно что-то подправить... (требуется [QuantaHut](https://t.me/QuantaPlugins/228))",
+        "pl": "Cóż, czasami trzeba po prostu coś poprawić... (wymaga [QuantaHut](https://t.me/QuantaPlugins/228))",
+        "es": "Bueno, a veces solo necesitas modificar cosas... (requiere [QuantaHut](https://t.me/QuantaPlugins/228))",
+        "de": "Nun, manchmal muss man einfach Dinge optimieren ... (erfordert [QuantaHut](https://t.me/QuantaPlugins/228))",
+        "fr": "Eh bien, parfois, il suffit de peaufiner les choses... (nécessite [QuantaHut](https://t.me/QuantaPlugins/228))",
+        "pt-BR": "Bem, às vezes você só precisa ajustar as coisas... (requer [QuantaHut](https://t.me/QuantaPlugins/228))",
+        "tr": "Bazen bazı şeyleri değiştirmeniz gerekir... ([QuantaHut](https://t.me/QuantaPlugins/228 gerektirir))",
+        "ar": "حسنًا، في بعض الأحيان تحتاج فقط إلى تعديل الأشياء... (يتطلب [QuantaHut](https://t.me/QuantaPlugins/228))",
+        "be": "Ну, часам вам проста трэба нешта наладзіць... (патрабуецца [QuantaHut](https://t.me/QuantaPlugins/228))",
+        "kk": "Кейде жай ғана нәрселерді реттеу керек... ([QuantaHut](https://t.me/QuantaPlugins/228) қажет)"
+      },
+      "requirements": [
+        "humanize",
+        "tinydb",
+        "cachetools"
+      ],
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
