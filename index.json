@@ -9881,6 +9881,34 @@
       "permissions": [
         "messages.read"
       ]
+    },
+    {
+      "id": "scam_base_writer",
+      "name": "Скам метка из реестра GiD",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/scam_base_writer/1.0.0/scam_base_writer.plugin",
+      "sha256": "ffef7dde4893794467a8ad05bd6b561d97c1c10dec1fcb21c6914285cd96f7b7",
+      "size": 17609,
+      "description": "Extension Scam label from the GiD for Telegram registry.",
+      "description_i18n": {
+        "en": "Extension Scam label from the GiD for Telegram registry.",
+        "uk": "Мітка Extension Scam із реєстру GiD для Telegram.",
+        "ru": "Ярлык Extension Scam из реестра GiD for Telegram.",
+        "pl": "Etykieta rozszerzenia Scam z rejestru GiD for Telegram.",
+        "es": "Etiqueta de extensión Scam del registro GiD para Telegram.",
+        "de": "Extension Scam-Label aus der GiD for Telegram-Registrierung.",
+        "fr": "Étiquette d'extension Scam du registre GiD for Telegram.",
+        "pt-BR": "Rótulo Extension Scam do registro GiD for Telegram.",
+        "tr": "GiD for Telegram kayıt defterindeki Uzantı Dolandırıcılığı etiketi.",
+        "ar": "تسمية احتيالية للتوسيع من سجل GiD لـ Telegram.",
+        "be": "Метка Extension Scam з рэестра GiD для Telegram.",
+        "kk": "Telegram тізіліміне арналған GiD кеңейтімінің алаяқтық белгісі."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
