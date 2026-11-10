@@ -1622,6 +1622,34 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "avatar_in_dm_dex",
+      "name": "Avatar In DM dex",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/avatar_in_dm_dex/1.0/avatar_in_dm_dex.plugin",
+      "sha256": "310637a9785183abfe22dcc4ae3a2e6d8aacbc83373ad97b7ee886c1979019b4",
+      "size": 25283,
+      "description": "Shows the interlocutor's avatar in personal chats next to incoming messages, as in conversations, instead of the standard avatar in the actionbar",
+      "description_i18n": {
+        "en": "Shows the interlocutor's avatar in personal chats next to incoming messages, as in conversations, instead of the standard avatar in the actionbar",
+        "uk": "Показує аватар співрозмовника в особистих чатах поруч із вхідними повідомленнями, як у розмовах, замість стандартного аватара на панелі дій",
+        "ru": "Показывает аватарку собеседника в личных чатах рядом с входящим сообщением, как в разговорах, вместо стандартной аватарки в панели действий",
+        "pl": "Pokazuje awatar rozmówcy na czacie osobistym obok przychodzących wiadomości, tak jak w rozmowach, zamiast standardowego awatara na pasku akcji",
+        "es": "Muestra el avatar del interlocutor en los chats personales junto a los mensajes entrantes, como en las conversaciones, en lugar del avatar estándar en la barra de acciones.",
+        "de": "Zeigt den Avatar des Gesprächspartners in persönlichen Chats neben eingehenden Nachrichten an, wie in Konversationen, anstelle des Standard-Avatars in der Aktionsleiste",
+        "fr": "Affiche l'avatar de l'interlocuteur dans les discussions personnelles à côté des messages entrants, comme dans les conversations, au lieu de l'avatar standard dans la barre d'action",
+        "pt-BR": "Mostra o avatar do interlocutor em chats pessoais ao lado das mensagens recebidas, como nas conversas, em vez do avatar padrão na barra de ação",
+        "tr": "Eylem çubuğundaki standart avatar yerine, konuşmalarda olduğu gibi kişisel sohbetlerde gelen mesajların yanında muhatabın avatarını gösterir",
+        "ar": "إظهار الصورة الرمزية للمحاور في الدردشات الشخصية بجوار الرسائل الواردة، كما هو الحال في المحادثات، بدلاً من الصورة الرمزية القياسية في شريط الإجراءات",
+        "be": "Паказвае аватар суразмоўцы ў асабістых чатах побач з уваходнымі паведамленнямі, як у размовах, замест стандартнага аватара ў панэлі дзеянняў",
+        "kk": "Әңгімелесушінің аватарын әрекеттер тақтасындағы стандартты аватардың орнына кіріс хабарлардың жанындағы жеке чаттарда көрсетеді."
+      },
+      "permissions": [
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
