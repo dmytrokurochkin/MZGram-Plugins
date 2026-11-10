@@ -8084,6 +8084,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "personal_quick_reactions",
+      "name": "Personal Quick Reactions",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/personal_quick_reactions/1.0/personal_quick_reactions.plugin",
+      "sha256": "14e50851b0204e6cf2af0297d955be254fc817ebbbd8c2f8f8b83c43e7c29c48",
+      "size": 31462,
+      "description": "Allows you to assign a personal quick reaction for each user.",
+      "description_i18n": {
+        "en": "Allows you to assign a personal quick reaction for each user.",
+        "uk": "Дозволяє призначити індивідуальну швидку реакцію для кожного користувача.",
+        "ru": "Позволяет назначить персональную быструю реакцию для каждого пользователя.",
+        "pl": "Umożliwia przypisanie indywidualnej szybkiej reakcji każdemu użytkownikowi.",
+        "es": "Le permite asignar una reacción rápida personal para cada usuario.",
+        "de": "Ermöglicht Ihnen, jedem Benutzer eine persönliche Schnellreaktion zuzuweisen.",
+        "fr": "Vous permet d'attribuer une réaction rapide personnelle à chaque utilisateur.",
+        "pt-BR": "Permite atribuir uma reação rápida pessoal para cada usuário.",
+        "tr": "Her kullanıcı için kişisel bir hızlı tepki atamanıza olanak tanır.",
+        "ar": "يسمح لك بتعيين رد فعل سريع شخصي لكل مستخدم.",
+        "be": "Дазваляе прызначыць персанальную хуткую рэакцыю для кожнага карыстальніка.",
+        "kk": "Әрбір пайдаланушы үшін жеке жылдам реакцияны тағайындауға мүмкіндік береді."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
