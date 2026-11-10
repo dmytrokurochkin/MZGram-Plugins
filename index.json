@@ -2108,6 +2108,33 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "camera_flip",
+      "name": "Camera Flip",
+      "version": "0.2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/camera_flip/0.2.0/camera_flip.plugin",
+      "sha256": "61136472b21e9ac23fc32883e137173ef1a85314d2cc6c63719be003555f1e98",
+      "size": 6648,
+      "description": "Switching the camera in a video message (circle) with a swipe or double tap",
+      "description_i18n": {
+        "en": "Switching the camera in a video message (circle) with a swipe or double tap",
+        "uk": "Перемикання камери у відеоповідомленні (коло) свайпом або подвійним тапом",
+        "ru": "Переключение камеры в видеосообщении (круг) свайпом или двойным тапом",
+        "pl": "Przełączanie kamery w wiadomości wideo (kółko) za pomocą przesunięcia lub dwukrotnego dotknięcia",
+        "es": "Cambiar la cámara en un mensaje de video (círculo) con solo deslizar o tocar dos veces",
+        "de": "Wechseln der Kamera in einer Videobotschaft (Kreis) durch Wischen oder Doppeltippen",
+        "fr": "Changer la caméra dans un message vidéo (cercle) d'un simple glissement ou d'un double appui",
+        "pt-BR": "Alternando a câmera em uma mensagem de vídeo (círculo) deslizando ou tocando duas vezes",
+        "tr": "Bir video mesajında ​​(daire içinde) kamerayı kaydırma veya iki kez dokunmayla değiştirme",
+        "ar": "تبديل الكاميرا في رسالة فيديو (دائرة) بالتمرير أو النقر المزدوج",
+        "be": "Пераключэнне камеры ў відэапаведамленні (круг) з дапамогай свайпа або падвойнага націску",
+        "kk": "Сырғыту немесе екі рет түрту арқылы бейне хабарламада (шеңберде) камераны ауыстыру"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
