@@ -5630,6 +5630,36 @@
         "messages.read",
         "messages.send"
       ]
+    },
+    {
+      "id": "in_app_notifications",
+      "name": "In-App Notifications",
+      "version": "1.2.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/in_app_notifications/1.2.1/in_app_notifications.plugin",
+      "sha256": "cb5590241272e848db7d3db863d6e5308548f92a966d249b8a652f793f8fc8ea",
+      "size": 49186,
+      "description": "A plugin with flexible settings that displays Telegram notifications locally within the application.",
+      "description_i18n": {
+        "en": "A plugin with flexible settings that displays Telegram notifications locally within the application.",
+        "uk": "Плагін із гнучкими налаштуваннями, який відображає сповіщення Telegram локально в додатку.",
+        "ru": "Плагин с гибкими настройками, отображающий уведомления Telegram локально внутри приложения.",
+        "pl": "Wtyczka z elastycznymi ustawieniami, która wyświetla powiadomienia Telegram lokalnie w aplikacji.",
+        "es": "Un complemento con configuraciones flexibles que muestra notificaciones de Telegram localmente dentro de la aplicación.",
+        "de": "Ein Plugin mit flexiblen Einstellungen, das Telegram-Benachrichtigungen lokal in der Anwendung anzeigt.",
+        "fr": "Un plugin avec des paramètres flexibles qui affiche les notifications Telegram localement au sein de l'application.",
+        "pt-BR": "Um plugin com configurações flexíveis que exibe notificações do Telegram localmente dentro do aplicativo.",
+        "tr": "Telegram bildirimlerini uygulama içinde yerel olarak görüntüleyen esnek ayarlara sahip bir eklenti.",
+        "ar": "مكون إضافي ذو إعدادات مرنة يعرض إشعارات Telegram محليًا داخل التطبيق.",
+        "be": "Плагін з гнуткімі наладамі, які адлюстроўвае апавяшчэнні Telegram лакальна ў дадатку.",
+        "kk": "Telegram хабарландыруларын қолданба ішінде жергілікті түрде көрсететін икемді параметрлері бар плагин."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
