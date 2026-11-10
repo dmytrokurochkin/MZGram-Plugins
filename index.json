@@ -316,6 +316,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "IPhonePeek",
+      "name": "IPhonePeek",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/IPhonePeek/1.0.0/IPhonePeek.plugin",
+      "sha256": "e0491fd8f58d599178880bfc4f532b45d111a883e122f416f3be2adb3e507522",
+      "size": 18955,
+      "description": "Preview media just like on iPhone. Select a photo or video, then hold down media.",
+      "description_i18n": {
+        "en": "Preview media just like on iPhone. Select a photo or video, then hold down media.",
+        "uk": "Попередній перегляд медіа як на iPhone. Виберіть фотографію або відео та утримуйте медіа.",
+        "ru": "Предварительный просмотр мультимедиа, как на iPhone. Выберите фотографию или видео, затем нажмите и удерживайте кнопку Media.",
+        "pl": "Podgląd multimediów tak jak na iPhonie. Wybierz zdjęcie lub film, a następnie przytrzymaj przycisk multimediów.",
+        "es": "Obtenga una vista previa de los medios como en el iPhone. Seleccione una foto o un video y luego mantenga presionado multimedia.",
+        "de": "Vorschau der Medien wie auf dem iPhone. Wählen Sie ein Foto oder Video aus und halten Sie dann die Medientaste gedrückt.",
+        "fr": "Prévisualisez les médias comme sur iPhone. Sélectionnez une photo ou une vidéo, puis maintenez enfoncé Média.",
+        "pt-BR": "Visualize a mídia como no iPhone. Selecione uma foto ou vídeo e mantenha pressionada a mídia.",
+        "tr": "Medyayı tıpkı iPhone'daki gibi önizleyin. Bir fotoğraf veya video seçin ve ardından medya tuşunu basılı tutun.",
+        "ar": "قم بمعاينة الوسائط تمامًا كما هو الحال على iPhone. حدد صورة أو مقطع فيديو، ثم اضغط باستمرار على الوسائط.",
+        "be": "Папярэдні прагляд мультымедыя, як на iPhone. Выберыце фота ці відэа, затым утрымлівайце медыя.",
+        "kk": "Айфондағыдай мультимедианы алдын ала қараңыз. Фотосуретті немесе бейнені таңдаңыз, одан кейін мультимедианы басып тұрыңыз."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
