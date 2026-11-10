@@ -6762,6 +6762,35 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "meow_reply",
+      "name": "Meow Reply",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/meow_reply/1.0/meow_reply.plugin",
+      "sha256": "6e9486d482a9e18f388dcabfb7095dd56f655d5f5c85df684b6f7f7cee9c9b17",
+      "size": 35817,
+      "description": "Autoresponder with triggers and presets. Don't know how to use it?",
+      "description_i18n": {
+        "en": "Autoresponder with triggers and presets. Don't know how to use it?",
+        "uk": "Автовідповідач із тригерами та пресетами. Не знаєте, як ним користуватися?",
+        "ru": "Автоответчик с триггерами и предустановками. Не знаете, как его использовать?",
+        "pl": "Autoresponder z wyzwalaczami i ustawieniami wstępnymi. Nie wiesz jak z niego skorzystać?",
+        "es": "Autorespondedor con disparadores y ajustes preestablecidos. ¿No sabes cómo usarlo?",
+        "de": "Autoresponder mit Triggern und Voreinstellungen. Sie wissen nicht, wie Sie es verwenden sollen?",
+        "fr": "Répondeur automatique avec déclencheurs et préréglages. Vous ne savez pas comment l'utiliser ?",
+        "pt-BR": "Autoresponder com gatilhos e predefinições. Não sabe como usar?",
+        "tr": "Tetikleyiciler ve ön ayarlarla otomatik yanıtlayıcı. Nasıl kullanılacağını bilmiyor musun?",
+        "ar": "الرد الآلي مع المشغلات والإعدادات المسبقة. لا أعرف كيفية استخدامه؟",
+        "be": "Аўтаадказчык з трыгерамі і перадусталёўкамі. Не ведаеце, як ім карыстацца?",
+        "kk": "Триггерлер мен алдын ала орнатулары бар автоматты жауап беруші. Оны қалай пайдалану керектігін білмейсіз бе?"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
