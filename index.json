@@ -8422,6 +8422,36 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "player_clip",
+      "name": "Player Clip",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/player_clip/1.0.0/player_clip.plugin",
+      "sha256": "3c8c44775c89b836d608bab8d60a8e6dc69911eb2a4e8b7da46fc7d72c544805",
+      "size": 72356,
+      "description": "Clips for songs as in Ya.Music, you load them yourself from memory, press - add/start a video, hold down the button if you want to replace/reset the clip for the song.",
+      "description_i18n": {
+        "en": "Clips for songs as in Ya.Music, you load them yourself from memory, press - add/start a video, hold down the button if you want to replace/reset the clip for the song.",
+        "uk": "Кліпи на пісні як в Ya.Music, самі завантажуєте з пам'яті, натискаєте - додати/почати відео, затискаєте кнопку, якщо хочете замінити/скинути кліп на пісню.",
+        "ru": "Клипы к песням как в Я.Музыке, сами загружаете их из памяти, нажимаете - добавить/запустить видео, удерживайте кнопку, если хотите заменить/сбросить клип на песню.",
+        "pl": "Klipy do piosenek jak w Ya.Music, ładujesz je samodzielnie z pamięci, naciskasz - dodaj/uruchom wideo, przytrzymaj przycisk, jeśli chcesz zastąpić/zresetować klip dla utworu.",
+        "es": "Clips para canciones como en Ya.Music, los cargas tú mismo desde la memoria, presionas - agregar/iniciar un video, mantén presionado el botón si deseas reemplazar/restablecer el clip de la canción.",
+        "de": "Clips für Songs wie in Ya.Music, man lädt sie selbst aus dem Speicher, drückt - Video hinzufügen/starten, Taste gedrückt halten, wenn man den Clip für den Song ersetzen/zurücksetzen möchte.",
+        "fr": "Clips pour les chansons comme dans Ya.Music, vous les chargez vous-même depuis la mémoire, appuyez sur - ajouter/démarrer une vidéo, maintenez le bouton enfoncé si vous souhaitez remplacer/réinitialiser le clip de la chanson.",
+        "pt-BR": "Clipes para músicas como no Ya.Music, você mesmo os carrega da memória, pressione - adicionar/iniciar um vídeo, mantenha pressionado o botão se quiser substituir/redefinir o clipe da música.",
+        "tr": "Şarkılar için klipler Ya.Music'te olduğu gibi, bunları hafızadan kendiniz yüklersiniz, - video ekle/başlat'a basın, şarkının klibi değiştirmek/sıfırlamak istiyorsanız düğmeyi basılı tutun.",
+        "ar": "مقاطع للأغاني كما في Ya.Music، يمكنك تحميلها بنفسك من الذاكرة، ثم اضغط على - إضافة/بدء فيديو، اضغط باستمرار على الزر إذا كنت تريد استبدال/إعادة تعيين مقطع الأغنية.",
+        "be": "Кліпы для песень як у Ya.Music, загружаеш сам з памяці, націскаеш - дадаць/запусціць відэа, трымаеш кнопку, калі хочаш замяніць/скінуць кліп на песню.",
+        "kk": "Ya.Music сияқты әндерге арналған клиптер, сіз оларды жадтан өзіңіз жүктейсіз, бейнені қосу/бастау түймесін басыңыз, әнге арналған клипті ауыстырғыңыз/қалпына келтіргіңіз келсе, түймені басып тұрыңыз."
+      },
+      "permissions": [
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
