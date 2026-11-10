@@ -4460,6 +4460,33 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "floating_attach_button",
+      "name": "Floating Attach Button",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/floating_attach_button/1.0/floating_attach_button.plugin",
+      "sha256": "4edf06ad2a1a63e4619e3cd3450b8d83452dd1c5f7e209e8ab3259a48722819f",
+      "size": 12326,
+      "description": "Moves the attach button to a floating button while typing.",
+      "description_i18n": {
+        "en": "Moves the attach button to a floating button while typing.",
+        "uk": "Переміщує кнопку приєднання до плаваючої кнопки під час введення.",
+        "ru": "Перемещает кнопку прикрепления на плавающую кнопку во время ввода.",
+        "pl": "Podczas pisania przenosi przycisk dołączania na przycisk pływający.",
+        "es": "Mueve el botón adjuntar a un botón flotante mientras escribe.",
+        "de": "Verschiebt die Schaltfläche „Anhängen\" während der Eingabe zu einer schwebenden Schaltfläche.",
+        "fr": "Déplace le bouton d'attachement vers un bouton flottant lors de la saisie.",
+        "pt-BR": "Move o botão anexar para um botão flutuante durante a digitação.",
+        "tr": "Yazarken ekleme düğmesini kayan bir düğmeye taşır.",
+        "ar": "ينقل زر الإرفاق إلى زر عائم أثناء الكتابة.",
+        "be": "Перамяшчае кнопку прымацавання да плаваючай кнопкі падчас набору тэксту.",
+        "kk": "Теру кезінде тіркеу түймесін жылжымалы түймеге жылжытады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
