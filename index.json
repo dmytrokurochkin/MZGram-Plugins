@@ -5774,6 +5774,35 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "ios_like_selection",
+      "name": "IOS-like selection",
+      "version": "7.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/ios_like_selection/7.4/ios_like_selection.plugin",
+      "sha256": "8b6e1ea3baee325f077cde8572930ffaaba1d4fdf35d3bc53d698548a7504e0b",
+      "size": 39034,
+      "description": "Recreates the effect of selecting a message by tapping like on **IOS**",
+      "description_i18n": {
+        "en": "Recreates the effect of selecting a message by tapping like on **IOS**",
+        "uk": "Відтворює ефект вибору повідомлення натисканням, як у **IOS**",
+        "ru": "Воссоздает эффект выбора сообщения нажатием кнопки «Мне нравится» на **IOS**.",
+        "pl": "Odtwarza efekt zaznaczenia wiadomości poprzez dotknięcie „Lubię to\" w **IOS**",
+        "es": "Recrea el efecto de seleccionar un mensaje tocando Me gusta en **IOS**",
+        "de": "Stellt den Effekt der Auswahl einer Nachricht durch Tippen wie auf **IOS** wieder her",
+        "fr": "Recrée l'effet de la sélection d'un message en appuyant sur comme sur **IOS**",
+        "pt-BR": "Recria o efeito de selecionar uma mensagem tocando como no **IOS**",
+        "tr": "**IOS**'ta beğen'e dokunarak bir mesajı seçme efektini yeniden yaratır",
+        "ar": "إعادة إنشاء تأثير تحديد رسالة من خلال النقر على \"أعجبني\" على **IOS**",
+        "be": "Узнаўляе эфект выбару паведамлення націскам, як у **IOS**",
+        "kk": "**IOS** жүйесінде ұнатуды басу арқылы хабарды таңдау әсерін қайта жасайды."
+      },
+      "permissions": [
+        "messages.read",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
