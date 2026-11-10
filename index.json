@@ -8768,6 +8768,34 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "protect_filter",
+      "name": "Protect Filter",
+      "version": "1.1.6",
+      "min_app_version": "1.0.0",
+      "file": "plugins/protect_filter/1.1.6/protect_filter.plugin",
+      "sha256": "fc6bbddef3050365da2d98fa0100a1312175426d1f1b0c37c3ac5db1e2fac011",
+      "size": 15568,
+      "description": "Automatic blocking of new dialogs by keywords. For example: threats/spam",
+      "description_i18n": {
+        "en": "Automatic blocking of new dialogs by keywords. For example: threats/spam",
+        "uk": "Автоматичне блокування нових діалогів за ключовими словами. Наприклад: погрози/спам",
+        "ru": "Автоматическая блокировка новых диалогов по ключевым словам. Например: угрозы/спам",
+        "pl": "Automatyczne blokowanie nowych okien dialogowych według słów kluczowych. Na przykład: zagrożenia/spam",
+        "es": "Bloqueo automático de nuevos diálogos por palabras clave. Por ejemplo: amenazas/spam",
+        "de": "Automatische Blockierung neuer Dialoge nach Schlüsselwörtern. Zum Beispiel: Bedrohungen/Spam",
+        "fr": "Blocage automatique des nouvelles boîtes de dialogue par mots-clés. Par exemple : menaces/spam",
+        "pt-BR": "Bloqueio automático de novos diálogos por palavras-chave. Por exemplo: ameaças/spam",
+        "tr": "Yeni diyalogların anahtar kelimelere göre otomatik olarak engellenmesi. Örneğin: tehditler/spam",
+        "ar": "المنع التلقائي لمربعات الحوار الجديدة عن طريق الكلمات الرئيسية. على سبيل المثال: التهديدات/البريد العشوائي",
+        "be": "Аўтаматычнае блакаванне новых дыялогаў па ключавых словах. Напрыклад: пагрозы/спам",
+        "kk": "Жаңа диалогтарды кілт сөздер бойынша автоматты түрде блоктау. Мысалы: қауіптер/спам"
+      },
+      "permissions": [
+        "messages.read",
+        "intents"
+      ]
     }
   ]
 }
