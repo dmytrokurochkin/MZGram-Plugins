@@ -30,6 +30,36 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "AdBlock",
+      "name": "AdBlock",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/AdBlock/1.1/AdBlock.plugin",
+      "sha256": "8c9e19a642f447efd3efc100a471f1905dc154f5bd6e0fa530dd9eca8e14d815",
+      "size": 15512,
+      "description": "Hides ads in Telegram.",
+      "description_i18n": {
+        "en": "Hides ads in Telegram.",
+        "uk": "Приховує рекламу в Telegram.",
+        "ru": "Скрывает рекламу в Telegram.",
+        "pl": "Ukrywa reklamy w Telegramie.",
+        "es": "Oculta anuncios en Telegram.",
+        "de": "Versteckt Werbung in Telegram.",
+        "fr": "Masque les publicités dans Telegram.",
+        "pt-BR": "Oculta anúncios no Telegram.",
+        "tr": "Telegram'daki reklamları gizler.",
+        "ar": "إخفاء الإعلانات في تيليجرام.",
+        "be": "Хавае рэкламу ў Telegram.",
+        "kk": "Telegram-да жарнамаларды жасырады."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
