@@ -5076,6 +5076,33 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "googlethat",
+      "name": "GoogleThat",
+      "version": "1.0.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/googlethat/1.0.4/googlethat.plugin",
+      "sha256": "bae0b85ddf81daf05c95e1a51a7ccaf0c6614517f92881d47ab5abaa49d5f459",
+      "size": 5129,
+      "description": "Creates search link. Usage: .gt <query> > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 or greater!",
+      "description_i18n": {
+        "en": "Creates search link. Usage: .gt <query> > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 or greater!",
+        "uk": "Створює пошукове посилання. Використання: .gt <запит> > Потрібен **[ZwyLib](https://t.me/zwyPlugins/48)** версії 2.0.0 або новішої!",
+        "ru": "Создает ссылку для поиска. Использование: .gt <query> > Требуется **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 или более поздняя версия!",
+        "pl": "Tworzy łącze wyszukiwania. Użycie: .gt <query> > Wymaga **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 lub nowszej!",
+        "es": "Crea un enlace de búsqueda. Uso: .gt <consulta> > Requiere **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 o superior.",
+        "de": "Erstellt einen Suchlink. Verwendung: .gt <Abfrage> > Erfordert **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 oder höher!",
+        "fr": "Crée un lien de recherche. Utilisation : .gt <query> > Nécessite **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 ou supérieur !",
+        "pt-BR": "Cria link de pesquisa. Uso: .gt <query> > Requer **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 ou superior!",
+        "tr": "Arama bağlantısı oluşturur. Kullanım: .gt <query> > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 veya üstünü gerektirir!",
+        "ar": "يخلق رابط البحث. الاستخدام: .gt <query> > يتطلب **[ZwyLib](https://t.me/zwyPlugins/48)** الإصدار 2.0.0 أو أحدث!",
+        "be": "Стварае пошукавую спасылку. Выкарыстанне: .gt <query> > Патрабуецца **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 або вышэй!",
+        "kk": "Іздеу сілтемесін жасайды. Қолданылуы: .gt <query> > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 немесе одан жоғары нұсқасын талап етеді!"
+      },
+      "permissions": [
+        "network"
+      ]
     }
   ]
 }
