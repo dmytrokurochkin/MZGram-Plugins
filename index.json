@@ -4794,6 +4794,34 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "game_arcade",
+      "name": "Arcade Games",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/game_arcade/1.1/game_arcade.plugin",
+      "sha256": "421911448e6fe62b3292b43b8593ebb24056b238278bab002576381d541238bc",
+      "size": 26938,
+      "description": "Legendary games 2048, Flappy Bird and Chrome Dino right in the client. Made based on the Flappy Bird plugin, author",
+      "description_i18n": {
+        "en": "Legendary games 2048, Flappy Bird and Chrome Dino right in the client. Made based on the Flappy Bird plugin, author",
+        "uk": "Легендарні ігри 2048, Flappy Bird і Chrome Dino прямо в клієнті. Зроблено на основі плагіна Flappy Bird, авт",
+        "ru": "Легендарные игры 2048, Flappy Bird и Chrome Dino прямо в клиенте. Сделано на основе плагина Flappy Bird, автор",
+        "pl": "Legendarne gry 2048, Flappy Bird i Chrome Dino bezpośrednio w kliencie. Wykonane w oparciu o wtyczkę Flappy Bird, autor",
+        "es": "Juegos legendarios 2048, Flappy Bird y Chrome Dino directamente en el cliente. Hecho en base al complemento Flappy Bird, autor",
+        "de": "Legendäre Spiele 2048, Flappy Bird und Chrome Dino direkt im Client. Basierend auf dem Flappy Bird-Plugin, Autor",
+        "fr": "Jeux légendaires 2048, Flappy Bird et Chrome Dino directement dans le client. Réalisé sur la base du plugin Flappy Bird, auteur",
+        "pt-BR": "Jogos lendários 2048, Flappy Bird e Chrome Dino direto no cliente. Feito com base no plugin Flappy Bird, autor",
+        "tr": "Efsanevi oyunlar 2048, Flappy Bird ve Chrome Dino doğrudan istemcide. Flappy Bird eklentisi temel alınarak yapılmıştır, yazar",
+        "ar": "الألعاب الأسطورية 2048 وFlappy Bird وChrome Dino موجودة مباشرة في العميل. Made based on the Flappy Bird plugin, author",
+        "be": "Легендарныя гульні 2048, Flappy Bird і Chrome Dino прама ў кліенце. Зроблена на аснове плагіна Flappy Bird, аўт",
+        "kk": "Аңызға айналған ойындар 2048, Flappy Bird және Chrome Dino тікелей клиентте. Flappy Bird плагині негізінде жасалған, автор"
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
