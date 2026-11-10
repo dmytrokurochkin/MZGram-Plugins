@@ -1512,6 +1512,34 @@
         "messages.read",
         "messages.send"
       ]
+    },
+    {
+      "id": "auto_delete",
+      "name": "Auto Delete",
+      "version": "2.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/auto_delete/2.0.1/auto_delete.plugin",
+      "sha256": "20c5a560b75dea5b37ece3840046bff5a373fe3c341cc3985d2669d41f5ba9ca",
+      "size": 59589,
+      "description": "Auto-delete messages based on time.",
+      "description_i18n": {
+        "en": "Auto-delete messages based on time.",
+        "uk": "Автоматичне видалення повідомлень залежно від часу.",
+        "ru": "Автоматическое удаление сообщений по времени.",
+        "pl": "Automatyczne usuwanie wiadomości na podstawie czasu.",
+        "es": "Eliminación automática de mensajes según el tiempo.",
+        "de": "Nachrichten basierend auf der Zeit automatisch löschen.",
+        "fr": "Supprimer automatiquement les messages en fonction de l'heure.",
+        "pt-BR": "Exclua mensagens automaticamente com base no horário.",
+        "tr": "Mesajları zamana göre otomatik olarak silin.",
+        "ar": "الحذف التلقائي للرسائل بناءً على الوقت.",
+        "be": "Аўтаматычнае выдаленне паведамленняў у залежнасці ад часу.",
+        "kk": "Уақыт негізінде хабарларды автоматты түрде жою."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send"
+      ]
     }
   ]
 }
