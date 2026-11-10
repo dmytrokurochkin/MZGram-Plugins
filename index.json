@@ -9318,6 +9318,36 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "re_extera_loader",
+      "name": "aartzz's re:extera",
+      "version": "2.9.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/re_extera_loader/2.9.0/re_extera_loader.plugin",
+      "sha256": "1d416b1b8710dd77e6ebc205b182c21265a761568a088e8617dab33c2ff1283d",
+      "size": 45715,
+      "description": "Actively maintained FOSS fork. Enable ghost mode, save deleted messages and more!",
+      "description_i18n": {
+        "en": "Actively maintained FOSS fork. Enable ghost mode, save deleted messages and more!",
+        "uk": "Вилка FOSS в активному стані. Увімкніть режим привидів, збережіть видалені повідомлення тощо!",
+        "ru": "Активно поддерживаемая вилка FOSS. Включите режим призрака, сохраните удаленные сообщения и многое другое!",
+        "pl": "Aktywnie konserwowany widelec FOSS. Włącz tryb ducha, zapisuj usunięte wiadomości i wiele więcej!",
+        "es": "Bifurcación FOSS mantenida activamente. ¡Habilite el modo fantasma, guarde mensajes eliminados y más!",
+        "de": "Aktiv gewartete FOSS-Gabel. Aktivieren Sie den Geistermodus, speichern Sie gelöschte Nachrichten und mehr!",
+        "fr": "Fourche FOSS activement entretenue. Activez le mode fantôme, enregistrez les messages supprimés et bien plus encore !",
+        "pt-BR": "Fork FOSS com manutenção ativa. Ative o modo fantasma, salve mensagens excluídas e muito mais!",
+        "tr": "Aktif olarak bakımı yapılan FOSS çatalı. Hayalet modunu etkinleştirin, silinen mesajları kaydedin ve daha fazlasını yapın!",
+        "ar": "تمت صيانة شوكة البرمجيات الحرة والمفتوحة المصدر (FOSS) بشكل نشط. تمكين وضع الشبح وحفظ الرسائل المحذوفة والمزيد!",
+        "be": "Відэлец FOSS, які актыўна абслугоўваецца. Уключыце рэжым прывіда, захавайце выдаленыя паведамленні і многае іншае!",
+        "kk": "Белсенді қызмет көрсетілетін FOSS шанышқысы. Елес режимін қосыңыз, жойылған хабарларды сақтаңыз және т.б.!"
+      },
+      "permissions": [
+        "messages.read",
+        "network",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
