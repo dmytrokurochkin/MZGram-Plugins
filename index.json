@@ -7175,6 +7175,38 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "msg_stats",
+      "name": "Message Stats",
+      "version": "1.11.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/msg_stats/1.11.4/msg_stats.plugin",
+      "sha256": "b8cac615e3c0c9cb684a629249d395bdc6ea7b7b99f9a980d2fc8642ecd215e7",
+      "size": 146178,
+      "description": "Counts the messages you send and draws charts by chat, group and time. Opens from the side menu, the chat list header, the chat menu and a long press on Settings.",
+      "description_i18n": {
+        "en": "Counts the messages you send and draws charts by chat, group and time. Opens from the side menu, the chat list header, the chat menu and a long press on Settings.",
+        "uk": "Підраховує надіслані вами повідомлення та складає діаграми за чатом, групою та часом. Відкривається з бічного меню, заголовка списку чату, меню чату та тривалого натискання на «Налаштування».",
+        "ru": "Подсчитывает отправленные вами сообщения и рисует диаграммы по чатам, группам и времени. Открывается из бокового меню, заголовка списка чатов, меню чата и длительного нажатия на «Настройки».",
+        "pl": "Zlicza wysłane wiadomości i rysuje wykresy według czatu, grupy i czasu. Otwiera się z menu bocznego, nagłówka listy czatów, menu czatu i długiego naciśnięcia Ustawienia.",
+        "es": "Cuenta los mensajes que envías y dibuja gráficos por chat, grupo y hora. Se abre desde el menú lateral, el encabezado de la lista de chat, el menú de chat y una pulsación larga en Configuración.",
+        "de": "Zählt die von Ihnen gesendeten Nachrichten und erstellt Diagramme nach Chat, Gruppe und Zeit. Öffnet über das Seitenmenü, die Kopfzeile der Chat-Liste, das Chat-Menü und einen langen Druck auf „Einstellungen\".",
+        "fr": "Compte les messages que vous envoyez et dessine des graphiques par chat, groupe et heure. Ouvre depuis le menu latéral, l'en-tête de la liste de discussion, le menu de discussion et un appui long sur Paramètres.",
+        "pt-BR": "Conta as mensagens que você envia e desenha gráficos por chat, grupo e horário. Abre no menu lateral, no cabeçalho da lista de bate-papo, no menu de bate-papo e com um toque longo em Configurações.",
+        "tr": "Gönderdiğiniz mesajları sayar ve sohbete, gruba ve zamana göre grafikler çizer. Yan menüden, sohbet listesi başlığından, sohbet menüsünden ve Ayarlar'a uzun basıldığında açılır.",
+        "ar": "يحسب الرسائل التي ترسلها ويرسم المخططات حسب الدردشة والمجموعة والوقت. يفتح من القائمة الجانبية، ورأس قائمة الدردشة، وقائمة الدردشة، ثم الضغط لفترة طويلة على الإعدادات.",
+        "be": "Падлічвае паведамленні, якія вы адпраўляеце, і складае дыяграмы па чатах, групах і часу. Адкрываецца з бакавога меню, загалоўка спісу чатаў, меню чатаў і доўгага націску на Налады.",
+        "kk": "Сіз жіберген хабарларды санайды және чат, топ және уақыт бойынша диаграммалар сызады. Бүйірлік мәзірден, сөйлесу тізімінің тақырыбынан, чат мәзірінен ашылады және Параметрлерді ұзақ басып тұрыңыз."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
