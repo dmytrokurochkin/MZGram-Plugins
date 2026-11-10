@@ -4228,6 +4228,35 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "favstickers",
+      "name": "Unlim favorite stickers",
+      "version": "2.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/favstickers/2.0.0/favstickers.plugin",
+      "sha256": "36d7d79650fd19b48cbdeeb3bafe6e3f54a808be89109464a45f6bfb0259794c",
+      "size": 11136,
+      "description": "Remove limits on adding stickers to favorites",
+      "description_i18n": {
+        "en": "Remove limits on adding stickers to favorites",
+        "uk": "Зніміть обмеження на додавання стікерів у вибране",
+        "ru": "Снимите ограничения на добавление стикеров в избранное",
+        "pl": "Usuń ograniczenia dotyczące dodawania naklejek do ulubionych",
+        "es": "Eliminar límites para agregar stickers a favoritos",
+        "de": "Entfernen Sie die Beschränkungen beim Hinzufügen von Aufklebern zu Favoriten",
+        "fr": "Supprimer les limites d'ajout d'autocollants aux favoris",
+        "pt-BR": "Remova os limites para adicionar adesivos aos favoritos",
+        "tr": "Favorilere çıkartma eklemeyle ilgili sınırları kaldırın",
+        "ar": "إزالة القيود المفروضة على إضافة الملصقات إلى المفضلة",
+        "be": "Зніміце абмежаванні на даданне стыкераў у абранае",
+        "kk": "Таңдаулыларға стикерлер қосу шектеулерін алып тастаңыз"
+      },
+      "permissions": [
+        "messages.read",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
