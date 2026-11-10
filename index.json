@@ -7776,6 +7776,34 @@
       "requirements": [
         "nowfy"
       ]
+    },
+    {
+      "id": "number_in_profile_randomizer_rn",
+      "name": "Profile Number",
+      "version": "1.0.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/number_in_profile_randomizer_rn/1.0.2/number_in_profile_randomizer_rn.plugin",
+      "sha256": "a844004ba5ab64e7791dcd4b2db2be1ced55968694cc0f4f748f4687b8ebacf2",
+      "size": 32591,
+      "description": "Allows you to hide your real phone number in your profile (Useful for screenshots)",
+      "description_i18n": {
+        "en": "Allows you to hide your real phone number in your profile (Useful for screenshots)",
+        "uk": "Дозволяє приховати ваш справжній номер телефону в профілі (корисно для скріншотів)",
+        "ru": "Позволяет скрыть ваш реальный номер телефона в профиле (Полезно для скриншотов)",
+        "pl": "Umożliwia ukrycie prawdziwego numeru telefonu w profilu (przydatne przy zrzutach ekranu)",
+        "es": "Le permite ocultar su número de teléfono real en su perfil (útil para capturas de pantalla)",
+        "de": "Ermöglicht Ihnen, Ihre echte Telefonnummer in Ihrem Profil zu verbergen (nützlich für Screenshots)",
+        "fr": "Vous permet de masquer votre vrai numéro de téléphone dans votre profil (utile pour les captures d'écran)",
+        "pt-BR": "Permite ocultar seu número de telefone real em seu perfil (útil para capturas de tela)",
+        "tr": "Profilinizde gerçek telefon numaranızı gizlemenizi sağlar (Ekran görüntüleri için kullanışlıdır)",
+        "ar": "يسمح لك بإخفاء رقم هاتفك الحقيقي في ملفك الشخصي (مفيد لالتقاط لقطات الشاشة)",
+        "be": "Дазваляе схаваць ваш рэальны нумар тэлефона ў профілі (карысна для скрыншотаў)",
+        "kk": "Профильде нақты телефон нөміріңізді жасыруға мүмкіндік береді (скриншоттар үшін пайдалы)"
+      },
+      "permissions": [
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
