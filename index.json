@@ -7378,6 +7378,35 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "mute_ls",
+      "name": "Мут в ЛС",
+      "version": "1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/mute_ls/1.2/mute_ls.plugin",
+      "sha256": "ed56e9bada4d36467ea78ff69d21a5269be80ffb60a56ea1ba0594d588d292fb",
+      "size": 50959,
+      "description": "Mute the interlocutor in a personal message: all incoming messages from him are deleted. If desired, sends notifications about mute and mash.",
+      "description_i18n": {
+        "en": "Mute the interlocutor in a personal message: all incoming messages from him are deleted. If desired, sends notifications about mute and mash.",
+        "uk": "Відключити співрозмовника в особистому повідомленні: всі вхідні повідомлення від нього видаляються. При бажанні надсилає сповіщення про mute і mash.",
+        "ru": "Отключить звук собеседника в личном сообщении: все входящие от него сообщения удаляются. При желании отправляет уведомления о выключении звука и замешивании.",
+        "pl": "Wycisz rozmówcę w wiadomości osobistej: wszystkie wiadomości przychodzące od niego zostaną usunięte. W razie potrzeby wysyła powiadomienia o wyciszeniu i zacieraniu.",
+        "es": "Silenciar al interlocutor en un mensaje personal: se eliminan todos los mensajes entrantes suyos. Si lo desea, envía notificaciones sobre silenciar y mezclar.",
+        "de": "Schalten Sie den Gesprächspartner in einer persönlichen Nachricht stumm: Alle eingehenden Nachrichten von ihm werden gelöscht. Versendet auf Wunsch Benachrichtigungen über Mute und Mash.",
+        "fr": "Couper le son de l'interlocuteur dans un message personnel : tous les messages entrants de sa part sont supprimés. Si vous le souhaitez, envoie des notifications sur la sourdine et la purée.",
+        "pt-BR": "Silenciar o interlocutor em uma mensagem pessoal: todas as mensagens recebidas dele são excluídas. Se desejar, envia notificações sobre mute e mash.",
+        "tr": "Muhatabı kişisel bir mesajla susturun: ondan gelen tüm mesajlar silinir. İstenirse sessize alma ve püre ile ilgili bildirimler gönderir.",
+        "ar": "كتم صوت المحاور في رسالة شخصية: يتم حذف جميع الرسائل الواردة منه. إذا رغبت في ذلك، يرسل إخطارات حول كتم الصوت والهريس.",
+        "be": "Адключыце гук суразмоўцы ў асабістым паведамленні: усе ўваходныя паведамленні ад яго выдаляюцца. Пры жаданні дасылае апавяшчэнні аб адключэнні гуку і пюрэ.",
+        "kk": "Жеке хабарламада әңгімелесушінің дыбысын өшіріңіз: одан келген барлық хабарламалар жойылады. Қажет болса, дыбысты өшіру және өшіру туралы хабарландырулар жібереді."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }

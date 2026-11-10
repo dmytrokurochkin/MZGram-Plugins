@@ -1,0 +1,1278 @@
+import json
+import re
+import time
+import traceback
+from collections import deque
+from typing import Any, List
+
+from base_plugin import BasePlugin, HookResult, HookStrategy, MenuItemData, MenuItemType, MethodHook
+from ui.settings import Header, Text, Divider, Input, Switch
+from ui.bulletin import BulletinHelper
+from ui.alert import AlertDialogBuilder
+from android_utils import log, run_on_ui_thread
+from client_utils import get_last_fragment, get_messages_controller
+from hook_utils import find_class, get_private_field
+from org.telegram.messenger import NotificationCenter, UserConfig, SendMessagesHelper
+from java.util import ArrayList
+from java.lang import Integer, Long, Boolean
+from java import jclass
+
+try:
+    from client_utils import send_request
+except Exception:
+    send_request = None
+
+try:
+    from client_utils import send_text
+except Exception:
+    send_text = None
+
+try:
+    from android_utils import copy_to_clipboard
+except Exception:
+    copy_to_clipboard = None
+
+try:
+    from java import jint
+except Exception:
+    jint = None
+
+# Chaquopy requires dynamic_proxy(...) to be the first base of a class. The
+# SDK's client_utils.NotificationCenterDelegate fails that check on 12.10.6
+# ("dynamic_proxy must be used first in class bases"), so build it directly.
+try:
+    from java.chaquopy import dynamic_proxy
+    NotificationCenterDelegate = dynamic_proxy(NotificationCenter.NotificationCenterDelegate)
+except Exception:
+    try:
+        from client_utils import NotificationCenterDelegate
+    except Exception:
+        NotificationCenterDelegate = object
+
+
+def _boxed_int(value):
+    """A real java.lang.Integer for ArrayList<Integer>.
+
+    Integer.valueOf(...) comes back to Python as a plain int, and a plain int
+    added to an untyped ArrayList is boxed as java.lang.Long, which makes
+    MessagesController.deleteMessages fail with
+    "java.lang.Long cannot be cast to java.lang.Integer".
+    """
+    value = int(value)
+    try:
+        boxed = Integer(value)
+        if not isinstance(boxed, int):
+            return boxed
+    except Exception:
+        pass
+    if jint is not None:
+        return jint(value)
+    return Integer(value)
+
+__id__ = "mute_ls"
+__name__ = "Мут в ЛС"
+__description__ = (
+    "Мьютит собеседника в личке: все входящие сообщения от него удаляются. "
+    "При желании отправляет уведомления о муте и размьюте."
+)
+__author__ = "@shit_plugins"
+__version__ = "1.2"
+__icon__ = "exteraPlugins/1"
+__app_version__ = ">=12.10.6"
+__category__ = ["chats"]
+__sdk_version__ = ">=1.4.4.3"
+
+MUTED_KEY = "muted_users"
+DEFAULT_PREFIX = "!"
+DEFAULT_DURATION = "1h"
+DURATION_RE = re.compile(r"(\d+)\s*([smhdw])", re.IGNORECASE)
+UNITS = {"s": 1, "m": 60, "h": 3600, "d": 86400, "w": 604800}
+MENU_ITEM_ID = "mute_ls_chat_action"
+
+
+class _UpdateInterfaceHook(MethodHook):
+    def __init__(self, plugin):
+        super().__init__()
+        self.plugin = plugin
+
+    def after_hooked_method(self, param):
+        try:
+            self.plugin._count("java_hook")
+            args = param.args
+            if args is None or len(args) < 2:
+                return
+            dialog_id = int(args[0])
+            messages = args[1]
+            account = None
+            try:
+                account = int(param.thisObject.currentAccount)
+            except Exception:
+                try:
+                    account = get_private_field(param.thisObject, "currentAccount")
+                except Exception:
+                    account = None
+            self.plugin._scan_incoming(account, dialog_id, messages)
+        except Exception:
+            self.plugin.log("[mute_ls] updateInterface hook error: " + traceback.format_exc())
+
+
+class MuteLsPlugin(BasePlugin):
+    _muted_cache = None
+
+    # ------------------------------------------------------------------ lifecycle
+
+    def on_plugin_load(self):
+        self._diag_lines = deque(maxlen=150)
+        self._counters = {}
+        self._setup_status = {}
+        self._observers = []
+        self._menu_item_id = None
+        self._status_item_id = None
+        self._extra_menu_ids = []
+        self._menu_registered = False
+        self._last_menu_state = "init"
+        self._muted_cache = None
+        self._expiry_generation = 0
+        self._update_interface_unhooks = []
+        # The menu goes first: it must not depend on any other step working.
+        steps = (
+            ("chat menu", self._refresh_chat_menu),
+            ("send hook", self.add_on_send_message_hook),
+            ("update hook", self._register_update_hooks),
+            ("java hook", self._install_update_interface_hook),
+            ("observers", self._register_observers),
+            ("expiry", self._init_expiry),
+        )
+        for name, step in steps:
+            try:
+                step()
+                self._setup_status.setdefault(name, "ok")
+            except Exception:
+                self._setup_status[name] = "ошибка"
+                self.log("[mute_ls] %s setup error: %s" % (name, traceback.format_exc()))
+        self.log("[mute_ls] loaded v%s, setup: %s" % (__version__, self._setup_status))
+
+    def _init_expiry(self):
+        self._remove_expired()
+        self._schedule_expiry_cleanup()
+
+    # ------------------------------------------------------------ diagnostics
+
+    def log(self, message):
+        """Collect log lines for the in-app journal and forward to logcat."""
+        text = str(message)
+        try:
+            lines = getattr(self, "_diag_lines", None)
+            if lines is not None:
+                lines.append(time.strftime("%H:%M:%S ") + text)
+        except Exception:
+            pass
+        try:
+            self.logger.info(text)
+            return
+        except Exception:
+            pass
+        try:
+            log(text)
+        except Exception:
+            pass
+
+    def _count(self, name, step=1):
+        try:
+            counters = self._counters
+        except Exception:
+            return
+        counters[name] = counters.get(name, 0) + step
+
+    def _diag_text(self):
+        parts = [
+            "mute_ls v%s" % __version__,
+            "app: %s" % self._app_version(),
+            "setup: %s" % json.dumps(getattr(self, "_setup_status", {}), ensure_ascii=False),
+            "counters: %s" % json.dumps(getattr(self, "_counters", {}), ensure_ascii=False),
+            "delete variant: %s" % getattr(self, "_delete_variant", None),
+            "muted: %d" % len(self._load_muted()),
+            "--- log ---",
+        ]
+        parts.extend(list(getattr(self, "_diag_lines", [])))
+        return "\n".join(parts)
+
+    @staticmethod
+    def _app_version():
+        try:
+            build_vars = jclass("org.telegram.messenger.BuildVars")
+            return "%s (%s)" % (build_vars.BUILD_VERSION_STRING, build_vars.BUILD_VERSION)
+        except Exception:
+            return "?"
+
+    def _copy_diag(self):
+        text = self._diag_text()
+        try:
+            if copy_to_clipboard is not None:
+                run_on_ui_thread(lambda: copy_to_clipboard(text))
+                return
+        except Exception:
+            pass
+        try:
+            ctx = jclass("org.telegram.messenger.ApplicationLoader").applicationContext
+            clip_cls = jclass("android.content.ClipData")
+            manager = ctx.getSystemService("clipboard")
+            manager.setPrimaryClip(clip_cls.newPlainText("mute_ls", text))
+            self._bulletin("success", "Журнал скопирован")
+        except Exception:
+            self._bulletin("error", "Не удалось скопировать журнал")
+
+    def _create_diag_page(self) -> List[Any]:
+        items = [
+            Header(text="Диагностика"),
+            Text(
+                text="Скопировать журнал",
+                subtext="Пришлите его разработчику, если мут не работает",
+                icon="msg_copy",
+                on_click=lambda view: self._copy_diag(),
+            ),
+            Divider(),
+        ]
+        for line in self._diag_text().split("\n")[:60]:
+            items.append(Text(text=line[:300]))
+        return items
+
+    def on_plugin_unload(self):
+        for account, observer in getattr(self, "_observers", []):
+            try:
+                nc = NotificationCenter.getInstance(account)
+                nc.removeObserver(observer, NotificationCenter.didReceiveNewMessages)
+                opened_id = getattr(NotificationCenter, "openedChatChanged", None)
+                if opened_id is not None:
+                    nc.removeObserver(observer, opened_id)
+            except Exception:
+                pass
+        self._observers = []
+        self._menu_item_id = None
+        self._muted_cache = None
+        self._expiry_generation = getattr(self, "_expiry_generation", 0) + 1
+        for unhook in getattr(self, "_update_interface_unhooks", []) or []:
+            try:
+                self.unhook_method(unhook)
+            except Exception:
+                pass
+        self._update_interface_unhooks = []
+        self._remove_menu_item()
+
+    # --------------------------------------------------------------- observers
+
+    def _register_observers(self):
+        max_accounts = 4
+        try:
+            max_accounts = int(UserConfig.MAX_ACCOUNT_COUNT)
+        except Exception:
+            pass
+        for account in range(max_accounts):
+            try:
+                observer = self._make_observer()
+                nc = NotificationCenter.getInstance(account)
+                nc.addObserver(observer, NotificationCenter.didReceiveNewMessages)
+                opened_id = getattr(NotificationCenter, "openedChatChanged", None)
+                if opened_id is not None:
+                    nc.addObserver(observer, opened_id)
+                self._observers.append((account, observer))
+            except Exception:
+                self.log("[mute_ls] observer %s error: %s" % (account, traceback.format_exc()))
+
+    def _make_observer(self):
+        plugin = self
+
+        class Observer(NotificationCenterDelegate):
+            def __init__(self):
+                try:
+                    super().__init__()
+                except Exception:
+                    pass
+
+            def didReceivedNotification(self, id, account, *args):
+                # Depending on the proxy flavour the Java varargs arrive either
+                # as one array argument or already unpacked.
+                try:
+                    payload = args[0] if len(args) == 1 else args
+                    plugin._on_notification(account, id, payload)
+                except Exception:
+                    plugin.log("[mute_ls] observer error: " + traceback.format_exc())
+
+        return Observer()
+
+    def _on_notification(self, account, notif_id, args):
+        if notif_id == NotificationCenter.didReceiveNewMessages:
+            self._count("observer")
+            self._handle_new_messages(account, args)
+
+    def _handle_new_messages(self, account, args):
+        if not self.get_setting("enabled", True):
+            return
+        try:
+            if args is None or len(args) < 2:
+                return
+            messages = args[1]
+            if messages is None:
+                return
+        except Exception:
+            return
+
+        pending = {}
+        try:
+            count = messages.size()
+        except Exception:
+            return
+        for i in range(count):
+            try:
+                message_object = messages.get(i)
+                owner = getattr(message_object, "messageOwner", None)
+                if owner is None:
+                    continue
+                if bool(getattr(owner, "out", False)):
+                    continue
+                dialog_id = self._message_dialog_id(owner, account)
+                if dialog_id <= 0:
+                    continue
+                if not self._is_muted(account, dialog_id):
+                    continue
+                message_id = int(getattr(owner, "id", 0) or 0)
+                if message_id > 0:
+                    pending.setdefault(dialog_id, []).append(message_id)
+            except Exception:
+                self.log("[mute_ls] scan error: " + traceback.format_exc())
+
+        for dialog_id, ids in pending.items():
+            self._delete_messages(account, dialog_id, ids)
+
+    def _install_update_interface_hook(self):
+        controller_class = find_class("org.telegram.messenger.MessagesController")
+        if controller_class is None:
+            raise RuntimeError("MessagesController class not found")
+        handler = _UpdateInterfaceHook(self)
+
+        # Preferred: let the SDK hook every overload, whatever its signature.
+        hook_all = getattr(self, "hook_all_methods", None)
+        if hook_all is not None:
+            try:
+                result = hook_all(controller_class, "updateInterfaceWithMessages", handler)
+                unhooks = [u for u in (list(result) if result else []) if u]
+                if unhooks:
+                    self._update_interface_unhooks = unhooks
+                    self.log("[mute_ls] java hook: %d overload(s) via hook_all_methods" % len(unhooks))
+                    return
+            except Exception:
+                self.log("[mute_ls] hook_all_methods failed: " + traceback.format_exc())
+
+        # Fallback: find the overload by reflection.
+        unhooks = []
+        for method in controller_class.getDeclaredMethods():
+            try:
+                if method.getName() != "updateInterfaceWithMessages":
+                    continue
+                if len(method.getParameterTypes()) < 2:
+                    continue
+                method.setAccessible(True)
+                unhook = self.hook_method(method, handler)
+                if unhook:
+                    unhooks.append(unhook)
+            except Exception:
+                self.log("[mute_ls] hook_method failed: " + traceback.format_exc())
+        self._update_interface_unhooks = unhooks
+        if not unhooks:
+            raise RuntimeError("updateInterfaceWithMessages was not hooked")
+        self.log("[mute_ls] java hook: %d overload(s) via hook_method" % len(unhooks))
+
+    def _scan_incoming(self, account, dialog_id, messages):
+        try:
+            if not self.get_setting("enabled", True):
+                return
+            if messages is None:
+                return
+            dialog_id = int(dialog_id or 0)
+            if dialog_id <= 0:
+                return
+            account = int(account) if account is not None else self._selected_account()
+            if not self._is_muted(account, dialog_id):
+                return
+            ids = []
+            for i in range(messages.size()):
+                message_object = messages.get(i)
+                owner = getattr(message_object, "messageOwner", None)
+                if owner is None:
+                    continue
+                if bool(getattr(owner, "out", False)):
+                    continue
+                message_id = int(getattr(owner, "id", 0) or 0)
+                if message_id > 0:
+                    ids.append(message_id)
+            if ids:
+                self._delete_messages(account, dialog_id, ids, delay=100)
+        except Exception:
+            self.log("[mute_ls] scan incoming error: " + traceback.format_exc())
+
+    def _delete_messages(self, account, dialog_id, ids, delay=0):
+        for_all = bool(self.get_setting("delete_for_everyone", True))
+        account = int(account) if account is not None else self._selected_account()
+
+        # The same message is seen by the update hook, the Java hook and the
+        # notification observer; delete each one only once.
+        handled = getattr(self, "_handled_keys", None)
+        if handled is None:
+            handled = set()
+            self._handled_keys = handled
+        if len(handled) > 1000:
+            handled.clear()
+        fresh = []
+        for message_id in ids:
+            key = (account, int(dialog_id), int(message_id))
+            if key in handled:
+                continue
+            handled.add(key)
+            fresh.append(int(message_id))
+        if not fresh:
+            return
+
+        self._count("delete_queued", len(fresh))
+        self.log("[mute_ls] delete queued: account=%s dialog=%s ids=%s forAll=%s"
+                 % (account, dialog_id, fresh, for_all))
+
+        def _do():
+            try:
+                id_list = ArrayList()
+                for message_id in fresh:
+                    id_list.add(_boxed_int(message_id))
+                controller = self._messages_controller(account)
+                if controller is not None and self._delete_via_controller(
+                    controller, id_list, int(dialog_id), for_all
+                ):
+                    self._count("delete_ok")
+                    return
+                if self._delete_via_request(account, fresh, for_all):
+                    self._count("delete_raw")
+                    return
+                self._count("delete_failed")
+                self.log("[mute_ls] deleteMessages failed for dialog %s" % dialog_id)
+            except Exception:
+                self._count("delete_failed")
+                self.log("[mute_ls] delete error: " + traceback.format_exc())
+
+        try:
+            run_on_ui_thread(_do, delay)
+        except TypeError:
+            run_on_ui_thread(_do)
+
+    def _delete_via_controller(self, controller, ids, dialog_id, for_all):
+        """Try the MessagesController.deleteMessages overloads.
+
+        Telegram 12.9-12.10 has (…, dialogId, int topicId, boolean forAll, int mode[, boolean cacheOnly])
+        plus longer task variants; older builds had other shapes. Exact
+        matches go first so that Chaquopy never has to coerce arguments.
+        """
+        d = int(dialog_id)
+        f = bool(for_all)
+        variants = (
+            ("topic+forAll+mode", lambda: controller.deleteMessages(ids, None, None, d, 0, f, 0)),
+            ("topic+forAll+mode+cacheOnly", lambda: controller.deleteMessages(ids, None, None, d, 0, f, 0, False)),
+            ("task10", lambda: controller.deleteMessages(ids, None, None, d, f, 0, False, 0, None, 0)),
+            ("task12", lambda: controller.deleteMessages(ids, None, None, d, f, 0, False, 0, None, 0, False, 0)),
+            ("forAll+mode+cacheOnly", lambda: controller.deleteMessages(ids, None, None, d, f, 0, False)),
+            ("forAll+mode", lambda: controller.deleteMessages(ids, None, None, d, f, 0)),
+            ("legacy", lambda: controller.deleteMessages(ids, None, None, d, f, False)),
+        )
+        order = list(variants)
+        preferred = getattr(self, "_delete_variant", None)
+        if preferred is not None:
+            order.sort(key=lambda item: 0 if item[0] == preferred else 1)
+        errors = []
+        for name, call in order:
+            try:
+                call()
+                if getattr(self, "_delete_variant", None) != name:
+                    self.log("[mute_ls] deleteMessages works as: %s" % name)
+                self._delete_variant = name
+                return True
+            except Exception as error:
+                errors.append("%s: %s" % (name, str(error).replace("\n", " ")[:160]))
+        self.log("[mute_ls] all deleteMessages variants failed: " + " | ".join(errors))
+        return False
+
+    def _delete_via_request(self, account, ids, for_all):
+        """Signature-independent fallback: raw messages.deleteMessages."""
+        if send_request is None:
+            return False
+        try:
+            request_cls = jclass("org.telegram.tgnet.TLRPC$TL_messages_deleteMessages")
+            req = request_cls()
+            req.revoke = bool(for_all)
+            for message_id in ids:
+                req.id.add(_boxed_int(message_id))
+
+            def on_response(response, error):
+                try:
+                    if error:
+                        self.log("[mute_ls] deleteMessages request error: %s" % getattr(error, "text", error))
+                        return
+                    controller = self._messages_controller(account)
+                    controller.processNewDifferenceParams(
+                        -1, int(response.pts), -1, int(response.pts_count)
+                    )
+                except Exception:
+                    pass
+
+            try:
+                send_request(req, on_response, account=int(account))
+            except TypeError:
+                send_request(req, on_response)
+            return True
+        except Exception:
+            self.log("[mute_ls] raw delete error: " + traceback.format_exc())
+            return False
+
+    # -------------------------------------------------------------- outgoing cmd
+
+    def on_send_message_hook(self, account: int, params: Any) -> HookResult:
+        try:
+            text = getattr(params, "message", None)
+            if not isinstance(text, str) or not text.strip():
+                return HookResult()
+            text = text.strip()
+            prefix = self.get_setting("prefix", DEFAULT_PREFIX) or DEFAULT_PREFIX
+            parts = text.split(None, 1)
+            command = parts[0].lower()
+            argument = parts[1].strip() if len(parts) > 1 else ""
+            mute_cmd = (prefix + "mute").lower()
+            unmute_cmd = (prefix + "unmute").lower()
+            status_cmd = (prefix + "status").lower()
+            diag_cmd = (prefix + "mutediag").lower()
+            if command not in (mute_cmd, unmute_cmd, status_cmd, diag_cmd):
+                return HookResult()
+            self._count("commands")
+
+            if command == diag_cmd:
+                self._copy_diag()
+                return HookResult(strategy=HookStrategy.CANCEL)
+
+            dialog_id = self._peer_dialog_id(params)
+            if command == mute_cmd:
+                self._command_mute(account, dialog_id, argument)
+            elif command == unmute_cmd:
+                self._command_unmute(account, dialog_id)
+            else:
+                self._command_status(account, dialog_id)
+            return HookResult(strategy=HookStrategy.CANCEL)
+        except Exception:
+            self.log("[mute_ls] send hook error: " + traceback.format_exc())
+            return HookResult()
+
+    def _register_update_hooks(self):
+        for name in ("TL_updateNewMessage", "TL_updateShortMessage"):
+            self.add_hook(name)
+
+    @staticmethod
+    def _is_update_kind(update_name, update, kind):
+        """Match by hook name and, as a fallback, by the Java class name."""
+        try:
+            if update_name and str(update_name).endswith(kind):
+                return True
+        except Exception:
+            pass
+        try:
+            return str(update.getClass().getSimpleName()).endswith(kind)
+        except Exception:
+            return False
+
+    def on_update_hook(self, update_name: str, account: int, update: Any) -> HookResult:
+        try:
+            self._count("update_hook")
+            if not self._is_update_kind(update_name, update, "updateNewMessage"):
+                return HookResult()
+            if not self.get_setting("enabled", True):
+                return HookResult()
+            message = getattr(update, "message", None)
+            if message is None:
+                return HookResult()
+            if bool(getattr(message, "out", False)):
+                return HookResult()
+            dialog_id = self._message_dialog_id(message, account)
+            if dialog_id <= 0:
+                return HookResult()
+            if not self._is_muted(account, dialog_id):
+                return HookResult()
+            self._count("muted_update")
+            message_id = int(getattr(message, "id", 0) or 0)
+            if message_id > 0:
+                self._delete_messages(account, dialog_id, [message_id], delay=250)
+            return HookResult(strategy=HookStrategy.CANCEL)
+        except Exception:
+            self.log("[mute_ls] update hook error: " + traceback.format_exc())
+            return HookResult()
+
+    def on_updates_hook(self, container_name: str, account: int, updates: Any) -> HookResult:
+        """Private messages often arrive as the compact TL_updateShortMessage."""
+        try:
+            self._count("updates_hook")
+            if not self._is_update_kind(container_name, updates, "updateShortMessage"):
+                return HookResult()
+            if not self.get_setting("enabled", True):
+                return HookResult()
+            if bool(getattr(updates, "out", False)):
+                return HookResult()
+            dialog_id = int(getattr(updates, "user_id", 0) or 0)
+            message_id = int(getattr(updates, "id", 0) or 0)
+            if dialog_id <= 0 or message_id <= 0:
+                return HookResult()
+            if not self._is_muted(account, dialog_id):
+                return HookResult()
+            self._count("muted_short")
+            # Not cancelled: the client must apply this container's pts. The
+            # message is removed right after it has been stored.
+            self._delete_messages(account, dialog_id, [message_id], delay=400)
+        except Exception:
+            self.log("[mute_ls] updates hook error: " + traceback.format_exc())
+        return HookResult()
+
+    def _message_dialog_id(self, message, account=None):
+        """Dialog id of a private message; 0 for groups/channels.
+
+        Raw updates often arrive with dialog_id == 0, so derive it from
+        peer_id/from_id using the config of the account that got the update.
+        """
+        try:
+            value = int(getattr(message, "dialog_id", 0) or 0)
+            if value > 0:
+                return value
+        except Exception:
+            pass
+        try:
+            peer_user = int(getattr(getattr(message, "peer_id", None), "user_id", 0) or 0)
+        except Exception:
+            peer_user = 0
+        if peer_user <= 0:
+            return 0
+        own_id = None
+        try:
+            if account is not None:
+                own_id = int(UserConfig.getInstance(int(account)).getClientUserId())
+        except Exception:
+            own_id = None
+        if own_id is None or peer_user != own_id:
+            return peer_user
+        try:
+            sender = int(getattr(getattr(message, "from_id", None), "user_id", 0) or 0)
+        except Exception:
+            sender = 0
+        return sender if sender > 0 else 0
+
+    def _peer_dialog_id(self, params):
+        try:
+            return int(params.peer)
+        except Exception:
+            return None
+
+    def _command_mute(self, account, dialog_id, argument):
+        if dialog_id is None or dialog_id <= 0:
+            self._bulletin("error", "Мут работает только в личных чатах.")
+            return
+        until = 0
+        duration_text = argument
+        if not duration_text:
+            duration_text = (self.get_setting("default_duration", DEFAULT_DURATION) or "").strip()
+        if duration_text:
+            seconds = self._parse_duration(duration_text)
+            if not seconds:
+                self._bulletin("error", "Неверный формат времени. Примеры: 30m, 2h, 1d.")
+                return
+            until = int(time.time() * 1000) + seconds * 1000
+
+        was_muted = self._is_muted(account, dialog_id)
+        name = self._display_name(account, dialog_id)
+        muted = self._load_muted()
+        muted[self._key(account, dialog_id)] = {
+            "name": name,
+            "until": until,
+            "account": account,
+            "id": dialog_id,
+        }
+        self._persist(muted, reload_ui=True)
+        self._refresh_chat_menu()
+        if not was_muted:
+            self._send_mute_notice(account, dialog_id)
+        if until:
+            self._bulletin("success", "Замутил %s до %s" % (name, self._fmt_until(until)))
+        else:
+            self._bulletin("success", "Замутил %s навсегда" % name)
+
+    def _send_mute_notice(self, account, dialog_id):
+        self._send_notice(account, dialog_id, "notify_text", "Ты в муте.")
+
+    def _send_unmute_notice(self, account, dialog_id):
+        self._send_notice(account, dialog_id, "notify_unmute_text", "Ты больше не в муте.")
+
+    def _send_notice(self, account, dialog_id, setting_key, default_text):
+        if not self.get_setting("notify_peer", False):
+            return
+        text = (self.get_setting(setting_key, default_text) or "").strip()
+        if not text:
+            return
+
+        def _do():
+            try:
+                if send_text is not None:
+                    try:
+                        send_text(int(dialog_id), text, account=int(account))
+                    except TypeError:
+                        send_text(int(dialog_id), text)
+                    return
+                params = SendMessagesHelper.SendMessageParams()
+                params.peer = int(dialog_id)
+                params.message = text
+                SendMessagesHelper.getInstance(account).sendMessage(params)
+            except Exception:
+                self.log("[mute_ls] notice error: " + traceback.format_exc())
+
+        run_on_ui_thread(_do)
+
+    def _command_unmute(self, account, dialog_id):
+        if dialog_id is None or dialog_id <= 0:
+            self._bulletin("error", "Размутить можно только в личном чате.")
+            return
+        muted = self._load_muted()
+        key = self._key(account, dialog_id)
+        entry = muted.pop(key, None)
+        if entry is None:
+            self._bulletin("info", "Этот пользователь не в муте.")
+            return
+        self._persist(muted, reload_ui=True)
+        self._refresh_chat_menu()
+        self._send_unmute_notice(account, dialog_id)
+        name = entry.get("name") or ("id %s" % dialog_id)
+        self._bulletin("success", "Размутил %s" % name)
+
+    def _command_status(self, account, dialog_id):
+        muted = self._remove_expired()
+        if dialog_id is None or dialog_id <= 0:
+            self._bulletin("info", "В муте: %d" % len(muted))
+            return
+        entry = muted.get(self._key(account, dialog_id))
+        if entry is None:
+            self._bulletin("info", "Этот пользователь не в муте.")
+            return
+        name = entry.get("name") or ("id %s" % dialog_id)
+        until = int(entry.get("until", 0) or 0)
+        if until:
+            self._bulletin("info", "%s в муте до %s" % (name, self._fmt_until(until)))
+        else:
+            self._bulletin("info", "%s в муте навсегда" % name)
+
+    # ------------------------------------------------------------- chat menu
+
+    @staticmethod
+    def _ctx_get(context, key):
+        try:
+            return context.get(key)
+        except Exception:
+            try:
+                return getattr(context, key)
+            except Exception:
+                return None
+
+    def _context_target(self, context):
+        """(account, dialog_id) for a menu click, from any context shape."""
+        keys = "?"
+        for getter in (lambda c: list(c.keys()), lambda c: [str(k) for k in c.keySet().toArray()]):
+            try:
+                keys = getter(context)
+                break
+            except Exception:
+                continue
+        self.log("[mute_ls] menu context keys: %s" % (keys,))
+
+        dialog_id = None
+        for key in ("dialog_id", "dialogId", "userId", "user_id"):
+            value = self._ctx_get(context, key)
+            try:
+                if value is not None and int(value) != 0:
+                    dialog_id = int(value)
+                    break
+            except Exception:
+                pass
+        if dialog_id is None:
+            user = self._ctx_get(context, "user")
+            try:
+                if user is not None:
+                    dialog_id = int(user.id)
+            except Exception:
+                pass
+        if dialog_id is None:
+            message = self._ctx_get(context, "message")
+            try:
+                if message is not None:
+                    dialog_id = int(message.getDialogId())
+            except Exception:
+                pass
+        if dialog_id is None:
+            try:
+                fragment = self._ctx_get(context, "fragment") or get_last_fragment()
+                dialog_id = int(fragment.getDialogId())
+            except Exception:
+                dialog_id = None
+
+        account = self._ctx_get(context, "account")
+        try:
+            account = int(account) if account is not None else self._selected_account()
+        except Exception:
+            account = self._selected_account()
+        return account, dialog_id
+
+    def _on_menu_click(self, context):
+        try:
+            self._count("menu_click")
+            account, dialog_id = self._context_target(context)
+            if dialog_id is None or dialog_id <= 0:
+                self._bulletin("error", "Мут работает только в личных чатах.")
+                return
+            if self._is_muted(account, dialog_id):
+                self._command_unmute(account, dialog_id)
+            else:
+                self._command_mute(account, dialog_id, "")
+        except Exception:
+            self.log("[mute_ls] menu click error: " + traceback.format_exc())
+            self._bulletin("error", "Ошибка мута, см. журнал в настройках плагина")
+
+    def _on_status_menu_click(self, context):
+        try:
+            account, dialog_id = self._context_target(context)
+            self._command_status(account, dialog_id)
+        except Exception:
+            self.log("[mute_ls] status menu click error: " + traceback.format_exc())
+
+    def _on_diag_menu_click(self, context):
+        self._copy_diag()
+
+    def _refresh_chat_menu(self):
+        """Register the static menu items once, each one independently.
+
+        Previously the item was added only after an "opened chat" notification
+        and only when a chat fragment was already on screen, so it was never
+        registered at load time. The click handler decides whether the chat
+        is a private one.
+        """
+        if getattr(self, "_menu_registered", False):
+            return
+        specs = [
+            ("CHAT_ACTION_MENU", MENU_ITEM_ID, "Мут / размут", "msg_mute", self._on_menu_click),
+            ("CHAT_ACTION_MENU", MENU_ITEM_ID + "_status", "Статус мута", "msg_info", self._on_status_menu_click),
+            ("PROFILE_ACTION_MENU", MENU_ITEM_ID + "_profile", "Мут / размут в ЛС", "msg_mute", self._on_menu_click),
+        ]
+        registered = []
+        for menu_name, item_id, text, icon, handler in specs:
+            menu_type = getattr(MenuItemType, menu_name, None)
+            if menu_type is None:
+                self.log("[mute_ls] menu type %s is missing" % menu_name)
+                continue
+            try:
+                result = self.add_menu_item(
+                    MenuItemData(
+                        menu_type=menu_type,
+                        text=text,
+                        icon=icon,
+                        item_id=item_id,
+                        on_click=handler,
+                    )
+                )
+                registered.append(result or item_id)
+            except Exception:
+                self.log("[mute_ls] menu %s register error: %s" % (item_id, traceback.format_exc()))
+        self._extra_menu_ids = registered
+        self._menu_registered = bool(registered)
+        self.log("[mute_ls] menu items registered: %s" % (registered,))
+        if not registered:
+            raise RuntimeError("no menu items registered")
+
+    def _menu_state(self):
+        try:
+            fragment = get_last_fragment()
+            if fragment is None or not hasattr(fragment, "getDialogId"):
+                return None
+            dialog_id = int(fragment.getDialogId())
+        except Exception:
+            return None
+        if dialog_id <= 0:
+            return None
+        account = self._selected_account()
+        return (account, dialog_id, self._is_muted(account, dialog_id))
+
+    def _remove_menu_item(self):
+        self._menu_registered = False
+        for item_id in list(getattr(self, "_extra_menu_ids", []) or []):
+            try:
+                self.remove_menu_item(item_id)
+            except Exception:
+                pass
+        self._extra_menu_ids = []
+        self._menu_item_id = None
+        self._status_item_id = None
+
+    # --------------------------------------------------------------- settings
+
+    def create_settings(self) -> List[Any]:
+        items = [
+            Header(text="Мут в ЛС"),
+            Switch(
+                key="enabled",
+                text="Включить мут",
+                subtext="Удалять входящие сообщения от замьюченных.",
+                default=True,
+                icon="msg_mute",
+            ),
+            Switch(
+                key="delete_for_everyone",
+                text="Удалять у всех",
+                subtext="Удалять сообщение и у собеседника.",
+                default=True,
+                icon="msg_delete",
+            ),
+            Header(text="Уведомление собеседнику"),
+            Switch(
+                key="notify_peer",
+                text="Уведомить собеседника",
+                subtext="Отправлять уведомления при муте и индивидуальном размьюте.",
+                default=False,
+                icon="msg_info",
+            ),
+            Input(
+                key="notify_text",
+                text="Текст при муте",
+                default="Ты в муте.",
+                subtext="Отправляется один раз и не повторяется при продлении мута.",
+                icon="msg_edit",
+            ),
+            Input(
+                key="notify_unmute_text",
+                text="Текст при размьюте",
+                default="Ты больше не в муте.",
+                subtext="Отправляется при размьюте одного собеседника.",
+                icon="msg_edit",
+            ),
+            Divider(),
+            Input(
+                key="default_duration",
+                text="Длительность по умолчанию",
+                default=DEFAULT_DURATION,
+                subtext="Для команды мута без времени. Пример: 30m, 2h, 1d. Пусто — навсегда.",
+                icon="msg_mute_period",
+            ),
+            Input(
+                key="prefix",
+                text="Префикс команд",
+                default=DEFAULT_PREFIX,
+                subtext="Например: %smute, %sunmute, %sstatus" % (DEFAULT_PREFIX, DEFAULT_PREFIX, DEFAULT_PREFIX),
+                icon="msg_edit",
+            ),
+            Text(
+                text="Команды",
+                subtext="Показать список команд",
+                icon="msg_help",
+                create_sub_fragment=self._create_commands_page,
+            ),
+            Text(
+                text="Диагностика",
+                subtext="Журнал работы и кнопка «Скопировать»",
+                icon="msg_settings",
+                create_sub_fragment=self._create_diag_page,
+            ),
+            Divider(),
+            Header(text="Замьюченные"),
+        ]
+
+        muted = self._remove_expired()
+        if not muted:
+            items.append(
+                Text(
+                    text="Никого нет в муте",
+                    subtext="Напишите %smute в личном чате, чтобы добавить." % DEFAULT_PREFIX,
+                    icon="msg_info",
+                )
+            )
+        else:
+            for key, entry in sorted(muted.items(), key=lambda kv: kv[1].get("name") or ""):
+                name = entry.get("name") or ("id %s" % entry.get("id", "?"))
+                until = entry.get("until", 0)
+                subtext = ("до %s" % self._fmt_until(until)) if until else "навсегда"
+                items.append(
+                    Text(
+                        text=name,
+                        subtext=subtext + "  •  нажмите, чтобы размьютить",
+                        icon="msg_mute",
+                        on_click=lambda view, k=key: self._confirm_unmute(k),
+                    )
+                )
+            items.append(Divider())
+            items.append(
+                Text(
+                    text="Размьютить всех",
+                    subtext="Убрать всех из мут-листа.",
+                    icon="msg_unmute",
+                    red=True,
+                    on_click=lambda view: self._confirm_unmute_all(),
+                )
+            )
+        return items
+
+    def _create_commands_page(self) -> List[Any]:
+        prefix = self.get_setting("prefix", DEFAULT_PREFIX) or DEFAULT_PREFIX
+        return [
+            Header(text="Команды"),
+            Text(text="%smute" % prefix, subtext="Замутить на время по умолчанию", icon="msg_mute"),
+            Text(text="%smute 30m" % prefix, subtext="Замутить на 30 минут (m — минуты, h — часы, d — дни, w — недели)", icon="msg_mute_period"),
+            Text(text="%sunmute" % prefix, subtext="Размьютить", icon="msg_unmute"),
+            Text(text="%sstatus" % prefix, subtext="Показать статус мута в этом чате", icon="msg_info"),
+            Text(text="%smutediag" % prefix, subtext="Скопировать журнал диагностики", icon="msg_copy"),
+            Divider(),
+            Text(
+                text="Команды пишутся в личном чате и не отправляются собеседнику.",
+                icon="msg_info",
+            ),
+        ]
+
+    def _confirm_unmute(self, key):
+        def _do():
+            try:
+                entry = self._load_muted().get(key, {})
+                name = entry.get("name") or key
+                fragment = get_last_fragment()
+                activity = fragment.getParentActivity() if fragment else None
+                if activity is None:
+                    self._remove_key(key)
+                    return
+                builder = AlertDialogBuilder(activity)
+                builder.set_title("Размутить")
+                builder.set_message("Размутить %s?" % name)
+                builder.set_positive_button(
+                    "Размутить", lambda b, w: (self._remove_key(key), b.dismiss())
+                )
+                builder.set_negative_button("Отмена", lambda b, w: b.dismiss())
+                builder.show()
+            except Exception:
+                self.log("[mute_ls] unmute dialog error: " + traceback.format_exc())
+
+        run_on_ui_thread(_do)
+
+    def _confirm_unmute_all(self):
+        def _do():
+            try:
+                muted = self._load_muted()
+                if not muted:
+                    return
+                fragment = get_last_fragment()
+                activity = fragment.getParentActivity() if fragment else None
+                if activity is None:
+                    self._persist({}, reload_ui=True)
+                    self._refresh_chat_menu()
+                    return
+                builder = AlertDialogBuilder(activity)
+                builder.set_title("Размьютить всех")
+                builder.set_message("Убрать всех из мут-листа (%d)?" % len(muted))
+                builder.set_positive_button("Размьютить всех", lambda b, w: (self._clear_all(), b.dismiss()))
+                builder.set_negative_button("Отмена", lambda b, w: b.dismiss())
+                builder.show()
+            except Exception:
+                self.log("[mute_ls] unmute all error: " + traceback.format_exc())
+
+        run_on_ui_thread(_do)
+
+    def _remove_key(self, key):
+        muted = self._load_muted()
+        entry = muted.pop(key, None)
+        if entry is None:
+            return
+        self._persist(muted, reload_ui=True)
+        self._refresh_chat_menu()
+        name = entry.get("name") or entry.get("id")
+        self._bulletin("success", "Размутил %s" % name)
+
+    def _clear_all(self):
+        self._persist({}, reload_ui=True)
+        self._refresh_chat_menu()
+        self._bulletin("success", "Все размьючены")
+
+    # ------------------------------------------------------------------ storage
+
+    def _load_muted(self):
+        if self._muted_cache is not None:
+            return dict(self._muted_cache)
+        data = {}
+        try:
+            raw = self.get_setting(MUTED_KEY, "{}") or "{}"
+            parsed = json.loads(raw)
+            if isinstance(parsed, dict):
+                data = parsed
+        except Exception:
+            data = {}
+        self._muted_cache = dict(data)
+        return dict(data)
+
+    def _persist(self, muted, reload_ui=False):
+        self._muted_cache = dict(muted)
+        try:
+            payload = json.dumps(muted, ensure_ascii=False)
+        except Exception:
+            payload = "{}"
+        try:
+            self.set_setting(MUTED_KEY, payload, reload_settings=reload_ui)
+        except TypeError:
+            self.set_setting(MUTED_KEY, payload)
+            if reload_ui:
+                self.set_setting(MUTED_KEY, self.get_setting(MUTED_KEY, "{}") or "{}", reload_settings=True)
+
+        self._schedule_expiry_cleanup()
+
+    def _remove_expired(self, muted=None, reload_ui=False):
+        muted = dict(muted) if muted is not None else self._load_muted()
+        now = int(time.time() * 1000)
+        active = {}
+        changed = False
+        for key, entry in muted.items():
+            if not isinstance(entry, dict):
+                changed = True
+                continue
+            try:
+                until = int(entry.get("until", 0) or 0)
+            except Exception:
+                until = 0
+            if until and until <= now:
+                changed = True
+                continue
+            active[key] = entry
+        if changed:
+            self._persist(active, reload_ui=reload_ui)
+        return active
+
+    def _schedule_expiry_cleanup(self):
+        if not hasattr(self, "_expiry_generation"):
+            return
+        now = int(time.time() * 1000)
+        deadlines = []
+        for entry in self._load_muted().values():
+            if not isinstance(entry, dict):
+                continue
+            try:
+                until = int(entry.get("until", 0) or 0)
+            except Exception:
+                continue
+            if until > now:
+                deadlines.append(until)
+
+        self._expiry_generation += 1
+        generation = self._expiry_generation
+        if not deadlines:
+            return
+
+        # Android delayed callbacks use millisecond delays. Cap very long
+        # durations and reschedule when the callback eventually runs.
+        delay = min(max(1, min(deadlines) - now), 2147000000)
+        run_on_ui_thread(lambda: self._expire_due(generation), delay)
+
+    def _expire_due(self, generation):
+        if generation != getattr(self, "_expiry_generation", 0):
+            return
+        self._remove_expired(reload_ui=True)
+        self._refresh_chat_menu()
+        self._schedule_expiry_cleanup()
+
+    def _key(self, account, dialog_id):
+        return "%s:%s" % (account, dialog_id)
+
+    def _is_muted(self, account, dialog_id):
+        muted = self._load_muted()
+        key = self._key(account, dialog_id)
+        entry = muted.get(key)
+        if not entry:
+            return False
+        try:
+            until = int(entry.get("until", 0) or 0)
+        except Exception:
+            until = 0
+        if until and until <= int(time.time() * 1000):
+            muted.pop(key, None)
+            self._persist(muted)
+            return False
+        return True
+
+    # -------------------------------------------------------------------- utils
+
+    def _parse_duration(self, text):
+        text = str(text).strip().lower()
+        if not text:
+            return None
+        total = 0
+        found = False
+        for number, unit in DURATION_RE.findall(text):
+            total += int(number) * UNITS[unit.lower()]
+            found = True
+        leftover = re.sub(r"[0-9\s]", "", text)
+        leftover = re.sub(r"[smhdw]", "", leftover)
+        if leftover:
+            return None
+        if not found:
+            if text.isdigit():
+                return int(text) * 60
+            return None
+        return total or None
+
+    def _fmt_until(self, until_ms):
+        try:
+            return time.strftime("%d.%m %H:%M", time.localtime(until_ms / 1000.0))
+        except Exception:
+            return str(until_ms)
+
+    def _selected_account(self):
+        try:
+            return int(UserConfig.selectedAccount)
+        except Exception:
+            return 0
+
+    def _messages_controller(self, account):
+        try:
+            return get_messages_controller(account)
+        except TypeError:
+            try:
+                return get_messages_controller()
+            except Exception:
+                return None
+        except Exception:
+            return None
+
+    def _display_name(self, account, user_id):
+        try:
+            controller = self._messages_controller(account)
+            if controller is not None:
+                user = controller.getUser(int(user_id))
+                if user is not None:
+                    parts = []
+                    first = getattr(user, "first_name", None)
+                    last = getattr(user, "last_name", None)
+                    if first:
+                        parts.append(first)
+                    if last:
+                        parts.append(last)
+                    if parts:
+                        return " ".join(parts)
+                    username = getattr(user, "username", None)
+                    if username:
+                        return "@" + username
+        except Exception:
+            pass
+        return "id %s" % user_id
+
+    def _bulletin(self, kind, text):
+        try:
+            fragment = get_last_fragment()
+            if kind == "error":
+                BulletinHelper.show_error(text, fragment)
+            elif kind == "success":
+                BulletinHelper.show_success(text, fragment)
+            else:
+                BulletinHelper.show_info(text, fragment)
+        except Exception:
+            self.log("[mute_ls] bulletin error: %s | %s" % (text, traceback.format_exc()))
