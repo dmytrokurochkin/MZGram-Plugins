@@ -1066,6 +1066,34 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "all_chats_loader",
+      "name": "All Chats Loader",
+      "version": "2.0.5",
+      "min_app_version": "1.0.0",
+      "file": "plugins/all_chats_loader/2.0.5/all_chats_loader.plugin",
+      "sha256": "1c0df46b26ac784fd0a24477b0eb7dd3efd57a7134040b48e6023013f2a85f95",
+      "size": 13761,
+      "description": "Safely loads the list of dialogs through the standard Telegram handler.",
+      "description_i18n": {
+        "en": "Safely loads the list of dialogs through the standard Telegram handler.",
+        "uk": "Безпечно завантажує список діалогів через стандартний обробник Telegram.",
+        "ru": "Безопасно загружает список диалогов через стандартный обработчик Telegram.",
+        "pl": "Bezpiecznie ładuje listę okien dialogowych za pomocą standardowej obsługi Telegramu.",
+        "es": "Carga de forma segura la lista de cuadros de diálogo a través del controlador estándar de Telegram.",
+        "de": "Lädt die Liste der Dialoge sicher über den Standard-Telegram-Handler.",
+        "fr": "Charge en toute sécurité la liste des boîtes de dialogue via le gestionnaire Telegram standard.",
+        "pt-BR": "Carrega com segurança a lista de caixas de diálogo por meio do manipulador padrão do Telegram.",
+        "tr": "Diyalogların listesini standart Telegram işleyicisi aracılığıyla güvenli bir şekilde yükler.",
+        "ar": "يقوم بتحميل قائمة مربعات الحوار بأمان من خلال معالج Telegram القياسي.",
+        "be": "Бяспечна загружае спіс дыялогаў праз стандартны апрацоўшчык Telegram.",
+        "kk": "Стандартты Telegram өңдеушісі арқылы диалогтар тізімін қауіпсіз жүктейді."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
