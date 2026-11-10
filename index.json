@@ -11594,6 +11594,34 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "tomato_bom",
+      "name": "Tomato bom",
+      "version": "1.2.8",
+      "min_app_version": "1.0.0",
+      "file": "plugins/tomato_bom/1.2.8/tomato_bom.plugin",
+      "sha256": "5870d955701281306bb42e915205c5ba49a4c4893806f7e7bea68dabf7edcd0a",
+      "size": 11491,
+      "description": "Throws tomatoes. Clamping = machine gun fire.",
+      "description_i18n": {
+        "en": "Throws tomatoes. Clamping = machine gun fire.",
+        "uk": "Кидає помідори. Затиск = кулеметний вогонь.",
+        "ru": "Бросает помидоры. Зажим = пулеметный огонь.",
+        "pl": "Rzuca pomidorami. Zaciśnięcie = ogień z karabinu maszynowego.",
+        "es": "Tira tomates. Sujeción = fuego de ametralladora.",
+        "de": "Wirft Tomaten. Klemmen = Maschinengewehrfeuer.",
+        "fr": "Jette des tomates. Serrage = tir de mitrailleuse.",
+        "pt-BR": "Joga tomates. Aperto = tiro de metralhadora.",
+        "tr": "Domates atar. Sıkıştırma = makineli tüfek ateşi.",
+        "ar": "يرمي الطماطم. لقط = نار مدفع رشاش.",
+        "be": "Кідае памідоры. Заціск = кулямётны агонь.",
+        "kk": "Томатты лақтырады. Қысу = пулеметтің атысы."
+      },
+      "permissions": [
+        "network",
+        "files"
+      ]
     }
   ]
 }
