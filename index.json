@@ -2021,6 +2021,38 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "cactus_export",
+      "name": "Cactus Export",
+      "version": "2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/cactus_export/2.0/cactus_export.plugin",
+      "sha256": "7f830393ecd21a24ed1a8a1e236e237b0436850d7c30ce335e211d062e0c999f",
+      "size": 35933,
+      "description": "I made an (almost) exact clone of export/import plugins from cactuslib only for new versions of exteraGram. I tagged everyone I fucked up with as authors ✅.",
+      "description_i18n": {
+        "en": "I made an (almost) exact clone of export/import plugins from cactuslib only for new versions of exteraGram. I tagged everyone I fucked up with as authors ✅.",
+        "uk": "Я зробив (майже) точний клон плагінів експорту/імпорту з cactuslib лише для нових версій exteraGram. Я позначив усіх, з ким облажався, як авторів ✅.",
+        "ru": "Я сделал (почти) точный клон плагинов экспорта/импорта из cactuslib только для новых версий exteraGram. Я всех, с кем облажался, отметил как авторов ✅.",
+        "pl": "Zrobiłem (prawie) dokładny klon wtyczek eksportu/importu z cactuslib tylko dla nowych wersji exteraGram. Oznaczyłem wszystkich, z którymi spieprzyłem, jako autorów ✅.",
+        "es": "Hice un clon (casi) exacto de complementos de exportación/importación de cactuslib solo para nuevas versiones de exteraGram. Etiqueté como autores a todos con los que la cagué ✅.",
+        "de": "Ich habe einen (fast) exakten Klon der Export-/Import-Plugins von cactuslib nur für neue Versionen von exteraGram erstellt. Ich habe alle, mit denen ich Mist gebaut habe, als Autoren markiert ✅.",
+        "fr": "J'ai fait un clone (presque) exact des plugins d'exportation/importation de cactuslib uniquement pour les nouvelles versions d'exteraGram. J'ai identifié tous ceux avec qui j'ai merdé comme auteurs ✅.",
+        "pt-BR": "Fiz um clone (quase) exato dos plugins de exportação/importação do cactuslib apenas para novas versões do exteraGram. Marquei todos com quem fodi como autores ✅.",
+        "tr": "Yalnızca exteraGram'ın yeni sürümleri için cactuslib'den (neredeyse) tam bir dışa aktarma/içe aktarma eklentileri klonu yaptım. Berbat ettiğim herkesi yazar olarak etiketledim ✅.",
+        "ar": "لقد قمت بعمل استنساخ دقيق (تقريبًا) لمكونات التصدير/الاستيراد الإضافية من cactuslib فقط للإصدارات الجديدة من exteraGram. لقد قمت بوضع علامة على كل من أخطأت معهم كمؤلفين ✅.",
+        "be": "Я зрабіў (амаль) дакладны клон плагінаў экспарту/імпарту з cactuslib толькі для новых версій exteraGram. Я пазначыў усіх, з кім аблажаўся, як аўтараў ✅.",
+        "kk": "Мен тек exteraGram жаңа нұсқалары үшін cactuslib-тен экспорт/импорт плагиндерінің нақты клонын жасадым. Мен ренжіген адамдардың барлығын автор деп белгіледім✅."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
