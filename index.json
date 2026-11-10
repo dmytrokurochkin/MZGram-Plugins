@@ -6286,6 +6286,35 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "local_pin",
+      "name": "Local Pin",
+      "version": "1.6.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/local_pin/1.6.1/local_pin.plugin",
+      "sha256": "6d4d0af130ba413792afdcf21480da05b2d60c3d66f189ef2e9598a8c0a3a65d",
+      "size": 61394,
+      "description": "Allows you to pin messages locally, even without pin permissions.",
+      "description_i18n": {
+        "en": "Allows you to pin messages locally, even without pin permissions.",
+        "uk": "Дозволяє закріплювати повідомлення локально, навіть без дозволу на закріплення.",
+        "ru": "Позволяет закреплять сообщения локально, даже без разрешений на закрепление.",
+        "pl": "Umożliwia lokalne przypinanie wiadomości, nawet bez uprawnień do przypinania.",
+        "es": "Le permite fijar mensajes localmente, incluso sin permisos de fijación.",
+        "de": "Ermöglicht das lokale Anpinnen von Nachrichten, auch ohne Pin-Berechtigungen.",
+        "fr": "Vous permet d'épingler des messages localement, même sans autorisations d'épinglage.",
+        "pt-BR": "Permite fixar mensagens localmente, mesmo sem permissões de fixação.",
+        "tr": "Sabitleme izinleri olmasa bile mesajları yerel olarak sabitlemenize olanak tanır.",
+        "ar": "يسمح لك بتثبيت الرسائل محليًا، حتى بدون أذونات التثبيت.",
+        "be": "Дазваляе замацоўваць паведамленні лакальна, нават без дазволу на замацаванне.",
+        "kk": "Хабарларды бекіту рұқсатынсыз да жергілікті түрде бекітуге мүмкіндік береді."
+      },
+      "permissions": [
+        "messages.read",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
