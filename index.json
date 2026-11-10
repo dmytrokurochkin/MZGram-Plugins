@@ -10078,6 +10078,34 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "send_file_text",
+      "name": "FileText",
+      "version": "1.0.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/send_file_text/1.0.2/send_file_text.plugin",
+      "sha256": "68bcb6b271e7f53a305ee6d641945857a42a75279cd513b49bc96abc6cfae1eb",
+      "size": 37396,
+      "description": "Adds the **\"Send as a file\"** item to the context menu for sending a message (hold the send button) - the entered text will be sent as a file. Adds a **\"Send as file\"** option to the message send context menu (hold the send button).",
+      "description_i18n": {
+        "en": "Adds the **\"Send as a file\"** item to the context menu for sending a message (hold the send button) - the entered text will be sent as a file. Adds a **\"Send as file\"** option to the message send context menu (hold the send button).",
+        "uk": "Додає в контекстне меню відправки повідомлення пункт **\"Відправити як файл\"** (утримуйте кнопку відправки) - введений текст буде відправлено як файл. Додає опцію **\"Надіслати як файл\"** до контекстного меню надсилання повідомлення (утримуйте кнопку надсилання).",
+        "ru": "Добавляет пункт **\"Отправить как файл\"** в контекстное меню отправки сообщения (удерживать кнопку отправки) - введенный текст будет отправлен в виде файла. Добавляет параметр **\"Отправить как файл\"** в контекстное меню отправки сообщения (удерживайте кнопку отправки).",
+        "pl": "Dodaje opcję **Wyślij jako plik** do menu kontekstowego wysyłania wiadomości (przytrzymaj przycisk wyślij) - wprowadzony tekst zostanie wysłany w formie pliku. Dodaje opcję **Wyślij jako plik** do menu kontekstowego wysyłania wiadomości (przytrzymaj przycisk wysyłania).",
+        "es": "Agrega el elemento **\"Enviar como archivo\"** al menú contextual para enviar un mensaje (mantenga presionado el botón enviar): el texto ingresado se enviará como un archivo. Agrega una opción **\"Enviar como archivo\"** al menú contextual de envío de mensajes (mantenga presionado el botón enviar).",
+        "de": "Fügt dem Kontextmenü zum Senden einer Nachricht den Eintrag **„Als Datei senden\"** hinzu (halten Sie die Senden-Taste gedrückt) - der eingegebene Text wird als Datei gesendet. Fügt dem Kontextmenü zum Senden der Nachricht eine Option **„Als Datei senden\"** hinzu (halten Sie die Senden-Taste gedrückt).",
+        "fr": "Ajoute l'élément **\"Envoyer sous forme de fichier\"** au menu contextuel pour envoyer un message (maintenez le bouton d'envoi enfoncé) - le texte saisi sera envoyé sous forme de fichier. Ajoute une option **\"Envoyer en tant que fichier\"** au menu contextuel d'envoi du message (maintenez le bouton d'envoi enfoncé).",
+        "pt-BR": "Adiciona o item **\"Enviar como arquivo\"** ao menu de contexto para envio de mensagem (segure o botão enviar) - o texto inserido será enviado como um arquivo. Adiciona uma opção **\"Enviar como arquivo\"** ao menu de contexto de envio de mensagem (segure o botão enviar).",
+        "tr": "Mesaj göndermek için içerik menüsüne **\"Dosya olarak gönder\"** öğesini ekler (gönder düğmesini basılı tutun) - girilen metin dosya olarak gönderilecektir. Mesaj gönderme içerik menüsüne **\"Dosya olarak gönder\"** seçeneği ekler (gönder düğmesini basılı tutun).",
+        "ar": "إضافة العنصر **\"إرسال كملف\"** إلى قائمة السياق لإرسال رسالة (اضغط مع الاستمرار على زر الإرسال) - سيتم إرسال النص المُدخل كملف. إضافة خيار **\"إرسال كملف\"** إلى قائمة سياق إرسال الرسالة (اضغط مع الاستمرار على زر الإرسال).",
+        "be": "Дадае ў кантэкстнае меню адпраўкі паведамлення пункт **\"Адправіць як файл\"** (утрымлівайце кнопку адпраўкі) - уведзены тэкст будзе адпраўлены ў выглядзе файла. Дадае опцыю **\"Адправіць як файл\"** у кантэкстнае меню адпраўкі паведамлення (утрымлівайце кнопку адпраўкі).",
+        "kk": "Хабарламаны жіберу үшін мәтінмәндік мәзірге **«Файл ретінде жіберу»** тармағын қосады (жіберу түймесін басып тұрыңыз) - енгізілген мәтін файл ретінде жіберіледі. Хабарламаны жіберу контекстік мәзіріне **\"Файл ретінде жіберу\"** опциясын қосады (жіберу түймесін басып тұрыңыз)."
+      },
+      "permissions": [
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
