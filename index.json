@@ -4994,6 +4994,33 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "gifter_avatar",
+      "name": "Gifter Avatar",
+      "version": "1.2.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/gifter_avatar/1.2.1/gifter_avatar.plugin",
+      "sha256": "89cce7582f12e478d48ac21eb8b92419fb586821844b6b221b2b06fb07c7bdd9",
+      "size": 6798,
+      "description": "Displays the avatar of the gift giver in the menu for adding gifts to the collection Just like in the profile. By holding on a gift, the gift menu opens",
+      "description_i18n": {
+        "en": "Displays the avatar of the gift giver in the menu for adding gifts to the collection Just like in the profile. By holding on a gift, the gift menu opens",
+        "uk": "Відображає аватар дарувальника в меню додавання подарунків в колекцію Так само, як і в профілі. Утримуючи подарунок, відкривається меню подарунків",
+        "ru": "Отображает аватарку дарителя в меню добавления подарков в коллекцию Так же, как в профиле. Удерживая подарок, открывается меню подарков.",
+        "pl": "Wyświetla awatar dawcy prezentu w menu dodawania prezentów do kolekcji Podobnie jak w profilu. Przytrzymanie prezentu powoduje otwarcie menu prezentów",
+        "es": "Muestra el avatar del donante en el menú para agregar regalos a la colección Al igual que en el perfil. Al sostener un regalo, se abre el menú de regalos.",
+        "de": "Zeigt den Avatar des Geschenkgebers im Menü zum Hinzufügen von Geschenken zur Sammlung an. Genau wie im Profil. Durch Festhalten eines Geschenks öffnet sich das Geschenkmenü",
+        "fr": "Affiche l'avatar du donateur dans le menu d'ajout de cadeaux à la collection Comme dans le profil. En retenant un cadeau, le menu cadeaux s'ouvre",
+        "pt-BR": "Exibe o avatar do presenteador no menu de adição de presentes à coleção Assim como no perfil. Ao segurar um presente, o menu de presentes é aberto",
+        "tr": "Koleksiyona hediye eklemek için menüde hediye verenin avatarını görüntüler Tıpkı profilde olduğu gibi. Bir hediyeyi basılı tuttuğunuzda hediye menüsü açılır",
+        "ar": "يعرض الصورة الرمزية لمقدم الهدية في القائمة لإضافة الهدايا إلى المجموعة تمامًا كما هو الحال في الملف الشخصي. من خلال الاحتفاظ بالهدية، يتم فتح قائمة الهدايا",
+        "be": "Адлюстроўвае аватар дарыльшчыка ў меню дадання падарункаў у калекцыю, як і ў профілі. Утрымліваючы падарунак, адкрываецца меню падарункаў",
+        "kk": "Профильдегідей коллекцияға сыйлықтар қосу мәзірінде сыйлық берушінің аватарын көрсетеді. Сыйлықты ұстау арқылы сыйлық мәзірі ашылады"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
