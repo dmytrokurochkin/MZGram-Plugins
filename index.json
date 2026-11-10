@@ -7578,6 +7578,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "no_auto_play",
+      "name": "No Auto Play",
+      "version": "2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/no_auto_play/2.0/no_auto_play.plugin",
+      "sha256": "93bc28fa392c174e2c5493f827dd66a30af1e903d91305ab42aad835aebd71df",
+      "size": 8618,
+      "description": "Disables automatic playback of the next voice message, video message, or track.",
+      "description_i18n": {
+        "en": "Disables automatic playback of the next voice message, video message, or track.",
+        "uk": "Вимкнення автоматичного відтворення наступного голосового повідомлення, відеоповідомлення або треку.",
+        "ru": "Отключает автоматическое воспроизведение следующего голосового сообщения, видеосообщения или трека.",
+        "pl": "Wyłącza automatyczne odtwarzanie następnej wiadomości głosowej, wiadomości wideo lub utworu.",
+        "es": "Desactiva la reproducción automática del siguiente mensaje de voz, mensaje de vídeo o pista.",
+        "de": "Deaktiviert die automatische Wiedergabe der nächsten Sprachnachricht, Videonachricht oder des nächsten Titels.",
+        "fr": "Désactive la lecture automatique du prochain message vocal, message vidéo ou piste.",
+        "pt-BR": "Desativa a reprodução automática da próxima mensagem de voz, mensagem de vídeo ou faixa.",
+        "tr": "Sonraki sesli mesajın, video mesajının veya parçanın otomatik olarak oynatılmasını devre dışı bırakır.",
+        "ar": "تعطيل التشغيل التلقائي للرسالة الصوتية أو رسالة الفيديو أو المسار التالي.",
+        "be": "Адключае аўтаматычнае прайграванне наступнага галасавога паведамлення, відэапаведамлення або трэка.",
+        "kk": "Келесі дауыстық хабарды, бейне хабарламаны немесе жолды автоматты түрде ойнатуды өшіреді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
