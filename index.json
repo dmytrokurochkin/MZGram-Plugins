@@ -4172,6 +4172,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "fast_answers",
+      "name": "Fast Answers",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/fast_answers/1.0/fast_answers.plugin",
+      "sha256": "aa07efabb5df65d28844665216b1ed6f2a7e4bde87ea09355a69e5bc59d61883",
+      "size": 46122,
+      "description": "Fast answers for chats: start typing a message and a panel with ready answers appears above the keyboard. Quick replies in chat: start writing a message - a panel with ready-made replies will appear above the keyboard.",
+      "description_i18n": {
+        "en": "Fast answers for chats: start typing a message and a panel with ready answers appears above the keyboard. Quick replies in chat: start writing a message - a panel with ready-made replies will appear above the keyboard.",
+        "uk": "Швидкі відповіді для чатів: почніть вводити повідомлення, і над клавіатурою з'явиться панель із готовими відповідями. Швидкі відповіді в чаті: почніть писати повідомлення - над клавіатурою з'явиться панель із готовими відповідями.",
+        "ru": "Быстрые ответы для чатов: начните набирать сообщение и над клавиатурой появится панель с готовыми ответами. Быстрые ответы в чате: начните писать сообщение - над клавиатурой появится панель с готовыми ответами.",
+        "pl": "Szybkie odpowiedzi na czatach: zacznij pisać wiadomość, a nad klawiaturą pojawi się panel z gotowymi odpowiedziami. Szybkie odpowiedzi na czacie: zacznij pisać wiadomość - nad klawiaturą pojawi się panel z gotowymi odpowiedziami.",
+        "es": "Respuestas rápidas para chats: comienza a escribir un mensaje y aparece un panel con respuestas listas encima del teclado. Respuestas rápidas en el chat: comience a escribir un mensaje; aparecerá un panel con respuestas listas para usar encima del teclado.",
+        "de": "Schnelle Antworten für Chats: Beginnen Sie mit der Eingabe einer Nachricht und ein Bereich mit fertigen Antworten erscheint über der Tastatur. Schnelle Antworten im Chat: Beginnen Sie mit dem Schreiben einer Nachricht - über der Tastatur erscheint ein Bereich mit vorgefertigten Antworten.",
+        "fr": "Réponses rapides pour les chats : commencez à taper un message et un panneau avec des réponses prêtes apparaît au-dessus du clavier. Réponses rapides dans le chat : commencez à rédiger un message - un panneau avec des réponses prêtes à l'emploi apparaîtra au-dessus du clavier.",
+        "pt-BR": "Respostas rápidas para chats: comece a digitar uma mensagem e um painel com respostas prontas aparece acima do teclado. Respostas rápidas no chat: comece a escrever uma mensagem - um painel com respostas prontas aparecerá acima do teclado.",
+        "tr": "Sohbetler için hızlı yanıtlar: Bir mesaj yazmaya başladığınızda klavyenin üzerinde hazır yanıtların bulunduğu bir panel görünür. Sohbette hızlı yanıtlar: mesaj yazmaya başlayın - klavyenin üzerinde hazır yanıtların bulunduğu bir panel görünecektir.",
+        "ar": "إجابات سريعة للمحادثات: ابدأ في كتابة رسالة وستظهر لوحة تحتوي على إجابات جاهزة أعلى لوحة المفاتيح. الردود السريعة في الدردشة: ابدأ في كتابة رسالة - ستظهر لوحة بها ردود جاهزة أعلى لوحة المفاتيح.",
+        "be": "Хуткія адказы для чатаў: пачніце ўводзіць паведамленне, і над клавіятурай з'явіцца панэль з гатовымі адказамі. Хуткія адказы ў чаце: пачніце пісаць паведамленне - над клавіятурай з'явіцца панэль з гатовымі адказамі.",
+        "kk": "Чаттарға жылдам жауаптар: хабарды теруді бастаңыз және пернетақтаның үстінде дайын жауаптары бар панель пайда болады. Чаттағы жылдам жауаптар: хабарлама жазуды бастаңыз - пернетақтаның үстінде дайын жауаптары бар панель пайда болады."
+      },
+      "permissions": [
+        "network",
+        "hooks"
+      ]
     }
   ]
 }
