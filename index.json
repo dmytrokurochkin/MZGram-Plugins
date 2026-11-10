@@ -11204,6 +11204,33 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "svg_inline",
+      "name": "SVG Inline Renderer",
+      "version": "1.5.12",
+      "min_app_version": "1.0.0",
+      "file": "plugins/svg_inline/1.5.12/svg_inline.plugin",
+      "sha256": "fdbf2adf1da32abefbcbee3a3b61f4bd6cc68751856ae5e215300ff1c964fabc",
+      "size": 38157,
+      "description": "Renders svg icons in a text message and everyone who has the plugin can see it. <svg>...</svg>",
+      "description_i18n": {
+        "en": "Renders svg icons in a text message and everyone who has the plugin can see it. <svg>...</svg>",
+        "uk": "Відображає піктограми svg у текстовому повідомленні, і кожен, хто має плагін, може його бачити. <svg>...</svg>",
+        "ru": "Отображает svg-значки в текстовых сообщениях, и каждый, у кого есть плагин, может их увидеть. <svg>...</svg>",
+        "pl": "Renderuje ikony SVG w wiadomości tekstowej i każdy posiadacz wtyczki może je zobaczyć. <svg>...</svg>",
+        "es": "Representa íconos svg en un mensaje de texto y todos los que tengan el complemento pueden verlo. <svg>...</svg>",
+        "de": "Rendert SVG-Symbole in einer Textnachricht und jeder, der das Plugin hat, kann es sehen. <svg>...</svg>",
+        "fr": "Rend les icônes SVG dans un message texte et tous ceux qui possèdent le plugin peuvent le voir. <svg>...</svg>",
+        "pt-BR": "Renderiza ícones SVG em uma mensagem de texto e todos que possuem o plugin podem vê-lo. <svg>...</svg>",
+        "tr": "Bir metin mesajında ​​svg simgeleri oluşturur ve eklentiye sahip olan herkes bunu görebilir. <svg>...</svg>",
+        "ar": "يعرض أيقونات svg في رسالة نصية ويمكن لأي شخص لديه المكون الإضافي رؤيتها. <svg>...</svg>",
+        "be": "Рэндэрыруе значкі svg у тэкставых паведамленнях, і кожны, хто мае ўбудову, можа бачыць гэта. <svg>...</svg>",
+        "kk": "Мәтіндік хабарда svg белгішелерін көрсетеді және плагині бар кез келген адам оны көре алады. <svg>...</svg>"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
