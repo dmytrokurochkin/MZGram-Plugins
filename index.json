@@ -11341,6 +11341,40 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "telegram_jam",
+      "name": "Telegram Jam",
+      "version": "0.11.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/telegram_jam/0.11.2/telegram_jam.plugin",
+      "sha256": "2a6a2cf81672081a34e5a4a4f83098bf91d9b929d96b0a2806d73fa5a41768a5",
+      "size": 188581,
+      "description": "Joint listening to music in Telegram, like Jam in Spotify: up to 5 people listen to one track synchronously through a standard player. The server only synchronizes the player and does not receive audio, calls or correspondence.",
+      "description_i18n": {
+        "en": "Joint listening to music in Telegram, like Jam in Spotify: up to 5 people listen to one track synchronously through a standard player. The server only synchronizes the player and does not receive audio, calls or correspondence.",
+        "uk": "Спільне прослуховування музики в Telegram, як Jam в Spotify: до 5 людей синхронно слухають один трек через стандартний плеєр. Сервер лише синхронізує плеєр і не приймає аудіо, дзвінки та листування.",
+        "ru": "Совместное прослушивание музыки в Telegram, как Jam в Spotify: до 5 человек синхронно слушают один трек через стандартный плеер. Сервер только синхронизирует плеер и не принимает аудио, звонки и переписку.",
+        "pl": "Wspólne słuchanie muzyki w Telegramie, jak Jam w Spotify: do 5 osób synchronicznie słucha jednego utworu za pomocą standardowego odtwarzacza. Serwer synchronizuje jedynie odtwarzacz i nie odbiera dźwięku, połączeń ani korespondencji.",
+        "es": "Escucha conjunta de música en Telegram, como Jam en Spotify: hasta 5 personas escuchan una pista de forma sincronizada a través de un reproductor estándar. El servidor solo sincroniza el reproductor y no recibe audio, llamadas ni correspondencia.",
+        "de": "Gemeinsames Musikhören in Telegram, wie Jam in Spotify: Bis zu 5 Personen hören synchron einen Titel über einen Standardplayer. Der Server synchronisiert nur den Player und empfängt keine Audiodaten, Anrufe oder Korrespondenz.",
+        "fr": "Écoute conjointe de musique dans Telegram, comme Jam dans Spotify : jusqu'à 5 personnes écoutent une piste de manière synchrone via un lecteur standard. Le serveur synchronise uniquement le lecteur et ne reçoit pas d'audio, d'appels ou de correspondance.",
+        "pt-BR": "Escuta conjunta de música no Telegram, como Jam no Spotify: até 5 pessoas ouvem uma faixa de forma síncrona por meio de um player padrão. O servidor apenas sincroniza o player e não recebe áudio, chamadas ou correspondência.",
+        "tr": "Spotify'daki Jam gibi Telegram'da ortak müzik dinleme: Standart bir oynatıcı aracılığıyla en fazla 5 kişi aynı anda bir parçayı dinler. Sunucu yalnızca oynatıcıyı senkronize eder ve ses, çağrı veya yazışma almaz.",
+        "ar": "الاستماع المشترك إلى الموسيقى في Telegram، مثل Jam في Spotify: يستمع ما يصل إلى 5 أشخاص إلى مقطع صوتي واحد بشكل متزامن من خلال مشغل قياسي. يقوم الخادم فقط بمزامنة المشغل ولا يستقبل الصوت أو المكالمات أو المراسلات.",
+        "be": "Сумеснае праслухоўванне музыкі ў Telegram, як Jam у Spotify: да 5 чалавек сінхронна слухаюць адзін трэк праз стандартны плэер. Сервер толькі сінхранізуе плэер і не прымае аўдыё, званкі і перапіску.",
+        "kk": "Spotify-дағы Jam сияқты Telegram-да музыканы бірлесіп тыңдау: стандартты ойнатқыш арқылы бір тректі синхронды түрде 5 адамға дейін тыңдайды. Сервер тек ойнатқышты үндестіреді және дыбысты, қоңырауларды немесе хат-хабарларды қабылдамайды."
+      },
+      "requirements": [
+        "websocket-client>=1.8.0"
+      ],
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
