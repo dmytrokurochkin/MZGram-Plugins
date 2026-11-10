@@ -5886,6 +5886,34 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "jpeg_quality",
+      "name": "JPEG Quality Slider",
+      "version": "2.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/jpeg_quality/2.1/jpeg_quality.plugin",
+      "sha256": "9ff445b11f2a373faa8cc142a256fee1e110f0956b064faa5c616685ec5ef98b",
+      "size": 16633,
+      "description": "Adds a JPEG quality adjustment slider to the photo editing sliders with real-time preview",
+      "description_i18n": {
+        "en": "Adds a JPEG quality adjustment slider to the photo editing sliders with real-time preview",
+        "uk": "Додає повзунок налаштування якості JPEG до повзунків редагування фотографій із попереднім переглядом у реальному часі",
+        "ru": "Добавляет ползунок регулировки качества JPEG к ползункам редактирования фотографий с предварительным просмотром в реальном времени.",
+        "pl": "Dodaje suwak regulacji jakości JPEG do suwaków edycji zdjęć z podglądem w czasie rzeczywistym",
+        "es": "Agrega un control deslizante de ajuste de calidad JPEG a los controles deslizantes de edición de fotografías con vista previa en tiempo real",
+        "de": "Fügt den Schiebereglern für die Fotobearbeitung einen Schieberegler zur JPEG-Qualitätsanpassung mit Echtzeitvorschau hinzu",
+        "fr": "Ajoute un curseur de réglage de la qualité JPEG aux curseurs de retouche photo avec aperçu en temps réel",
+        "pt-BR": "Adiciona um controle deslizante de ajuste de qualidade JPEG aos controles deslizantes de edição de fotos com visualização em tempo real",
+        "tr": "Gerçek zamanlı önizlemeyle fotoğraf düzenleme kaydırıcılarına bir JPEG kalite ayarlama kaydırıcısı ekler",
+        "ar": "يضيف شريط تمرير ضبط جودة JPEG إلى أشرطة تمرير تحرير الصور مع معاينة في الوقت الفعلي",
+        "be": "Дадае паўзунок налады якасці JPEG да паўзункоў рэдагавання фатаграфій з папярэднім праглядам у рэальным часе",
+        "kk": "Нақты уақытта алдын ала қарау мүмкіндігі бар фотосурет өңдеу сырғытпаларына JPEG сапасын реттеу жүгірткісін қосады"
+      },
+      "permissions": [
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
