@@ -6534,6 +6534,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "md3_navbars_everywhere",
+      "name": "MD3 Navbars Everywhere",
+      "version": "1.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/md3_navbars_everywhere/1.0.1/md3_navbars_everywhere.plugin",
+      "sha256": "92c08b21e92ea78b098ce1f0f4a5b9efb8f4b62e958820091ac95f8a2e8f6e1e",
+      "size": 17153,
+      "description": "Applies MD3-styled navbars to attach menu, statistics and gifts preview screens. Requires exteraGram's MD3 navbar to be on.",
+      "description_i18n": {
+        "en": "Applies MD3-styled navbars to attach menu, statistics and gifts preview screens. Requires exteraGram's MD3 navbar to be on.",
+        "uk": "Застосовує навігаційні панелі у стилі MD3 для прикріплення екранів попереднього перегляду меню, статистики та подарунків. Потрібна увімкнення панелі навігації MD3 exteraGram.",
+        "ru": "Применяет навигационные панели в стиле MD3 для прикрепления экранов меню, статистики и предварительного просмотра подарков. Требуется, чтобы навигационная панель exteraGram MD3 была включена.",
+        "pl": "Stosuje paski nawigacyjne w stylu MD3 do dołączania ekranów menu, statystyk i podglądu prezentów. Wymaga włączonego paska nawigacyjnego MD3 ExteraGram.",
+        "es": "Aplica barras de navegación estilo MD3 para adjuntar pantallas de vista previa de menús, estadísticas y regalos. Requiere que la barra de navegación MD3 de exteraGram esté activada.",
+        "de": "Wendet Navigationsleisten im MD3-Stil an, um Menüs, Statistiken und Vorschaubildschirme für Geschenke anzuhängen. Erfordert die Aktivierung der MD3-Navigationsleiste von exteraGram.",
+        "fr": "Applique des barres de navigation de style MD3 pour joindre des écrans de prévisualisation de menus, de statistiques et de cadeaux. Nécessite que la barre de navigation MD3 d'ExteraGram soit activée.",
+        "pt-BR": "Aplica barras de navegação no estilo MD3 para anexar telas de menu, estatísticas e visualização de presentes. Requer que a barra de navegação MD3 do exteraGram esteja ativada.",
+        "tr": "Menü, istatistik ve hediye önizleme ekranlarını eklemek için MD3 tarzı gezinme çubukları uygular. ExteraGram'ın MD3 gezinme çubuğunun açık olması gerekir.",
+        "ar": "يطبق أشرطة التنقل على شكل MD3 لإرفاق شاشات معاينة القائمة والإحصائيات والهدايا. يتطلب تشغيل شريط التنقل MD3 الخاص بـ exteraGram.",
+        "be": "Прымяняе панэлі навігацыі ў стылі MD3 для далучэння экранаў папярэдняга прагляду меню, статыстыкі і падарункаў. Патрабуецца, каб панэль навігацыі MD3 exteraGram была ўключана.",
+        "kk": "Мәзірді, статистиканы және сыйлықтарды алдын ала қарау экрандарын тіркеу үшін MD3 стиліндегі шарлау жолақтарын қолданады. Requires exteraGram's MD3 navbar to be on."
+      },
+      "permissions": [
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
