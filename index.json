@@ -11145,6 +11145,35 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "sticker_hints_ecubz",
+      "name": "Sticker Hints DEX",
+      "version": "2.0.7",
+      "min_app_version": "1.0.0",
+      "file": "plugins/sticker_hints_ecubz/2.0.7/sticker_hints_ecubz.plugin",
+      "sha256": "8cea66209439fda38a36da1d91fe0d4e1fd062c521ba18b7f67422763c53e6b3",
+      "size": 78565,
+      "description": "Accurate and dynamic sticker suggestions based on phrases. One phrase can contain several stickers.",
+      "description_i18n": {
+        "en": "Accurate and dynamic sticker suggestions based on phrases. One phrase can contain several stickers.",
+        "uk": "Точні та динамічні пропозиції наклейок на основі фраз. Одна фраза може містити кілька стікерів.",
+        "ru": "Точные и динамичные предложения наклеек на основе фраз. Одна фраза может содержать несколько стикеров.",
+        "pl": "Dokładne i dynamiczne sugestie naklejek oparte na frazach. Jedna fraza może zawierać kilka naklejek.",
+        "es": "Sugerencias de stickers precisas y dinámicas basadas en frases. Una frase puede contener varias pegatinas.",
+        "de": "Präzise und dynamische Aufklebervorschläge basierend auf Phrasen. Eine Phrase kann mehrere Aufkleber enthalten.",
+        "fr": "Suggestions d'autocollants précises et dynamiques basées sur des phrases. Une phrase peut contenir plusieurs autocollants.",
+        "pt-BR": "Sugestões de adesivos precisas e dinâmicas baseadas em frases. Uma frase pode conter vários adesivos.",
+        "tr": "Cümlelere dayalı doğru ve dinamik çıkartma önerileri. Bir cümle birden fazla çıkartma içerebilir.",
+        "ar": "اقتراحات ملصقات دقيقة وديناميكية بناءً على العبارات. عبارة واحدة يمكن أن تحتوي على عدة ملصقات.",
+        "be": "Дакладныя і дынамічныя прапановы стыкераў на аснове фраз. У адной фразе можа быць некалькі стыкераў.",
+        "kk": "Сөз тіркестеріне негізделген дәл және динамикалық стикер ұсыныстары. Бір фразада бірнеше стикерлер болуы мүмкін."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
