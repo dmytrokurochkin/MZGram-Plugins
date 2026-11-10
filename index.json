@@ -1681,6 +1681,35 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "ayu_round_effects",
+      "name": "Эффекты для кружков",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/ayu_round_effects/1.0/ayu_round_effects.plugin",
+      "sha256": "56db6a67debf61bcb7dfa91e6959112cb8888f8ed44295ede05ac4095be6acea",
+      "size": 63355,
+      "description": "Adds sound and animated emoji to video circles. While recording, press ✨, and select sound and animation in the settings.",
+      "description_i18n": {
+        "en": "Adds sound and animated emoji to video circles. While recording, press ✨, and select sound and animation in the settings.",
+        "uk": "Додає звук і анімовані емодзі до кіл відео. Під час запису натисніть ✨ і виберіть звук і анімацію в налаштуваннях.",
+        "ru": "Добавляет звуковые и анимированные смайлы в круги видео. Во время записи нажмите ✨ и выберите в настройках звук и анимацию.",
+        "pl": "Dodaje dźwięk i animowane emoji do kręgów wideo. Podczas nagrywania naciśnij ✨ i wybierz dźwięk i animację w ustawieniach.",
+        "es": "Agrega sonido y emoji animados a los círculos de video. Mientras graba, presione ✨ y seleccione sonido y animación en la configuración.",
+        "de": "Fügt Videokreisen Ton und animierte Emojis hinzu. Drücken Sie während der Aufnahme ✨ und wählen Sie in den Einstellungen Ton und Animation aus.",
+        "fr": "Ajoute du son et des emoji animés aux cercles vidéo. Pendant l'enregistrement, appuyez sur ✨ et sélectionnez le son et l'animation dans les paramètres.",
+        "pt-BR": "Adiciona som e emoji animado aos círculos de vídeo. Durante a gravação, pressione ✨ e selecione som e animação nas configurações.",
+        "tr": "Video çevrelerine ses ve animasyonlu emojiler ekler. Kayıt sırasında ✨ tuşuna basın ve ayarlardan ses ve animasyonu seçin.",
+        "ar": "يضيف الصوت والرموز التعبيرية المتحركة إلى دوائر الفيديو. أثناء التسجيل، اضغط على ✨، ثم اختر الصوت والرسوم المتحركة في الإعدادات.",
+        "be": "Дадае гук і аніміраваныя эмодзі ў кругі відэа. Падчас запісу націсніце ✨ і выберыце гук і анімацыю ў наладах.",
+        "kk": "Бейне шеңберлеріне дыбыстық және анимациялық эмодзилерді қосады. Жазу кезінде ✨ түймесін басып, параметрлерден дыбыс пен анимацияны таңдаңыз."
+      },
+      "permissions": [
+        "network",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
