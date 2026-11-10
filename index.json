@@ -6977,6 +6977,34 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "mini_avatar",
+      "name": "Mini Avatar",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/mini_avatar/1.0/mini_avatar.plugin",
+      "sha256": "f9eccfce5363ed1ff8085d2789d39325a5a69f97c39f9a483da0695a7102dff6",
+      "size": 34874,
+      "description": "Replaces the standard avatar near the message with a mini avatar Customization of the horizontal position of the SMS bubble Customization of the size of the mini avatar, vertical and horizontal position.",
+      "description_i18n": {
+        "en": "Replaces the standard avatar near the message with a mini avatar Customization of the horizontal position of the SMS bubble Customization of the size of the mini avatar, vertical and horizontal position.",
+        "uk": "Замінює стандартний аватар біля повідомлення на міні-аватар Налаштування горизонтального положення бульбашки SMS Налаштування розміру міні-аватара, вертикального та горизонтального положення.",
+        "ru": "Заменяет стандартную аватарку возле сообщения на мини-аватарку. Настройка горизонтального положения смс-пузыря. Настройка размера мини-аватара, вертикального и горизонтального положения.",
+        "pl": "Zastępuje standardowy awatar przy wiadomości mini awatarem. Personalizacja poziomej pozycji bańki SMS. Dostosowanie wielkości mini awatara, pozycji pionowej i poziomej.",
+        "es": "Reemplaza el avatar estándar cerca del mensaje por un mini avatar. Personalización de la posición horizontal de la burbuja SMS. Personalización del tamaño del mini avatar, posición vertical y horizontal.",
+        "de": "Ersetzt den Standard-Avatar in der Nähe der Nachricht durch einen Mini-Avatar. Anpassung der horizontalen Position der SMS-Blase. Anpassung der Größe des Mini-Avatars, vertikale und horizontale Position.",
+        "fr": "Remplace l'avatar standard à côté du message par un mini avatar Personnalisation de la position horizontale de la bulle SMS Personnalisation de la taille du mini avatar, position verticale et horizontale.",
+        "pt-BR": "Substitui o avatar padrão próximo à mensagem por um mini avatar Personalização da posição horizontal da bolha SMS Personalização do tamanho do mini avatar, posição vertical e horizontal.",
+        "tr": "Mesajın yanındaki standart avatarı bir mini avatarla değiştirir. SMS balonunun yatay konumunun özelleştirilmesi Mini avatarın boyutunun, dikey ve yatay konumun özelleştirilmesi.",
+        "ar": "استبدال الصورة الرمزية القياسية بالقرب من الرسالة بصورة رمزية مصغرة تخصيص الوضع الأفقي لفقاعة الرسائل القصيرة تخصيص حجم الصورة الرمزية المصغرة والوضع الرأسي والأفقي.",
+        "be": "Замяняе стандартны аватар каля паведамлення на міні-аватар Налада гарызантальнага становішча бурбалкі SMS Налада памеру міні-аватара, вертыкальнага і гарызантальнага становішча.",
+        "kk": "Хабардың жанындағы стандартты аватарды шағын аватармен ауыстырады SMS көпіршігінің көлденең орнын теңшеу Шағын аватардың өлшемін, тік және көлденең күйін теңшеу."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
