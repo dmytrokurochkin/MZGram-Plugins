@@ -757,6 +757,33 @@
         "be": "Класічны судоку з узроўнямі",
         "kk": "Деңгейлері бар классикалық судоку"
       }
+    },
+    {
+      "id": "TextReplacement",
+      "name": "Replacing the text style",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/TextReplacement/1.1/TextReplacement.plugin",
+      "sha256": "b6756a79f7dfe628e35c807a35d07b1f9b0f4693973799da36f8e691738817af",
+      "size": 14514,
+      "description": "Changes the style of your messages",
+      "description_i18n": {
+        "en": "Changes the style of your messages",
+        "uk": "Змінює стиль ваших повідомлень",
+        "ru": "Изменяет стиль ваших сообщений",
+        "pl": "Zmienia styl Twoich wiadomości",
+        "es": "Cambia el estilo de tus mensajes.",
+        "de": "Ändert den Stil Ihrer Nachrichten",
+        "fr": "Change le style de vos messages",
+        "pt-BR": "Muda o estilo de suas mensagens",
+        "tr": "Mesajlarınızın stilini değiştirir",
+        "ar": "يغير نمط رسائلك",
+        "be": "Змяняе стыль вашых паведамленняў",
+        "kk": "Хабарларыңыздың мәнерін өзгертеді"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }

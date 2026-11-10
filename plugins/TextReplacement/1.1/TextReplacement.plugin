@@ -1,0 +1,266 @@
+# author - @ImaImap
+from base_plugin import BasePlugin, HookStrategy, HookResult, MethodHook
+from android_utils import log
+from ui.settings import Header, Selector, Switch
+from org.telegram.messenger import LocaleController
+from org.telegram.ui.Components import ChatActivityEnterView
+import re
+
+__id__ = "TextReplacement"
+__name__ = "Replacing the text style"
+__description__ = "Меняет стиль ваших сообщений"
+__author__ = "@MorePlugins"
+__version__ = "1.1"
+__icon__ = "NewsEmoji/14"
+__min_version__ = "11.9.0"
+__category__ = ["chats"]
+
+# style text
+STYLES = {
+    'sᴍʟᴄᴀᴘ': {
+        'е': 'ᴇ', 'т': 'ᴛ', 'о': 'ᴏ', 'р': 'ᴘ', 'а': 'ᴀ', 'н': 'ʜ', 'к': 'ᴋ', 'х': 'x', 'с': 'ᴄ', 'в': 'ʙ', 'м': 'ᴍ',
+        'Й': 'й', 'Ц': 'ц', 'У': 'у', 'Г': 'г', 'Ш': 'ш', 'Щ': 'щ', 'З': 'з', 'Х': 'x', 'Ф': 'ф', 'Ы': 'ы', 'П': 'п',
+        'Л': 'л', 'Д': 'д', 'Ж': 'ж', 'Э': 'э', 'Я': 'я', 'Ч': 'ч', 'И': 'и', 'Ь': 'ь', 'Б': 'б', 'Ю': 'ю',
+        '1': '𝟷', '2': '𝟸', '3': '𝟹', '4': '𝟺', '5': '𝟻', '6': '𝟼', '7': '𝟽', '8': '𝟾', '9': '𝟿', '0': '𝟶'
+    },
+    'DashUnderline': {
+        'а': 'а̠', 'б': 'б̠', 'в': 'в̠', 'г': 'г̠', 'д': 'д̠', 'е': 'е̠', 'ё': 'ё̠', 'ж': 'ж̠', 'з': 'з̠', 'и': 'и̠',
+        'й': 'й̠', 'к': 'к̠', 'л': 'л̠', 'м': 'м̠', 'н': 'н̠', 'о': 'о̠', 'п': 'п̠', 'р': 'р̠', 'с': 'с̠', 'т': 'т̠',
+        'у': 'у̠', 'ф': 'ф̠', 'х': 'х̠', 'ц': 'ц̠', 'ч': 'ч̠', 'ш': 'ш̠', 'щ': 'щ̠', 'ъ': 'ъ̠', 'ы': 'ы̠', 'ь': 'ь̠',
+        'э': 'э̠', 'ю': 'ю̠', 'я': 'я̠',
+        'А': 'А̠', 'Б': 'Б̠', 'В': 'В̠', 'Г': 'Г̠', 'Д': 'Д̠', 'Е': 'Е̠', 'Ё': 'Ё̠', 'Ж': 'Ж̠', 'З': 'З̠', 'И': 'И̠',
+        'Й': 'Й̠', 'К': 'К̠', 'Л': 'Л̠', 'М': 'М̠', 'Н': 'Н̠', 'О': 'О̠', 'П': 'П̠', 'Р': 'Р̠', 'С': 'С̠', 'Т': 'Т̠',
+        'У': 'У̠', 'Ф': 'Ф̠', 'Х': 'Х̠', 'Ц': 'Ц̠', 'Ч': 'Ч̠', 'Ш': 'Ш̠', 'Щ': 'Щ̠', 'Ъ': 'Ъ̠', 'Ы': 'Ы̠', 'Ь': 'Ь̠',
+        'Э': 'Э̠', 'Ю': 'Ю̠', 'Я': 'Я̠',
+        '1': '1̠', '2': '2̠', '3': '3̠', '4': '4̠', '5': '5̠', '6': '6̠', '7': '7̠', '8': '8̠', '9': '9̠', '0': '0̠'
+    },
+    '𝚃𝚢𝚙𝚎𝚠𝚛𝚒𝚝𝚎𝚛': {
+        'a': '𝚊', 'b': '𝚋', 'c': '𝚌', 'd': '𝚍', 'e': '𝚎', 'f': '𝚏', 'g': '𝚐', 'h': '𝚑', 'i': '𝚒', 'j': '𝚓',
+        'k': '𝚔', 'l': '𝚕', 'm': '𝚖', 'n': '𝚗', 'o': '𝚘', 'p': '𝚙', 'q': '𝚚', 'r': '𝚛', 's': '𝚜', 't': '𝚝',
+        'u': '𝚞', 'v': '𝚟', 'w': '𝚠', 'x': '𝚡', 'y': '𝚢', 'z': '𝚣',
+        'A': '𝙰', 'B': '𝙱', 'C': '𝙲', 'D': '𝙳', 'E': '𝙴', 'F': '𝙵', 'G': '𝙶', 'H': '𝙷', 'I': '𝙸', 'J': '𝙹',
+        'K': '𝙺', 'L': '𝙻', 'M': '𝙼', 'N': '𝙽', 'O': '𝙾', 'P': '𝙿', 'Q': '𝚀', 'R': '𝚁', 'S': '𝚂', 'T': '𝚃',
+        'U': '𝚄', 'V': '𝚅', 'W': '𝚆', 'X': '𝚇', 'Y': '𝚈', 'Z': '𝚉'
+    },
+    '𝘽𝙊𝙇𝘿𝙄𝙏𝘼𝙇𝙄𝘾': {
+        'a': '𝙖', 'b': '𝙗', 'c': '𝙘', 'd': '𝙙', 'e': '𝙚', 'f': '𝙛', 'g': '𝙜', 'h': '𝙝', 'i': '𝙞', 'j': '𝙟',
+        'k': '𝙠', 'l': '𝙡', 'm': '𝙢', 'n': '𝙣', 'o': '𝙤', 'p': '𝙥', 'q': '𝙦', 'r': '𝙧', 's': '𝙨', 't': '𝙩',
+        'u': '𝙪', 'v': '𝙫', 'w': '𝙬', 'x': '𝙭', 'y': '𝙮', 'z': '𝙯',
+        'A': '𝘼', 'B': '𝘽', 'C': '𝘾', 'D': '𝘿', 'E': '𝙀', 'F': '𝙁', 'G': '𝙂', 'H': '𝙃', 'I': '𝙄', 'J': '𝙅',
+        'K': '𝙆', 'L': '𝙇', 'M': '𝙈', 'N': '𝙉', 'O': '𝙊', 'P': '𝙋', 'Q': '𝙌', 'R': '𝙍', 'S': '𝙎', 'T': '𝙏',
+        'U': '𝙐', 'V': '𝙑', 'W': '𝙒', 'X': '𝙓', 'Y': '𝙔', 'Z': '𝙕'
+    },
+    '𝗶𝘁𝗮𝗹𝗶𝗰': {
+        'a': '𝘢', 'b': '𝘣', 'c': '𝘤', 'd': '𝘥', 'e': '𝘦', 'f': '𝘧', 'g': '𝘨', 'h': '𝘩', 'i': '𝘪', 'j': '𝘫',
+        'k': '𝘬', 'l': '𝘭', 'm': '𝘮', 'n': '𝘯', 'o': '𝘰', 'p': '𝘱', 'q': '𝘲', 'r': '𝘳', 's': '𝘴', 't': '𝘵',
+        'u': '𝘶', 'v': '𝘷', 'w': '𝘸', 'x': '𝘹', 'y': '𝘺', 'z': '𝘻',
+        'A': '𝘈', 'B': '𝘉', 'C': '𝘊', 'D': '𝘋', 'E': '𝘌', 'F': '𝘍', 'G': '𝘎', 'H': '𝘏', 'I': '𝘐', 'J': '𝘑',
+        'K': '𝘒', 'L': '𝘓', 'M': '𝘔', 'N': '𝘕', 'O': '𝘖', 'P': '𝘗', 'Q': '𝘘', 'R': '𝘙', 'S': '𝘚', 'T': '𝘛',
+        'U': '𝘜', 'V': '𝘝', 'W': '𝘞', 'X': '𝘟', 'Y': '𝘠', 'Z': '𝘡'
+    },
+    '𝗕𝗼𝗹𝗱': {
+        'a': '𝗮', 'b': '𝗯', 'c': '𝗰', 'd': '𝗱', 'e': '𝗲', 'f': '𝗳', 'g': '𝗴', 'h': '𝗵', 'i': '𝗶', 'j': '𝗷',
+        'k': '𝗸', 'l': '𝗹', 'm': '𝗺', 'n': '𝗻', 'o': '𝗼', 'p': '𝗽', 'q': '𝗾', 'r': '𝗿', 's': '𝘀', 't': '𝘁',
+        'u': '𝘂', 'v': '𝘃', 'w': '𝘄', 'x': '𝘅', 'y': '𝘆', 'z': '𝘇',
+        'A': '𝗔', 'B': '𝗕', 'C': '𝗖', 'D': '𝗗', 'E': '𝗘', 'F': '𝗙', 'G': '𝗚', 'H': '𝗛', 'I': '𝗜', 'J': '𝗝',
+        'K': '𝗞', 'L': '𝗟', 'M': '𝗠', 'N': '𝗡', 'O': '𝗢', 'P': '𝗣', 'Q': '𝗤', 'R': '𝗥', 'S': '𝗦', 'T': '𝗧',
+        'U': '𝗨', 'V': '𝗩', 'W': '𝗪', 'X': '𝗫', 'Y': '𝗬', 'Z': '𝗭',
+        '1': '𝟭', '2': '𝟮', '3': '𝟯', '4': '𝟰', '5': '𝟱', '6': '𝟲', '7': '𝟳', '8': '𝟴', '9': '𝟵', '0': '𝟬'
+    },
+    '𝐓𝐇𝐘𝐁𝐨𝐥𝐝': {
+        'a': '𝐚', 'b': '𝐛', 'c': '𝐜', 'd': '𝐝', 'e': '𝐞', 'f': '𝐟', 'g': '𝐠', 'h': '𝐡', 'i': '𝐢', 'j': '𝐣',
+        'k': '𝐤', 'l': '𝐥', 'm': '𝐦', 'n': '𝐧', 'o': '𝐨', 'p': '𝐩', 'q': '𝐪', 'r': '𝐫', 's': '𝐬', 't': '𝐭',
+        'u': '𝐮', 'v': '𝐯', 'w': '𝐰', 'x': '𝐱', 'y': '𝐲', 'z': '𝐳',
+        'A': '𝐀', 'B': '𝐁', 'C': '𝐂', 'D': '𝐃', 'E': '𝐄', 'F': '𝐅', 'G': '𝐆', 'H': '𝐇', 'I': '𝐈', 'J': '𝐉',
+        'K': '𝐊', 'L': '𝐋', 'M': '𝐌', 'N': '𝐍', 'O': '𝐎', 'P': '𝐏', 'Q': '𝐐', 'R': '𝐑', 'S': '𝐒', 'T': '𝐓',
+        'U': '𝐔', 'V': '𝐕', 'W': '𝐖', 'X': '𝐗', 'Y': '𝐘', 'Z': '𝐙',
+        '1': '𝟏', '2': '𝟐', '3': '𝟑', '4': '𝟒', '5': '𝟓', '6': '𝟔', '7': '𝟕', '8': '𝟖', '9': '𝟗', '0': '𝟎'
+    }
+}
+
+# Добавляем заглавные буквы
+for cyrillic_upper in 'ЕТОРАНКХСВМ':
+    lower = cyrillic_upper.lower()
+    if lower in STYLES['sᴍʟᴄᴀᴘ']:
+        STYLES['sᴍʟᴄᴀᴘ'][cyrillic_upper] = STYLES['sᴍʟᴄᴀᴘ'][lower]
+
+def apply_style(text: str, style_name: str) -> str:
+    if style_name not in STYLES:
+        return text
+    style_dict = STYLES[style_name]
+    return ''.join(style_dict.get(char, char) for char in text)
+
+def is_telegram_linkable(token: str) -> bool:
+    """Определяет, должен ли текст быть со стилем"""
+    if token.startswith('@') and len(token) > 1:
+        rest = token[1:]
+        if rest.replace('_', '').isalnum() and rest[0].isalpha():
+            return True
+    if token.isdigit() and 5 <= len(token) <= 15:
+        return True
+    clean = token.lstrip('+')
+    if clean != token and clean.isdigit() and 7 <= len(clean) <= 15:
+        return True
+    if token.isdigit() and 7 <= len(token) <= 15:
+        return True
+    return False
+
+def process_text_preserve_links(text: str, russian_style: str, english_style: str) -> str:
+    # Разбиваем на слова сохраня пробелы и пунктуац как отдельные части
+    tokens = re.findall(r'\S+|\s+', text)
+    result = []
+    for token in tokens:
+        if token.isspace():
+            result.append(token)
+            continue
+
+        stripped = token.strip('.,;:!?()[]{}"\'«»')
+        prefix = token[:len(token) - len(stripped.lstrip('.,;:!?()[]{}"\'«»'))]
+        suffix = token[len(prefix) + len(stripped.rstrip('.,;:!?()[]{}"\'«»')):]
+        core = stripped.strip('.,;:!?()[]{}"\'«»')
+
+        if core and is_telegram_linkable(core):
+            result.append(prefix + core + suffix)
+        else:
+            styled = token
+            has_cyrillic = any('а' <= c <= 'я' or 'А' <= c <= 'Я' for c in token)
+            has_latin = any('a' <= c <= 'z' or 'A' <= c <= 'Z' for c in token)
+            if has_cyrillic and russian_style:
+                styled = apply_style(styled, russian_style)
+            if has_latin and english_style:
+                styled = apply_style(styled, english_style)
+            result.append(styled)
+    return ''.join(result)
+
+class FormatInterceptor(MethodHook):
+    def __init__(self, plugin):
+        self.plugin = plugin
+
+    def before_hooked_method(self, param):
+        try:
+            if not self.plugin.get_setting("enabled", True):
+                return
+
+            enter_view = param.thisObject
+            text_field = enter_view.getEditField()
+            if not text_field:
+                return
+
+            original_text = text_field.getText()
+            if not original_text or not original_text.toString().strip():
+                return
+
+            format_index = self.plugin.get_setting("message_format", 0)
+            russian_idx = self.plugin.get_setting("russian_style", 0)
+            english_idx = self.plugin.get_setting("english_style", 0)
+
+            if format_index == 0 and russian_idx == 0 and english_idx == 0:
+                return
+
+            russian_styles = ["Без стиля", "sᴍʟᴄᴀᴘ", "DashUnderline"]
+            english_styles = ["Без стиля", "𝚃𝚢𝚙𝚎𝚠𝚛𝚒𝚝𝚎𝚛", "𝘽𝙊𝙇𝘿𝙄𝙏𝘼𝙇𝙄𝐂", "𝗶𝘁𝗮𝗹𝗶𝗰", "𝗕𝗼𝗹𝗱", "𝐓𝐇𝐘𝐁𝐨𝐥𝐝"]
+            russian_style = russian_styles[russian_idx] if 0 < russian_idx < len(russian_styles) else ""
+            english_style = english_styles[english_idx] if 0 < english_idx < len(english_styles) else ""
+
+            original_str = original_text.toString()
+            processed = process_text_preserve_links(original_str, russian_style, english_style)
+
+            if processed != original_str:
+                text_field.setText(processed)
+
+            # Применяем встроенные форматы
+            current_text = text_field.getText()
+            current_length = current_text.length()
+            text_field.setSelection(0, current_length)
+
+            if format_index == 1:
+                text_field.makeSelectedBold()
+            elif format_index == 2:
+                text_field.makeSelectedItalic()
+            elif format_index == 3:
+                text_field.makeSelectedMono()
+            elif format_index == 4:
+                text_field.makeSelectedQuote(True)
+            elif format_index == 5:
+                text_field.makeSelectedSpoiler()
+            elif format_index == 6:
+                text_field.makeSelectedBold()
+                text_field.makeSelectedItalic()
+
+            text_field.setSelection(current_length, current_length)
+
+        except Exception as e:
+            log(f"[TextReplacement] Error: {e}")
+
+class TextReplacement(BasePlugin):
+    def create_settings(self):
+        lang = LocaleController.getInstance().getCurrentLocale().getLanguage()
+        is_ru = lang.startswith("ru")
+
+        format_items = [
+            "Без формата",
+            "Жирный",
+            "Курсив",
+            "Моно",
+            "Цитата",
+            "Скрытый",
+            "Жирный+Курсив"
+        ] if is_ru else [
+            "No format",
+            "Bold",
+            "Italic",
+            "Monospace",
+            "Quote",
+            "Spoiler",
+            "Bold+Italic"
+        ]
+
+        style_items_ru = ["Без стиля", "sᴍʟᴄᴀᴘ", "DashUnderline"]
+        style_items_en = ["Без стиля", "𝚃𝚢𝚙𝚎𝚠𝚛𝚒𝚝𝚎𝚛", "𝘽𝙊𝙇𝘿𝙄𝙏𝘼𝙇𝙄𝐂", "𝗶𝘁𝗮𝗹𝗶𝚌", "𝗕𝗼𝗹𝗱", "𝐓𝐇𝐘𝐁𝐨𝐥𝐝"]
+
+        if not is_ru:
+            style_items_ru = ["No style", "sᴍʟᴄᴀᴘ", "DashUnderline"]
+            style_items_en = ["No style", "𝚃𝚢𝚙𝚎𝚠𝚛𝚒𝚝𝚎𝚛", "𝘽𝙊𝙇𝘿𝙄𝙏𝘼𝙇𝙄𝐂", "italic", "𝗕𝗼𝗹𝗱", "𝐓𝐇𝐘𝐁𝐨𝐥𝐝"]
+
+        settings = [
+            Header(text="Text Replacement" if not is_ru else "Замена текста"),
+            Switch(
+                key="enabled",
+                text="Enable text replacement" if not is_ru else "Включить замену текста",
+                default=True,
+                icon="msg_style"
+            ),
+            Header(text="Formatting" if not is_ru else "Форматирование"),
+            Selector(
+                key="message_format",
+                text="Text format" if not is_ru else "Формат текста",
+                default=0,
+                items=format_items,
+                icon="msg_text_outlined"
+            ),
+            Header(text="Russian Text" if not is_ru else "Русский текст"),
+            Selector(
+                key="russian_style",
+                text="Russian text style" if not is_ru else "Стиль Русского текста",
+                default=0,
+                items=style_items_ru,
+                icon="msg_emoji"
+            ),
+            Header(text="English Text" if not is_ru else "Английский текст"),
+            Selector(
+                key="english_style",
+                text="English text style" if not is_ru else "Стиль Английского текста",
+                default=0,
+                items=style_items_en,
+                icon="msg_emoji"
+            ),
+        ]
+
+        return settings
+
+    def on_plugin_load(self):
+        methods = ChatActivityEnterView.getClass().getDeclaredMethods()
+        for method in methods:
+            if method.getName() == "sendMessageInternal" and method.getParameterCount() == 4:
+                self.hook_method(method, FormatInterceptor(self))
+                break
