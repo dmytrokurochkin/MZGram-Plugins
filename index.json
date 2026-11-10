@@ -5103,6 +5103,34 @@
       "permissions": [
         "network"
       ]
+    },
+    {
+      "id": "gradient_mini_player",
+      "name": "Gradient Mini Player",
+      "version": "3.4.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/gradient_mini_player/3.4.0/gradient_mini_player.plugin",
+      "sha256": "3fae14a001276e356cfab3f72ec65a4b72fc544af14819758821eb0909961c43",
+      "size": 34922,
+      "description": "Dynamic gradient of cover colors: standard Mini Player, full-screen player and notification color. Smooth color changes, easy animation, transparency settings.",
+      "description_i18n": {
+        "en": "Dynamic gradient of cover colors: standard Mini Player, full-screen player and notification color. Smooth color changes, easy animation, transparency settings.",
+        "uk": "Динамічний градієнт кольорів обкладинки: стандартний міні-програвач, повноекранний програвач і колір сповіщень. Плавна зміна кольорів, легка анімація, налаштування прозорості.",
+        "ru": "Динамический градиент цветов обложки: стандартный мини-плеер, полноэкранный плеер и цвет уведомлений. Плавное изменение цвета, легкая анимация, настройки прозрачности.",
+        "pl": "Dynamiczny gradient kolorów okładek: standardowy miniodtwarzacz, odtwarzacz pełnoekranowy i kolor powiadomień. Płynne zmiany kolorów, łatwa animacja, ustawienia przezroczystości.",
+        "es": "Degradado dinámico de colores de portada: minirreproductor estándar, reproductor de pantalla completa y color de notificación. Cambios de color suaves, animación sencilla, configuraciones de transparencia.",
+        "de": "Dynamischer Verlauf der Coverfarben: Standard-Miniplayer, Vollbildplayer und Benachrichtigungsfarbe. Sanfte Farbwechsel, einfache Animation, Transparenzeinstellungen.",
+        "fr": "Dégradé dynamique des couleurs de couverture : Mini Player standard, lecteur plein écran et couleur de notification. Changements de couleur fluides, animation facile, paramètres de transparence.",
+        "pt-BR": "Gradiente dinâmico de cores de capa: Mini Player padrão, player em tela cheia e cor de notificação. Mudanças suaves de cores, animação fácil, configurações de transparência.",
+        "tr": "Kapak renklerinin dinamik gradyanı: standart Mini Oynatıcı, tam ekran oynatıcı ve bildirim rengi. Pürüzsüz renk değişiklikleri, kolay animasyon, şeffaflık ayarları.",
+        "ar": "التدرج الديناميكي لألوان الغلاف: مشغل Mini قياسي ومشغل ملء الشاشة ولون الإشعارات. تغييرات سلسة في الألوان، ورسوم متحركة سهلة، وإعدادات الشفافية.",
+        "be": "Дынамічны градыент колераў вокладкі: стандартны Mini Player, поўнаэкранны прайгравальнік і колер апавяшчэнняў. Плыўныя змены колеру, лёгкая анімацыя, налады празрыстасці.",
+        "kk": "Мұқаба түстерінің динамикалық градиенті: стандартты шағын ойнатқыш, толық экранды ойнатқыш және хабарландыру түсі. Тегіс түсті өзгертулер, оңай анимация, мөлдірлік параметрлері."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
