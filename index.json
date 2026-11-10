@@ -4708,6 +4708,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "forwards",
+      "name": "Forwards",
+      "version": "1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/forwards/1.2/forwards.plugin",
+      "sha256": "90dabc6699db57d52bcb07da954640697a2b519751cddfa05fa1d519cfd8014b",
+      "size": 20022,
+      "description": "Shows how many times messages were forwarded",
+      "description_i18n": {
+        "en": "Shows how many times messages were forwarded",
+        "uk": "Показує, скільки разів було переслано повідомлення",
+        "ru": "Показывает, сколько раз сообщения были перенаправлены",
+        "pl": "Pokazuje, ile razy wiadomości zostały przesłane dalej",
+        "es": "Muestra cuántas veces se reenviaron los mensajes.",
+        "de": "Zeigt an, wie oft Nachrichten weitergeleitet wurden",
+        "fr": "Indique combien de fois les messages ont été transférés",
+        "pt-BR": "Mostra quantas vezes as mensagens foram encaminhadas",
+        "tr": "İletilerin kaç kez iletildiğini gösterir",
+        "ar": "يوضح عدد مرات إعادة توجيه الرسائل",
+        "be": "Паказвае, колькі разоў паведамленні былі перасланы",
+        "kk": "Хабарлардың қанша рет қайта жіберілгенін көрсетеді"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
