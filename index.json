@@ -10222,6 +10222,34 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "shadow_ban",
+      "name": "Shadow Ban",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/shadow_ban/1.1.0/shadow_ban.plugin",
+      "sha256": "9405e7f071689b3c05a763fc5c994fe333f369e9da3d43d5021328673786f6ce",
+      "size": 30342,
+      "description": "Hides messages from selected users on your behalf. Add a person through his profile - he will not know anything.",
+      "description_i18n": {
+        "en": "Hides messages from selected users on your behalf. Add a person through his profile - he will not know anything.",
+        "uk": "Приховує повідомлення від вибраних користувачів від вашого імені. Додайте людину через його профіль - він нічого не знатиме.",
+        "ru": "Скрывает сообщения от выбранных пользователей от вашего имени. Добавьте человека через его профиль - он ничего не будет знать.",
+        "pl": "Ukrywa wiadomości od wybranych użytkowników w Twoim imieniu. Dodaj osobę poprzez jej profil - nie będzie ona nic wiedzieć.",
+        "es": "Oculta mensajes de usuarios seleccionados en su nombre. Agregue una persona a través de su perfil; no sabrá nada.",
+        "de": "Versteckt Nachrichten von ausgewählten Benutzern in Ihrem Namen. Fügen Sie eine Person über sein Profil hinzu - sie wird nichts erfahren.",
+        "fr": "Masque les messages des utilisateurs sélectionnés en votre nom. Ajoutez une personne via son profil - elle ne saura rien.",
+        "pt-BR": "Oculta mensagens de usuários selecionados em seu nome. Adicione uma pessoa através de seu perfil - ela não saberá de nada.",
+        "tr": "Seçili kullanıcılardan gelen mesajları sizin adınıza gizler. Profili aracılığıyla bir kişiyi ekleyin - hiçbir şey bilmeyecek.",
+        "ar": "إخفاء الرسائل من المستخدمين المحددين نيابة عنك. أضف شخصًا من خلال ملفه الشخصي - فلن يعرف شيئًا.",
+        "be": "Хавае паведамленні ад выбраных карыстальнікаў ад вашага імя. Дадайце чалавека праз яго профіль - ён нічога не даведаецца.",
+        "kk": "Сіздің атыңыздан таңдалған пайдаланушылардың хабарларын жасырады. Өз профилі арқылы адамды қосыңыз - ол ештеңе білмейді."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
