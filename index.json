@@ -6453,6 +6453,33 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "lyu_mic_switch",
+      "name": "Запасной микрофон",
+      "version": "0.1.1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/lyu_mic_switch/0.1.1.1/lyu_mic_switch.plugin",
+      "sha256": "f9925b9731aae9bbcfcf505779b870cff8e128d12e63ad275b77258c01746b60",
+      "size": 105818,
+      "description": "If you close the microphone with your finger during a circle or voice call, the recording itself will continue from another microphone on the phone, and you will be heard.",
+      "description_i18n": {
+        "en": "If you close the microphone with your finger during a circle or voice call, the recording itself will continue from another microphone on the phone, and you will be heard.",
+        "uk": "Якщо ви закриєте мікрофон пальцем під час кола або голосового дзвінка, то сам запис продовжиться з іншого мікрофона на телефоні, і вас почують.",
+        "ru": "Если закрыть микрофон пальцем во время кругового или голосового звонка, то сама запись продолжится с другого микрофона на телефоне, и вас будут услышаны.",
+        "pl": "Jeśli zamkniesz mikrofon palcem podczas połączenia okręgowego lub głosowego, samo nagrywanie będzie kontynuowane z innego mikrofonu w telefonie i będziesz słyszalny.",
+        "es": "Si cierra el micrófono con el dedo durante un círculo o una llamada de voz, la grabación continuará desde otro micrófono del teléfono y se le escuchará.",
+        "de": "Wenn Sie während eines Kreis- oder Sprachanrufs das Mikrofon mit dem Finger schließen, wird die Aufnahme selbst über ein anderes Mikrofon am Telefon fortgesetzt und Sie werden gehört.",
+        "fr": "Si vous fermez le microphone avec votre doigt pendant un cercle ou un appel vocal, l'enregistrement lui-même continuera à partir d'un autre microphone du téléphone et vous serez entendu.",
+        "pt-BR": "Se você fechar o microfone com o dedo durante um círculo ou chamada de voz, a gravação em si continuará a partir de outro microfone do telefone e você será ouvido.",
+        "tr": "Bir daire veya sesli görüşme sırasında mikrofonu parmağınızla kapatırsanız kayıt telefondaki başka bir mikrofondan devam edecek ve sesiniz duyulacaktır.",
+        "ar": "إذا قمت بإغلاق الميكروفون بإصبعك أثناء دائرة أو مكالمة صوتية، فسيستمر التسجيل نفسه من ميكروفون آخر على الهاتف، وسيتم سماعك.",
+        "be": "Калі вы зачыніце мікрафон пальцам падчас круга або галасавога званка, сама запіс будзе працягвацца з іншага мікрафона на тэлефоне, і вас будуць чуць.",
+        "kk": "Шеңбер немесе дауыстық қоңырау кезінде микрофонды саусағыңызбен жапсаңыз, жазудың өзі телефондағы басқа микрофоннан жалғасады және сізді естиді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
