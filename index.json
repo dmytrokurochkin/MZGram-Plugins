@@ -8796,6 +8796,34 @@
         "messages.read",
         "intents"
       ]
+    },
+    {
+      "id": "proxy_name_editor",
+      "name": "Proxy name editor",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/proxy_name_editor/1.0/proxy_name_editor.plugin",
+      "sha256": "b6fb08a59ba26a495aa22fbea8eb3137dae8ed3fffd7dc0553e2044fd098b94c",
+      "size": 29059,
+      "description": "Allows you to locally change host:port in the proxy list to a given name",
+      "description_i18n": {
+        "en": "Allows you to locally change host:port in the proxy list to a given name",
+        "uk": "Дозволяє локально змінювати хост:порт у списку проксі на задане ім'я",
+        "ru": "Позволяет локально изменить хост:порт в списке прокси на заданное имя.",
+        "pl": "Umożliwia lokalną zmianę hosta:portu na liście serwerów proxy na podaną nazwę",
+        "es": "Le permite cambiar localmente host:puerto en la lista de proxy a un nombre determinado",
+        "de": "Ermöglicht Ihnen, host:port in der Proxy-Liste lokal in einen bestimmten Namen zu ändern",
+        "fr": "Vous permet de remplacer localement host:port dans la liste des proxy par un nom donné",
+        "pt-BR": "Permite que você altere localmente host:port na lista de proxy para um determinado nome",
+        "tr": "Proxy listesindeki ana bilgisayar:bağlantı noktasını belirli bir adla yerel olarak değiştirmenize olanak tanır",
+        "ar": "يسمح لك بتغيير المضيف: المنفذ محليًا في قائمة الوكيل إلى اسم معين",
+        "be": "Дазваляе лакальна змяніць хост:порт у спісе проксі на зададзенае імя",
+        "kk": "Прокси тізіміндегі хост: портты берілген атқа жергілікті өзгертуге мүмкіндік береді"
+      },
+      "permissions": [
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
