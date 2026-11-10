@@ -10799,6 +10799,34 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "smart_sender",
+      "name": "Smart Sender",
+      "version": "4.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/smart_sender/4.0/smart_sender.plugin",
+      "sha256": "7ae75fad036e89c97a4fa0c0826c9511a4169be68888f01e5f3cba6fd016e90b",
+      "size": 29960,
+      "description": "Adds a \"when read\" item to the message preview menu (MessageSendPreview) - the message will be sent automatically as soon as the other person reads your previous message in this chat.",
+      "description_i18n": {
+        "en": "Adds a \"when read\" item to the message preview menu (MessageSendPreview) - the message will be sent automatically as soon as the other person reads your previous message in this chat.",
+        "uk": "Додає пункт «коли прочитано» в меню попереднього перегляду повідомлення (MessageSendPreview) - повідомлення буде надіслано автоматично, щойно інша особа прочитає ваше попереднє повідомлення в цьому чаті.",
+        "ru": "Добавляет пункт «при прочтении» в меню предварительного просмотра сообщения (MessageSendPreview) - сообщение будет отправлено автоматически, как только другой человек прочитает ваше предыдущее сообщение в этом чате.",
+        "pl": "Dodaje opcję „po przeczytaniu\" do menu podglądu wiadomości (MessageSendPreview) - wiadomość zostanie wysłana automatycznie, gdy tylko druga osoba przeczyta Twoją poprzednią wiadomość na tym czacie.",
+        "es": "Agrega un elemento \"cuando se lee\" al menú de vista previa del mensaje (MessageSendPreview): el mensaje se enviará automáticamente tan pronto como la otra persona lea su mensaje anterior en este chat.",
+        "de": "Fügt dem Nachrichtenvorschaumenü (MessageSendPreview) ein Element „Beim Lesen\" hinzu - die Nachricht wird automatisch gesendet, sobald die andere Person Ihre vorherige Nachricht in diesem Chat liest.",
+        "fr": "Ajoute un élément « une fois lu » au menu d'aperçu du message (MessageSendPreview) - le message sera envoyé automatiquement dès que l'autre personne lit votre message précédent dans cette discussion.",
+        "pt-BR": "Adiciona um item \"quando lida\" ao menu de visualização da mensagem (MessageSendPreview) - a mensagem será enviada automaticamente assim que a outra pessoa ler sua mensagem anterior neste chat.",
+        "tr": "Mesaj önizleme menüsüne (MessageSendPreview) bir \"okunduğunda\" öğesi ekler - diğer kişi bu sohbetteki önceki mesajınızı okur okumaz mesaj otomatik olarak gönderilecektir.",
+        "ar": "إضافة عنصر \"عند القراءة\" إلى قائمة معاينة الرسالة (MessageSendPreview) - سيتم إرسال الرسالة تلقائيًا بمجرد أن يقرأ الشخص الآخر رسالتك السابقة في هذه الدردشة.",
+        "be": "Дадае пункт «пры чытанні» ў меню папярэдняга прагляду паведамлення (MessageSendPreview) - паведамленне будзе адпраўлена аўтаматычна, як толькі іншы чалавек прачытае ваша папярэдняе паведамленне ў гэтым чаце.",
+        "kk": "Хабарды алдын ала қарау мәзіріне «оқылған кезде» элементін қосады (MessageSendPreview) - басқа адам осы чатта сіздің алдыңғы хабарыңызды оқығаннан кейін хабарлама автоматты түрде жіберіледі."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
