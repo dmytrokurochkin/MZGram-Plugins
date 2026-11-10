@@ -1460,6 +1460,30 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "audio_router",
+      "name": "Audio Router",
+      "version": "1.8",
+      "min_app_version": "1.0.0",
+      "file": "plugins/audio_router/1.8/audio_router.plugin",
+      "sha256": "4bc33524ea09e8b6e5309db654803ad753ad5826936bc474790f0776902cd798",
+      "size": 18793,
+      "description": "Forces separate audio devices and flexibly controls silence.",
+      "description_i18n": {
+        "en": "Forces separate audio devices and flexibly controls silence.",
+        "uk": "Примусово відокремлює аудіопристрої та гнучко контролює тишу.",
+        "ru": "Принудительно разделяет аудиоустройства и гибко контролирует тишину.",
+        "pl": "Wymusza oddzielenie urządzeń audio i elastycznie kontroluje ciszę.",
+        "es": "Fuerza los dispositivos de audio separados y controla el silencio de forma flexible.",
+        "de": "Erzwingt die Trennung von Audiogeräten und steuert flexibel die Stille.",
+        "fr": "Force les appareils audio séparés et contrôle le silence de manière flexible.",
+        "pt-BR": "Força a separação de dispositivos de áudio e controla o silêncio com flexibilidade.",
+        "tr": "Ses cihazlarını ayırmaya zorlar ve sessizliği esnek bir şekilde kontrol eder.",
+        "ar": "يفرض أجهزة صوتية منفصلة ويتحكم في الصمت بمرونة.",
+        "be": "Прымушае аддзяляць гукавыя прылады і гнутка кантралюе цішыню.",
+        "kk": "Бөлек аудио құрылғыларды мәжбүрлейді және үнсіздікті икемді басқарады."
+      }
     }
   ]
 }
