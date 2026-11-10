@@ -4284,6 +4284,35 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "femboy_lyricsPP_plugin",
+      "name": "Comfort Lyrics++",
+      "version": "1.6.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/femboy_lyricsPP_plugin/1.6.4/femboy_lyricsPP_plugin.plugin",
+      "sha256": "04b111201477b118576536f98a0947e3321cc48c2dc2d31c09626bffd60ef243",
+      "size": 111203,
+      "description": "**Beautiful** plugin for viewing song lyrics directly in the application with synchronization with the song. **To open the text** click on the three dots in the player and on the \"Show text\" button, double tapping on a line rewinds the track to its timecode.",
+      "description_i18n": {
+        "en": "**Beautiful** plugin for viewing song lyrics directly in the application with synchronization with the song. **To open the text** click on the three dots in the player and on the \"Show text\" button, double tapping on a line rewinds the track to its timecode.",
+        "uk": "**Красивий** плагін для перегляду тексту пісні прямо в додатку з синхронізацією з піснею. **Щоб відкрити текст**, натисніть на три крапки в плеєрі та на кнопку «Показати текст», подвійне натискання на рядок перемотує трек до його тайм-коду.",
+        "ru": "**Красивый** плагин для просмотра текста песни прямо в приложении с синхронизацией с песней. **Чтобы открыть текст** нажмите на три точки в плеере и на кнопку «Показать текст», двойное нажатие на строку перематывает трек на его тайм-код.",
+        "pl": "**Piękna** wtyczka do przeglądania tekstów piosenek bezpośrednio w aplikacji z synchronizacją z utworem. **Aby otworzyć tekst**, kliknij trzy kropki w odtwarzaczu i przycisk „Pokaż tekst\". Dwukrotne dotknięcie linii powoduje przewinięcie utworu do jego kodu czasowego.",
+        "es": "**Hermoso** complemento para ver letras de canciones directamente en la aplicación con sincronización con la canción. **Para abrir el texto** haz clic en los tres puntos del reproductor y en el botón \"Mostrar texto\", al tocar dos veces una línea, la pista retrocede hasta su código de tiempo.",
+        "de": "**Schönes** Plugin zum Anzeigen von Liedtexten direkt in der Anwendung mit Synchronisierung mit dem Lied. **Um den Text zu öffnen** klicken Sie auf die drei Punkte im Player und auf die Schaltfläche „Text anzeigen\". Doppeltippen auf eine Zeile spult den Track auf seinen Timecode zurück.",
+        "fr": "**Magnifique** plugin pour visualiser les paroles des chansons directement dans l'application avec synchronisation avec la chanson. **Pour ouvrir le texte** cliquez sur les trois points dans le lecteur et sur le bouton \"Afficher le texte\", en appuyant deux fois sur une ligne, la piste rembobine jusqu'à son timecode.",
+        "pt-BR": "**Lindo** plugin para visualização de letras de músicas diretamente no aplicativo com sincronização com a música. **Para abrir o texto** clique nos três pontos do player e no botão \"Mostrar texto\", tocar duas vezes em uma linha retrocede a faixa até seu timecode.",
+        "tr": "Şarkı sözlerini doğrudan uygulamada şarkıyla senkronizasyonla görüntülemek için **Güzel** eklenti. **Metni açmak için** oynatıcıdaki üç noktaya tıklayın ve \"Metni göster\" düğmesine tıklayın, bir satıra iki kez dokunulduğunda parça zaman koduna geri sarılır.",
+        "ar": "**ملحق جميل** لعرض كلمات الأغاني مباشرة في التطبيق مع المزامنة مع الأغنية. **لفتح النص** انقر على النقاط الثلاث في المشغل وعلى زر \"إظهار النص\"، يؤدي النقر المزدوج على الخط إلى إرجاع المسار إلى الرمز الزمني الخاص به.",
+        "be": "**Прыгожы** убудова для прагляду тэкстаў песень непасрэдна ў дадатку з сінхранізацыяй з песняй. **Каб адкрыць тэкст**, націсніце на тры кропкі ў плэеры і на кнопку «Паказаць тэкст», падвойнае націсканне на радок перамотвае трэк на часавы код.",
+        "kk": "**Әдемі** ән мәтінін әнмен синхрондау арқылы тікелей қолданбада көруге арналған плагин. **Мәтінді ашу үшін** ойнатқыштағы үш нүктені және «Мәтінді көрсету» түймесін басыңыз, жолды екі рет түрту жолды оның уақыт кодына кері айналдырады."
+      },
+      "permissions": [
+        "messages.read",
+        "network",
+        "hooks"
+      ]
     }
   ]
 }
