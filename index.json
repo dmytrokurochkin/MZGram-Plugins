@@ -4257,6 +4257,33 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "feel_rich",
+      "name": "Feel Rich",
+      "version": "3.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/feel_rich/3.2/feel_rich.plugin",
+      "sha256": "7383b53b527e6f64a8d5657eb266e839ee4636e13af31a0afd024a8a80fe4fb6",
+      "size": 4525,
+      "description": "*Locally* modify stars balance in your profile",
+      "description_i18n": {
+        "en": "*Locally* modify stars balance in your profile",
+        "uk": "*Локально* змініть баланс зірок у своєму профілі",
+        "ru": "*Локально* измените баланс звезд в своем профиле.",
+        "pl": "*Lokalnie* zmodyfikuj saldo gwiazdek w swoim profilu",
+        "es": "*Localmente* modifica el saldo de estrellas en tu perfil",
+        "de": "Ändern Sie *lokal* die Sternebalance in Ihrem Profil",
+        "fr": "*Localement* modifiez le solde des étoiles dans votre profil",
+        "pt-BR": "*Localmente* modifique o saldo de estrelas em seu perfil",
+        "tr": "Profilinizdeki yıldız dengesini *yerel olarak* değiştirin",
+        "ar": "*محليًا* قم بتعديل رصيد النجوم في ملفك الشخصي",
+        "be": "*Лакальна* змяніце баланс зорак у сваім профілі",
+        "kk": "*Жергілікті* профиліңіздегі жұлдыздар балансын өзгертіңіз"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
