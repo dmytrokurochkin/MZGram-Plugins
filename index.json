@@ -1262,6 +1262,37 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "anti_via_bot",
+      "name": "Анти-бот-Инлайн 🥷",
+      "version": "4.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/anti_via_bot/4.1/anti_via_bot.plugin",
+      "sha256": "ae152c30666001b04907e67f5aa900239559177909f7ad75fbc24cd381d58861",
+      "size": 11310,
+      "description": "Hides the 'via' tag. Pulls media directly from online and instantly sends it on your behalf.",
+      "description_i18n": {
+        "en": "Hides the 'via' tag. Pulls media directly from online and instantly sends it on your behalf.",
+        "uk": "Приховує тег \"через\". Витягує мультимедійні дані безпосередньо з Інтернету та миттєво надсилає їх від вашого імені.",
+        "ru": "Скрывает тег «через». Извлекает медиафайлы прямо из Интернета и мгновенно отправляет их от вашего имени.",
+        "pl": "Ukrywa znacznik „przez\". Pobiera multimedia bezpośrednio z Internetu i natychmiast wysyła je w Twoim imieniu.",
+        "es": "Oculta la etiqueta 'vía'. Extrae medios directamente desde Internet y los envía instantáneamente en su nombre.",
+        "de": "Versteckt das „via\"-Tag. Ruft Medien direkt aus dem Internet ab und versendet sie sofort in Ihrem Namen.",
+        "fr": "Masque la balise « via ». Extrait les médias directement en ligne et les envoie instantanément en votre nom.",
+        "pt-BR": "Oculta a tag 'via'. Extrai mídia diretamente da Internet e a envia instantaneamente em seu nome.",
+        "tr": "'üzerinden' etiketini gizler. Medyayı doğrudan çevrimiçi ortamdan çeker ve sizin adınıza anında gönderir.",
+        "ar": "إخفاء علامة \"عبر\". يسحب الوسائط مباشرة من الإنترنت ويرسلها على الفور نيابة عنك.",
+        "be": "Хавае тэг \"праз\". Выцягвае мультымедыя непасрэдна з інтэрнэту і імгненна адпраўляе яго ад вашага імя.",
+        "kk": "\"арқылы\" тегін жасырады. Мультимедианы тікелей желіден алып, оны сіздің атыңыздан бірден жібереді."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
