@@ -8253,6 +8253,34 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "pill_stats_fm",
+      "name": "Pill Stats.FM",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/pill_stats_fm/1.0/pill_stats_fm.plugin",
+      "sha256": "80a7934280e56fe5cecd3e8925b39fe1d719bd639a1a50745bc4d6b50e4c4dd9",
+      "size": 35705,
+      "description": "Widget that shows what you are currently listening to on stats.fm",
+      "description_i18n": {
+        "en": "Widget that shows what you are currently listening to on stats.fm",
+        "uk": "Віджет, який показує, що ви зараз слухаєте на stats.fm",
+        "ru": "Виджет, показывающий, что вы сейчас слушаете на stats.fm",
+        "pl": "Widżet pokazujący, czego aktualnie słuchasz na stats.fm",
+        "es": "Widget que muestra lo que estás escuchando actualmente en stats.fm",
+        "de": "Widget, das anzeigt, was Sie gerade auf stats.fm hören",
+        "fr": "Widget qui montre ce que vous écoutez actuellement sur stats.fm",
+        "pt-BR": "Widget que mostra o que você está ouvindo atualmente no stats.fm",
+        "tr": "Şu anda stats.fm'de ne dinlediğinizi gösteren widget",
+        "ar": "القطعة التي توضح ما تستمع إليه حاليًا على stats.fm",
+        "be": "Віджэт, які паказвае, што вы зараз слухаеце на stats.fm",
+        "kk": "stats.fm сайтында не тыңдап жатқаныңызды көрсететін виджет"
+      },
+      "permissions": [
+        "network",
+        "hooks"
+      ]
     }
   ]
 }
