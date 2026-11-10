@@ -12153,6 +12153,33 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "wide_posts",
+      "name": "Wide Posts",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/wide_posts/1.0/wide_posts.plugin",
+      "sha256": "de654759e0ac9e271d809dcdd21bc77473a7d7767d6edfed68bfe94dc7f02bd3",
+      "size": 19795,
+      "description": "Expands channel posts.",
+      "description_i18n": {
+        "en": "Expands channel posts.",
+        "uk": "Розгортає дописи каналу.",
+        "ru": "Раскрывает сообщения канала.",
+        "pl": "Rozwija posty na kanale.",
+        "es": "Expande las publicaciones del canal.",
+        "de": "Erweitert Kanalbeiträge.",
+        "fr": "Développe les publications de la chaîne.",
+        "pt-BR": "Expande as postagens do canal.",
+        "tr": "Kanal gönderilerini genişletir.",
+        "ar": "يوسع منشورات القناة.",
+        "be": "Разгортвае паведамленні на канале.",
+        "kk": "Арна жазбаларын кеңейтеді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
