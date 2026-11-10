@@ -3481,6 +3481,35 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "direct_drop_send_fork",
+      "name": "DragnDrop Send (Fork)",
+      "version": "2.0.24",
+      "min_app_version": "1.0.0",
+      "file": "plugins/direct_drop_send_fork/2.0.24/direct_drop_send_fork.plugin",
+      "sha256": "42b98b2773b008966da706da9960613e28a50bf91e3ec27d1043b22ba166f019",
+      "size": 144894,
+      "description": "Two-way Drag&Drop: dragging media and files (opening the native file menu and media editor), as well as dragging selected text (Fork).",
+      "description_i18n": {
+        "en": "Two-way Drag&Drop: dragging media and files (opening the native file menu and media editor), as well as dragging selected text (Fork).",
+        "uk": "Двостороннє Drag&Drop: перетягування медіа та файлів (відкриття рідного меню файлів і медіаредактора), а також перетягування виділеного тексту (Fork).",
+        "ru": "Двустороннее перетаскивание: перетаскивание медиафайлов и файлов (открытие собственного меню файлов и медиаредактора), а также перетаскивание выделенного текста (вилка).",
+        "pl": "Dwukierunkowe przeciąganie i upuszczanie: przeciąganie multimediów i plików (otwieranie natywnego menu plików i edytora multimediów), a także przeciąganie zaznaczonego tekstu (Fork).",
+        "es": "Arrastrar y soltar bidireccional: arrastrar medios y archivos (abriendo el menú de archivos nativos y el editor de medios), así como arrastrar texto seleccionado (Fork).",
+        "de": "Bidirektionales Drag&Drop: Ziehen von Medien und Dateien (Öffnen des nativen Dateimenüs und des Medieneditors) sowie Ziehen von ausgewähltem Text (Fork).",
+        "fr": "Glisser-Déposer bidirectionnel : glisser des médias et des fichiers (ouverture du menu de fichiers natif et de l'éditeur multimédia), ainsi que glisser le texte sélectionné (Fork).",
+        "pt-BR": "Arrastar e soltar bidirecional: arrastar mídia e arquivos (abrindo o menu de arquivo nativo e o editor de mídia), bem como arrastar o texto selecionado (Fork).",
+        "tr": "İki yönlü Sürükle ve Bırak: medyayı ve dosyaları sürükleme (yerel dosya menüsünü ve medya düzenleyiciyi açma), ayrıca seçilen metni sürükleme (Çatal).",
+        "ar": "السحب والإفلات ثنائي الاتجاه: سحب الوسائط والملفات (فتح قائمة الملفات الأصلية ومحرر الوسائط)، بالإضافة إلى سحب النص المحدد (Fork).",
+        "be": "Двухбаковае Drag&Drop: перацягванне мультымедыя і файлаў (адкрыццё ўласнага меню файлаў і медыярэдактара), а таксама перацягванне вылучанага тэксту (вілка).",
+        "kk": "Екі жақты Drag&Drop: мультимедианы және файлдарды сүйреп апару (төл файл мәзірін және медиа редакторын ашу), сондай-ақ таңдалған мәтінді сүйреу (Шанышқы)."
+      },
+      "permissions": [
+        "messages.send",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
