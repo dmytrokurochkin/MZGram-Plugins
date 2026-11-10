@@ -9261,6 +9261,34 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "ram_info_pill",
+      "name": "RAM-Info Pill",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/ram_info_pill/1.0/ram_info_pill.plugin",
+      "sha256": "11557428d738bdaf693b9bca1ba07494809f881a822181d291892d33ee04c603",
+      "size": 17479,
+      "description": "Displays used RAM and battery level in the widget",
+      "description_i18n": {
+        "en": "Displays used RAM and battery level in the widget",
+        "uk": "Відображає використану оперативну пам'ять і рівень заряду батареї у віджеті",
+        "ru": "Отображает использованную оперативную память и уровень заряда батареи в виджете",
+        "pl": "Wyświetla zajętą ​​pamięć RAM i poziom baterii w widżecie",
+        "es": "Muestra la RAM utilizada y el nivel de batería en el widget",
+        "de": "Zeigt den belegten RAM und den Akkustand im Widget an",
+        "fr": "Affiche la RAM utilisée et le niveau de la batterie dans le widget",
+        "pt-BR": "Exibe a RAM usada e o nível da bateria no widget",
+        "tr": "Widget'ta kullanılan RAM ve pil seviyesini görüntüler",
+        "ar": "يعرض ذاكرة الوصول العشوائي المستخدمة ومستوى البطارية في القطعة",
+        "be": "Адлюстроўвае выкарыстаную аператыўную памяць і ўзровень батарэі ў віджэце",
+        "kk": "Виджетте пайдаланылған жедел жады мен батарея деңгейін көрсетеді"
+      },
+      "permissions": [
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
