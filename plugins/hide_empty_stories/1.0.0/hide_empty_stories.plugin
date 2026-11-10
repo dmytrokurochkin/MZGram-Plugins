@@ -1,0 +1,82 @@
+__id__ = "hide_empty_stories"
+__name__ = "Hide Empty Posts"
+__description__ = (
+    "Скрывает в вашем профиле вкладки «Публикации» и «Архив публикаций», если в них ничего нет "
+    "(публикаций не было или все скрыты). Вкладка «Подарки» остаётся. Работает автоматически, без настроек.\n"
+    "Hides the \"Posts\" and \"Posts archive\" tabs in your own profile when they are empty. "
+    "The \"Gifts\" tab stays. Works automatically, no settings."
+)
+__author__ = "@countryrussia24 & Claude"
+__version__ = "1.0.0"
+__min_version__ = "12.10.6"
+__app_version__ = ">=12.10.6"
+__category__ = ["appearance"]
+__icon__ = "exteraPlugins/1"
+
+from base_plugin import BasePlugin, MethodHook
+from client_utils import get_last_fragment
+from hook_utils import find_class
+
+# Идентификаторы вкладок в SharedMediaLayout
+TAB_STORIES = 8
+TAB_ARCHIVED_STORIES = 9
+
+# Типы списков историй в StoriesController
+LIST_PINNED = 0
+LIST_ARCHIVE = 1
+
+
+class AddTabHook(MethodHook):
+    def _own_dialog_id(self):
+        """dialog_id открытого профиля, если это МОЙ профиль, иначе None."""
+        fragment = get_last_fragment()
+        if fragment is None:
+            return None
+        UserConfig = find_class("org.telegram.messenger.UserConfig")
+        own_id = int(UserConfig.getInstance(UserConfig.selectedAccount).getClientUserId())
+        name = fragment.getClass().getName()
+        # Вкладка «Профиль» внизу главного экрана — это всегда мой профиль
+        if "MainTabsActivity" in name:
+            return own_id
+        if "ProfileActivity" not in name:
+            return None
+        dialog_id = int(fragment.getDialogId())
+        return dialog_id if dialog_id == own_id else None
+
+    def _count(self, dialog_id, list_type):
+        UserConfig = find_class("org.telegram.messenger.UserConfig")
+        MessagesController = find_class("org.telegram.messenger.MessagesController")
+        controller = MessagesController.getInstance(UserConfig.selectedAccount).getStoriesController()
+        stories_list = controller.getStoriesList(dialog_id, list_type)
+        if stories_list is None:
+            return None
+        return int(stories_list.getCount())
+
+    def before_hooked_method(self, param):
+        try:
+            tab_id = int(param.args[0])
+            if tab_id not in (TAB_STORIES, TAB_ARCHIVED_STORIES):
+                return
+
+            dialog_id = self._own_dialog_id()
+            if dialog_id is None:
+                return
+
+            list_type = LIST_PINNED if tab_id == TAB_STORIES else LIST_ARCHIVE
+            count = self._count(dialog_id, list_type)
+            if count is not None and count <= 0:
+                # пропускаем оригинальный addTextTab -> вкладка не добавится
+                param.setResult(None)
+        except Exception:
+            # при любой ошибке ничего не скрываем, интерфейс остаётся как есть
+            pass
+
+
+class HideEmptyPostsPlugin(BasePlugin):
+    def on_plugin_load(self):
+        try:
+            cls = find_class("org.telegram.ui.Components.ScrollSlidingTextTabStrip")
+            if cls:
+                self.hook_all_methods(cls, "addTextTab", AddTabHook())
+        except Exception as e:
+            self.log(f"[HideEmptyPosts] hook failed: {e}")

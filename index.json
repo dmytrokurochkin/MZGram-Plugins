@@ -5267,6 +5267,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "hide_empty_stories",
+      "name": "Hide Empty Posts",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/hide_empty_stories/1.0.0/hide_empty_stories.plugin",
+      "sha256": "87682780fb4ad77cf07d2d7e1a44f4ca78a8499f82c73389b261a45e03ebe85a",
+      "size": 3590,
+      "description": "Hides the \"Publications\" and \"Publication Archive\" tabs in your profile if there is nothing in them (there were no publications or all were hidden). The \"Gifts\" tab remains.",
+      "description_i18n": {
+        "en": "Hides the \"Publications\" and \"Publication Archive\" tabs in your profile if there is nothing in them (there were no publications or all were hidden). The \"Gifts\" tab remains.",
+        "uk": "Приховує вкладки «Публікації» та «Архів публікацій» у вашому профілі, якщо в них нічого немає (публікацій не було або всі приховані). Вкладка «Подарунки» залишається.",
+        "ru": "Скрывает в профиле вкладки «Публикации» и «Архив публикаций», если в них ничего нет (публикаций не было или все были скрыты). Вкладка «Подарки» осталась.",
+        "pl": "Ukrywa w Twoim profilu zakładki „Publikacje\" i „Archiwum publikacji\", jeśli nic w nich nie ma (nie było żadnych publikacji lub wszystkie były ukryte). Zakładka „Prezenty\" pozostaje.",
+        "es": "Oculta las pestañas \"Publicaciones\" y \"Archivo de publicaciones\" en tu perfil si no hay nada en ellas (no había publicaciones o todas estaban ocultas). La pestaña \"Regalos\" permanece.",
+        "de": "Blendet die Registerkarten „Veröffentlichungen\" und „Publikationsarchiv\" in Ihrem Profil aus, wenn diese nichts enthalten (es gab keine Veröffentlichungen oder alle wurden ausgeblendet). Der Reiter „Geschenke\" bleibt erhalten.",
+        "fr": "Masque les onglets « Publications » et « Archives de publications » de votre profil s'ils ne contiennent rien (il n'y avait aucune publication ou toutes étaient masquées). L'onglet \"Cadeaux\" reste.",
+        "pt-BR": "Oculta as abas \"Publicações\" e \"Arquivo de Publicações\" do seu perfil se não houver nada nelas (não houve publicações ou todas foram ocultadas). A guia \"Presentes\" permanece.",
+        "tr": "Profilinizdeki \"Yayınlar\" ve \"Yayın Arşivi\" sekmelerinde hiçbir şey yoksa (yayın yoktu veya tümü gizlendi) gizlenir. \"Hediyeler\" sekmesi kalır.",
+        "ar": "إخفاء علامتي التبويب \"المنشورات\" و\"أرشيف المنشورات\" في ملفك الشخصي إذا لم يكن هناك شيء بهما (لم تكن هناك منشورات أو كانت جميعها مخفية). تبقى علامة التبويب \"الهدايا\".",
+        "be": "Хавае ў вашым профілі ўкладкі «Публікацыі» і «Архіў публікацый», калі ў іх нічога няма (публікацый не было або ўсе схаваныя). Укладка «Падарункі» застаецца.",
+        "kk": "Профильдегі «Жарияланымдар» және «Жарияланымдар мұрағаты» қойындыларын, егер оларда ештеңе болмаса (жарияланымдар болмаған немесе барлығы жасырылған) жасырады. «Сыйлықтар» қойындысы қалады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
