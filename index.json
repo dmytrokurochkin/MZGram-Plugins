@@ -3655,6 +3655,33 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "download_chat_wallpaper",
+      "name": "Chat Wallpaper Downloader",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/download_chat_wallpaper/1.0.0/download_chat_wallpaper.plugin",
+      "sha256": "19d3ade061858164b27404b5e2e94356462bafa2452cf02e22d9379a4e501bd5",
+      "size": 8801,
+      "description": "Downloads a custom background of a chat or group Usage: Go to a group or chat where there is a custom background, Three dots, Plugins, Download custom background. The background source will be downloaded in Device Downloads",
+      "description_i18n": {
+        "en": "Downloads a custom background of a chat or group Usage: Go to a group or chat where there is a custom background, Three dots, Plugins, Download custom background. The background source will be downloaded in Device Downloads",
+        "uk": "Завантажує спеціальний фон чату чи групи. Використання: перейдіть до групи чи чату, де є спеціальний фон, Три крапки, Плагіни, Завантажте спеціальний фон. Фонове джерело буде завантажено в Завантаження пристрою",
+        "ru": "Загрузка пользовательского фона чата или группы. Использование: Переход в группу или чат, где есть собственный фон, Три точки, Плагины, Загрузка пользовательского фона. Фоновый источник будет загружен в разделе «Загрузки устройств».",
+        "pl": "Pobiera niestandardowe tło czatu lub grupy Sposób użycia: Przejdź do grupy lub czatu, w którym znajduje się niestandardowe tło, Trzy kropki, Wtyczki, Pobierz niestandardowe tło. Źródło tła zostanie pobrane w sekcji Pobieranie urządzenia",
+        "es": "Descarga un fondo personalizado de un chat o grupo Uso: Ir a un grupo o chat donde hay un fondo personalizado, Tres puntos, Complementos, Descargar fondo personalizado. La fuente en segundo plano se descargará en Descargas de dispositivos",
+        "de": "Lädt einen benutzerdefinierten Hintergrund eines Chats oder einer Gruppe herunter. Verwendung: Zu einer Gruppe oder einem Chat gehen, in der es einen benutzerdefinierten Hintergrund gibt, Drei Punkte, Plugins, Benutzerdefinierten Hintergrund herunterladen. Die Hintergrundquelle wird unter Geräte-Downloads heruntergeladen",
+        "fr": "Télécharge un arrière-plan personnalisé d'une discussion ou d'un groupe Utilisation : Accédez à un groupe ou à une discussion où il y a un arrière-plan personnalisé, Trois points, Plugins, Téléchargez un arrière-plan personnalisé. La source d'arrière-plan sera téléchargée dans Téléchargements d'appareils",
+        "pt-BR": "Baixa um plano de fundo personalizado de um bate-papo ou grupo. Uso: Vá para um grupo ou bate-papo onde há um plano de fundo personalizado, Três pontos, Plugins, Baixe um plano de fundo personalizado. A fonte de fundo será baixada em Downloads de dispositivos",
+        "tr": "Bir sohbetin veya grubun özel arka planını indirir Kullanım: Özel bir arka planın olduğu bir gruba veya sohbete gidin, Üç nokta, Eklentiler, Özel arka plan indirin. Arka plan kaynağı Cihaz İndirmeleri bölümünden indirilecektir",
+        "ar": "تنزيل خلفية مخصصة للدردشة أو المجموعة الاستخدام: انتقل إلى مجموعة أو دردشة حيث توجد خلفية مخصصة، ثلاث نقاط، المكونات الإضافية، قم بتنزيل الخلفية المخصصة. سيتم تنزيل مصدر الخلفية في تنزيلات الجهاز",
+        "be": "Спампоўвае карыстальніцкі фон чата або групы. Выкарыстанне: перайдзіце ў групу або чат, дзе ёсць карыстальніцкі фон, Тры кропкі, Убудовы, Спампуйце карыстальніцкі фон. Фонавая крыніца будзе спампавана ў раздзеле \"Спампоўкі прылады\".",
+        "kk": "Сөйлесудің немесе топтың реттелетін фонын жүктеп алады. Қолданылуы: пайдаланушы өңі бар топқа немесе чатқа өтіңіз, Үш нүкте, Плагиндер, Теңшелетін фон жүктеп алыңыз. Фондық дереккөз \"Құрылғыны жүктеп алу\" бөлімінде жүктеп алынады"
+      },
+      "permissions": [
+        "files"
+      ]
     }
   ]
 }
