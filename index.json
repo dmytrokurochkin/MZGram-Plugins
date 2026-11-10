@@ -5543,6 +5543,35 @@
         "be": "Адвольнае перасоўванне/паварот значкоў у інтэрфейсе.",
         "kk": "Интерфейстегі белгішелердің ерікті қозғалысы/айналуы."
       }
+    },
+    {
+      "id": "image_fx",
+      "name": "ImageFX",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/image_fx/1.0/ImageFX.plugin",
+      "sha256": "7784a2284c52fd7bb9f101b89479bbe2708af0886ce52fe56ec1c91df0ea1dc5",
+      "size": 18824,
+      "description": "Apply many effects to your images. Use the commands in your response to the photo.",
+      "description_i18n": {
+        "en": "Apply many effects to your images. Use the commands in your response to the photo.",
+        "uk": "Застосуйте багато ефектів до своїх зображень. Використовуйте команди у своїй відповіді на фото.",
+        "ru": "Применяйте множество эффектов к вашим изображениям. Используйте команды, указанные в ответе на фотографию.",
+        "pl": "Zastosuj wiele efektów do swoich obrazów. Użyj poleceń w swojej odpowiedzi na zdjęcie.",
+        "es": "Aplica muchos efectos a tus imágenes. Utilice los comandos en su respuesta a la foto.",
+        "de": "Wenden Sie viele Effekte auf Ihre Bilder an. Verwenden Sie die Befehle in Ihrer Antwort auf das Foto.",
+        "fr": "Appliquez de nombreux effets à vos images. Utilisez les commandes dans votre réponse à la photo.",
+        "pt-BR": "Aplique muitos efeitos às suas imagens. Use os comandos em sua resposta à foto.",
+        "tr": "Resimlerinize birçok efekt uygulayın. Fotoğrafa yanıtınızda komutları kullanın.",
+        "ar": "تطبيق العديد من التأثيرات على الصور الخاصة بك. استخدم الأوامر في ردك على الصورة.",
+        "be": "Ужывайце мноства эфектаў да вашых малюнкаў. Выкарыстоўвайце каманды ў сваім адказе на фота.",
+        "kk": "Суреттеріңізге көптеген әсерлер қолданыңыз. Фотосуретке жауап берудегі пәрмендерді пайдаланыңыз."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "files"
+      ]
     }
   ]
 }
