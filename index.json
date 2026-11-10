@@ -597,6 +597,33 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "RFS",
+      "name": "Remove Flag Secure",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/RFS/1.1/RFS.plugin",
+      "sha256": "0c7f68a4a5b30e4e9cbfb46e45ce9970d3212d75d3ec04d7dc59790530777ab7",
+      "size": 6917,
+      "description": "Allows you to take screenshots of «one-time» content, secret chats, channels with a copy ban.",
+      "description_i18n": {
+        "en": "Allows you to take screenshots of «one-time» content, secret chats, channels with a copy ban.",
+        "uk": "Дозволяє робити скріншоти «одноразового» контенту, секретних чатів, каналів із забороною копіювання.",
+        "ru": "Позволяет делать скриншоты «одноразового» контента, секретных чатов, каналов с запретом на копирование.",
+        "pl": "Umożliwia robienie zrzutów ekranu treści „jednorazowych\", tajnych czatów, kanałów z zakazem kopiowania.",
+        "es": "Le permite tomar capturas de pantalla de contenido «único», chats secretos, canales con prohibición de copia.",
+        "de": "Ermöglicht das Erstellen von Screenshots von „einmaligen\" Inhalten, geheimen Chats und Kanälen mit Kopierverbot.",
+        "fr": "Vous permet de prendre des captures d'écran de contenus « ponctuels », de discussions secrètes, de chaînes avec interdiction de copie.",
+        "pt-BR": "Permite fazer capturas de tela de conteúdo «único», bate-papos secretos, canais com proibição de cópia.",
+        "tr": "\"Tek seferlik\" içeriklerin, gizli sohbetlerin, kopyalama yasağı olan kanalların ekran görüntülerini almanızı sağlar.",
+        "ar": "يتيح لك التقاط لقطات شاشة للمحتوى «لمرة واحدة» والمحادثات السرية والقنوات المحظورة النسخ.",
+        "be": "Дазваляе рабіць скрыншоты «разавага» кантэнту, сакрэтных чатаў, каналаў з забаронай на капіраванне.",
+        "kk": "Көшіруге тыйым салынған «бір реттік» мазмұнның, құпия чаттардың, арналардың скриншоттарын жасауға мүмкіндік береді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
