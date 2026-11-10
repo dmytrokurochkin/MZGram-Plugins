@@ -4145,6 +4145,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "fake_username",
+      "name": "Fake Username",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/fake_username/1.1.0/fake_username.plugin",
+      "sha256": "a412cd9151d94b0fcd8e927579133ba791bae9ecad7b3c5acd656d6c77da0040",
+      "size": 11880,
+      "description": "Visually changes your username only on your screen (profile + side menu)",
+      "description_i18n": {
+        "en": "Visually changes your username only on your screen (profile + side menu)",
+        "uk": "Візуально змінює ваше ім'я користувача лише на екрані (профіль + бокове меню)",
+        "ru": "Визуально меняет ваше имя пользователя только на вашем экране (профиль + боковое меню)",
+        "pl": "Wizualnie zmienia Twoją nazwę użytkownika tylko na ekranie (profil + menu boczne)",
+        "es": "Cambia visualmente tu nombre de usuario solo en tu pantalla (perfil + menú lateral)",
+        "de": "Ändert Ihren Benutzernamen visuell nur auf Ihrem Bildschirm (Profil + Seitenmenü)",
+        "fr": "Change visuellement votre nom d'utilisateur uniquement sur votre écran (profil + menu latéral)",
+        "pt-BR": "Altera visualmente seu nome de usuário apenas na tela (perfil + menu lateral)",
+        "tr": "Kullanıcı adınızı yalnızca ekranınızda görsel olarak değiştirir (profil + yan menü)",
+        "ar": "تغيير اسم المستخدم الخاص بك بشكل مرئي فقط على شاشتك (ملف التعريف + القائمة الجانبية)",
+        "be": "Візуальна змяняе імя карыстальніка толькі на экране (профіль + бакавое меню)",
+        "kk": "Пайдаланушы атыңызды тек экранда көрнекі түрде өзгертіңіз (профиль + бүйірлік мәзір)"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
