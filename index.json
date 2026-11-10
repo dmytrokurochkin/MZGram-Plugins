@@ -4735,6 +4735,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "fuck_now_playing",
+      "name": "Fuck Now Playing",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/fuck_now_playing/1.0/fuck_now_playing.plugin",
+      "sha256": "dd6757e360272bb7496056ee1d4f2355313f15485776b8845eb091d893a317b8",
+      "size": 12921,
+      "description": "Hides the track card from profiles",
+      "description_i18n": {
+        "en": "Hides the track card from profiles",
+        "uk": "Приховує трек-картку від профілів",
+        "ru": "Скрывает трек-карту из профилей",
+        "pl": "Ukrywa kartę ścieżki przed profilami",
+        "es": "Oculta la tarjeta de seguimiento de los perfiles.",
+        "de": "Versteckt die Trackkarte vor Profilen",
+        "fr": "Masque la carte de suivi des profils",
+        "pt-BR": "Oculta o cartão de rastreamento dos perfis",
+        "tr": "Parça kartını profillerden gizler",
+        "ar": "يخفي بطاقة المسار من الملفات الشخصية",
+        "be": "Хавае трэк-карту ад профіляў",
+        "kk": "Профильдерден трек картасын жасырады"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
