@@ -8544,6 +8544,33 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "plugin_drawer",
+      "name": "Плагины в меню",
+      "version": "2.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/plugin_drawer/2.1.0/plugin_drawer.plugin",
+      "sha256": "1c2f80c388838e0d423752c1aa5896df6072f385e0029159365aeba9ba4b3391",
+      "size": 15936,
+      "description": "Adds settings for other plugins to the side menu.",
+      "description_i18n": {
+        "en": "Adds settings for other plugins to the side menu.",
+        "uk": "Додає налаштування для інших плагінів до бічного меню.",
+        "ru": "Добавляет настройки для других плагинов в боковое меню.",
+        "pl": "Dodaje ustawienia innych wtyczek do menu bocznego.",
+        "es": "Agrega configuraciones para otros complementos al menú lateral.",
+        "de": "Fügt dem Seitenmenü Einstellungen für andere Plugins hinzu.",
+        "fr": "Ajoute les paramètres d'autres plugins au menu latéral.",
+        "pt-BR": "Adiciona configurações para outros plugins ao menu lateral.",
+        "tr": "Yan menüye diğer eklentilerin ayarlarını ekler.",
+        "ar": "يضيف إعدادات المكونات الإضافية الأخرى إلى القائمة الجانبية.",
+        "be": "Дадае налады для іншых плагінаў у бакавое меню.",
+        "kk": "Бүйірлік мәзірге басқа плагиндердің параметрлерін қосады."
+      },
+      "permissions": [
+        "files"
+      ]
     }
   ]
 }
