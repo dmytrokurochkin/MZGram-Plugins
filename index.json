@@ -1178,6 +1178,33 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "animated_new_messages",
+      "name": "Animated Messages",
+      "version": "2.6",
+      "min_app_version": "1.0.0",
+      "file": "plugins/animated_new_messages/2.6/animated_new_messages.plugin",
+      "sha256": "94a1d9da3a0dae57608f436c3e0eaaeb6c9977b5252741374aef4edd75dc154e",
+      "size": 24269,
+      "description": "Animations + personalization (EN UI, new Date/Message effects, Dark theme safe mode)",
+      "description_i18n": {
+        "en": "Animations + personalization (EN UI, new Date/Message effects, Dark theme safe mode)",
+        "uk": "Анімація + персоналізація (EN UI, нові ефекти дати/повідомлення, безпечний режим темної теми)",
+        "ru": "Анимация + персонализация (EN UI, новые эффекты даты/сообщения, безопасный режим темной темы)",
+        "pl": "Animacje + personalizacja (EN UI, nowe efekty daty/wiadomości, tryb awaryjny ciemnego motywu)",
+        "es": "Animaciones + personalización (EN UI, nuevos efectos de fecha/mensaje, modo seguro de tema oscuro)",
+        "de": "Animationen + Personalisierung (EN UI, neue Datums-/Nachrichteneffekte, abgesicherter Modus für dunkles Design)",
+        "fr": "Animations + personnalisation (EN UI, nouveaux effets Date/Message, mode sans échec du thème sombre)",
+        "pt-BR": "Animações + personalização (EN UI, novos efeitos de data/mensagem, modo de segurança de tema escuro)",
+        "tr": "Animasyonlar + kişiselleştirme (EN kullanıcı arayüzü, yeni Tarih/Mesaj efektleri, Koyu tema güvenli modu)",
+        "ar": "الرسوم المتحركة + التخصيص (واجهة مستخدم EN، تأثيرات التاريخ/الرسائل الجديدة، الوضع الآمن للمظهر الداكن)",
+        "be": "Анімацыя + персаналізацыя (EN UI, новыя эфекты даты/паведамлення, бяспечны рэжым цёмнай тэмы)",
+        "kk": "Анимациялар + жекелендіру (EN UI, жаңа күн/хабар эффектілері, қараңғы тақырыптың қауіпсіз режимі)"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
