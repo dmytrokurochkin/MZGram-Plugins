@@ -8681,6 +8681,35 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "post_assistant",
+      "name": "Post Assistant",
+      "version": "1.2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/post_assistant/1.2.0/post_assistant.plugin",
+      "sha256": "ce381ac1852a5d600e3e5569cd5cc9898e6fc384da36e5f3f8df658ca05fa2da",
+      "size": 23363,
+      "description": "Assistant in creating posts.",
+      "description_i18n": {
+        "en": "Assistant in creating posts.",
+        "uk": "Помічник у створенні постів.",
+        "ru": "Помощник в создании постов.",
+        "pl": "Asystent w tworzeniu postów.",
+        "es": "Asistente en la creación de publicaciones.",
+        "de": "Assistent beim Erstellen von Beiträgen.",
+        "fr": "Assistant à la création de posts.",
+        "pt-BR": "Assistente na criação de postagens.",
+        "tr": "Gönderi oluşturmada asistan.",
+        "ar": "مساعد في إنشاء المشاركات.",
+        "be": "Памочнік у стварэнні пастоў.",
+        "kk": "Жазбаларды жасаудағы көмекші."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "files"
+      ]
     }
   ]
 }
