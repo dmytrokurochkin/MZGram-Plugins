@@ -11403,6 +11403,34 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "termux_bridge",
+      "name": "Termux Bridge",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/termux_bridge/1.0.0/termux_bridge.plugin",
+      "sha256": "a66ae1610553c994230b35f319bd99d5c698fb1eb5c63b3d2f3ba9c7078be1ce",
+      "size": 92127,
+      "description": "Running scripts on top of exteragram using termux. To use, download the plugin using the command from the settings.",
+      "description_i18n": {
+        "en": "Running scripts on top of exteragram using termux. To use, download the plugin using the command from the settings.",
+        "uk": "Запуск сценаріїв поверх exteragram за допомогою termux. Для використання завантажте плагін за допомогою команди з налаштувань.",
+        "ru": "Запуск скриптов поверх exteragram с использованием termux. Для использования скачайте плагин командой из настроек.",
+        "pl": "Uruchamianie skryptów na exteragramie przy użyciu termux. Aby skorzystać, pobierz wtyczkę za pomocą polecenia z ustawień.",
+        "es": "Ejecutar scripts sobre exteragram usando termux. Para usarlo, descargue el complemento usando el comando de la configuración.",
+        "de": "Ausführen von Skripten über Exteragram mit termux. Um es zu verwenden, laden Sie das Plugin mit dem Befehl aus den Einstellungen herunter.",
+        "fr": "Exécuter des scripts sur Exteragram à l'aide de termux. Pour l'utiliser, téléchargez le plugin à l'aide de la commande depuis les paramètres.",
+        "pt-BR": "Executando scripts sobre exteragrama usando termux. Para usar, baixe o plugin usando o comando nas configurações.",
+        "tr": "Termux kullanarak exteragram üzerinde komut dosyaları çalıştırma. Kullanmak için eklentiyi ayarlardan komutu kullanarak indirin.",
+        "ar": "تشغيل البرامج النصية أعلى exteragram باستخدام termux. للاستخدام، قم بتنزيل البرنامج المساعد باستخدام الأمر من الإعدادات.",
+        "be": "Запуск сцэнарыяў паверх exteragram з дапамогай termux. Для выкарыстання спампуйце убудову з дапамогай каманды з налад.",
+        "kk": "Термукс көмегімен экстераграмманың үстінде сценарийлерді іске қосу. Қолдану үшін параметрлерден пәрмен арқылы плагинді жүктеп алыңыз."
+      },
+      "permissions": [
+        "network",
+        "files"
+      ]
     }
   ]
 }
