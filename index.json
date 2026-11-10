@@ -9067,6 +9067,34 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "quick_note2",
+      "name": "Quick Note",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/quick_note2/1.0.0/quick_note2.plugin",
+      "sha256": "3c7887ac0c0b79c0e528d7a7e7ea74274c78cd025df10b4d7d56d4a9503b1f26",
+      "size": 6573,
+      "description": "Contextual notes for chats. Go into a chat with a person, click the three dots, select \"Plugins\", then \"Chat Notes\" - done!",
+      "description_i18n": {
+        "en": "Contextual notes for chats. Go into a chat with a person, click the three dots, select \"Plugins\", then \"Chat Notes\" - done!",
+        "uk": "Контекстні нотатки для чатів. Зайдіть в чат з людиною, натисніть три крапки, виберіть «Плагіни», потім «Примітки до чату» - готово!",
+        "ru": "Контекстные заметки для чатов. Заходим в чат с человеком, нажимаем три точки, выбираем «Плагины», затем «Заметки чата» - готово!",
+        "pl": "Notatki kontekstowe do czatów. Wejdź na czat z daną osobą, kliknij trzy kropki, wybierz „Wtyczki\", a następnie „Notatki z czatu\" - gotowe!",
+        "es": "Notas contextuales para chats. Ingrese a un chat con una persona, haga clic en los tres puntos, seleccione \"Complementos\", luego \"Notas de chat\", ¡listo!",
+        "de": "Kontextnotizen für Chats. Gehen Sie in einen Chat mit einer Person, klicken Sie auf die drei Punkte, wählen Sie „Plugins\", dann „Chat-Notizen\" - fertig!",
+        "fr": "Notes contextuelles pour les discussions. Participez à une conversation avec une personne, cliquez sur les trois points, sélectionnez « Plugins », puis « Chat Notes » - c'est fait !",
+        "pt-BR": "Notas contextuais para bate-papos. Entre em um bate-papo com uma pessoa, clique nos três pontos, selecione \"Plugins\" e depois \"Notas de bate-papo\" - pronto!",
+        "tr": "Sohbetler için bağlamsal notlar. Bir kişiyle sohbete girin, üç noktayı tıklayın, \"Eklentiler\"i ve ardından \"Sohbet Notları\"nı seçin - bitti!",
+        "ar": "ملاحظات سياقية للمحادثات. انتقل إلى محادثة مع شخص ما، وانقر على النقاط الثلاث، ثم حدد \"المكونات الإضافية\"، ثم \"ملاحظات الدردشة\" - تم!",
+        "be": "Кантэкстныя нататкі для чатаў. Зайдзіце ў чат з чалавекам, націсніце тры кропкі, выберыце «Убудовы», затым «Нататкі ў чаце» - гатова!",
+        "kk": "Чаттарға арналған мәтінмәндік жазбалар. Адаммен чатқа кіріңіз, үш нүктені басыңыз, «Плагиндер» таңдаңыз, содан кейін «Чат жазбалары» - орындалды!"
+      },
+      "permissions": [
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
