@@ -6678,6 +6678,38 @@
         "messages.send",
         "files"
       ]
+    },
+    {
+      "id": "meme_library",
+      "name": "Meme Library",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/meme_library/1.1.0/meme_library.plugin",
+      "sha256": "76809b844b3f7490779a9fc41627c22ab817ace9171234786b6912b4ee072736",
+      "size": 174468,
+      "description": "Local meme library with easy search",
+      "description_i18n": {
+        "en": "Local meme library with easy search",
+        "uk": "Локальна бібліотека мемів із зручним пошуком",
+        "ru": "Локальная библиотека мемов с удобным поиском",
+        "pl": "Lokalna biblioteka memów z łatwym wyszukiwaniem",
+        "es": "Biblioteca de memes local con búsqueda sencilla",
+        "de": "Lokale Meme-Bibliothek mit einfacher Suche",
+        "fr": "Bibliothèque de mèmes locale avec recherche facile",
+        "pt-BR": "Biblioteca local de memes com pesquisa fácil",
+        "tr": "Kolay arama özelliğine sahip yerel meme kütüphanesi",
+        "ar": "مكتبة ميمي المحلية مع سهولة البحث",
+        "be": "Лакальная бібліятэка мемаў з лёгкім пошукам",
+        "kk": "Оңай іздеуі бар жергілікті мем кітапханасы"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
