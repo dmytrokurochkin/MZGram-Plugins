@@ -9095,6 +9095,33 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "quick_select",
+      "name": "Quick Select",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/quick_select/1.0.0/quick_select.plugin",
+      "sha256": "29e52faa34e969a4e5773c45d8325a8401646e6cf701d161abb5f60579789e4b",
+      "size": 21323,
+      "description": "Speeds up automatic scrolling of chat with multiple selections and removes the limit on highlighting messages.",
+      "description_i18n": {
+        "en": "Speeds up automatic scrolling of chat with multiple selections and removes the limit on highlighting messages.",
+        "uk": "Прискорює автоматичне прокручування чату з кількома виборами та знімає обмеження на виділення повідомлень.",
+        "ru": "Ускоряет автоматическую прокрутку чата с возможностью выбора нескольких вариантов и снимает ограничение на выделение сообщений.",
+        "pl": "Przyspiesza automatyczne przewijanie czatu dzięki wielokrotnemu wyborowi i usuwa ograniczenie podświetlania wiadomości.",
+        "es": "Acelera el desplazamiento automático del chat con múltiples selecciones y elimina el límite para resaltar mensajes.",
+        "de": "Beschleunigt das automatische Scrollen im Chat mit Mehrfachauswahl und hebt die Beschränkung beim Hervorheben von Nachrichten auf.",
+        "fr": "Accélère le défilement automatique du chat avec plusieurs sélections et supprime la limite de mise en surbrillance des messages.",
+        "pt-BR": "Acelera a rolagem automática do bate-papo com múltiplas seleções e elimina o limite de destaque de mensagens.",
+        "tr": "Çoklu seçimlerle sohbetin otomatik olarak kaydırılmasını hızlandırır ve mesajların vurgulanmasıyla ilgili sınırı kaldırır.",
+        "ar": "يعمل على تسريع التمرير التلقائي للدردشة مع تحديدات متعددة وإزالة الحد الأقصى لتمييز الرسائل.",
+        "be": "Паскарае аўтаматычную пракрутку чата з некалькімі выбарамі і здымае абмежаванне на вылучэнне паведамленняў.",
+        "kk": "Бірнеше таңдау арқылы чатты автоматты түрде айналдыруды жылдамдатады және хабарларды бөлектеуге шектеуді алып тастайды."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
