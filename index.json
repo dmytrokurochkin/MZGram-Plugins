@@ -1293,6 +1293,35 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "antivirus_vt",
+      "name": "Antivirus",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/antivirus_vt/1.1.0/antivirus_vt.plugin",
+      "sha256": "0d3eee57a62a47aba19f31541460461d7bb885ec47c64aee29e29489a24f3981",
+      "size": 22638,
+      "description": "Checking files via VirusTotal (using SHA-256 and optional upload).",
+      "description_i18n": {
+        "en": "Checking files via VirusTotal (using SHA-256 and optional upload).",
+        "uk": "Перевірка файлів через VirusTotal (з використанням SHA-256 і необов'язкового завантаження).",
+        "ru": "Проверка файлов через VirusTotal (с использованием SHA-256 и опциональной загрузки).",
+        "pl": "Sprawdzanie plików za pomocą VirusTotal (przy użyciu SHA-256 i opcjonalnego przesyłania).",
+        "es": "Comprobación de archivos a través de VirusTotal (usando SHA-256 y carga opcional).",
+        "de": "Überprüfen von Dateien über VirusTotal (mit SHA-256 und optionalem Upload).",
+        "fr": "Vérification des fichiers via VirusTotal (en utilisant SHA-256 et téléchargement facultatif).",
+        "pt-BR": "Verificando arquivos via VirusTotal (usando SHA-256 e upload opcional).",
+        "tr": "Dosyaları VirusTotal aracılığıyla kontrol etme (SHA-256 ve isteğe bağlı yükleme kullanarak).",
+        "ar": "فحص الملفات عبر VirusTotal (باستخدام SHA-256 والتحميل الاختياري).",
+        "be": "Праверка файлаў праз VirusTotal (з выкарыстаннем SHA-256 і дадатковай загрузкі).",
+        "kk": "VirusTotal арқылы файлдарды тексеру (SHA-256 және қосымша жүктеп салу арқылы)."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
