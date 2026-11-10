@@ -9206,6 +9206,33 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "quote_message_converter",
+      "name": "Quote-Converter",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/quote_message_converter/1.0/quote.plugin",
+      "sha256": "40de2ac9d4296fdb22c485d2f2c1a47798572cdcb3db739bda0693fe3f857835",
+      "size": 71960,
+      "description": "Replaces messages with the .qe prefix with a random quote",
+      "description_i18n": {
+        "en": "Replaces messages with the .qe prefix with a random quote",
+        "uk": "Замінює повідомлення з префіксом .qe випадковою цитатою",
+        "ru": "Заменяет сообщения с префиксом .qe случайной кавычкой.",
+        "pl": "Zastępuje wiadomości z przedrostkiem .qe losowym cudzysłowem",
+        "es": "Reemplaza los mensajes con el prefijo .qe con una cita aleatoria",
+        "de": "Ersetzt Nachrichten mit dem Präfix .qe durch ein zufälliges Anführungszeichen",
+        "fr": "Remplace les messages avec le préfixe .qe par une citation aléatoire",
+        "pt-BR": "Substitui mensagens pelo prefixo .qe por uma aspa aleatória",
+        "tr": ".qe öneki olan mesajları rastgele bir alıntıyla değiştirir",
+        "ar": "يستبدل الرسائل التي تحتوي على البادئة .qe باقتباس عشوائي",
+        "be": "Замяняе паведамленні з прэфіксам .qe выпадковай цытатай",
+        "kk": "Кездейсоқ тырнақшамен .qe префиксі бар хабарламаларды ауыстырады"
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
