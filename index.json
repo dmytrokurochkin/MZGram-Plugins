@@ -4850,6 +4850,34 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "gifs_unlocker",
+      "name": "GIFs Unlocker",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/gifs_unlocker/1.1/gifs_unlocker.plugin",
+      "sha256": "29fe40de5eb147d2362c6bd03faea84b070271702db69027206917c0fcc17e58",
+      "size": 27535,
+      "description": "Allows you to send GIFs where not allowed by sending them as a looping video without sound",
+      "description_i18n": {
+        "en": "Allows you to send GIFs where not allowed by sending them as a looping video without sound",
+        "uk": "Дозволяє надсилати GIF-файли там, де це заборонено, надсилаючи їх у вигляді циклічного відео без звуку",
+        "ru": "Позволяет отправлять GIF-файлы там, где это запрещено, отправляя их в виде зацикленного видео без звука.",
+        "pl": "Umożliwia wysyłanie plików GIF tam, gdzie jest to niedozwolone, poprzez wysyłanie ich jako zapętlonego wideo bez dźwięku",
+        "es": "Le permite enviar GIF donde no está permitido enviándolos como un video en bucle sin sonido.",
+        "de": "Ermöglicht das Senden von GIFs an unzulässige Stellen, indem Sie sie als Endlosvideo ohne Ton senden",
+        "fr": "Vous permet d'envoyer des GIF là où cela n'est pas autorisé en les envoyant sous forme de vidéo en boucle sans son",
+        "pt-BR": "Permite enviar GIFs onde não é permitido, enviando-os como um vídeo em loop sem som",
+        "tr": "GIF'leri sessiz, döngüsel bir video olarak göndererek izin verilmeyen yerlere göndermenize olanak tanır",
+        "ar": "يسمح لك بإرسال صور GIF في الأماكن غير المسموح بها عن طريق إرسالها كفيديو متكرر بدون صوت",
+        "be": "Дазваляе адпраўляць GIF-файлы там, дзе гэта забаронена, адпраўляючы іх як цыклічнае відэа без гуку",
+        "kk": "Рұқсат етілмеген жерде GIF файлдарын дыбыссыз циклдік бейне ретінде жіберуге мүмкіндік береді"
+      },
+      "permissions": [
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
