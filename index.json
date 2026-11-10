@@ -4030,6 +4030,39 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "extended_message_details",
+      "name": "Extended Message Details",
+      "version": "1.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/extended_message_details/1.0.1/extended_message_details.plugin",
+      "sha256": "f2809b381bcddbeef12d18f531a51bb7e93ff98fc4b6596a23622eb033231f90",
+      "size": 80434,
+      "description": "Expands the message details menu with technical metadata. Allows copying full JSON metadata with a long press.",
+      "description_i18n": {
+        "en": "Expands the message details menu with technical metadata. Allows copying full JSON metadata with a long press.",
+        "uk": "Розгортає меню деталей повідомлення з технічними метаданими. Дозволяє копіювати повні метадані JSON довгим натисканням.",
+        "ru": "Расширяет меню сведений о сообщении техническими метаданными. Позволяет копировать полные метаданные JSON при длительном нажатии.",
+        "pl": "Rozwija menu szczegółów wiadomości o metadane techniczne. Umożliwia kopiowanie pełnych metadanych JSON po długim naciśnięciu.",
+        "es": "Amplía el menú de detalles del mensaje con metadatos técnicos. Permite copiar metadatos JSON completos con una pulsación larga.",
+        "de": "Erweitert das Menü mit den Nachrichtendetails um technische Metadaten. Ermöglicht das Kopieren vollständiger JSON-Metadaten durch langes Drücken.",
+        "fr": "Développe le menu des détails du message avec des métadonnées techniques. Permet de copier les métadonnées JSON complètes avec un appui long.",
+        "pt-BR": "Expande o menu de detalhes da mensagem com metadados técnicos. Permite copiar metadados JSON completos com um toque longo.",
+        "tr": "Mesaj ayrıntıları menüsünü teknik meta verilerle genişletir. Uzun basıldığında tam JSON meta verilerinin kopyalanmasına olanak tanır.",
+        "ar": "يوسع قائمة تفاصيل الرسالة ببيانات التعريف الفنية. يسمح بنسخ بيانات تعريف JSON الكاملة بالضغط لفترة طويلة.",
+        "be": "Разгортвае меню дэталяў паведамлення з тэхнічнымі метаданымі. Дазваляе капіяваць поўныя метададзеныя JSON доўгім націскам.",
+        "kk": "Хабарлама мәліметтері мәзірін техникалық метадеректермен кеңейтеді. Толық JSON метадеректерін ұзақ басу арқылы көшіруге мүмкіндік береді."
+      },
+      "requirements": [
+        "mutagen"
+      ],
+      "permissions": [
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
