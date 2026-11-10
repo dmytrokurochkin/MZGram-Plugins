@@ -8625,6 +8625,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "plugstonav",
+      "name": "Plugins Tab",
+      "version": "1.3.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/plugstonav/1.3.1/plugstonav.plugin",
+      "sha256": "ca39c6ceec5bd2c12d7432a26e4fdf44d81d2f4b1177fd434cb0e5b55abd6d8e",
+      "size": 19219,
+      "description": "Adds a Plugins item to the bottom navigation bar.",
+      "description_i18n": {
+        "en": "Adds a Plugins item to the bottom navigation bar.",
+        "uk": "Додає елемент плагінів на нижню панель навігації.",
+        "ru": "Добавляет элемент «Плагины» в нижнюю панель навигации.",
+        "pl": "Dodaje element Wtyczki do dolnego paska nawigacyjnego.",
+        "es": "Agrega un elemento de complementos a la barra de navegación inferior.",
+        "de": "Fügt der unteren Navigationsleiste ein Plugin-Element hinzu.",
+        "fr": "Ajoute un élément Plugins à la barre de navigation inférieure.",
+        "pt-BR": "Adiciona um item Plugins à barra de navegação inferior.",
+        "tr": "Alt gezinme çubuğuna bir Eklentiler öğesi ekler.",
+        "ar": "يضيف عنصر المكونات الإضافية إلى شريط التنقل السفلي.",
+        "be": "Дадае элемент убудоў на ніжнюю панэль навігацыі.",
+        "kk": "Төменгі шарлау жолағына Plugins элементін қосады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
