@@ -60,6 +60,34 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "AtmosFX",
+      "name": "AtmosFX",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/AtmosFX/1.0.0/AtmosFX.plugin",
+      "sha256": "a2e5181e166261cd6e759fc409ae9f33b7890adb4982895cf172e64340b24bbd",
+      "size": 46754,
+      "description": "Replacing snow with emoji. (essentially this is a fork of snowflakes from but remade for new versions + with more functionality)",
+      "description_i18n": {
+        "en": "Replacing snow with emoji. (essentially this is a fork of snowflakes from but remade for new versions + with more functionality)",
+        "uk": "Заміна снігу емодзі. (по суті, це форк сніжинок, але перероблений для нових версій + з більшою функціональністю)",
+        "ru": "Замена снега на смайлы. (по сути это форк снежинок от но переделанный под новые версии + с большим функционалом)",
+        "pl": "Zastępowanie śniegu emoji. (w zasadzie jest to widelec płatków śniegu, ale przerobiony na nowe wersje + z większą funkcjonalnością)",
+        "es": "Reemplazar la nieve con emoji. (Básicamente, este es un tenedor de copos de nieve pero rehecho para nuevas versiones + con más funcionalidad)",
+        "de": "Schnee durch Emoji ersetzen. (Im Grunde handelt es sich hierbei um einen Fork aus Schneeflocken, der jedoch für neue Versionen neu erstellt wurde + mit mehr Funktionalität)",
+        "fr": "Remplacer la neige par des emoji. (essentiellement, il s'agit d'un fork de flocons de neige mais refait pour les nouvelles versions + avec plus de fonctionnalités)",
+        "pt-BR": "Substituindo neve por emoji. (essencialmente, este é um garfo de flocos de neve, mas refeito para novas versões + com mais funcionalidades)",
+        "tr": "Kar yerine emoji koyuldu. (esasen bu bir kar taneleri çatalıdır ancak daha fazla işlevsellik ile yeni sürümler için yeniden yapılmıştır)",
+        "ar": "استبدال الثلج بالرموز التعبيرية. (هذا في الأساس عبارة عن شوكة من رقاقات الثلج ولكن تم تجديدها للإصدارات الجديدة + مع المزيد من الوظائف)",
+        "be": "Замена снегу эмодзі. (па сутнасці, гэта відэлец сняжынак, але перароблены для новых версій + з большай функцыянальнасцю)",
+        "kk": "Қарды эмодзиге ауыстыру. (негізінен бұл снежинкалардың шанышқысы, бірақ жаңа нұсқалар үшін қайта жасалған + функционалдығы жоғары)"
+      },
+      "permissions": [
+        "network",
+        "hooks"
+      ]
     }
   ]
 }
