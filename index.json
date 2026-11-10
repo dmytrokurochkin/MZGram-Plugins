@@ -10311,6 +10311,36 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "shareui_bettersearch",
+      "name": "Better Search",
+      "version": "2.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/shareui_bettersearch/2.0.1/shareui_bettersearch.plugin",
+      "sha256": "c5390e752e7ce8d6fa1545ab34c3f124cfd967b08b4ad51286f7bf6e5bef3342",
+      "size": 42880,
+      "description": "Significantly improves search in the plugin list. Library source code: [shareui/plugins/assets/bettersearch.c](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c)",
+      "description_i18n": {
+        "en": "Significantly improves search in the plugin list. Library source code: [shareui/plugins/assets/bettersearch.c](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c)",
+        "uk": "Значно покращує пошук у списку плагінів. Вихідний код бібліотеки: [shareui/plugins/assets/bettersearch.c](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c)",
+        "ru": "Значительно улучшает поиск в списке плагинов. Исходный код библиотеки: [shareui/plugins/assets/bettersearch.c](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c)",
+        "pl": "Znacząco usprawnia wyszukiwanie na liście wtyczek. Kod źródłowy biblioteki: [shareui/plugins/assets/bettersearch.c](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c)",
+        "es": "Mejora significativamente la búsqueda en la lista de complementos. Código fuente de la biblioteca: [shareui/plugins/assets/bettersearch.c](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c)",
+        "de": "Verbessert die Suche in der Plugin-Liste erheblich. Quellcode der Bibliothek: [shareui/plugins/assets/bettersearch.c](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c)",
+        "fr": "Améliore considérablement la recherche dans la liste des plugins. Code source de la bibliothèque : [shareui/plugins/assets/bettersearch.c](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c)",
+        "pt-BR": "Melhora significativamente a pesquisa na lista de plugins. Código-fonte da biblioteca: [shareui/plugins/assets/bettersearch.c](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c)",
+        "tr": "Eklenti listesindeki aramayı önemli ölçüde iyileştirir. Kütüphane kaynak kodu: [shareui/plugins/assets/bettersearch.c](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c)",
+        "ar": "يحسن البحث في قائمة المكونات الإضافية بشكل ملحوظ. كود مصدر المكتبة: [shareui/plugins/assets/bettersearch.c](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c)",
+        "be": "Значна паляпшае пошук у спісе плагінаў. Зыходны код бібліятэкі: [shareui/plugins/assets/bettersearch.c](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c)",
+        "kk": "Плагиндер тізімінде іздеуді айтарлықтай жақсартады. Кітапхананың бастапқы коды: [shareui/plugins/assets/bettersearch.c](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c)"
+      },
+      "permissions": [
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
