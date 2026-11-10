@@ -4200,6 +4200,34 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "fast_crop",
+      "name": "FastCrop",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/fast_crop/1.0/fast_crop.plugin",
+      "sha256": "76d929ac9af3902ad6b98016b6b845dc165d34cabecd0af37351238025737c5a",
+      "size": 25534,
+      "description": "Quick crop photo\\video\\GIF with a zoom gesture to the clipboard as in the gallery on iOS",
+      "description_i18n": {
+        "en": "Quick crop photo\\video\\GIF with a zoom gesture to the clipboard as in the gallery on iOS",
+        "uk": "Швидке кадрування фото\\відео\\GIF за допомогою жесту масштабування в буфер обміну, як у галереї на iOS",
+        "ru": "Быстрая обрезка фото\\видео\\GIF жестом масштабирования в буфер обмена, как в галерее на iOS",
+        "pl": "Szybkie przycinanie zdjęć\\wideo\\GIF za pomocą gestu powiększenia do schowka, tak jak w galerii na iOS",
+        "es": "Recorte rápido de foto\\vídeo\\GIF con un gesto de zoom en el portapapeles como en la galería en iOS",
+        "de": "Schnelles Zuschneiden von Fotos/Videos/GIFs mit einer Zoom-Geste in die Zwischenablage wie in der Galerie unter iOS",
+        "fr": "Recadrer rapidement photo\\vidéo\\GIF avec un geste de zoom dans le presse-papiers comme dans la galerie sur iOS",
+        "pt-BR": "Corte rápido de foto\\vídeo\\GIF com um gesto de zoom para a área de transferência como na galeria no iOS",
+        "tr": "İOS'taki galeride olduğu gibi panoya yakınlaştırma hareketi ile fotoğraf\\video\\GIF'i hızlı bir şekilde kırpın",
+        "ar": "اقتصاص سريع للصور\\الفيديو\\GIF مع إيماءة التكبير إلى الحافظة كما هو الحال في المعرض على iOS",
+        "be": "Хуткае кадраванне фота\\відэа\\GIF з дапамогай жэста маштабавання ў буфер абмену, як у галерэі на iOS",
+        "kk": "iOS жүйесіндегі галереядағыдай аралық сақтағышқа масштабтау қимылымен фото/бейне\\GIF жылдам қию"
+      },
+      "permissions": [
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
