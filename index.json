@@ -2587,6 +2587,37 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "circlet",
+      "name": "Circlet",
+      "version": "2.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/circlet/2.2/circlet.plugin",
+      "sha256": "6d072d378f3f20304af4b4bda68ffeb261a7ffc0eab7c5b3437befa99a384731",
+      "size": 253996,
+      "description": "Sending a video in a circle with a crop preview. Select a video and see a live preview of the circle in full screen.",
+      "description_i18n": {
+        "en": "Sending a video in a circle with a crop preview. Select a video and see a live preview of the circle in full screen.",
+        "uk": "Відправлення відео по колу з кадруванням попереднього перегляду. Виберіть відео та перегляньте попередній перегляд кола в повноекранному режимі.",
+        "ru": "Отправка видео по кругу с предпросмотром обрезки. Выберите видео и просмотрите круг в реальном времени в полноэкранном режиме.",
+        "pl": "Przesyłanie filmu w kółku z podglądem przycięcia. Wybierz wideo i zobacz podgląd koła na żywo na pełnym ekranie.",
+        "es": "Envío de un vídeo en círculo con vista previa recortada. Seleccione un video y vea una vista previa en vivo del círculo en pantalla completa.",
+        "de": "Senden eines Videos im Kreis mit einer Zuschnittvorschau. Wählen Sie ein Video aus und sehen Sie eine Live-Vorschau des Kreises im Vollbildmodus.",
+        "fr": "Envoi d'une vidéo en cercle avec un aperçu du recadrage. Sélectionnez une vidéo et voyez un aperçu en direct du cercle en plein écran.",
+        "pt-BR": "Enviando um vídeo em círculo com uma visualização de corte. Selecione um vídeo e veja uma prévia ao vivo do círculo em tela cheia.",
+        "tr": "Kırpma önizlemesi olan bir çevreye video gönderme. Bir video seçin ve dairenin canlı önizlemesini tam ekranda görün.",
+        "ar": "إرسال مقطع فيديو في دائرة مع معاينة الاقتصاص. حدد مقطع فيديو وشاهد معاينة مباشرة للدائرة في وضع ملء الشاشة.",
+        "be": "Адпраўка відэа па крузе з папярэднім праглядам кадравання. Выберыце відэа і паглядзіце папярэдні прагляд круга ў поўнаэкранным рэжыме.",
+        "kk": "Бейнені қиюды алдын ала қарау арқылы шеңберге жіберу. Бейнені таңдап, толық экранда шеңбердің тікелей алдын ала қарауын көріңіз."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
