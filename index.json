@@ -11174,6 +11174,36 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "story_scheduler",
+      "name": "Story Scheduler",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/story_scheduler/1.1/story_scheduler.plugin",
+      "sha256": "a10d03e759953fe850a4f12d1d9f6cfe0c42fb5c0e5dbb8d217f58526d313091",
+      "size": 49606,
+      "description": "Delayed publication of stories to your profile, chats and channels according to schedule",
+      "description_i18n": {
+        "en": "Delayed publication of stories to your profile, chats and channels according to schedule",
+        "uk": "Відкладена публікація історій у вашому профілі, чатах і на каналах за розкладом",
+        "ru": "Отложенная публикация историй в профиль, чаты и каналы по расписанию.",
+        "pl": "Opóźniona publikacja historii na Twoim profilu, czatach i kanałach zgodnie z harmonogramem",
+        "es": "Publicación retrasada de historias a tu perfil, chats y canales según cronograma",
+        "de": "Verzögerte Veröffentlichung von Geschichten in Ihrem Profil, Ihren Chats und Kanälen gemäß Zeitplan",
+        "fr": "Publication retardée des histoires sur votre profil, vos chats et vos chaînes selon le calendrier",
+        "pt-BR": "Publicação atrasada de histórias em seu perfil, chats e canais de acordo com a programação",
+        "tr": "Hikayelerin profilinize, sohbetlerinize ve kanallarınıza programa göre gecikmeli olarak yayınlanması",
+        "ar": "- تأخير نشر القصص على ملفك الشخصي والمحادثات والقنوات حسب الجدول الزمني",
+        "be": "Адкладзеная публікацыя гісторый у вашым профілі, чатах і на каналах па раскладзе",
+        "kk": "Кестеге сәйкес профильге, чаттар мен арналарға оқиғаларды кешіктіріп жариялау"
+      },
+      "permissions": [
+        "messages.read",
+        "network",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
