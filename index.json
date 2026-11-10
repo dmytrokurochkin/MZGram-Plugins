@@ -7492,6 +7492,36 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "ndb",
+      "name": "NavDrawerBackground",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/ndb/1.0/ndb.plugin",
+      "sha256": "825ad3b01e4ed2fc8d9722308eaf59630f0263867975ab6294d23d7644e61041",
+      "size": 27731,
+      "description": "Custom account card background for **[side menu](https://t.me/exteraSettings?s=navigationDrawer)** Custom account card background for **[navigation drawer](https://t.me/exteraSettings?s=navigationDrawer)**",
+      "description_i18n": {
+        "en": "Custom account card background for **[side menu](https://t.me/exteraSettings?s=navigationDrawer)** Custom account card background for **[navigation drawer](https://t.me/exteraSettings?s=navigationDrawer)**",
+        "uk": "Спеціальний фон картки облікового запису для **[бічного меню](https://t.me/exteraSettings?s=navigationDrawer)** Спеціальний фон картки облікового запису для **[панелі навігації](https://t.me/exteraSettings?s=navigationDrawer)**",
+        "ru": "Пользовательский фон карты учетной записи для **[боковое меню](https://t.me/exteraSettings?s=navigationDrawer)** Пользовательский фон карты учетной записи для **[панели навигации](https://t.me/exteraSettings?s=navigationDrawer)**",
+        "pl": "Niestandardowe tło karty konta dla **[menu boczne](https://t.me/exteraSettings?s=navigationDrawer)** Niestandardowe tło karty konta dla **[szuflada nawigacji](https://t.me/exteraSettings?s=navigationDrawer)**",
+        "es": "Fondo de tarjeta de cuenta personalizado para **[menú lateral](https://t.me/exteraSettings?s=navigationDrawer)** Fondo de tarjeta de cuenta personalizado para **[cajón de navegación](https://t.me/exteraSettings?s=navigationDrawer)**",
+        "de": "Benutzerdefinierter Kontokartenhintergrund für **[Seitenmenü](https://t.me/exteraSettings?s=navigationDrawer)** Benutzerdefinierter Kontokartenhintergrund für **[Navigationsschublade](https://t.me/exteraSettings?s=navigationDrawer)**",
+        "fr": "Arrière-plan de carte de compte personnalisé pour **[menu latéral](https://t.me/exteraSettings?s=navigationDrawer)** Arrière-plan de carte de compte personnalisé pour **[tiroir de navigation](https://t.me/exteraSettings?s=navigationDrawer)**",
+        "pt-BR": "Plano de fundo personalizado do cartão de conta para **[menu lateral](https://t.me/exteraSettings?s=navigationDrawer)** Plano de fundo personalizado do cartão de conta para **[gaveta de navegação](https://t.me/exteraSettings?s=navigationDrawer)**",
+        "tr": "**[yan menü](https://t.me/exteraSettings?s=navigationDrawer)** için özel hesap kartı arka planı **[gezinme çekmecesi](https://t.me/exteraSettings?s=navigationDrawer)** için özel hesap kartı arka planı",
+        "ar": "خلفية بطاقة حساب مخصصة لـ **[القائمة الجانبية](https://t.me/exteraSettings?s=navigationDrawer)** خلفية بطاقة حساب مخصصة لـ **[درج التنقل](https://t.me/exteraSettings?s=navigationDrawer)**",
+        "be": "Карыстальніцкі фон карткі ўліковага запісу для **[бакавога меню](https://t.me/exteraSettings?s=navigationDrawer)** Карыстальніцкі фон карткі ўліковага запісу для **[панэлі навігацыі](https://t.me/exteraSettings?s=navigationDrawer)**",
+        "kk": "**[бүйірлік мәзір](https://t.me/exteraSettings?s=navigationDrawer)** үшін арнаулы тіркелгі картасының фоны **[навигациялық тартпа](https://t.me/exteraSettings?s=navigationDrawer)** үшін арнаулы тіркелгі картасының фоны"
+      },
+      "permissions": [
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
