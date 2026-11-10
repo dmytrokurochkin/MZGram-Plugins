@@ -11025,6 +11025,34 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "status_adder",
+      "name": "Status Adder",
+      "version": "1.9",
+      "min_app_version": "1.0.0",
+      "file": "plugins/status_adder/1.9/status_adder.plugin",
+      "sha256": "f059e00bd24c44a73982365923923d5ad39ec86f158dac61d4e26646097ac2d5",
+      "size": 37082,
+      "description": "Allows you to add custom Discord-style statuses as a name and quickly switch between them. Link to documentation in plugin settings!",
+      "description_i18n": {
+        "en": "Allows you to add custom Discord-style statuses as a name and quickly switch between them. Link to documentation in plugin settings!",
+        "uk": "Дозволяє додавати власні статуси в стилі Discord як назву та швидко перемикатися між ними. Посилання на документацію в налаштуваннях плагіна!",
+        "ru": "Позволяет добавлять в качестве имени собственные статусы в стиле Discord и быстро переключаться между ними. Ссылка на документацию в настройках плагина!",
+        "pl": "Umożliwia dodawanie niestandardowych statusów w stylu Discord jako nazwy i szybkie przełączanie między nimi. Link do dokumentacji w ustawieniach wtyczki!",
+        "es": "Le permite agregar estados personalizados de estilo Discord como nombre y cambiar rápidamente entre ellos. ¡Enlace a la documentación en la configuración del complemento!",
+        "de": "Ermöglicht Ihnen, benutzerdefinierte Status im Discord-Stil als Namen hinzuzufügen und schnell zwischen ihnen zu wechseln. Link zur Dokumentation in den Plugin-Einstellungen!",
+        "fr": "Vous permet d'ajouter des statuts personnalisés de style Discord comme nom et de basculer rapidement entre eux. Lien vers la documentation dans les paramètres du plugin !",
+        "pt-BR": "Permite adicionar status personalizados no estilo Discord como um nome e alternar rapidamente entre eles. Link para a documentação nas configurações do plugin!",
+        "tr": "Ad olarak özel Discord tarzı durumlar eklemenizi ve bunlar arasında hızla geçiş yapmanızı sağlar. Eklenti ayarlarındaki belgelere bağlantı!",
+        "ar": "يسمح لك بإضافة حالات نمط Discord مخصصة كاسم والتبديل بينها بسرعة. رابط إلى الوثائق في إعدادات البرنامج المساعد!",
+        "be": "Allows you to add custom Discord-style statuses as a name and quickly switch between them. Link to documentation in plugin settings!",
+        "kk": "Теңшелетін Discord стиліндегі күйлерді атау ретінде қосуға және олардың арасында жылдам ауысуға мүмкіндік береді. Плагин параметрлеріндегі құжаттамаға сілтеме!"
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
