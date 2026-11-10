@@ -3801,6 +3801,33 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "endlessFoldersScroll",
+      "name": "EndlessFoldersScroll",
+      "version": "1.0.8",
+      "min_app_version": "1.0.0",
+      "file": "plugins/endlessFoldersScroll/1.0.8/endlessFoldersScroll.plugin",
+      "sha256": "a1a9b9d2169ee2f554c80d1be25129df6560d14a30fc1acc2bcdb27ca1a59434",
+      "size": 9279,
+      "description": "Swipe the folders until your fingers rub off! > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 or greater!",
+      "description_i18n": {
+        "en": "Swipe the folders until your fingers rub off! > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 or greater!",
+        "uk": "Гортайте папки, поки пальці не зітруться! > Потрібен **[ZwyLib](https://t.me/zwyPlugins/48)** версії 2.0.0 або новішої!",
+        "ru": "Проведите по папкам, пока пальцы не сотрутся! > Требуется **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 или более поздняя версия!",
+        "pl": "Przesuwaj foldery, aż palce się zetrą! > Wymaga **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 lub nowszej!",
+        "es": "¡Desliza las carpetas hasta que tus dedos se froten! > ¡Requiere **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 o superior!",
+        "de": "Wischen Sie über die Ordner, bis Ihre Finger abfärben! > Erfordert **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 oder höher!",
+        "fr": "Faites glisser les dossiers jusqu'à ce que vos doigts déteignent ! > Nécessite **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 ou supérieur !",
+        "pt-BR": "Passe as pastas até que seus dedos desapareçam! > Requer **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 ou superior!",
+        "tr": "Parmaklarınız silinene kadar klasörleri kaydırın! > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 veya üstünü gerektirir!",
+        "ar": "اسحب المجلدات حتى تفرك أصابعك! > يتطلب **[ZwyLib](https://t.me/zwyPlugins/48)** الإصدار 2.0.0 أو أحدث!",
+        "be": "Правядзіце па папках, пакуль пальцы не сатруцца! > Патрабуецца **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 або вышэй!",
+        "kk": "Саусақтарыңыз ысқыланғанша қалталарды сырғытыңыз! > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 немесе одан жоғары нұсқасын талап етеді!"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
