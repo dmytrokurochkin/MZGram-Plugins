@@ -5404,6 +5404,36 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "hidethechat",
+      "name": "Hide the chat",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/hidethechat/1.1.0/hidethechat.plugin",
+      "sha256": "697aee6166c4d5a6f8b4c004bae1bb3b29cc11de55b7c0876f7ce2269b45a781",
+      "size": 23622,
+      "description": "Hides chats from the list; You can insert a link to the channel in the settings.",
+      "description_i18n": {
+        "en": "Hides chats from the list; You can insert a link to the channel in the settings.",
+        "uk": "Приховує чати зі списку; Посилання на канал можна вставити в налаштуваннях.",
+        "ru": "Скрывает чаты из списка; Ссылку на канал можно вставить в настройках.",
+        "pl": "Ukrywa czaty na liście; Link do kanału możesz wstawić w ustawieniach.",
+        "es": "Oculta chats de la lista; Puede insertar un enlace al canal en la configuración.",
+        "de": "Versteckt Chats aus der Liste; In den Einstellungen können Sie einen Link zum Kanal einfügen.",
+        "fr": "Masque les discussions de la liste ; Vous pouvez insérer un lien vers la chaîne dans les paramètres.",
+        "pt-BR": "Oculta chats da lista; Você pode inserir um link para o canal nas configurações.",
+        "tr": "Listedeki sohbetleri gizler; Ayarlardan kanala bir bağlantı ekleyebilirsiniz.",
+        "ar": "إخفاء الدردشات من القائمة؛ يمكنك إدراج رابط القناة في الإعدادات.",
+        "be": "Хавае чаты са спісу; Вы можаце ўставіць спасылку на канал у наладах.",
+        "kk": "Тізімнен чаттарды жасырады; Параметрлерде арнаға сілтеме енгізуге болады."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
