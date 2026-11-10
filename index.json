@@ -454,6 +454,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "OCR_2_Clip",
+      "name": "OCR2Clip",
+      "version": "1.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/OCR_2_Clip/1.3/OCR_2_Clip.plugin",
+      "sha256": "1e57cc42dcf7f31aa89b6455d62a5164408ae2ded689992caf2593acc0f18cae",
+      "size": 20724,
+      "description": "Extract text from images directly to your clipboard, can crop and translate. Use ocr.space or Gemini",
+      "description_i18n": {
+        "en": "Extract text from images directly to your clipboard, can crop and translate. Use ocr.space or Gemini",
+        "uk": "Витягуйте текст із зображень безпосередньо в буфер обміну, можна обрізати та перекладати. Використовуйте ocr.space або Gemini",
+        "ru": "Извлекайте текст из изображений прямо в буфер обмена, можете обрезать и переводить. Используйте ocr.space или Gemini.",
+        "pl": "Wyodrębnij tekst z obrazów bezpośrednio do schowka, możesz go przyciąć i przetłumaczyć. Użyj ocr.space lub Gemini",
+        "es": "Extraiga texto de imágenes directamente a su portapapeles, puede recortarlo y traducirlo. Utilice ocr.space o Gemini",
+        "de": "Extrahieren Sie Text aus Bildern direkt in Ihre Zwischenablage, können Sie ihn zuschneiden und übersetzen. Verwenden Sie ocr.space oder Gemini",
+        "fr": "Extrayez le texte des images directement dans votre presse-papiers, pouvez le recadrer et le traduire. Utilisez ocr.space ou Gemini",
+        "pt-BR": "Extraia texto de imagens diretamente para sua área de transferência, podendo recortar e traduzir. Use ocr.space ou Gemini",
+        "tr": "Resimlerdeki metni doğrudan panonuza çıkarın, kırpabilir ve çevirebilirsiniz. ocr.space veya Gemini'yi kullanın",
+        "ar": "استخراج النص من الصور مباشرة إلى الحافظة الخاصة بك، ويمكن قصها وترجمتها. استخدم ocr.space أو الجوزاء",
+        "be": "Выцягвайце тэкст з малюнкаў непасрэдна ў буфер абмену, можаце абрэзаць і перакладаць. Выкарыстоўвайце ocr.space або Gemini",
+        "kk": "Суреттерден мәтінді тікелей алмасу буферіне шығарып алыңыз, қиюға және аударуға болады. ocr.space немесе Gemini пайдаланыңыз"
+      },
+      "permissions": [
+        "network",
+        "files"
+      ]
     }
   ]
 }
