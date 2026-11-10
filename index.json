@@ -115,6 +115,35 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "Combined_Custom_Banner",
+      "name": "Combined Custom Banner",
+      "version": "3.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/Combined_Custom_Banner/3.0.1/Combined_Custom_Banner.plugin",
+      "sha256": "80b6ff13bd3e42af67c49a4b9c438920132b531e8e670ac9b504907526d9c2bf",
+      "size": 376690,
+      "description": "Features of the plugin: transparent folders, custom chat and profile banners, enhanced views of channels in profiles using a banner from the channel avatar, blurring, darkening and transparency effects for banners in chats.",
+      "description_i18n": {
+        "en": "Features of the plugin: transparent folders, custom chat and profile banners, enhanced views of channels in profiles using a banner from the channel avatar, blurring, darkening and transparency effects for banners in chats.",
+        "uk": "Можливості плагіна: прозорі папки, власні банери чату та профілю, розширені перегляди каналів у профілях за допомогою банера з аватара каналу, ефекти розмиття, затемнення та прозорості банерів у чатах.",
+        "ru": "Особенности плагина: прозрачные папки, настраиваемые баннеры чата и профиля, улучшенный вид каналов в профилях с помощью баннера с аватара канала, эффекты размытия, затемнения и прозрачности баннеров в чатах.",
+        "pl": "Funkcje wtyczki: przezroczyste foldery, niestandardowe banery czatu i profilu, ulepszone widoki kanałów w profilach przy użyciu banera z awatara kanału, efekty rozmycia, przyciemnienia i przezroczystości banerów na czacie.",
+        "es": "Características del complemento: carpetas transparentes, banners de perfil y chat personalizados, vistas mejoradas de canales en perfiles usando un banner del avatar del canal, efectos de desenfoque, oscurecimiento y transparencia para banners en chats.",
+        "de": "Funktionen des Plugins: transparente Ordner, benutzerdefinierte Chat- und Profilbanner, verbesserte Ansichten von Kanälen in Profilen mithilfe eines Banners aus dem Kanal-Avatar, Unschärfe-, Verdunkelungs- und Transparenzeffekte für Banner in Chats.",
+        "fr": "Caractéristiques du plugin : dossiers transparents, bannières de discussion et de profil personnalisées, vues améliorées des chaînes dans les profils à l'aide d'une bannière de l'avatar de la chaîne, effets de flou, d'assombrissement et de transparence pour les bannières dans les discussions.",
+        "pt-BR": "Recursos do plugin: pastas transparentes, banners personalizados de chat e perfil, visualização aprimorada de canais em perfis usando banner do avatar do canal, efeitos de desfoque, escurecimento e transparência para banners em chats.",
+        "tr": "Eklentinin özellikleri: şeffaf klasörler, özel sohbet ve profil banner'ları, kanal avatarından bir banner kullanılarak profillerdeki kanalların geliştirilmiş görünümleri, sohbetlerdeki banner'lar için bulanıklaştırma, karartma ve şeffaflık efektleri.",
+        "ar": "ميزات المكون الإضافي: مجلدات شفافة، ولافتات مخصصة للدردشة والملفات الشخصية، وطرق عرض محسنة للقنوات في الملفات الشخصية باستخدام لافتة من الصورة الرمزية للقناة، وتأثيرات التعتيم والتعتيم والشفافية للافتات في الدردشات.",
+        "be": "Магчымасці плагіна: празрыстыя тэчкі, карыстальніцкія банеры чатаў і профіляў, пашыраныя прагляды каналаў у профілях з дапамогай банэра з аватара канала, эфекты размывання, зацямнення і празрыстасці банэраў у чатах.",
+        "kk": "Плагиннің мүмкіндіктері: мөлдір қалталар, теңшелетін чат және профиль баннерлері, арна аватарындағы баннер арқылы профильдердегі арналардың жақсартылған көріністері, чаттардағы баннерлер үшін бұлдырату, күңгірттеу және мөлдірлік әсерлері."
+      },
+      "permissions": [
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
