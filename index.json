@@ -3682,6 +3682,37 @@
       "permissions": [
         "files"
       ]
+    },
+    {
+      "id": "dynamic_backgrounds",
+      "name": "Dynamic Backgrounds",
+      "version": "9.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/dynamic_backgrounds/9.1.0/dynamic_backgrounds.plugin",
+      "sha256": "3882a59975896765e558a42ce94eb06d93f0372ad7a3dc33ad3f777644ec768d",
+      "size": 148738,
+      "description": "Dynamic chat background based on real weather",
+      "description_i18n": {
+        "en": "Dynamic chat background based on real weather",
+        "uk": "Динамічний фон чату на основі реальної погоди",
+        "ru": "Динамический фон чата на основе реальной погоды",
+        "pl": "Dynamiczne tło czatu oparte na prawdziwej pogodzie",
+        "es": "Fondo de chat dinámico basado en el clima real",
+        "de": "Dynamischer Chat-Hintergrund basierend auf echtem Wetter",
+        "fr": "Fond de discussion dynamique basé sur la météo réelle",
+        "pt-BR": "Plano de fundo de bate-papo dinâmico com base no clima real",
+        "tr": "Gerçek hava durumuna dayalı dinamik sohbet arka planı",
+        "ar": "خلفية دردشة ديناميكية تعتمد على الطقس الحقيقي",
+        "be": "Дынамічны фон чата на аснове рэальнага надвор'я",
+        "kk": "Шынайы ауа райына негізделген динамикалық чат фоны"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
