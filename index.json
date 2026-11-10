@@ -6315,6 +6315,33 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "local_time_shift",
+      "name": "Local Time Shift",
+      "version": "1.0.8",
+      "min_app_version": "1.0.0",
+      "file": "plugins/local_time_shift/1.0.8/local_time_shift.plugin",
+      "sha256": "ca1edee1bc695b26843f259863627bcbad6142016167c67d6edae2fd606c2426",
+      "size": 9919,
+      "description": "Locally shifts the time of messages, the exact time of the last visit and other supported time signatures in Telegram.",
+      "description_i18n": {
+        "en": "Locally shifts the time of messages, the exact time of the last visit and other supported time signatures in Telegram.",
+        "uk": "Локально зміщує час повідомлень, точний час останнього відвідування та інші підтримувані часові сигнатури в Telegram.",
+        "ru": "Локально сдвигает время сообщений, точное время последнего посещения и другие поддерживаемые тактовые размеры в Telegram.",
+        "pl": "Lokalnie przesuwa czas wiadomości, dokładny czas ostatniej wizyty i inne obsługiwane metrum w Telegramie.",
+        "es": "Cambia localmente la hora de los mensajes, la hora exacta de la última visita y otras firmas de tiempo admitidas en Telegram.",
+        "de": "Verschiebt lokal die Zeit von Nachrichten, die genaue Zeit des letzten Besuchs und andere unterstützte Zeitsignaturen in Telegram.",
+        "fr": "Décale localement l'heure des messages, l'heure exacte de la dernière visite et d'autres signatures rythmiques prises en charge dans Telegram.",
+        "pt-BR": "Muda localmente a hora das mensagens, a hora exata da última visita e outras assinaturas de compasso suportadas no Telegram.",
+        "tr": "Mesajların zamanını, son ziyaretin tam saatini ve Telegram'da desteklenen diğer zaman işaretlerini yerel olarak değiştirir.",
+        "ar": "يقوم بتغيير وقت الرسائل محليًا، والوقت المحدد لآخر زيارة، وتوقيعات الوقت المدعومة الأخرى في Telegram.",
+        "be": "Лакальна зрушвае час паведамленняў, дакладны час апошняга наведвання і іншыя падтрымоўваныя сігнатуры часу ў Telegram.",
+        "kk": "Хабарламалардың уақытын, соңғы барудың нақты уақытын және Telegram-дағы басқа қолдау көрсетілетін уақыттық қолтаңбаларды жергілікті түрде ауыстырады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
