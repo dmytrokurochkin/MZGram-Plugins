@@ -10368,6 +10368,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "shareui_dkta_fixed",
+      "name": "Don't kill the download! [fixed]",
+      "version": "1.10",
+      "min_app_version": "1.0.0",
+      "file": "plugins/shareui_dkta_fixed/1.10/shareui_dkta_fixed.plugin",
+      "sha256": "43e8cbe28083352fa4e8d8dcbf5b88d5de2a2da1ec553639cab1827930ee60fd",
+      "size": 14253,
+      "description": "Extension Don't kill the download! [fixed] for Telegram.",
+      "description_i18n": {
+        "en": "Extension Don't kill the download! [fixed] for Telegram.",
+        "uk": "Розширення Не вбивайте завантаження! [виправлено] для Telegram.",
+        "ru": "Расширение Не прерывайте загрузку! [исправлено] для Telegram.",
+        "pl": "Rozszerzenie Nie przerywaj pobierania! [naprawiono] dla Telegramu.",
+        "es": "Extensión ¡No interrumpas la descarga! [arreglado] para Telegram.",
+        "de": "Erweiterung: Beenden Sie den Download nicht! [behoben] für Telegram.",
+        "fr": "Extension Ne tuez pas le téléchargement ! [corrigé] pour Telegram.",
+        "pt-BR": "Extensão Não mate o download! [corrigido] para Telegram.",
+        "tr": "Uzantı İndirme işlemini sonlandırmayın! Telegram için [sabitlendi].",
+        "ar": "ملحق لا تقتل التنزيل! [ثابت] للتيليجرام.",
+        "be": "Пашырэнне Не забівайце загрузку! [выпраўлена] для Telegram.",
+        "kk": "Кеңейтім Жүктеп алуды жоймаңыз! Telegram үшін [түзетілді]."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
