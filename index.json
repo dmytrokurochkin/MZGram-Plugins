@@ -10741,6 +10741,33 @@
         "messages.read",
         "messages.send"
       ]
+    },
+    {
+      "id": "smart_auto_archiver",
+      "name": "Auto Archive Chats",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/smart_auto_archiver/1.0.0/smart_auto_archiver.plugin",
+      "sha256": "45adf20ddc10cf6442396d045e8cead954c1c08ce4475d1a57f5c42609b22e63",
+      "size": 5822,
+      "description": "Archiving inactive chats using a timer",
+      "description_i18n": {
+        "en": "Archiving inactive chats using a timer",
+        "uk": "Архівація неактивних чатів за допомогою таймера",
+        "ru": "Архивирование неактивных чатов с помощью таймера",
+        "pl": "Archiwizowanie nieaktywnych czatów za pomocą timera",
+        "es": "Archivar chats inactivos usando un temporizador",
+        "de": "Archivierung inaktiver Chats mithilfe eines Timers",
+        "fr": "Archivage des discussions inactives à l'aide d'une minuterie",
+        "pt-BR": "Arquivando bate-papos inativos usando um cronômetro",
+        "tr": "Bir zamanlayıcı kullanarak etkin olmayan sohbetleri arşivleme",
+        "ar": "أرشفة الدردشات غير النشطة باستخدام جهاز توقيت",
+        "be": "Архіваванне неактыўных чатаў з дапамогай таймера",
+        "kk": "Таймер арқылы белсенді емес чаттарды мұрағаттау"
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }
