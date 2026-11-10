@@ -261,6 +261,34 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "GoToAvatarMessage",
+      "name": "Go To Avatar Message",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/GoToAvatarMessage/1.0/GoToAvatarMessage.plugin",
+      "sha256": "acbab5f8530c9b31cc4361b0d32cfc28beecfbed4b94de16a589ba4f57aa726c",
+      "size": 6628,
+      "description": "adds an option in avatar viewer in profile, to go to \"Photo Updated\" service message, like in telegram desktop works only in groups/channels",
+      "description_i18n": {
+        "en": "adds an option in avatar viewer in profile, to go to \"Photo Updated\" service message, like in telegram desktop works only in groups/channels",
+        "uk": "додає опцію у переглядачі аватарів у профілі, щоб перейти до сервісного повідомлення «Фото оновлено», як у робочому столі telegram працює лише в групах/каналах",
+        "ru": "добавляет возможность в средстве просмотра аватаров в профиле перейти к служебному сообщению «Фото обновлено», как в Telegram на рабочем столе, работает только в группах/каналах",
+        "pl": "dodaje opcję w przeglądarce awatarów w profilu, aby przejść do wiadomości serwisowej „Aktualizacja zdjęć\", tak jak w pulpicie telegramu działa tylko w grupach/kanałach",
+        "es": "agrega una opción en el visor de avatar en el perfil, para ir al mensaje de servicio \"Foto actualizada\", como en el escritorio de Telegram, funciona solo en grupos/canales.",
+        "de": "Fügt im Avatar-Viewer im Profil eine Option hinzu, um zur Dienstmeldung „Foto aktualisiert\" zu wechseln, wie im Telegram-Desktop, funktioniert nur in Gruppen/Kanälen",
+        "fr": "ajoute une option dans la visionneuse d'avatar dans le profil, pour accéder au message de service \"Photo mise à jour\", comme dans Telegram Desktop, fonctionne uniquement dans les groupes/canaux",
+        "pt-BR": "adiciona uma opção no visualizador de avatar no perfil, para ir para a mensagem do serviço \"Foto Atualizada\", como no telegram desktop funciona apenas em grupos/canais",
+        "tr": "profildeki avatar görüntüleyiciye \"Fotoğraf Güncellendi\" hizmet mesajına gitmek için bir seçenek ekler, tıpkı telgraf masaüstünde olduğu gibi yalnızca gruplarda/kanallarda çalışır",
+        "ar": "يضيف خيارًا في عارض الصور الرمزية في الملف الشخصي، للانتقال إلى رسالة خدمة \"تم تحديث الصورة\"، كما هو الحال في سطح مكتب Telegram الذي يعمل فقط في المجموعات/القنوات",
+        "be": "дадае опцыю ў сродку прагляду аватараў у профілі для пераходу ў сэрвіснае паведамленне «Фота абноўлена», як у працоўным стале Telegram працуе толькі ў групах/каналах",
+        "kk": "профильдегі аватарды қарау құралына опцияны қосады, телеграм жұмыс үстеліндегі сияқты «Фото жаңартылды» қызмет хабарына өту үшін тек топтарда/арналарда жұмыс істейді."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
