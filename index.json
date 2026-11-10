@@ -7717,6 +7717,38 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "nowMediaRn",
+      "name": "nowMedia",
+      "version": "1.0.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/nowMediaRn/1.0.3/nowMediaRn_1.0.3.plugin",
+      "sha256": "ab89768b6c0b5297602b78f9f090605a31a5a7291dccdcf321e4923e68309ed4",
+      "size": 117706,
+      "description": "‼️ A special application is required for the plugin to work! ‼️ Beautiful and customizable media card with media that plays in the system and broadcast to the profile.",
+      "description_i18n": {
+        "en": "‼️ A special application is required for the plugin to work! ‼️ Beautiful and customizable media card with media that plays in the system and broadcast to the profile.",
+        "uk": "‼️ Для роботи плагіна потрібен спеціальний додаток! ‼️ Красива та настроювана медіа-карта з медіафайлами, які відтворюються в системі та транслюються в профіль.",
+        "ru": "‼️Для работы плагина необходимо специальное приложение! ‼️ Красивая и настраиваемая медиакарта с медиафайлами, которые воспроизводятся в системе и транслируются в профиль.",
+        "pl": "‼️ Do działania wtyczki wymagana jest specjalna aplikacja! ‼️ Piękna i konfigurowalna karta multimedialna z multimediami odtwarzanymi w systemie i transmitowanymi do profilu.",
+        "es": "‼️ ¡Se requiere una aplicación especial para que el complemento funcione! ‼️ Tarjeta multimedia hermosa y personalizable con medios que se reproducen en el sistema y se transmiten al perfil.",
+        "de": "‼️ Damit das Plugin funktioniert, ist eine spezielle Anwendung erforderlich! ‼️ Schöne und anpassbare Medienkarte mit Medien, die im System abgespielt und an das Profil gesendet werden.",
+        "fr": "‼️ Une application spéciale est nécessaire pour que le plugin fonctionne ! ‼️ Carte multimédia magnifique et personnalisable avec des médias qui sont lus dans le système et diffusés sur le profil.",
+        "pt-BR": "‼️ É necessário um aplicativo especial para que o plugin funcione! ‼️ Cartão de mídia bonito e personalizável com mídia que é reproduzida no sistema e transmitida para o perfil.",
+        "tr": "‼️Eklentinin çalışması için özel bir uygulama gereklidir! ‼️ Sistemde oynatılan ve profile yayın yapan medya içeren güzel ve özelleştirilebilir medya kartı.",
+        "ar": "‼️ مطلوب تطبيق خاص حتى يعمل البرنامج المساعد! ‼️ بطاقة وسائط جميلة وقابلة للتخصيص تحتوي على وسائط يتم تشغيلها في النظام وبثها إلى الملف الشخصي.",
+        "be": "‼️ Для працы плагіна патрабуецца спецыяльная праграма! ‼️ Прыгожая і наладжвальная медыя-карта з мультымедыя, якое прайграваецца ў сістэме і транслюецца ў профіль.",
+        "kk": "‼️ Плагин жұмыс істеуі үшін арнайы қолданба қажет! ‼️ Жүйеде ойнатылатын және профильге таратылатын медиасы бар әдемі және теңшелетін медиа картасы."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
