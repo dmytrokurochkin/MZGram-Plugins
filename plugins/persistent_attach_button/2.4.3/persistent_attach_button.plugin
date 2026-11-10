@@ -1,0 +1,702 @@
+__id__ = "persistent_attach_button"
+__name__ = "Persistent Attach Button"
+__description__ = "Keeps the attach button (paperclip) visible when typing text in chat"
+__author__ = "@DarkLuny"
+__version__ = "2.4.3"
+__app_version__ = ">=12.5.1"
+__category__ = ["appearance"]
+__sdk_version__ = ">=1.4.4.3"
+__icon__ = "exteraPlugins/1"
+
+from base_plugin import BasePlugin, MethodHook
+from hook_utils import find_class, get_private_field
+from android_utils import run_on_ui_thread, log
+from ui.bulletin import BulletinHelper
+
+
+VISIBLE = 0  # android.view.View.VISIBLE
+
+FLOAT_OFFSET_DP = 48
+EXTRA_GAP_DP = 2
+TEXT_RESERVE_DP = 42
+MIN_TEXT_WIDTH_DP = 120
+PAD_TOLERANCE_PX = 2
+
+_base_pad = {}
+_dp_cache = {}
+_android_utils = None
+
+# --- State / safety ---------------------------------------------------------
+
+_active = False
+_busy = False
+_pending = set()
+_err_count = 0
+_ERR_LIMIT = 20
+
+
+def _log_err(where, e):
+    global _err_count
+
+    try:
+        if _err_count < _ERR_LIMIT:
+            _err_count += 1
+            log("PersistentAttach[%s]: %s" % (where, e))
+    except Exception:
+        pass
+
+
+def _dp(value):
+    cached = _dp_cache.get(value)
+
+    if cached is not None:
+        return cached
+
+    global _android_utils
+
+    px = None
+
+    try:
+        if _android_utils is None:
+            _android_utils = find_class(
+                "org.telegram.messenger.AndroidUtilities"
+            )
+
+        if _android_utils is not None:
+            px = int(_android_utils.dp(float(value)))
+
+    except Exception as e:
+        _log_err("dp", e)
+        px = None
+
+    if px is None:
+        return int(value * 2.75)
+
+    _dp_cache[value] = px
+    return px
+
+
+def _is_typing(enter_view):
+    try:
+        edit = get_private_field(
+            enter_view,
+            "messageEditText"
+        )
+
+        if edit is None:
+            return False
+
+        length = edit.length()
+
+        if length <= 0:
+            return False
+
+        if length > 64:
+            return True
+
+        text = edit.getText()
+
+        return (
+            text is not None
+            and len(str(text).strip()) > 0
+        )
+
+    except Exception:
+        return False
+
+
+def _x_rel(view, ancestor):
+    try:
+        x = 0.0
+        node = view
+        guard = 0
+
+        while node is not None and guard < 80:
+            try:
+                if node.equals(ancestor):
+                    return x
+            except Exception:
+                pass
+
+            try:
+                x += node.getX()
+            except Exception:
+                return None
+
+            node = node.getParent()
+            guard += 1
+
+    except Exception:
+        pass
+
+    return None
+
+
+def _bot_translation(enter_view, bot, clip):
+    """
+    translationX for the bot button so that its RIGHT edge
+    touches the LEFT edge of the paperclip.
+
+    Computed from real positions (works on any screen).
+
+    Returns 0 if it can't be measured or the button is already
+    in place.
+    """
+
+    try:
+        if bot is None or clip is None:
+            return 0
+
+        w = bot.getWidth()
+
+        if w <= 0:
+            return 0
+
+        bot_x = _x_rel(bot, enter_view)
+        clip_left = _x_rel(clip, enter_view)
+
+        if bot_x is None or clip_left is None:
+            return 0
+
+        natural_left = bot_x - bot.getTranslationX()
+        target_left = clip_left - w
+
+        return int(round(target_left - natural_left))
+
+    except Exception as e:
+        _log_err("bot_tx", e)
+        return 0
+
+
+def _measure_reserve(enter_view, edit):
+    """
+    Reserve = (right edge of text field)
+    - (leftmost left edge among the paperclip and bot button)
+    + small gap.
+    """
+
+    try:
+        clip = get_private_field(
+            enter_view,
+            "attachButton"
+        )
+
+        if clip is None:
+            clip = get_private_field(
+                enter_view,
+                "attachLayout"
+            )
+
+        if clip is None:
+            return None
+
+        edit_x = _x_rel(edit, enter_view)
+        clip_left = _x_rel(clip, enter_view)
+
+        if edit_x is None or clip_left is None:
+            return None
+
+        left = clip_left
+
+        # The bot button (shown only in bots) sits before
+        # the paperclip. The text must not go under it either.
+        try:
+            bot = get_private_field(
+                enter_view,
+                "botButton"
+            )
+
+            if (
+                bot is not None
+                and bot.getVisibility() == VISIBLE
+                and bot.getWidth() > 0
+            ):
+                bot_left = _x_rel(
+                    bot,
+                    enter_view
+                )
+
+                if bot_left is not None and bot_left < left:
+                    left = bot_left
+
+        except Exception:
+            pass
+
+        edit_right = edit_x + edit.getWidth()
+
+        reserve = int(
+            edit_right
+            - left
+            + _dp(EXTRA_GAP_DP)
+        )
+
+        if reserve <= 0:
+            return None
+
+        return reserve
+
+    except Exception:
+        return None
+
+
+def _cancel_animator(enter_view, field_name):
+    try:
+        anim = get_private_field(
+            enter_view,
+            field_name
+        )
+
+        if anim is None:
+            return
+
+        try:
+            if hasattr(anim, "isRunning") and not anim.isRunning():
+                return
+        except Exception:
+            pass
+
+        anim.cancel()
+
+    except Exception as e:
+        _log_err(
+            "cancel:" + field_name,
+            e
+        )
+
+
+def _reset_view(view, translation_x=None):
+    if view is None:
+        return
+
+    try:
+        target_tx = (
+            None
+            if translation_x is None
+            else float(translation_x)
+        )
+
+        if (
+            view.getVisibility() == VISIBLE
+            and view.getAlpha() == 1.0
+            and view.getScaleX() == 1.0
+            and view.getScaleY() == 1.0
+            and (
+                target_tx is None
+                or view.getTranslationX() == target_tx
+            )
+        ):
+            return
+
+        try:
+            view.animate().cancel()
+        except Exception:
+            pass
+
+        try:
+            view.clearAnimation()
+        except Exception:
+            pass
+
+        if view.getVisibility() != VISIBLE:
+            view.setVisibility(VISIBLE)
+
+        if view.getAlpha() != 1.0:
+            view.setAlpha(1.0)
+
+        if view.getScaleX() != 1.0:
+            view.setScaleX(1.0)
+
+        if view.getScaleY() != 1.0:
+            view.setScaleY(1.0)
+
+        if (
+            target_tx is not None
+            and view.getTranslationX() != target_tx
+        ):
+            view.setTranslationX(target_tx)
+
+    except Exception as e:
+        _log_err("reset_view", e)
+
+
+def _clip_text_field(enter_view, typing):
+    try:
+        edit = get_private_field(
+            enter_view,
+            "messageEditText"
+        )
+
+        if edit is None:
+            return
+
+        key = enter_view.hashCode()
+
+        pl = edit.getPaddingLeft()
+        pt = edit.getPaddingTop()
+        pb = edit.getPaddingBottom()
+
+        if not typing:
+            base = _base_pad.get(key)
+
+            if base is None:
+                base = edit.getPaddingRight()
+                _base_pad[key] = base
+
+            if edit.getPaddingRight() != base:
+                edit.setPadding(
+                    pl,
+                    pt,
+                    base,
+                    pb
+                )
+
+            return
+
+        if key not in _base_pad:
+            _base_pad[key] = edit.getPaddingRight()
+
+        reserve = _measure_reserve(
+            enter_view,
+            edit
+        )
+
+        if reserve is None:
+            reserve = _dp(TEXT_RESERVE_DP)
+
+        width = edit.getWidth()
+
+        if width > 0:
+            max_pad = (
+                width
+                - pl
+                - _dp(MIN_TEXT_WIDTH_DP)
+            )
+
+            if max_pad < 0:
+                max_pad = 0
+
+            if reserve > max_pad:
+                reserve = max_pad
+
+        if reserve < 0:
+            reserve = 0
+
+        if (
+            abs(
+                edit.getPaddingRight()
+                - reserve
+            )
+            > PAD_TOLERANCE_PX
+        ):
+            edit.setPadding(
+                pl,
+                pt,
+                reserve,
+                pb
+            )
+
+    except Exception as e:
+        _log_err("clip_text", e)
+
+
+def _force_visible(enter_view, cancel_anims=False):
+    global _busy
+
+    if (
+        enter_view is None
+        or not _active
+        or _busy
+    ):
+        return
+
+    _busy = True
+
+    try:
+        # NEVER cancel "runningAnimation"
+        # (send <-> voice morph).
+        if cancel_anims:
+            _cancel_animator(
+                enter_view,
+                "runningAnimation2"
+            )
+
+            _cancel_animator(
+                enter_view,
+                "attachButtonAnimator"
+            )
+
+        attach_layout = get_private_field(
+            enter_view,
+            "attachLayout"
+        )
+
+        if attach_layout is None:
+            return
+
+        typing = _is_typing(
+            enter_view
+        )
+
+        # 1) Float the whole layout left of the send
+        # button while typing.
+        offset = (
+            -_dp(FLOAT_OFFSET_DP)
+            if typing
+            else 0
+        )
+
+        _reset_view(
+            attach_layout,
+            translation_x=offset
+        )
+
+        # 2) Paperclip first, so its position is final
+        # before we place the bot button.
+        clip = get_private_field(
+            enter_view,
+            "attachButton"
+        )
+
+        try:
+            _reset_view(
+                clip,
+                translation_x=0
+            )
+        except Exception:
+            pass
+
+        # 3) Bot button: keep it right next to
+        # (before) the paperclip.
+        try:
+            bot = get_private_field(
+                enter_view,
+                "botButton"
+            )
+
+            if bot is not None:
+                bot_tx = (
+                    _bot_translation(
+                        enter_view,
+                        bot,
+                        clip
+                    )
+                    if typing
+                    else 0
+                )
+
+                _reset_view(
+                    bot,
+                    translation_x=bot_tx
+                )
+
+        except Exception as e:
+            _log_err(
+                "bot_button",
+                e
+            )
+
+        # 4) Text padding: measured from the leftmost
+        # of bot button / paperclip.
+        _clip_text_field(
+            enter_view,
+            typing
+        )
+
+    except Exception as e:
+        _log_err(
+            "force_visible",
+            e
+        )
+
+    finally:
+        _busy = False
+
+
+def _is_attached(view):
+    try:
+        return bool(
+            view.isAttachedToWindow()
+        )
+    except Exception:
+        return False
+
+
+def _schedule_reassert(enter_view):
+    try:
+        key = enter_view.hashCode()
+    except Exception:
+        return
+
+    for delay in (16, 80, 200):
+        token = (
+            key,
+            delay
+        )
+
+        if token in _pending:
+            continue
+
+        _pending.add(token)
+
+        def task(
+            ev=enter_view,
+            t=token
+        ):
+            _pending.discard(t)
+
+            if (
+                _active
+                and _is_attached(ev)
+            ):
+                _force_visible(ev)
+
+        try:
+            run_on_ui_thread(
+                task,
+                delay
+            )
+
+        except Exception as e:
+            _pending.discard(token)
+
+            _log_err(
+                "schedule",
+                e
+            )
+
+
+class FrameHook(MethodHook):
+
+    def after_hooked_method(self, param):
+        try:
+            _force_visible(
+                param.thisObject
+            )
+
+        except Exception as e:
+            _log_err(
+                "FrameHook",
+                e
+            )
+
+
+class StateHook(MethodHook):
+
+    def after_hooked_method(self, param):
+        try:
+            enter_view = param.thisObject
+
+            if enter_view is None:
+                return
+
+            _force_visible(
+                enter_view,
+                cancel_anims=True
+            )
+
+            _schedule_reassert(
+                enter_view
+            )
+
+        except Exception as e:
+            _log_err(
+                "StateHook",
+                e
+            )
+
+
+class PersistentAttachButtonPlugin(BasePlugin):
+
+    def _toast(self, method, text):
+        try:
+            run_on_ui_thread(
+                lambda: getattr(
+                    BulletinHelper,
+                    method
+                )(text)
+            )
+
+        except Exception:
+            pass
+
+    def on_plugin_load(self):
+        global _active
+
+        try:
+            cls = find_class(
+                "org.telegram.ui.Components.ChatActivityEnterView"
+            )
+
+            if not cls:
+                self._toast(
+                    "show_error",
+                    "ChatActivityEnterView not found!"
+                )
+                return
+
+            self._hooks = []
+
+            def collect(res):
+                if not res:
+                    return
+
+                try:
+                    self._hooks.extend(
+                        list(res)
+                    )
+
+                except TypeError:
+                    self._hooks.append(res)
+
+            _active = True
+
+            collect(
+                self.hook_all_methods(
+                    cls,
+                    "updateAttachLayoutParams",
+                    FrameHook(),
+                    priority=100
+                )
+            )
+
+            collect(
+                self.hook_all_methods(
+                    cls,
+                    "checkSendButton",
+                    StateHook(),
+                    priority=100
+                )
+            )
+
+            if self._hooks:
+                self._toast(
+                    "show_success",
+                    "Persistent Attach Button loaded (%d hooks)"
+                    % len(self._hooks)
+                )
+
+            else:
+                _active = False
+
+                self._toast(
+                    "show_error",
+                    "Methods not found - check app version"
+                )
+
+        except Exception as e:
+            _active = False
+
+            self._toast(
+                "show_error",
+                "Error: " + str(e)[:50]
+            )
+
+    def on_plugin_unload(self):
+        global _active, _busy
+
+        _active = False
+        _busy = False
+
+        _pending.clear()
+        _base_pad.clear()
+        _dp_cache.clear()

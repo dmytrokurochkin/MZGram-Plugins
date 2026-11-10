@@ -8057,6 +8057,33 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "persistent_attach_button",
+      "name": "Persistent Attach Button",
+      "version": "2.4.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/persistent_attach_button/2.4.3/persistent_attach_button.plugin",
+      "sha256": "55a1f152b561035899d5c5cf343f4fbb4e1bf53f4d17f8e17650dcb9cda11e07",
+      "size": 14735,
+      "description": "Keeps the attach button (paperclip) visible when typing text in chat",
+      "description_i18n": {
+        "en": "Keeps the attach button (paperclip) visible when typing text in chat",
+        "uk": "Зберігає видимою кнопку прикріплення (скріпку) під час введення тексту в чаті",
+        "ru": "Кнопка прикрепления (скрепка) остается видимой при вводе текста в чате.",
+        "pl": "Sprawia, że ​​przycisk dołączania (spinacz) jest widoczny podczas wpisywania tekstu na czacie",
+        "es": "Mantiene visible el botón adjuntar (clip) al escribir texto en el chat",
+        "de": "Hält die Schaltfläche „Anhängen\" (Büroklammer) sichtbar, wenn Sie Text im Chat eingeben",
+        "fr": "Maintient le bouton de pièce jointe (trombone) visible lors de la saisie de texte dans le chat",
+        "pt-BR": "Mantém o botão anexar (clipe de papel) visível ao digitar texto no chat",
+        "tr": "Sohbette metin yazarken ekle düğmesini (ataç) görünür tutar",
+        "ar": "إبقاء زر الإرفاق (مشبك الورق) مرئيًا عند كتابة نص في الدردشة",
+        "be": "Захоўвае кнопку прымацавання (сашчэпку) бачнай падчас уводу тэксту ў чаце",
+        "kk": "Чатта мәтінді теру кезінде тіркеу түймесін (қағаз қыстырғыш) көрінетін етіп сақтайды"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
