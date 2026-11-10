@@ -8225,6 +8225,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "pill_stack_to_header",
+      "name": "Pill Stack to Header",
+      "version": "3.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/pill_stack_to_header/3.0/pill_stack_to_header.plugin",
+      "sha256": "ae1bd3764299d6aacb21671df8fa5f70b180e7bf33f2ebcc648ef31e5bb9728d",
+      "size": 26608,
+      "description": "Moves Pill Stack from the search bar to the home screen panel. **Link to documentation in plugin settings!**",
+      "description_i18n": {
+        "en": "Moves Pill Stack from the search bar to the home screen panel. **Link to documentation in plugin settings!**",
+        "uk": "Переміщує Pill Stack із панелі пошуку на панель головного екрана. **Посилання на документацію в налаштуваннях плагіна!**",
+        "ru": "Перемещает стопку таблеток из панели поиска на панель главного экрана. **Ссылка на документацию в настройках плагина!**",
+        "pl": "Przenosi stos pigułek z paska wyszukiwania na panel ekranu głównego. **Link do dokumentacji w ustawieniach wtyczki!**",
+        "es": "Mueve Pill Stack de la barra de búsqueda al panel de la pantalla de inicio. **¡Enlace a la documentación en la configuración del complemento!**",
+        "de": "Verschiebt Pill Stack von der Suchleiste in den Startbildschirmbereich. **Link zur Dokumentation in den Plugin-Einstellungen!**",
+        "fr": "Déplace Pill Stack de la barre de recherche vers le panneau de l'écran d'accueil. **Lien vers la documentation dans les paramètres du plugin !**",
+        "pt-BR": "Move Pill Stack da barra de pesquisa para o painel da tela inicial. **Link para documentação nas configurações do plugin!**",
+        "tr": "Hap Yığınını arama çubuğundan ana ekran paneline taşır. **Eklenti ayarlarındaki belgelere bağlantı!**",
+        "ar": "ينقل Pill Stack من شريط البحث إلى لوحة الشاشة الرئيسية. **رابط إلى الوثائق في إعدادات البرنامج المساعد!**",
+        "be": "Перамяшчае Pill Stack з панэлі пошуку на панэль галоўнага экрана. **Спасылка на дакументацыю ў наладах плагіна!**",
+        "kk": "Pill Stack іздеу жолағынан негізгі экран тақтасына жылжытады. **Плагин параметрлеріндегі құжаттамаға сілтеме!**"
+      },
+      "permissions": [
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
