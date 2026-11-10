@@ -8917,6 +8917,35 @@
         "messages.read",
         "messages.send"
       ]
+    },
+    {
+      "id": "qmrrchh_plugins_manager",
+      "name": "Plugins Manager",
+      "version": "1.4.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/qmrrchh_plugins_manager/1.4.2/plugins_manager.plugin",
+      "sha256": "bbc54f3be2d28399309bd14086e6b2b365bf25e0102563e3b7ee619e366b8615",
+      "size": 24917,
+      "description": "Manager of locally installed plugins. You can find out all the commands by writing .phelp in any chat.",
+      "description_i18n": {
+        "en": "Manager of locally installed plugins. You can find out all the commands by writing .phelp in any chat.",
+        "uk": "Менеджер локально встановлених плагінів. Ви можете дізнатися всі команди, написавши .phelp в будь-якому чаті.",
+        "ru": "Менеджер локально установленных плагинов. Все команды вы можете узнать, написав .phelp в любом чате.",
+        "pl": "Menedżer lokalnie zainstalowanych wtyczek. Możesz znaleźć wszystkie polecenia, wpisując .phelp na dowolnym czacie.",
+        "es": "Administrador de complementos instalados localmente. Puedes conocer todos los comandos escribiendo .phelp en cualquier chat.",
+        "de": "Manager lokal installierter Plugins. Sie können alle Befehle herausfinden, indem Sie in einem beliebigen Chat .phelp schreiben.",
+        "fr": "Gestionnaire de plugins installés localement. Vous pouvez découvrir toutes les commandes en écrivant .phelp dans n'importe quel chat.",
+        "pt-BR": "Gerenciador de plugins instalados localmente. Você pode descobrir todos os comandos escrevendo .phelp em qualquer chat.",
+        "tr": "Yerel olarak yüklenen eklentilerin yöneticisi. Herhangi bir sohbete .phelp yazarak tüm komutları öğrenebilirsiniz.",
+        "ar": "مدير الإضافات المثبتة محليا. يمكنك معرفة كافة الأوامر عن طريق كتابة .phel في أي دردشة.",
+        "be": "Менеджэр лакальна ўсталяваных плагінаў. Усе каманды вы можаце даведацца, напісаўшы .phelp ў любым чаце.",
+        "kk": "Жергілікті орнатылған плагиндердің менеджері. Кез келген чатта .phelp жазу арқылы барлық командаларды білуге ​​болады."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "files"
+      ]
     }
   ]
 }
