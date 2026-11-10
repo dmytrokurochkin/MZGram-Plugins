@@ -6734,6 +6734,34 @@
         "be": "Гуляць у Memory Match. Перагортвайце карты, каб знайсці пары.",
         "kk": "Жад сәйкестігін ойнаңыз. Жұптарды табу үшін карталарды аударыңыз."
       }
+    },
+    {
+      "id": "mention_avatars",
+      "name": "MentionAvatars",
+      "version": "1.2.5",
+      "min_app_version": "1.0.0",
+      "file": "plugins/mention_avatars/1.2.5/mention_avatars.plugin",
+      "sha256": "c12fb1d2f207ae4800041462f9e09aec3a4017a2ce0ba4d6267edcaf4139d5c8",
+      "size": 30717,
+      "description": "Adds a user's avatar next to his nickname when he is in a message",
+      "description_i18n": {
+        "en": "Adds a user's avatar next to his nickname when he is in a message",
+        "uk": "Додає аватар користувача поруч із його псевдонімом, коли він знаходиться в повідомленні",
+        "ru": "Добавляет аватар пользователя рядом с его ником, когда он находится в сообщении.",
+        "pl": "Dodaje awatar użytkownika obok jego pseudonimu, gdy jest on w wiadomości",
+        "es": "Agrega el avatar de un usuario junto a su apodo cuando está en un mensaje",
+        "de": "Fügt den Avatar eines Benutzers neben seinem Spitznamen hinzu, wenn er sich in einer Nachricht befindet",
+        "fr": "Ajoute l'avatar d'un utilisateur à côté de son pseudo lorsqu'il est dans un message",
+        "pt-BR": "Adiciona o avatar de um usuário próximo ao seu apelido quando ele está em uma mensagem",
+        "tr": "Kullanıcı bir mesajdayken takma adının yanına kullanıcının avatarını ekler",
+        "ar": "إضافة الصورة الرمزية للمستخدم بجوار لقبه عندما يكون في رسالة",
+        "be": "Дадае аватар карыстальніка побач з яго нікам, калі ён знаходзіцца ў паведамленні",
+        "kk": "Хабарда болған кезде пайдаланушы аватарын лақап атының жанына қосады"
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
