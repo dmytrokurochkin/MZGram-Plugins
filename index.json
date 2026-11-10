@@ -2389,6 +2389,34 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "chat_glide",
+      "name": "Chat Glide",
+      "version": "0.5.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/chat_glide/0.5.0/chat_glide.plugin",
+      "sha256": "deb2f15a6746c34f1d568b2db53f0b45f091aabc8c6d9a7f955c3bb6f7e153ff",
+      "size": 19600,
+      "description": "Quick swipe between personal chats - horizontal curtain with avatars, online status and search.",
+      "description_i18n": {
+        "en": "Quick swipe between personal chats - horizontal curtain with avatars, online status and search.",
+        "uk": "Швидке переміщення між особистими чатами - горизонтальна шторка з аватарками, онлайн-статусом і пошуком.",
+        "ru": "Быстрый свайп между личными чатами - горизонтальная шторка с аватарками, онлайн-статусом и поиском.",
+        "pl": "Szybkie przesuwanie między czatami osobistymi - pozioma kurtyna z awatarami, statusem online i wyszukiwaniem.",
+        "es": "Deslizamiento rápido entre chats personales: cortina horizontal con avatares, estado en línea y búsqueda.",
+        "de": "Schnelles Wischen zwischen persönlichen Chats - horizontaler Vorhang mit Avataren, Online-Status und Suche.",
+        "fr": "Glissement rapide entre les discussions personnelles - rideau horizontal avec avatars, statut en ligne et recherche.",
+        "pt-BR": "Deslize rápido entre bate-papos pessoais - cortina horizontal com avatares, status online e pesquisa.",
+        "tr": "Kişisel sohbetler arasında hızlıca geçiş yapın - avatarlar, çevrimiçi durum ve arama içeren yatay perde.",
+        "ar": "تمرير سريع بين الدردشات الشخصية - ستارة أفقية مع الصور الرمزية وحالة الاتصال والبحث.",
+        "be": "Хуткі пераход паміж асабістымі чатамі - гарызантальная шторка з аватарамі, онлайн-статус і пошук.",
+        "kk": "Жеке чаттар арасында жылдам өтіңіз - аватарлары бар көлденең перде, желідегі күй және іздеу."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
