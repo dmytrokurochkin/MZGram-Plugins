@@ -6396,6 +6396,35 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "lyrics",
+      "name": "Reach Text",
+      "version": "2.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/lyrics/2.2/lyrics.plugin",
+      "sha256": "2099cb5f132602a11fbf27658c66b3125c73ace57cd892b682e6c162e3e16570",
+      "size": 81141,
+      "description": "Displays lyrics for your music directly in Telegram. Adds a \"Show Lyrics\" button to the audio player, with support for synchronized (karaoke-style) lyrics.",
+      "description_i18n": {
+        "en": "Displays lyrics for your music directly in Telegram. Adds a \"Show Lyrics\" button to the audio player, with support for synchronized (karaoke-style) lyrics.",
+        "uk": "Відображає слова для вашої музики безпосередньо в Telegram. Додає кнопку «Показати текст пісні» до аудіопрогравача з підтримкою синхронізованих (у стилі караоке) текстів пісень.",
+        "ru": "Отображает тексты вашей музыки прямо в Telegram. Добавляет кнопку «Показать текст» в аудиоплеер с поддержкой синхронизированных текстов (в стиле караоке).",
+        "pl": "Wyświetla teksty Twojej muzyki bezpośrednio w Telegramie. Dodaje przycisk „Pokaż teksty\" do odtwarzacza audio z obsługą zsynchronizowanych tekstów (w stylu karaoke).",
+        "es": "Muestra la letra de tu música directamente en Telegram. Agrega un botón \"Mostrar letras\" al reproductor de audio, con soporte para letras sincronizadas (estilo karaoke).",
+        "de": "Zeigt Liedtexte für Ihre Musik direkt in Telegram an. Fügt dem Audioplayer eine Schaltfläche „Liedtext anzeigen\" hinzu, mit Unterstützung für synchronisierte Liedtexte (im Karaoke-Stil).",
+        "fr": "Affiche les paroles de votre musique directement dans Telegram. Ajoute un bouton « Afficher les paroles » au lecteur audio, avec prise en charge des paroles synchronisées (de style karaoké).",
+        "pt-BR": "Exibe letras de suas músicas diretamente no Telegram. Adiciona um botão \"Mostrar Letras\" ao reprodutor de áudio, com suporte para letras sincronizadas (estilo karaokê).",
+        "tr": "Müziğinizin şarkı sözlerini doğrudan Telegram'da görüntüler. Senkronize (karaoke tarzı) şarkı sözleri desteğiyle ses oynatıcısına bir \"Şarkı Sözlerini Göster\" düğmesi ekler.",
+        "ar": "يعرض كلمات الموسيقى الخاصة بك مباشرة في Telegram. إضافة زر \"إظهار الأغاني\" إلى مشغل الصوت، مع دعم كلمات الأغاني المتزامنة (بنمط الكاريوكي).",
+        "be": "Адлюстроўвае тэксты вашай музыкі непасрэдна ў Telegram. Дадае кнопку «Паказаць тэкст» у аўдыяплэер з падтрымкай сінхранізаваных (у стылі караоке) тэкстаў.",
+        "kk": "Музыканың сөздерін тікелей Telegram-да көрсетеді. Синхрондалған (караоке стиліндегі) мәтіндерге қолдау көрсете отырып, аудио ойнатқышқа «Әндерді көрсету» түймесін қосады."
+      },
+      "permissions": [
+        "messages.read",
+        "network",
+        "hooks"
+      ]
     }
   ]
 }
