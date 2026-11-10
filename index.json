@@ -4374,6 +4374,35 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "file_viewer_editor_pg",
+      "name": "File Viewer & Editor",
+      "version": "2.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/file_viewer_editor_pg/2.1/file_viewer_editor_pg.plugin",
+      "sha256": "27600ad6df1e729d29cdca96f75055b6889dd0ccf9038a70df0aab1933fdd60a",
+      "size": 93718,
+      "description": "View and edit text files (.py, .json, .csv, etc.) directly in Telegram. Use the `.openfile` command in response to a file message.",
+      "description_i18n": {
+        "en": "View and edit text files (.py, .json, .csv, etc.) directly in Telegram. Use the `.openfile` command in response to a file message.",
+        "uk": "Переглядайте та редагуйте текстові файли (.py, .json, .csv тощо) безпосередньо в Telegram. Використовуйте команду `.openfile` у відповідь на повідомлення про файл.",
+        "ru": "Просматривайте и редактируйте текстовые файлы (.py, .json, .csv и т. д.) прямо в Telegram. Используйте команду `.openfile` в ответ на сообщение файла.",
+        "pl": "Przeglądaj i edytuj pliki tekstowe (.py, .json, .csv itp.) bezpośrednio w Telegramie. Użyj polecenia `.openfile` w odpowiedzi na wiadomość dotyczącą pliku.",
+        "es": "Vea y edite archivos de texto (.py, .json, .csv, etc.) directamente en Telegram. Utilice el comando `.openfile` en respuesta a un mensaje de archivo.",
+        "de": "Zeigen Sie Textdateien (.py, .json, .csv usw.) direkt in Telegram an und bearbeiten Sie sie. Verwenden Sie den Befehl „.openfile\" als Antwort auf eine Dateinachricht.",
+        "fr": "Affichez et modifiez des fichiers texte (.py, .json, .csv, etc.) directement dans Telegram. Utilisez la commande `.openfile` en réponse à un message de fichier.",
+        "pt-BR": "Visualize e edite arquivos de texto (.py, .json, .csv, etc.) diretamente no Telegram. Use o comando `.openfile` em resposta a uma mensagem de arquivo.",
+        "tr": "Metin dosyalarını (.py, .json, .csv vb.) doğrudan Telegram'da görüntüleyin ve düzenleyin. Bir dosya mesajına yanıt olarak `.openfile` komutunu kullanın.",
+        "ar": "عرض وتحرير الملفات النصية (.py، .json، .csv، وما إلى ذلك) مباشرة في Telegram. استخدم الأمر `.openfile` للرد على رسالة ملف.",
+        "be": "Прагляд і рэдагаванне тэкставых файлаў (.py, .json, .csv і г.д.) непасрэдна ў Telegram. Выкарыстоўвайце каманду `.openfile` у адказ на паведамленне пра файл.",
+        "kk": "Мәтіндік файлдарды (.py, .json, .csv, т.б.) тікелей Telegram қолданбасында қараңыз және өңдеңіз. Файл хабарына жауап ретінде `.openfile` пәрменін пайдаланыңыз."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "files"
+      ]
     }
   ]
 }
