@@ -10341,6 +10341,33 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "shareui_dkta",
+      "name": "Don't kill the download![DKTA]",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/shareui_dkta/1.0.0/shareui_dkta.plugin",
+      "sha256": "102a8c780830a0ea5191153c60459693a187ce7f5ec4f3433e6996613815cbb6",
+      "size": 1271,
+      "description": "Continues downloading files in the background when exiting the chat.",
+      "description_i18n": {
+        "en": "Continues downloading files in the background when exiting the chat.",
+        "uk": "Продовжує завантажувати файли у фоновому режимі після виходу з чату.",
+        "ru": "Продолжает загрузку файлов в фоновом режиме при выходе из чата.",
+        "pl": "Kontynuuje pobieranie plików w tle po wyjściu z czatu.",
+        "es": "Continúa descargando archivos en segundo plano al salir del chat.",
+        "de": "Lädt beim Verlassen des Chats weiterhin Dateien im Hintergrund herunter.",
+        "fr": "Continue le téléchargement des fichiers en arrière-plan lorsque vous quittez le chat.",
+        "pt-BR": "Continua baixando arquivos em segundo plano ao sair do chat.",
+        "tr": "Sohbetten çıkarken arka planda dosyaları indirmeye devam eder.",
+        "ar": "يستمر في تنزيل الملفات في الخلفية عند الخروج من الدردشة.",
+        "be": "Працягвае загрузку файлаў у фонавым рэжыме пры выхадзе з чата.",
+        "kk": "Чаттан шыққан кезде файлдарды фондық режимде жүктеп алуды жалғастырады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
