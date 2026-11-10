@@ -7063,6 +7063,36 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "mnd_swagsafe",
+      "name": "SwagSafe",
+      "version": "1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/mnd_swagsafe/1.2/swag safe.plugin",
+      "sha256": "29de568672aa73048a3dae21fbf8e6f527c1d55ddd06a340fa4528a7d554a746",
+      "size": 23168,
+      "description": "chat and archive protection",
+      "description_i18n": {
+        "en": "chat and archive protection",
+        "uk": "захист чату та архіву",
+        "ru": "защита чата и архива",
+        "pl": "ochrona czatów i archiwów",
+        "es": "protección de chat y archivos",
+        "de": "Chat- und Archivschutz",
+        "fr": "protection des discussions et des archives",
+        "pt-BR": "proteção de bate-papo e arquivo",
+        "tr": "sohbet ve arşiv koruması",
+        "ar": "حماية الدردشة والأرشيف",
+        "be": "абарона чата і архіва",
+        "kk": "чатты және мұрағатты қорғау"
+      },
+      "permissions": [
+        "messages.send",
+        "intents",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
