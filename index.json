@@ -2273,6 +2273,38 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "channel_inspector",
+      "name": "Channel Inspector",
+      "version": "2.2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/channel_inspector/2.2.0/channel_inspector.plugin",
+      "sha256": "b212460915c2b7fff6e17f86f53ec99a2169240d08561f466f0d92396fc56f9a",
+      "size": 125494,
+      "description": "Data on private and public chats: information from the invitation, participant carousel, viewing avatars, statistics, .chinfo, .chstats and .avatars commands",
+      "description_i18n": {
+        "en": "Data on private and public chats: information from the invitation, participant carousel, viewing avatars, statistics, .chinfo, .chstats and .avatars commands",
+        "uk": "Дані про приватні та публічні чати: інформація із запрошення, карусель учасників, перегляд аватарів, статистика, команди .chinfo, .chstats та .avatars",
+        "ru": "Данные о приватных и публичных чатах: информация из приглашения, карусель участников, просмотр аватаров, статистика, команды .chinfo, .chstats и .avatars.",
+        "pl": "Dane dotyczące czatów prywatnych i publicznych: informacje z zaproszenia, karuzela uczestników, przeglądanie awatarów, statystyki, polecenia .chinfo, .chstats i .avatars",
+        "es": "Datos de chats privados y públicos: información de la invitación, carrusel de participantes, visualización de avatares, estadísticas, comandos .chinfo, .chstats y .avatars",
+        "de": "Daten zu privaten und öffentlichen Chats: Informationen aus der Einladung, Teilnehmerkarussell, Anzeige von Avataren, Statistiken, .chinfo-, .chstats- und .avatars-Befehle",
+        "fr": "Données sur les chats privés et publics : informations de l'invitation, carrousel des participants, visualisation des avatars, statistiques, commandes .chinfo, .chstats et .avatars",
+        "pt-BR": "Dados de chats privados e públicos: informações do convite, carrossel de participantes, visualização de avatares, estatísticas, comandos .chinfo, .chstats e .avatars",
+        "tr": "Özel ve genel sohbetlere ilişkin veriler: davetten gelen bilgiler, katılımcı karuseli, avatar görüntüleme, istatistikler, .chinfo, .chstats ve .avatars komutları",
+        "ar": "بيانات حول الدردشات الخاصة والعامة: معلومات من الدعوة، ودائرة المشاركين، وعرض الصور الرمزية، والإحصائيات، وأوامر .chinfo، و.chstats، و.avatars",
+        "be": "Дадзеныя аб прыватных і публічных чатах: інфармацыя з запрашэння, карусель удзельнікаў, прагляд аватарак, статыстыка, каманды .chinfo, .chstats і .avatars",
+        "kk": "Жеке және жалпы чаттардағы деректер: шақырудан алынған ақпарат, қатысушы карусельі, аватарларды қарау, статистика, .chiinfo, .chstats және .avatars командалары"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
