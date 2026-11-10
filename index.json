@@ -3713,6 +3713,38 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "edge_tts_voiceover",
+      "name": "Edge TTS Озвучка",
+      "version": "2.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/edge_tts_voiceover/2.1.0/edge_tts_voiceover.plugin",
+      "sha256": "531e09ec89b10cad3374bc9756b7df90cd56a6cdd1a095ad497652128d713e06",
+      "size": 21517,
+      "description": "Speaks messages via Microsoft Edge TTS and plays the sound locally on the device (item in the message context menu).",
+      "description_i18n": {
+        "en": "Speaks messages via Microsoft Edge TTS and plays the sound locally on the device (item in the message context menu).",
+        "uk": "Озвучує повідомлення через Microsoft Edge TTS і відтворює звук локально на пристрої (пункт у контекстному меню повідомлення).",
+        "ru": "Озвучивает сообщения через Microsoft Edge TTS и воспроизводит звук локально на устройстве (пункт в контекстном меню сообщения).",
+        "pl": "Mówi wiadomości poprzez Microsoft Edge TTS i odtwarza dźwięk lokalnie na urządzeniu (pozycja w menu kontekstowym wiadomości).",
+        "es": "Pronuncia mensajes a través de Microsoft Edge TTS y reproduce el sonido localmente en el dispositivo (elemento en el menú contextual del mensaje).",
+        "de": "Spricht Nachrichten über Microsoft Edge TTS und spielt den Ton lokal auf dem Gerät ab (Eintrag im Nachrichten-Kontextmenü).",
+        "fr": "Émet des messages via Microsoft Edge TTS et joue le son localement sur l'appareil (élément dans le menu contextuel du message).",
+        "pt-BR": "Fala mensagens via Microsoft Edge TTS e reproduz o som localmente no dispositivo (item no menu de contexto da mensagem).",
+        "tr": "Mesajları Microsoft Edge TTS aracılığıyla söyler ve sesi cihazda yerel olarak çalar (mesaj içerik menüsündeki öğe).",
+        "ar": "نطق الرسائل عبر Microsoft Edge TTS وتشغيل الصوت محليًا على الجهاز (العنصر الموجود في قائمة سياق الرسالة).",
+        "be": "Прамаўляе паведамленні праз Microsoft Edge TTS і прайгравае гук лакальна на прыладзе (пункт у кантэкстным меню паведамленняў).",
+        "kk": "Microsoft Edge TTS арқылы хабарламаларды айтады және дыбысты құрылғыда жергілікті түрде ойнатады (хабарлама мәтінмәндік мәзіріндегі элемент)."
+      },
+      "requirements": [
+        "websocket-client",
+        "certifi"
+      ],
+      "permissions": [
+        "network",
+        "files"
+      ]
     }
   ]
 }
