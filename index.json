@@ -10855,6 +10855,35 @@
         "messages.read",
         "messages.send"
       ]
+    },
+    {
+      "id": "sorter_plus",
+      "name": "Sorter+",
+      "version": "1.4.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/sorter_plus/1.4.3/sorter_plus.plugin",
+      "sha256": "a219abb21c8fb9f7ddca4e3bd5c94c69cda83c57f98808a94345c71aaedd6e4c",
+      "size": 250344,
+      "description": "Sorting plugins by folders",
+      "description_i18n": {
+        "en": "Sorting plugins by folders",
+        "uk": "Сортування плагінів за папками",
+        "ru": "Сортировка плагинов по папкам",
+        "pl": "Sortowanie wtyczek według folderów",
+        "es": "Ordenar complementos por carpetas",
+        "de": "Plugins nach Ordnern sortieren",
+        "fr": "Trier les plugins par dossiers",
+        "pt-BR": "Classificando plug-ins por pastas",
+        "tr": "Eklentileri klasörlere göre sıralama",
+        "ar": "فرز المكونات الإضافية حسب المجلدات",
+        "be": "Сартаванне плагінаў па тэчках",
+        "kk": "Плагиндерді қалталар бойынша сұрыптау"
+      },
+      "permissions": [
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
