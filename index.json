@@ -1,1 +1,35 @@
-{"name": "MZGram Plugins", "description": "Офіційний каталог плагінів для MZGram", "plugins": []}
+{
+  "name": "MZGram Plugins",
+  "description": "Official plugins and extensions catalog for MZGram",
+  "plugins": [
+    {
+      "id": "AI_TG_PLUS",
+      "name": "Telegram AI Plus",
+      "version": "1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/AI_TG_PLUS/1.2/AI_TG_PLUS.plugin",
+      "sha256": "57c4099c9ab29e7ae5f09adfe4770bbcd58787d35e6b11ec672e696898eab0a5",
+      "size": 40370,
+      "description": "Allows for AI chips (editor, text compression) to use Gemini, OpenAI and custom API endpoints",
+      "description_i18n": {
+        "en": "Allows for AI chips (editor, text compression) to use Gemini, OpenAI and custom API endpoints",
+        "uk": "Дозволяє мікросхемам штучного інтелекту (редактор, стиснення тексту) використовувати Gemini, OpenAI і спеціальні кінцеві точки API",
+        "ru": "Позволяет чипам искусственного интеллекта (редактор, сжатие текста) использовать конечные точки Gemini, OpenAI и пользовательские API.",
+        "pl": "Umożliwia chipom AI (edytor, kompresja tekstu) korzystanie z Gemini, OpenAI i niestandardowych punktów końcowych API",
+        "es": "Permite que los chips de IA (editor, compresión de texto) utilicen puntos finales API personalizados, Gemini y OpenAI.",
+        "de": "Ermöglicht KI-Chips (Editor, Textkomprimierung) die Verwendung von Gemini, OpenAI und benutzerdefinierten API-Endpunkten",
+        "fr": "Permet aux puces IA (éditeur, compression de texte) d'utiliser Gemini, OpenAI et les points de terminaison d'API personnalisés",
+        "pt-BR": "Permite que chips de IA (editor, compactação de texto) usem Gemini, OpenAI e endpoints de API personalizados",
+        "tr": "AI çiplerinin (düzenleyici, metin sıkıştırma) Gemini, OpenAI ve özel API uç noktalarını kullanmasına olanak tanır",
+        "ar": "يسمح لشرائح الذكاء الاصطناعي (المحرر وضغط النص) باستخدام Gemini وOpenAI ونقاط نهاية واجهة برمجة التطبيقات المخصصة",
+        "be": "Дазваляе чыпам штучнага інтэлекту (рэдактар, сціск тэксту) выкарыстоўваць Gemini, OpenAI і канчатковыя кропкі карыстальніцкага API",
+        "kk": "AI чиптеріне (редактор, мәтінді қысу) Gemini, OpenAI және пайдаланушы API соңғы нүктелерін пайдалануға мүмкіндік береді"
+      },
+      "permissions": [
+        "messages.read",
+        "network",
+        "hooks"
+      ]
+    }
+  ]
+}
