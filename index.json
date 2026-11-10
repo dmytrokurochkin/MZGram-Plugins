@@ -7033,6 +7033,36 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "miniapp_injector",
+      "name": "MiniApp Injector",
+      "version": "1.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/miniapp_injector/1.0.1/miniapp_injector.plugin",
+      "sha256": "eae55d2c6e5b6874a9256abb3679e72529031ca15155752dcaeaf68d2e07335c",
+      "size": 19054,
+      "description": "DevTools console right inside the Telegram mini-app + injection of your JS links. • eruda console on top of any app - console/network/storage from the phone • Inject your links: insert any JS/CDN - the plugin will download and embed in the app • Works even with strict CSP (evaluateJavascript channel).",
+      "description_i18n": {
+        "en": "DevTools console right inside the Telegram mini-app + injection of your JS links. • eruda console on top of any app - console/network/storage from the phone • Inject your links: insert any JS/CDN - the plugin will download and embed in the app • Works even with strict CSP (evaluateJavascript channel).",
+        "uk": "Консоль DevTools безпосередньо в міні-додатку Telegram + ін'єкція ваших JS-посилань. • консоль eruda поверх будь-якої програми - консоль/мережа/сховище з телефону • Вставте свої посилання: вставте будь-який JS/CDN - плагін завантажиться та вбудується в програму • Працює навіть із суворим CSP (канал evaluateJavascript).",
+        "ru": "Консоль DevTools прямо внутри мини-приложения Telegram + внедрение ваших JS-ссылок. • Консоль eruda поверх любого приложения - консоль/сеть/хранилище с телефона • Вставьте свои ссылки: вставьте любой JS/CDN - плагин загрузится и встроится в приложение • Работает даже со строгим CSP (оценка канала Javascript).",
+        "pl": "Konsola DevTools bezpośrednio w miniaplikacji Telegram + zastrzyk łączy JS. • eruda console on top of any app - console/network/storage from the phone • Inject your links: insert any JS/CDN - the plugin will download and embed in the app • Works even with strict CSP (evaluateJavascript channel).",
+        "es": "Consola DevTools dentro de la miniaplicación Telegram + inyección de tus enlaces JS. • Consola eruda encima de cualquier aplicación: consola/red/almacenamiento desde el teléfono • Inyecte sus enlaces: inserte cualquier JS/CDN: el complemento se descargará y se integrará en la aplicación • Funciona incluso con CSP estricto (canal de evaluación de JavaScript).",
+        "de": "DevTools-Konsole direkt in der Telegram-Mini-App + Injektion Ihrer JS-Links. • Eruda-Konsole über jeder App - Konsole/Netzwerk/Speicher vom Telefon aus. • Fügen Sie Ihre Links ein: Fügen Sie ein beliebiges JS/CDN ein - das Plugin wird heruntergeladen und in die App eingebettet. • Funktioniert sogar mit strengem CSP (evaluateJavascript-Kanal).",
+        "fr": "Console DevTools directement dans la mini-application Telegram + injection de vos liens JS. • Console Eruda au-dessus de n'importe quelle application - console/réseau/stockage depuis le téléphone • Injectez vos liens : insérez n'importe quel JS/CDN - le plugin sera téléchargé et intégré dans l'application • Fonctionne même avec un CSP strict (évaluer le canal Javascript).",
+        "pt-BR": "Console DevTools dentro do mini-app Telegram + injeção de seus links JS. • console eruda em cima de qualquer aplicativo - console/rede/armazenamento do telefone • Injete seus links: insira qualquer JS/CDN - o plugin será baixado e incorporado no aplicativo • Funciona mesmo com CSP estrito (canal avaliarJavascript).",
+        "tr": "DevTools konsolu doğrudan Telegram mini uygulamasının içinde + JS bağlantılarınızın enjeksiyonu. • herhangi bir uygulamanın üstünde eruda konsolu - telefondan konsol/ağ/depolama • Bağlantılarınızı enjekte edin: herhangi bir JS/CDN ekleyin - eklenti indirilecek ve uygulamaya katılacaktır • Katı CSP (evaluateJavascript kanalı) ile bile çalışır.",
+        "ar": "وحدة تحكم DevTools مباشرة داخل تطبيق Telegram المصغر + حقن روابط JS الخاصة بك. • وحدة تحكم eruda أعلى أي تطبيق - وحدة التحكم/الشبكة/التخزين من الهاتف • أدخل الروابط الخاصة بك: أدخل أي JS/CDN - سيتم تنزيل البرنامج الإضافي وتضمينه في التطبيق • يعمل حتى مع CSP الصارم (تقييم قناة Javascript).",
+        "be": "Кансоль DevTools прама ў міні-праграме Telegram + ін'екцыя вашых спасылак JS. • кансоль eruda паверх любой праграмы - кансоль/сетка/сховішча з тэлефона • Устаўце свае спасылкі: устаўце любы JS/CDN - плагін загрузіць і ўбудуе ў праграму • Працуе нават са строгім CSP (канал evaluateJavascript).",
+        "kk": "Telegram шағын қолданбасының ішіндегі DevTools консолі + JS сілтемелеріңізді енгізу. • кез келген қолданбаның үстінде eruda консолі - телефоннан консоль/желі/қойма • Сілтемелеріңізді енгізіңіз: кез келген JS/CDN енгізіңіз - плагин қолданбаға жүктеліп, ендіріледі • Тіпті қатаң CSP (evaluateJavascript арнасымен) жұмыс істейді."
+      },
+      "permissions": [
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
