@@ -10250,6 +10250,34 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "shareui_accountunread",
+      "name": "Account Unread Badge",
+      "version": "1.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/shareui_accountunread/1.0.1/shareui_accountunread.plugin",
+      "sha256": "758d68668a874637060552ea7b3bfc9a984d844d6381a2d02e2eb82be47d7e17",
+      "size": 3352,
+      "description": "Shows unread (non-muted) notifications count in account switcher",
+      "description_i18n": {
+        "en": "Shows unread (non-muted) notifications count in account switcher",
+        "uk": "Показує кількість непрочитаних (не проігнорованих) сповіщень у перемикачі облікових записів",
+        "ru": "Показывает количество непрочитанных (не отключенных) уведомлений в переключателе учетных записей.",
+        "pl": "Pokazuje liczbę nieprzeczytanych (nie wyciszonych) powiadomień przy przełączaniu kont",
+        "es": "Muestra el recuento de notificaciones no leídas (no silenciadas) en el selector de cuentas.",
+        "de": "Zeigt die Anzahl ungelesener (nicht stummgeschalteter) Benachrichtigungen im Kontowechsel an",
+        "fr": "Affiche le nombre de notifications non lues (non désactivées) dans le sélecteur de compte",
+        "pt-BR": "Mostra a contagem de notificações não lidas (não silenciadas) no alternador de contas",
+        "tr": "Hesap değiştiricide okunmamış (sessizleştirilmemiş) bildirimlerin sayısını gösterir",
+        "ar": "يعرض عدد الإشعارات غير المقروءة (غير الصامتة) في أداة تبديل الحساب",
+        "be": "Паказвае колькасць непрачытаных (не адключаных) апавяшчэнняў у пераключальніку ўліковых запісаў",
+        "kk": "Тіркелгі ауыстырғышында оқылмаған (дыбысы өшірілмеген) хабарландырулар санын көрсетеді"
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
