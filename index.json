@@ -9289,6 +9289,35 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "re_extera_dex",
+      "name": "re:extera v2",
+      "version": "2.4.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/re_extera_dex/2.4.0/re_extera_dex.plugin",
+      "sha256": "f934dcb9283c3763fa2ee9f3d0e095b07dcd0af6d6b40cfd12e0b92244b69d0e",
+      "size": 10702,
+      "description": "Enable ghost mode, save deleted messages and more!",
+      "description_i18n": {
+        "en": "Enable ghost mode, save deleted messages and more!",
+        "uk": "Увімкніть режим привидів, збережіть видалені повідомлення тощо!",
+        "ru": "Включите режим призрака, сохраните удаленные сообщения и многое другое!",
+        "pl": "Włącz tryb ducha, zapisuj usunięte wiadomości i wiele więcej!",
+        "es": "¡Habilite el modo fantasma, guarde mensajes eliminados y más!",
+        "de": "Aktivieren Sie den Geistermodus, speichern Sie gelöschte Nachrichten und mehr!",
+        "fr": "Activez le mode fantôme, enregistrez les messages supprimés et bien plus encore !",
+        "pt-BR": "Ative o modo fantasma, salve mensagens excluídas e muito mais!",
+        "tr": "Hayalet modunu etkinleştirin, silinen mesajları kaydedin ve daha fazlasını yapın!",
+        "ar": "تمكين وضع الشبح وحفظ الرسائل المحذوفة والمزيد!",
+        "be": "Уключыце рэжым прывіда, захавайце выдаленыя паведамленні і многае іншае!",
+        "kk": "Елес режимін қосыңыз, жойылған хабарларды сақтаңыз және т.б.!"
+      },
+      "permissions": [
+        "network",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
