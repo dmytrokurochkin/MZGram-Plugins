@@ -11805,6 +11805,34 @@
         "messages.send",
         "files"
       ]
+    },
+    {
+      "id": "user_manager",
+      "name": "Управление участниками",
+      "version": "2.3.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/user_manager/2.3.0/ban_deleted_users.plugin",
+      "sha256": "08ade0fde1ab0879a0f25c2f8e3e5778e1d6e33349a96735e584948f89b27284",
+      "size": 60863,
+      "description": "Plugin for managing chat/channel participants with quick access via the chat menu and the .bandel command. Available actions: • Delete deleted accounts • Delete bots • Delete inactive users • Delete online users • Delete offline users • Delete new users (raids) Use the menu (3 dots) in the chat for quick access or the .bandel command.",
+      "description_i18n": {
+        "en": "Plugin for managing chat/channel participants with quick access via the chat menu and the .bandel command. Available actions: • Delete deleted accounts • Delete bots • Delete inactive users • Delete online users • Delete offline users • Delete new users (raids) Use the menu (3 dots) in the chat for quick access or the .bandel command.",
+        "uk": "Плагін для керування учасниками чату/каналу зі швидким доступом через меню чату та команду .bandel. Доступні дії: • Видалити видалені облікові записи • Видалити ботів • Видалити неактивних користувачів • Видалити онлайн-користувачів • Видалити офлайн-користувачів • Видалити нових користувачів (рейди) Використовуйте меню (3 крапки) у чаті для швидкого доступу або команду .bandel.",
+        "ru": "Плагин для управления участниками чата/канала с быстрым доступом через меню чата и команду .bandel. Доступные действия: • Удалить удаленные аккаунты • Удалить ботов • Удалить неактивных пользователей • Удалить онлайн-пользователей • Удалить офлайн-пользователей • Удалить новых пользователей (рейды) Для быстрого доступа используйте меню (3 точки) в чате или команду .bandel.",
+        "pl": "Wtyczka do zarządzania uczestnikami czatu/kanału z szybkim dostępem poprzez menu czatu i polecenie .bandel. Dostępne akcje: • Usuń usunięte konta • Usuń boty • Usuń nieaktywnych użytkowników • Usuń użytkowników online • Usuń użytkowników offline • Usuń nowych użytkowników (raidy) Skorzystaj z menu (3 kropki) na czacie, aby uzyskać szybki dostęp lub polecenia .bandel.",
+        "es": "Complemento para gestionar los participantes del chat/canal con acceso rápido a través del menú de chat y el comando .bandel. Acciones disponibles: • Eliminar cuentas eliminadas • Eliminar bots • Eliminar usuarios inactivos • Eliminar usuarios en línea • Eliminar usuarios fuera de línea • Eliminar nuevos usuarios (raids) Utilice el menú (3 puntos) en el chat para un acceso rápido o el comando .bandel.",
+        "de": "Plugin zur Verwaltung von Chat-/Kanalteilnehmern mit Schnellzugriff über das Chat-Menü und den .bandel-Befehl. Verfügbare Aktionen: • Gelöschte Konten löschen • Bots löschen • Inaktive Benutzer löschen • Online-Benutzer löschen • Offline-Benutzer löschen • Neue Benutzer löschen (Raids) Verwenden Sie das Menü (3 Punkte) im Chat für den Schnellzugriff oder den .bandel-Befehl.",
+        "fr": "Plugin de gestion des participants au chat/canal avec un accès rapide via le menu de chat et la commande .bandel. Actions disponibles : • Supprimer les comptes supprimés • Supprimer les robots • Supprimer les utilisateurs inactifs • Supprimer les utilisateurs en ligne • Supprimer les utilisateurs hors ligne • Supprimer les nouveaux utilisateurs (raids) Utilisez le menu (3 points) dans le chat pour un accès rapide ou la commande .bandel.",
+        "pt-BR": "Plugin para gerenciamento de participantes do chat/canal com acesso rápido através do menu chat e do comando .bandel. Ações disponíveis: • Excluir contas excluídas • Excluir bots • Excluir usuários inativos • Excluir usuários online • Excluir usuários offline • Excluir novos usuários (raids) Utilize o menu (3 pontos) no chat para acesso rápido ou o comando .bandel.",
+        "tr": "Sohbet menüsü ve .bandel komutu aracılığıyla hızlı erişimle sohbet/kanal katılımcılarını yönetmeye yönelik eklenti. Kullanılabilir eylemler: • Silinen hesapları silme • Botları silme • Etkin olmayan kullanıcıları silme • Çevrimiçi kullanıcıları silme • Çevrimdışı kullanıcıları silme • Yeni kullanıcıları silme (baskınlar) Hızlı erişim için sohbetteki menüyü (3 nokta) veya .bandel komutunu kullanın.",
+        "ar": "مكون إضافي لإدارة المشاركين في الدردشة/القناة مع إمكانية الوصول السريع عبر قائمة الدردشة والأمر .bandel. الإجراءات المتاحة: • حذف الحسابات المحذوفة • حذف الروبوتات • حذف المستخدمين غير النشطين • حذف المستخدمين المتصلين • حذف المستخدمين غير المتصلين • حذف المستخدمين الجدد (غارات) استخدم القائمة (3 نقاط) في الدردشة للوصول السريع أو الأمر .bandel.",
+        "be": "Плагін для кіравання ўдзельнікамі чата/канала з хуткім доступам праз меню чата і каманду .bandel. Даступныя дзеянні: • Выдаленне выдаленых уліковых запісаў • Выдаленне ботаў • Выдаленне неактыўных карыстальнікаў • Выдаленне інтэрнэт-карыстальнікаў • Выдаленне аўтаномных карыстальнікаў • Выдаленне новых карыстальнікаў (рэйды) Выкарыстоўвайце меню (3 кропкі) у чаце для хуткага доступу або каманду .bandel.",
+        "kk": "Сөйлесу мәзірі және .bandel пәрмені арқылы жылдам қол жеткізу мүмкіндігі бар чат/арна қатысушыларын басқаруға арналған плагин. Қолжетімді әрекеттер: • Жойылған тіркелгілерді жою • Боттарды жою • Белсенді емес пайдаланушыларды жою • Желідегі пайдаланушыларды жою • Офлайн пайдаланушыларды жою • Жаңа пайдаланушыларды жою (рейдтер) Жылдам кіру үшін чатта мәзірді (3 нүкте) немесе .bandel пәрменін пайдаланыңыз."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send"
+      ]
     }
   ]
 }
