@@ -8598,6 +8598,33 @@
       "permissions": [
         "files"
       ]
+    },
+    {
+      "id": "plugins_menu",
+      "name": "Title Actions",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/plugins_menu/1.0/plugins_menu.plugin",
+      "sha256": "e0e9247d72c78cf1c8e39ef97d92827afa9a1be7ec395238fd418f2d1194cf16",
+      "size": 6564,
+      "description": "ExteraGram title click action",
+      "description_i18n": {
+        "en": "ExteraGram title click action",
+        "uk": "Дія натискання заголовка ExteraGram",
+        "ru": "Действие по клику на заголовок ExteraGram",
+        "pl": "Akcja kliknięcia tytułu ExteraGram",
+        "es": "Acción de clic en el título de ExteraGram",
+        "de": "ExteraGram-Titelklickaktion",
+        "fr": "Action de clic sur le titre ExteraGram",
+        "pt-BR": "Ação de clique no título ExteraGram",
+        "tr": "ExteraGram başlığına tıklama eylemi",
+        "ar": "إجراء النقر على عنوان ExteraGram",
+        "be": "Дзеянне націскання загалоўка ExteraGram",
+        "kk": "ExteraGram тақырыбын басу әрекеті"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
