@@ -9516,6 +9516,33 @@
         "messages.send",
         "files"
       ]
+    },
+    {
+      "id": "remover",
+      "name": "Продвинутый ластик",
+      "version": "3.3.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/remover/3.3.1/remover.plugin",
+      "sha256": "849237214cd6f199db39c4670091c697c26e063649c5f0bf59e1f0d6379b34e6",
+      "size": 12021,
+      "description": "Automatically removes specified characters or entire words from all outgoing messages. Flexible configuration of black and white lists.",
+      "description_i18n": {
+        "en": "Automatically removes specified characters or entire words from all outgoing messages. Flexible configuration of black and white lists.",
+        "uk": "Автоматично видаляє вказані символи або цілі слова з усіх вихідних повідомлень. Гнучка настройка чорних і білих списків.",
+        "ru": "Автоматически удаляет указанные символы или целые слова из всех исходящих сообщений. Гибкая настройка черных и белых списков.",
+        "pl": "Automatycznie usuwa określone znaki lub całe słowa ze wszystkich wiadomości wychodzących. Elastyczna konfiguracja czarno-białych list.",
+        "es": "Elimina automáticamente caracteres específicos o palabras completas de todos los mensajes salientes. Configuración flexible de listas blancas y negras.",
+        "de": "Entfernt automatisch bestimmte Zeichen oder ganze Wörter aus allen ausgehenden Nachrichten. Flexible Konfiguration von Black- und Whitelists.",
+        "fr": "Supprime automatiquement les caractères spécifiés ou les mots entiers de tous les messages sortants. Configuration flexible des listes noires et blanches.",
+        "pt-BR": "Remove automaticamente caracteres específicos ou palavras inteiras de todas as mensagens enviadas. Configuração flexível de listas negras e brancas.",
+        "tr": "Belirtilen karakterleri veya tüm kelimeleri giden tüm mesajlardan otomatik olarak kaldırır. Kara ve beyaz listelerin esnek yapılandırılması.",
+        "ar": "يقوم تلقائيًا بإزالة الأحرف المحددة أو الكلمات بأكملها من جميع الرسائل الصادرة. تكوين مرن للقوائم بالأبيض والأسود.",
+        "be": "Аўтаматычна выдаляе ўказаныя сімвалы або цэлыя словы з усіх выходных паведамленняў. Гнуткая канфігурацыя чорных і белых спісаў.",
+        "kk": "Барлық шығыс хабарлардан көрсетілген таңбаларды немесе тұтас сөздерді автоматты түрде жояды. Қара және ақ тізімдердің икемді конфигурациясы."
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
