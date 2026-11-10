@@ -289,6 +289,33 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "HiddenForwardNameCopy",
+      "name": "Hidden Forward Name Copy",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/HiddenForwardNameCopy/1.0/HiddenForwardNameCopy.plugin",
+      "sha256": "cf066fa7c19b566eb6ccdf091750634b87bcba954c3f246e831368b590ff05fd",
+      "size": 6266,
+      "description": "Shows a copy button when you click on the nickname of a forwarded message with a hidden nickname.",
+      "description_i18n": {
+        "en": "Shows a copy button when you click on the nickname of a forwarded message with a hidden nickname.",
+        "uk": "Показує кнопку копіювання, коли ви натискаєте псевдонім пересланого повідомлення з прихованим псевдонімом.",
+        "ru": "Показывает кнопку копирования, когда вы нажимаете на псевдоним пересылаемого сообщения со скрытым псевдонимом.",
+        "pl": "Wyświetla przycisk kopiowania po kliknięciu pseudonimu przekazywanej wiadomości z ukrytym pseudonimem.",
+        "es": "Muestra un botón de copiar al hacer clic en el apodo de un mensaje reenviado con un apodo oculto.",
+        "de": "Zeigt eine Schaltfläche zum Kopieren an, wenn Sie auf den Spitznamen einer weitergeleiteten Nachricht mit ausgeblendetem Spitznamen klicken.",
+        "fr": "Affiche un bouton de copie lorsque vous cliquez sur le pseudo d'un message transféré avec un pseudo masqué.",
+        "pt-BR": "Mostra um botão de copiar quando você clica no apelido de uma mensagem encaminhada com apelido oculto.",
+        "tr": "Gizli takma adla iletilen bir mesajın takma adına tıkladığınızda bir kopyala düğmesi gösterilir.",
+        "ar": "يظهر زر النسخ عند النقر على الاسم المستعار للرسالة المعاد توجيهها باسم مستعار مخفي.",
+        "be": "Паказвае кнопку капіравання, калі вы націскаеце на нік перасланага паведамлення са схаваным нікам.",
+        "kk": "Жасырын лақап аты бар қайта жіберілген хабардың лақап атын басқан кезде көшіру түймесін көрсетеді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
