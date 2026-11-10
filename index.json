@@ -4313,6 +4313,37 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "femboyaudioscope",
+      "name": "AudioScope",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/femboyaudioscope/1.1.0/femboyaudioscope.plugin",
+      "sha256": "4afe676256e56c8972b98d506de78bc0c49ce2a5e897d449863f5f17eb783c88",
+      "size": 28213,
+      "description": "Shows the format, codec, bitrate, sample rate, bit depth, channels, and tags of the current track from the player menu. **Usage:** Player menu -> Track information",
+      "description_i18n": {
+        "en": "Shows the format, codec, bitrate, sample rate, bit depth, channels, and tags of the current track from the player menu. **Usage:** Player menu -> Track information",
+        "uk": "Показує формат, кодек, бітрейт, частоту дискретизації, бітову глибину, канали та теги поточної доріжки з меню програвача. **Використання:** Меню гравця -> Інформація про трек",
+        "ru": "Показывает формат, кодек, битрейт, частоту дискретизации, разрядность, каналы и теги текущей дорожки из меню проигрывателя. **Применение:** Меню плеера -> Информация о треке.",
+        "pl": "Pokazuje format, kodek, szybkość transmisji, częstotliwość próbkowania, głębię bitową, kanały i znaczniki bieżącego utworu z menu odtwarzacza. **Zastosowanie:** Menu odtwarzacza -> Informacje o utworze",
+        "es": "Muestra el formato, códec, tasa de bits, frecuencia de muestreo, profundidad de bits, canales y etiquetas de la pista actual desde el menú del reproductor. **Uso:** Menú del reproductor -> Información de seguimiento",
+        "de": "Zeigt Format, Codec, Bitrate, Abtastrate, Bittiefe, Kanäle und Tags des aktuellen Titels aus dem Player-Menü an. **Verwendung:** Player-Menü -> Titelinformationen",
+        "fr": "Affiche le format, le codec, le débit binaire, la fréquence d'échantillonnage, la profondeur de bits, les canaux et les balises de la piste actuelle dans le menu du lecteur. **Utilisation :** Menu Lecteur -> Informations sur la piste",
+        "pt-BR": "Mostra o formato, codec, taxa de bits, taxa de amostragem, profundidade de bits, canais e tags da faixa atual no menu do player. **Uso:** Menu do player -> Informações da trilha",
+        "tr": "Oynatıcı menüsünden geçerli parçanın formatını, kodeğini, bit hızını, örnekleme hızını, bit derinliğini, kanallarını ve etiketlerini gösterir. **Kullanım:** Oynatıcı menüsü -> Parça bilgileri",
+        "ar": "يعرض التنسيق وبرنامج الترميز ومعدل البت ومعدل العينة وعمق البت والقنوات والعلامات الخاصة بالمسار الحالي من قائمة المشغل. **الاستخدام:** قائمة المشغل -> معلومات المسار",
+        "be": "Паказвае фармат, кодэк, бітрэйт, частату дыскрэтызацыі, бітовую глыбіню, каналы і тэгі бягучага трэка з меню прайгравальніка. **Выкарыстанне:** Меню гульца -> Інфармацыя пра трэк",
+        "kk": "Ойнатқыш мәзіріндегі ағымдағы жолдың пішімін, кодекін, бит жылдамдығын, үлгі жылдамдығын, бит тереңдігін, арналарды және тегтерін көрсетеді. **Қолдану:** Ойнатқыш мәзірі -> Жол ақпараты"
+      },
+      "requirements": [
+        "mutagen>=1.47,<2"
+      ],
+      "permissions": [
+        "network",
+        "hooks"
+      ]
     }
   ]
 }
