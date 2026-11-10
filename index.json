@@ -3453,6 +3453,34 @@
       "permissions": [
         "messages.read"
       ]
+    },
+    {
+      "id": "direct_drop_send",
+      "name": "DragnDrop Send",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/direct_drop_send/1.0.0/direct_drop_send.plugin",
+      "sha256": "1e7db206a8547f7a403b95afec1e46ce2fa9097bf3c83231f0b51c88e0f0fd0a",
+      "size": 6953,
+      "description": "Sends files and media when dragged from other apps to the chat area. A very niche plugin that requires Drag&Drop support in the OS and applications.",
+      "description_i18n": {
+        "en": "Sends files and media when dragged from other apps to the chat area. A very niche plugin that requires Drag&Drop support in the OS and applications.",
+        "uk": "Надсилає файли та медіа під час перетягування з інших програм до області чату. Дуже нішевий плагін, який вимагає підтримки Drag&Drop в ОС і програмах.",
+        "ru": "Отправляет файлы и мультимедиа при перетаскивании из других приложений в область чата. Очень нишевый плагин, требующий поддержки Drag&Drop в ОС и приложениях.",
+        "pl": "Wysyła pliki i multimedia po przeciągnięciu z innych aplikacji do obszaru czatu. Bardzo niszowa wtyczka wymagająca obsługi Drag&Drop w systemie operacyjnym i aplikacjach.",
+        "es": "Envía archivos y medios cuando se arrastran desde otras aplicaciones al área de chat. Un complemento muy especializado que requiere compatibilidad con arrastrar y soltar en el sistema operativo y las aplicaciones.",
+        "de": "Sendet Dateien und Medien, wenn sie aus anderen Apps in den Chatbereich gezogen werden. Ein Nischen-Plugin, das Drag&Drop-Unterstützung im Betriebssystem und in den Anwendungen erfordert.",
+        "fr": "Envoie des fichiers et des médias lorsqu'ils sont déplacés depuis d'autres applications vers la zone de discussion. Un plugin très niche qui nécessite la prise en charge du glisser-déposer dans le système d'exploitation et les applications.",
+        "pt-BR": "Envia arquivos e mídia quando arrastados de outros aplicativos para a área de bate-papo. Um plugin de nicho que requer suporte para arrastar e soltar no sistema operacional e nos aplicativos.",
+        "tr": "Diğer uygulamalardan sohbet alanına sürüklendiğinde dosya ve medya gönderir. İşletim sistemi ve uygulamalarda Sürükle ve Bırak desteği gerektiren çok niş bir eklenti.",
+        "ar": "يرسل الملفات والوسائط عند سحبها من تطبيقات أخرى إلى منطقة الدردشة. مكون إضافي متخصص للغاية يتطلب دعم السحب والإفلات في نظام التشغيل والتطبيقات.",
+        "be": "Адпраўляе файлы і мультымедыя пры перацягванні з іншых праграм у вобласць чата. Вельмі нішавы убудова, які патрабуе падтрымкі Drag&Drop у АС і праграмах.",
+        "kk": "Басқа қолданбалардан сөйлесу аймағына сүйреп апарған кезде файлдар мен медианы жібереді. Операциялық жүйе мен қолданбаларда Drag&Drop қолдауын қажет ететін өте тауашалық плагин."
+      },
+      "permissions": [
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
