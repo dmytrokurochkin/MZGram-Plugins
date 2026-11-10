@@ -8858,6 +8858,37 @@
         "files",
         "settings"
       ]
+    },
+    {
+      "id": "py_module_installer",
+      "name": "ModuleInstaller",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/py_module_installer/1.0.0/py_module_installer.plugin",
+      "sha256": "1f7652bdaf36e002a2b4f171030638607f0eedd44d7c76dbd474360cd670351a",
+      "size": 86395,
+      "description": "Installation of .py Heroku/Hikka modules directly from Telegram with metadata and commands displayed.",
+      "description_i18n": {
+        "en": "Installation of .py Heroku/Hikka modules directly from Telegram with metadata and commands displayed.",
+        "uk": "Встановлення модулів .py Heroku/Hikka безпосередньо з Telegram із відображенням метаданих і команд.",
+        "ru": "Установка модулей .py Heroku/Hikka непосредственно из Telegram с отображением метаданных и команд.",
+        "pl": "Instalacja modułów .py Heroku/Hikka bezpośrednio z Telegramu z wyświetlonymi metadanymi i poleceniami.",
+        "es": "Instalación de módulos .py Heroku/Hikka directamente desde Telegram con metadatos y comandos mostrados.",
+        "de": "Installation von .py Heroku/Hikka-Modulen direkt aus Telegram mit angezeigten Metadaten und Befehlen.",
+        "fr": "Installation des modules .py Heroku/Hikka directement depuis Telegram avec métadonnées et commandes affichées.",
+        "pt-BR": "Instalação de módulos .py Heroku/Hikka diretamente do Telegram com metadados e comandos exibidos.",
+        "tr": ".py Heroku/Hikka modüllerinin meta veriler ve komutlar görüntülenerek doğrudan Telegram'dan kurulumu.",
+        "ar": "تثبيت وحدات .py Heroku/Hikka مباشرة من Telegram مع عرض البيانات الوصفية والأوامر.",
+        "be": "Устаноўка модуляў .py Heroku/Hikka непасрэдна з Telegram з адлюстраваннем метададзеных і каманд.",
+        "kk": ".py Heroku/Hikka модульдерін тікелей Telegram-дан метадеректер мен пәрмендер көрсетілген орнату."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "files",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
