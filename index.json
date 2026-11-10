@@ -10535,6 +10535,35 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "shareui_x0",
+      "name": "Simple photo link",
+      "version": "1.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/shareui_x0/1.0.1/x0.plugin",
+      "sha256": "aca69f88e0a7eb6d69cfad47a18c7d794cffff0daeebe138790b38437239c1ae",
+      "size": 12767,
+      "description": "Uploads a media file (photo, video, GIF, document) to x0.at hosting and sends the received link to the chat. To use, reply to a message with a media file with the command .x0",
+      "description_i18n": {
+        "en": "Uploads a media file (photo, video, GIF, document) to x0.at hosting and sends the received link to the chat. To use, reply to a message with a media file with the command .x0",
+        "uk": "Завантажує медіафайл (фото, відео, GIF, документ) на хостинг x0.at і відправляє отримане посилання в чат. Щоб скористатися, надішліть відповідь на повідомлення медіафайлом за допомогою команди .x0",
+        "ru": "Загружает медиафайл (фото, видео, GIF, документ) на хостинг x0.at и отправляет полученную ссылку в чат. Чтобы использовать, ответьте на сообщение с медиафайлом с помощью команды .x0.",
+        "pl": "Przesyła plik multimedialny (zdjęcie, wideo, GIF, dokument) na hosting x0.at i wysyła otrzymany link do czatu. Aby skorzystać, odpowiedz na wiadomość zawierającą plik multimedialny za pomocą polecenia .x0",
+        "es": "Carga un archivo multimedia (foto, video, GIF, documento) al hosting x0.at y envía el enlace recibido al chat. Para usarlo, responda a un mensaje con un archivo multimedia con el comando .x0",
+        "de": "Lädt eine Mediendatei (Foto, Video, GIF, Dokument) auf x0.at Hosting hoch und sendet den erhaltenen Link an den Chat. Um es zu verwenden, antworten Sie auf eine Nachricht mit einer Mediendatei mit dem Befehl .x0",
+        "fr": "Télécharge un fichier multimédia (photo, vidéo, GIF, document) sur l'hébergement x0.at et envoie le lien reçu vers le chat. Pour l'utiliser, répondez à un message avec un fichier multimédia avec la commande .x0",
+        "pt-BR": "Carrega um arquivo de mídia (foto, vídeo, GIF, documento) para a hospedagem x0.at e envia o link recebido para o chat. Para usar, responda a uma mensagem com um arquivo de mídia com o comando .x0",
+        "tr": "Bir medya dosyasını (fotoğraf, video, GIF, belge) x0.at hosting'e yükler ve alınan bağlantıyı sohbete gönderir. Kullanmak için, bir mesajı medya dosyası içeren bir mesaja .x0 komutuyla yanıtlayın.",
+        "ar": "يقوم بتحميل ملف وسائط (صورة، فيديو، GIF، مستند) إلى استضافة x0.at ويرسل الرابط المستلم إلى الدردشة. للاستخدام، قم بالرد على رسالة تحتوي على ملف وسائط باستخدام الأمر .x0",
+        "be": "Загружае медыяфайл (фота, відэа, GIF, дакумент) на хостынг x0.at і адпраўляе атрыманую спасылку ў чат. Для выкарыстання адкажыце на паведамленне медыяфайлам з дапамогай каманды .x0",
+        "kk": "Медиа файлды (фото, бейне, GIF, құжат) x0.at хостингіне жүктейді және алынған сілтемені чатқа жібереді. Қолдану үшін .x0 пәрменімен медиа файлы бар хабарға жауап беріңіз"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
