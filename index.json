@@ -6117,6 +6117,37 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "live_wallpaper",
+      "name": "LiveWallpaper",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/live_wallpaper/1.1/live_wallpaper.plugin",
+      "sha256": "1929e5348fefb174db98d9773de8c0086ce530805e63481d2c8d4ad495679cff",
+      "size": 48375,
+      "description": "Live wallpapers in chats, instead of boring static ones",
+      "description_i18n": {
+        "en": "Live wallpapers in chats, instead of boring static ones",
+        "uk": "Живі шпалери в чатах, замість нудних статичних",
+        "ru": "Живые обои в чатах вместо скучных статичных",
+        "pl": "Animowane tapety na czatach zamiast nudnych, statycznych",
+        "es": "Fondos de pantalla animados en los chats, en lugar de aburridos y estáticos",
+        "de": "Live-Hintergrundbilder in Chats statt langweiliger statischer Hintergrundbilder",
+        "fr": "Fonds d'écran animés dans les discussions, au lieu de fonds d'écran statiques ennuyeux",
+        "pt-BR": "Papéis de parede animados em bate-papos, em vez de papéis de parede estáticos e chatos",
+        "tr": "Sıkıcı statik duvar kağıtları yerine sohbetlerde canlı duvar kağıtları",
+        "ar": "خلفيات حية في الدردشات، بدلاً من الخلفيات الثابتة المملة",
+        "be": "Жывыя шпалеры ў чатах, а не сумныя статычныя",
+        "kk": "Қызықсыз статикалық емес, чаттардағы тірі тұсқағаздар"
+      },
+      "permissions": [
+        "network",
+        "files",
+        "intents",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
