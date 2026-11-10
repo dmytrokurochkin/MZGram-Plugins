@@ -8142,6 +8142,34 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "photo_bubbles",
+      "name": "Photo Bubbles",
+      "version": "0.9.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/photo_bubbles/0.9.1/photo_bubbles.plugin",
+      "sha256": "cea8a81757e2ca19b0250cb183fe431a7844328fe8050fa796973268304b1390",
+      "size": 59464,
+      "description": "Paints a message bubble with a photo with a gradient that follows the arrangement of colors in the photo. Works with albums too.",
+      "description_i18n": {
+        "en": "Paints a message bubble with a photo with a gradient that follows the arrangement of colors in the photo. Works with albums too.",
+        "uk": "Зафарбовує спливаючу підказку з повідомленням із фотографією за допомогою градієнта, який відповідає розташуванню кольорів на фотографії. Також працює з альбомами.",
+        "ru": "Красит пузырь сообщения с фотографией градиентом, соответствующим расположению цветов на фотографии. Работает и с альбомами.",
+        "pl": "Maluje dymek ze zdjęciem z gradientem zgodnym z układem kolorów na zdjęciu. Działa również z albumami.",
+        "es": "Pinta una burbuja de mensaje con una foto con un degradado que sigue la disposición de los colores de la foto. También funciona con álbumes.",
+        "de": "Zeichnet eine Nachrichtenblase mit einem Foto mit einem Farbverlauf, der der Anordnung der Farben im Foto folgt. Funktioniert auch mit Alben.",
+        "fr": "Peint une bulle de message avec une photo avec un dégradé qui suit la disposition des couleurs de la photo. Fonctionne également avec les albums.",
+        "pt-BR": "Pinta um balão de mensagem com uma foto com um gradiente que segue a disposição das cores da foto. Funciona com álbuns também.",
+        "tr": "Fotoğraftaki renklerin düzenine uygun bir degradeyle fotoğraf içeren bir mesaj balonunu boyar. Works with albums too.",
+        "ar": "يرسم فقاعة رسالة تحتوي على صورة بتدرج يتبع ترتيب الألوان في الصورة. يعمل مع الألبومات أيضًا.",
+        "be": "Зафарбоўвае бурбалку паведамлення з фатаграфіяй градыентам, які адпавядае размяшчэнню колераў на фатаграфіі. Працуе і з альбомамі.",
+        "kk": "Фотосуреттегі түстердің орналасуын бақылайтын градиенті бар фотосуретпен хабар көпіршігін бояйды. Альбомдармен де жұмыс істейді."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
