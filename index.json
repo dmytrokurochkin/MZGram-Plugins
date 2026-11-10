@@ -5461,6 +5461,37 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "hook_inspector",
+      "name": "Hook Inspector",
+      "version": "12.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/hook_inspector/12.0.0/hook_inspector.plugin",
+      "sha256": "8d7f8c2d27d1950582135f98aed2051b59b2ffcf6cfd60c3fa6a45031d152e8c",
+      "size": 165230,
+      "description": "Dev Tool: tap any UI element - class, theme editor keys, hooks, View attributes. Theme.getColor() with live colors and swatches.",
+      "description_i18n": {
+        "en": "Dev Tool: tap any UI element - class, theme editor keys, hooks, View attributes. Theme.getColor() with live colors and swatches.",
+        "uk": "Dev Tool: торкніться будь-якого елемента інтерфейсу користувача - класу, клавіш редактора тем, хуків, атрибутів View. Theme.getColor() із живими кольорами та зразками.",
+        "ru": "Инструмент разработчика: коснитесь любого элемента пользовательского интерфейса - класса, клавиш редактора тем, хуков, атрибутов просмотра. Theme.getColor() с живыми цветами и образцами.",
+        "pl": "Narzędzie deweloperskie: dotknij dowolnego elementu interfejsu użytkownika - klasy, klawiszy edytora motywów, haków, atrybutów widoku. Theme.getColor() z żywymi kolorami i próbkami.",
+        "es": "Herramienta de desarrollo: toque cualquier elemento de la interfaz de usuario: clase, teclas del editor de temas, enlaces, Ver atributos. Theme.getColor() con colores vivos y muestras.",
+        "de": "Dev Tool: Tippen Sie auf ein beliebiges UI-Element - ​​Klasse, Theme-Editor-Tasten, Hooks, Ansichtsattribute. Theme.getColor() mit Live-Farben und Farbfeldern.",
+        "fr": "Outil de développement : appuyez sur n'importe quel élément de l'interface utilisateur : classe, touches de l'éditeur de thème, crochets, attributs d'affichage. Theme.getColor() avec des couleurs et des échantillons en direct.",
+        "pt-BR": "Ferramenta de desenvolvimento: toque em qualquer elemento da UI - classe, teclas do editor de tema, ganchos, atributos de visualização. Theme.getColor() com cores vivas e amostras.",
+        "tr": "Geliştirici Aracı: herhangi bir kullanıcı arayüzü öğesine (sınıf, tema düzenleyici tuşları, kancalar, Görünüm nitelikleri) dokunun. Canlı renkler ve renk örnekleri ile Theme.getColor().",
+        "ar": "أداة التطوير: انقر فوق أي عنصر من عناصر واجهة المستخدم - الفئة، ومفاتيح محرر السمات، والخطافات، وعرض السمات. Theme.getColor() مع الألوان الحية والعينات.",
+        "be": "Dev Tool: дакраніцеся да любога элемента карыстальніцкага інтэрфейсу - класа, клавіш рэдактара тэмы, хука, атрыбутаў прагляду. Theme.getColor() з жывымі колерамі і ўзорамі.",
+        "kk": "Әзірлеу құралы: кез келген UI элементін түртіңіз - сынып, тақырып өңдегіш пернелері, ілгектер, атрибуттарды қарау. Theme.getColor() тірі түстермен және үлгілермен."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "intents",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
