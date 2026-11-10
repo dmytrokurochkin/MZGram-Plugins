@@ -12208,6 +12208,37 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "wp",
+      "name": "WEB Proxy",
+      "version": "2.1b",
+      "min_app_version": "1.0.0",
+      "file": "plugins/wp/2.1b/wp.plugin",
+      "sha256": "631f03fd7e304e11e1ba46c7769a5c9bb6c445285f7f5ccd61b22813f464e1e6",
+      "size": 104144,
+      "description": "Uh, in short, deep links there local protik some other bullshit like cool ok",
+      "description_i18n": {
+        "en": "Uh, in short, deep links there local protik some other bullshit like cool ok",
+        "uk": "Коротше кажучи, глибокі посилання там місцевий протик якась інша фігня, як круто добре",
+        "ru": "Эээ, короче, диплинки там местный протик еще какая-то фигня типа круто ок",
+        "pl": "Uh, w skrócie, głębokie linki tam, lokalne, protik, jakieś inne bzdury, takie jak fajne, ok",
+        "es": "Uh, en resumen, hay enlaces profundos que son protik locales, alguna otra mierda como genial, ok.",
+        "de": "Äh, kurz gesagt, Deep Links dort lokale Protik irgendein anderer Bullshit wie cool ok",
+        "fr": "Euh, bref, des liens profonds là protik local d'autres conneries genre cool ok",
+        "pt-BR": "Uh, resumindo, links diretos lá protik local alguma outra besteira como legal ok",
+        "tr": "Kısacası, derin bağlantılar var, yerel protik, harika gibi başka saçmalıklar var tamam",
+        "ar": "اه، باختصار، الروابط العميقة هناك بروتيك محلي بعض الهراء الآخر مثل رائع حسنًا",
+        "be": "Э-э, карацей, глыбокія спасылкі там мясцовы супрацьк нейкая іншая фігня кшталту крута добра",
+        "kk": "Қысқасы, терең сілтемелер бар жергілікті протик, жақсы сияқты"
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "intents",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
