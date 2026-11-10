@@ -343,6 +343,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "KWFilter",
+      "name": "Keyword Message Filter",
+      "version": "2.5.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/KWFilter/2.5.2/KWFilter.plugin",
+      "sha256": "b1bdfd239ce8aa90810ecf6030918d4c6cf918e231d5e18c5b02dd3ef9acf915",
+      "size": 43798,
+      "description": "Hiding messages by keywords",
+      "description_i18n": {
+        "en": "Hiding messages by keywords",
+        "uk": "Приховування повідомлень за ключовими словами",
+        "ru": "Скрытие сообщений по ключевым словам",
+        "pl": "Ukrywanie wiadomości według słów kluczowych",
+        "es": "Ocultar mensajes por palabras clave",
+        "de": "Nachrichten nach Schlüsselwörtern ausblenden",
+        "fr": "Masquer les messages par mots-clés",
+        "pt-BR": "Ocultando mensagens por palavras-chave",
+        "tr": "Mesajları anahtar kelimelere göre gizleme",
+        "ar": "إخفاء الرسائل عن طريق الكلمات الرئيسية",
+        "be": "Схаванне паведамленняў па ключавых словах",
+        "kk": "Хабарламаларды кілт сөздер бойынша жасыру"
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
