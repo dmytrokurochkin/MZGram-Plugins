@@ -6894,6 +6894,30 @@
         "be": "Экранізацыя рамана 2013 года ў EXTERAGRAM",
         "kk": "EXTERAGRAM ішіндегі 2013 жылғы романның бейімделуі"
       }
+    },
+    {
+      "id": "minesweeper",
+      "name": "Minesweeper",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/minesweeper/1.0.0/minesweeper.plugin",
+      "sha256": "6280725909ab2f9650e578859bdded96de46af1458b3834fc641dd4a8dac592f",
+      "size": 14143,
+      "description": "Plugin for playing Minesweeper. Usage: in Three Dots chat --> Plugins --> Minesweeper",
+      "description_i18n": {
+        "en": "Plugin for playing Minesweeper. Usage: in Three Dots chat --> Plugins --> Minesweeper",
+        "uk": "Плагін для гри в Minesweeper. Використання: у чаті Three Dots --> Plugins --> Minesweeper",
+        "ru": "Плагин для игры в Сапера. Использование: в чате Three Dots --> Плагины --> Сапер",
+        "pl": "Wtyczka do gry Saper. Sposób użycia: na czacie Three Dots -> Wtyczki -> Saper",
+        "es": "Complemento para jugar Buscaminas. Uso: en el chat de Three Dots --> Complementos --> Buscaminas",
+        "de": "Plugin zum Spielen von Minesweeper. Verwendung: im Three Dots-Chat -> Plugins -> Minesweeper",
+        "fr": "Plugin pour jouer au Démineur. Utilisation : dans le chat Three Dots --> Plugins --> Démineur",
+        "pt-BR": "Plugin para jogar Campo Minado. Uso: no bate-papo do Three Dots -> Plugins -> Campo Minado",
+        "tr": "Mayın Tarlası oynamak için eklenti. Kullanımı: Three Dots sohbetinde --> Eklentiler --> Mayın Tarlası",
+        "ar": "البرنامج المساعد للعب كاسحة الألغام. الاستخدام: في دردشة Three Dots -> المكونات الإضافية -> كاسحة الألغام",
+        "be": "Убудова для гульні ў тральшчык. Выкарыстанне: у чаце Three Dots --> Убудовы --> Minesweeper",
+        "kk": "Minesweeper ойнауға арналған плагин. Қолданылуы: Үш нүкте чатында --> Плагиндер --> Minesweeper"
+      }
     }
   ]
 }
