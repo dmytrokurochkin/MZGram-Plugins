@@ -3031,6 +3031,35 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "custom_fab",
+      "name": "Custom FAB",
+      "version": "2.3.8",
+      "min_app_version": "1.0.0",
+      "file": "plugins/custom_fab/2.3.8/custom_fab.plugin",
+      "sha256": "299ba5168ea781534d55f53386584f6f49b37d1dd23563debb1b76529a53f8a4",
+      "size": 37019,
+      "description": "Customize FAB (Floating Action Button): replace, hide or add a long-press action",
+      "description_i18n": {
+        "en": "Customize FAB (Floating Action Button): replace, hide or add a long-press action",
+        "uk": "Налаштуйте FAB (плаваюча кнопка дії): замініть, приховайте або додайте дію тривалого натискання",
+        "ru": "Настройте FAB (плавающую кнопку действия): замените, скройте или добавьте действие при длительном нажатии.",
+        "pl": "Dostosuj FAB (pływający przycisk akcji): zamień, ukryj lub dodaj akcję przy długim naciśnięciu",
+        "es": "Personalice FAB (botón de acción flotante): reemplace, oculte o agregue una acción de pulsación larga",
+        "de": "Passen Sie FAB (Floating Action Button) an: Ersetzen, verbergen oder fügen Sie eine Aktion durch langes Drücken hinzu",
+        "fr": "Personnaliser FAB (Floating Action Button) : remplacez, masquez ou ajoutez une action en appui long",
+        "pt-BR": "Personalize FAB (botão de ação flutuante): substitua, oculte ou adicione uma ação de toque longo",
+        "tr": "FAB'ı (Kayan Eylem Düğmesi) özelleştirin: uzun basma eylemini değiştirin, gizleyin veya ekleyin",
+        "ar": "تخصيص FAB (زر الإجراء العائم): استبدال إجراء الضغط لفترة طويلة أو إخفائه أو إضافته",
+        "be": "Наладзьце FAB (плываючая кнопка дзеяння): заменіце, схавайце або дадайце дзеянне доўгага націску",
+        "kk": "FAB (қалқымалы әрекет түймесі) теңшеу: ұзақ басу әрекетін ауыстыру, жасыру немесе қосу"
+      },
+      "permissions": [
+        "messages.read",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }

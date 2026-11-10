@@ -1,0 +1,952 @@
+import traceback
+
+from android.os import Bundle
+from android.graphics.drawable import LayerDrawable
+from android.view import Gravity, View
+from java.lang import Boolean, Class, System
+from java.lang.reflect import Proxy
+from java.lang.ref import WeakReference
+
+from android_utils import log, OnClickListener, OnLongClickListener, run_on_ui_thread
+from base_plugin import BasePlugin, MethodHook
+from client_utils import get_last_fragment, get_messages_controller, get_user_config
+from hook_utils import find_class, get_private_field
+from org.telegram.messenger import R
+from ui.bulletin import BulletinHelper
+from ui.settings import Divider, Header, Input, Selector, Switch, Text
+
+__id__ = "custom_fab"
+__name__ = "Custom FAB"
+__description__ = "Customize FAB (Floating Action Button): replace, hide or add a long-press action"
+__version__ = "2.3.8"
+__author__ = "@itsv1eds & @immat0x1 fork by @tsarkei"
+__icon__ = "exteraPluginsSup/3"
+__min_version__ = "12.10.6"
+__category__ = ["appearance", "tools"]
+
+DEFAULT, HIDE, SEARCH, SAVED, ARCHIVE, CALLS, CONTACTS, PROFILE, SETTINGS, PLUGINS, CHAT, GHOST = range(12)
+
+# What a long press can do: everything except hiding. DEFAULT here means "nothing".
+HOLD_CHOICES = [DEFAULT, SEARCH, SAVED, ARCHIVE, CALLS, CONTACTS, PROFILE, SETTINGS, PLUGINS, CHAT, GHOST]
+
+#           filled (large button)          outline (small button)
+ICONS = {
+    SEARCH:   ("outline_search_1_24",        "outline_header_search"),
+    SAVED:    ("chats_saved",                "outline_saved_24"),
+    ARCHIVE:  ("chats_archive",              "msg_archive"),
+    CALLS:    ("filled_profile_call_24",     "outline_profile_call_24"),
+    CONTACTS: ("filled_calls_users",         "outline_groups_24"),
+    PROFILE:  ("filled_profile_member_24",   "outline_profile_member_24"),
+    SETTINGS: ("filled_profile_settings",    "outline_profile_settings"),
+    PLUGINS:  ("msg_plugins",                "msg_plugins"),
+    CHAT:     ("filled_profile_message_24",  "outline_profile_message_24"),
+    GHOST:    ("ayu_ghost",                  "ayu_ghost"),
+}
+
+# AyuGram's menu shows the crossed ghost while ghost mode is on.
+GHOST_ON_ICON = "ayu_ghost_crossed"
+
+# Older icons, in case a build doesn't have the ones above.
+FALLBACK_ICONS = {
+    SAVED: "msg_saved",
+    CALLS: "msg_calls",
+    CONTACTS: "msg_contacts",
+    PROFILE: "msg_openprofile",
+    SETTINGS: "msg_settings",
+    CHAT: "msg_discussion",
+    GHOST: "msg_stories_stealth",
+}
+
+FAB_SETTING_LINK = "https://t.me/exteraSettings?s=hideFloatingButton"
+
+# Same sizes as Telegram's own icons on these buttons, in dp.
+ICON_SIZE = {"large": 32, "small": 24}
+
+# Used when the original icon couldn't be saved.
+STOCK_ICONS = {
+    "large": ("filled_fab_compose_32", "floating_pencil"),
+    "small": ("outline_fab_story_24", "msg_camera"),
+}
+
+# Telegram 12 renamed the buttons; old names stay for older builds.
+#           new field                old container                old icon
+FIELDS = {
+    "large": ("floatingButton3",       "floatingButtonContainer",  "floatingButton"),
+    "small": ("floatingButtonStories", "floatingButton2Container", "floatingButton2"),
+}
+
+STRINGS = {
+    "ru": {
+        "large": "Большая кнопка (новое сообщение)",
+        "small": "Маленькая кнопка (истории)",
+        "tap": "Нажатие",
+        "hold": "Зажатие",
+        "actions": ["Стандартное", "Скрыть", "Поиск", "Избранное", "Архив", "Звонки",
+                    "Контакты", "Мой профиль", "Настройки", "Плагины", "Чат по ID", "Режим призрака"],
+        "hold_actions": ["Ничего", "Поиск", "Избранное", "Архив", "Звонки", "Контакты",
+                         "Мой профиль", "Настройки", "Плагины", "Чат по ID", "Режим призрака"],
+        "chat_id": "Чат для «Чат по ID»",
+        "chat_id_sub": "ID пользователя, -100… для канала/группы или @username",
+        "other": "Прочее",
+        "hide_search": "Скрыть лупу в шапке",
+        "hide_search_sub": "Когда поиск назначен на кнопку",
+        "debug": "Подробные логи",
+        "debug_sub": "Писать в лог каждое действие плагина",
+        "hint": "Нажатие и зажатие настраиваются отдельно.\n"
+                "Стандартное - нажатие как в офтг, Ничего - зажатие не используется.\n"
+                "Режим призрака - переключатель призрака AyuGram.",
+        "no_chat": "Укажите чат в настройках плагина",
+        "restart": "Чтобы вернуть стандартное действие, перезапустите приложение",
+        "no_ayu": "Режим призрака есть только в AyuGram",
+        "fab_off_title": "Плавающая кнопка выключена",
+        "fab_off": "Custom FAB не работает, пока в настройках клиента включено «{}». Нажмите на строку выше, чтобы открыть эту настройку.",
+        "fab_off_short": "Плавающая кнопка выключена, Custom FAB не работает",
+    },
+    "en": {
+        "large": "Large button (new message)",
+        "small": "Small button (stories)",
+        "tap": "Tap",
+        "hold": "Long press",
+        "actions": ["Default", "Hide", "Search", "Saved Messages", "Archive", "Calls",
+                    "Contacts", "My profile", "Settings", "Plugins", "Chat by ID", "Ghost mode"],
+        "hold_actions": ["Nothing", "Search", "Saved Messages", "Archive", "Calls", "Contacts",
+                         "My profile", "Settings", "Plugins", "Chat by ID", "Ghost mode"],
+        "chat_id": "Chat for \"Chat by ID\"",
+        "chat_id_sub": "User ID, -100… for channel/group, or @username",
+        "other": "Other",
+        "hide_search": "Hide header search icon",
+        "hide_search_sub": "When search is assigned to a button",
+        "debug": "Verbose logs",
+        "debug_sub": "Log every plugin action",
+        "hint": "Tap and long press are set separately.\n"
+                "Default keeps the original tap, Nothing turns the long press off.\n"
+                "Ghost mode toggles AyuGram's ghost mode.",
+        "no_chat": "Set a chat in the plugin settings",
+        "restart": "Restart the app to restore the default action",
+        "no_ayu": "Ghost mode is only available in AyuGram",
+        "fab_off_title": "Floating button is off",
+        "fab_off": "Custom FAB stays off while \"{}\" is on in the app settings. Tap the line above to open that setting.",
+        "fab_off_short": "Floating button is off, Custom FAB won't work",
+    },
+}
+
+_icons = {}
+
+
+def tr(key):
+    try:
+        from org.telegram.messenger import LocaleController
+        lang = LocaleController.getInstance().getCurrentLocale().getLanguage()
+    except Exception:
+        lang = "en"
+    return STRINGS["ru" if lang.startswith("ru") else "en"][key]
+
+
+def load_class(name):
+    # Depending on the build, find_class gives back a Class or a class proxy.
+    found = find_class(name)
+    candidates = [found]
+    try:
+        candidates.append(found.getClass())
+    except Exception:
+        pass
+    for cls in candidates:
+        try:
+            if cls is not None and cls.getName() == name:
+                return cls
+        except Exception:
+            pass
+    try:
+        from org.telegram.messenger import ApplicationLoader
+        return Class.forName(name, False, ApplicationLoader.applicationContext.getClassLoader())
+    except Exception:
+        return None
+
+
+def find_method(cls, name, argc):
+    while cls is not None:
+        for method in cls.getDeclaredMethods():
+            if method.getName() == name and len(method.getParameterTypes()) == argc:
+                method.setAccessible(True)
+                return method
+        cls = cls.getSuperclass()
+    return None
+
+
+def drawable(names):
+    for name in names:
+        res = getattr(R.drawable, name, 0)
+        if res:
+            return res
+    return 0
+
+
+def action_icon(action, which):
+    key = (action, which)
+    if key not in _icons:
+        names = ICONS.get(action)
+        name = names[0 if which == "large" else 1] if names else None
+        _icons[key] = drawable([n for n in (name, FALLBACK_ICONS.get(action)) if n])
+    return _icons[key]
+
+
+def sized(res, dp):
+    """The icon centered in a dp x dp box, so every action looks the same size."""
+    from org.telegram.messenger import AndroidUtilities, ApplicationLoader
+    icon = ApplicationLoader.applicationContext.getDrawable(res).mutate()
+    box = LayerDrawable([icon])
+    size = AndroidUtilities.dp(dp)
+    box.setLayerSize(0, size, size)
+    box.setLayerGravity(0, Gravity.CENTER)
+    return box
+
+
+def fab_turned_off():
+    """exteraGram's own "Hide floating button" setting."""
+    try:
+        from com.exteragram.messenger import ExteraConfig
+        return bool(ExteraConfig.getHideFloatingButton())
+    except Exception:
+        return False
+
+
+def fab_off_text():
+    try:
+        from org.telegram.messenger import LocaleController
+        name = LocaleController.getString(R.string.HideFloatingButton)
+    except Exception:
+        name = "Hide floating button"
+    return tr("fab_off").format(name)
+
+
+def ayu_ghost():
+    try:
+        from com.radolyn.ayugram import AyuGhostConfig
+        return AyuGhostConfig
+    except Exception:
+        return None
+
+
+def ghost_active():
+    config = ayu_ghost()
+    return config is not None and config.isGhostModeActive(get_user_config().getClientUserId())
+
+
+def stock_listener(view):
+    try:
+        info = get_private_field(view, "mListenerInfo")
+        listener = get_private_field(info, "mOnClickListener") if info is not None else None
+    except Exception:
+        return None
+    # A proxy here is our own dispatcher left over from a previous copy of the plugin.
+    if listener is not None and Proxy.isProxyClass(listener.getClass()):
+        return None
+    return listener
+
+
+def image_view(button):
+    icon = get_private_field(button, "imageView")
+    if icon is None and button.getChildCount() > 0:
+        child = button.getChildAt(0)
+        if hasattr(child, "setImageDrawable"):
+            icon = child
+    return icon
+
+
+def key_of(obj):
+    return System.identityHashCode(obj)
+
+
+def call(method, target, *args):
+    if method is None:
+        return False
+    try:
+        method.invoke(target, *args)
+        return True
+    except Exception:
+        log(f"[{__id__}] {method.getName()} failed: {traceback.format_exc()}")
+        return False
+
+
+class Hook(MethodHook):
+    def __init__(self, before=None, after=None):
+        super().__init__()
+        self._before = before
+        self._after = after
+
+    def before_hooked_method(self, param):
+        if self._before:
+            self._safe(self._before, param)
+
+    def after_hooked_method(self, param):
+        if self._after:
+            self._safe(self._after, param)
+
+    @staticmethod
+    def _safe(fn, param):
+        try:
+            fn(param)
+        except Exception:
+            log(f"[{__id__}] {traceback.format_exc()}")
+
+
+class FabButton:
+    __slots__ = ("which", "view", "icon", "modern", "stock_click", "stock_icon", "icon_swapped", "intercepted")
+
+    def __init__(self, which, view, icon, modern):
+        self.which = which
+        self.view = view
+        self.icon = icon
+        self.modern = modern
+        self.stock_click = None
+        self.stock_icon = icon.getDrawable() if icon is not None else None
+        self.icon_swapped = False
+        self.intercepted = False
+
+    def set_hidden(self, hidden):
+        if self.modern:
+            # Showing is up to Telegram, it knows when the button is allowed.
+            if hidden:
+                self.view.setButtonVisible(False, False)
+        else:
+            self.view.setVisibility(View.GONE if hidden else View.VISIBLE)
+
+    def set_icon(self, res):
+        if self.icon is not None:
+            try:
+                self.icon.setImageDrawable(sized(res, ICON_SIZE[self.which]))
+                self.icon_swapped = True
+                return
+            except Exception:
+                pass
+        (self.view if self.modern else self.icon).setImageResource(res)
+        self.icon_swapped = True
+
+    def restore_icon(self):
+        if not self.icon_swapped:
+            return
+        self.icon_swapped = False
+        if self.stock_icon is not None and self.icon is not None:
+            self.icon.setImageDrawable(self.stock_icon)
+            return
+        res = drawable(STOCK_ICONS[self.which])
+        if res:
+            (self.view if self.modern else self.icon).setImageResource(res)
+
+
+class ChatList:
+    """Everything we keep about one main DialogsActivity."""
+    __slots__ = ("ref", "buttons", "search")
+
+    def __init__(self, fragment, buttons):
+        self.ref = WeakReference(fragment)
+        self.buttons = buttons
+        self.search = get_private_field(fragment, "searchItem")
+
+    def forget(self):
+        self.buttons.clear()
+        self.search = None
+
+
+class FabPlugin(BasePlugin):
+
+    def __init__(self):
+        super().__init__()
+        self.lists = {}
+        self.captured = None
+        self.click_hook = None
+        self.set_click_method = None
+        self.visibility_method = None
+        self.search_visibility_method = None
+        # None until we know whether the stock listener can be read straight from the view.
+        self.listener_readable = None
+        self.fields_dumped = False
+        self.warned_fab_off = False
+        self.actions = {"large": DEFAULT, "small": DEFAULT}
+        self.holds = {"large": DEFAULT, "small": DEFAULT}
+        self.hide_search = False
+        self.has_hidden = False
+        self.debug = False
+
+    # settings
+
+    def load_config(self):
+        get = self.get_setting
+        for which in FIELDS:
+            self.actions[which] = int(get(f"{which}_action", DEFAULT) or 0)
+            hold = int(get(f"{which}_hold", 0) or 0)
+            self.holds[which] = HOLD_CHOICES[hold] if 0 <= hold < len(HOLD_CHOICES) else DEFAULT
+        self.hide_search = self.uses(SEARCH) and bool(get("hide_header_search", True))
+        self.has_hidden = HIDE in self.actions.values()
+        self.debug = bool(get("debug", False))
+
+    def uses(self, action):
+        return action in self.actions.values() or action in self.holds.values()
+
+    def tap_action(self, which):
+        action = self.actions[which]
+        return None if action in (DEFAULT, HIDE) else action
+
+    def hold_action(self, which):
+        action = self.holds[which]
+        return None if action == DEFAULT or self.actions[which] == HIDE else action
+
+    def trace(self, text):
+        if self.debug:
+            log(f"[{__id__}] {text}")
+
+    def migrate_old_settings(self):
+        get = self.get_setting
+        # 2.2: one action per button plus "tap or long press". Now both are set separately.
+        for which in FIELDS:
+            if get(f"{which}_hold", None) is not None or get(f"{which}_mode", None) is None:
+                continue
+            action = int(get(f"{which}_action", DEFAULT) or 0)
+            if int(get(f"{which}_mode", 0) or 0) == 1 and action in HOLD_CHOICES:
+                self.set_setting(f"{which}_hold", HOLD_CHOICES.index(action))
+                self.set_setting(f"{which}_action", DEFAULT)
+            else:
+                self.set_setting(f"{which}_hold", 0)
+
+        # 1.x: a separate switch per shortcut.
+        if get("large_action", None) is not None:
+            return
+        if get("hide_large", False):
+            large = HIDE
+        elif get("use_profile", False) and get("profile_id", ""):
+            large = CHAT
+            self.set_setting("chat_id", str(get("profile_id", "")))
+        elif get("use_saved", False):
+            large = SAVED
+        elif get("use_plugin_settings", False):
+            large = PLUGINS
+        elif get("use_calls", False):
+            large = CALLS
+        else:
+            large = DEFAULT
+        if get("hide_small", False):
+            small = HIDE
+        elif get("use_search", False):
+            small = SEARCH
+        else:
+            small = DEFAULT
+        self.set_setting("large_action", large)
+        self.set_setting("small_action", small)
+
+    def on_setting(self, key, rebuild=False):
+        def handler(value):
+            if rebuild:
+                try:
+                    self.set_setting(key, value, reload_settings=True)
+                except TypeError:
+                    self.set_setting(key, value)
+            run_on_ui_thread(self.settings_changed)
+        return handler
+
+    def settings_changed(self):
+        self.load_config()
+        for chat_list in list(self.lists.values()):
+            try:
+                self.refresh(chat_list, force=True)
+            except Exception:
+                log(f"[{__id__}] refresh failed: {traceback.format_exc()}")
+
+    def create_settings(self):
+        self.load_config()
+        items = []
+        if fab_turned_off():
+            items.append(Text(text=tr("fab_off_title"), icon="msg_info", red=True,
+                              on_click=lambda view: self.open_fab_setting(view)))
+            items.append(Divider(text=fab_off_text()))
+        for which in FIELDS:
+            items.append(Header(text=tr(which)))
+            items.append(Selector(
+                key=f"{which}_action",
+                text=tr("tap"),
+                icon="msg_openin",
+                default=DEFAULT,
+                items=tr("actions"),
+                on_change=self.on_setting(f"{which}_action", rebuild=True),
+            ))
+            if self.actions[which] != HIDE:
+                items.append(Selector(
+                    key=f"{which}_hold",
+                    text=tr("hold"),
+                    icon="msg_stories_timer",
+                    default=0,
+                    items=tr("hold_actions"),
+                    on_change=self.on_setting(f"{which}_hold", rebuild=True),
+                ))
+
+        if self.uses(CHAT):
+            items.append(Input(
+                key="chat_id",
+                text=tr("chat_id"),
+                subtext=tr("chat_id_sub"),
+                icon="msg_pin_code",
+                default="",
+            ))
+
+        items.append(Header(text=tr("other")))
+        if self.uses(SEARCH):
+            items.append(Switch(
+                key="hide_header_search",
+                text=tr("hide_search"),
+                subtext=tr("hide_search_sub"),
+                icon="outline_header_search",
+                default=True,
+                on_change=self.on_setting("hide_header_search"),
+            ))
+        items.append(Switch(
+            key="debug",
+            text=tr("debug"),
+            subtext=tr("debug_sub"),
+            default=False,
+            on_change=self.on_setting("debug"),
+        ))
+        items.append(Divider(text=tr("hint")))
+        return items
+
+    @staticmethod
+    def open_fab_setting(view):
+        try:
+            from org.telegram.messenger.browser import Browser
+            Browser.openUrl(view.getContext(), FAB_SETTING_LINK)
+        except Exception:
+            log(f"[{__id__}] couldn't open the setting: {traceback.format_exc()}")
+
+    # lifecycle
+
+    def on_plugin_load(self):
+        try:
+            self.migrate_old_settings()
+        except Exception:
+            log(f"[{__id__}] settings migration failed: {traceback.format_exc()}")
+        self.load_config()
+
+        dialogs = load_class("org.telegram.ui.DialogsActivity")
+        if dialogs is None:
+            log(f"[{__id__}] DialogsActivity not found")
+            return
+        view = load_class("android.view.View")
+        if view is not None:
+            self.set_click_method = find_method(view, "setOnClickListener", 1)
+
+        def hook(name, argc, before=None, after=None):
+            method = find_method(dialogs, name, argc)
+            if method is None:
+                log(f"[{__id__}] {name} not found, skipping")
+                return None
+            self.hook_method(method, Hook(before, after))
+            return method
+
+        hook("createView", 1, before=self.on_create_start, after=self.on_create_end)
+        hook("onResume", 0, after=self.on_resume)
+        hook("onFragmentDestroy", 0, after=self.on_destroy)
+        hook("updateStoriesPosting", 0, after=lambda p: self.update_icons(self.list_of(p.thisObject)))
+        self.visibility_method = hook("updateFloatingButtonVisibility", 1, after=self.on_visibility)
+        self.search_visibility_method = hook("checkUi_itemSearchVisibility", 0, after=self.on_search_visibility)
+
+        # Rebuild our settings screen when the client's "hide floating button" changes,
+        # otherwise the warning stays there until the screen is reopened.
+        extera = load_class("com.exteragram.messenger.ExteraConfig")
+        set_hide = find_method(extera, "setHideFloatingButton", 1) if extera is not None else None
+        if set_hide is not None:
+            self.hook_method(set_hide, Hook(after=self.on_fab_setting_changed))
+
+        # Ghost mode can also be switched from AyuGram's drawer; keep the icon in sync.
+        ghost_config = load_class("com.radolyn.ayugram.AyuGhostConfig")
+        set_ghost = find_method(ghost_config, "setGhostMode", 3) if ghost_config is not None else None
+        if set_ghost is not None:
+            self.hook_method(set_ghost, Hook(after=self.on_ghost_changed))
+
+        # After an install or update the chat list is already built and
+        # createView won't run again, so pick it up right away.
+        run_on_ui_thread(self.attach_existing)
+        log(f"[{__id__}] loaded {__version__}")
+
+    def on_plugin_unload(self):
+        lists = list(self.lists.values())
+        self.lists.clear()
+        self.drop_click_hook()
+
+        def restore():
+            for chat_list in lists:
+                try:
+                    self.restore(chat_list)
+                except Exception:
+                    log(f"[{__id__}] restore failed: {traceback.format_exc()}")
+                chat_list.forget()
+        run_on_ui_thread(restore)
+
+    # DialogsActivity hooks
+
+    def on_create_start(self, param):
+        # Plan B for builds where the listener can't be read from the view:
+        # catch it while createView sets it. Not needed once reading has worked.
+        if self.listener_readable or self.set_click_method is None or self.click_hook is not None:
+            return
+        self.captured = {}
+        self.click_hook = self.hook_method(self.set_click_method, Hook(before=self.remember_click))
+
+    def remember_click(self, param):
+        if self.captured is not None and param.args[0] is not None:
+            self.captured[key_of(param.thisObject)] = param.args[0]
+
+    def on_create_end(self, param):
+        self.drop_click_hook()
+        captured, self.captured = self.captured or {}, None
+        self.attach(param.thisObject, captured)
+
+    def drop_click_hook(self):
+        if self.click_hook is not None:
+            self.unhook_method(self.click_hook)
+            self.click_hook = None
+
+    def on_resume(self, param):
+        fragment = param.thisObject
+        if fab_turned_off():
+            # The client hides the button itself; then we stay out of the way completely.
+            chat_list = self.lists.pop(key_of(fragment), None)
+            if chat_list is not None:
+                self.restore(chat_list)
+                chat_list.forget()
+            if not self.warned_fab_off and self.is_main_list(fragment):
+                self.warned_fab_off = True
+                BulletinHelper.show_info(tr("fab_off_short"))
+            return
+        chat_list = self.list_of(fragment)
+        if chat_list is None:
+            if fragment.getFragmentView() is not None:
+                self.attach(fragment, {})
+        else:
+            self.refresh(chat_list)
+
+    def on_destroy(self, param):
+        chat_list = self.lists.pop(key_of(param.thisObject), None)
+        if chat_list is not None:
+            chat_list.forget()
+            self.trace("chat list destroyed")
+
+    def on_fab_setting_changed(self, param):
+        hidden = bool(param.args[0])
+        run_on_ui_thread(lambda: self.reload_settings_screen(hidden))
+
+    def reload_settings_screen(self, hidden):
+        try:
+            self.set_setting("fab_hidden_seen", hidden, reload_settings=True)
+        except TypeError:
+            pass
+
+    def on_ghost_changed(self, param):
+        if GHOST in self.actions.values():
+            run_on_ui_thread(self.update_all_icons)
+
+    def on_visibility(self, param):
+        if not self.has_hidden:
+            return
+        chat_list = self.list_of(param.thisObject)
+        if chat_list is None:
+            return
+        for which, button in chat_list.buttons.items():
+            if self.actions[which] == HIDE:
+                button.set_hidden(True)
+
+    def on_search_visibility(self, param):
+        # Called on every animation frame, so leave as early as possible.
+        if not self.hide_search:
+            return
+        chat_list = self.list_of(param.thisObject)
+        if chat_list is not None and chat_list.search is not None:
+            chat_list.search.setVisibility(View.GONE)
+
+    # buttons
+
+    def list_of(self, fragment):
+        if fragment is None or not self.lists:
+            return None
+        return self.lists.get(key_of(fragment))
+
+    @staticmethod
+    def is_main_list(fragment):
+        return (not get_private_field(fragment, "onlySelect")
+                and not get_private_field(fragment, "folderId")
+                and not get_private_field(fragment, "initialDialogsType"))
+
+    @staticmethod
+    def find_button(fragment, which):
+        new_name, old_name, old_icon = FIELDS[which]
+        view = get_private_field(fragment, new_name)
+        if view is not None:
+            return FabButton(which, view, image_view(view), True)
+        view = get_private_field(fragment, old_name)
+        if view is not None:
+            return FabButton(which, view, get_private_field(fragment, old_icon), False)
+        return None
+
+    def attach_existing(self):
+        try:
+            top = get_last_fragment()
+            layout = top.getParentLayout() if top is not None else None
+            stack = layout.getFragmentStack() if layout is not None else None
+            # Java List, not iterable from Python here: walk it by index.
+            for i in range(stack.size() if stack is not None else 0):
+                fragment = stack.get(i)
+                if (fragment.getClass().getName() == "org.telegram.ui.DialogsActivity"
+                        and fragment.getFragmentView() is not None
+                        and self.list_of(fragment) is None):
+                    self.attach(fragment, {})
+            self.trace(f"attached to {len(self.lists)} existing chat list(s)")
+        except Exception:
+            log(f"[{__id__}] couldn't attach to the open chat list: {traceback.format_exc()}")
+
+    def attach(self, fragment, captured):
+        if fab_turned_off() or not self.is_main_list(fragment):
+            return
+        ref = WeakReference(fragment)
+        buttons = {}
+        for which in FIELDS:
+            button = self.find_button(fragment, which)
+            if button is None:
+                continue
+            listener = stock_listener(button.view)
+            if listener is not None:
+                self.listener_readable = True
+            button.stock_click = listener or captured.get(key_of(button.view))
+            if button.stock_click is not None:
+                self.intercept_click(button, ref, which)
+            button.view.setOnLongClickListener(
+                OnLongClickListener(lambda v, w=which: self.on_long_click(ref, w, v)))
+            buttons[which] = button
+            self.trace(f"{which}: modern={button.modern}, stock listener={button.stock_click is not None}")
+
+        if not buttons:
+            self.dump_fields(fragment)
+            return
+
+        chat_list = ChatList(fragment, buttons)
+        old = self.lists.pop(key_of(fragment), None)
+        if old is not None:
+            old.forget()
+        self.lists[key_of(fragment)] = chat_list
+        # In case some build never calls onFragmentDestroy.
+        while len(self.lists) > 4:
+            self.lists.pop(next(iter(self.lists))).forget()
+        self.refresh(chat_list)
+
+    def intercept_click(self, button, ref, which):
+        if button.intercepted:
+            return
+        button.view.setOnClickListener(OnClickListener(lambda v: self.on_click(ref, which, v)))
+        button.intercepted = True
+
+    def refresh(self, chat_list, force=False):
+        if chat_list is None:
+            return
+        fragment = chat_list.ref.get()
+        if fragment is None:
+            return
+        for which, button in chat_list.buttons.items():
+            if self.tap_action(which) is not None:
+                self.intercept_click(button, chat_list.ref, which)
+            if self.actions[which] == HIDE:
+                button.set_hidden(True)
+            elif force:
+                button.set_hidden(False)
+
+        if force:
+            # Let Telegram decide visibility again, our hook hides what has to stay hidden.
+            call(self.visibility_method, fragment, Boolean.FALSE)
+        self.update_icons(chat_list)
+
+        search = chat_list.search
+        if search is not None:
+            if self.hide_search:
+                search.setVisibility(View.GONE)
+            elif force and not call(self.search_visibility_method, fragment):
+                search.setVisibility(View.VISIBLE)
+
+    def update_icons(self, chat_list):
+        if chat_list is None:
+            return
+        for which, button in chat_list.buttons.items():
+            action = self.tap_action(which)
+            res = action_icon(action, which) if action is not None else 0
+            if action == GHOST and ghost_active():
+                res = drawable([GHOST_ON_ICON]) or res
+            if res:
+                button.set_icon(res)
+            else:
+                button.restore_icon()
+
+    def update_all_icons(self):
+        for chat_list in list(self.lists.values()):
+            self.update_icons(chat_list)
+
+    def restore(self, chat_list):
+        for button in chat_list.buttons.values():
+            if button.stock_click is not None:
+                button.view.setOnClickListener(button.stock_click)
+            button.view.setOnLongClickListener(None)
+            button.view.setLongClickable(False)
+            button.restore_icon()
+            button.set_hidden(False)
+        fragment = chat_list.ref.get()
+        if fragment is None:
+            return
+        call(self.visibility_method, fragment, Boolean.FALSE)
+        if chat_list.search is not None:
+            chat_list.search.setVisibility(View.VISIBLE)
+
+    def dump_fields(self, fragment):
+        # Telegram renamed the buttons again? Log what looks like them, once.
+        if self.fields_dumped:
+            return
+        self.fields_dumped = True
+        found = []
+        for field in fragment.getClass().getDeclaredFields():
+            type_name = field.getType().getSimpleName()
+            if "loating" in field.getName() or "Floating" in type_name:
+                found.append(f"{type_name} {field.getName()}")
+        log(f"[{__id__}] FAB fields not found. Candidates: {found}")
+
+    # clicks
+
+    def on_click(self, ref, which, view):
+        fragment = ref.get()
+        if fragment is None:
+            return
+        action = self.tap_action(which)
+        if action is not None:
+            self.run(fragment, action)
+            return
+        chat_list = self.list_of(fragment)
+        button = chat_list.buttons.get(which) if chat_list is not None else None
+        if button is not None and button.stock_click is not None:
+            button.stock_click.onClick(view)
+        else:
+            BulletinHelper.show_info(tr("restart"))
+
+    def on_long_click(self, ref, which, view):
+        action = self.hold_action(which)
+        if action is None or ref.get() is None:
+            return False
+        # The finger is still on the button. Opening a screen mid-gesture breaks
+        # the drawer button afterwards, so wait for the release, like a normal tap.
+        self.trace(f"long press on {which}, waiting for release")
+        self.run_after_release(ref, WeakReference(view), action, tries=100)
+        return True
+
+    def run_after_release(self, ref, view_ref, action, tries):
+        view = view_ref.get()
+        if view is not None and view.isPressed() and tries > 0:
+            run_on_ui_thread(lambda: self.run_after_release(ref, view_ref, action, tries - 1), 50)
+            return
+        run_on_ui_thread(lambda: self.run_if_alive(ref, action))
+
+    def run_if_alive(self, ref, action):
+        fragment = ref.get()
+        if fragment is not None:
+            self.run(fragment, action)
+
+    def run(self, fragment, action):
+        self.trace(f"action {action}")
+        try:
+            if action == SEARCH:
+                self.open_search(fragment)
+            elif action == GHOST:
+                self.toggle_ghost(fragment)
+            elif action == CHAT:
+                self.open_chat(fragment)
+            else:
+                page = self.make_page(action)
+                if page is not None:
+                    fragment.presentFragment(page)
+        except Exception:
+            log(f"[{__id__}] action {action} failed: {traceback.format_exc()}")
+
+    def make_page(self, action):
+        if action == SAVED:
+            args = Bundle()
+            args.putLong("user_id", get_user_config().getClientUserId())
+            from org.telegram.ui import ChatActivity
+            return ChatActivity(args)
+        if action == ARCHIVE:
+            args = Bundle()
+            args.putInt("folderId", 1)
+            from org.telegram.ui import DialogsActivity
+            return DialogsActivity(args)
+        if action == CALLS:
+            from org.telegram.ui import CallLogActivity
+            return CallLogActivity()
+        if action == CONTACTS:
+            from org.telegram.ui import ContactsActivity
+            return ContactsActivity(Bundle())
+        if action == PROFILE:
+            return self.my_profile()
+        if action == SETTINGS:
+            try:
+                from org.telegram.ui import SettingsActivity
+                return SettingsActivity()
+            except Exception:
+                return self.my_profile()
+        if action == PLUGINS:
+            from com.exteragram.messenger.plugins.ui import PluginsActivity
+            return PluginsActivity()
+        return None
+
+    @staticmethod
+    def my_profile():
+        from org.telegram.ui import ProfileActivity
+        args = Bundle()
+        args.putLong("user_id", get_user_config().getClientUserId())
+        args.putBoolean("my_profile", True)
+        return ProfileActivity(args)
+
+    def toggle_ghost(self, fragment):
+        # Same call as AyuGram's own drawer switch; it shows its own
+        # "enabled/disabled" bulletin and refreshes the drawer itself.
+        config = ayu_ghost()
+        if config is None:
+            BulletinHelper.show_info(tr("no_ayu"))
+            return
+        from org.telegram.ui.Components import BulletinFactory
+        config.toggleGhostMode(get_user_config().getClientUserId(), BulletinFactory.of(fragment))
+        self.update_all_icons()
+
+    @staticmethod
+    def open_search(fragment):
+        search = get_private_field(fragment, "searchItem")
+        if search is None:
+            return
+        # Newer builds open search from the item's click listener, older ones via toggleSearch.
+        if get_private_field(fragment, "fragmentSearchFieldWatcher") is not None:
+            search.performClick()
+        else:
+            search.toggleSearch(True)
+
+    def open_chat(self, fragment):
+        target = str(self.get_setting("chat_id", "") or "").strip()
+        for prefix in ("https://", "http://", "t.me/", "telegram.me/"):
+            if target.startswith(prefix):
+                target = target[len(prefix):]
+        target = target.strip("/")
+        if not target:
+            BulletinHelper.show_info(tr("no_chat"))
+            return
+
+        try:
+            peer = int(target)
+        except ValueError:
+            get_messages_controller().openByUserName(target.lstrip("@"), fragment, 0)
+            return
+
+        args = Bundle()
+        if peer > 0:
+            args.putLong("user_id", peer)
+        elif target.startswith("-100"):
+            args.putLong("chat_id", -peer - 1000000000000)
+        else:
+            args.putLong("chat_id", -peer)
+        from org.telegram.ui import ChatActivity
+        fragment.presentFragment(ChatActivity(args))
