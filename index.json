@@ -8335,6 +8335,33 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "ping_pong",
+      "name": "Ping-Pong",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/ping_pong/1.0.0/pingpong.plugin",
+      "sha256": "2c665b2be1c41d1617db45a9a8ae3995d35d95149b6f10ae3827dd2ff66cdb6e",
+      "size": 16242,
+      "description": "Ping-Pong game. Launch the game in the side menu on the left in the chat list.",
+      "description_i18n": {
+        "en": "Ping-Pong game. Launch the game in the side menu on the left in the chat list.",
+        "uk": "Гра в пінг-понг. Запустіть гру в бічному меню ліворуч у списку чату.",
+        "ru": "Игра в пинг-понг. Запустите игру в боковом меню слева в списке чатов.",
+        "pl": "Gra w ping-ponga. Uruchom grę w bocznym menu po lewej stronie listy czatów.",
+        "es": "Juego de ping pong. Inicie el juego en el menú lateral a la izquierda en la lista de chat.",
+        "de": "Ping-Pong-Spiel. Starten Sie das Spiel im Seitenmenü links in der Chat-Liste.",
+        "fr": "Jeu de ping-pong. Lancez le jeu dans le menu latéral à gauche dans la liste de discussion.",
+        "pt-BR": "Jogo de pingue-pongue. Inicie o jogo no menu lateral à esquerda da lista de bate-papo.",
+        "tr": "Pinpon oyunu. Sohbet listesinin sol tarafındaki yan menüden oyunu başlatın.",
+        "ar": "لعبة بينج بونج. قم بتشغيل اللعبة من القائمة الجانبية الموجودة على اليسار في قائمة الدردشة.",
+        "be": "Гульня пінг-понг. Запусціце гульню ў бакавым меню злева ў спісе чатаў.",
+        "kk": "Пинг-понг ойыны. Ойынды чат тізімінің сол жағындағы бүйірлік мәзірде іске қосыңыз."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
