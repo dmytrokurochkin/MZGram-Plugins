@@ -9570,6 +9570,39 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "rescue_call",
+      "name": "RescueCall",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/rescue_call/1.0.0/rescue_call.plugin",
+      "sha256": "a09df3028220796d888d1419bc80f73b28c3dac5e05b436fab2494325b7e7b41",
+      "size": 434400,
+      "description": "Simulate an incoming call using a timer or shaking",
+      "description_i18n": {
+        "en": "Simulate an incoming call using a timer or shaking",
+        "uk": "Імітуйте вхідний дзвінок за допомогою таймера або струшування",
+        "ru": "Имитация входящего звонка с помощью таймера или встряхивания",
+        "pl": "Symuluj połączenie przychodzące za pomocą timera lub potrząsania",
+        "es": "Simule una llamada entrante usando un temporizador o agitando",
+        "de": "Simulieren Sie einen eingehenden Anruf mithilfe eines Timers oder durch Schütteln",
+        "fr": "Simulez un appel entrant en utilisant une minuterie ou en secouant",
+        "pt-BR": "Simule uma chamada recebida usando um temporizador ou agitação",
+        "tr": "Bir zamanlayıcı veya sallama kullanarak gelen bir aramayı simüle edin",
+        "ar": "محاكاة مكالمة واردة باستخدام جهاز توقيت أو اهتزاز",
+        "be": "Імітуйце ўваходны выклік з дапамогай таймера або ўстрэсвання",
+        "kk": "Таймер немесе шайқау арқылы кіріс қоңырауды имитациялаңыз"
+      },
+      "requirements": [
+        "exteragram-alib"
+      ],
+      "permissions": [
+        "messages.read",
+        "network",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
