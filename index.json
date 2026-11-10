@@ -6650,6 +6650,34 @@
       "permissions": [
         "network"
       ]
+    },
+    {
+      "id": "melodic_piano_typing",
+      "name": "Melodic Piano Sequencer",
+      "version": "1.8.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/melodic_piano_typing/1.8.0/melodic_piano_typing.plugin",
+      "sha256": "21111c56ad52c94d2682734f0604aad179bf51c1252a1ac7702c5328856540f7",
+      "size": 31759,
+      "description": "Step-by-step play of melodies when typing + constructor of your own melody for 4 measures (4/4). Realistic piano sounds, optional cello and violin",
+      "description_i18n": {
+        "en": "Step-by-step play of melodies when typing + constructor of your own melody for 4 measures (4/4). Realistic piano sounds, optional cello and violin",
+        "uk": "Покрокове відтворення мелодій при наборі тексту + конструктор власної мелодії на 4 такти (4/4). Реалістичні звуки фортепіано, віолончелі та скрипки (опціонально).",
+        "ru": "Пошаговое воспроизведение мелодий при наборе + конструктор собственной мелодии на 4 такта (4/4). Реалистичные звуки фортепиано, виолончель и скрипка по желанию.",
+        "pl": "Odtwarzanie melodii krok po kroku podczas pisania + konstruktor własnej melodii na 4 takty (4/4). Realistyczne dźwięki fortepianu, opcjonalnie wiolonczela i skrzypce",
+        "es": "Reproducción de melodías paso a paso al escribir + constructor de tu propia melodía para 4 compases (4/4). Sonidos de piano realistas, violonchelo y violín opcionales.",
+        "de": "Schrittweises Spielen von Melodien beim Tippen + Konstrukteur einer eigenen Melodie für 4 Takte (4/4). Realistische Klavierklänge, optional Cello und Violine",
+        "fr": "Jeu de mélodies pas à pas lors de la frappe + constructeur de votre propre mélodie pour 4 mesures (4/4). Sons de piano réalistes, violoncelle et violon en option",
+        "pt-BR": "Passo a passo de reprodução de melodias ao digitar + construtor de sua própria melodia para 4 compassos (4/4). Sons de piano realistas, violoncelo e violino opcionais",
+        "tr": "Yazarken melodilerin adım adım çalınması + 4 ölçü (4/4) için kendi melodinizin oluşturucusu. Gerçekçi piyano sesleri, isteğe bağlı çello ve keman",
+        "ar": "تشغيل الألحان خطوة بخطوة عند الكتابة + مُنشئ اللحن الخاص بك لمدة 4 مقاييس (4/4). أصوات البيانو واقعية، التشيلو والكمان اختياري",
+        "be": "Пакрокавае прайграванне мелодый пры наборы тэксту + канструктар уласнай мелодыі на 4 такты (4/4). Рэалістычныя гукі фартэпіяна, дадатковыя віяланчэлі і скрыпкі",
+        "kk": "Теру кезінде әуендерді кезең-кезеңімен ойнату + 4 өлшемге (4/4) өз әуеніңіздің конструкторы. Фортепианоның шынайы дыбыстары, қосымша виолончель және скрипка"
+      },
+      "permissions": [
+        "messages.send",
+        "files"
+      ]
     }
   ]
 }
