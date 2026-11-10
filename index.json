@@ -3313,6 +3313,35 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "delete_gifts",
+      "name": "DeleteGifts",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/delete_gifts/1.0/delete_gifts.plugin",
+      "sha256": "c74b883a4bbbd16f35faed550db5462a794884fb82540786518ab9d984815c80",
+      "size": 7424,
+      "description": "Transferring the gift removal function from the new Telegram update",
+      "description_i18n": {
+        "en": "Transferring the gift removal function from the new Telegram update",
+        "uk": "Перенесення функції видалення подарунків з нового оновлення Telegram",
+        "ru": "Перенос функции удаления подарков из нового обновления Telegram",
+        "pl": "Przeniesienie funkcji usuwania prezentów z nowej aktualizacji Telegramu",
+        "es": "Transferiendo la función de eliminación de regalos de la nueva actualización de Telegram",
+        "de": "Übertragen der Funktion zum Entfernen von Geschenken aus dem neuen Telegram-Update",
+        "fr": "Transfert de la fonction de suppression de cadeaux de la nouvelle mise à jour de Telegram",
+        "pt-BR": "Transferindo a função de remoção de presentes da nova atualização do Telegram",
+        "tr": "Hediye kaldırma işlevinin yeni Telegram güncellemesinden aktarılması",
+        "ar": "نقل خاصية إزالة الهدايا من تحديث تيليجرام الجديد",
+        "be": "Перанос функцыі выдалення падарункаў з новага абнаўлення Telegram",
+        "kk": "Жаңа Telegram жаңартуынан сыйлықты жою функциясын тасымалдау"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
