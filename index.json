@@ -12378,6 +12378,35 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "zwyVolumeNormalizer",
+      "name": "VolumeNormalizer",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/zwyVolumeNormalizer/1.0.0/zwyVolumeNormalizer.plugin",
+      "sha256": "def46e35e658cc1ee309b045d39296a25ab15a54c64d407cd0b1a39ed85715dc",
+      "size": 38809,
+      "description": "Evens out the loudness of music played in Telegram: loud tracks are made quieter, quiet ones louder. > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 or greater!",
+      "description_i18n": {
+        "en": "Evens out the loudness of music played in Telegram: loud tracks are made quieter, quiet ones louder. > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 or greater!",
+        "uk": "Вирівнює гучність музики, що відтворюється в Telegram: голосні треки стають тихішими, тихі - голоснішими. > Потрібен **[ZwyLib](https://t.me/zwyPlugins/48)** версії 2.0.6 або новішої!",
+        "ru": "Выравнивает громкость проигрываемой в Telegram музыки: громкие треки делаются тише, тихие - громче. > Требуется **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 или более поздняя версия!",
+        "pl": "Wyrównuje głośność muzyki odtwarzanej w Telegramie: głośne utwory stają się cichsze, ciche głośniejsze. > Wymaga **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 lub nowszej!",
+        "es": "Equilibra el volumen de la música reproducida en Telegram: las pistas altas se vuelven más silenciosas y las silenciosas, más fuertes. > ¡Requiere **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 o superior!",
+        "de": "Gleicht die Lautstärke der in Telegram abgespielten Musik aus: Laute Titel werden leiser, leisere lauter. > Erfordert **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 oder höher!",
+        "fr": "Uniformise le volume de la musique jouée dans Telegram : les pistes fortes sont rendues plus silencieuses, les pistes silencieuses plus fortes. > Nécessite **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 ou supérieur !",
+        "pt-BR": "Equilibra o volume da música tocada no Telegram: as faixas altas ficam mais silenciosas e as silenciosas, mais altas. > Requer **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 ou superior!",
+        "tr": "Telegram'da çalınan müziğin ses yüksekliği eşitlenir: Yüksek sesli parçalar daha sessiz hale getirilir, sessiz olanlar ise daha yüksek sesli hale getirilir. > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 veya üzerini gerektirir!",
+        "ar": "يسوي ارتفاع صوت الموسيقى التي يتم تشغيلها في Telegram: تصبح المسارات الصاخبة أكثر هدوءًا، بينما تصبح المقاطع الهادئة أعلى صوتًا. > يتطلب **[ZwyLib](https://t.me/zwyPlugins/48)** الإصدار 2.0.6 أو أحدث!",
+        "be": "Выраўноўвае гучнасць прайграванай у Telegram музыкі: гучныя трэкі робяцца цішэй, ціхія - гучней. > Патрабуецца **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 або вышэй!",
+        "kk": "Telegram-да ойналатын музыканың қаттылығын біркелкі етеді: дыбысты тректер тыныш, ал дыбысы қаттырақ. > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 немесе одан жоғары нұсқасын талап етеді!"
+      },
+      "permissions": [
+        "messages.read",
+        "network",
+        "settings"
+      ]
     }
   ]
 }
