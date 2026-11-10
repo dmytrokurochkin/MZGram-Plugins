@@ -7605,6 +7605,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "no_ayu_rofls",
+      "name": "No Ayu Rofls",
+      "version": "1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/no_ayu_rofls/1.2/no_ayu_rofls.plugin",
+      "sha256": "411bcc982668f2697c917967167046589d61231754a98ef7916ac6a368f25c75",
+      "size": 2238,
+      "description": "Disables AyuGram joke links.",
+      "description_i18n": {
+        "en": "Disables AyuGram joke links.",
+        "uk": "Відключає посилання на жарти AyuGram.",
+        "ru": "Отключает ссылки на шутки AyuGram.",
+        "pl": "Wyłącza linki do żartów AyuGram.",
+        "es": "Desactiva los enlaces de broma de AyuGram.",
+        "de": "Deaktiviert AyuGram-Witzlinks.",
+        "fr": "Désactive les liens de blague AyuGram.",
+        "pt-BR": "Desativa links de piadas do AyuGram.",
+        "tr": "AyuGram şaka bağlantılarını devre dışı bırakır.",
+        "ar": "تعطيل روابط نكتة AyuGram.",
+        "be": "Адключае спасылкі на жарты AyuGram.",
+        "kk": "AyuGram әзіл сілтемелерін өшіреді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
