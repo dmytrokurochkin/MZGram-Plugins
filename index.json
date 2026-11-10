@@ -1850,6 +1850,33 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "block_blast",
+      "name": "Block Blast",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/block_blast/1.0.0/block_blast.plugin",
+      "sha256": "6031a181224f671264c2c3d0236c24a389d453a057474f26b5552ff057f01beb",
+      "size": 41159,
+      "description": "Block blast on Exteragram! creator's channel.",
+      "description_i18n": {
+        "en": "Block blast on Exteragram! creator's channel.",
+        "uk": "Блокуйте вибух на Exteragram! канал творця.",
+        "ru": "Блокируйте взрыв на Exteragram! канал создателя.",
+        "pl": "Zablokuj wybuch na Exteragramie! kanał twórcy.",
+        "es": "¡Bloquea explosión en Exteragram! canal del creador.",
+        "de": "Blocken Sie Exteragram! Kanal des Erstellers.",
+        "fr": "Bloquez l'explosion sur Exteragram ! chaîne du créateur.",
+        "pt-BR": "Explosão de bloco no Exteragram! canal do criador.",
+        "tr": "Exteragram'da blok patlaması! yaratıcının kanalı.",
+        "ar": "منع الانفجار على Exteragram! قناة المبدع.",
+        "be": "Блакуйце выбух у Exteragram! канал стваральніка.",
+        "kk": "Exteragram-да жарылысты блоктау! жасаушы арнасы."
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
