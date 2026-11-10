@@ -11747,6 +11747,35 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "unlinked_stickers",
+      "name": "Unlinked Stickers",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/unlinked_stickers/1.1/unlinked_stickers.plugin",
+      "sha256": "4648c77b3072d74a58c50bb36dc0861bd07467b48d827d63ee8f866614ef1a4c",
+      "size": 26333,
+      "description": "Send stickers from any pack as your own uploaded documents, detached from the original sticker set.",
+      "description_i18n": {
+        "en": "Send stickers from any pack as your own uploaded documents, detached from the original sticker set.",
+        "uk": "Надсилайте наклейки з будь-якого пакету як власні завантажені документи, від'єднані від оригінального набору наклейок.",
+        "ru": "Отправляйте стикеры из любого пакета как собственные загруженные документы, отдельно от исходного набора стикеров.",
+        "pl": "Wysyłaj naklejki z dowolnego pakietu jako własne przesłane dokumenty, odłączone od oryginalnego zestawu naklejek.",
+        "es": "Envíe calcomanías de cualquier paquete como sus propios documentos cargados, separados del conjunto de calcomanías original.",
+        "de": "Senden Sie Aufkleber aus einem beliebigen Paket als Ihre eigenen hochgeladenen Dokumente, getrennt vom ursprünglichen Aufklebersatz.",
+        "fr": "Envoyez des autocollants de n'importe quel pack en tant que vos propres documents téléchargés, détachés du jeu d'autocollants d'origine.",
+        "pt-BR": "Envie adesivos de qualquer pacote como seus próprios documentos carregados, separados do conjunto original de adesivos.",
+        "tr": "Herhangi bir paketteki çıkartmaları, orijinal çıkartma setinden ayrı olarak, kendi yüklediğiniz belgeleriniz olarak gönderin.",
+        "ar": "أرسل الملصقات من أي حزمة كمستنداتك التي تم تحميلها، منفصلة عن مجموعة الملصقات الأصلية.",
+        "be": "Адпраўляйце налепкі з любога пакета як свае ўласныя запампаваныя дакументы, адарваныя ад зыходнага набору стыкераў.",
+        "kk": "Кез келген пакеттен стикерлерді түпнұсқа стикерлер жинағынан бөлек жүктеп салынған құжаттар ретінде жіберіңіз."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
