@@ -12263,6 +12263,34 @@
         "be": "Тэст хуткасці ўводу (слоў у хвіліну)",
         "kk": "Теру жылдамдығы сынағы (минутына сөз)"
       }
+    },
+    {
+      "id": "xiaomiotaprober",
+      "name": "Xiaomi Fastboot ROM fetcher",
+      "version": "1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/xiaomiotaprober/1.2/xiaomimiromfetcher.plugin",
+      "sha256": "10f09f1b9e044311bf3f838b738428ad2e77382da1e1147c1f6f9e3759351728",
+      "size": 3869,
+      "description": "Fastboot ROM fetcher",
+      "description_i18n": {
+        "en": "Fastboot ROM fetcher",
+        "uk": "Завантажувач ПЗУ Fastboot",
+        "ru": "Сборщик ПЗУ Fastboot",
+        "pl": "Moduł pobierania ROMu Fastboot",
+        "es": "Recuperador de ROM Fastboot",
+        "de": "Fastboot-ROM-Abrufer",
+        "fr": "Récupérateur de ROM Fastboot",
+        "pt-BR": "Buscador de ROM Fastboot",
+        "tr": "Fastboot ROM alıcısı",
+        "ar": "جلب ROM Fastboot",
+        "be": "Праграма зборкі ПЗУ Fastboot",
+        "kk": "Fastboot ROM fetcher"
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
