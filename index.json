@@ -11917,6 +11917,36 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "voice_changer_rust",
+      "name": "Voice Changer (Rust DSP)",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/voice_changer_rust/1.0.0/voice_changer_rust.plugin",
+      "sha256": "b62d0e265245e6302c8b006a59407692261fb20b4c5ac69638f836abbc09126a",
+      "size": 1152086,
+      "description": "Change voice in voice messages using native Rust DSP.",
+      "description_i18n": {
+        "en": "Change voice in voice messages using native Rust DSP.",
+        "uk": "Змінюйте голос у голосових повідомленнях за допомогою рідної Rust DSP.",
+        "ru": "Измените голос в голосовых сообщениях с помощью встроенного Rust DSP.",
+        "pl": "Zmień głos w wiadomościach głosowych za pomocą natywnego DSP Rust.",
+        "es": "Cambie la voz en los mensajes de voz utilizando Rust DSP nativo.",
+        "de": "Ändern Sie die Stimme in Sprachnachrichten mit dem nativen Rust DSP.",
+        "fr": "Changez la voix dans les messages vocaux à l'aide du Rust DSP natif.",
+        "pt-BR": "Altere a voz em mensagens de voz usando Rust DSP nativo.",
+        "tr": "Yerel Rust DSP'yi kullanarak sesli mesajlardaki sesi değiştirin.",
+        "ar": "قم بتغيير الصوت في الرسائل الصوتية باستخدام Rust DSP الأصلي.",
+        "be": "Змяняйце голас у галасавых паведамленнях, выкарыстоўваючы ўласны Rust DSP.",
+        "kk": "Rust DSP көмегімен дауыстық хабарлардағы дауысты өзгертіңіз."
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
