@@ -7660,6 +7660,33 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "no_profile_autoplay",
+      "name": "disable profile playlist autoplay",
+      "version": "1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/no_profile_autoplay/1/no_profile_autoplay.plugin",
+      "sha256": "70fbe26251e1af973106a0eb0b051d7a304c72eb3cab84c1226a174f7934ba19",
+      "size": 2121,
+      "description": "pauses music once if it was played from the user's profile",
+      "description_i18n": {
+        "en": "pauses music once if it was played from the user's profile",
+        "uk": "призупиняє музику один раз, якщо вона відтворювалася з профілю користувача",
+        "ru": "ставит музыку на паузу один раз, если она воспроизводилась из профиля пользователя",
+        "pl": "jednokrotnie wstrzymuje muzykę, jeśli była ona odtwarzana z profilu użytkownika",
+        "es": "pausa la música una vez si se reprodujo desde el perfil del usuario",
+        "de": "Pausiert die Musik einmal, wenn sie über das Profil des Benutzers abgespielt wurde",
+        "fr": "met la musique en pause une fois si elle a été lue à partir du profil de l'utilisateur",
+        "pt-BR": "pausa a música uma vez se ela tiver sido reproduzida no perfil do usuário",
+        "tr": "kullanıcının profilinden çalındıysa müziği bir kez duraklatır",
+        "ar": "يقوم بإيقاف الموسيقى مؤقتًا مرة واحدة إذا تم تشغيلها من الملف الشخصي للمستخدم",
+        "be": "прыпыняе музыку адзін раз, калі яна прайгравалася з профілю карыстальніка",
+        "kk": "музыка пайдаланушы профилінен ойнатылған болса, оны бір рет кідіртеді"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
