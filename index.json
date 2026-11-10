@@ -3088,6 +3088,34 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "custom_snow",
+      "name": "Custom Snow",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/custom_snow/1.0.0/custom_snow.plugin",
+      "sha256": "5c498ce02d2753a64850c32b426483f4924880f841e1cf862a7882de67ae0913",
+      "size": 26477,
+      "description": "Customize Telegram snow particles with sakura, matrix, rain, and autumn leaves.",
+      "description_i18n": {
+        "en": "Customize Telegram snow particles with sakura, matrix, rain, and autumn leaves.",
+        "uk": "Налаштуйте частинки снігу Telegram за допомогою сакури, матриці, дощу та осіннього листя.",
+        "ru": "Настройте снежные частицы Telegram с помощью сакуры, матрицы, дождя и осенних листьев.",
+        "pl": "Dostosuj cząsteczki śniegu Telegramu za pomocą sakury, matrixu, deszczu i jesiennych liści.",
+        "es": "Personaliza las partículas de nieve de Telegram con sakura, matriz, lluvia y hojas de otoño.",
+        "de": "Passen Sie Telegram-Schneepartikel mit Sakura, Matrix, Regen und Herbstblättern an.",
+        "fr": "Personnalisez les particules de neige Telegram avec des feuilles de sakura, de matrice, de pluie et d'automne.",
+        "pt-BR": "Personalize as partículas de neve do Telegram com folhas de sakura, matriz, chuva e outono.",
+        "tr": "Telegram kar parçacıklarını sakura, matris, yağmur ve sonbahar yapraklarıyla özelleştirin.",
+        "ar": "قم بتخصيص جزيئات الثلج في Telegram باستخدام أوراق الساكورا والمصفوفة والمطر وأوراق الخريف.",
+        "be": "Наладзьце часціцы снегу ў Telegram з сакурай, матрыцай, дажджом і восеньскім лісцем.",
+        "kk": "Telegram қар бөлшектерін сакура, матрица, жаңбыр және күзгі жапырақтармен теңшеңіз."
+      },
+      "permissions": [
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
