@@ -9826,6 +9826,34 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "save_selected_files",
+      "name": "Save Selected Files",
+      "version": "1.2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/save_selected_files/1.2.0/save_selected_files.plugin",
+      "sha256": "130f81df5a98488747c1ecdb5c5f92a6719247ee00ca0ded2a6b29815a106357",
+      "size": 13966,
+      "description": "Adds a save button to the action bar when selecting files in a media profile (Media and Files tabs) in search results and in cache management (Settings → Data and memory → Memory usage). Click it, and all selected files are saved to \"Downloads\" in one click.",
+      "description_i18n": {
+        "en": "Adds a save button to the action bar when selecting files in a media profile (Media and Files tabs) in search results and in cache management (Settings → Data and memory → Memory usage). Click it, and all selected files are saved to \"Downloads\" in one click.",
+        "uk": "Додає кнопку збереження на панель дій під час вибору файлів у медіа-профілі (вкладки «Медіа» та «Файли») у результатах пошуку та в керуванні кеш-пам'яттю (Параметри → Дані та пам'ять → Використання пам'яті). Натисніть її, і всі вибрані файли будуть збережені в «Завантаження» в один клік.",
+        "ru": "Добавляет кнопку сохранения на панель действий при выборе файлов в медиапрофиле (вкладки «Медиа» и «Файлы») в результатах поиска и в управлении кэшем (Настройки → Данные и память → Использование памяти). Нажмите на нее, и все выбранные файлы сохранятся в «Загрузки» в один клик.",
+        "pl": "Dodaje przycisk zapisu do paska akcji podczas wybierania plików w profilu multimediów (karty Multimedia i Pliki) w wynikach wyszukiwania i zarządzaniu pamięcią podręczną (Ustawienia → Dane i pamięć → Użycie pamięci). Kliknij, a wszystkie wybrane pliki zostaną zapisane w „Pobranych\" jednym kliknięciem.",
+        "es": "Agrega un botón de guardar a la barra de acciones al seleccionar archivos en un perfil de medios (pestañas Medios y Archivos) en los resultados de búsqueda y en la administración de caché (Configuración → Datos y memoria → Uso de memoria). Haga clic en él y todos los archivos seleccionados se guardarán en \"Descargas\" con un solo clic.",
+        "de": "Fügt der Aktionsleiste eine Schaltfläche zum Speichern hinzu, wenn Dateien in einem Medienprofil (Registerkarten „Medien\" und „Dateien\") in den Suchergebnissen und in der Cache-Verwaltung (Einstellungen → Daten und Speicher → Speichernutzung) ausgewählt werden. Klicken Sie darauf und alle ausgewählten Dateien werden mit einem Klick unter „Downloads\" gespeichert.",
+        "fr": "Ajoute un bouton Enregistrer à la barre d'action lors de la sélection de fichiers dans un profil multimédia (onglets Média et Fichiers) dans les résultats de recherche et dans la gestion du cache (Paramètres → Données et mémoire → Utilisation de la mémoire). Cliquez dessus et tous les fichiers sélectionnés sont enregistrés dans « Téléchargements » en un seul clic.",
+        "pt-BR": "Adiciona um botão salvar à barra de ação ao selecionar arquivos em um perfil de mídia (guias Mídia e Arquivos) nos resultados da pesquisa e no gerenciamento de cache (Configurações → Dados e memória → Uso de memória). Clique nele e todos os arquivos selecionados serão salvos em \"Downloads\" com um clique.",
+        "tr": "Arama sonuçlarında ve önbellek yönetiminde (Ayarlar → Veri ve bellek → Bellek kullanımı) bir medya profilindeki (Medya ve Dosyalar sekmeleri) dosyaları seçerken işlem çubuğuna bir kaydetme düğmesi ekler. Tıkladığınızda seçilen tüm dosyalar tek tıklamayla \"İndirilenler\"e kaydedilir.",
+        "ar": "لإضافة زر حفظ إلى شريط الإجراءات عند تحديد الملفات في ملف تعريف الوسائط (علامتي التبويب الوسائط والملفات) في نتائج البحث وفي إدارة ذاكرة التخزين المؤقت (الإعدادات ← البيانات والذاكرة ← استخدام الذاكرة). انقر فوقه، وسيتم حفظ جميع الملفات المحددة في \"التنزيلات\" بنقرة واحدة.",
+        "be": "Дадае кнопку захавання на панэль дзеянняў пры выбары файлаў у медыя-профілі (ўкладкі «Медыя» і «Файлы») у выніках пошуку і ў кіраванні кэшам (Настройкі → Даныя і памяць → Выкарыстанне памяці). Націсніце яе, і ўсе выбраныя файлы будуць захаваны ў «Спампаваць» у адзін клік.",
+        "kk": "Іздеу нәтижелерінде және кэшті басқаруда (Параметрлер → Деректер және жад → Жадты пайдалану) медиа профиліндегі файлдарды (Медиа және файлдар қойындылары) таңдағанда әрекеттер жолағына сақтау түймесін қосады. Оны басыңыз және барлық таңдалған файлдар бір рет басу арқылы «Жүктеулер» ішіне сақталады."
+      },
+      "permissions": [
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
