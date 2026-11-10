@@ -4543,6 +4543,34 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "folder_swipe",
+      "name": "Folder Swipe",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/folder_swipe/1.1.0/folder_swipe.plugin",
+      "sha256": "c4fc078d6e8a7aab1aa7265955de92b86487bc781f7ed211b1e5a1018b8ee59b",
+      "size": 10542,
+      "description": "Switching folders with a swipe, like on the iPhone: a swipe from the middle of the chat list scrolls through folders, and a swipe from the right edge performs an action on the chat (read, pin, etc.)",
+      "description_i18n": {
+        "en": "Switching folders with a swipe, like on the iPhone: a swipe from the middle of the chat list scrolls through folders, and a swipe from the right edge performs an action on the chat (read, pin, etc.)",
+        "uk": "Перемикання папок за допомогою свайпа, як на iPhone: свайп від середини списку чату прокручує папки, а свайп від правого краю виконує дію в чаті (читання, закріплення тощо)",
+        "ru": "Переключение папок свайпом, как на iPhone: свайп от середины списка чатов прокручивает папки, а свайп от правого края выполняет действие над чатом (прочитать, закрепить и т.д.)",
+        "pl": "Przełączanie folderów za pomocą przesunięcia, tak jak na iPhonie: przesunięcie od środka listy czatu powoduje przewijanie folderów, a przeciągnięcie od prawej krawędzi wykonuje akcję na czacie (czytanie, przypinanie itp.)",
+        "es": "Cambiar de carpeta con solo deslizar el dedo, como en el iPhone: al deslizar el dedo desde el centro de la lista de chat se desplaza por las carpetas, y al deslizar el dedo desde el borde derecho se realiza una acción en el chat (leer, fijar, etc.)",
+        "de": "Wechseln von Ordnern mit einem Wischen, wie auf dem iPhone: Ein Wischen aus der Mitte der Chat-Liste scrollt durch die Ordner, und ein Wischen vom rechten Rand führt eine Aktion im Chat aus (Lesen, Anheften usw.).",
+        "fr": "Changer de dossier d'un simple glissement, comme sur l'iPhone : un balayage depuis le milieu de la liste de discussion fait défiler les dossiers, et un balayage depuis le bord droit effectue une action sur le chat (lire, épingler, etc.)",
+        "pt-BR": "Alternar pastas deslizando, como no iPhone: deslizar do meio da lista de bate-papo rola pelas pastas e deslizar da borda direita executa uma ação no bate-papo (ler, fixar, etc.)",
+        "tr": "iPhone'da olduğu gibi kaydırmayla klasörler arasında geçiş yapma: sohbet listesinin ortasından kaydırma, klasörler arasında geçiş yapar ve sağ kenardan kaydırma, sohbette bir eylem (okuma, sabitleme vb.) gerçekleştirir.",
+        "ar": "تبديل المجلدات بالتمرير، كما هو الحال في iPhone: التمرير من منتصف قائمة الدردشة يتم تمريره عبر المجلدات، والتمرير من الحافة اليمنى يؤدي إلى تنفيذ إجراء في الدردشة (قراءة، تثبيت، وما إلى ذلك)",
+        "be": "Пераключэнне тэчак з дапамогай свайпа, як на iPhone: свайп ад сярэдзіны спісу чатаў пракручвае папкі, а свайп з правага краю выконвае дзеянне ў чаце (чытанне, замацаванне і г.д.)",
+        "kk": "iPhone телефонындағы сияқты сырғыту арқылы қалталарды ауыстыру: чат тізімінің ортасынан сырғыту қалталар арасында жылжиды, ал оң жақ жиектен сырғыту чатта әрекетті орындайды (оқу, бекіту, т.б.)."
+      },
+      "permissions": [
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
