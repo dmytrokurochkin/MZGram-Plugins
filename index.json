@@ -11314,6 +11314,33 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "tdesktop_copy",
+      "name": "Copy Like TDesktop",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/tdesktop_copy/1.0.0/tdesktop_copy.plugin",
+      "sha256": "ff39b1d5c3d2febdf50e3eec24f912335d53dcc9816d3f5b425f17863340eee7",
+      "size": 2093,
+      "description": "Copies messages with date and time in Telegram Desktop style",
+      "description_i18n": {
+        "en": "Copies messages with date and time in Telegram Desktop style",
+        "uk": "Копіює повідомлення з датою та часом у стилі Telegram Desktop",
+        "ru": "Копирует сообщения с датой и временем в стиле Telegram Desktop.",
+        "pl": "Kopiuje wiadomości z datą i godziną w stylu Telegram Desktop",
+        "es": "Copia mensajes con fecha y hora al estilo Telegram Desktop",
+        "de": "Kopiert Nachrichten mit Datum und Uhrzeit im Telegram Desktop-Stil",
+        "fr": "Copie les messages avec la date et l'heure dans le style Telegram Desktop",
+        "pt-BR": "Copia mensagens com data e hora no estilo Telegram Desktop",
+        "tr": "Mesajları tarih ve saatle birlikte Telegram Masaüstü stilinde kopyalar",
+        "ar": "نسخ الرسائل بالتاريخ والوقت بأسلوب Telegram Desktop",
+        "be": "Капіруе паведамленні з датай і часам у стылі Telegram Desktop",
+        "kk": "Хабарларды күні мен уақыты бар Telegram Desktop стилінде көшіреді"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
