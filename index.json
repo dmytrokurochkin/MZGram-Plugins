@@ -7749,6 +7749,33 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "nowfy",
+      "name": "Nowfy",
+      "version": "1.1.6",
+      "min_app_version": "1.0.0",
+      "file": "plugins/nowfy/1.1.6/nowfy.plugin",
+      "sha256": "f84ec2077886db710f87d04d61cd61384a47ce5e3a31a420f29ec998f524ef07",
+      "size": 1649,
+      "description": "Nowfy brings dynamic music cards, visual themes, and seamless integration with multiple music services to enhance the Now Playing experience in chat. • Powered by [Dotted Plugins](https://t.me/exteraDevPlugins)",
+      "description_i18n": {
+        "en": "Nowfy brings dynamic music cards, visual themes, and seamless integration with multiple music services to enhance the Now Playing experience in chat. • Powered by [Dotted Plugins](https://t.me/exteraDevPlugins)",
+        "uk": "Nowfy пропонує динамічні музичні картки, візуальні теми та повну інтеграцію з кількома музичними службами для покращення досвіду роботи функції «Зараз грає» в чаті. • На основі [Dotted Plugins](https://t.me/exteraDevPlugins)",
+        "ru": "Nowfy предлагает динамические музыкальные карточки, визуальные темы и плавную интеграцию с несколькими музыкальными сервисами для улучшения восприятия «Сейчас исполняется» в чате. • Работает на основе [Dotted Plugins](https://t.me/exteraDevPlugins).",
+        "pl": "Nowfy oferuje dynamiczne karty muzyczne, motywy wizualne i bezproblemową integrację z wieloma usługami muzycznymi, aby poprawić jakość Teraz odtwarzane na czacie. • Obsługiwane przez [Wtyczki z kropkami](https://t.me/exteraDevPlugins)",
+        "es": "Nowfy ofrece tarjetas de música dinámicas, temas visuales y una integración perfecta con múltiples servicios de música para mejorar la experiencia Now Playing en el chat. • Desarrollado por [Complementos punteados] (https://t.me/exteraDevPlugins)",
+        "de": "Nowfy bietet dynamische Musikkarten, visuelle Themen und eine nahtlose Integration mit mehreren Musikdiensten, um das Now Playing-Erlebnis im Chat zu verbessern. • Unterstützt von [Dotted Plugins](https://t.me/exteraDevPlugins)",
+        "fr": "Nowfy propose des cartes musicales dynamiques, des thèmes visuels et une intégration transparente avec plusieurs services de musique pour améliorer l'expérience Now Playing dans le chat. • Propulsé par [Plugins pointillés](https://t.me/exteraDevPlugins)",
+        "pt-BR": "Nowfy traz cartões de música dinâmicos, temas visuais e integração perfeita com vários serviços de música para aprimorar a experiência do Now Playing no chat. • Desenvolvido por [Plugins Pontilhados](https://t.me/exteraDevPlugins)",
+        "tr": "Nowfy, sohbette Şimdi Yürütülüyor deneyimini geliştirmek için dinamik müzik kartları, görsel temalar ve birden fazla müzik hizmetiyle kusursuz entegrasyon sağlar. • [Noktalı Eklentiler](https://t.me/exteraDevPlugins) tarafından desteklenmektedir",
+        "ar": "تقدم Nowfy بطاقات الموسيقى الديناميكية والموضوعات المرئية والتكامل السلس مع خدمات الموسيقى المتعددة لتعزيز تجربة التشغيل الآن في الدردشة. • مدعوم من [المكونات الإضافية المنقطة](https://t.me/exteraDevPlugins)",
+        "be": "Nowfy прапануе дынамічныя музычныя паштоўкі, візуальныя тэмы і бясшвоўную інтэграцыю з мноствам музычных сэрвісаў для паляпшэння вопыту прайгравання ў чаце. • Працуе на [Dotted Plugins](https://t.me/exteraDevPlugins)",
+        "kk": "Nowfy чатта Now Playing тәжірибесін жақсарту үшін динамикалық музыка карталарын, визуалды тақырыптарды және бірнеше музыка қызметтерімен үздіксіз интеграцияны ұсынады. • [Notted Plugins] арқылы қуатталған (https://t.me/exteraDevPlugins)"
+      },
+      "requirements": [
+        "nowfy"
+      ]
     }
   ]
 }
