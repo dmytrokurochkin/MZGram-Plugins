@@ -5857,6 +5857,35 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "itt",
+      "name": "Invisible TikTok",
+      "version": "1.3.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/itt/1.3.0/itt.plugin",
+      "sha256": "898b77678113392976db8f7103eea62d95557f30a090b655a2c47d4ae4a2c930",
+      "size": 35339,
+      "description": "To avoid giving Kent a ton of fucking links to dildos",
+      "description_i18n": {
+        "en": "To avoid giving Kent a ton of fucking links to dildos",
+        "uk": "Щоб не давати Кенту купу чортових посилань на фалоімітатори",
+        "ru": "Чтобы не давать Кенту кучу чертовых ссылок на дилдо.",
+        "pl": "Aby uniknąć podawania Kentowi tony pieprzonych linków do wibratorów",
+        "es": "Para evitar darle a Kent un montón de malditos enlaces a consoladores.",
+        "de": "Um zu vermeiden, dass Kent jede Menge verdammte Links zu Dildos erhält",
+        "fr": "Pour éviter de donner à Kent une tonne de putains de liens vers des godes",
+        "pt-BR": "Para evitar dar a Kent uma tonelada de links para consolos",
+        "tr": "Kent'e yapay penislerle bir sürü lanet bağlantı vermemek için",
+        "ar": "لتجنب إعطاء كينت الكثير من الروابط اللعينة لقضبان اصطناعية",
+        "be": "Каб не даваць Кенту масу чортавых спасылак на фалаімітатары",
+        "kk": "Кентке дилдоларға бірнеше тонна сілтеме бермеу үшін"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
