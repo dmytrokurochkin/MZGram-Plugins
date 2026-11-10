@@ -1349,6 +1349,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "asb",
+      "name": "ASB",
+      "version": "10.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/asb/10.0.0/asb.plugin",
+      "sha256": "4009d871e97e5698189b64be2205d78ef7fb2b9233727c4ed036553512ecdd4b",
+      "size": 15733,
+      "description": "Always Send Button - Manage send, voice and video message buttons. 4 modes.",
+      "description_i18n": {
+        "en": "Always Send Button - Manage send, voice and video message buttons. 4 modes.",
+        "uk": "Кнопка «Завжди надсилати» - керуйте кнопками надсилання, голосових і відеоповідомлень. 4 режими.",
+        "ru": "Кнопка «Всегда отправлять» - управление кнопками отправки, голосовых и видеосообщений. 4 режима.",
+        "pl": "Przycisk Zawsze wysyłaj - zarządzaj przyciskami wysyłania, wiadomości głosowych i wideo. 4 tryby.",
+        "es": "Botón Enviar siempre: administre los botones de envío, mensajes de voz y video. 4 modos.",
+        "de": "Schaltfläche „Immer senden\" - Verwalten Sie die Schaltflächen zum Senden, Sprach- und Videonachrichten. 4 Modi.",
+        "fr": "Bouton Toujours envoyer - Gérez les boutons d'envoi, de messages vocaux et vidéo. 4 modes.",
+        "pt-BR": "Botão Sempre Enviar - Gerencie os botões de envio, mensagens de voz e vídeo. 4 modos.",
+        "tr": "Her Zaman Gönder Düğmesi - Gönderme, sesli ve görüntülü mesaj düğmelerini yönetin. 4 mod.",
+        "ar": "زر الإرسال دائمًا - إدارة أزرار رسائل الإرسال والصوت والفيديو. 4 أوضاع.",
+        "be": "Кнопка \"Заўсёды адпраўляць\" - кіруйце кнопкамі адпраўкі, галасавых і відэапаведамленняў. 4 рэжыму.",
+        "kk": "Әрқашан жіберу түймесі - Жіберу, дауыстық және бейне хабарлама түймелерін басқару. 4 режим."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
