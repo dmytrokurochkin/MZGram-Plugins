@@ -12291,6 +12291,36 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "zwyAdminTools",
+      "name": "AdminTools",
+      "version": "3.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/zwyAdminTools/3.0.1/zwyAdminTools.plugin",
+      "sha256": "d01dc7e18cdee4ef8cd4510d3f1afef6c61ac048a64b9c9817b810b872c03f37",
+      "size": 214955,
+      "description": "Makes muting, kicking, banning and more admin things a way easier (see details in \"Help\" segment in the plugin settings). > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.0 or greater!",
+      "description_i18n": {
+        "en": "Makes muting, kicking, banning and more admin things a way easier (see details in \"Help\" segment in the plugin settings). > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.0 or greater!",
+        "uk": "Полегшує вимикання звуку, викидання, заборону та інші дії адміністратора (дивіться подробиці в сегменті «Довідка» в налаштуваннях плагіна). > Потрібен **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.0 або новішої версії!",
+        "ru": "Упрощает отключение звука, кикание, бан и другие действия администратора (подробности см. в разделе «Помощь» в настройках плагина). > Требуется **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.0 или более поздняя версия!",
+        "pl": "Sprawia, że ​​wyciszanie, wyrzucanie, banowanie i inne czynności administracyjne są znacznie łatwiejsze (zobacz szczegóły w segmencie „Pomoc\" w ustawieniach wtyczki). > Wymaga **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.0 lub nowszego!",
+        "es": "Hace que silenciar, expulsar, prohibir y más cosas administrativas sean mucho más fáciles (consulte los detalles en el segmento \"Ayuda\" en la configuración del complemento). > ¡Requiere **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.0 o superior!",
+        "de": "Erleichtert das Stummschalten, Kicken, Bannen und andere Verwaltungsaufgaben erheblich (siehe Details im Abschnitt „Hilfe\" in den Plugin-Einstellungen). > Erfordert **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.0 oder höher!",
+        "fr": "Facilite grandement la mise en sourdine, l'expulsion, l'interdiction et d'autres tâches d'administration (voir les détails dans le segment \"Aide\" dans les paramètres du plugin). > Nécessite **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.0 ou supérieur !",
+        "pt-BR": "Torna mais fácil silenciar, expulsar, banir e muito mais tarefas administrativas (veja detalhes no segmento \"Ajuda\" nas configurações do plugin). > Requer **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.0 ou superior!",
+        "tr": "Sessize alma, tekmeleme, yasaklama ve diğer yönetim işlemlerini çok daha kolay hale getirir (ayrıntıları eklenti ayarlarındaki \"Yardım\" bölümünde bulabilirsiniz). > **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.0 veya üzerini gerektirir!",
+        "ar": "يجعل كتم الصوت والركل والحظر والمزيد من الأشياء الإدارية أسهل بكثير (راجع التفاصيل في قسم \"المساعدة\" في إعدادات البرنامج الإضافي). > يتطلب **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.0 أو أحدث!",
+        "be": "Палягчае адключэнне гуку, выкідванне, забарону і іншыя дзеянні адміністратара (падрабязнасці глядзіце ў сегменце \"Даведка\" ў наладах плагіна). > Патрабуецца **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.0 або вышэй!",
+        "kk": "Дыбысты өшіру, тебу, тыйым салу және басқа да әкімші әрекеттерін жеңілдетеді (плагин параметрлеріндегі «Анықтама» сегментіндегі мәліметтерді қараңыз). > **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.0 немесе одан жоғары нұсқасын талап етеді!"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
