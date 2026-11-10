@@ -3426,6 +3426,33 @@
         "be": "Гульня: знайдзі ўсе схаваныя алмазы.",
         "kk": "Ойын: Барлық жасырылған гауһар тастарды табыңыз."
       }
+    },
+    {
+      "id": "dinorunner",
+      "name": "Dino Runner",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/dinorunner/1.0/Dino Runner.plugin",
+      "sha256": "46a036f569c15c699f428395e8a80a529fb323d276111ca51b59d84bcbe3132b",
+      "size": 25079,
+      "description": "Google dinosaur game with obstacles, records and customization.",
+      "description_i18n": {
+        "en": "Google dinosaur game with obstacles, records and customization.",
+        "uk": "Гра про динозаврів Google з перешкодами, рекордами та налаштуваннями.",
+        "ru": "Игра динозавров от Google с препятствиями, рекордами и кастомизацией.",
+        "pl": "Gra Google o dinozaurach z przeszkodami, rekordami i możliwością personalizacji.",
+        "es": "Juego de dinosaurios de Google con obstáculos, registros y personalización.",
+        "de": "Google-Dinosaurierspiel mit Hindernissen, Aufzeichnungen und Anpassungsmöglichkeiten.",
+        "fr": "Jeu de dinosaures Google avec obstacles, enregistrements et personnalisation.",
+        "pt-BR": "Jogo de dinossauros do Google com obstáculos, recordes e customização.",
+        "tr": "Engeller, kayıtlar ve özelleştirme içeren Google dinozor oyunu.",
+        "ar": "لعبة ديناصور جوجل مع العوائق والسجلات والتخصيص.",
+        "be": "Гульня пра дыназаўраў Google з перашкодамі, рэкордамі і наладамі.",
+        "kk": "Кедергілері, жазбалары және теңшеулері бар Google динозавр ойыны."
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }
