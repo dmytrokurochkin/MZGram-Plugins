@@ -7261,6 +7261,37 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "music_editor",
+      "name": "Music Editor",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/music_editor/1.0.0/music_editor.plugin",
+      "sha256": "8932cb10f354f17ca32faf78e828e4615c63f7c2a39857be81ed8c9c6ef7c712",
+      "size": 45089,
+      "description": "Music editor in the built-in player: tags (title, artist, album), cover, trim, speed and tone, reverb, bass, volume, 8D, wide stereo, smooth start/end, volume equalization, equalizer, presets (Slowed + Reverb, Nightcore...), bitrate. The result can be saved to Favorites, sent to chat or downloaded.",
+      "description_i18n": {
+        "en": "Music editor in the built-in player: tags (title, artist, album), cover, trim, speed and tone, reverb, bass, volume, 8D, wide stereo, smooth start/end, volume equalization, equalizer, presets (Slowed + Reverb, Nightcore...), bitrate. The result can be saved to Favorites, sent to chat or downloaded.",
+        "uk": "Музичний редактор у вбудованому плеєрі: теги (назва, виконавець, альбом), обкладинка, обрізка, швидкість і тон, реверберація, бас, гучність, 8D, широке стерео, плавний початок/кінець, еквалайзер гучності, еквалайзер, пресети (Slowed + Reverb, Nightcore...), бітрейт. Результат можна зберегти у Вибране, надіслати в чат або завантажити.",
+        "ru": "Музыкальный редактор во встроенном плеере: теги (название, исполнитель, альбом), обложка, обрезка, скорость и тон, реверберация, басы, громкость, 8D, широкое стерео, плавное начало/конец, выравнивание громкости, эквалайзер, пресеты (замедленное + реверберация, Nightcore...), битрейт. Результат можно сохранить в Избранное, отправить в чат или скачать.",
+        "pl": "Edytor muzyki we wbudowanym odtwarzaczu: tagi (tytuł, wykonawca, album), okładka, przycięcie, prędkość i ton, pogłos, bas, głośność, 8D, szerokie stereo, płynny start/koniec, wyrównywanie głośności, korektor, ustawienia wstępne (Slowed + Reverb, Nightcore...), bitrate. Wynik można zapisać w Ulubionych, wysłać na czat lub pobrać.",
+        "es": "Editor de música en el reproductor integrado: etiquetas (título, artista, álbum), portada, recorte, velocidad y tono, reverberación, graves, volumen, 8D, estéreo amplio, inicio/final suave, ecualización de volumen, ecualizador, preajustes (Slowed + Reverb, Nightcore...), bitrate. El resultado se puede guardar en Favoritos, enviar al chat o descargar.",
+        "de": "Musikeditor im integrierten Player: Tags (Titel, Künstler, Album), Cover, Trim, Geschwindigkeit und Ton, Hall, Bass, Lautstärke, 8D, Wide Stereo, sanfter Start/Ende, Lautstärkeausgleich, Equalizer, Voreinstellungen (Slowed + Reverb, Nightcore...), Bitrate. Das Ergebnis kann in den Favoriten gespeichert, an den Chat gesendet oder heruntergeladen werden.",
+        "fr": "Editeur de musique dans le lecteur intégré : tags (titre, artiste, album), pochette, trim, vitesse et tonalité, réverbération, basse, volume, 8D, stéréo large, début/fin fluide, égalisation du volume, égaliseur, préréglages (Slowed + Reverb, Nightcore...), débit. Le résultat peut être enregistré dans les Favoris, envoyé au chat ou téléchargé.",
+        "pt-BR": "Editor de música no player integrado: tags (título, artista, álbum), capa, corte, velocidade e tom, reverberação, baixo, volume, 8D, estéreo amplo, início/fim suave, equalização de volume, equalizador, predefinições (Slowed + Reverb, Nightcore...), taxa de bits. O resultado pode ser salvo em Favoritos, enviado para chat ou baixado.",
+        "tr": "Dahili oynatıcıdaki müzik düzenleyici: etiketler (başlık, sanatçı, albüm), kapak, kırpma, hız ve ton, yankı, bas, ses seviyesi, 8D, geniş stereo, yumuşak başlangıç/bitiş, ses dengeleme, ekolayzır, ön ayarlar (Yavaşlatılmış + Yankı, Nightcore...), bit hızı. Sonuç Favorilere kaydedilebilir, sohbete gönderilebilir veya indirilebilir.",
+        "ar": "محرر الموسيقى في المشغل المدمج: العلامات (العنوان، الفنان، الألبوم)، الغلاف، القطع، السرعة والنغمة، الصدى، الجهير، مستوى الصوت، 8D، استريو عريض، بداية/نهاية سلسة، معادلة الصوت، المعادل، الإعدادات المسبقة (Slowed + Reverb، Nightcore...)، معدل البت. يمكن حفظ النتيجة في المفضلة أو إرسالها للدردشة أو تنزيلها.",
+        "be": "Музычны рэдактар ​​ва ўбудаваным плэеры: тэгі (назва, выканаўца, альбом), вокладка, аздабленне, хуткасць і тон, рэверберацыя, басы, гучнасць, 8D, шырокае стэрэа, плыўны пачатак/канец, эквалайзер гучнасці, эквалайзер, прадусталяваныя (Slowed + Reverb, Nightcore...), бітрэйт. Вынік можна захаваць у Выбранае, адправіць у чат або спампаваць.",
+        "kk": "Кірістірілген ойнатқыштағы музыкалық редактор: тегтер (атауы, орындаушы, альбом), мұқаба, кесу, жылдамдық және тон, реверб, басс, дыбыс деңгейі, 8D, кең стерео, біркелкі бастау/аяқтау, дыбысты теңестіру, эквалайзер, алдын ала орнатулар (Баяулатылған + Реверб, Түнгі кор...), бит жылдамдығы. Нәтижені Таңдаулыларға сақтауға, чатқа жіберуге немесе жүктеп алуға болады."
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
