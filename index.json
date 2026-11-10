@@ -6342,6 +6342,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "log_quote",
+      "name": "Log Quote",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/log_quote/1.1/log_quote.plugin",
+      "sha256": "81acd96f83e504df1c77c920cc886481d91ad2d3b990e9d2714e964ba0b5a434",
+      "size": 9173,
+      "description": "Adds a button to the input field when clicked which changes all the text into a collapsible quote",
+      "description_i18n": {
+        "en": "Adds a button to the input field when clicked which changes all the text into a collapsible quote",
+        "uk": "Додає кнопку до поля введення, якщо натиснути, яка перетворює весь текст на цитату, що згортається",
+        "ru": "Добавляет кнопку в поле ввода, при нажатии на которую весь текст превращается в сворачиваемую цитату.",
+        "pl": "Dodaje przycisk do pola wejściowego po kliknięciu, który zmienia cały tekst w zwijany cytat",
+        "es": "Agrega un botón al campo de entrada cuando se hace clic que cambia todo el texto en una cita plegable",
+        "de": "Fügt beim Klicken eine Schaltfläche zum Eingabefeld hinzu, die den gesamten Text in ein zusammenklappbares Zitat verwandelt",
+        "fr": "Ajoute un bouton au champ de saisie lorsque vous cliquez dessus, ce qui transforme tout le texte en une citation pliable",
+        "pt-BR": "Adiciona um botão ao campo de entrada quando clicado, o que transforma todo o texto em uma citação recolhível",
+        "tr": "Tıklandığında giriş alanına tüm metni daraltılabilir bir alıntıya dönüştüren bir düğme ekler",
+        "ar": "يضيف زرًا إلى حقل الإدخال عند النقر عليه مما يؤدي إلى تغيير النص بالكامل إلى اقتباس قابل للطي",
+        "be": "Дадае кнопку ў поле ўводу пры націсканні, якая змяняе ўвесь тэкст у згортваемую цытату",
+        "kk": "Басқан кезде енгізу өрісіне барлық мәтінді жиналмалы тырнақшаға өзгертетін түймені қосады"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
