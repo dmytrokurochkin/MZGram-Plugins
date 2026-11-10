@@ -5021,6 +5021,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "gifts_studio",
+      "name": "Gifts Studio",
+      "version": "2.4.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/gifts_studio/2.4.1/gifts_studio.plugin",
+      "sha256": "14529b0f20d97aaf481c3df68a73b7e7b28ae8051fee6449944939492907eed8",
+      "size": 99380,
+      "description": "Setting up the \"Gifts\" tab in your profile: number of gifts in a row, size, order, filters, edits for individual gifts and flight mode. Only the display on your device changes.",
+      "description_i18n": {
+        "en": "Setting up the \"Gifts\" tab in your profile: number of gifts in a row, size, order, filters, edits for individual gifts and flight mode. Only the display on your device changes.",
+        "uk": "Налаштування вкладки «Подарунки» в профілі: кількість подарунків підряд, розмір, порядок, фільтри, редагування індивідуальних подарунків і режим польоту. Змінюється лише дисплей на вашому пристрої.",
+        "ru": "Настройка вкладки «Подарки» в профиле: количество подарков в ряду, размер, порядок, фильтры, правки отдельных подарков и режима полета. Меняется только дисплей на вашем устройстве.",
+        "pl": "Konfiguracja zakładki „Prezenty\" w Twoim profilu: liczba prezentów w rzędzie, rozmiar, kolejność, filtry, edycja poszczególnych prezentów i tryb samolotowy. Zmienia się tylko wyświetlacz na Twoim urządzeniu.",
+        "es": "Configurar la pestaña \"Regalos\" en tu perfil: número de regalos seguidos, tamaño, orden, filtros, ediciones para regalos individuales y modo de vuelo. Sólo cambia la pantalla de su dispositivo.",
+        "de": "Einrichten der Registerkarte „Geschenke\" in Ihrem Profil: Anzahl der Geschenke in einer Reihe, Größe, Reihenfolge, Filter, Bearbeitungen für einzelne Geschenke und Flugmodus. Lediglich die Anzeige auf Ihrem Gerät ändert sich.",
+        "fr": "Mise en place de l'onglet « Cadeaux » dans votre profil : nombre de cadeaux d'affilée, taille, ordre, filtres, modifications des cadeaux individuels et mode vol. Seul l'affichage sur votre appareil change.",
+        "pt-BR": "Configurando a aba \"Presentes\" em seu perfil: quantidade de presentes seguidos, tamanho, pedido, filtros, edições para presentes individuais e modo de voo. Apenas a exibição do seu dispositivo muda.",
+        "tr": "Profilinizde \"Hediyeler\" sekmesini ayarlama: sıradaki hediye sayısı, boyutu, sırası, filtreleri, bireysel hediyeler için düzenlemeler ve uçuş modu. Yalnızca cihazınızın ekranı değişir.",
+        "ar": "إعداد علامة التبويب \"الهدايا\" في ملفك الشخصي: عدد الهدايا في الصف والحجم والطلب والمرشحات وتعديلات الهدايا الفردية ووضع الطيران. يتغير العرض الموجود على جهازك فقط.",
+        "be": "Настройка ўкладкі «Падарункі» ў профілі: колькасць падарункаў у радку, памер, парадак, фільтры, рэдагаванне асобных падарункаў і рэжым палёту. Змяняецца толькі дысплей на вашым прыладзе.",
+        "kk": "Профильдегі «Сыйлықтар» қойындысын орнату: қатардағы сыйлықтар саны, өлшемі, реті, сүзгілері, жеке сыйлықтарға арналған өңдеулер және ұшу режимі. Құрылғыдағы дисплей ғана өзгереді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
