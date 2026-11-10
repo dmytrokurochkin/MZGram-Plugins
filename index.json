@@ -4403,6 +4403,35 @@
         "messages.send",
         "files"
       ]
+    },
+    {
+      "id": "fix_endpoint_gooey",
+      "name": "Notch Fix",
+      "version": "3.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/fix_endpoint_gooey/3.3/fix_endpoint_gooey.plugin",
+      "sha256": "4803db31468608dfd54d939d56737d206830f9ac8f8ba2dd1fe1a5c8a25676d1",
+      "size": 26843,
+      "description": "changes the profile avatar endpoint",
+      "description_i18n": {
+        "en": "changes the profile avatar endpoint",
+        "uk": "змінює кінцеву точку аватара профілю",
+        "ru": "меняет конечную точку аватара профиля",
+        "pl": "zmienia punkt końcowy awatara profilu",
+        "es": "cambia el punto final del avatar del perfil",
+        "de": "Ändert den Profil-Avatar-Endpunkt",
+        "fr": "modifie le point de terminaison de l'avatar du profil",
+        "pt-BR": "altera o endpoint do avatar do perfil",
+        "tr": "profil avatarının uç noktasını değiştirir",
+        "ar": "يغير نقطة نهاية الصورة الرمزية للملف الشخصي",
+        "be": "змяняе канчатковую кропку аватара профілю",
+        "kk": "профиль аватарының соңғы нүктесін өзгертеді"
+      },
+      "permissions": [
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
