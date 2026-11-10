@@ -1795,6 +1795,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "big_reactions",
+      "name": "Big Reactions",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/big_reactions/1.0.0/big_reactions.plugin",
+      "sha256": "c098e7bbde6ee6bf95cf06a81e456aa88a62a55224c28e2925929dfd86139b80",
+      "size": 1669,
+      "description": "All reactions are now set to large by default - with full-screen animation of the effect, without holding down the reaction for 3 seconds. Every reaction is now sent as a big one by default - full-screen effect animation, no need to long-press for 3 seconds.",
+      "description_i18n": {
+        "en": "All reactions are now set to large by default - with full-screen animation of the effect, without holding down the reaction for 3 seconds. Every reaction is now sent as a big one by default - full-screen effect animation, no need to long-press for 3 seconds.",
+        "uk": "За замовчуванням для всіх реакцій тепер встановлено значення великих розмірів - із повноекранною анімацією ефекту, без утримування реакції протягом 3 секунд. Кожна реакція тепер надсилається як велика за замовчуванням - повноекранний ефект анімації, не потрібно довго натискати протягом 3 секунд.",
+        "ru": "Все реакции теперь по умолчанию установлены большие - с полноэкранной анимацией эффекта, без удержания реакции на 3 секунды. Каждая реакция теперь по умолчанию отправляется как большая - полноэкранная анимация эффекта, нет необходимости удерживать кнопку в течение 3 секунд.",
+        "pl": "Wszystkie reakcje są teraz domyślnie ustawione na duże - z pełnoekranową animacją efektu, bez przytrzymywania reakcji przez 3 sekundy. Każda reakcja jest teraz domyślnie wysyłana jako duża - animacja efektu pełnoekranowego, nie ma potrzeby długiego naciskania przez 3 sekundy.",
+        "es": "Todas las reacciones ahora están configuradas en grande de forma predeterminada, con animación del efecto en pantalla completa, sin mantener presionada la reacción durante 3 segundos. Cada reacción ahora se envía como una grande de forma predeterminada: animación de efecto de pantalla completa, no es necesario mantener presionada durante 3 segundos.",
+        "de": "Alle Reaktionen sind jetzt standardmäßig auf groß eingestellt - mit Vollbildanimation des Effekts, ohne die Reaktion 3 Sekunden lang gedrückt zu halten. Jede Reaktion wird jetzt standardmäßig als große Reaktion gesendet - Animation mit Vollbildeffekt, kein langes Drücken für 3 Sekunden erforderlich.",
+        "fr": "Toutes les réactions sont désormais définies en grand par défaut - avec une animation plein écran de l'effet, sans maintenir la réaction enfoncée pendant 3 secondes. Chaque réaction est désormais envoyée en grande quantité par défaut : animation d'effet en plein écran, pas besoin d'appuyer longuement pendant 3 secondes.",
+        "pt-BR": "Todas as reações agora são definidas como grandes por padrão - com animação do efeito em tela inteira, sem manter a reação pressionada por 3 segundos. Cada reação agora é enviada como grande por padrão - animação com efeito de tela inteira, sem necessidade de manter pressionado por 3 segundos.",
+        "tr": "Artık tüm reaksiyonlar varsayılan olarak büyük olarak ayarlanmıştır; reaksiyonun 3 saniye boyunca basılı tutulmasına gerek kalmadan efektin tam ekran animasyonu mevcuttur. Artık her tepki varsayılan olarak büyük bir tepki olarak gönderiliyor - tam ekran efektli animasyon, 3 saniye boyunca uzun basmaya gerek yok.",
+        "ar": "تم الآن ضبط جميع التفاعلات على حجم كبير افتراضيًا - مع عرض الرسوم المتحركة للتأثير بملء الشاشة، دون الضغط باستمرار على التفاعل لمدة 3 ثوانٍ. يتم الآن إرسال كل رد فعل كرد فعل كبير بشكل افتراضي - تأثير الرسوم المتحركة بملء الشاشة، لا حاجة للضغط لفترة طويلة لمدة 3 ثوان.",
+        "be": "Усе рэакцыі цяпер па змаўчанні настроены на вялікія - з поўнаэкраннай анімацыяй эфекту, без утрымання рэакцыі на працягу 3 секунд. Цяпер кожная рэакцыя па змаўчанні адпраўляецца як вялікая - поўнаэкранны эфект анімацыі, няма неабходнасці доўга націскаць на працягу 3 секунд.",
+        "kk": "Барлық реакциялар енді әдепкі бойынша үлкен мәнге орнатылды - реакцияны 3 секунд бойы басып тұрмай, әсердің толық экранды анимациясымен. Әрбір реакция енді әдепкі бойынша үлкен реакция ретінде жіберіледі - толық экран әсерлі анимация, 3 секунд бойы ұзақ басып тұрудың қажеті жоқ."
+      },
+      "permissions": [
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
