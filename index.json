@@ -4762,6 +4762,38 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "fullscreen_music_player",
+      "name": "Music Player",
+      "version": "1.2.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/fullscreen_music_player/1.2.1/fullscreen_music_player.plugin",
+      "sha256": "3d8195b9e3f63b913cdf503e9264f285f73282eea52bf62b94bfb1584a6c3301",
+      "size": 105817,
+      "description": "Full screen music player. If you are updating the plugin, restart Telegram.",
+      "description_i18n": {
+        "en": "Full screen music player. If you are updating the plugin, restart Telegram.",
+        "uk": "Музичний плеєр на весь екран. Якщо ви оновлюєте плагін, перезапустіть Telegram.",
+        "ru": "Полноэкранный музыкальный проигрыватель. Если вы обновляете плагин, перезапустите Telegram.",
+        "pl": "Odtwarzacz muzyki na pełnym ekranie. Jeśli aktualizujesz wtyczkę, uruchom ponownie Telegram.",
+        "es": "Reproductor de música en pantalla completa. Si está actualizando el complemento, reinicie Telegram.",
+        "de": "Vollbild-Musikplayer. Wenn Sie das Plugin aktualisieren, starten Sie Telegram neu.",
+        "fr": "Lecteur de musique plein écran. Si vous mettez à jour le plugin, redémarrez Telegram.",
+        "pt-BR": "Leitor de música em tela cheia. Se você estiver atualizando o plugin, reinicie o Telegram.",
+        "tr": "Tam ekran müzik çalar. Eklentiyi güncelliyorsanız Telegram'ı yeniden başlatın.",
+        "ar": "Full screen music player. إذا كنت تقوم بتحديث المكون الإضافي، فأعد تشغيل Telegram.",
+        "be": "Поўнаэкранны музычны прайгравальнік. Калі вы абнаўляеце плагін, перазапусціце Telegram.",
+        "kk": "Толық экранды музыка ойнатқышы. Плагинді жаңартып жатсаңыз, Telegram қолданбасын қайта іске қосыңыз."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "files",
+        "intents",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
