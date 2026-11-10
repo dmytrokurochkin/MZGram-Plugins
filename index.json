@@ -511,6 +511,36 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "ProfileForge",
+      "name": "Profile Forge",
+      "version": "1.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/ProfileForge/1.4/ProfileForge.plugin",
+      "sha256": "e5476286ffce8293f9c3a326fd86da16e99d53af6cb92470d683f5832353dc3d",
+      "size": 125410,
+      "description": "Plugin for profile customization: banners, nickname fonts, gradient nicknames",
+      "description_i18n": {
+        "en": "Plugin for profile customization: banners, nickname fonts, gradient nicknames",
+        "uk": "Плагін для налаштування профілю: банери, шрифти ніків, градієнтні ніки",
+        "ru": "Плагин для настройки профиля: баннеры, шрифты никнеймов, градиентные никнеймы",
+        "pl": "Wtyczka do personalizacji profilu: banery, czcionki pseudonimów, pseudonimy gradientowe",
+        "es": "Complemento para personalizar el perfil: pancartas, fuentes de apodos, apodos degradados",
+        "de": "Plugin zur Profilanpassung: Banner, Spitznamen-Schriftarten, Verlaufs-Spitznamen",
+        "fr": "Plugin de personnalisation de profil : bannières, polices de pseudo, surnoms dégradés",
+        "pt-BR": "Plugin para personalização de perfil: banners, fontes de apelidos, apelidos gradientes",
+        "tr": "Profil özelleştirme eklentisi: afişler, takma ad yazı tipleri, degrade takma adlar",
+        "ar": "مكون إضافي لتخصيص الملف الشخصي: اللافتات وخطوط اللقب والألقاب المتدرجة",
+        "be": "Плагін для налады профілю: банеры, шрыфты нікаў, градыент нікаў",
+        "kk": "Профильді теңшеуге арналған плагин: баннерлер, лақап ат қаріптері, градиент лақап аттары"
+      },
+      "permissions": [
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
