@@ -9909,6 +9909,33 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "search_bar_control",
+      "name": "Search Bar Control",
+      "version": "4.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/search_bar_control/4.0/search_bar_control.plugin",
+      "sha256": "fa3095a75c550ae1f3b3edfe4219198e65efb17f5247d8a8ece6781d9d59df9a",
+      "size": 23230,
+      "description": "Pins the search bar on the main page and helps collapse stories.",
+      "description_i18n": {
+        "en": "Pins the search bar on the main page and helps collapse stories.",
+        "uk": "Закріплює панель пошуку на головній сторінці та допомагає згортати історії.",
+        "ru": "Закрепляет панель поиска на главной странице и помогает свернуть истории.",
+        "pl": "Przypina pasek wyszukiwania na stronie głównej i pomaga zwijać historie.",
+        "es": "Fija la barra de búsqueda en la página principal y ayuda a contraer historias.",
+        "de": "Fixiert die Suchleiste auf der Hauptseite und hilft beim Einblenden von Storys.",
+        "fr": "Épingle la barre de recherche sur la page principale et aide à réduire les histoires.",
+        "pt-BR": "Fixa a barra de pesquisa na página principal e ajuda a recolher histórias.",
+        "tr": "Arama çubuğunu ana sayfaya sabitler ve hikayelerin daraltılmasına yardımcı olur.",
+        "ar": "يثبت شريط البحث في الصفحة الرئيسية ويساعد في طي القصص.",
+        "be": "Замацоўвае радок пошуку на галоўнай старонцы і дапамагае згортваць гісторыі.",
+        "kk": "Іздеу жолағын басты бетте бекітеді және оқиғаларды қысқартуға көмектеседі."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
