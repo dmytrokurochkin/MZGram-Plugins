@@ -9603,6 +9603,34 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "reworked_camera_enhancer",
+      "name": "Round Enchancer",
+      "version": "2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/reworked_camera_enhancer/2.0/reworked_camera_enhancer.plugin",
+      "sha256": "86cc80db958d754a7393630e58a2470266ada54f9350fd86462964b269680300",
+      "size": 18861,
+      "description": "Extension Round Enchancer for Telegram.",
+      "description_i18n": {
+        "en": "Extension Round Enchancer for Telegram.",
+        "uk": "Розширення Round Enchancer для Telegram.",
+        "ru": "Расширение Round Enchancer для Telegram.",
+        "pl": "Rozszerzenie Okrągłego Wzmacniacza dla Telegramu.",
+        "es": "Enchancer redondo de extensión para Telegram.",
+        "de": "Extension Round Enchancer für Telegram.",
+        "fr": "Extension Round Enchancer pour Telegram.",
+        "pt-BR": "Extensão Round Enchancer para Telegram.",
+        "tr": "Telegram için Uzatma Yuvarlak Büyütücü.",
+        "ar": "ملحق Round Enchancer لـ Telegram.",
+        "be": "Пашырэнне Round Enchancer для Telegram.",
+        "kk": "Telegram үшін кеңейтім шеңберін жақсартушы."
+      },
+      "permissions": [
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
