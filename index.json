@@ -7946,6 +7946,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "ozonsearch_ozon_420",
+      "name": "OzonSearch",
+      "version": "4.6.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/ozonsearch_ozon_420/4.6.3/ozonsearch_ozon_420.plugin",
+      "sha256": "9bc3e7537eaaeb04f54bc1fdb8a8a57cd313a056904cbe7aa0ea0b5b74a2df64",
+      "size": 168726,
+      "description": "Search for products on Ozon via live chat! Commands: .ozon <query>",
+      "description_i18n": {
+        "en": "Search for products on Ozon via live chat! Commands: .ozon <query>",
+        "uk": "Шукайте продукти на Ozon через чат! Команди: .ozon <запит>",
+        "ru": "Ищите товары на Ozon через чат! Команды: .ozon <запрос>",
+        "pl": "Szukaj produktów na Ozon za pośrednictwem czatu na żywo! Polecenia: .ozon <zapytanie>",
+        "es": "¡Busque productos en Ozon a través del chat en vivo! Comandos: .ozon <consulta>",
+        "de": "Suchen Sie per Live-Chat nach Produkten auf Ozon! Befehle: .ozon <Abfrage>",
+        "fr": "Recherchez des produits sur Ozon via le chat en direct ! Commandes : .ozon <requête>",
+        "pt-BR": "Pesquise produtos no Ozon via chat ao vivo! Comandos: .ozon <consulta>",
+        "tr": "Canlı sohbet yoluyla Ozon'da ürünleri arayın! Komutlar: .ozon <sorgu>",
+        "ar": "ابحث عن المنتجات على Ozon عبر الدردشة المباشرة! الأوامر: .ozon <query>",
+        "be": "Шукайце прадукты на Ozon праз жывы чат! Каманды: .ozon <запыт>",
+        "kk": "Тікелей чат арқылы Ozon өнімдерін іздеңіз! Пәрмендер: .ozon <query>"
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
