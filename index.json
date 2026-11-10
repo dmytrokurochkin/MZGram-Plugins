@@ -4487,6 +4487,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "floating_rounds",
+      "name": "Floating Rounds",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/floating_rounds/1.0/floating_rounds.plugin",
+      "sha256": "e90395480985c7cb852937d23bd4f13f17860aa63b84112c525c1eca1c1890b5",
+      "size": 31154,
+      "description": "Keeps round video messages playing in a floating window when you leave Telegram. Requires permission to display over other apps.",
+      "description_i18n": {
+        "en": "Keeps round video messages playing in a floating window when you leave Telegram. Requires permission to display over other apps.",
+        "uk": "Продовжує відтворювати круглі відеоповідомлення у плаваючому вікні, коли ви залишаєте Telegram. Потрібен дозвіл для відображення поверх інших програм.",
+        "ru": "Сохраняет воспроизведение круглых видеосообщений в плавающем окне, когда вы покидаете Telegram. Требуется разрешение на отображение поверх других приложений.",
+        "pl": "Po opuszczeniu Telegramu odtwarzane są okrągłe wiadomości wideo w pływającym oknie. Wymaga pozwolenia na wyświetlanie nad innymi aplikacjami.",
+        "es": "Mantiene los mensajes de video redondos reproduciéndose en una ventana flotante cuando sales de Telegram. Requiere permiso para mostrarse sobre otras aplicaciones.",
+        "de": "Lässt runde Videonachrichten in einem schwebenden Fenster abspielen, wenn Sie Telegram verlassen. Erfordert die Berechtigung zur Anzeige über anderen Apps.",
+        "fr": "Maintient la lecture des messages vidéo dans une fenêtre flottante lorsque vous quittez Telegram. Nécessite une autorisation pour s'afficher sur d'autres applications.",
+        "pt-BR": "Mantém mensagens de vídeo redondas sendo reproduzidas em uma janela flutuante quando você sai do Telegram. Requer permissão para exibição em outros aplicativos.",
+        "tr": "Telegram'dan ayrıldığınızda yuvarlak video mesajlarının kayan bir pencerede oynatılmasını sağlar. Diğer uygulamaların üzerinde görüntülenmesi için izin gerektirir.",
+        "ar": "يحافظ على تشغيل رسائل الفيديو المستديرة في نافذة عائمة عند مغادرة Telegram. يتطلب إذنًا للعرض على التطبيقات الأخرى.",
+        "be": "Працягвае прайграванне круглых відэапаведамленняў у плаваючым акне, калі вы пакідаеце Telegram. Патрабуецца дазвол для адлюстравання паверх іншых праграм.",
+        "kk": "Telegram-дан шыққан кезде дөңгелек бейне хабарламаларды қалқымалы терезеде ойнатады. Басқа қолданбалардың үстінен көрсету үшін рұқсат қажет."
+      },
+      "permissions": [
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
