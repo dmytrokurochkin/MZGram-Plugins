@@ -5519,6 +5519,30 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "iconmover",
+      "name": "Icon Mover",
+      "version": "1.5.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/iconmover/1.5.3/iconmover.plugin",
+      "sha256": "44fa1ba68fa6a802ed1dfa88cc771cd053624f663a7ff7a9f15501e09fb9153b",
+      "size": 14410,
+      "description": "Arbitrary movement/rotation of icons in the interface.",
+      "description_i18n": {
+        "en": "Arbitrary movement/rotation of icons in the interface.",
+        "uk": "Довільне переміщення/поворот іконок в інтерфейсі.",
+        "ru": "Произвольное перемещение/поворот иконок в интерфейсе.",
+        "pl": "Dowolny ruch/obrót ikon w interfejsie.",
+        "es": "Movimiento/rotación arbitraria de iconos en la interfaz.",
+        "de": "Beliebige Bewegung/Rotation von Symbolen in der Benutzeroberfläche.",
+        "fr": "Mouvement/rotation arbitraire des icônes dans l'interface.",
+        "pt-BR": "Movimento/rotação arbitrária de ícones na interface.",
+        "tr": "Arayüzdeki simgelerin keyfi hareketi/dönüşü.",
+        "ar": "الحركة/التدوير التعسفي للأيقونات في الواجهة.",
+        "be": "Адвольнае перасоўванне/паварот значкоў у інтэрфейсе.",
+        "kk": "Интерфейстегі белгішелердің ерікті қозғалысы/айналуы."
+      }
     }
   ]
 }
