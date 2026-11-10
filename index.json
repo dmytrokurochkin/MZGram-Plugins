@@ -7551,6 +7551,33 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "neural_typing",
+      "name": "Neural Typing",
+      "version": "1.3.7",
+      "min_app_version": "1.0.0",
+      "file": "plugins/neural_typing/1.3.7/neural_typing.plugin",
+      "sha256": "91db15686197321c3195089239388482fd6d6b8b69370c32f58f34e179505da2",
+      "size": 17345,
+      "description": "Incoming messages appear on the screen gradually, as if they were generated in real time by a neural network (the effect of AI response streaming). Pure cosmetics are on your side - the interlocutor sees nothing.",
+      "description_i18n": {
+        "en": "Incoming messages appear on the screen gradually, as if they were generated in real time by a neural network (the effect of AI response streaming). Pure cosmetics are on your side - the interlocutor sees nothing.",
+        "uk": "Вхідні повідомлення з'являються на екрані поступово, ніби їх генерує нейронна мережа в реальному часі (ефект потокової передачі відповіді ШІ). На вашому боці чиста косметика - співрозмовник нічого не бачить.",
+        "ru": "Входящие сообщения появляются на экране постепенно, как если бы они были сгенерированы в реальном времени нейросетью (эффект потоковой передачи ответов ИИ). Чистая косметика на вашей стороне - собеседник ничего не видит.",
+        "pl": "Przychodzące wiadomości pojawiają się na ekranie stopniowo, jakby były generowane w czasie rzeczywistym przez sieć neuronową (efekt strumieniowania odpowiedzi AI). Czysta kosmetyka jest po Twojej stronie - rozmówca nic nie widzi.",
+        "es": "Los mensajes entrantes aparecen en la pantalla gradualmente, como si fueran generados en tiempo real por una red neuronal (el efecto de la transmisión de respuestas de IA). La cosmética pura está de tu lado: el interlocutor no ve nada.",
+        "de": "Eingehende Nachrichten erscheinen nach und nach auf dem Bildschirm, als ob sie in Echtzeit von einem neuronalen Netzwerk generiert würden (der Effekt des AI-Response-Streamings). Reine Kosmetik ist auf Ihrer Seite - der Gesprächspartner sieht nichts.",
+        "fr": "Les messages entrants apparaissent progressivement à l'écran, comme s'ils étaient générés en temps réel par un réseau de neurones (effet du streaming de réponses de l'IA). Les cosmétiques purs sont de votre côté - l'interlocuteur ne voit rien.",
+        "pt-BR": "As mensagens recebidas aparecem na tela gradualmente, como se fossem geradas em tempo real por uma rede neural (efeito do streaming de resposta da IA). A cosmética pura está do seu lado - o interlocutor não vê nada.",
+        "tr": "Gelen mesajlar, sanki bir sinir ağı tarafından gerçek zamanlı olarak oluşturulmuş gibi (AI yanıt akışının etkisi) ekranda kademeli olarak görünür. Saf kozmetikler sizin tarafınızdadır - muhatap hiçbir şey görmez.",
+        "ar": "تظهر الرسائل الواردة على الشاشة تدريجيًا، كما لو تم إنشاؤها في الوقت الفعلي بواسطة شبكة عصبية (تأثير تدفق استجابة الذكاء الاصطناعي). مستحضرات التجميل النقية إلى جانبك - فالمحاور لا يرى شيئًا.",
+        "be": "Уваходныя паведамленні з'яўляюцца на экране паступова, як калі б яны былі згенераваны ў рэжыме рэальнага часу нейронавай сеткай (эфект струменевай перадачы адказу AI). На вашым баку чыстая касметыка - суразмоўца нічога не бачыць.",
+        "kk": "Кіріс хабарламалар экранда бірте-бірте пайда болады, олар нақты уақытта нейрондық желі арқылы жасалған сияқты (AI жауап ағынының әсері). Таза косметика сіз тарапта - әңгімелесуші ештеңе көрмейді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
