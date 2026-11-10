@@ -7148,6 +7148,33 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "motion_blur_fx",
+      "name": "Motion Blur",
+      "version": "2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/motion_blur_fx/2.0/motion_blur_fx.plugin",
+      "sha256": "39b165f063dbbbb90405aa03dada7ba42f3b1b7a16555f02bea26f34306923ca",
+      "size": 15593,
+      "description": "Directional motion blur: scrolling, swiping, menus, swiping folders.",
+      "description_i18n": {
+        "en": "Directional motion blur: scrolling, swiping, menus, swiping folders.",
+        "uk": "Спрямоване розмиття руху: прокручування, гортання, меню, гортання папок.",
+        "ru": "Направленное размытие изображения: прокрутка, пролистывание, меню, пролистывание папок.",
+        "pl": "Kierunkowe rozmycie ruchu: przewijanie, przesuwanie, menu, przesuwanie folderów.",
+        "es": "Desenfoque de movimiento direccional: desplazamiento, deslizamiento, menús, deslizamiento de carpetas.",
+        "de": "Richtungsbewegungsunschärfe: Scrollen, Wischen, Menüs, Wischen von Ordnern.",
+        "fr": "Flou de mouvement directionnel : défilement, balayage, menus, dossiers.",
+        "pt-BR": "Desfoque de movimento direcional: rolagem, deslizamento, menus, deslizamento de pastas.",
+        "tr": "Yönlü hareket bulanıklığı: kaydırma, kaydırma, menüler, klasörleri kaydırma.",
+        "ar": "طمس الحركة الاتجاهية: التمرير، والتمرير، والقوائم، وسحب المجلدات.",
+        "be": "Размыццё накіраванага руху: пракрутка, правядзенне пальцам, меню, правядзенне папак.",
+        "kk": "Бағытты қозғалысты бұлыңғырлау: айналдыру, сырғыту, мәзірлер, қалталарды сырғыту."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
