@@ -7093,6 +7093,33 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "monocolorui",
+      "name": "MonoColor UI",
+      "version": "1.7",
+      "min_app_version": "1.0.0",
+      "file": "plugins/monocolorui/1.7/monocolorui.plugin",
+      "sha256": "3e584d244410f91f6f08ad93c957fee408965b592d1d3fc2ef8ebf43140333fc",
+      "size": 33022,
+      "description": "Completely repaints your interface in one color: avatars, stories, chat lists - all in the same tone",
+      "description_i18n": {
+        "en": "Completely repaints your interface in one color: avatars, stories, chat lists - all in the same tone",
+        "uk": "Повністю перефарбовує ваш інтерфейс в один колір: аватари, історії, списки чатів - все в одному тоні",
+        "ru": "Полностью перекрашивает ваш интерфейс в один цвет: аватарки, истории, списки чатов - все в одном тоне",
+        "pl": "Całkowicie odmalowuje Twój interfejs w jednym kolorze: awatary, historie, listy czatów - wszystko w tej samej tonacji",
+        "es": "Repinta completamente tu interfaz en un solo color: avatares, historias, listas de chat, todo en el mismo tono.",
+        "de": "Lackiert Ihre Benutzeroberfläche komplett in einer Farbe: Avatare, Geschichten, Chatlisten - alles im gleichen Farbton",
+        "fr": "Repeint entièrement votre interface en une seule couleur : avatars, histoires, listes de discussion - le tout sur le même ton",
+        "pt-BR": "Redefine completamente sua interface em uma cor: avatares, histórias, listas de bate-papo - tudo no mesmo tom",
+        "tr": "Arayüzünüzü tamamen tek renkte yeniden boyar: avatarlar, hikayeler, sohbet listeleri - hepsi aynı tonda",
+        "ar": "يعيد طلاء واجهتك بالكامل بلون واحد: الصور الرمزية والقصص وقوائم الدردشة - كل ذلك بنفس النغمة",
+        "be": "Цалкам перафарбоўвае ваш інтэрфейс у адзін колер: аватары, гісторыі, спісы чатаў - усё ў адным тоне",
+        "kk": "Интерфейсіңізді бір түске толығымен бояйды: аватарлар, әңгімелер, чат тізімдері - барлығы бірдей реңкте"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
