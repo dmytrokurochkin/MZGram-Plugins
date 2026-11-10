@@ -840,6 +840,33 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "VidMsgBtnOfst",
+      "name": "Смещение кнопок в кружках",
+      "version": "1.1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/VidMsgBtnOfst/1.1.2/VideoMessageButtonOffset.plugin",
+      "sha256": "d9a84a0cf47e451a901006943c4b652f395680c90ae1343d497e7a4df6a84fb5",
+      "size": 5823,
+      "description": "Allows you to move the flash and change camera buttons in video messages",
+      "description_i18n": {
+        "en": "Allows you to move the flash and change camera buttons in video messages",
+        "uk": "Дозволяє переміщати спалах і змінювати кнопки камери у відеоповідомленнях",
+        "ru": "Позволяет перемещать вспышку и менять кнопки камеры в видеосообщениях.",
+        "pl": "Umożliwia przesuwanie lampy błyskowej i zmianę przycisków aparatu w wiadomościach wideo",
+        "es": "Le permite mover el flash y cambiar los botones de la cámara en mensajes de video",
+        "de": "Ermöglicht das Bewegen des Blitzes und das Ändern der Kameratasten in Videonachrichten",
+        "fr": "Vous permet de déplacer le flash et de modifier les boutons de l'appareil photo dans les messages vidéo",
+        "pt-BR": "Permite mover o flash e alterar os botões da câmera em mensagens de vídeo",
+        "tr": "Video mesajlarında flaşı hareket ettirmenize ve kamera düğmelerini değiştirmenize olanak sağlar",
+        "ar": "يتيح لك تحريك الفلاش وتغيير أزرار الكاميرا في رسائل الفيديو",
+        "be": "Дазваляе перамяшчаць успышку і мяняць кнопкі камеры ў відэапаведамленнях",
+        "kk": "Бейне хабарламалардағы жарқылды жылжытуға және камера түймелерін өзгертуге мүмкіндік береді"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
