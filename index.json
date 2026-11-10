@@ -3402,6 +3402,30 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "diamond_hunt",
+      "name": "Diamond Hunt",
+      "version": "1.5.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/diamond_hunt/1.5.1/Diamond Hunt.plugin",
+      "sha256": "f5003048129773adebc926daa6e8f0ecfc0ca585c55523f34b7347744338c5e7",
+      "size": 6795,
+      "description": "Game: Find all the hidden diamonds.",
+      "description_i18n": {
+        "en": "Game: Find all the hidden diamonds.",
+        "uk": "Гра: Знайди всі приховані діаманти.",
+        "ru": "Игра: Найдите все спрятанные бриллианты.",
+        "pl": "Gra: Znajdź wszystkie ukryte diamenty.",
+        "es": "Juego: Encuentra todos los diamantes escondidos.",
+        "de": "Spiel: Finde alle versteckten Diamanten.",
+        "fr": "Jeu : Trouvez tous les diamants cachés.",
+        "pt-BR": "Jogo: Encontre todos os diamantes escondidos.",
+        "tr": "Oyun: Tüm gizli elmasları bulun.",
+        "ar": "اللعبة: البحث عن جميع الماسات المخفية.",
+        "be": "Гульня: знайдзі ўсе схаваныя алмазы.",
+        "kk": "Ойын: Барлық жасырылған гауһар тастарды табыңыз."
+      }
     }
   ]
 }
