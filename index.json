@@ -11286,6 +11286,34 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "tbg",
+      "name": "Chat Gradient/Blur Remover",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/tbg/1.0/tbg.plugin",
+      "sha256": "d2818845b248b2679ee029ac9532822faed8db37789392a8cb6beaf8f3d0aabc",
+      "size": 3048,
+      "description": "Removes all gradient/blur in chat",
+      "description_i18n": {
+        "en": "Removes all gradient/blur in chat",
+        "uk": "Видаляє всі градієнти/розмиття в чаті",
+        "ru": "Удаляет весь градиент/размытие в чате.",
+        "pl": "Usuwa wszystkie gradienty/rozmycia na czacie",
+        "es": "Elimina todo degradado/desenfoque en el chat",
+        "de": "Entfernt alle Farbverläufe/Unschärfen im Chat",
+        "fr": "Supprime tous les dégradés/flous dans le chat",
+        "pt-BR": "Remove todo gradiente/desfoque no bate-papo",
+        "tr": "Sohbetteki tüm degradeyi/bulanıklığı kaldırır",
+        "ar": "يزيل كل التدرج/التمويه في الدردشة",
+        "be": "Выдаляе ўвесь градыент/размытасць у чаце",
+        "kk": "Чатта барлық градиентті/бұлыңғырлықты жояды"
+      },
+      "permissions": [
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
