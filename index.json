@@ -7632,6 +7632,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "no_calls",
+      "name": "No Calls",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/no_calls/1.0.0/no_calls.plugin",
+      "sha256": "76de5c548c9231fe198cd21c8bd7897e14cd4472e1011f77f410137d766f2cf7",
+      "size": 9734,
+      "description": "Completely disables calls and video calls, group calls and voice chats (incoming and outgoing).",
+      "description_i18n": {
+        "en": "Completely disables calls and video calls, group calls and voice chats (incoming and outgoing).",
+        "uk": "Повністю вимикає дзвінки та відеодзвінки, групові дзвінки та голосові чати (вхідні та вихідні).",
+        "ru": "Полностью отключает звонки и видеозвонки, групповые звонки и голосовые чаты (входящие и исходящие).",
+        "pl": "Całkowicie wyłącza połączenia i połączenia wideo, połączenia grupowe i czaty głosowe (przychodzące i wychodzące).",
+        "es": "Desactiva por completo las llamadas y videollamadas, las llamadas grupales y los chats de voz (entrantes y salientes).",
+        "de": "Deaktiviert Anrufe und Videoanrufe, Gruppenanrufe und Sprachchats (eingehend und ausgehend) vollständig.",
+        "fr": "Désactive complètement les appels et les appels vidéo, les appels de groupe et les chats vocaux (entrants et sortants).",
+        "pt-BR": "Desativa completamente chamadas e videochamadas, chamadas em grupo e chats de voz (recebidas e efetuadas).",
+        "tr": "Aramaları ve görüntülü aramaları, grup aramalarını ve sesli sohbetleri (gelen ve giden) tamamen devre dışı bırakır.",
+        "ar": "تعطيل المكالمات ومكالمات الفيديو والمكالمات الجماعية والمحادثات الصوتية (الواردة والصادرة) بشكل كامل.",
+        "be": "Цалкам адключае званкі і відэазванкі, групавыя званкі і галасавыя чаты (уваходныя і выходныя).",
+        "kk": "Қоңыраулар мен бейне қоңырауларды, топтық қоңырауларды және дауыстық чаттарды (кіріс және шығыс) толығымен өшіреді."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
