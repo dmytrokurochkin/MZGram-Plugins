@@ -7207,6 +7207,33 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "msgsDeleter",
+      "name": "Own Messages Deleter",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/msgsDeleter/1.0.0/OwnMsgsDeleter.plugin",
+      "sha256": "158f317feed005323e1179d07c6a238d4854d9ec946f7c9c3f543323ac7f54e7",
+      "size": 8415,
+      "description": "Deletes all own messages in a chat/group. Delete all your own message in chat/group.",
+      "description_i18n": {
+        "en": "Deletes all own messages in a chat/group. Delete all your own message in chat/group.",
+        "uk": "Видаляє всі власні повідомлення в чаті/групі. Видаліть усі власні повідомлення в чаті/групі.",
+        "ru": "Удаляет все свои сообщения в чате/группе. Удалите все свои сообщения в чате/группе.",
+        "pl": "Usuwa wszystkie własne wiadomości na czacie/grupie. Usuń wszystkie swoje wiadomości na czacie/grupie.",
+        "es": "Elimina todos los mensajes propios en un chat/grupo. Elimina todos tus propios mensajes en el chat/grupo.",
+        "de": "Löscht alle eigenen Nachrichten in einem Chat/einer Gruppe. Löschen Sie alle Ihre eigenen Nachrichten im Chat/in der Gruppe.",
+        "fr": "Supprime tous vos propres messages dans une discussion/un groupe. Supprimez tous vos propres messages dans le chat/groupe.",
+        "pt-BR": "Exclui todas as mensagens próprias em um chat/grupo. Exclua todas as suas mensagens no chat/grupo.",
+        "tr": "Bir sohbet/gruptaki tüm mesajları siler. Sohbet/gruptaki tüm mesajlarınızı silin.",
+        "ar": "حذف جميع الرسائل الخاصة في الدردشة/المجموعة. احذف جميع رسائلك الخاصة في الدردشة/المجموعة.",
+        "be": "Выдаляе ўсе ўласныя паведамленні ў чаце/групе. Выдаліць усе ўласныя паведамленні ў чаце/групе.",
+        "kk": "Чаттағы/топтағы барлық жеке хабарламаларды жояды. Чаттағы/топтағы барлық жеке хабарламаңызды жойыңыз."
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }
