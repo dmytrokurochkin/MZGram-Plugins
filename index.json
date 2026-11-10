@@ -926,6 +926,33 @@
         "messages.read",
         "messages.send"
       ]
+    },
+    {
+      "id": "accounts_limit_16",
+      "name": "16 Accounts",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/accounts_limit_16/1.0/accounts_limit_16.plugin",
+      "sha256": "355a484df5569073fbc0eac86d02db609f5a8c2d2dfd69d013b6667c48966acc",
+      "size": 3377,
+      "description": "Raises the account limit to 16.",
+      "description_i18n": {
+        "en": "Raises the account limit to 16.",
+        "uk": "Підвищує ліміт облікових записів до 16.",
+        "ru": "Увеличивает лимит аккаунта до 16.",
+        "pl": "Zwiększa limit konta do 16.",
+        "es": "Aumenta el límite de la cuenta a 16.",
+        "de": "Erhöht das Kontolimit auf 16.",
+        "fr": "Augmente la limite de compte à 16.",
+        "pt-BR": "Aumenta o limite da conta para 16.",
+        "tr": "Hesap limitini 16'ya yükseltir.",
+        "ar": "رفع حد الحساب إلى 16.",
+        "be": "Павялічвае ліміт акаўнта да 16.",
+        "kk": "Тіркелгі шегін 16-ға дейін көтереді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
