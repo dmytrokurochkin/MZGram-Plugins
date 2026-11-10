@@ -2444,6 +2444,39 @@
       "permissions": [
         "messages.read"
       ]
+    },
+    {
+      "id": "chat_summary",
+      "name": "Chat Summary",
+      "version": "3.3.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/chat_summary/3.3.1/chat_summary.plugin",
+      "sha256": "5f8fc57fb279fd4f3d348e7f65a7f9e9111050f5e75abf6e84a69efc3b5afcf7",
+      "size": 169931,
+      "description": "AI chat summary or themes: OpenAI, Claude, Gemini, Ollama and compatible APIs.",
+      "description_i18n": {
+        "en": "AI chat summary or themes: OpenAI, Claude, Gemini, Ollama and compatible APIs.",
+        "uk": "Підсумок або теми чату AI: OpenAI, Claude, Gemini, Ollama та сумісні API.",
+        "ru": "Сводка или темы чата AI: OpenAI, Claude, Gemini, Ollama и совместимые API.",
+        "pl": "Podsumowanie lub motywy czatu AI: OpenAI, Claude, Gemini, Ollama i kompatybilne interfejsy API.",
+        "es": "Resumen o temas del chat de IA: OpenAI, Claude, Gemini, Ollama y API compatibles.",
+        "de": "Zusammenfassung oder Themen des KI-Chats: OpenAI, Claude, Gemini, Ollama und kompatible APIs.",
+        "fr": "Résumé ou thèmes du chat IA : OpenAI, Claude, Gemini, Ollama et API compatibles.",
+        "pt-BR": "Resumo ou temas do bate-papo AI: OpenAI, Claude, Gemini, Ollama e APIs compatíveis.",
+        "tr": "AI sohbet özeti veya temaları: OpenAI, Claude, Gemini, Ollama ve uyumlu API'ler.",
+        "ar": "ملخص أو سمات دردشة الذكاء الاصطناعي: OpenAI وClaude وGemini وOllama وواجهات برمجة التطبيقات المتوافقة.",
+        "be": "Рэзюмэ або тэмы чата AI: OpenAI, Claude, Gemini, Ollama і сумяшчальныя API.",
+        "kk": "AI сұхбатының қысқаша мазмұны немесе тақырыптары: OpenAI, Claude, Gemini, Ollama және үйлесімді API интерфейстері."
+      },
+      "requirements": [
+        "requests"
+      ],
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "intents"
+      ]
     }
   ]
 }
