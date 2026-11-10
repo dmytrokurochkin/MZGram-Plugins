@@ -1540,6 +1540,33 @@
         "messages.read",
         "messages.send"
       ]
+    },
+    {
+      "id": "auto_read",
+      "name": "Auto Read",
+      "version": "2.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/auto_read/2.1/auto_read.plugin",
+      "sha256": "49b122b7bb29bdfd170672165db29bfe7bff50a5bdb295a1e60291859826523e",
+      "size": 21689,
+      "description": "Auto-reading of selected chats.",
+      "description_i18n": {
+        "en": "Auto-reading of selected chats.",
+        "uk": "Автоматичне читання вибраних чатів.",
+        "ru": "Авточтение выбранных чатов.",
+        "pl": "Automatyczne czytanie wybranych czatów.",
+        "es": "Lectura automática de chats seleccionados.",
+        "de": "Automatisches Lesen ausgewählter Chats.",
+        "fr": "Lecture automatique des discussions sélectionnées.",
+        "pt-BR": "Leitura automática de chats selecionados.",
+        "tr": "Seçilen sohbetlerin otomatik okunması.",
+        "ar": "القراءة التلقائية للدردشات المحددة.",
+        "be": "Аўтаматычнае чытанне выбраных чатаў.",
+        "kk": "Таңдалған чаттарды автоматты түрде оқу."
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }
