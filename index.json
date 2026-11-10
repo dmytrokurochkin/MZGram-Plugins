@@ -4344,6 +4344,36 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "femboys_music_stats",
+      "name": "Femboy Music Stats",
+      "version": "2.6.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/femboys_music_stats/2.6.1/femboys_music_stats.plugin",
+      "sha256": "e1f40350ab166f78191becca683081bc1ef578061f86e3e7345bde4be9ae59a9",
+      "size": 127903,
+      "description": "Music listening statistics in Telegram: detailed graphs, track statistics, song lyrics (LRCLIB). Analysis of columns by tracks, top artists, menu items ⋮ player, .music, .lyrics, .track commands",
+      "description_i18n": {
+        "en": "Music listening statistics in Telegram: detailed graphs, track statistics, song lyrics (LRCLIB). Analysis of columns by tracks, top artists, menu items ⋮ player, .music, .lyrics, .track commands",
+        "uk": "Статистика прослуховування музики в Telegram: детальні графіки, статистика треків, тексти пісень (LRCLIB). Аналіз колонок за композиціями, найкращими виконавцями, пунктами меню ⋮ player, .music, .lyrics, .track команди",
+        "ru": "Статистика прослушивания музыки в Telegram: подробные графики, статистика треков, тексты песен (LRCLIB). Анализ колонок по трекам, топ-исполнителям, пунктам меню ⋮ плеер, .music, .lyrics, .track команды",
+        "pl": "Statystyki słuchania muzyki w Telegramie: szczegółowe wykresy, statystyki utworów, teksty piosenek (LRCLIB). Analiza kolumn według utworów, najlepszych wykonawców, pozycji menu ⋮ odtwarzacz, .music, .lyrics, polecenia .track",
+        "es": "Estadísticas de escucha de música en Telegram: gráficos detallados, estadísticas de pistas, letras de canciones (LRCLIB). Análisis de columnas por pistas, artistas principales, elementos de menú ⋮ reproductor, .música, .letras, comandos .pista",
+        "de": "Statistiken zum Musikhören in Telegram: detaillierte Grafiken, Titelstatistiken, Liedtexte (LRCLIB). Analyse der Spalten nach Titeln, Top-Künstlern, Menüpunkten ⋮ Player, .music, .lyrics, .track-Befehlen",
+        "fr": "Statistiques d'écoute de musique dans Telegram : graphiques détaillés, statistiques de pistes, paroles de chansons (LRCLIB). Analyse des colonnes par morceaux, meilleurs artistes, éléments de menu ⋮ lecteur, .music, .lyrics, commandes .track",
+        "pt-BR": "Estatísticas de audição de música no Telegram: gráficos detalhados, estatísticas de faixas, letras de músicas (LRCLIB). Análise de colunas por faixas, artistas principais, itens de menu ⋮ player, comandos .music, .lyrics, .track",
+        "tr": "Telegram'da müzik dinleme istatistikleri: ayrıntılı grafikler, parça istatistikleri, şarkı sözleri (LRCLIB). Sütunların parçalara, en iyi sanatçılara, menü öğelerine, oynatıcıya, .music, .lyrics, .track komutlarına göre analizi",
+        "ar": "إحصائيات الاستماع إلى الموسيقى في Telegram: الرسوم البيانية التفصيلية وإحصائيات المقطوعات الموسيقية وكلمات الأغاني (LRCLIB). تحليل الأعمدة حسب المقطوعات الموسيقية وأفضل الفنانين وعناصر القائمة ⋮ المشغل و.music و.lyrics وأوامر .track",
+        "be": "Статыстыка праслухоўвання музыкі ў Telegram: падрабязныя графікі, статыстыка трэкаў, тэксты песень (LRCLIB). Аналіз слупкоў па трэках, лепшых выканаўцах, пунктах меню ⋮ прайгравальнік, .music, .lyrics, .track каманды",
+        "kk": "Telegram-да музыка тыңдау статистикасы: егжей-тегжейлі графиктер, трек статистикасы, ән мәтіні (LRCLIB). Жолдар, үздік орындаушылар, мәзір элементтері ⋮ ойнатқышы, .music, .lyrics, .track пәрмендері бойынша бағандарды талдау"
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
