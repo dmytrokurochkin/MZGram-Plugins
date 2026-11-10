@@ -10938,6 +10938,36 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "sql_viewer",
+      "name": "SQL Viewer",
+      "version": "1.1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/sql_viewer/1.1.1/sql_viewer.plugin",
+      "sha256": "84f6d7aca1c34335048f3c8ab92cf2ae9cbca880b47f25ffbfa833e6f2ddb060",
+      "size": 16028,
+      "description": "`.sql` to SQLite: replay to file in chat or path in settings. Read only (SELECT, etc.).",
+      "description_i18n": {
+        "en": "`.sql` to SQLite: replay to file in chat or path in settings. Read only (SELECT, etc.).",
+        "uk": "`.sql` до SQLite: відтворити файл у чаті або шлях у налаштуваннях. Лише читання (SELECT тощо).",
+        "ru": "`.sql` в SQLite: воспроизведение в файл в чате или путь в настройках. Только чтение (SELECT и т. д.).",
+        "pl": "`.sql` do SQLite: odtwórz do pliku na czacie lub ścieżkę w ustawieniach. Tylko do odczytu (WYBIERZ itp.).",
+        "es": "`.sql` a SQLite: reproducir en un archivo en el chat o en la ruta en la configuración. Sólo lectura (SELECCIONAR, etc.).",
+        "de": "„.sql\" zu SQLite: Wiedergabe in Datei im Chat oder Pfad in den Einstellungen. Nur lesen (SELECT usw.).",
+        "fr": "`.sql` vers SQLite : rejouez vers le fichier dans le chat ou le chemin dans les paramètres. Lecture seule (SELECT, etc.).",
+        "pt-BR": "`.sql` para SQLite: reproduza para arquivo no chat ou caminho nas configurações. Somente leitura (SELECT, etc.).",
+        "tr": "SQLite'a `.sql`: sohbetteki dosyayı veya ayarlardaki yolu tekrar oynatın. Salt okunur (SEÇ, vb.).",
+        "ar": "`.sql` إلى SQLite: إعادة تشغيل الملف في الدردشة أو المسار في الإعدادات. للقراءة فقط (حدد، وما إلى ذلك).",
+        "be": "`.sql` у SQLite: прайграванне ў файл у чаце або шлях у наладах. Толькі для чытання (SELECT і г.д.).",
+        "kk": "`.sql` to SQLite: чатта файлды немесе параметрлердегі жолды қайта ойнату. Тек оқу (ТАҢДАУ, т.б.)."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files"
+      ]
     }
   ]
 }
