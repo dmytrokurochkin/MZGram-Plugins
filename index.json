@@ -2417,6 +2417,33 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "chat_stats",
+      "name": "Статистика чата",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/chat_stats/1.1.0/chat_stats.plugin",
+      "sha256": "37ed2dcfccc1d4d16084a33367ff1005909102f4b256dc39f79254e74d260751",
+      "size": 20305,
+      "description": "Statistics of messages in a chat with a person or channel",
+      "description_i18n": {
+        "en": "Statistics of messages in a chat with a person or channel",
+        "uk": "Статистика повідомлень в чаті з людиною або каналом",
+        "ru": "Статистика сообщений в чате с человеком или каналом",
+        "pl": "Statystyki wiadomości na czacie z osobą lub kanałem",
+        "es": "Estadísticas de mensajes en un chat con una persona o canal",
+        "de": "Statistik der Nachrichten in einem Chat mit einer Person oder einem Kanal",
+        "fr": "Statistiques des messages dans une discussion avec une personne ou un canal",
+        "pt-BR": "Estatísticas de mensagens em um chat com uma pessoa ou canal",
+        "tr": "Bir kişi veya kanalla yapılan sohbetteki mesajların istatistikleri",
+        "ar": "إحصائيات الرسائل في الدردشة مع شخص أو قناة",
+        "be": "Статыстыка паведамленняў у чаце з чалавекам або каналам",
+        "kk": "Адаммен немесе арнамен сөйлесудегі хабарлардың статистикасы"
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }
