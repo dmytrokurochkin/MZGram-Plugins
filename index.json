@@ -2724,6 +2724,33 @@
         "be": "Тры кропкі ў чаце → Убудовы → Піпетка: капіюе HEX і RGB любога колеру з экрана",
         "kk": "Чаттағы үш нүкте → Плагиндер → Тамшуыр: экраннан кез келген түсті HEX ​​және RGB көшіреді"
       }
+    },
+    {
+      "id": "commands",
+      "name": "команды",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/commands/1.1.0/commands.plugin",
+      "sha256": "9861e06927dd1f53aad05c631011e5ecc621e1d0271ce5dda88ef66b4f7566e3",
+      "size": 65868,
+      "description": "chat commands (.help - more details)",
+      "description_i18n": {
+        "en": "chat commands (.help - more details)",
+        "uk": "команди чату (.help - детальніше)",
+        "ru": "команды чата (.help - подробнее)",
+        "pl": "polecenia czatu (.help - więcej szczegółów)",
+        "es": "comandos de chat (.help - más detalles)",
+        "de": "Chat-Befehle (.help - weitere Details)",
+        "fr": "commandes de chat (.help - plus de détails)",
+        "pt-BR": "comandos de chat (.help - mais detalhes)",
+        "tr": "sohbet komutları (.help - daha fazla ayrıntı)",
+        "ar": "أوامر الدردشة (.مساعدة - مزيد من التفاصيل)",
+        "be": "каманды чата (.help - больш падрабязна)",
+        "kk": "сөйлесу пәрмендері (.help - қосымша мәліметтер)"
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
