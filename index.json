@@ -5660,6 +5660,35 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "in_chat_sound",
+      "name": "In-Chat Sound",
+      "version": "1.3.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/in_chat_sound/1.3.1/in_chat_sound.plugin",
+      "sha256": "891fd39ef4d6fa29f261ba57f20798e52e8182e168edeed1547a322ad11ea308",
+      "size": 50819,
+      "description": "A pleasant short sound when a new message is sent when you are already inside the chat (like on the iPhone)",
+      "description_i18n": {
+        "en": "A pleasant short sound when a new message is sent when you are already inside the chat (like on the iPhone)",
+        "uk": "Приємний короткий звук при надсиланні нового повідомлення, коли ви вже в чаті (як на iPhone)",
+        "ru": "Приятный короткий звук при отправке нового сообщения, когда вы уже находитесь в чате (как на iPhone)",
+        "pl": "Przyjemny krótki dźwięk wysyłania nowej wiadomości, gdy jesteś już na czacie (jak na iPhonie)",
+        "es": "Un sonido breve y agradable cuando se envía un mensaje nuevo cuando ya estás dentro del chat (como en el iPhone)",
+        "de": "Ein angenehmer kurzer Ton beim Versenden einer neuen Nachricht, wenn man sich bereits im Chat befindet (wie beim iPhone)",
+        "fr": "Un son court et agréable lorsqu'un nouveau message est envoyé alors que vous êtes déjà dans le chat (comme sur l'iPhone)",
+        "pt-BR": "Um som curto e agradável quando uma nova mensagem é enviada quando você já está dentro do chat (como no iPhone)",
+        "tr": "Zaten sohbetin içindeyken yeni bir mesaj gönderildiğinde hoş bir kısa ses (iPhone'daki gibi)",
+        "ar": "صوت قصير لطيف عند إرسال رسالة جديدة وأنت داخل الدردشة بالفعل (كما هو الحال على iPhone)",
+        "be": "Прыемны кароткі гук пры адпраўцы новага паведамлення, калі вы ўжо знаходзіцеся ў чаце (як на iPhone)",
+        "kk": "Чат ішінде болған кезде жаңа хабарлама жіберілгенде жағымды қысқа дыбыс (iPhone телефонындағы сияқты)"
+      },
+      "permissions": [
+        "messages.read",
+        "network",
+        "files"
+      ]
     }
   ]
 }
