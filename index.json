@@ -5048,6 +5048,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "githubinfo",
+      "name": "GitHubInfo",
+      "version": "20.06.25",
+      "min_app_version": "1.0.0",
+      "file": "plugins/githubinfo/20.06.25/githubinfo.plugin",
+      "sha256": "67d6e00b81b0923d93242dbea1d2beb297826d7c7d1a7433ceb363b9c2dd3a5d",
+      "size": 13373,
+      "description": "GitHub user info, activity and stats [.gh; .gha]",
+      "description_i18n": {
+        "en": "GitHub user info, activity and stats [.gh; .gha]",
+        "uk": "Інформація про користувача GitHub, активність і статистика [.gh; .gha]",
+        "ru": "Информация о пользователях GitHub, активность и статистика [.gh; .га]",
+        "pl": "Informacje o użytkowniku GitHub, aktywność i statystyki [.gh; .gha]",
+        "es": "Información, actividad y estadísticas del usuario de GitHub [.gh; .gha]",
+        "de": "GitHub-Benutzerinformationen, Aktivitäten und Statistiken [.gh; .gha]",
+        "fr": "Informations, activités et statistiques sur les utilisateurs de GitHub [.gh; .gha]",
+        "pt-BR": "Informações, atividades e estatísticas do usuário do GitHub [.gh; .gha]",
+        "tr": "GitHub kullanıcı bilgisi, etkinliği ve istatistikleri [.gh; .gha]",
+        "ar": "معلومات مستخدم GitHub ونشاطه وإحصائياته [.gh; .غا]",
+        "be": "Інфармацыя, актыўнасць і статыстыка карыстальніка GitHub [.gh; .gha]",
+        "kk": "GitHub пайдаланушы ақпараты, белсенділігі және статистикасы [.gh; .gha]"
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
