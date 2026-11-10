@@ -4905,6 +4905,36 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "gift_scheduler",
+      "name": "Gift Scheduler",
+      "version": "1.4.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/gift_scheduler/1.4.3/gift_scheduler.plugin",
+      "sha256": "4136313f123c52385014391f7db759d0586a8d219002160b6444f8aa09c8f7a7",
+      "size": 76650,
+      "description": "Delayed sending of Telegram gifts: select a gift, recipient and time, the plugin will send it itself. It is not necessary to be online and keep Telegram open: enable the \"Work in the background\" section in the plugin settings.",
+      "description_i18n": {
+        "en": "Delayed sending of Telegram gifts: select a gift, recipient and time, the plugin will send it itself. It is not necessary to be online and keep Telegram open: enable the \"Work in the background\" section in the plugin settings.",
+        "uk": "Відкладена відправка подарунків Telegram: виберіть подарунок, одержувача та час, плагін надішле його сам. Не обов'язково бути онлайн і тримати Telegram відкритим: увімкніть розділ «Робота у фоновому режимі» в налаштуваннях плагіна.",
+        "ru": "Отложенная отправка подарков Telegram: выберите подарок, получателя и время, плагин отправит его сам. Не обязательно находиться онлайн и держать Telegram открытым: включите раздел «Работа в фоновом режиме» в настройках плагина.",
+        "pl": "Opóźnione wysyłanie prezentów Telegram: wybierz prezent, odbiorcę i godzinę, wtyczka sama go wyśle. Nie musisz być online i mieć otwarty Telegram: włącz sekcję „Praca w tle\" w ustawieniach wtyczki.",
+        "es": "Envío retrasado de regalos de Telegram: seleccione un regalo, destinatario y hora, el complemento lo enviará solo. No es necesario estar en línea y mantener Telegram abierto: habilite la sección \"Trabajar en segundo plano\" en la configuración del complemento.",
+        "de": "Verzögerter Versand von Telegram-Geschenken: Wählen Sie ein Geschenk, einen Empfänger und einen Zeitpunkt aus, das Plugin sendet es selbst. Es ist nicht notwendig, online zu sein und Telegram geöffnet zu lassen: Aktivieren Sie den Abschnitt „Im Hintergrund arbeiten\" in den Plugin-Einstellungen.",
+        "fr": "Envoi différé des cadeaux Telegram : sélectionnez un cadeau, un destinataire et une heure, le plugin l'enverra lui-même. Il n'est pas nécessaire d'être en ligne et de garder Telegram ouvert : activez la section « Travailler en arrière-plan » dans les paramètres du plugin.",
+        "pt-BR": "Envio atrasado de presentes do Telegram: selecione um presente, destinatário e horário, o plugin irá enviá-lo sozinho. Não é necessário estar online e manter o Telegram aberto: habilite a seção \"Trabalhar em segundo plano\" nas configurações do plugin.",
+        "tr": "Telegram hediyelerinin gecikmeli gönderilmesi: Bir hediye, alıcı ve zaman seçin, eklenti onu kendisi gönderecektir. Çevrimiçi olmanıza ve Telegram'ı açık tutmanıza gerek yok: eklenti ayarlarında \"Arka planda çalış\" bölümünü etkinleştirin.",
+        "ar": "تأخير إرسال هدايا Telegram: حدد الهدية والمستلم والوقت، وسيقوم المكون الإضافي بإرسالها بنفسه. ليس من الضروري أن تكون متصلاً بالإنترنت وأن تبقي Telegram مفتوحًا: قم بتمكين قسم \"العمل في الخلفية\" في إعدادات البرنامج الإضافي.",
+        "be": "Адкладзеная адпраўка падарункаў Telegram: выберыце падарунак, атрымальніка і час, плагін адправіць яго сам. Неабавязкова быць онлайн і трымаць Telegram адкрытым: уключыце ў наладах плагіна раздзел «Праца ў фонавым рэжыме».",
+        "kk": "Telegram сыйлықтарын кешіктіріп жіберу: сыйлықты, алушыны және уақытты таңдаңыз, плагин оны өзі жібереді. Желіде болу және Telegram-ды ашық ұстау қажет емес: плагин параметрлерінде «Фондағы жұмыс» бөлімін қосыңыз."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
