@@ -2673,6 +2673,33 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "color_inspector",
+      "name": "Theme Color Editor",
+      "version": "1.3.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/color_inspector/1.3.3/color_inspector.plugin",
+      "sha256": "800f16d639715bae847a0c772ec626df29edf392414d68699dc1feaf20960d1f",
+      "size": 215751,
+      "description": "Color editor for each interface element: clear names, \"find an element by clicking\" eyedropper, element highlighting with transition to the desired screen, RGB overflow and \"ribbon\", HSV circle, RGB/HEX, live preview, export and import.",
+      "description_i18n": {
+        "en": "Color editor for each interface element: clear names, \"find an element by clicking\" eyedropper, element highlighting with transition to the desired screen, RGB overflow and \"ribbon\", HSV circle, RGB/HEX, live preview, export and import.",
+        "uk": "Редактор кольорів для кожного елемента інтерфейсу: чіткі назви, піпетка «знайти елемент клацанням», підсвічування елемента з переходом на потрібний екран, перелив RGB і «стрічка», коло HSV, RGB/HEX, попередній перегляд, експорт та імпорт.",
+        "ru": "Редактор цвета для каждого элемента интерфейса: понятные названия, пипетка «найти элемент по клику», подсветка элемента с переходом на нужный экран, переполнение RGB и «лента», круг HSV, RGB/HEX, предварительный просмотр в реальном времени, экспорт и импорт.",
+        "pl": "Edytor kolorów dla każdego elementu interfejsu: przejrzyste nazwy, kroplomierz „znajdź element klikając\", podświetlanie elementu z przejściem do żądanego ekranu, przepełnienie RGB i „wstążka\", okrąg HSV, RGB/HEX, podgląd na żywo, eksport i import.",
+        "es": "Editor de color para cada elemento de la interfaz: nombres claros, cuentagotas \"buscar un elemento haciendo clic\", resaltado de elementos con transición a la pantalla deseada, desbordamiento RGB y \"cinta\", círculo HSV, RGB/HEX, vista previa en vivo, exportación e importación.",
+        "de": "Farbeditor für jedes Oberflächenelement: Klare Namen, „Element durch Klicken finden\"-Pipette, Elementhervorhebung mit Übergang zum gewünschten Bildschirm, RGB-Überlauf und „Band\", HSV-Kreis, RGB/HEX, Live-Vorschau, Export und Import.",
+        "fr": "Editeur de couleurs pour chaque élément de l'interface : noms clairs, pipette \"trouver un élément en cliquant\", mise en évidence des éléments avec transition vers l'écran souhaité, débordement RVB et \"ruban\", cercle HSV, RVB/HEX, aperçu en direct, export et import.",
+        "pt-BR": "Editor de cores para cada elemento da interface: nomes claros, conta-gotas \"encontre um elemento clicando\", destaque de elemento com transição para a tela desejada, overflow RGB e \"fita\", círculo HSV, RGB/HEX, visualização ao vivo, exportação e importação.",
+        "tr": "Her arayüz öğesi için renk düzenleyici: net adlar, \"tıklayarak bir öğe bulun\" damlalık, istenen ekrana geçişle öğe vurgulama, RGB taşması ve \"şerit\", HSV dairesi, RGB/HEX, canlı önizleme, dışa aktarma ve içe aktarma.",
+        "ar": "محرر الألوان لكل عنصر من عناصر الواجهة: مسح الأسماء، و\"البحث عن عنصر بالنقر فوق\" الشافطة، وتمييز العناصر بالانتقال إلى الشاشة المطلوبة، وتجاوز RGB و\"الشريط\"، ودائرة HSV، وRGB/HEX، والمعاينة المباشرة، والتصدير والاستيراد.",
+        "be": "Каляровы рэдактар ​​для кожнага элемента інтэрфейсу: зразумелыя назвы, піпетка «знайсці элемент па пстрычцы», вылучэнне элемента з пераходам на патрэбны экран, перапаўненне RGB і «стужка», круг HSV, RGB/HEX, прагляд у прамым эфіры, экспарт і імпарт.",
+        "kk": "Әрбір интерфейс элементі үшін түс өңдегіші: таза атаулар, «басу арқылы элементті табу» тамшуыр, қажетті экранға өту арқылы элементті бөлектеу, RGB толып кету және «лента», HSV шеңбері, RGB/HEX, тікелей алдын ала қарау, экспорттау және импорттау."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
