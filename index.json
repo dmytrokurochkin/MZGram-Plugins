@@ -9543,6 +9543,33 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "requisites_sender",
+      "name": "rekvplug",
+      "version": "2.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/requisites_sender/2.1.0/rekvv.plugin",
+      "sha256": "2aae52b796334c995bfefcc0de26287f97e9e6e6b4c76d80d5d70b3258f660c4",
+      "size": 8854,
+      "description": "Sends the details specified in the settings using the command .rekv / be sure to look at .helprekv",
+      "description_i18n": {
+        "en": "Sends the details specified in the settings using the command .rekv / be sure to look at .helprekv",
+        "uk": "Відправляє дані, вказані в налаштуваннях, за допомогою команди .rekv / обов'язково подивіться .helprekv",
+        "ru": "Отправляет данные, указанные в настройках, с помощью команды .rekv / обязательно посмотрите .helprekv",
+        "pl": "Wysyła szczegóły określone w ustawieniach za pomocą polecenia .rekv / koniecznie zajrzyj do .helprekv",
+        "es": "Envía los detalles especificados en la configuración usando el comando .rekv / asegúrese de mirar .helprekv",
+        "de": "Sendet die in den Einstellungen angegebenen Details mit dem Befehl .rekv / schauen Sie sich unbedingt .helprekv an",
+        "fr": "Envoie les détails spécifiés dans les paramètres à l'aide de la commande .rekv / assurez-vous de regarder .helprekv",
+        "pt-BR": "Envia os detalhes especificados nas configurações usando o comando .rekv / certifique-se de consultar .helprekv",
+        "tr": "Ayarlarda belirtilen ayrıntıları .rekv komutunu kullanarak gönderir / .helprekv'e baktığınızdan emin olun",
+        "ar": "يرسل التفاصيل المحددة في الإعدادات باستخدام الأمر .rekv / تأكد من الاطلاع على .helprekv",
+        "be": "Адпраўляе дэталі, указаныя ў наладах, з дапамогай каманды .rekv / абавязкова праглядзіце .helprekv",
+        "kk": "Параметрлерде көрсетілген мәліметтерді .rekv пәрмені арқылы жібереді / міндетті түрде .helprekv қараңыз"
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
