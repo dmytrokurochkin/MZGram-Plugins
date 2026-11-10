@@ -5213,6 +5213,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "hide_attach_buttons",
+      "name": "HideAttachButtons",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/hide_attach_buttons/1.0/hide_attach_buttons.plugin",
+      "sha256": "6c43d7090fed9c8f32dc1ba9584d913302ef1f8a6cadddd39b3192acd39dc2cb",
+      "size": 41049,
+      "description": "Hides the selected bottom pin bar buttons.",
+      "description_i18n": {
+        "en": "Hides the selected bottom pin bar buttons.",
+        "uk": "Hides the selected bottom pin bar buttons.",
+        "ru": "Скрывает выбранные кнопки нижней панели контактов.",
+        "pl": "Ukrywa wybrane dolne przyciski paska pinów.",
+        "es": "Oculta los botones de la barra de pines inferior seleccionados.",
+        "de": "Blendet die ausgewählten Schaltflächen der unteren Pinleiste aus.",
+        "fr": "Masque les boutons de la barre d'épingles inférieure sélectionnés.",
+        "pt-BR": "Oculta os botões da barra de pinos inferior selecionados.",
+        "tr": "Seçilen alt pin çubuğu düğmelerini gizler.",
+        "ar": "إخفاء أزرار Pin Bar السفلية المحددة.",
+        "be": "Хавае выбраныя ніжнія кнопкі панэлі прывязак.",
+        "kk": "Таңдалған төменгі түйреуіш жолақ түймелерін жасырады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
