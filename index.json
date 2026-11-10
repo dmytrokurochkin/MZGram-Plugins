@@ -2700,6 +2700,30 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "color_picker_plugin",
+      "name": "Пипетка",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/color_picker_plugin/1.0.0/color_picker_plugin.plugin",
+      "sha256": "afc1a6f4a901da38feab04476b400a23061363e9ddc48d15281d82b4cc71eddb",
+      "size": 8293,
+      "description": "Three dots in chat → Plugins → Eyedropper: copies HEX and RGB of any color from the screen",
+      "description_i18n": {
+        "en": "Three dots in chat → Plugins → Eyedropper: copies HEX and RGB of any color from the screen",
+        "uk": "Три крапки в чаті → Плагіни → Eyedropper: копіює HEX і RGB будь-який колір з екрана",
+        "ru": "Три точки в чате → Плагины → Eyedropper: копирует HEX и RGB любого цвета с экрана.",
+        "pl": "Trzy kropki na czacie → Wtyczki → Kroplomierz: kopiuje z ekranu HEX i RGB dowolnego koloru",
+        "es": "Tres puntos en el chat → Complementos → Cuentagotas: copia HEX y RGB de cualquier color de la pantalla",
+        "de": "Drei Punkte im Chat → Plugins → Pipette: Kopiert HEX und RGB jeder Farbe vom Bildschirm",
+        "fr": "Trois points dans le chat → Plugins → Pipette : copie HEX et RVB de n'importe quelle couleur depuis l'écran",
+        "pt-BR": "Três pontos no chat → Plugins → Conta-gotas: copia HEX e RGB de qualquer cor da tela",
+        "tr": "Sohbette üç nokta → Eklentiler → Damlalık: ekrandan herhangi bir renkteki HEX ve RGB'yi kopyalar",
+        "ar": "ثلاث نقاط في الدردشة ← المكونات الإضافية ← Eyedropper: نسخ HEX وRGB بأي لون من الشاشة",
+        "be": "Тры кропкі ў чаце → Убудовы → Піпетка: капіюе HEX і RGB любога колеру з экрана",
+        "kk": "Чаттағы үш нүкте → Плагиндер → Тамшуыр: экраннан кез келген түсті HEX ​​және RGB көшіреді"
+      }
     }
   ]
 }
