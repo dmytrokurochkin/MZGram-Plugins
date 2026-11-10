@@ -2305,6 +2305,34 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "channelstats",
+      "name": "Channel Stats",
+      "version": "4.4.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/channelstats/4.4.0/channelstats.plugin",
+      "sha256": "138993b0bdef7ee5b3c9fdaac9067c8cd69741d4cf79a0885fae3f14ba9b22dd",
+      "size": 19973,
+      "description": "Auto-scroll cache collector with persistent storage",
+      "description_i18n": {
+        "en": "Auto-scroll cache collector with persistent storage",
+        "uk": "Збирач кешу з автоматичною прокруткою з постійним сховищем",
+        "ru": "Сборщик кэша с автоматической прокруткой и постоянным хранилищем",
+        "pl": "Moduł zbierający pamięć podręczną z automatycznym przewijaniem i pamięcią trwałą",
+        "es": "Recolector de caché de desplazamiento automático con almacenamiento persistente",
+        "de": "Auto-Scroll-Cache-Kollektor mit dauerhaftem Speicher",
+        "fr": "Collecteur de cache à défilement automatique avec stockage persistant",
+        "pt-BR": "Coletor de cache de rolagem automática com armazenamento persistente",
+        "tr": "Kalıcı depolamayla otomatik kaydırmalı önbellek toplayıcı",
+        "ar": "جامع ذاكرة التخزين المؤقت للتمرير التلقائي مع التخزين المستمر",
+        "be": "Калектар кэша з аўтаматычнай пракруткай і пастаянным сховішчам",
+        "kk": "Тұрақты жады бар автоматты айналдыру кэш коллекторы"
+      },
+      "permissions": [
+        "messages.read",
+        "files"
+      ]
     }
   ]
 }
