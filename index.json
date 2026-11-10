@@ -1037,6 +1037,35 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "advanced_search",
+      "name": "Продвинутый поиск",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/advanced_search/1.1/advanced_search.plugin",
+      "sha256": "8f46e82695f88dd414a8f41c89a1ae380763338a5134fb6167dc1bde2f6f41af",
+      "size": 134566,
+      "description": "Advanced search for chats, documents with filters by date, user, media type",
+      "description_i18n": {
+        "en": "Advanced search for chats, documents with filters by date, user, media type",
+        "uk": "Розширений пошук чатів, документів з фільтрами за датою, користувачем, типом носія",
+        "ru": "Расширенный поиск чатов, документов с фильтрами по дате, пользователю, типу медиа",
+        "pl": "Zaawansowane wyszukiwanie czatów, dokumentów z filtrami według daty, użytkownika, typu multimediów",
+        "es": "Búsqueda avanzada de chats, documentos con filtros por fecha, usuario, tipo de medio",
+        "de": "Erweiterte Suche nach Chats, Dokumenten mit Filtern nach Datum, Benutzer, Medientyp",
+        "fr": "Recherche avancée de chats, de documents avec filtres par date, utilisateur, type de média",
+        "pt-BR": "Pesquisa avançada de chats, documentos com filtros por data, usuário, tipo de mídia",
+        "tr": "Tarihe, kullanıcıya, medya türüne göre filtrelenmiş sohbetler ve belgeler için gelişmiş arama",
+        "ar": "بحث متقدم للمحادثات والمستندات مع المرشحات حسب التاريخ والمستخدم ونوع الوسائط",
+        "be": "Пашыраны пошук чатаў, дакументаў з фільтрамі па даце, карыстальніку, тыпу носьбіта",
+        "kk": "Чаттарды, күні, пайдаланушы, медиа түрі бойынша сүзгілері бар құжаттарды кеңейтілген іздеу"
+      },
+      "permissions": [
+        "files",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
