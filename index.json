@@ -1205,6 +1205,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "animtou",
+      "name": "Анимированные касания",
+      "version": "2.3.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/animtou/2.3.0/animtou.plugin",
+      "sha256": "865500b63c3c22a68b1fd00c9e39bfa49da3bf95a1e664e610b21a1804430354",
+      "size": 17607,
+      "description": "Adds a cool animation every time you press (idea - and)",
+      "description_i18n": {
+        "en": "Adds a cool animation every time you press (idea - and)",
+        "uk": "Додає класну анімацію кожного разу, коли ви натискаєте (ідея - і)",
+        "ru": "Добавляет крутую анимацию при каждом нажатии (идея - и)",
+        "pl": "Dodaje fajną animację za każdym razem, gdy naciśniesz (pomysł - i)",
+        "es": "Agrega una animación genial cada vez que presionas (idea - y)",
+        "de": "Fügt jedes Mal, wenn Sie auf (Idee - und) drücken, eine coole Animation hinzu.",
+        "fr": "Ajoute une animation sympa à chaque fois que vous appuyez sur (idée - et)",
+        "pt-BR": "Adiciona uma animação legal toda vez que você pressiona (ideia - e)",
+        "tr": "(Fikir - ve) tuşuna her basışınızda harika bir animasyon ekler",
+        "ar": "يضيف رسمًا متحركًا رائعًا في كل مرة تضغط فيها على (فكرة - و)",
+        "be": "Дадае класную анімацыю кожны раз, калі вы націскаеце (ідэя - і)",
+        "kk": "Сіз басқан сайын керемет анимация қосады (идея - және)"
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
