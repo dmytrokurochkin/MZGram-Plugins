@@ -9659,6 +9659,33 @@
         "messages.read",
         "messages.send"
       ]
+    },
+    {
+      "id": "round_client_detector",
+      "name": "Round Video Client Detector",
+      "version": "3.3.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/round_client_detector/3.3.1/round_client_detector.plugin",
+      "sha256": "c6720c8e3a94add8f42d8ffc5b9999918bae9487fec56d007fc3e0ff6d91826c",
+      "size": 29217,
+      "description": "Shows which device (iOS, Android, PC) the circle was recorded from.",
+      "description_i18n": {
+        "en": "Shows which device (iOS, Android, PC) the circle was recorded from.",
+        "uk": "Показує, з якого пристрою (iOS, Android, ПК) було записано коло.",
+        "ru": "Показывает, с какого устройства (iOS, Android, ПК) был записан круг.",
+        "pl": "Pokazuje, z jakiego urządzenia (iOS, Android, PC) został nagrany krąg.",
+        "es": "Muestra desde qué dispositivo (iOS, Android, PC) se grabó el círculo.",
+        "de": "Zeigt an, von welchem ​​Gerät (iOS, Android, PC) der Kreis aufgezeichnet wurde.",
+        "fr": "Indique sur quel appareil (iOS, Android, PC) le cercle a été enregistré.",
+        "pt-BR": "Mostra de qual dispositivo (iOS, Android, PC) o círculo foi gravado.",
+        "tr": "Çevrenin hangi cihazdan (iOS, Android, PC) kaydedildiğini gösterir.",
+        "ar": "يعرض الجهاز (iOS، Android، الكمبيوتر الشخصي) الذي تم تسجيل الدائرة منه.",
+        "be": "Паказвае, з якой прылады (iOS, Android, ПК) быў запісаны круг.",
+        "kk": "Шеңбер қай құрылғыдан (iOS, Android, ДК) жазылғанын көрсетеді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
