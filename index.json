@@ -8710,6 +8710,35 @@
         "messages.send",
         "files"
       ]
+    },
+    {
+      "id": "profile_photo_remover",
+      "name": "Profile Photo Remover",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/profile_photo_remover/1.0/profile_photo_remover.plugin",
+      "sha256": "231272639de2202ddd7a0589460acef9f227037e0c542db69bdcc91391116691",
+      "size": 35521,
+      "description": "A simple plugin that allows you to delete all profile photos or just selected ones with one click.",
+      "description_i18n": {
+        "en": "A simple plugin that allows you to delete all profile photos or just selected ones with one click.",
+        "uk": "Простий плагін, який дозволяє одним клацанням миші видалити всі фотографії профілю або лише вибрані.",
+        "ru": "Простой плагин, позволяющий удалить все фотографии профиля или только выбранные одним щелчком мыши.",
+        "pl": "Prosta wtyczka, która pozwala jednym kliknięciem usunąć wszystkie zdjęcia profilowe lub tylko wybrane.",
+        "es": "Un complemento simple que te permite eliminar todas las fotos de perfil o solo las seleccionadas con un solo clic.",
+        "de": "Ein einfaches Plugin, mit dem Sie mit einem Klick alle oder nur ausgewählte Profilfotos löschen können.",
+        "fr": "Un plugin simple qui vous permet de supprimer toutes les photos de profil ou uniquement celles sélectionnées en un seul clic.",
+        "pt-BR": "Um plugin simples que permite excluir todas as fotos do perfil ou apenas as selecionadas com um clique.",
+        "tr": "Tek tıklamayla tüm profil fotoğraflarını veya yalnızca seçilenleri silmenize olanak tanıyan basit bir eklenti.",
+        "ar": "مكون إضافي بسيط يسمح لك بحذف جميع صور الملف الشخصي أو الصور المحددة فقط بنقرة واحدة.",
+        "be": "Просты плагін, які дазваляе выдаляць усе фатаграфіі профілю або толькі выбраныя адным пстрычкай мышы.",
+        "kk": "Бір рет басу арқылы барлық профиль фотосуреттерін немесе таңдалған фотосуреттерді жоюға мүмкіндік беретін қарапайым плагин."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
