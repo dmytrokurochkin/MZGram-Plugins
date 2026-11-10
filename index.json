@@ -10508,6 +10508,33 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "shareui_vanillamusicplayer",
+      "name": "Vanilla Music Player",
+      "version": "1.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/shareui_vanillamusicplayer/1.0.1/shareui_vanillamusicplayer.plugin",
+      "sha256": "f2fa07a5c0480bd958a4aa84f060fea17892bb1b0e35a432faac23ad1c8b452d",
+      "size": 1970,
+      "description": "Replaces the exteraGram music player in profiles with the original Telegram player [only for exteraGram Beta 12.4.1]",
+      "description_i18n": {
+        "en": "Replaces the exteraGram music player in profiles with the original Telegram player [only for exteraGram Beta 12.4.1]",
+        "uk": "Замінює музичний плеєр exteraGram у профілях на оригінальний плеєр Telegram [лише для exteraGram Beta 12.4.1]",
+        "ru": "Заменяет музыкальный плеер exteraGram в профилях на оригинальный плеер Telegram [только для exteraGram Beta 12.4.1]",
+        "pl": "Zastępuje odtwarzacz muzyki exteraGram w profilach oryginalnym odtwarzaczem Telegram [tylko dla exteraGram Beta 12.4.1]",
+        "es": "Reemplaza el reproductor de música exteraGram en perfiles con el reproductor Telegram original [solo para exteraGram Beta 12.4.1]",
+        "de": "Ersetzt den exteraGram-Musikplayer in Profilen durch den ursprünglichen Telegram-Player [nur für exteraGram Beta 12.4.1]",
+        "fr": "Remplace le lecteur de musique exteraGram dans les profils par le lecteur Telegram d'origine [uniquement pour exteraGram Beta 12.4.1]",
+        "pt-BR": "Substitui o reprodutor de música exteraGram nos perfis pelo reprodutor original do Telegram [apenas para exteraGram Beta 12.4.1]",
+        "tr": "Profillerdeki exteraGram müzik oynatıcısını orijinal Telegram oynatıcısıyla değiştirir [yalnızca exteraGram Beta 12.4.1 için]",
+        "ar": "يستبدل مشغل موسيقى exteraGram في الملفات الشخصية بمشغل Telegram الأصلي [فقط لـ exteraGram Beta 12.4.1]",
+        "be": "Замяняе музычны прайгравальнік exteraGram у профілях на арыгінальны прайгравальнік Telegram [толькі для exteraGram Beta 12.4.1]",
+        "kk": "Профильдердегі exteraGram музыка ойнатқышын түпнұсқа Telegram ойнатқышымен ауыстырады [тек exteraGram Beta 12.4.1 үшін]"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
