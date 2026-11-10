@@ -5943,6 +5943,36 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "kubicki",
+      "name": "3D Cubes",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/kubicki/1.0.0/kubicki.plugin",
+      "sha256": "ced2b34ba02f6bcabd0af4bc4fb9a16c1baa127b0a42d0d333c653fb9442f4df",
+      "size": 31722,
+      "description": "3D cubes on the screen.Use: Three dots - Plugins - 3D Cubes",
+      "description_i18n": {
+        "en": "3D cubes on the screen.Use: Three dots - Plugins - 3D Cubes",
+        "uk": "3D-куби на екрані. Використовуйте: Три крапки - Плагіни - 3D-куби",
+        "ru": "3D кубы на экране.Использование: Три точки - Плагины - 3D Cubes",
+        "pl": "Kostki 3D na ekranie. Zastosowanie: Trzy kropki - Wtyczki - Kostki 3D",
+        "es": "Cubos 3D en la pantalla.Uso: Tres puntos - Complementos - Cubos 3D",
+        "de": "3D-Würfel auf dem Bildschirm. Verwendung: Drei Punkte - Plugins - 3D-Würfel",
+        "fr": "Cubes 3D à l'écran.Utilisation : Trois points - Plugins - Cubes 3D",
+        "pt-BR": "Cubos 3D na tela. Use: Três pontos - Plugins - Cubos 3D",
+        "tr": "Ekranda 3 boyutlu küpler.Kullanım: Üç nokta - Eklentiler - 3D Küpler",
+        "ar": "مكعبات ثلاثية الأبعاد على الشاشة. الاستخدام: ثلاث نقاط - ملحقات - مكعبات ثلاثية الأبعاد",
+        "be": "3D-кубікі на экране. Выкарыстоўвайце: Тры кропкі - Убудовы - 3D-кубікі",
+        "kk": "Экрандағы 3D текшелері. Қолдану: үш нүкте - Плагиндер - 3D текшелері"
+      },
+      "permissions": [
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
