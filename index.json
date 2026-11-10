@@ -2080,6 +2080,34 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "camera_enhancer",
+      "name": "RVCE",
+      "version": "2.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/camera_enhancer/2.1/camera_enhancer.plugin",
+      "sha256": "eaefa9839f2efb4986875cdac86b9238a104c00bf9cf5ac010f7917a682741d4",
+      "size": 54666,
+      "description": "Round videos camera enhancer. Custom resolution, audio and video bitrate, HEVC, smooth switching",
+      "description_i18n": {
+        "en": "Round videos camera enhancer. Custom resolution, audio and video bitrate, HEVC, smooth switching",
+        "uk": "Підсилювач круглої відеокамери. Власна роздільна здатність, бітрейт аудіо та відео, HEVC, плавне перемикання",
+        "ru": "Усилитель круглой видеокамеры. Пользовательское разрешение, битрейт аудио и видео, HEVC, плавное переключение",
+        "pl": "Okrągły wzmacniacz kamery wideo. Niestandardowa rozdzielczość, bitrate audio i wideo, HEVC, płynne przełączanie",
+        "es": "Potenciador de cámara de vídeos redondo. Resolución personalizada, tasa de bits de audio y vídeo, HEVC, conmutación suave",
+        "de": "Runder Videokamera-Verstärker. Benutzerdefinierte Auflösung, Audio- und Videobitrate, HEVC, reibungslose Umschaltung",
+        "fr": "Améliorateur de caméra vidéo ronde. Résolution personnalisée, débit audio et vidéo, HEVC, commutation fluide",
+        "pt-BR": "Melhorador de câmera de vídeos redondos. Resolução personalizada, taxa de bits de áudio e vídeo, HEVC, comutação suave",
+        "tr": "Yuvarlak videolar kamera geliştirici. Özel çözünürlük, ses ve video bit hızı, HEVC, sorunsuz geçiş",
+        "ar": "مُحسّن كاميرا الفيديو المستديرة. دقة مخصصة، ومعدل بت للصوت والفيديو، وHEVC، والتبديل السلس",
+        "be": "Узмацняльнік камеры круглага відэа. Карыстальніцкае дазвол, бітрэйт аўдыё і відэа, HEVC, плыўнае пераключэнне",
+        "kk": "Дөңгелек бейнекамера жақсартқышы. Таңдамалы ажыратымдылық, аудио және бейне бит жылдамдығы, HEVC, тегіс ауысу"
+      },
+      "permissions": [
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
