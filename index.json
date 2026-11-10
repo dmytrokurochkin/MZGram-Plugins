@@ -6507,6 +6507,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "md3_loader",
+      "name": "MD3 Loader",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/md3_loader/1.0.0/md3_loader.plugin",
+      "sha256": "7fc0d5a642328d4becf2e7072e1a0f67611adf6b224080816c934c5af6b876a0",
+      "size": 20709,
+      "description": "Replaces the standard circular progress of downloading photos and files with a Material 3 Expressive indicator with a wave. In the center there is a cancel cross during loading and a loading icon before it starts.",
+      "description_i18n": {
+        "en": "Replaces the standard circular progress of downloading photos and files with a Material 3 Expressive indicator with a wave. In the center there is a cancel cross during loading and a loading icon before it starts.",
+        "uk": "Замінює стандартний циклічний процес завантаження фотографій і файлів на індикатор Material 3 Expressive із хвилею. У центрі є хрестик скасування під час завантаження та значок завантаження перед її початком.",
+        "ru": "Заменяет стандартный круговой прогресс загрузки фотографий и файлов на индикатор Material 3 Expressive с волной. В центре крестик отмены во время загрузки и значок загрузки перед ее началом.",
+        "pl": "Zastępuje standardowy cykliczny postęp pobierania zdjęć i plików wskaźnikiem Material 3 Expressive z falą. Na środku znajduje się krzyżyk anulowania podczas ładowania oraz ikona ładowania przed jego rozpoczęciem.",
+        "es": "Reemplaza el progreso circular estándar de descarga de fotos y archivos con un indicador Material 3 Expressive con una ola. En el centro hay una cruz de cancelación durante la carga y un ícono de carga antes de que comience.",
+        "de": "Ersetzt den standardmäßigen kreisförmigen Fortschritt beim Herunterladen von Fotos und Dateien durch einen Material 3 Expressive-Indikator mit einer Welle. In der Mitte befindet sich während des Ladevorgangs ein Abbruchkreuz und vor dem Start ein Ladesymbol.",
+        "fr": "Remplace la progression circulaire standard du téléchargement de photos et de fichiers par un indicateur Material 3 Expressive avec une vague. Au centre il y a une croix d'annulation pendant le chargement et une icône de chargement avant qu'il ne démarre.",
+        "pt-BR": "Substitui o progresso circular padrão de download de fotos e arquivos por um indicador Material 3 Expressive com uma onda. No centro há uma cruz de cancelamento durante o carregamento e um ícone de carregamento antes de começar.",
+        "tr": "Fotoğraf ve dosyaların indirilmesindeki standart dairesel ilerlemeyi, dalgalı Malzeme 3 İfade Edici göstergesiyle değiştirir. Ortada yükleme sırasında iptal işareti ve başlamadan önce yükleme simgesi bulunur.",
+        "ar": "يستبدل التقدم الدائري القياسي لتنزيل الصور والملفات بمؤشر Material 3 Expressive بموجة. يوجد في المنتصف علامة إلغاء أثناء التحميل وأيقونة تحميل قبل أن يبدأ.",
+        "be": "Замяняе стандартны цыкл загрузкі фатаграфій і файлаў індыкатарам Material 3 Expressive з хваляй. У цэнтры ёсць крыжык адмены падчас загрузкі і значок загрузкі перад яе пачаткам.",
+        "kk": "Фотосуреттер мен файлдарды жүктеп алудың стандартты айналмалы барысын толқынмен Material 3 Expressive көрсеткішімен ауыстырады. Ортасында жүктеу кезінде бас тарту белгісі және ол басталар алдында жүктеу белгішесі бар."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
