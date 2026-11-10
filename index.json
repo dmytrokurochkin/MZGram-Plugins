@@ -11776,6 +11776,35 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "user_info_saver",
+      "name": "UserInfoSaver",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/user_info_saver/1.1.0/user_info_saver.plugin",
+      "sha256": "d82cc5d3375bcb46aea4c2a88dedd2f78b85fe760846f895c8b8b30c97941b4b",
+      "size": 21995,
+      "description": "Saves user's short info (phone country, registration date, etc) before server doesn't return it more. > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 or greater!",
+      "description_i18n": {
+        "en": "Saves user's short info (phone country, registration date, etc) before server doesn't return it more. > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 or greater!",
+        "uk": "Зберігає коротку інформацію користувача (країну телефону, дату реєстрації тощо), перш ніж сервер її більше не повертатиме. > Потрібен **[ZwyLib](https://t.me/zwyPlugins/48)** версії 2.0.6 або новішої!",
+        "ru": "Сохраняет краткую информацию пользователя (страну телефона, дату регистрации и т. д.) до того, как сервер перестанет ее возвращать. > Требуется **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 или более поздняя версия!",
+        "pl": "Zapisuje krótkie informacje o użytkowniku (kraj telefonu, data rejestracji itp.), zanim serwer nie zwróci ich więcej. > Wymaga **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 lub nowszej!",
+        "es": "Guarda la información breve del usuario (país del teléfono, fecha de registro, etc.) antes de que el servidor no la devuelva más. > ¡Requiere **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 o superior!",
+        "de": "Speichert die Kurzinformationen des Benutzers (Telefonland, Registrierungsdatum usw.), bevor der Server sie nicht mehr zurückgibt. > Erfordert **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 oder höher!",
+        "fr": "Enregistre les brèves informations de l'utilisateur (pays du téléphone, date d'enregistrement, etc.) avant que le serveur ne les renvoie plus. > Nécessite **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 ou supérieur !",
+        "pt-BR": "Salva informações curtas do usuário (país do telefone, data de registro, etc.) antes que o servidor não as retorne mais. > Requer **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 ou superior!",
+        "tr": "Sunucu daha fazlasını döndürmeden önce kullanıcının kısa bilgilerini (telefon ülkesi, kayıt tarihi vb.) kaydeder. > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 veya üzerini gerektirir!",
+        "ar": "يحفظ المعلومات القصيرة للمستخدم (بلد الهاتف، تاريخ التسجيل، وما إلى ذلك) قبل أن لا يعيدها الخادم أكثر. > يتطلب **[ZwyLib](https://t.me/zwyPlugins/48)** الإصدار 2.0.6 أو أحدث!",
+        "be": "Захоўвае кароткую інфармацыю карыстальніка (краіну тэлефона, дату рэгістрацыі і г.д.), перш чым сервер яе больш не вяртае. > Патрабуецца **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 або вышэй!",
+        "kk": "Сервер оны қайтармай тұрып, пайдаланушының қысқаша ақпаратын (телефон елі, тіркелген күні, т.б.) сақтайды. > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 немесе одан жоғары нұсқасын талап етеді!"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "files"
+      ]
     }
   ]
 }
