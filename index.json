@@ -11053,6 +11053,38 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "steam",
+      "name": "Steam",
+      "version": "2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/steam/2.0/steam.plugin",
+      "sha256": "18d7b0663c55ad05883e1fcd7066d06e88cde205dc7fb943a320c7e08613c38d",
+      "size": 234221,
+      "description": "🎮 Shows the current game on Steam 📋 Commands: • [.nowsteam/.snp] - current game • [.sprofile/.sp] - profile card • [.slibrary] - games library • [.sflibrary] - full library • [.sinv] - inventory (CS2 / TF2 / Dota 2)",
+      "description_i18n": {
+        "en": "🎮 Shows the current game on Steam 📋 Commands: • [.nowsteam/.snp] - current game • [.sprofile/.sp] - profile card • [.slibrary] - games library • [.sflibrary] - full library • [.sinv] - inventory (CS2 / TF2 / Dota 2)",
+        "uk": "🎮 Показує поточну гру в Steam 📋 Команди: • [.nowsteam/.snp] - поточна гра • [.sprofile/.sp] - картка профілю • [.slibrary] - бібліотека ігор • [.sflibrary] - повна бібліотека • [.sinv] - інвентар (CS2 / TF2 / Dota 2)",
+        "ru": "🎮 Показывает текущую игру в Steam 📋 Команды: • [.nowsteam/.snp] - текущая игра • [.sprofile/.sp] - карточка профиля • [.slibrary] - библиотека игр • [.sflibrary] - полная библиотека • [.sinv] - инвентарь (CS2/TF2/Dota 2)",
+        "pl": "🎮 Pokazuje aktualną grę na Steamie 📋 Polecenia: • [.nowsteam/.snp] - bieżąca gra • [.sprofile/.sp] - karta profilu • [.slibrary] - biblioteka gier • [.sflibrary] - pełna biblioteka • [.sinv] - ekwipunek (CS2 / TF2 / Dota 2)",
+        "es": "🎮 Muestra el juego actual en Steam 📋 Comandos: • [.nowsteam/.snp] - juego actual • [.sprofile/.sp] - tarjeta de perfil • [.slibrary] - biblioteca de juegos • [.sflibrary] - biblioteca completa • [.sinv] - inventario (CS2 / TF2 / Dota 2)",
+        "de": "🎮 Zeigt das aktuelle Spiel auf Steam an 📋 Befehle: • [.nowsteam/.snp] - aktuelles Spiel • [.sprofile/.sp] - Profilkarte • [.slibrary] - Spielebibliothek • [.sflibrary] - vollständige Bibliothek • [.sinv] - Inventar (CS2 / TF2 / Dota 2)",
+        "fr": "🎮 Affiche le jeu en cours sur Steam 📋 Commandes : • [.nowsteam/.snp] - jeu en cours • [.sprofile/.sp] - carte de profil • [.slibrary] - bibliothèque de jeux • [.sflibrary] - bibliothèque complète • [.sinv] - inventaire (CS2 / TF2 / Dota 2)",
+        "pt-BR": "🎮 Mostra o jogo atual no Steam 📋 Comandos: • [.nowsteam/.snp] - jogo atual • [.sprofile/.sp] - cartão de perfil • [.slibrary] - biblioteca de jogos • [.sflibrary] - biblioteca completa • [.sinv] - inventário (CS2 / TF2 / Dota 2)",
+        "tr": "🎮 Steam'deki mevcut oyunu gösterir 📋 Komutlar: • [.nowsteam/.snp] - mevcut oyun • [.sprofile/.sp] - profil kartı • [.slibrary] - oyun kütüphanesi • [.sflibrary] - tam kütüphane • [.sinv] - envanter (CS2 / TF2 / Dota 2)",
+        "ar": "🎮 إظهار اللعبة الحالية على Steam 📋 الأوامر: • [.nowsteam/.snp] - اللعبة الحالية • [.sprofile/.sp] - بطاقة الملف الشخصي • [.slibrary] - مكتبة الألعاب • [.sflibrary] - مكتبة كاملة • [.sinv] - المخزون (CS2 / TF2 / Dota 2)",
+        "be": "🎮 Паказвае бягучую гульню ў Steam 📋 Каманды: • [.nowsteam/.snp] - бягучая гульня • [.sprofile/.sp] - картка профілю • [.slibrary] - бібліятэка гульняў • [.sflibrary] - поўная бібліятэка • [.sinv] - інвентар (CS2 / TF2 / Dota 2)",
+        "kk": "🎮 Ағымдағы Steam ойынын көрсетеді 📋 Пәрмендер: • [.nowsteam/.snp] - ағымдағы ойын • [.sprofile/.sp] - профиль картасы • [.slibrary] - ойындар кітапханасы • [.sflibrary] - толық кітапхана • [.sinv] - түгендеу (CS2 / TF2 / Dota)"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
