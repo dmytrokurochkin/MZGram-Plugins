@@ -6623,6 +6623,33 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "mediaupl",
+      "name": "MediaUPL",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/mediaupl/1.0.0/Media_UPL.plugin",
+      "sha256": "f316ea45ff74f7f97bfd19058c79b0fee9ce31c43a10f7bba11a7d383f8129fa",
+      "size": 13281,
+      "description": "Adds a 'Get link' button to the message menu for uploading media to the hosting upl.yufic.ru. Adds a 'Get link' button to the message menu to upload media to upl.yufic.ru.",
+      "description_i18n": {
+        "en": "Adds a 'Get link' button to the message menu for uploading media to the hosting upl.yufic.ru. Adds a 'Get link' button to the message menu to upload media to upl.yufic.ru.",
+        "uk": "Додає кнопку «Отримати посилання» в меню повідомлень для завантаження медіа на хостинг upl.yufic.ru. Додає кнопку «Отримати посилання» в меню повідомлень для завантаження медіа на upl.yufic.ru.",
+        "ru": "Добавляет в меню сообщений кнопку \"Получить ссылку\" для загрузки медиа на хостинг upl.yufic.ru. Добавляет кнопку «Получить ссылку» в меню сообщений для загрузки медиа на upl.yufic.ru.",
+        "pl": "Dodaje przycisk „Pobierz link\" do menu wiadomości umożliwiający przesyłanie multimediów na hosting upl.yufic.ru. Dodaje przycisk „Pobierz link\" do menu wiadomości, aby przesłać multimedia do upl.yufic.ru.",
+        "es": "Agrega un botón 'Obtener enlace' al menú de mensajes para cargar medios en el alojamiento upl.yufic.ru. Agrega un botón 'Obtener enlace' al menú de mensajes para cargar medios en upl.yufic.ru.",
+        "de": "Fügt dem Nachrichtenmenü eine Schaltfläche „Link abrufen\" hinzu, um Medien auf das Hosting upl.yufic.ru hochzuladen. Fügt dem Nachrichtenmenü eine Schaltfläche „Link abrufen\" hinzu, um Medien auf upl.yufic.ru hochzuladen.",
+        "fr": "Ajoute un bouton « Obtenir le lien » au menu des messages pour télécharger des médias sur l'hébergement upl.yufic.ru. Ajoute un bouton « Obtenir le lien » au menu des messages pour télécharger des médias sur upl.yufic.ru.",
+        "pt-BR": "Adiciona um botão 'Obter link' ao menu de mensagens para enviar mídia para a hospedagem upl.yufic.ru. Adiciona um botão 'Obter link' ao menu de mensagens para fazer upload de mídia para upl.yufic.ru.",
+        "tr": "upl.yufic.ru barındırma hizmetine medya yüklemek için mesaj menüsüne bir 'Bağlantıyı al' düğmesi ekler. Upl.yufic.ru'ya medya yüklemek için mesaj menüsüne bir 'Bağlantıyı al' düğmesi eklenir.",
+        "ar": "إضافة زر \"الحصول على الرابط\" إلى قائمة الرسائل لتحميل الوسائط إلى استضافة upl.yufic.ru. إضافة زر \"الحصول على الرابط\" إلى قائمة الرسائل لتحميل الوسائط إلى upl.yufic.ru.",
+        "be": "Дадае ў меню паведамленняў кнопку «Атрымаць спасылку» для загрузкі мультымедыя на хостынг upl.yufic.ru. Дадае кнопку «Атрымаць спасылку» ў меню паведамленняў для загрузкі мультымедыя на upl.yufic.ru.",
+        "kk": "upl.yufic.ru хостингіне мультимедианы жүктеп салу үшін хабар мәзіріне «Сілтеме алу» түймесін қосады. upl.yufic.ru сайтына мультимедианы жүктеп салу үшін хабар мәзіріне «Сілтеме алу» түймесін қосады."
+      },
+      "permissions": [
+        "network"
+      ]
     }
   ]
 }
