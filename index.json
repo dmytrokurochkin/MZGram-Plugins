@@ -8946,6 +8946,33 @@
         "messages.send",
         "files"
       ]
+    },
+    {
+      "id": "qr_gallery",
+      "name": "QR Gallery",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/qr_gallery/1.1.0/qr_gallery.plugin",
+      "sha256": "f5400005c554ecad0a55b00d83961361aa359feabe1b1896fd34d848c3a85bdb",
+      "size": 4816,
+      "description": "Adds a gallery button to all Telegram QR scanners (devices, QR login, web bots): you can select a photo with a QR code instead of taking it with a camera.",
+      "description_i18n": {
+        "en": "Adds a gallery button to all Telegram QR scanners (devices, QR login, web bots): you can select a photo with a QR code instead of taking it with a camera.",
+        "uk": "Додає кнопку галереї до всіх QR-сканерів Telegram (пристрої, QR-вхід, веб-боти): ви можете вибрати фотографію з QR-кодом замість того, щоб робити її камерою.",
+        "ru": "Добавляет кнопку галереи во все QR-сканеры Telegram (устройства, QR-логин, веб-боты): вы можете выбрать фотографию с помощью QR-кода, а не снимать ее камерой.",
+        "pl": "Dodaje przycisk galerii do wszystkich skanerów QR Telegramu (urządzenia, logowanie QR, boty internetowe): możesz wybrać zdjęcie za pomocą kodu QR zamiast robić je aparatem.",
+        "es": "Agrega un botón de galería a todos los escáneres QR de Telegram (dispositivos, inicio de sesión QR, web bots): puedes seleccionar una foto con un código QR en lugar de tomarla con una cámara.",
+        "de": "Fügt allen Telegram-QR-Scannern (Geräte, QR-Login, Web-Bots) eine Galerie-Schaltfläche hinzu: Sie können ein Foto mit einem QR-Code auswählen, anstatt es mit einer Kamera aufzunehmen.",
+        "fr": "Ajoute un bouton de galerie à tous les scanners Telegram QR (appareils, connexion QR, robots Web) : vous pouvez sélectionner une photo avec un code QR au lieu de la prendre avec un appareil photo.",
+        "pt-BR": "Adiciona um botão de galeria a todos os scanners QR do Telegram (dispositivos, login QR, web bots): você pode selecionar uma foto com um código QR em vez de tirá-la com uma câmera.",
+        "tr": "Tüm Telegram QR tarayıcılarına (cihazlar, QR girişi, web botları) bir galeri düğmesi ekler: Kamerayla çekmek yerine QR kodlu bir fotoğraf seçebilirsiniz.",
+        "ar": "إضافة زر معرض إلى جميع ماسحات Telegram QR الضوئية (الأجهزة، تسجيل الدخول QR، روبوتات الويب): يمكنك تحديد صورة باستخدام رمز QR بدلاً من التقاطها بالكاميرا.",
+        "be": "Дадае кнопку галерэі ва ўсе QR-сканеры Telegram (прылады, QR-уваход, вэб-боты): вы можаце выбраць фота з QR-кодам, а не рабіць яго камерай.",
+        "kk": "Барлық Telegram QR сканерлеріне (құрылғылар, QR логин, веб-боттар) галерея түймешігін қосады: камерамен түсірудің орнына QR коды бар фотосуретті таңдауға болады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
