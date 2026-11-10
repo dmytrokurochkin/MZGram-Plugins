@@ -2477,6 +2477,33 @@
         "network",
         "intents"
       ]
+    },
+    {
+      "id": "chatemojistickers",
+      "name": "Chat Emoji & Stickers",
+      "version": "1.8.9",
+      "min_app_version": "1.0.0",
+      "file": "plugins/chatemojistickers/1.8.9/chatemojistickers.plugin",
+      "sha256": "7856403109b2ae92774a467f106e1298c12486390998ed450a998857b5003ca7",
+      "size": 199183,
+      "description": "Search for premium emoji and stickers sent to a chat/channel, with sorting, filters + the ability to copy sets, emoticons/stickers to your own sets",
+      "description_i18n": {
+        "en": "Search for premium emoji and stickers sent to a chat/channel, with sorting, filters + the ability to copy sets, emoticons/stickers to your own sets",
+        "uk": "Шукайте преміум-емодзі та наклейки, надіслані в чат/канал, із сортуванням, фільтрами + можливістю копіювати набори, смайли/наклейки у ваші власні набори",
+        "ru": "Поиск премиум-смайлов и стикеров, отправленных в чат/канал, с сортировкой, фильтрами + возможностью копирования наборов, смайлов/стикеров в свои наборы.",
+        "pl": "Wyszukiwanie premium emoji i naklejek wysyłanych na czat/kanał, z sortowaniem, filtrami + możliwością kopiowania zestawów, emotikonów/naklejek do własnych zestawów",
+        "es": "Busque emojis y stickers premium enviados a un chat/canal, con clasificación, filtros + la capacidad de copiar conjuntos, emoticonos/stickers a sus propios conjuntos",
+        "de": "Suchen Sie nach Premium-Emojis und Stickern, die an einen Chat/Kanal gesendet werden, mit Sortierung, Filtern + der Möglichkeit, Sets, Emoticons/Sticker in Ihre eigenen Sets zu kopieren",
+        "fr": "Recherchez des emoji et des autocollants premium envoyés à un chat/un canal, avec tri, filtres + possibilité de copier des ensembles, des émoticônes/des autocollants dans vos propres ensembles",
+        "pt-BR": "Pesquise emojis e adesivos premium enviados para um bate-papo/canal, com classificação, filtros e capacidade de copiar conjuntos, emoticons/adesivos para seus próprios conjuntos",
+        "tr": "Sıralama, filtreler + setleri, ifadeleri/çıkartmaları kendi setlerinize kopyalama yeteneği ile bir sohbete/kanala gönderilen premium emojileri ve çıkartmaları arayın",
+        "ar": "ابحث عن الرموز التعبيرية المميزة والملصقات المرسلة إلى الدردشة/القناة، مع الفرز والمرشحات + القدرة على نسخ المجموعات والرموز التعبيرية/الملصقات إلى مجموعاتك الخاصة",
+        "be": "Пошук эмодзі прэміум-класа і стыкераў, адпраўленых у чат/канал, з сартаваннем, фільтрамі + магчымасць капіравання набораў, смайлікаў/стыкераў у вашы ўласныя наборы",
+        "kk": "Сұрыптау, сүзгілер + жинақтарды, эмотикондарды/стикерлерді өз жинақтарыңызға көшіру мүмкіндігі бар чатқа/арнаға жіберілген премиум эмодзилер мен стикерлерді іздеңіз."
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }
