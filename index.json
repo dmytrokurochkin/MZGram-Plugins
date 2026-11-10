@@ -5131,6 +5131,33 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "hashTagsFix",
+      "name": "HashTagsFix",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/hashTagsFix/1.0.0/HashTagsFix.plugin",
+      "sha256": "8d6f0667654689c28453f21531c9aadf850c89fe95c79631186a7a11d0fc6160",
+      "size": 9190,
+      "description": "Opening the \"This chat\" folder instead of \"Public posts\" in hashtags. Open \"This chat\" tab instead of \"Public Posts\" on click on hashtag",
+      "description_i18n": {
+        "en": "Opening the \"This chat\" folder instead of \"Public posts\" in hashtags. Open \"This chat\" tab instead of \"Public Posts\" on click on hashtag",
+        "uk": "Відкриття папки «Цей чат» замість «Публічні публікації» в хештегах. Відкрийте вкладку «Цей чат» замість «Загальнодоступні публікації», клацнувши хештег",
+        "ru": "Открытие папки «Этот чат» вместо «Публичных сообщений» в хэштегах. Откройте вкладку «Этот чат» вместо «Публичные сообщения», нажав на хэштег.",
+        "pl": "Otwieranie folderu „Ten czat\" zamiast „Posty publiczne\" w hashtagach. Otwórz zakładkę „Ten czat\" zamiast „Posty publiczne\" i kliknij hashtag",
+        "es": "Abrir la carpeta \"Este chat\" en lugar de \"Publicaciones públicas\" en hashtags. Abra la pestaña \"Este chat\" en lugar de \"Publicaciones públicas\" al hacer clic en el hashtag",
+        "de": "Öffnen des Ordners „Dieser Chat\" anstelle von „Öffentliche Beiträge\" in Hashtags. Öffnen Sie die Registerkarte „Dieser Chat\" anstelle von „Öffentliche Beiträge\", indem Sie auf den Hashtag klicken",
+        "fr": "Ouverture du dossier « Ce chat » au lieu de « Messages publics » dans les hashtags. Ouvrez l'onglet \"Ce chat\" au lieu de \"Messages publics\" en cliquant sur le hashtag",
+        "pt-BR": "Abrindo a pasta \"Este bate-papo\" em vez de \"Postagens públicas\" em hashtags. Abra a guia \"Este bate-papo\" em vez de \"Postagens públicas\" clicando na hashtag",
+        "tr": "Hashtag'lerde \"Herkese açık gönderiler\" yerine \"Bu sohbet\" klasörünün açılması. Hashtag tıklandığında \"Herkese Açık Gönderiler\" yerine \"Bu sohbet\" sekmesini açın",
+        "ar": "فتح مجلد \"هذه الدردشة\" بدلاً من \"المشاركات العامة\" في الهاشتاجات. افتح علامة التبويب \"هذه الدردشة\" بدلاً من \"المشاركات العامة\" عند النقر على الهاشتاج",
+        "be": "Адкрыццё папкі «Гэты чат» замест «Публічных паведамленняў» у хэштэгах. Адкрыйце ўкладку «Гэты чат» замест «Публічных паведамленняў», націснуўшы на хэштэг",
+        "kk": "Хэштегтердегі «Қоғамдық жазбалардың» орнына «Осы чат» қалтасын ашу. Хэштегті басу арқылы «Қоғамдық хабарламалар» орнына «Осы чат» қойындысын ашыңыз"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
