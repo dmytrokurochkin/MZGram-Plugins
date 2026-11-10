@@ -7465,6 +7465,33 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "nanoCL",
+      "name": "nanoCL",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/nanoCL/1.0.0/nanoCL.plugin",
+      "sha256": "21840ff00947648c3250c5748b9a46667eb5a4f34be63d2b536207cde1c152a7",
+      "size": 27429,
+      "description": "calendar with reminders (.cal)",
+      "description_i18n": {
+        "en": "calendar with reminders (.cal)",
+        "uk": "календар з нагадуваннями (.cal)",
+        "ru": "календарь с напоминаниями (.cal)",
+        "pl": "kalendarz z przypomnieniami (.cal)",
+        "es": "calendario con recordatorios (.cal)",
+        "de": "Kalender mit Erinnerungen (.cal)",
+        "fr": "calendrier avec rappels (.cal)",
+        "pt-BR": "calendário com lembretes (.cal)",
+        "tr": "hatırlatıcılı takvim (.cal)",
+        "ar": "التقويم مع التذكيرات (.cal)",
+        "be": "каляндар з напамінамі (.cal)",
+        "kk": "еске салғыштары бар күнтізбе (.cal)"
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
