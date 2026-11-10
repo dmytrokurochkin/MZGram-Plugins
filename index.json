@@ -9002,6 +9002,42 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "quantahut",
+      "name": "QuantaHut",
+      "version": "1.5.3.8-Beta",
+      "min_app_version": "1.0.0",
+      "file": "plugins/quantahut/1.5.3.8-Beta/QuantaHut.plugin",
+      "sha256": "0c5b868c5a813f99864925edca5f37f46d8d9ed6c14f60b29eca3dad9f0ad8c7",
+      "size": 216708,
+      "description": "Library for Quanta plugins",
+      "description_i18n": {
+        "en": "Library for Quanta plugins",
+        "uk": "Бібліотека для плагінів Quanta",
+        "ru": "Библиотека плагинов Quanta",
+        "pl": "Biblioteka wtyczek Quanta",
+        "es": "Biblioteca para complementos de Quanta",
+        "de": "Bibliothek für Quanta-Plugins",
+        "fr": "Bibliothèque pour les plugins Quanta",
+        "pt-BR": "Biblioteca para plug-ins do Quanta",
+        "tr": "Quanta eklentileri için kitaplık",
+        "ar": "مكتبة ملحقات Quanta",
+        "be": "Бібліятэка для убудоў Quanta",
+        "kk": "Quanta плагиндеріне арналған кітапхана"
+      },
+      "requirements": [
+        "cachetools"
+      ],
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
