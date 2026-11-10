@@ -1008,6 +1008,35 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "advanced_chat_search",
+      "name": "Advanced Chat Search",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/advanced_chat_search/1.0.0/advanced_chat_search.plugin",
+      "sha256": "d97aa42dc37ba1f18dbcf9b54ca75258aef6f8ab6abb3bc8aa9e7d7a24613094",
+      "size": 13331,
+      "description": "Extends chat search-by-sender with people from all dialogs and Telegram's global user search.",
+      "description_i18n": {
+        "en": "Extends chat search-by-sender with people from all dialogs and Telegram's global user search.",
+        "uk": "Розширює пошук у чаті за відправником за допомогою людей із усіх діалогових вікон і глобального пошуку користувачів Telegram.",
+        "ru": "Расширяет поиск в чате по отправителю, включая людей из всех диалогов, а также глобальный поиск пользователей Telegram.",
+        "pl": "Rozszerza wyszukiwanie czatu według nadawcy o osoby ze wszystkich okien dialogowych i globalne wyszukiwanie użytkowników Telegramu.",
+        "es": "Amplía la búsqueda de chat por remitente con personas de todos los cuadros de diálogo y la búsqueda global de usuarios de Telegram.",
+        "de": "Erweitert die Chat-Suche nach Absender um Personen aus allen Dialogen und die globale Benutzersuche von Telegram.",
+        "fr": "Étend la recherche de chat par expéditeur avec les personnes de toutes les boîtes de dialogue et la recherche globale d'utilisateurs de Telegram.",
+        "pt-BR": "Estende a pesquisa de bate-papo por remetente com pessoas de todas as caixas de diálogo e a pesquisa global de usuários do Telegram.",
+        "tr": "Sohbet aramasını gönderene göre tüm diyaloglardaki kişilerle ve Telegram'ın küresel kullanıcı aramasıyla genişletir.",
+        "ar": "يوسع بحث الدردشة حسب المرسل مع الأشخاص من جميع مربعات الحوار والبحث العالمي للمستخدم في Telegram.",
+        "be": "Пашырае магчымасць пошуку ў чаце па адпраўніку з дапамогай людзей з усіх дыялогавых вокнаў і глабальнага пошуку карыстальнікаў Telegram.",
+        "kk": "Барлық диалогтардағы адамдармен жіберуші бойынша чатты іздеуді және Telegram-дың ғаламдық пайдаланушы іздеуін кеңейтеді."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
