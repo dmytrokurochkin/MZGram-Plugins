@@ -12005,6 +12005,37 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "voice_soundpad",
+      "name": "Voice Soundpad",
+      "version": "1.5.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/voice_soundpad/1.5.0/voice_soundpad.plugin",
+      "sha256": "25e4fed3e10ee57b836337f8571c79e2d546c4e404946a2a86975dce098debc2",
+      "size": 93539,
+      "description": "Plays and mixes sounds into voice messages, mugs, calls and voice chats. Commands: .sounds .soundpad",
+      "description_i18n": {
+        "en": "Plays and mixes sounds into voice messages, mugs, calls and voice chats. Commands: .sounds .soundpad",
+        "uk": "Відтворює та змішує звуки в голосових повідомленнях, чашках, дзвінках і голосових чатах. Команди: .sounds .soundpad",
+        "ru": "Воспроизводит и микширует звуки в голосовые сообщения, кружки, звонки и голосовые чаты. Команды: .sounds .soundpad",
+        "pl": "Odtwarza i miksuje dźwięki z wiadomościami głosowymi, kubkami, połączeniami i czatami głosowymi. Polecenia: .dźwięki .soundpad",
+        "es": "Reproduce y mezcla sonidos en mensajes de voz, tazas, llamadas y chats de voz. Comandos: .sounds .soundpad",
+        "de": "Spielt Töne ab und mischt sie in Sprachnachrichten, Tassen, Anrufe und Sprachchats. Befehle: .sounds .soundpad",
+        "fr": "Lit et mélange les sons dans les messages vocaux, les tasses, les appels et les discussions vocales. Commandes : .sounds .soundpad",
+        "pt-BR": "Reproduz e mistura sons em mensagens de voz, canecas, chamadas e chats de voz. Comandos: .sounds .soundpad",
+        "tr": "Sesleri oynatır ve sesli mesajlara, kupalara, çağrılara ve sesli sohbetlere karıştırır. Komutlar: .sounds .soundpad",
+        "ar": "يقوم بتشغيل الأصوات ومزجها في الرسائل الصوتية والأكواب والمكالمات والمحادثات الصوتية. الأوامر: .sounds .soundpad",
+        "be": "Прайгравае і змешвае гукі ў галасавых паведамленнях, гуртках, званках і галасавых чатах. Каманды: .sounds .soundpad",
+        "kk": "Дыбыстарды дыбыстық хабарларға, кружкаларға, қоңырауларға және дауыстық чаттарға ойнатады және араластырады. Пәрмендер: .дыбыстар .дыбыс тақтасы"
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
