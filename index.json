@@ -5689,6 +5689,33 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "info_block",
+      "name": "Info Block",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/info_block/1.0.0/MyInfo_1.0.0.plugin",
+      "sha256": "4d7f30f0c759a124e3a8deda36e4a6fae35e5fdadbfe05c3c3bce82a42fbbfcd",
+      "size": 10092,
+      "description": "Your bio on command; setting by commands/in settings Your bio by command; setting by commands/in settings",
+      "description_i18n": {
+        "en": "Your bio on command; setting by commands/in settings Your bio by command; setting by commands/in settings",
+        "uk": "Ваша біографія за командою; налаштування за командами/у налаштуваннях Ваша біографія за командою; налаштування командами/у налаштуваннях",
+        "ru": "Ваша биография по команде; установка командами/в настройках Ваша биография по команде; настройка командами/в настройках",
+        "pl": "Twoja biografia na żądanie; ustawianie za pomocą poleceń/w ustawieniach Twoja biografia za pomocą polecenia; ustawienie za pomocą poleceń/w ustawieniach",
+        "es": "Tu biografía a pedido; configuración por comandos/en configuración Su biografía por comando; configuración por comandos/en configuración",
+        "de": "Ihre Biografie auf Befehl; Einstellung per Befehl/in den Einstellungen Deine Biografie per Befehl; Einstellung durch Befehle/in Einstellungen",
+        "fr": "Votre bio sur commande ; réglage par commandes/dans les paramètres Votre bio par commande ; réglage par commandes/dans les paramètres",
+        "pt-BR": "Sua biografia sob comando; configuração por comandos/em configurações Sua biografia por comando; configuração por comandos/em configurações",
+        "tr": "Komuttaki biyografiniz; komutlarla/ayarlarda ayarlama Komutla biyografiniz; komutlarla/ayarlarda ayarlama",
+        "ar": "سيرتك الذاتية تحت الطلب؛ الإعداد عن طريق الأوامر/في الإعدادات السيرة الذاتية الخاصة بك عن طريق الأمر؛ الإعداد عن طريق الأوامر/في الإعدادات",
+        "be": "Ваша біяграфія па камандзе; налада па камандах/у наладах Ваша біяграфія па камандзе; налада камандамі/у наладах",
+        "kk": "Сіздің өміріңіздің пәрмені бойынша; пәрмендер бойынша орнату/параметрлерде Сіздің био пәрменіңіз бойынша; пәрмендер/параметрлер арқылы орнату"
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }

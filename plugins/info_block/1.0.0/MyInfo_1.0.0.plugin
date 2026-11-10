@@ -1,0 +1,184 @@
+# Привет! 👋
+# Если ты хочешь учиться на этом коде, использовать его частично или полностью — пожалуйста, но не забывай указывать автора: @RnPlugins
+# Я не против, делай крутые штуки, развивай, улучшай — только с уважением 🙌
+# Пусть всё получится, удачи тебе в коде и не только!)
+
+import re
+from base_plugin import BasePlugin, HookResult, HookStrategy
+from client_utils import get_last_fragment
+from org.telegram.tgnet import TLRPC
+from org.telegram.messenger import LocaleController
+from ui.settings import Header, Input, Divider, Selector, Switch
+from ui.bulletin import BulletinHelper
+from java.util import ArrayList
+from markdown_utils import parse_markdown
+
+__id__ = "info_block"
+__name__ = "Info Block"
+__description__ = """Ваше био по команде; настройка командами/в настройках
+
+Your bio by command; setting by commands/in settings"""
+__author__ = "@RnPlugins"
+__version__ = "1.0.0"
+__icon__ = "RnPluginsS/5"
+__min_version__ = "11.12.0"
+__category__ = ["chats"]
+
+class InfoPlugin(BasePlugin):
+    def on_plugin_load(self):
+        self.add_on_send_message_hook()
+
+    def create_settings(self):
+        lang = LocaleController.getInstance().getCurrentLocale().getLanguage()
+        ru = lang.startswith("ru")
+        items = ["Обычный", "Краткий", "Английский", "Краткий Английский"] if ru else ["Normal", "Short"]
+        items2 = [
+            "━──────╯•╰──────━|━──────╮•╭──────━",
+            "✧ ▬▭▬ ▬▭▬ ✦✧✦ ▬▭▬ ▬▭▬ ✧",
+            "༻༺┅━━━┅୨୧┅━━━┅༻༺",
+            "┍──━──━──┙◆┕──━──━──┑|┕──━──━──┑◆┍──━──━──┙",
+            "Свой" if ru else "Custom"
+        ]
+        s = {
+            "hstyle": "Стиль заголовков" if ru else "Heading style",
+            "rstyle": "Стиль разделителей" if ru else "Separator style",
+            "header": "Информация аккаунта" if ru else "Account info",
+            "name": "Имя" if ru else "Name",
+            "age": "Возраст" if ru else "Age",
+            "accage": "Возраст аккаунта" if ru else "Account age",
+            "bday": "День рождения" if ru else "Birthday",
+            "activity": "Время активности" if ru else "Activity time",
+            "about": "О себе" if ru else "About",
+            "addy": "Своё" if ru else "Your",
+            "items": items,
+            "items2": items2,
+            "custom_sep": "Свой разделитель" if ru else "Custom separator",
+            "custom_sep_sub": "Используйте '|' для разделения нижнего и верхнего" if ru else "Use '|' to separate lower and upper",
+            "command": "Команда" if ru else "Command",
+            "sub_command": "По умолчанию: .info" if ru else "Default: .info",
+            "thanks": "Создано и обновляется благодаря @RnPlugins" if ru else "Created and updated by @RnPlugins",
+            "collapse": "Свернуть цитату" if ru else "Collapse quote",
+            "collapse_sub": "Цитата будет по умолчанию свёрнута" if ru else "The quote will be collapsed by default",
+            "addy_sub": "Свой текст, например: *Текст:* Это текст" if ru else "Your text, for example: *Text:* This is text",
+            "help": (
+                "Поддерживается Markdown: *Жирный* _Курсив_ ~Зачёркнутый~\n\n"
+                "Для изменения командами, пишите your_command(name|age|accage|bday|activity|about|addy) <текст>"
+            ) if ru else (
+                "Markdown is supported: *Bold* _Italic_ ~Strikethrough~\n\n"
+                "To change with commands, write your_command(name|age|accage|bday|activity|about|addy) <text>"
+            )
+        }
+        return [
+            Divider(text=s["help"].replace("your_command", self.get_setting("cus_command", ".info"))),
+            Selector(key="hstyle", text=s["hstyle"], items=s["items"], default=0, icon="msg_channel_14"),
+            Selector(key="rstyle", text=s["rstyle"], items=s["items2"], default=0, icon="msg_colors"),
+            Input(key="custom_sep", text=s["custom_sep"], subtext=s["custom_sep_sub"], icon="msg_edit")
+                if self.get_setting("rstyle", 0) == len(items2) - 1 else None,
+            Switch(key="collapsed", text=s["collapse"], default=True, subtext=s["collapse_sub"], icon="msg_log"),
+            Divider(),
+            Input(key="cus_command", text=s["command"], icon="input_bot1", default=".info"),
+            Divider(),
+            Header(text=s["header"]),
+            Input(key="name", text=s["name"], default="", icon="msg_contacts"),
+            Input(key="age", text=s["age"], default="", icon="msg_contacts_14"),
+            Input(key="accage", text=s["accage"], default="", icon="msg_calendar2"),
+            Input(key="bday", text=s["bday"], default="", icon="msg_gift_premium"),
+            Input(key="activity", text=s["activity"], default="", icon="menu_premium_clock"),
+            Input(key="about", text=s["about"], default="", icon="msg_folders_requests"),
+            Input(key="addy", text=s["addy"], default="", icon="msg_media", subtext=s["addy_sub"]),
+            Divider(text=s["thanks"])
+        ]
+
+    def on_send_message_hook(self, account, params):
+        msg = params.message
+        if not isinstance(msg, str):
+            return HookResult()
+
+        command = self.get_setting("cus_command", ".info")
+        if msg.strip() == command:
+            lang = LocaleController.getInstance().getCurrentLocale().getLanguage()
+            ru = lang.startswith("ru")
+
+            def lab(k):
+                return {
+                    "name":     ("Имя", "имя", "Name", "name"),
+                    "age":      ("Возраст", "возраст", "Age", "age"),
+                    "accage":   ("Возраст аккаунта", "акку", "Account age", "acc age"),
+                    "bday":     ("День рождения", "др", "Birthday", "bday"),
+                    "activity": ("Время активности", "в сети", "Activity time", "online"),
+                    "about":    ("О мне", "о мне", "About", "about"),
+                    "addy":     ("", "", "", "")
+                }[k][self.get_setting("hstyle", 0) if ru else self.get_setting("hstyle", 0) + 2]
+
+            keys = ["name", "age", "accage", "bday", "activity", "about", "addy"]
+
+            rstyle = self.get_setting("rstyle", 0)
+            if rstyle == 0:
+                sep, end = "━──────╯•╰──────━", "━──────╮•╭──────━"
+            elif rstyle == 1:
+                sep = end = "✧ ▬▭▬ ▬▭▬ ✦✧✦ ▬▭▬ ▬▭▬ ✧"
+            elif rstyle == 2:
+                sep = end = "༻༺┅━━━┅୨୧┅━━━┅༻༺"
+            elif rstyle == 3:
+                sep, end = "┍──━──━──┙◆┕──━──━──┑", "┕──━──━──┑◆┍──━──━──┙"
+            else:
+                parts = self.get_setting("custom_sep", "").split("|", 1)
+                sep = parts[0] if parts[0] else ""
+                end = parts[1] if len(parts) > 1 else sep
+
+            segments = []
+            for k in keys:
+                v = self.get_setting(k, "")
+                if v:
+                    if k == "addy":
+                        segments.append(v)
+                    else:
+                        segments.append(f"*{lab(k)}*: {v}")
+
+            body = "\n\n".join(segments)
+            full = f"{sep}\n{body}\n{end}"
+
+            try:
+                parsed = parse_markdown(full)
+                params.message = parsed.text
+                ents = ArrayList()
+                for ent in parsed.entities:
+                    ents.add(ent.to_tlrpc_object())
+            except Exception:
+                params.message = full
+                ents = ArrayList()
+
+            start = len(sep) + 1
+            full_text = params.message
+            end_index = full_text.find("\n" + end)
+            if end_index == -1:
+                block_length = len(full_text) - start
+            else:
+                block_length = end_index - start
+
+            block = TLRPC.TL_messageEntityBlockquote()
+            block.collapsed = self.get_setting("collapsed", True)
+            block.offset = start
+            block.length = block_length
+            ents.add(block)
+
+            params.entities = ents
+            return HookResult(strategy=HookStrategy.MODIFY, params=params)
+
+        m = re.match(
+            fr"^\.{command}"
+            r"(name|age|accage|bday|activity|about|addy)\s+(.+)",
+            msg.strip(), re.IGNORECASE
+        )
+        if m:
+            k, val = m.group(1).lower(), m.group(2).strip()
+            self.set_setting(k, val)
+            BulletinHelper.show_success(f"{k} = {val}", get_last_fragment())
+            return HookResult(strategy=HookStrategy.CANCEL)
+
+        return HookResult()
+        
+# Привет! 👋
+# Если ты хочешь учиться на этом коде, использовать его частично или полностью — пожалуйста, но не забывай указывать автора: @RnPlugins
+# Я не против, делай крутые штуки, развивай, улучшай — только с уважением 🙌
+# Пусть всё получится, удачи тебе в коде и не только!)
