@@ -9429,6 +9429,35 @@
       "permissions": [
         "messages.read"
       ]
+    },
+    {
+      "id": "real_metadata",
+      "name": "Real Metadata",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/real_metadata/1.0.0/real_metadata.plugin",
+      "sha256": "12167ab5454662d1a8c186bc32bb8bf896ff50db212bf26641566336c231e126",
+      "size": 28517,
+      "description": "Shows real media metadata: container, duration, tracks, codecs, bitrate and EXIF ​​(if available).",
+      "description_i18n": {
+        "en": "Shows real media metadata: container, duration, tracks, codecs, bitrate and EXIF ​​(if available).",
+        "uk": "Показує справжні медіа-метадані: контейнер, тривалість, доріжки, кодеки, бітрейт і EXIF ​​(якщо доступний).",
+        "ru": "Показывает реальные метаданные мультимедиа: контейнер, продолжительность, треки, кодеки, битрейт и EXIF ​​(при наличии).",
+        "pl": "Pokazuje prawdziwe metadane multimediów: kontener, czas trwania, ścieżki, kodeki, bitrate i EXIF ​​​​(jeśli są dostępne).",
+        "es": "Muestra metadatos de medios reales: contenedor, duración, pistas, códecs, tasa de bits y EXIF ​​​​(si está disponible).",
+        "de": "Zeigt echte Medienmetadaten an: Container, Dauer, Titel, Codecs, Bitrate und EXIF ​​(falls verfügbar).",
+        "fr": "Affiche les métadonnées des médias réels : conteneur, durée, pistes, codecs, débit et EXIF ​​​​(si disponible).",
+        "pt-BR": "Mostra metadados de mídia reais: contêiner, duração, faixas, codecs, taxa de bits e EXIF ​​​​(se disponível).",
+        "tr": "Gerçek medya meta verilerini gösterir: kapsayıcı, süre, parçalar, kodlayıcılar, bit hızı ve EXIF ​​​​(varsa).",
+        "ar": "يعرض بيانات تعريف الوسائط الحقيقية: الحاوية والمدة والمسارات وبرامج الترميز ومعدل البت وEXIF (إن وجدت).",
+        "be": "Паказвае рэальныя медыя-метададзеныя: кантэйнер, працягласць, трэкі, кодэкі, бітрэйт і EXIF ​​(пры наяўнасці).",
+        "kk": "Нақты медиа метадеректерін көрсетеді: контейнер, ұзақтығы, тректер, кодектер, бит жылдамдығы және EXIF ​​​​(бар болса)."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
