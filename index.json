@@ -6870,6 +6870,30 @@
         "messages.send",
         "files"
       ]
+    },
+    {
+      "id": "mikoto_nikki",
+      "name": "Дневник Микото",
+      "version": "Release",
+      "min_app_version": "1.0.0",
+      "file": "plugins/mikoto_nikki/Release/mikoto_nikki.plugin",
+      "sha256": "800fd9afffe027c4368ea94d59fdd4c6f2a1463b8a34dd475eed1226b061077c",
+      "size": 37461,
+      "description": "Adaptation of the 2013 novel inside EXTERAGRAM",
+      "description_i18n": {
+        "en": "Adaptation of the 2013 novel inside EXTERAGRAM",
+        "uk": "Adaptation of the 2013 novel inside EXTERAGRAM",
+        "ru": "Адаптация романа 2013 года внутри EXTERAGRAM",
+        "pl": "Adaptacja powieści z 2013 roku w ramach EXTERAGRAMU",
+        "es": "Adaptación de la novela de 2013 dentro de EXTERAGRAM",
+        "de": "Adaption des Romans von 2013 in EXTERAGRAM",
+        "fr": "Adaptation du roman de 2013 dans EXTERAGRAM",
+        "pt-BR": "Adaptação da novela de 2013 dentro do EXTERAGRAM",
+        "tr": "EXTERAGRAM'ın içindeki 2013 romanının uyarlaması",
+        "ar": "تعديل رواية 2013 داخل EXTERAGRAM",
+        "be": "Экранізацыя рамана 2013 года ў EXTERAGRAM",
+        "kk": "EXTERAGRAM ішіндегі 2013 жылғы романның бейімделуі"
+      }
     }
   ]
 }
