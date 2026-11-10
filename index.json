@@ -8281,6 +8281,33 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "pincolor_plugin",
+      "name": "PinColor",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/pincolor_plugin/1.0.0/pincolor_plugin.plugin",
+      "sha256": "720b43ed42a285ee5a94484253f139199238ec31a0eefd8b10affd6365148cd8",
+      "size": 5932,
+      "description": "Highlights the background of pinned chats.",
+      "description_i18n": {
+        "en": "Highlights the background of pinned chats.",
+        "uk": "Підсвічує фон закріплених чатів.",
+        "ru": "Подсвечивает фон закрепленных чатов.",
+        "pl": "Podświetla tło przypiętych czatów.",
+        "es": "Resalta el fondo de los chats anclados.",
+        "de": "Hebt den Hintergrund angehefteter Chats hervor.",
+        "fr": "Met en évidence l'arrière-plan des discussions épinglées.",
+        "pt-BR": "Destaca o plano de fundo dos bate-papos fixados.",
+        "tr": "Sabitlenmiş sohbetlerin arka planını vurgular.",
+        "ar": "يسلط الضوء على خلفية الدردشات المثبتة.",
+        "be": "Вылучае фон замацаваных чатаў.",
+        "kk": "Бекітілген чаттардың фонын бөлектейді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
