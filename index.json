@@ -11622,6 +11622,33 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "topic_reopen_menu",
+      "name": "Topic Reopen in Menu",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/topic_reopen_menu/1.0.0/topic_reopen_menu.plugin",
+      "sha256": "05e2d591c32493291f96acb54f44b59642663e6f5d2da9436a54086011ca5927",
+      "size": 18816,
+      "description": "Hides the annoying \"Resume Theme\" button and moves the theme opening to the three-dot menu.",
+      "description_i18n": {
+        "en": "Hides the annoying \"Resume Theme\" button and moves the theme opening to the three-dot menu.",
+        "uk": "Приховує надокучливу кнопку «Відновити тему» ​​та переміщує відкриття теми до меню з трьома крапками.",
+        "ru": "Скрывает раздражающую кнопку «Возобновить тему» ​​и перемещает открытие темы в трехточечное меню.",
+        "pl": "Ukrywa irytujący przycisk „Wznów motyw\" i przenosi otwarcie motywu do menu z trzema kropkami.",
+        "es": "Oculta el molesto botón \"Reanudar tema\" y mueve la apertura del tema al menú de tres puntos.",
+        "de": "Blendet die lästige Schaltfläche „Thema fortsetzen\" aus und verschiebt die Themenöffnung in das Dreipunktmenü.",
+        "fr": "Masque le bouton ennuyeux \"Reprendre le thème\" et déplace l'ouverture du thème vers le menu à trois points.",
+        "pt-BR": "Oculta o irritante botão \"Retomar Tema\" e move a abertura do tema para o menu de três pontos.",
+        "tr": "Sinir bozucu \"Temayı Devam Ettir\" düğmesini gizler ve tema açılışını üç noktalı menüye taşır.",
+        "ar": "يخفي زر \"استئناف السمة\" المزعج وينقل السمة المفتوحة إلى قائمة النقاط الثلاث.",
+        "be": "Хавае надакучлівую кнопку «Аднавіць тэму» і перамяшчае адкрыццё тэмы ў меню з трыма кропкамі.",
+        "kk": "Тітіркендіргіш «Тақырыпты жалғастыру» түймесін жасырады және тақырыптың ашылуын үш нүктелі мәзірге жылжытады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
