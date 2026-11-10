@@ -953,6 +953,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "acd",
+      "name": "Album Cover Downloader",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/acd/1.1/acd.plugin",
+      "sha256": "2585ce77847f01182e6355b7da1e74c62d9e518f03f16e16100aabd03d6422a3",
+      "size": 22322,
+      "description": "Saves track cover to gallery",
+      "description_i18n": {
+        "en": "Saves track cover to gallery",
+        "uk": "Зберігає обкладинку треку в галерею",
+        "ru": "Сохраняет обложку трека в галерею.",
+        "pl": "Zapisuje okładkę utworu w galerii",
+        "es": "Guarda la portada de la pista en la galería.",
+        "de": "Speichert die Streckenabdeckung in der Galerie",
+        "fr": "Enregistre la couverture de la piste dans la galerie",
+        "pt-BR": "Salva a capa da faixa na galeria",
+        "tr": "Parça kapağını galeriye kaydeder",
+        "ar": "يحفظ غلاف المسار إلى المعرض",
+        "be": "Захоўвае вокладку трэка ў галерэю",
+        "kk": "Трек қақпағын галереяға сақтайды"
+      },
+      "permissions": [
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
