@@ -8483,6 +8483,33 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "playlist_downloader",
+      "name": "Playlist Downloader",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/playlist_downloader/1.0/playlist_downloader.plugin",
+      "sha256": "0e102e9b1c8715c678ccbf6dda795d280376cdea333a65bf97b0faceee54e774",
+      "size": 32082,
+      "description": "Downloads every track from a chat playlist in one click using the built-in Telegram file downloader. Downloads every track from a chat's playlist in one tap, through Telegram's own file loader.",
+      "description_i18n": {
+        "en": "Downloads every track from a chat playlist in one click using the built-in Telegram file downloader. Downloads every track from a chat's playlist in one tap, through Telegram's own file loader.",
+        "uk": "Завантажує кожен трек зі списку відтворення чату в один клік за допомогою вбудованого завантажувача файлів Telegram. Завантажує кожен трек зі списку відтворення чату одним дотиком через власний завантажувач файлів Telegram.",
+        "ru": "Загружает каждый трек из плейлиста чата в один клик с помощью встроенного загрузчика файлов Telegram. Загружает каждый трек из плейлиста чата одним нажатием через собственный загрузчик файлов Telegram.",
+        "pl": "Pobiera każdy utwór z listy odtwarzania czatu jednym kliknięciem, korzystając z wbudowanego narzędzia do pobierania plików Telegram. Pobiera każdy utwór z listy odtwarzania czatu jednym dotknięciem, za pomocą własnego modułu ładującego pliki Telegramu.",
+        "es": "Descarga todas las pistas de una lista de reproducción de chat con un solo clic utilizando el descargador de archivos integrado de Telegram. Descarga todas las pistas de la lista de reproducción de un chat con un solo toque, a través del propio cargador de archivos de Telegram.",
+        "de": "Lädt mit dem integrierten Telegram-Datei-Downloader jeden Titel mit einem Klick aus einer Chat-Wiedergabeliste herunter. Lädt jeden Titel aus der Playlist eines Chats mit einem Fingertipp über den eigenen Dateilader von Telegram herunter.",
+        "fr": "Télécharge chaque piste d'une liste de lecture de chat en un clic à l'aide du téléchargeur de fichiers Telegram intégré. Télécharge chaque piste de la liste de lecture d'un chat en un seul clic, via le propre chargeur de fichiers de Telegram.",
+        "pt-BR": "Baixa todas as faixas de uma lista de reprodução de bate-papo com um clique usando o downloader de arquivos Telegram integrado. Baixa todas as faixas da playlist de um chat com um toque, por meio do carregador de arquivos do próprio Telegram.",
+        "tr": "Yerleşik Telegram dosya indiricisini kullanarak sohbet çalma listesindeki her parçayı tek tıklamayla indirir. Telegram'ın kendi dosya yükleyicisi aracılığıyla, sohbetin çalma listesindeki her parçayı tek dokunuşla indirir.",
+        "ar": "قم بتنزيل كل مقطع صوتي من قائمة تشغيل الدردشة بنقرة واحدة باستخدام أداة تنزيل ملفات Telegram المدمجة. يقوم بتنزيل كل مقطع صوتي من قائمة تشغيل الدردشة بنقرة واحدة، من خلال أداة تحميل الملفات الخاصة بـ Telegram.",
+        "be": "Спампоўвае кожны трэк з плэйліста чата ў адзін клік з дапамогай убудаванай праграмы загрузкі файлаў Telegram. Спампоўвае кожны трэк з плэйліста чата адным націскам праз уласны загрузнік файлаў Telegram.",
+        "kk": "Кірістірілген Telegram файлды жүктеп алу құралы арқылы бір рет басу арқылы чат ойнату тізімінен әрбір жолды жүктеп алады. Telegram-дың жеке файл жүктеушісі арқылы бір түрту арқылы чаттың ойнату тізімінен әрбір жолды жүктеп алады."
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }
