@@ -8112,6 +8112,36 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "petpet",
+      "name": "petpet",
+      "version": "1.0.6",
+      "min_app_version": "1.0.0",
+      "file": "plugins/petpet/1.0.6/petpet.plugin",
+      "sha256": "72cbf4986ad60c85ce6a5dad2068622d48968a41f5a296d3bdd746f5d61fe431",
+      "size": 54516,
+      "description": "Creates a petpet gif from avatars, photos, stickers, or image URLs",
+      "description_i18n": {
+        "en": "Creates a petpet gif from avatars, photos, stickers, or image URLs",
+        "uk": "Створює gif petpet з аватарів, фотографій, наклейок або URL-адрес зображень",
+        "ru": "Создает GIF-изображение домашнего животного из аватаров, фотографий, стикеров или URL-адресов изображений.",
+        "pl": "Tworzy miniaturowy gif z awatarów, zdjęć, naklejek lub adresów URL obrazów",
+        "es": "Crea un gif de petpet a partir de avatares, fotos, pegatinas o URL de imágenes.",
+        "de": "Erstellt ein Petpet-GIF aus Avataren, Fotos, Aufklebern oder Bild-URLs",
+        "fr": "Crée un gif pour animaux de compagnie à partir d'avatars, de photos, d'autocollants ou d'URL d'images",
+        "pt-BR": "Cria um gif petpet a partir de avatares, fotos, adesivos ou URLs de imagens",
+        "tr": "Avatarlardan, fotoğraflardan, çıkartmalardan veya resim URL'lerinden bir evcil hayvan gif'i oluşturur",
+        "ar": "ينشئ صورة GIF لحيوان أليف من الصور الرمزية أو الصور أو الملصقات أو عناوين URL للصور",
+        "be": "Стварае petpet gif з аватараў, фатаграфій, стыкераў або URL-адрасоў малюнкаў",
+        "kk": "Аватарлардан, фотосуреттерден, стикерлерден немесе кескіннің URL мекенжайларынан үй жануарлары GIF жасайды"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files"
+      ]
     }
   ]
 }
