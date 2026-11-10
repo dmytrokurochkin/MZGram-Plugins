@@ -1965,6 +1965,33 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "bubble_chat_editor",
+      "name": "Bubble Outline",
+      "version": "3.4.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/bubble_chat_editor/3.4.1/bubble_chat_editor.plugin",
+      "sha256": "3dd4744c4cdb728b98cd887a35673c8662a78adf454e4413b9633f8ca2d5fdb6",
+      "size": 33695,
+      "description": "Bubble outline (bubbleIn/Outline) for exteraGram 12.9.0. Outline only: Chat colors remain the same in the current theme.",
+      "description_i18n": {
+        "en": "Bubble outline (bubbleIn/Outline) for exteraGram 12.9.0. Outline only: Chat colors remain the same in the current theme.",
+        "uk": "Контур бульбашки (bubbleIn/Outline) для exteraGram 12.9.0. Лише контур: кольори чату залишаються незмінними в поточній темі.",
+        "ru": "Пузырьковый контур (bubbleIn/Outline) для exteraGram 12.9.0. Только контур: цвета чата в текущей теме остаются прежними.",
+        "pl": "Zarys bąbelkowy (bubbleIn/Outline) dla exteraGram 12.9.0. Tylko konspekt: ​​kolory czatu pozostają takie same w bieżącym motywie.",
+        "es": "Esquema de burbuja (bubbleIn/Outline) para exteraGram 12.9.0. Solo esquema: los colores del chat siguen siendo los mismos en el tema actual.",
+        "de": "Blasenumriss (bubbleIn/Outline) für exteraGram 12.9.0. Nur Gliederung: Die Chat-Farben bleiben im aktuellen Design gleich.",
+        "fr": "Contour de bulle (bubbleIn/Outline) pour exteraGram 12.9.0. Aperçu uniquement : les couleurs du chat restent les mêmes dans le thème actuel.",
+        "pt-BR": "Contorno de bolha (bubbleIn/Outline) para exteraGram 12.9.0. Apenas contorno: as cores do bate-papo permanecem as mesmas no tema atual.",
+        "tr": "exteraGram 12.9.0 için kabarcık taslağı (bubbleIn/Outline). Yalnızca ana hat: Sohbet renkleri mevcut temada aynı kalır.",
+        "ar": "مخطط الفقاعة (فقاعة/مخطط تفصيلي) لـ exteraGram 12.9.0. المخطط التفصيلي فقط: تظل ألوان الدردشة كما هي في السمة الحالية.",
+        "be": "Контур бурбалкі (bubbleIn/Outline) для exteraGram 12.9.0. Толькі схема: колеры чата застаюцца ранейшымі ў бягучай тэме.",
+        "kk": "exteraGram 12.9.0 үшін көпіршік контуры (bubbleIn/Outline). Тек контур: чат түстері ағымдағы тақырыпта өзгеріссіз қалады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
