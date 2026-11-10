@@ -5602,6 +5602,34 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "imitator_plugin_enhanced",
+      "name": "Imitator",
+      "version": "1.4.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/imitator_plugin_enhanced/1.4.0/imitator.plugin",
+      "sha256": "313ce02ece7d523082b0f8c505649194a529536f450496b23bddecd96ea3e9a5",
+      "size": 10881,
+      "description": "Simulates chat activity Commands: .im - open menu .im <mode> - quick launch .imstop - stop in chat .imstopall - stop everywhere Modes: typing, voice, video, game, photo, round, audio, document, location, contact, sticker, mixed",
+      "description_i18n": {
+        "en": "Simulates chat activity Commands: .im - open menu .im <mode> - quick launch .imstop - stop in chat .imstopall - stop everywhere Modes: typing, voice, video, game, photo, round, audio, document, location, contact, sticker, mixed",
+        "uk": "Імітує активність у чаті Команди: .im - відкрити меню .im <mode> - швидкий запуск .imstop - зупинка в чаті .imstopall - зупинка скрізь Режими: набір тексту, голос, відео, гра, фото, раунд, аудіо, документ, розташування, контакт, наклейка, змішаний",
+        "ru": "Имитирует активность в чате. Команды: .im - открыть меню .im <режим> - быстрый запуск .imstop - остановиться в чате .imstopall - остановиться везде Режимы: набор текста, голос, видео, игра, фото, раунд, аудио, документ, местоположение, контакт, наклейка, смешанный",
+        "pl": "Symuluje aktywność na czacie Polecenia: .im - otwórz menu .im <mode> - szybkie uruchomienie .imstop - zatrzymaj się na czacie .imstopall - zatrzymaj się wszędzie Tryby: pisanie, głos, wideo, gra, zdjęcie, okrągły, audio, dokument, lokalizacja, kontakt, naklejka, mieszane",
+        "es": "Simula la actividad del chat Comandos: .im: abrir menú .im <modo>: inicio rápido .imstop: detenerse en el chat .imstopall: detenerse en todas partes Modos: escritura, voz, video, juego, foto, ronda, audio, documento, ubicación, contacto, calcomanía, mixto",
+        "de": "Simuliert Chat-Aktivität. Befehle: .im - Menü öffnen. .im <Modus> - Schnellstart. .imstop - Im Chat anhalten. .imstopall - Überall anhalten. Modi: Tippen, Sprache, Video, Spiel, Foto, Runde, Audio, Dokument, Standort, Kontakt, Aufkleber, gemischt",
+        "fr": "Simule l'activité de chat Commandes : .im - ouvrir le menu .im <mode> - lancement rapide .imstop - arrêter dans le chat .imstopall - arrêter partout Modes : saisie, voix, vidéo, jeu, photo, ronde, audio, document, emplacement, contact, autocollant, mixte",
+        "pt-BR": "Simula atividade de bate-papo Comandos: .im - abrir menu .im <modo> - início rápido .imstop - parar no bate-papo .imstopall - parar em qualquer lugar Modos: digitação, voz, vídeo, jogo, foto, rodada, áudio, documento, localização, contato, adesivo, misto",
+        "tr": "Sohbet etkinliğini simüle eder Komutlar: .im - menüyü aç .im <mode> - hızlı başlatma .imstop - sohbette durdur .imstopall - her yerde durdur Modlar: yazma, ses, video, oyun, fotoğraf, yuvarlak, ses, belge, konum, kişi, çıkartma, karışık",
+        "ar": "يحاكي نشاط الدردشة الأوامر: .im - قائمة مفتوحة .im <mode> - تشغيل سريع .imstop - توقف في الدردشة .imstopall - توقف في كل مكان الأوضاع: الكتابة، الصوت، الفيديو، اللعبة، الصورة، الجولة، الصوت، المستند، الموقع، جهة الاتصال، الملصق، مختلط",
+        "be": "Імітуе актыўнасць чата Каманды: .im - адкрыць меню .im <mode> - хуткі запуск .imstop - прыпынак у чаце .imstopall - прыпынак усюды Рэжымы: набор тэксту, голас, відэа, гульня, фота, раунд, аўдыё, дакумент, месцазнаходжанне, кантакт, налепка, змешаны",
+        "kk": "Сөйлесу әрекетін имитациялайды Пәрмендер: .im - ашық мәзір .im <режим> - жылдам іске қосу .imstop - чатта тоқтату .imstopall - барлық жерде тоқтату Режимдер: теру, дауыс, бейне, ойын, фото, дөңгелек, аудио, құжат, орын, контакт, стикер, аралас"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send"
+      ]
     }
   ]
 }
