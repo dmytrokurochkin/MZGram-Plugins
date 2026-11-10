@@ -10995,6 +10995,36 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "stars_unlock_rub",
+      "name": "Stars Unlock & RUB",
+      "version": "2.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/stars_unlock_rub/2.1.0/stars_unlock_rub.plugin",
+      "sha256": "7cab244c60cba4063cdff29f55c2afb34ef3754db22068e8fac6975a4a084d8e",
+      "size": 51222,
+      "description": "Calculates the date of unlocking stars for withdrawal (through the list of transactions, +21 days from the Central Bank) and adds the exchange rate next to $ in the Monetization section. Channel with updates and other plugins",
+      "description_i18n": {
+        "en": "Calculates the date of unlocking stars for withdrawal (through the list of transactions, +21 days from the Central Bank) and adds the exchange rate next to $ in the Monetization section. Channel with updates and other plugins",
+        "uk": "Розраховує дату розблокування зірок для виведення (через список транзакцій, +21 день від ЦБ) і додає курс обміну біля $ в розділі Монетизація. Канал з оновленнями та іншими плагінами",
+        "ru": "Рассчитывает дату разблокировки звезд для вывода (через список транзакций, +21 день от ЦБ) и добавляет курс обмена рядом с $ в разделе Монетизация. Канал с обновлениями и другими плагинами",
+        "pl": "Oblicza datę odblokowania gwiazdek do wypłaty (poprzez listę transakcji, +21 dni od Banku Centralnego) i dodaje kurs wymiany obok $ w sekcji Monetyzacja. Kanał z aktualizacjami i innymi wtyczkami",
+        "es": "Calcula la fecha de desbloqueo de estrellas para retiro (a través del listado de transacciones, +21 días del Banco Central) y agrega el tipo de cambio al lado de $ en la sección Monetización. Canal con actualizaciones y otros complementos.",
+        "de": "Berechnet das Datum der Freischaltung von Sternen für die Auszahlung (über die Liste der Transaktionen, +21 Tage von der Zentralbank) und fügt den Wechselkurs neben $ im Abschnitt „Monetarisierung\" hinzu. Kanal mit Updates und anderen Plugins",
+        "fr": "Calcule la date de déverrouillage des étoiles pour le retrait (via la liste des transactions, +21 jours depuis la Banque Centrale) et ajoute le taux de change à côté de $ dans la section Monétisation. Chaîne avec mises à jour et autres plugins",
+        "pt-BR": "Calcula a data de desbloqueio de estrelas para saque (através da lista de transações, +21 dias do Banco Central) e adiciona a taxa de câmbio ao lado de $ na seção Monetização. Canal com atualizações e outros plugins",
+        "tr": "Para çekme için yıldızların kilidinin açılacağı tarihi hesaplar (işlem listesi aracılığıyla, Merkez Bankası'ndan +21 gün) ve Para Kazanma bölümünde döviz kurunu $'ın yanına ekler. Güncellemelerin ve diğer eklentilerin bulunduğu kanal",
+        "ar": "حساب تاريخ فتح النجوم للسحب (من خلال قائمة المعاملات، +21 يومًا من البنك المركزي) وإضافة سعر الصرف بجوار $ في قسم تحقيق الدخل. قناة مع التحديثات والمكونات الإضافية الأخرى",
+        "be": "Разлічвае дату разблакіроўкі зорак для вываду (праз спіс транзакцый, +21 дзень ад ЦБ) і дадае абменны курс побач з $ у раздзеле Манетызацыя. Канал з абнаўленнямі і іншымі ўбудовамі",
+        "kk": "Шығаруға арналған жұлдыздардың құлпын ашу күнін есептейді (транзакциялар тізімі арқылы, Орталық банктен +21 күн) және Монетизация бөліміндегі доллардың жанына айырбас бағамын қосады. Жаңартулары және басқа плагиндері бар арна"
+      },
+      "permissions": [
+        "messages.read",
+        "network",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
