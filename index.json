@@ -1710,6 +1710,36 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "ayu_yandex_maps",
+      "name": "Яндекс Карты",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/ayu_yandex_maps/1.0.0/ayu_yandex_maps.plugin",
+      "sha256": "7c614c98f8d0d1a8711cf6bc7d260c7b519552befe550d676b75d42ff76e0d3f",
+      "size": 157988,
+      "description": "Return of Yandex Maps API instead of Google. Your own JavaScript API key is required.",
+      "description_i18n": {
+        "en": "Return of Yandex Maps API instead of Google. Your own JavaScript API key is required.",
+        "uk": "Повернення API Яндекс Карт замість Google. Потрібен власний ключ JavaScript API.",
+        "ru": "Возвращение API Яндекс Карт вместо Google. Требуется ваш собственный ключ API JavaScript.",
+        "pl": "Powrót API Yandex Maps zamiast Google. Wymagany jest własny klucz JavaScript API.",
+        "es": "Retorno de la API de Yandex Maps en lugar de Google. Se requiere su propia clave API de JavaScript.",
+        "de": "Rückkehr der Yandex Maps API anstelle von Google. Ihr eigener JavaScript-API-Schlüssel ist erforderlich.",
+        "fr": "Retour de l'API Yandex Maps au lieu de Google. Votre propre clé API JavaScript est requise.",
+        "pt-BR": "Retorno da API Yandex Maps em vez do Google. É necessária sua própria chave de API JavaScript.",
+        "tr": "Google yerine Yandex Haritalar API'sinin iadesi. Kendi JavaScript API anahtarınız gereklidir.",
+        "ar": "عودة واجهة برمجة تطبيقات خرائط Yandex بدلاً من Google. مطلوب مفتاح JavaScript API الخاص بك.",
+        "be": "Вяртанне API Yandex Maps замест Google. Патрабуецца ваш уласны ключ JavaScript API.",
+        "kk": "Google орнына Yandex Maps API қайтару. Жеке JavaScript API кілті қажет."
+      },
+      "permissions": [
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
