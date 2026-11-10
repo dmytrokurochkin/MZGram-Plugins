@@ -11889,6 +11889,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "voice_changer_rt",
+      "name": "Voice Changer RT",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/voice_changer_rt/1.0.0/voice_changer_rt.plugin",
+      "sha256": "954967e0b3612ed6e65dcbe9cad0c4b421c8761063c49c4f581ae7d648481811",
+      "size": 549060,
+      "description": "Real-time voice changing for calls, video chats, round videos and voice messages.",
+      "description_i18n": {
+        "en": "Real-time voice changing for calls, video chats, round videos and voice messages.",
+        "uk": "Зміна голосу в реальному часі для дзвінків, відеочатів, круглих відео та голосових повідомлень.",
+        "ru": "Изменение голоса в реальном времени для звонков, видеочатов, видеороликов и голосовых сообщений.",
+        "pl": "Zmiana głosu w czasie rzeczywistym dla połączeń, czatów wideo, okrągłych filmów i wiadomości głosowych.",
+        "es": "Cambio de voz en tiempo real para llamadas, videochats, videos redondos y mensajes de voz.",
+        "de": "Sprachänderung in Echtzeit für Anrufe, Video-Chats, Rundvideos und Sprachnachrichten.",
+        "fr": "Changement de voix en temps réel pour les appels, les chats vidéo, les vidéos rondes et les messages vocaux.",
+        "pt-BR": "Mudança de voz em tempo real para chamadas, chats de vídeo, vídeos redondos e mensagens de voz.",
+        "tr": "Aramalar, görüntülü sohbetler, yuvarlak videolar ve sesli mesajlar için gerçek zamanlı ses değişimi.",
+        "ar": "تغيير الصوت في الوقت الفعلي للمكالمات ومحادثات الفيديو ومقاطع الفيديو المستديرة والرسائل الصوتية.",
+        "be": "Змена голасу ў рэжыме рэальнага часу для званкоў, відэа-чатаў, круглых відэа і галасавых паведамленняў.",
+        "kk": "Қоңыраулар, бейне чаттар, дөңгелек бейнелер және дауыстық хабарламалар үшін нақты уақыттағы дауысты өзгерту."
+      },
+      "permissions": [
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
