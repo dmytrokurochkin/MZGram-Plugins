@@ -3537,6 +3537,36 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "discord_rpc",
+      "name": "Discord RPC",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/discord_rpc/1.0/discord_rpc.plugin",
+      "sha256": "fba340674027e8ad2fd31267a6296a4784a9224faeaebb6e08eb3e19ac34d9b9",
+      "size": 16860,
+      "description": "Implements Discord Rich Presence support, and automatically updates your description to show what you're playing or listening to (Use at your own risk)",
+      "description_i18n": {
+        "en": "Implements Discord Rich Presence support, and automatically updates your description to show what you're playing or listening to (Use at your own risk)",
+        "uk": "Реалізує підтримку Discord Rich Presence та автоматично оновлює ваш опис, щоб показати, що ви граєте або слухаєте (використовуйте на свій страх і ризик)",
+        "ru": "Реализует поддержку Discord Rich Presence и автоматически обновляет ваше описание, чтобы показать, что вы играете или слушаете (используйте на свой страх и риск).",
+        "pl": "Implementuje obsługę Discord Rich Presence i automatycznie aktualizuje Twój opis, aby pokazać, czego grasz lub czego słuchasz (używasz na własne ryzyko)",
+        "es": "Implementa la compatibilidad con Discord Rich Presence y actualiza automáticamente tu descripción para mostrar lo que estás reproduciendo o escuchando (úsalo bajo tu propia responsabilidad)",
+        "de": "Implementiert die Discord Rich Presence-Unterstützung und aktualisiert Ihre Beschreibung automatisch, um zu zeigen, was Sie gerade spielen oder hören (Nutzung auf eigene Gefahr).",
+        "fr": "Implémente la prise en charge de Discord Rich Presence et met automatiquement à jour votre description pour afficher ce que vous jouez ou écoutez (Utilisez à vos propres risques)",
+        "pt-BR": "Implementa suporte para Discord Rich Presence e atualiza automaticamente sua descrição para mostrar o que você está tocando ou ouvindo (use por sua própria conta e risco)",
+        "tr": "Discord Rich Presence desteğini uygular ve ne çaldığınızı veya dinlediğinizi gösterecek şekilde açıklamanızı otomatik olarak günceller (Kullanma riski size aittir)",
+        "ar": "ينفذ دعم Discord Rich Presence، ويقوم تلقائيًا بتحديث الوصف الخاص بك لإظهار ما تلعبه أو تستمع إليه (استخدمه على مسؤوليتك الخاصة)",
+        "be": "Рэалізуе падтрымку Discord Rich Presence і аўтаматычна абнаўляе ваша апісанне, каб паказаць, што вы гуляеце або слухаеце (выкарыстоўвайце на свой страх і рызыка)",
+        "kk": "Discord Rich Presence қолдауын жүзеге асырады және ойнап жатқаныңызды немесе тыңдап жатқаныңызды көрсету үшін сипаттамаңызды автоматты түрде жаңартады (өз тәуекеліңізге байланысты пайдаланыңыз)"
+      },
+      "permissions": [
+        "messages.read",
+        "network",
+        "files",
+        "intents"
+      ]
     }
   ]
 }
