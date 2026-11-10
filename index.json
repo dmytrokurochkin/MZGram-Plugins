@@ -4571,6 +4571,33 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "folders_below",
+      "name": "Folders Below",
+      "version": "3.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/folders_below/3.0/folders_below.plugin",
+      "sha256": "354f7015cc4a88cabebf5c01af48165ad653783c647cc7a5a6567636ff4c7fec",
+      "size": 17865,
+      "description": "Moves folders bar to the bottom of the chat list",
+      "description_i18n": {
+        "en": "Moves folders bar to the bottom of the chat list",
+        "uk": "Переміщує панель папок униз списку чату",
+        "ru": "Перемещает панель папок в конец списка чатов.",
+        "pl": "Przenosi pasek folderów na dół listy czatów",
+        "es": "Mueve la barra de carpetas al final de la lista de chat.",
+        "de": "Verschiebt die Ordnerleiste an das Ende der Chat-Liste",
+        "fr": "Déplace la barre des dossiers vers le bas de la liste de discussion",
+        "pt-BR": "Move a barra de pastas para o final da lista de bate-papo",
+        "tr": "Klasörler çubuğunu sohbet listesinin en altına taşır",
+        "ar": "ينقل شريط المجلدات إلى أسفل قائمة الدردشة",
+        "be": "Перамяшчае панэль тэчак у ніжнюю частку спіса чатаў",
+        "kk": "Қалталар жолағын сөйлесу тізімінің төменгі жағына жылжытады"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
