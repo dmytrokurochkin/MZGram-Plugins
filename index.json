@@ -2834,6 +2834,35 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "convert_anything",
+      "name": "Convert Anything",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/convert_anything/1.0.0/convert_anything.plugin",
+      "sha256": "edf8b83687261ab2638cd696948801f3bf659fd29683e7fa3771e3be3fb5473b",
+      "size": 39069,
+      "description": "Hold a message containing a file, tap Plugins, and select Convert Anything. Then choose the output format and what to do with the converted file.",
+      "description_i18n": {
+        "en": "Hold a message containing a file, tap Plugins, and select Convert Anything. Then choose the output format and what to do with the converted file.",
+        "uk": "Тримайте повідомлення, що містить файл, торкніться «Плагіни» та виберіть «Перетворити будь-що». Потім виберіть вихідний формат і те, що робити з перетвореним файлом.",
+        "ru": "Удерживайте сообщение, содержащее файл, нажмите «Плагины» и выберите «Преобразовать что угодно». Затем выберите выходной формат и что делать с преобразованным файлом.",
+        "pl": "Przytrzymaj wiadomość zawierającą plik, dotknij Wtyczki i wybierz Konwertuj wszystko. Następnie wybierz format wyjściowy i co zrobić z przekonwertowanym plikiem.",
+        "es": "Mantenga presionado un mensaje que contenga un archivo, toque Complementos y seleccione Convertir cualquier cosa. Luego elija el formato de salida y qué hacer con el archivo convertido.",
+        "de": "Halten Sie eine Nachricht mit einer Datei gedrückt, tippen Sie auf „Plugins\" und wählen Sie „Alles konvertieren\". Wählen Sie dann das Ausgabeformat und was mit der konvertierten Datei geschehen soll.",
+        "fr": "Tenez un message contenant un fichier, appuyez sur Plugins et sélectionnez Convertir n'importe quoi. Choisissez ensuite le format de sortie et que faire du fichier converti.",
+        "pt-BR": "Segure uma mensagem contendo um arquivo, toque em Plugins e selecione Converter qualquer coisa. Em seguida, escolha o formato de saída e o que fazer com o arquivo convertido.",
+        "tr": "Dosya içeren mesajı basılı tutun, Eklentiler'e dokunun ve Her Şeyi Dönüştür'ü seçin. Ardından çıktı formatını ve dönüştürülen dosyayla ne yapılacağını seçin.",
+        "ar": "اضغط مع الاستمرار على رسالة تحتوي على ملف، وانقر فوق المكونات الإضافية، ثم حدد تحويل أي شيء. ثم اختر تنسيق الإخراج وماذا تفعل بالملف المحول.",
+        "be": "Утрымлівайце паведамленне, якое змяшчае файл, націсніце «Убудовы» і выберыце «Пераўтварыць што заўгодна». Затым выберыце выхадны фармат і тое, што рабіць з пераўтвораным файлам.",
+        "kk": "Файлы бар хабарды ұстап тұрып, Плагиндер түймесін түртіп, Кез келген нәрсені түрлендіру опциясын таңдаңыз. Содан кейін шығыс пішімін және түрлендірілген файлмен не істеу керектігін таңдаңыз."
+      },
+      "permissions": [
+        "messages.send",
+        "files",
+        "intents"
+      ]
     }
   ]
 }
