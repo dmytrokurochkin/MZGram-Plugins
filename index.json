@@ -9485,6 +9485,37 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "remind",
+      "name": "Remind",
+      "version": "2.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/remind/2.3/remind.plugin",
+      "sha256": "e3fafd7c895b5a68b74b17b46d769b6abde4668ae078635ba1800f1ece9211a0",
+      "size": 30064,
+      "description": "Reminders. Requires a version of exteragram with pure python support",
+      "description_i18n": {
+        "en": "Reminders. Requires a version of exteragram with pure python support",
+        "uk": "Нагадування. Потрібна версія exteragram із чистою підтримкою Python",
+        "ru": "Напоминания. Требуется версия exteragram с чистой поддержкой Python.",
+        "pl": "Przypomnienia. Wymaga wersji exteragramu z obsługą czystego Pythona",
+        "es": "Recordatorios. Requiere una versión de Exteragram con soporte puro de Python.",
+        "de": "Erinnerungen. Erfordert eine Version von Exteragram mit reiner Python-Unterstützung",
+        "fr": "Rappels. Nécessite une version d'Exteragram avec un support Python pur",
+        "pt-BR": "Lembretes. Requer uma versão do exteragrama com suporte puro a python",
+        "tr": "Hatırlatmalar. Saf python destekli bir exteragram sürümü gerektirir",
+        "ar": "تذكيرات. يتطلب إصدارًا من exteragram مع دعم بيثون خالص",
+        "be": "Напаміны. Патрабуецца версія exteragram з чыстай падтрымкай Python",
+        "kk": "Еске салғыштар. Таза питон қолдауы бар экстераграмма нұсқасын талап етеді"
+      },
+      "requirements": [
+        "tinydb"
+      ],
+      "permissions": [
+        "messages.send",
+        "files"
+      ]
     }
   ]
 }
