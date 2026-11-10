@@ -88,6 +88,33 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "BarcodeLang",
+      "name": "Штрихкодовый язык",
+      "version": "1.4.88",
+      "min_app_version": "1.0.0",
+      "file": "plugins/BarcodeLang/1.4.88/Shtrix.Plugin",
+      "sha256": "dfff5d6ca12e53487bbd4b8325346b26b3e056ff9c54e2afc2a8ec77ac012791",
+      "size": 5729,
+      "description": "|lIl|IlIl|IlI|lIl|IlIl|IlI 😭🙏🙏",
+      "description_i18n": {
+        "en": "|lIl|IlIl|IlI|lIl|IlIl|IlI 😭🙏🙏",
+        "uk": "|lIl|IlIl|IlI|lIl|IlIl|IlIl 😭🙏🙏",
+        "ru": "|лИл|ИлИл|ИлИ|лИл|ИлИл|ИлИ 😭🙏🙏",
+        "pl": "|lIl|IllIl|IllI|lIl|IllIl|IllI 😭🙏🙏",
+        "es": "|lIl|IlIl|IlI|lIl|IlIl|IlI 😭🙏🙏",
+        "de": "|lIl|IlIl|IlI|lIl|IlIl|IlI 😭🙏🙏",
+        "fr": "|lIl|IlIl|IlI|lIl|IlIl|IlI 😭🙏🙏",
+        "pt-BR": "|lIl|IlIl|IlI|lIl|IlIl|IlI 😭🙏🙏",
+        "tr": "|lIl|IllIl|Illi|llIl|IllIl|Illi 😭🙏🙏",
+        "ar": "|lIl|إلي|إلي|إلي|إلي|إلي 😭🙏🙏",
+        "be": "|Іль|Іль|Іль|Іл|Іл|Іл 😭🙏🙏",
+        "kk": "|lIl|IlIl|IlI|lIl|IlIl|IlI 😭🙏🙏"
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
