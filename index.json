@@ -3627,6 +3627,34 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "dotastats",
+      "name": "DotaStats",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/dotastats/1.0/dotastats.plugin",
+      "sha256": "d23bff4f998cf4fde8bde6be8137d2882a50e65032b5d2373d067d470ef3c70a",
+      "size": 10641,
+      "description": "Information about your latest matches or about a specific match. Guide in settings Provides information about your last dota matches or about specific match.",
+      "description_i18n": {
+        "en": "Information about your latest matches or about a specific match. Guide in settings Provides information about your last dota matches or about specific match.",
+        "uk": "Інформація про ваші останні матчі або про конкретний матч. Посібник у налаштуваннях Надає інформацію про ваші останні матчі Dota або про певний матч.",
+        "ru": "Информация о ваших последних матчах или о конкретном матче. Руководство по настройкам Предоставляет информацию о ваших последних матчах по доте или о конкретном матче.",
+        "pl": "Informacje o Twoich ostatnich meczach lub konkretnym meczu. Przewodnik po ustawieniach Zawiera informacje o Twoich ostatnich dopasowaniach dota lub konkretnym dopasowaniu.",
+        "es": "Información sobre tus últimos partidos o sobre un partido específico. Guía en la configuración Proporciona información sobre tus últimas partidas de Dota o sobre una partida específica.",
+        "de": "Informationen zu Ihren letzten Spielen oder zu einem bestimmten Spiel. Leitfaden in den Einstellungen Bietet Informationen zu Ihren letzten Dota-Spielen oder zu einem bestimmten Spiel.",
+        "fr": "Informations sur vos derniers matchs ou sur un match spécifique. Guide dans les paramètres Fournit des informations sur vos dernières correspondances Dota ou sur une correspondance spécifique.",
+        "pt-BR": "Informações sobre suas últimas partidas ou sobre uma partida específica. Guia nas configurações Fornece informações sobre suas últimas partidas no Dota ou sobre partidas específicas.",
+        "tr": "En son maçlarınız veya belirli bir maç hakkında bilgiler. Ayarlardaki kılavuz Son dota eşleşmeleriniz veya belirli bir eşleşme hakkında bilgi sağlar.",
+        "ar": "معلومات حول آخر مبارياتك أو عن مباراة معينة. يوفر الدليل في الإعدادات معلومات حول آخر تطابقات dota لديك أو حول تطابق معين.",
+        "be": "Інфармацыя аб вашых апошніх матчах або аб канкрэтным матчы. Кіраўніцтва ў наладах Дае інфармацыю аб вашых апошніх матчах па Dota або аб пэўным матчы.",
+        "kk": "Соңғы сәйкестіктер немесе белгілі бір сәйкестік туралы ақпарат. Параметрлердегі нұсқаулық Соңғы дота сәйкестіктері немесе нақты сәйкестіктер туралы ақпаратты береді."
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
