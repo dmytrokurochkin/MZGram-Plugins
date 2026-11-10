@@ -4432,6 +4432,34 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "flappy_bird_game",
+      "name": "Flappy Bird",
+      "version": "2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/flappy_bird_game/2.0/flappy_bird_game.plugin",
+      "sha256": "cca63332ce90661e79d7ae3525d56989aee4b0a7542a03ccab6d53cd054f1b64",
+      "size": 11678,
+      "description": "The legendary Flappy Bird right in the client. Send .flappy or launch from the side menu.",
+      "description_i18n": {
+        "en": "The legendary Flappy Bird right in the client. Send .flappy or launch from the side menu.",
+        "uk": "Легендарний Flappy Bird прямо в клієнті. Надішліть .flappy або запустіть із бічного меню.",
+        "ru": "Легендарная Flappy Bird прямо в клиенте. Отправьте .flappy или запустите из бокового меню.",
+        "pl": "Legendarny Flappy Bird bezpośrednio w kliencie. Wyślij .flappy lub uruchom z bocznego menu.",
+        "es": "El legendario Flappy Bird justo en el cliente. Envía .flappy o inicia desde el menú lateral.",
+        "de": "Der legendäre Flappy Bird direkt im Client. Senden Sie .flappy oder starten Sie es über das Seitenmenü.",
+        "fr": "Le légendaire Flappy Bird directement dans le client. Envoyez .flappy ou lancez-le depuis le menu latéral.",
+        "pt-BR": "O lendário Flappy Bird direto no cliente. Envie .flappy ou inicie no menu lateral.",
+        "tr": "Efsanevi Flappy Bird istemcide. .flappy gönderin veya yan menüden başlatın.",
+        "ar": "Flappy Bird الأسطوري موجود في العميل. أرسل .flappy أو ابدأ من القائمة الجانبية.",
+        "be": "Легендарная Flappy Bird прама ў кліенце. Адпраўце .flappy або запусціце з бакавога меню.",
+        "kk": "Клиентте аты аңызға айналған Flappy Bird. .flappy жіберіңіз немесе бүйірлік мәзірден іске қосыңыз."
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
