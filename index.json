@@ -12180,6 +12180,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "wiki_search",
+      "name": "Wikipedia Search Fixed",
+      "version": "2.5",
+      "min_app_version": "1.0.0",
+      "file": "plugins/wiki_search/2.5/wiki_search (1).plugin",
+      "sha256": "c41ce7bde7deadbeba0f8ad6df2d51885fb63290a7272f574fb13577b9270194",
+      "size": 394248,
+      "description": "Search .wiki [term] with a choice of languages ​​from all available",
+      "description_i18n": {
+        "en": "Search .wiki [term] with a choice of languages ​​from all available",
+        "uk": "Шукайте .wiki [термін] із вибором мов із усіх доступних",
+        "ru": "Поиск .wiki[термин] с выбором языка из всех доступных",
+        "pl": "Wyszukaj .wiki [termin] z możliwością wyboru spośród wszystkich dostępnych języków",
+        "es": "Busque .wiki [término] con una selección de idiomas entre todos los disponibles",
+        "de": "Durchsuchen Sie .wiki [Begriff] mit einer Auswahl an verfügbaren Sprachen",
+        "fr": "Recherchez .wiki [terme] avec un choix de langues parmi toutes disponibles",
+        "pt-BR": "Pesquise .wiki [termo] com uma escolha de idiomas entre todos disponíveis",
+        "tr": "Mevcut tüm diller arasından seçim yaparak .wiki [terim]'de arama yapın",
+        "ar": "ابحث في .wiki [مصطلح] مع اختيار اللغات من جميع اللغات المتاحة",
+        "be": "Шукайце .wiki [тэрмін] з выбарам моў з усіх даступных",
+        "kk": "Барлық қолжетімді тілдердің таңдауымен .wiki [термин] іздеңіз"
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
