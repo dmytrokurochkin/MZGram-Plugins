@@ -3911,6 +3911,33 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "etg_weekday",
+      "name": "День недели",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/etg_weekday/1.1.0/etg_weekday.plugin",
+      "sha256": "9d6a906b710559b5a443775e5f5ce4bffcc4a82932e9aec0f3881091dd57a874",
+      "size": 5826,
+      "description": "Adds a day of the week near a date.",
+      "description_i18n": {
+        "en": "Adds a day of the week near a date.",
+        "uk": "Додає день тижня біля дати.",
+        "ru": "Добавляет день недели рядом с датой.",
+        "pl": "Dodaje dzień tygodnia w pobliżu daty.",
+        "es": "Agrega un día de la semana cerca de una fecha.",
+        "de": "Fügt einen Wochentag in der Nähe eines Datums hinzu.",
+        "fr": "Ajoute un jour de la semaine à proximité d'une date.",
+        "pt-BR": "Adiciona um dia da semana próximo a uma data.",
+        "tr": "Bir tarihin yakınına haftanın bir gününü ekler.",
+        "ar": "لإضافة يوم من أيام الأسبوع بالقرب من التاريخ.",
+        "be": "Дадае дзень тыдня побач з датай.",
+        "kk": "Күннің жанына апта күнін қосады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
