@@ -4091,6 +4091,33 @@
         "messages.read",
         "messages.send"
       ]
+    },
+    {
+      "id": "extera_rpc",
+      "name": "Custom Now Playing",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/extera_rpc/1.1/extera_rpc.plugin",
+      "sha256": "37c2e3ba88c959a54ba36d7eb74a7ac2b3bbd3f75744a16be9233a333d0f40e8",
+      "size": 13220,
+      "description": "Allows you to set custom 'Now Playing'",
+      "description_i18n": {
+        "en": "Allows you to set custom 'Now Playing'",
+        "uk": "Дозволяє встановлювати спеціальний параметр «Зараз грає»",
+        "ru": "Позволяет вам установить собственный вариант «Сейчас исполняется»",
+        "pl": "Umożliwia ustawienie niestandardowego „Teraz odtwarzane\"",
+        "es": "Le permite configurar 'Reproduciendo ahora' personalizado",
+        "de": "Ermöglicht Ihnen, benutzerdefinierte „Aktuelle Wiedergabe\" festzulegen.",
+        "fr": "Vous permet de définir une fonctionnalité « Lecture en cours » personnalisée",
+        "pt-BR": "Permite que você defina 'Reproduzindo Agora' personalizado",
+        "tr": "Özel 'Şimdi Yürütülüyor' seçeneğini ayarlamanıza olanak tanır",
+        "ar": "يسمح لك بتعيين \"التشغيل الآن\" المخصص",
+        "be": "Дазваляе ўсталёўваць карыстальніцкае «Цяпер іграе»",
+        "kk": "Арнаулы \"Қазір ойналуда\" параметрін орнатуға мүмкіндік береді"
+      },
+      "permissions": [
+        "network"
+      ]
     }
   ]
 }
