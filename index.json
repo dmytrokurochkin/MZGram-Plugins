@@ -2191,6 +2191,33 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "centered_header",
+      "name": "Centered header",
+      "version": "0.9.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/centered_header/0.9.1/centered_header.plugin",
+      "sha256": "f3e9a0c4e80d71374b959f51d586715dac213d865281cc35567ad87741f3bdba",
+      "size": 13841,
+      "description": "Centered header for chats (beta)",
+      "description_i18n": {
+        "en": "Centered header for chats (beta)",
+        "uk": "Центрований заголовок для чатів (бета-версія)",
+        "ru": "Центрированный заголовок для чатов (бета)",
+        "pl": "Wyśrodkowany nagłówek czatów (beta)",
+        "es": "Encabezado centrado para chats (beta)",
+        "de": "Zentrierter Header für Chats (Beta)",
+        "fr": "En-tête centré pour les chats (bêta)",
+        "pt-BR": "Cabeçalho centralizado para bate-papos (beta)",
+        "tr": "Sohbetler için ortalanmış başlık (beta)",
+        "ar": "الرأس المركزي للدردشات (تجريبي)",
+        "be": "Цэнтраваны загаловак для чатаў (бэта)",
+        "kk": "Чаттарға арналған орталық тақырып (бета)"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
