@@ -3510,6 +3510,33 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "disable_link_preview",
+      "name": "Disable Link Preview",
+      "version": "1.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/disable_link_preview/1.0.1/disable link preview.plugin",
+      "sha256": "926f0090e976a54300e1ad0d1aa8e75437e2585ea47bae55d12474874f6166aa",
+      "size": 4389,
+      "description": "Disables link previews for all outgoing messages.",
+      "description_i18n": {
+        "en": "Disables link previews for all outgoing messages.",
+        "uk": "Вимикає попередній перегляд посилань для всіх вихідних повідомлень.",
+        "ru": "Отключает предварительный просмотр ссылок для всех исходящих сообщений.",
+        "pl": "Wyłącza podgląd linków dla wszystkich wiadomości wychodzących.",
+        "es": "Deshabilita las vistas previas de enlaces para todos los mensajes salientes.",
+        "de": "Deaktiviert die Linkvorschau für alle ausgehenden Nachrichten.",
+        "fr": "Désactive les aperçus des liens pour tous les messages sortants.",
+        "pt-BR": "Desativa as visualizações de links para todas as mensagens enviadas.",
+        "tr": "Tüm giden iletiler için bağlantı önizlemelerini devre dışı bırakır.",
+        "ar": "تعطيل معاينات الارتباط لجميع الرسائل الصادرة.",
+        "be": "Адключае папярэдні прагляд спасылак для ўсіх выходных паведамленняў.",
+        "kk": "Барлық шығыс хабарлар үшін сілтемелерді алдын ала қарауды өшіреді."
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
