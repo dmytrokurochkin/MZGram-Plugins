@@ -1567,6 +1567,33 @@
       "permissions": [
         "messages.read"
       ]
+    },
+    {
+      "id": "auto_scroll",
+      "name": "Auto Scroll",
+      "version": "1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/auto_scroll/1.2/auto_scroll.plugin",
+      "sha256": "411b685e23276124bd96608edeba2ba61d737ead6303e743992afaeeebf472ef",
+      "size": 24592,
+      "description": "Automatic scrolling of messages in chats. Activation: (⋮) → Plugins → Auto Scroll in any chat.",
+      "description_i18n": {
+        "en": "Automatic scrolling of messages in chats. Activation: (⋮) → Plugins → Auto Scroll in any chat.",
+        "uk": "Автоматична прокрутка повідомлень у чатах. Активація: (⋮) → Плагіни → Автопрокрутка в будь-якому чаті.",
+        "ru": "Автоматическая прокрутка сообщений в чатах. Активация: (⋮) → Плагины → Автопрокрутка в любом чате.",
+        "pl": "Automatyczne przewijanie wiadomości na czacie. Aktywacja: (⋮) → Wtyczki → Automatyczne przewijanie na dowolnym czacie.",
+        "es": "Desplazamiento automático de mensajes en los chats. Activación: (⋮) → Complementos → Desplazamiento automático en cualquier chat.",
+        "de": "Automatisches Scrollen von Nachrichten in Chats. Aktivierung: (⋮) → Plugins → Automatisches Scrollen in jedem Chat.",
+        "fr": "Défilement automatique des messages dans les chats. Activation : (⋮) → Plugins → Défilement automatique dans n'importe quel chat.",
+        "pt-BR": "Rolagem automática de mensagens em chats. Ativação: (⋮) → Plugins → Rolagem automática em qualquer chat.",
+        "tr": "Sohbetlerdeki mesajların otomatik kaydırılması. Etkinleştirme: (⋮) → Eklentiler → Herhangi bir sohbette Otomatik Kaydırma.",
+        "ar": "التمرير التلقائي للرسائل في الدردشات. التنشيط: (⋮) → المكونات الإضافية → التمرير التلقائي في أي دردشة.",
+        "be": "Аўтаматычная пракрутка паведамленняў у чатах. Актывацыя: (⋮) → Убудовы → Аўтапракрутка ў любым чаце.",
+        "kk": "Чаттардағы хабарларды автоматты түрде айналдыру. Іске қосу: (⋮) → Плагиндер → Кез келген чатта автоматты айналдыру."
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }
