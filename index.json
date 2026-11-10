@@ -11947,6 +11947,36 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "voice_collector",
+      "name": "Voice Collector",
+      "version": "0.9.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/voice_collector/0.9.3/voice_collector.plugin",
+      "sha256": "d46ab3894f6cb6b553f6df58db4478ba26c790bd228761605a4261e19294e7b6",
+      "size": 23972,
+      "description": "Saving voices/mp3 to the library. And send as voice messages",
+      "description_i18n": {
+        "en": "Saving voices/mp3 to the library. And send as voice messages",
+        "uk": "Збереження голосів/mp3 до бібліотеки. І надсилати як голосові повідомлення",
+        "ru": "Сохранение голосов/mp3 в библиотеку. И отправлять голосовыми сообщениями",
+        "pl": "Zapisywanie głosów/mp3 w bibliotece. I wysyłaj jako wiadomości głosowe",
+        "es": "Guardar voces/mp3 en la biblioteca. Y enviar como mensajes de voz",
+        "de": "Speichern von Stimmen/MP3 in der Bibliothek. Und als Sprachnachrichten versenden",
+        "fr": "Sauvegarde des voix/mp3 dans la bibliothèque. Et envoyer des messages vocaux",
+        "pt-BR": "Salvando vozes/mp3 na biblioteca. E envie como mensagens de voz",
+        "tr": "Sesleri/mp3'ü kütüphaneye kaydetme. Ve sesli mesaj olarak gönder",
+        "ar": "حفظ الأصوات/mp3 إلى المكتبة. وإرسالها كرسائل صوتية",
+        "be": "Захаванне галасоў/mp3 у бібліятэцы. І адпраўляць як галасавыя паведамленні",
+        "kk": "Дауыстарды/mp3 файлдарын кітапханаға сақтау. Және дауыстық хабарлар ретінде жіберіңіз"
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "files",
+        "intents"
+      ]
     }
   ]
 }
