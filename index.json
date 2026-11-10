@@ -11085,6 +11085,37 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "stella",
+      "name": "Stella",
+      "version": "3.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/stella/3.0.0/stella.plugin",
+      "sha256": "4bcd19c7a8f46d35f7f20e424b6b79b2545f492275455a3fe7b3905bbc7d9c9a",
+      "size": 183690,
+      "description": "3D anime - Girl Stella directly on Telegram For those who don't have a girlfriend - now they have one/nWith support",
+      "description_i18n": {
+        "en": "3D anime - Girl Stella directly on Telegram For those who don't have a girlfriend - now they have one/nWith support",
+        "uk": "3D аніме - Дівчина Стелла прямо в Telegram Для тих, у кого немає дівчини - тепер вона є/nЗ підтримкою",
+        "ru": "3D аниме - Девушка Стелла прямо в Telegram Для тех у кого нет девушки - теперь она есть/nС поддержкой",
+        "pl": "Anime 3D - Girl Stella bezpośrednio na Telegramie Dla tych, którzy nie mają dziewczyny - teraz ją mają/nZ wsparciem",
+        "es": "Anime 3D - Girl Stella directamente en Telegram Para los que no tienen novia - ahora la tienen/nCon apoyo",
+        "de": "3D-Anime - Girl Stella direkt auf Telegram Für diejenigen, die keine Freundin haben - jetzt haben sie eine/nMit Unterstützung",
+        "fr": "Anime 3D - Girl Stella directement sur Telegram Pour ceux qui n'ont pas de petite amie - maintenant ils en ont une/nAvec soutien",
+        "pt-BR": "Anime 3D - Girl Stella diretamente no Telegram Pra quem não tem namorada - agora tem uma/nCom apoio",
+        "tr": "3D anime - Kız Stella doğrudan Telegram'da Kız arkadaşı olmayanlar için - artık bir tane var/nDestekle",
+        "ar": "أنمي ثلاثي الأبعاد - Girl Stella مباشرة على Telegram لأولئك الذين ليس لديهم صديقة - الآن لديهم واحدة/نمع الدعم",
+        "be": "3D-анімэ - Дзяўчына Стэла непасрэдна ў Telegram Для тых, у каго няма дзяўчыны - цяпер яна ёсць/nПры падтрымцы",
+        "kk": "3D аниме - қыз Стелла тікелей Telegram желісінде Сүйікті қызы жоқтар үшін - енді оларда бір/n Қолдау бар"
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
