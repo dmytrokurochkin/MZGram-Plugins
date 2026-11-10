@@ -3828,6 +3828,36 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "epicgames",
+      "name": "Epic Games",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/epicgames/1.0/Epic_Games.plugin",
+      "sha256": "fc0d2f00dd58f9a6dd0ec11a2715f3b6d85e4eea96846c0c7e0c8d94be2b925f",
+      "size": 70179,
+      "description": "🎮 Shows current game on Epic Games 📋 Commands: • [.nowepic/.enp] - current game • [.elibrary] - games library • [.eflibrary] - full library 🎨 Design - , THANKS",
+      "description_i18n": {
+        "en": "🎮 Shows current game on Epic Games 📋 Commands: • [.nowepic/.enp] - current game • [.elibrary] - games library • [.eflibrary] - full library 🎨 Design - , THANKS",
+        "uk": "🎮 Показує поточну гру на Epic Games 📋 Команди: • [.nowepic/.enp] - поточна гра • [.elibrary] - бібліотека ігор • [.eflibrary] - повна бібліотека 🎨 Дизайн - , ДЯКУЮ",
+        "ru": "🎮 Показывает текущую игру на Epic Games 📋 Команды: • [.nowepic/.enp] - текущая игра • [.elibrary] - библиотека игр • [.eflibrary] - полная библиотека 🎨 Дизайн - , СПАСИБО",
+        "pl": "🎮 Pokazuje bieżącą grę w Epic Games 📋 Polecenia: • [.nowepic/.enp] - bieżąca gra • [.elibrary] - biblioteka gier • [.eflibrary] - pełna biblioteka 🎨 Projekt - , DZIĘKI",
+        "es": "🎮 Muestra el juego actual en Epic Games 📋 Comandos: • [.nowepic/.enp] - juego actual • [.elibrary] - biblioteca de juegos • [.eflibrary] - biblioteca completa 🎨 Diseño - GRACIAS",
+        "de": "🎮 Zeigt das aktuelle Spiel auf Epic Games an. 📋 Befehle: • [.nowepic/.enp] - aktuelles Spiel • [.elibrary] - Spielebibliothek • [.eflibrary] - vollständige Bibliothek 🎨 Design - , DANKE",
+        "fr": "🎮 Affiche le jeu actuel sur Epic Games 📋 Commandes : • [.nowepic/.enp] - jeu actuel • [.elibrary] - bibliothèque de jeux • [.eflibrary] - bibliothèque complète 🎨 Design - , MERCI",
+        "pt-BR": "🎮 Mostra o jogo atual na Epic Games 📋 Comandos: • [.nowepic/.enp] - jogo atual • [.elibrary] - biblioteca de jogos • [.eflibrary] - biblioteca completa 🎨 Design - , OBRIGADO",
+        "tr": "🎮 Epic Games'teki mevcut oyunu gösterir 📋 Komutlar: • [.nowepic/.enp] - mevcut oyun • [.elibrary] - oyun kütüphanesi • [.eflibrary] - tam kütüphane 🎨 Tasarım - , TEŞEKKÜRLER",
+        "ar": "🎮 إظهار اللعبة الحالية على Epic Games 📋 الأوامر: • [.nowepic/.enp] - اللعبة الحالية • [.elibrary] - مكتبة الألعاب • [.eflibrary] - مكتبة كاملة 🎨 التصميم - ، شكرًا",
+        "be": "🎮 Паказвае бягучую гульню на Epic Games 📋 Каманды: • [.nowepic/.enp] - бягучая гульня • [.elibrary] - бібліятэка гульняў • [.eflibrary] - поўная бібліятэка 🎨 Дызайн - , ДЗЯКУЙ",
+        "kk": "🎮 Epic Games қолданбасында ағымдағы ойынды көрсетеді 📋 Пәрмендер: • [.nowepic/.enp] - ағымдағы ойын • [.elibrary] - ойындар кітапханасы • [.eflibrary] - толық кітапхана 🎨 Дизайн - , РАХМЕТ"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files"
+      ]
     }
   ]
 }
