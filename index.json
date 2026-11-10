@@ -9179,6 +9179,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "quoteReply",
+      "name": "QuoteReply",
+      "version": "1.0.11",
+      "min_app_version": "1.0.0",
+      "file": "plugins/quoteReply/1.0.11/quoteReply.plugin",
+      "sha256": "52556079689658b92489245c81f772f51686d3d7de3728064f6b65b0429f9ce6",
+      "size": 8408,
+      "description": "Send reply as a quote with a full text of the message. > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 or greater!",
+      "description_i18n": {
+        "en": "Send reply as a quote with a full text of the message. > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 or greater!",
+        "uk": "Надіслати відповідь як цитату з повним текстом повідомлення. > Потрібен **[ZwyLib](https://t.me/zwyPlugins/48)** версії 2.0.0 або новішої!",
+        "ru": "Отправьте ответ в виде цитаты с полным текстом сообщения. > Требуется **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 или более поздняя версия!",
+        "pl": "Wyślij odpowiedź jako wycenę z pełnym tekstem wiadomości. > Wymaga **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 lub nowszej!",
+        "es": "Enviar respuesta como cotización con el texto completo del mensaje. > ¡Requiere **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 o superior!",
+        "de": "Senden Sie die Antwort als Zitat mit dem vollständigen Text der Nachricht. > Erfordert **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 oder höher!",
+        "fr": "Envoyez la réponse sous forme de devis avec le texte intégral du message. > Nécessite **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 ou supérieur !",
+        "pt-BR": "Envie a resposta como uma citação com o texto completo da mensagem. > Requer **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 ou superior!",
+        "tr": "Cevabı mesajın tam metniyle birlikte alıntı olarak gönderin. > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 veya üstünü gerektirir!",
+        "ar": "إرسال الرد كاقتباس مع النص الكامل للرسالة. > يتطلب **[ZwyLib](https://t.me/zwyPlugins/48)** الإصدار 2.0.0 أو أحدث!",
+        "be": "Адказаць у выглядзе цытаты з поўным тэкстам паведамлення. > Патрабуецца **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 або вышэй!",
+        "kk": "Жауапты хабарламаның толық мәтінімен дәйексөз ретінде жіберіңіз. > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 немесе одан жоғары нұсқасын талап етеді!"
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
