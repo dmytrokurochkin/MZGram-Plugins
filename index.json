@@ -733,6 +733,30 @@
         "messages.read",
         "messages.send"
       ]
+    },
+    {
+      "id": "Sudoku",
+      "name": "Sudoku",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/Sudoku/1.0.0/Sudoku.plugin",
+      "sha256": "cc9cd7a9bd8ee536d7566930187c4d5e9d1f9e6196791c9727c2896b7bc9e008",
+      "size": 20148,
+      "description": "Classic Sudoku with Levels",
+      "description_i18n": {
+        "en": "Classic Sudoku with Levels",
+        "uk": "Класичне судоку з рівнями",
+        "ru": "Классическое судоку с уровнями",
+        "pl": "Klasyczne Sudoku z poziomami",
+        "es": "Sudoku clásico con niveles",
+        "de": "Klassisches Sudoku mit Levels",
+        "fr": "Sudoku classique avec niveaux",
+        "pt-BR": "Sudoku Clássico com Níveis",
+        "tr": "Seviyeli Klasik Sudoku",
+        "ar": "سودوكو الكلاسيكية مع المستويات",
+        "be": "Класічны судоку з узроўнямі",
+        "kk": "Деңгейлері бар классикалық судоку"
+      }
     }
   ]
 }
