@@ -11509,6 +11509,36 @@
         "be": "Гуляйце ў крыжыкі-нулікі супраць ІІ. Доступ праз меню чата 3dot.",
         "kk": "Жасанды интеллектке қарсы Tic-Tac-Toe ойнаңыз. 3dot чат мәзірі арқылы қол жеткізу."
       }
+    },
+    {
+      "id": "tiktokframe",
+      "name": "Tiktokframe",
+      "version": "1.5.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/tiktokframe/1.5.0/tiktokframe.plugin",
+      "sha256": "0e4edae434c23c4dc6cafb496bc9e4293a6ab4c42abf9f73a9e5eab469e2b32c",
+      "size": 56924,
+      "description": "Turns the post into a TikTok comment and inserts it into a gold frame. Command: .f (reply to message).",
+      "description_i18n": {
+        "en": "Turns the post into a TikTok comment and inserts it into a gold frame. Command: .f (reply to message).",
+        "uk": "Перетворює публікацію на коментар TikTok і вставляє її в золоту рамку. Команда: .f (відповідь на повідомлення).",
+        "ru": "Превращает публикацию в комментарий TikTok и вставляет ее в золотую рамку. Команда: .f (ответ на сообщение).",
+        "pl": "Zamienia post w komentarz TikTok i umieszcza go w złotej ramce. Polecenie: .f (odpowiedź na wiadomość).",
+        "es": "Convierte la publicación en un comentario de TikTok y la inserta en un marco dorado. Comando: .f (responder al mensaje).",
+        "de": "Wandelt den Beitrag in einen TikTok-Kommentar um und fügt ihn in einen goldenen Rahmen ein. Befehl: .f (Antwort auf Nachricht).",
+        "fr": "Transforme la publication en commentaire TikTok et l'insère dans un cadre doré. Commande : .f (réponse au message).",
+        "pt-BR": "Transforma a postagem em um comentário do TikTok e o insere em uma moldura dourada. Comando: .f (resposta à mensagem).",
+        "tr": "Gönderiyi TikTok yorumuna dönüştürür ve altın rengi bir çerçeveye ekler. Komut: .f (mesajı yanıtla).",
+        "ar": "يحول المنشور إلى تعليق TikTok ويدرجه في إطار ذهبي. الأمر: .f (الرد على الرسالة).",
+        "be": "Ператварае публікацыю ў каментарый TikTok і змяшчае яе ў залатую рамку. Каманда: .f (адказаць на паведамленне).",
+        "kk": "Жазбаны TikTok пікіріне айналдырады және оны алтын жақтауға кірістіреді. Пәрмен: .f (хабарламаға жауап беру)."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files"
+      ]
     }
   ]
 }
