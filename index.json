@@ -9375,6 +9375,33 @@
       "permissions": [
         "messages.read"
       ]
+    },
+    {
+      "id": "reactions_total",
+      "name": "Reactions Total",
+      "version": "2.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/reactions_total/2.0.0/reactions_total.plugin",
+      "sha256": "53943d9bea39a302b07c159ef2d5e62e2b2b5f3d383d86a1721b2da5a395ce85",
+      "size": 7879,
+      "description": "Total reactions next to views and forwards",
+      "description_i18n": {
+        "en": "Total reactions next to views and forwards",
+        "uk": "Загальна кількість реакцій на перегляди та пересилання",
+        "ru": "Всего реакций рядом с просмотрами и переадресациями",
+        "pl": "Suma reakcji obok wyświetleń i przesyłania dalej",
+        "es": "Reacciones totales junto a vistas y reenvíos",
+        "de": "Gesamte Reaktionen neben Aufrufen und Weiterleitungen",
+        "fr": "Réactions totales à côté des vues et des transferts",
+        "pt-BR": "Total de reações próximas a visualizações e encaminhamentos",
+        "tr": "Görüntüleme ve iletmelerin yanındaki toplam tepkiler",
+        "ar": "إجمالي ردود الفعل بجانب المشاهدات والأمام",
+        "be": "Агульная рэакцыя на прагляды і наперад",
+        "kk": "Көріністердің және алға бағытталғандардың жанындағы жалпы реакциялар"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
