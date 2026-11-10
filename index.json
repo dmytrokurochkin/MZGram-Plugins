@@ -9122,6 +9122,36 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "quick_settings_menu",
+      "name": "QuickSettings",
+      "version": "2.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/quick_settings_menu/2.0.1/QuickSettings.plugin",
+      "sha256": "0765a95ec79c28081829376553533d33982f6dcc42ea7492a68283f735593f94",
+      "size": 39194,
+      "description": "Adds a menu for quick access to other plugins' settings.",
+      "description_i18n": {
+        "en": "Adds a menu for quick access to other plugins' settings.",
+        "uk": "Додає меню для швидкого доступу до налаштувань інших плагінів.",
+        "ru": "Добавляет меню для быстрого доступа к настройкам других плагинов.",
+        "pl": "Dodaje menu umożliwiające szybki dostęp do ustawień innych wtyczek.",
+        "es": "Agrega un menú para acceder rápidamente a la configuración de otros complementos.",
+        "de": "Fügt ein Menü für den schnellen Zugriff auf die Einstellungen anderer Plugins hinzu.",
+        "fr": "Ajoute un menu pour un accès rapide aux paramètres des autres plugins.",
+        "pt-BR": "Adiciona um menu para acesso rápido às configurações de outros plugins.",
+        "tr": "Diğer eklentilerin ayarlarına hızlı erişim için bir menü ekler.",
+        "ar": "إضافة قائمة للوصول السريع إلى إعدادات المكونات الإضافية الأخرى.",
+        "be": "Дадае меню для хуткага доступу да налад іншых плагінаў.",
+        "kk": "Басқа плагиндердің параметрлеріне жылдам қол жеткізу үшін мәзір қосады."
+      },
+      "permissions": [
+        "messages.send",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
