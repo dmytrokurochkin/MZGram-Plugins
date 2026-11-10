@@ -7435,6 +7435,36 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "n0transcriber",
+      "name": "n0transcriber",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/n0transcriber/1.1.0/n0transcriber.plugin",
+      "sha256": "d2d9cea0eb42e5a433cb1fd248792608b1c34c6fd98e28eaa28eae9d42bcb0fb",
+      "size": 19136,
+      "description": "Transcribes voice messages via Groq Whisper with optional LLaMA cleanup.",
+      "description_i18n": {
+        "en": "Transcribes voice messages via Groq Whisper with optional LLaMA cleanup.",
+        "uk": "Транскрибує голосові повідомлення за допомогою Groq Whisper із додатковим очищенням LLaMA.",
+        "ru": "Расшифровывает голосовые сообщения через Groq Whisper с дополнительной очисткой LLaMA.",
+        "pl": "Transkrypcja wiadomości głosowych za pośrednictwem Groq Whisper z opcjonalnym czyszczeniem LLaMA.",
+        "es": "Transcribe mensajes de voz a través de Groq Whisper con limpieza LLaMA opcional.",
+        "de": "Transkribiert Sprachnachrichten über Groq Whisper mit optionaler LLaMA-Bereinigung.",
+        "fr": "Transcrit les messages vocaux via Groq Whisper avec le nettoyage LLaMA en option.",
+        "pt-BR": "Transcreve mensagens de voz via Groq Whisper com limpeza LLaMA opcional.",
+        "tr": "İsteğe bağlı LLaMA temizleme özelliğiyle Groq Whisper aracılığıyla sesli mesajları yazıya dönüştürür.",
+        "ar": "يقوم بنسخ الرسائل الصوتية عبر Groq Whisper مع تنظيف LLaMA الاختياري.",
+        "be": "Расшыфроўвае галасавыя паведамленні праз Groq Whisper з дадатковай ачысткай LLaMA.",
+        "kk": "Қосымша LLaMA тазалау арқылы Groq Whisper арқылы дауыстық хабарларды транскрипциялайды."
+      },
+      "permissions": [
+        "messages.read",
+        "network",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
