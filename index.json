@@ -6818,6 +6818,30 @@
       "permissions": [
         "messages.read"
       ]
+    },
+    {
+      "id": "message_tags",
+      "name": "Local Tags",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/message_tags/1.0.0/message_tags.plugin",
+      "sha256": "a74270034d3a5801a9b8a3b6149a3d19469b7a703738cff2b42ac03baaefecf2",
+      "size": 18724,
+      "description": "Add local tags to any message and search them per chat",
+      "description_i18n": {
+        "en": "Add local tags to any message and search them per chat",
+        "uk": "Додайте локальні теги до будь-якого повідомлення та шукайте їх у чаті",
+        "ru": "Добавляйте локальные теги к любому сообщению и ищите их в каждом чате.",
+        "pl": "Dodaj lokalne tagi do dowolnej wiadomości i przeszukuj je na czacie",
+        "es": "Agregue etiquetas locales a cualquier mensaje y búsquelas por chat",
+        "de": "Fügen Sie jeder Nachricht lokale Tags hinzu und durchsuchen Sie sie pro Chat",
+        "fr": "Ajoutez des balises locales à n'importe quel message et recherchez-les par chat",
+        "pt-BR": "Adicione tags locais a qualquer mensagem e pesquise-as por chat",
+        "tr": "Herhangi bir mesaja yerel etiketler ekleyin ve sohbet başına bunları arayın",
+        "ar": "أضف علامات محلية إلى أي رسالة وابحث عنها في كل دردشة",
+        "be": "Дадайце лакальныя тэгі да любога паведамлення і шукайце іх у чаце",
+        "kk": "Кез келген хабарға жергілікті тегтерді қосыңыз және оларды чатта іздеңіз"
+      }
     }
   ]
 }
