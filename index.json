@@ -4003,6 +4003,33 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "expressive_tab",
+      "name": "Expressive Tab",
+      "version": "1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/expressive_tab/1.2/expressive_tab.plugin",
+      "sha256": "11b3a0852b1876f1d49f2b35a0bd1a554facc6b27fa1e6a2d13da0eb8a98fd8b",
+      "size": 175171,
+      "description": "Replaces Exteragram's bottom navigation with a Floating Toolbar in the Material 3 Expressive style. RESTART EXTERAGRAM AFTER INSTALLATION!",
+      "description_i18n": {
+        "en": "Replaces Exteragram's bottom navigation with a Floating Toolbar in the Material 3 Expressive style. RESTART EXTERAGRAM AFTER INSTALLATION!",
+        "uk": "Замінює нижню панель навігації Exteragram на плаваючу панель інструментів у стилі Material 3 Expressive. ПЕРЕЗАПУСЬТЕ EXTERAGRAM ПІСЛЯ ВСТАНОВЛЕННЯ!",
+        "ru": "Заменяет нижнюю навигацию Exteragram на плавающую панель инструментов в стиле Material 3 Expressive. ПЕРЕЗАПУСТИТЕ EXTERAGRAM ПОСЛЕ УСТАНОВКИ!",
+        "pl": "Zastępuje dolną nawigację Exteragramu pływającym paskiem narzędzi w stylu Material 3 Expressive. URUCHOM PONOWNIE EKSTERAGRAM PO INSTALACJI!",
+        "es": "Reemplaza la navegación inferior de Exteragram con una barra de herramientas flotante en el estilo Material 3 Expressive. ¡REINICIAR EXTERAGRAMA DESPUÉS DE LA INSTALACIÓN!",
+        "de": "Ersetzt die untere Navigation von Exteragram durch eine schwebende Symbolleiste im Material 3 Expressive-Stil. EXTERAGRAM NACH DER INSTALLATION NEU STARTEN!",
+        "fr": "Remplace la navigation inférieure d'Exteragram par une barre d'outils flottante dans le style Material 3 Expressive. REDÉMARRER EXTERAGRAM APRÈS L'INSTALLATION !",
+        "pt-BR": "Substitui a navegação inferior do Exteragram por uma barra de ferramentas flutuante no estilo Material 3 Expressive. REINICIE O EXTERAGRAMA APÓS A INSTALAÇÃO!",
+        "tr": "Exteragram'ın alt navigasyonunu, Material 3 Expressive stilindeki Kayan Araç Çubuğu ile değiştirir. KURULUMDAN SONRA EXTERAGRAM'I YENİDEN BAŞLATIN!",
+        "ar": "يستبدل شريط التنقل السفلي في Exteragram بشريط أدوات عائم بأسلوب Material 3 Expressive. أعد تشغيل EXTERAGRAM بعد التثبيت!",
+        "be": "Замяняе ніжнюю панэль навігацыі Exteragram на плаваючую панэль інструментаў у стылі Material 3 Expressive. ПЕРАЗАПУСКІЦЕ EXTERAGRAM ПАСЛЯ УСТАНОВКІ!",
+        "kk": "Exteragram төменгі шарлауын Материал 3 мәнерлі мәнеріндегі қалқымалы құралдар тақтасымен ауыстырады. ОРНАТУДАН КЕЙІН ЭКСТЕРАГРАМАНЫ ҚАЙТА БАСТАҢЫЗ!"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
