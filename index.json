@@ -3258,6 +3258,33 @@
         "files",
         "settings"
       ]
+    },
+    {
+      "id": "del_my_msgs",
+      "name": "Delete My Messages",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/del_my_msgs/1.1.0/del_my_msgs.plugin",
+      "sha256": "149059a926e86462241268803682236992bc4308b5009af3900df0bbc9022ea0",
+      "size": 9406,
+      "description": "Adds a button to the chat menu that deletes all your messages in the current chat (with a confirmation request).",
+      "description_i18n": {
+        "en": "Adds a button to the chat menu that deletes all your messages in the current chat (with a confirmation request).",
+        "uk": "Додає кнопку в меню чату, яка видаляє всі ваші повідомлення в поточному чаті (із запитом на підтвердження).",
+        "ru": "Добавляет в меню чата кнопку, которая удаляет все ваши сообщения в текущем чате (с запросом подтверждения).",
+        "pl": "Dodaje przycisk do menu czatu, który usuwa wszystkie wiadomości z bieżącego czatu (z prośbą o potwierdzenie).",
+        "es": "Agrega un botón al menú de chat que elimina todos sus mensajes en el chat actual (con una solicitud de confirmación).",
+        "de": "Fügt dem Chat-Menü eine Schaltfläche hinzu, die alle Ihre Nachrichten im aktuellen Chat löscht (mit einer Bestätigungsanfrage).",
+        "fr": "Ajoute un bouton au menu de discussion qui supprime tous vos messages dans le chat en cours (avec une demande de confirmation).",
+        "pt-BR": "Adiciona um botão ao menu de chat que exclui todas as suas mensagens no chat atual (com uma solicitação de confirmação).",
+        "tr": "Sohbet menüsüne, mevcut sohbetteki tüm mesajlarınızı silen bir düğme ekler (onay isteğiyle).",
+        "ar": "إضافة زر إلى قائمة الدردشة يقوم بحذف جميع رسائلك في الدردشة الحالية (مع طلب تأكيد).",
+        "be": "Дадае кнопку ў меню чата, якая выдаляе ўсе вашы паведамленні ў бягучым чаце (з запытам пацверджання).",
+        "kk": "Ағымдағы чатта (растау сұрауымен) барлық хабарларды жоятын чат мәзіріне түймені қосады."
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }
