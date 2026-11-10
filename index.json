@@ -9742,6 +9742,33 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "roundseekbarpausefix",
+      "name": "Round Seekbar Pause Fix",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/roundseekbarpausefix/1.0/roundseekbarpausefix.plugin",
+      "sha256": "c60e6707d3d3e2df7193929ec1cb81ae8fc1da372648ce62f32500d74eacf5c7",
+      "size": 5667,
+      "description": "Keeps the circles stopped after rewinding.",
+      "description_i18n": {
+        "en": "Keeps the circles stopped after rewinding.",
+        "uk": "Зупиняє кола після перемотування назад.",
+        "ru": "Удерживает круги остановленными после перемотки назад.",
+        "pl": "Zatrzymuje kręgi po przewinięciu.",
+        "es": "Mantiene los círculos detenidos después de rebobinar.",
+        "de": "Hält die Kreise nach dem Zurückspulen angehalten.",
+        "fr": "Maintient les cercles arrêtés après le rembobinage.",
+        "pt-BR": "Mantém os círculos parados após retroceder.",
+        "tr": "Geri sarma sonrasında dairelerin durdurulmasını sağlar.",
+        "ar": "يحافظ على توقف الدوائر بعد اللف.",
+        "be": "Пасля перамоткі кругі спыняюцца.",
+        "kk": "Артқа айналдырғаннан кейін шеңберлерді тоқтатады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
