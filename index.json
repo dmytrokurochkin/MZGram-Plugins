@@ -6064,6 +6064,30 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "listen_message_tts",
+      "name": "Прослушать сообщение",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/listen_message_tts/1.0/listen_message_tts.plugin",
+      "sha256": "6e03f606859f78444322d85a80ea8448b08fc1fc083cb1326a9d6d5d990a0b71",
+      "size": 8803,
+      "description": "Adds an item to the message context menu: Listen. Uses system TextToSpeech (Google if installed), without external APIs.",
+      "description_i18n": {
+        "en": "Adds an item to the message context menu: Listen. Uses system TextToSpeech (Google if installed), without external APIs.",
+        "uk": "Додає пункт до контекстного меню повідомлення: Listen. Використовує системний TextToSpeech (Google, якщо встановлено), без зовнішніх API.",
+        "ru": "Добавляет в контекстное меню сообщения пункт: Прослушать. Использует систему TextToSpeech (Google, если установлена) без внешних API.",
+        "pl": "Dodaje element do menu kontekstowego wiadomości: Słuchaj. Używa systemu TextToSpeech (Google, jeśli jest zainstalowany), bez zewnętrznych API.",
+        "es": "Agrega un elemento al menú contextual del mensaje: Escuchar. Utiliza el sistema TextToSpeech (Google si está instalado), sin API externas.",
+        "de": "Fügt dem Kontextmenü der Nachricht ein Element hinzu: Abhören. Verwendet das System TextToSpeech (Google, falls installiert), ohne externe APIs.",
+        "fr": "Ajoute un élément au menu contextuel du message : Écouter. Utilise le système TextToSpeech (Google si installé), sans API externes.",
+        "pt-BR": "Adiciona um item ao menu de contexto da mensagem: Ouvir. Utiliza sistema TextToSpeech (Google se instalado), sem APIs externas.",
+        "tr": "Mesaj içerik menüsüne bir öğe ekler: Dinle. Harici API'ler olmadan TextToSpeech sistemini (yüklüyse Google) kullanır.",
+        "ar": "إضافة عنصر إلى قائمة سياق الرسالة: الاستماع. يستخدم نظام TextToSpeech (Google إذا كان مثبتًا)، بدون واجهات برمجة التطبيقات الخارجية.",
+        "be": "Дадае пункт у кантэкстнае меню паведамлення: Listen. Выкарыстоўвае сістэму TextToSpeech (Google, калі ўсталявана), без знешніх API.",
+        "kk": "Хабарламаның мәтінмәндік мәзіріне элемент қосады: Тыңдау. TextToSpeech жүйесін (орнатылған болса, Google) сыртқы API интерфейстерінсіз пайдаланады."
+      }
     }
   ]
 }
