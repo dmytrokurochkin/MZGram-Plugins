@@ -6003,6 +6003,35 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "latex_plugin",
+      "name": "LaTeX",
+      "version": "1.3.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/latex_plugin/1.3.0/latex_plugin.plugin",
+      "sha256": "8e9134d6864c92eb4fcc1d577d7bfd5aa6d5a96cab53aa326c939db09b4cf52e",
+      "size": 71270,
+      "description": "Native LaTeX rendering for chats. Wrap your formulas in $$...$$ (e.g.",
+      "description_i18n": {
+        "en": "Native LaTeX rendering for chats. Wrap your formulas in $$...$$ (e.g.",
+        "uk": "Нативне відтворення LaTeX для чатів. Оберніть свої формули в $$...$$ (наприклад,",
+        "ru": "Собственный рендеринг LaTeX для чатов. Оберните свои формулы в $$...$$ (например.",
+        "pl": "Natywne renderowanie LaTeX dla czatów. Zawiń swoje formuły w $$...$$ (np.",
+        "es": "Representación nativa de LaTeX para chats. Envuelva sus fórmulas en $$...$$ (p. ej.",
+        "de": "Natives LaTeX-Rendering für Chats. Wickeln Sie Ihre Formeln in $$...$$ ein (z. B.",
+        "fr": "Rendu LaTeX natif pour les discussions. Enveloppez vos formules dans $$...$$ (par ex.",
+        "pt-BR": "Renderização nativa de LaTeX para bate-papos. Envolva suas fórmulas em $$...$$ (por exemplo",
+        "tr": "Sohbetler için yerel LaTeX oluşturma. Formüllerinizi $$...$$ içine sarın (ör.",
+        "ar": "عرض LaTeX الأصلي للمحادثات. لف الصيغ الخاصة بك بـ $$...$$ (على سبيل المثال.",
+        "be": "Уласная візуалізацыя LaTeX для чатаў. Загарніце свае формулы ў $$...$$ (напрыклад,",
+        "kk": "Чаттарға арналған жергілікті LaTeX көрсету. Формулаларыңызды $$...$$ ішіне ораңыз (мысалы:"
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "hooks"
+      ]
     }
   ]
 }
