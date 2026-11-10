@@ -3342,6 +3342,36 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "demotivator_ar34",
+      "name": "Демотиватор",
+      "version": "1.2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/demotivator_ar34/1.2.0/demotivator.plugin",
+      "sha256": "1e31b81a4abcb3cfe7b42fb8930da3ac04a93dc11afc17d23a79d00197aa1e3b",
+      "size": 28507,
+      "description": "Creates a demotivator using the command .dem <top> | <bottom> (with photo)",
+      "description_i18n": {
+        "en": "Creates a demotivator using the command .dem <top> | <bottom> (with photo)",
+        "uk": "Створює демотиватор за допомогою команди .dem <верх> | <внизу> (з фото)",
+        "ru": "Создает демотиватор с помощью команды .dem <top> | <внизу> (с фото)",
+        "pl": "Tworzy demotywator za pomocą polecenia .dem <top> | <dół> (ze zdjęciem)",
+        "es": "Crea un desmotivador usando el comando .dem <top> | <abajo> (con foto)",
+        "de": "Erstellt einen Demotivator mit dem Befehl .dem <top> | <unten> (mit Foto)",
+        "fr": "Crée un démotivateur à l'aide de la commande .dem <top> | <en bas> (avec photo)",
+        "pt-BR": "Cria um desmotivador usando o comando .dem <top> | <inferior> (com foto)",
+        "tr": ".dem komutunu kullanarak motivasyon düşürücü oluşturur. <top> | <alt> (fotoğraflı)",
+        "ar": "إنشاء ديموتيفاتور باستخدام الأمر .dem <top> | <أسفل> (مع الصورة)",
+        "be": "Стварае дэматыватар з дапамогай каманды .dem <верх> | <унізе> (з фота)",
+        "kk": ".dem <top> | пәрменін пайдаланып демотиватор жасайды <төменгі> (фотосуретпен)"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files"
+      ]
     }
   ]
 }
