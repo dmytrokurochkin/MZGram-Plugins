@@ -9964,6 +9964,35 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "search_plus",
+      "name": "Search+",
+      "version": "2.9.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/search_plus/2.9.1/search_plus.plugin",
+      "sha256": "09c5a45795278bdfa70355dfb3741dd69ca70507c8808cd59ca9c340b9e27d20",
+      "size": 249245,
+      "description": "Multi-search for several words via |, filter by message type, search filters by person, period and type, search for people by ID, phone number or where Telegram cannot do this. A detailed description of all functions is in the plugin settings.",
+      "description_i18n": {
+        "en": "Multi-search for several words via |, filter by message type, search filters by person, period and type, search for people by ID, phone number or where Telegram cannot do this. A detailed description of all functions is in the plugin settings.",
+        "uk": "Мультипошук за кількома словами за допомогою |, фільтрування за типом повідомлення, фільтри пошуку за особою, періодом і типом, пошук людей за ідентифікатором, номером телефону або там, де Telegram не може це зробити. Детальний опис усіх функцій знаходиться в налаштуваннях плагіна.",
+        "ru": "Мультипоиск по нескольким словам через |, фильтрация по типу сообщения, фильтры поиска по человеку, периоду и типу, поиск людей по идентификатору, номеру телефона или там, где Telegram не может этого сделать. Подробное описание всех функций находится в настройках плагина.",
+        "pl": "Wyszukiwanie wielokrotne kilku słów przez |, filtrowanie według typu wiadomości, filtry wyszukiwania według osoby, kropki i typu, wyszukiwanie osób według identyfikatora, numeru telefonu lub tam, gdzie Telegram nie może tego zrobić. Szczegółowy opis wszystkich funkcji znajduje się w ustawieniach wtyczki.",
+        "es": "Búsqueda múltiple de varias palabras a través de |, filtrado por tipo de mensaje, filtros de búsqueda por persona, período y tipo, búsqueda de personas por ID, número de teléfono o donde Telegram no pueda hacer esto. Una descripción detallada de todas las funciones se encuentra en la configuración del complemento.",
+        "de": "Mehrfachsuche nach mehreren Wörtern über |, Filtern nach Nachrichtentyp, Suchfilter nach Person, Zeitraum und Typ, Suche nach Personen nach ID, Telefonnummer oder dort, wo Telegram dies nicht kann. Eine detaillierte Beschreibung aller Funktionen finden Sie in den Plugin-Einstellungen.",
+        "fr": "Recherche multiple de plusieurs mots via |, filtrage par type de message, filtres de recherche par personne, période et type, recherche de personnes par identifiant, numéro de téléphone ou là où Telegram ne peut pas le faire. Une description détaillée de toutes les fonctions se trouve dans les paramètres du plugin.",
+        "pt-BR": "Pesquisa múltipla de diversas palavras via |, filtro por tipo de mensagem, filtros de pesquisa por pessoa, período e tipo, pesquisa de pessoas por ID, número de telefone ou onde o Telegram não puder fazer isso. Uma descrição detalhada de todas as funções está nas configurações do plugin.",
+        "tr": "| aracılığıyla birkaç kelimeyi çoklu arayın, mesaj türüne göre filtreleyin, kişiye, döneme ve türe göre arama filtreleri yapın, kişileri kimliğe, telefon numarasına göre veya Telegram'ın bunu yapamadığı yerlere göre arayın. Tüm işlevlerin ayrıntılı bir açıklaması eklenti ayarlarındadır.",
+        "ar": "البحث المتعدد عن عدة كلمات عبر |، التصفية حسب نوع الرسالة، مرشحات البحث حسب الشخص والفترة والنوع، البحث عن الأشخاص حسب المعرف أو رقم الهاتف أو حيث لا يستطيع Telegram القيام بذلك. يوجد وصف تفصيلي لجميع الوظائف في إعدادات البرنامج المساعد.",
+        "be": "Мультыпошук па некалькіх словах праз |, фільтр па тыпу паведамлення, фільтры пошуку па чалавеку, перыяду і тыпу, пошук людзей па ідэнтыфікатары, нумары тэлефона або па месцах, дзе Telegram не можа гэтага зрабіць. Падрабязнае апісанне ўсіх функцый знаходзіцца ў наладах плагіна.",
+        "kk": "| арқылы бірнеше сөзді көп іздеу, хабар түрі бойынша сүзгілеу, сүзгілерді адам, кезең және түр бойынша іздеу, адамдарды идентификатор, телефон нөмірі бойынша немесе Telegram мұны істей алмайтын жерлерде іздеу. Барлық функциялардың толық сипаттамасы плагин параметрлерінде берілген."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
