@@ -2135,6 +2135,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "caption_fix",
+      "name": "Caption Fix",
+      "version": "3.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/caption_fix/3.0.0/caption_fix.plugin",
+      "sha256": "2b74c92329ae74bd19defa2668e74649b1c93d5d85838d31122a5eb72594c559",
+      "size": 2570,
+      "description": "Fix a bug with a missing signature when sending a photo",
+      "description_i18n": {
+        "en": "Fix a bug with a missing signature when sending a photo",
+        "uk": "Виправте помилку з відсутнім підписом під час надсилання фото",
+        "ru": "Исправлена ​​ошибка с отсутствующей подписью при отправке фото.",
+        "pl": "Napraw błąd z brakującym podpisem podczas wysyłania zdjęcia",
+        "es": "Corregir un error con una firma faltante al enviar una foto",
+        "de": "Beheben Sie einen Fehler mit einer fehlenden Signatur beim Senden eines Fotos",
+        "fr": "Correction d'un bug avec une signature manquante lors de l'envoi d'une photo",
+        "pt-BR": "Corrigir um bug com falta de assinatura ao enviar uma foto",
+        "tr": "Fotoğraf gönderirken imzanın eksik olduğu hatayı düzeltin",
+        "ar": "إصلاح الخلل في التوقيع المفقود عند إرسال الصورة",
+        "be": "Выпраўце памылку з адсутнасцю подпісу пры адпраўцы фота",
+        "kk": "Фотосуретті жіберу кезінде қолтаңбасы жоқ қатені түзетіңіз"
+      },
+      "permissions": [
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
