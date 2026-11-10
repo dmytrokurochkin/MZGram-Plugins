@@ -5716,6 +5716,33 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "instant_tab_switch",
+      "name": "Instant Tab Switch",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/instant_tab_switch/1.0.0/instant_tab_switch.plugin",
+      "sha256": "06fd876e7ab27251a98f9239a8fd325816b58f7043aeeab27ff9541e09bf9268",
+      "size": 5325,
+      "description": "Instantly switch bottom panel tabs when you drag your finger, without waiting for release.",
+      "description_i18n": {
+        "en": "Instantly switch bottom panel tabs when you drag your finger, without waiting for release.",
+        "uk": "Миттєво перемикайте вкладки нижньої панелі під час перетягування пальця, не чекаючи відпускання.",
+        "ru": "Мгновенно переключайте вкладки нижней панели при перетаскивании пальца, не дожидаясь отпускания.",
+        "pl": "Natychmiast przełączaj zakładki panelu dolnego po przeciągnięciu palca, bez czekania na zwolnienie.",
+        "es": "Cambie instantáneamente las pestañas del panel inferior cuando arrastre el dedo, sin esperar a que lo suelte.",
+        "de": "Wechseln Sie sofort zwischen den Registerkarten im unteren Bereich, indem Sie Ihren Finger ziehen, ohne auf die Freigabe warten zu müssen.",
+        "fr": "Changez instantanément les onglets du panneau inférieur lorsque vous faites glisser votre doigt, sans attendre la libération.",
+        "pt-BR": "Alterne instantaneamente as guias do painel inferior ao arrastar o dedo, sem esperar pela liberação.",
+        "tr": "Parmağınızı sürüklediğinizde, bırakmayı beklemeden alt panel sekmeleri arasında anında geçiş yapın.",
+        "ar": "قم بتبديل علامات تبويب اللوحة السفلية على الفور عندما تسحب إصبعك، دون انتظار التحرير.",
+        "be": "Імгненна перамыкайце ўкладкі ніжняй панэлі пры перацягванні пальцам, не чакаючы адпускання.",
+        "kk": "Саусақпен сүйрегенде, босатуды күтпей-ақ, төменгі панель қойындыларын бірден ауыстырыңыз."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
