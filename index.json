@@ -371,6 +371,35 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "LatRussLang",
+      "name": "Латинский русский",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/LatRussLang/1.1.0/LatRussLang.plugin",
+      "sha256": "00afbb3d1af72416882e89181887fce497e7d7019514cf34f42826a906c0054d",
+      "size": 5850,
+      "description": "Plugin that translates outgoing messages into Lat. Russian and back.",
+      "description_i18n": {
+        "en": "Plugin that translates outgoing messages into Lat. Russian and back.",
+        "uk": "Плагін, який перекладає вихідні повідомлення на лат. російською і назад.",
+        "ru": "Плагин, переводящий исходящие сообщения на лат. Русский и обратно.",
+        "pl": "Wtyczka tłumacząca wiadomości wychodzące na język łac. Rosyjski i z powrotem.",
+        "es": "Complemento que traduce mensajes salientes al lat. Ruso y viceversa.",
+        "de": "Plugin, das ausgehende Nachrichten ins Lateinische übersetzt. Russisch und zurück.",
+        "fr": "Plugin qui traduit les messages sortants en Lat. Russe et retour.",
+        "pt-BR": "Plugin que traduz mensagens enviadas para Lat. Russo e de volta.",
+        "tr": "Giden mesajları Lat diline çeviren eklenti. Rusça ve geri.",
+        "ar": "البرنامج المساعد الذي يترجم الرسائل الصادرة إلى Lat. الروسية والعودة.",
+        "be": "Плагін, які перакладае выходныя паведамленні на лат. Рускі і назад.",
+        "kk": "Шығыс хабарларды лат тіліне аударатын плагин. Орыс және кері."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
