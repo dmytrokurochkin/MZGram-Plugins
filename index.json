@@ -10624,6 +10624,37 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "shimeji",
+      "name": "Shimeji",
+      "version": "2.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/shimeji/2.0.0/shimeji.plugin",
+      "sha256": "4b82092966ab290b62c78b470b0885798985df1258b9f0ab04f4b54bafd263c4",
+      "size": 133235,
+      "description": "Shimeji characters directly in your ExteraGram/AyuGram",
+      "description_i18n": {
+        "en": "Shimeji characters directly in your ExteraGram/AyuGram",
+        "uk": "Сімейні символи безпосередньо у вашому ExteraGram/AyuGram",
+        "ru": "Символы Shimeji прямо в вашем ExteraGram/AyuGram",
+        "pl": "Znaki Shimeji bezpośrednio w ExteraGramie/AyuGramie",
+        "es": "Personajes Shimeji directamente en tu ExteraGram/AyuGram",
+        "de": "Shimeji-Zeichen direkt in Ihrem ExteraGram/AyuGram",
+        "fr": "Caractères Shimeji directement dans votre ExteraGram/AyuGram",
+        "pt-BR": "Caracteres Shimeji diretamente em seu ExteraGram/AyuGram",
+        "tr": "Shimeji karakterleri doğrudan ExteraGram/AyuGram'ınızda",
+        "ar": "أحرف Shimeji مباشرة في ExteraGram/AyuGram",
+        "be": "Сімвалы Сімэдзі непасрэдна ў вашым ExteraGram/AyuGram",
+        "kk": "Шимеджи таңбалары тікелей ExteraGram/AyuGram ішінде"
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
