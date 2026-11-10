@@ -3858,6 +3858,30 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "equalizer",
+      "name": "Эквалайзер 344",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/equalizer/1.0.0/equalizer.plugin",
+      "sha256": "4ae525e4066a3efff5eec90467f77e1d0142ffabd1cc4eb8c43757e394bcfdd1",
+      "size": 32368,
+      "description": "Equalizer for music player: 5 bands, presets, bass boost, virtualizer and volume boost. > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** version 2.0.6 or higher!",
+      "description_i18n": {
+        "en": "Equalizer for music player: 5 bands, presets, bass boost, virtualizer and volume boost. > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** version 2.0.6 or higher!",
+        "uk": "Еквалайзер для музичного плеєра: 5 діапазонів, пресети, підсилення басів, віртуалізатор і підсилення гучності. > Потрібен **[ZwyLib](https://t.me/zwyPlugins/48)** версії 2.0.6 або новішої!",
+        "ru": "Эквалайзер для музыкального плеера: 5 полос, предустановки, усиление басов, виртуализатор и увеличение громкости. > Требуется **[ZwyLib](https://t.me/zwyPlugins/48)** версия 2.0.6 или выше!",
+        "pl": "Korektor dla odtwarzacza muzycznego: 5 pasm, ustawienia wstępne, wzmocnienie basów, wirtualizator i zwiększenie głośności. > Wymaga **[ZwyLib](https://t.me/zwyPlugins/48)** wersji 2.0.6 lub wyższej!",
+        "es": "Ecualizador para reproductor de música: 5 bandas, preajustes, refuerzo de graves, virtualizador y aumento de volumen. > ¡Requiere **[ZwyLib](https://t.me/zwyPlugins/48)** versión 2.0.6 o superior!",
+        "de": "Equalizer für Musik-Player: 5 Bänder, Voreinstellungen, Bass-Boost, Virtualizer und Lautstärke-Boost. > Erfordert **[ZwyLib](https://t.me/zwyPlugins/48)** Version 2.0.6 oder höher!",
+        "fr": "Égaliseur pour lecteur de musique : 5 bandes, préréglages, amplification des basses, virtualiseur et augmentation du volume. > Nécessite **[ZwyLib](https://t.me/zwyPlugins/48)** version 2.0.6 ou supérieure !",
+        "pt-BR": "Equalizador para reprodutor de música: 5 bandas, predefinições, reforço de graves, virtualizador e aumento de volume. > Requer **[ZwyLib](https://t.me/zwyPlugins/48)** versão 2.0.6 ou superior!",
+        "tr": "Müzik çalar için ekolayzır: 5 bant, ön ayar, bas güçlendirme, sanallaştırıcı ve ses artırma. > **[ZwyLib](https://t.me/zwyPlugins/48)** sürüm 2.0.6 veya üzerini gerektirir!",
+        "ar": "المعادل لمشغل الموسيقى: 5 نطاقات، إعدادات مسبقة، تعزيز الجهير، أداة المحاكاة الافتراضية وزيادة مستوى الصوت. > يتطلب **[ZwyLib](https://t.me/zwyPlugins/48)** الإصدار 2.0.6 أو أعلى!",
+        "be": "Эквалайзер для музычнага плэера: 5 дыяпазонаў, прадусталяваныя налады, узмацненне басоў, віртуалізатар і ўзмацненне гучнасці. > Патрабуецца **[ZwyLib](https://t.me/zwyPlugins/48)** версія 2.0.6 або вышэй!",
+        "kk": "Музыка ойнатқышына арналған эквалайзер: 5 диапазон, алдын ала орнатулар, бассты күшейту, виртуализатор және дыбыс деңгейін арттыру. > **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.6 немесе одан жоғары нұсқасын қажет етеді!"
+      }
     }
   ]
 }
