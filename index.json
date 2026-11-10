@@ -4935,6 +4935,35 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "gift_search",
+      "name": "GiftSearch",
+      "version": "1.0.1r",
+      "min_app_version": "1.0.0",
+      "file": "plugins/gift_search/1.0.1r/gift_search.plugin",
+      "sha256": "26bb9415ffb58ddb0839414766367a3c41432176781b63a2ee61639836b0540e",
+      "size": 510508,
+      "description": "Search for gifts in one click - adds a separate \"Gifts\" tab directly to the Telegram global search",
+      "description_i18n": {
+        "en": "Search for gifts in one click - adds a separate \"Gifts\" tab directly to the Telegram global search",
+        "uk": "Шукайте подарунки в один клік - додає окрему вкладку «Подарунки» безпосередньо в глобальний пошук Telegram",
+        "ru": "Поиск подарков в один клик - добавляет отдельную вкладку «Подарки» прямо в глобальный поиск Telegram.",
+        "pl": "Szukaj prezentów jednym kliknięciem - dodaje osobną zakładkę „Prezenty\" bezpośrednio do globalnego wyszukiwania Telegramu",
+        "es": "Busque regalos con un solo clic: agrega una pestaña separada \"Regalos\" directamente a la búsqueda global de Telegram",
+        "de": "Suchen Sie mit einem Klick nach Geschenken - fügt der globalen Telegram-Suche direkt eine separate Registerkarte „Geschenke\" hinzu",
+        "fr": "Recherchez des cadeaux en un clic - ajoute un onglet \"Cadeaux\" distinct directement à la recherche globale Telegram",
+        "pt-BR": "Pesquise presentes com um clique - adiciona uma guia separada \"Presentes\" diretamente à pesquisa global do Telegram",
+        "tr": "Tek tıklamayla hediyeleri arayın - doğrudan Telegram genel aramasına ayrı bir \"Hediyeler\" sekmesi ekler",
+        "ar": "البحث عن الهدايا بنقرة واحدة - إضافة علامة تبويب \"الهدايا\" منفصلة مباشرةً إلى بحث Telegram العالمي",
+        "be": "Пошук падарункаў у адзін клік - дадае асобную ўкладку «Падарункі» непасрэдна ў глабальны пошук Telegram",
+        "kk": "Сыйлықтарды бір рет басу арқылы іздеу - Telegram ғаламдық іздеуіне тікелей жеке «Сыйлықтар» қойындысын қосады"
+      },
+      "permissions": [
+        "files",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
