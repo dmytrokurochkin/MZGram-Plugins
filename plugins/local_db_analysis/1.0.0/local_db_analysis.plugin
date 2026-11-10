@@ -1,0 +1,616 @@
+__id__ = "local_db_analysis"
+__name__ = "Анализ локальной БД"
+__description__ = "Инструмент анализа базы данных: сканирование, поиск, идентификация, экспорт [.localdb]"
+__author__ = "@kaufapuk"
+__version__ = "1.0.0"
+__icon__ = "exteraPlugins/1"
+__min_version__ = "12.2.10"
+__category__ = ["tools"]
+
+import os
+import time
+import re
+from typing import Any, List, Dict, Set, Optional
+
+from base_plugin import BasePlugin, HookResult, HookStrategy
+from client_utils import (
+    run_on_queue, send_document, send_text, 
+    get_messages_controller, get_user_config, get_messages_storage,
+    send_request, RequestCallback
+)
+from ui.settings import Switch, Selector, Input, Header, Divider
+from ui.bulletin import BulletinHelper
+from hook_utils import get_private_field
+from file_utils import get_cache_dir, write_file
+from android_utils import run_on_ui_thread, log
+from org.telegram.tgnet import NativeByteBuffer, TLRPC
+from java.lang import Exception as JavaException
+
+
+class CursorContext:
+    def __init__(self, database, query: str):
+        self.database = database
+        self.query = query
+        self.cursor = None
+    
+    def __enter__(self):
+        try:
+            self.cursor = self.database.queryFinalized(self.query)
+            return self.cursor
+        except Exception as e:
+            log(f"CursorContext error: {e}")
+            return None
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.cursor:
+            try:
+                self.cursor.dispose()
+            except:
+                pass
+        return False
+
+
+class ReportBuilder:
+    MAX_MESSAGE_LENGTH = 4000
+    
+    def __init__(self, title: str):
+        self.lines = [
+            f"📊 {title}",
+            f"Сгенерировано: {time.strftime('%Y-%m-%d %H:%M:%S')}",
+            "=" * 50,
+            ""
+        ]
+    
+    def add_section(self, header: str, items: List[str], limit: int = 100):
+        display_items = items[:limit]
+        overflow = len(items) - limit
+        
+        self.lines.extend([
+            f"[{header}] ({len(items)} элементов)",
+            "-" * 40
+        ])
+        self.lines.extend(display_items)
+        
+        if overflow > 0:
+            self.lines.append(f"... и еще {overflow} элементов")
+        self.lines.append("")
+        return self
+    
+    def add_line(self, text: str):
+        self.lines.append(text)
+        return self
+    
+    def build(self) -> str:
+        return "\n".join(self.lines)
+    
+    def build_chunks(self) -> List[str]:
+        full_text = self.build()
+        if len(full_text) <= self.MAX_MESSAGE_LENGTH:
+            return [full_text]
+        
+        chunks = []
+        current_chunk = []
+        current_len = 0
+        
+        for line in full_text.split("\n"):
+            line_len = len(line) + 1
+            if current_len + line_len > self.MAX_MESSAGE_LENGTH:
+                chunks.append("\n".join(current_chunk))
+                current_chunk = [line]
+                current_len = line_len
+            else:
+                current_chunk.append(line)
+                current_len += line_len
+        
+        if current_chunk:
+            chunks.append("\n".join(current_chunk))
+        return chunks
+
+
+class LocalDBAnalysisPlugin(BasePlugin):
+    SQL_TABLES = [
+        ("users", "uid"),
+        ("dialogs", "did"),
+        ("contacts", "uid"),
+        ("channel_users_v2", "uid"),
+        ("channel_admins_v3", "uid"),
+        ("enc_chats", "user")
+    ]
+    
+    MESSAGE_TABLES = ["messages_v2", "messages_topics"]
+    
+    def __init__(self):
+        super().__init__()
+        self._db_cache = None
+        self._controller_cache = None
+        self._config_cache = None
+    
+    def on_plugin_load(self):
+        self.add_on_send_message_hook()
+    
+    def create_settings(self) -> List[Any]:
+        return [
+            Header(text="Настройки сканера"),
+            Switch(
+                key="auto_export",
+                text="Также отправлять текстом",
+                default=False
+            ),
+            Switch(
+                key="deep_blob_parsing",
+                text="Глубокий парсинг BLOB (медленно, но тщательно)",
+                default=False
+            ),
+            Input(
+                key="max_msgs",
+                text="Макс. сообщений для сканирования",
+                default="5000"
+            ),
+            Selector(
+                key="scan_mode",
+                text="Цель сканирования",
+                items=["Только удаленные", "Только активные", "Все пользователи"],
+                default=2
+            ),
+            Divider(text="Продвинутые"),
+            Switch(
+                key="check_server",
+                text="Проверять статус через сервер",
+                default=True
+            ),
+            Switch(
+                key="safe_mode",
+                text="Безопасный режим (валидация SQL)",
+                default=True
+            )
+        ]
+    
+    @property
+    def _database(self):
+        if self._db_cache is None:
+            storage = get_messages_storage()
+            self._db_cache = get_private_field(storage, "database")
+        return self._db_cache
+    
+    @property
+    def _controller(self):
+        if self._controller_cache is None:
+            self._controller_cache = get_messages_controller()
+        return self._controller_cache
+    
+    @property
+    def _config(self):
+        if self._config_cache is None:
+            self._config_cache = get_user_config()
+        return self._config_cache
+    
+    def _sanitize_id(self, id_str: str) -> Optional[int]:
+        try:
+            uid = int(id_str.strip())
+            return uid if uid > 0 else None
+        except (ValueError, TypeError):
+            return None
+    
+    def on_send_message_hook(self, account: int, params: Any) -> HookResult:
+        if not isinstance(params.message, str) or not params.message.startswith(".localdb"):
+            return HookResult()
+        
+        cmd_part = params.message[8:].strip()
+        parts = cmd_part.split(None, 1)
+        command = parts[0].lower() if parts else "help"
+        args = parts[1] if len(parts) > 1 else ""
+        
+        if command == "scan":
+            run_on_queue(lambda: self._cmd_scan(args, params.peer, export_mode=False))
+            return HookResult(strategy=HookStrategy.CANCEL)
+        elif command == "export":
+            run_on_queue(lambda: self._cmd_scan(args, params.peer, export_mode=True))
+            return HookResult(strategy=HookStrategy.CANCEL)
+        elif command == "search":
+            run_on_queue(lambda: self._cmd_search(args, params.peer))
+            return HookResult(strategy=HookStrategy.CANCEL)
+        elif command == "whois":
+            run_on_queue(lambda: self._cmd_whois(args, params.peer))
+            return HookResult(strategy=HookStrategy.CANCEL)
+        elif command == "msg":
+            run_on_queue(lambda: self._cmd_send_msg(args, params.peer))
+            return HookResult(strategy=HookStrategy.CANCEL)
+        elif command == "lookup":
+            run_on_queue(lambda: self._cmd_lookup(args, params.peer))
+            return HookResult(strategy=HookStrategy.CANCEL)
+        elif command == "help":
+            self._cmd_help(args, params.peer)
+            return HookResult(strategy=HookStrategy.CANCEL)
+        else:
+            params.message = "❌ Неизвестная команда. Используйте: .localdb help"
+            return HookResult(strategy=HookStrategy.MODIFY, params=params)
+    
+    def _cmd_scan(self, args: str, peer: Any, export_mode: bool = False):
+        BulletinHelper.show_info("🔍 Сканирование базы данных..." if not export_mode else "📦 Генерация экспорта...")
+        
+        if not self._database:
+            self._send_error(peer, "База данных недоступна")
+            return
+        
+        scan_mode = int(self.get_setting("scan_mode", 2))
+        my_id = self._config.getClientUserId()
+        
+        try:
+            all_ids = self._collect_user_ids(my_id)
+            deleted, active, unknown = [], [], []
+            
+            for uid in all_ids:
+                try:
+                    user = self._controller.getUser(uid)
+                    if not user:
+                        unknown.append(uid)
+                        continue
+                    
+                    if self._is_deleted(user):
+                        if scan_mode != 1:
+                            deleted.append(self._format_user(user))
+                    else:
+                        if scan_mode != 0:
+                            active.append(self._format_user(user))
+                            
+                except Exception as e:
+                    log(f"Scan error for uid {uid}: {e}")
+            
+            if export_mode:
+                builder = ReportBuilder("ЭКСПОРТ БАЗЫ ДАННЫХ")
+                if deleted:
+                    builder.add_section("УДАЛЕННЫЕ АККАУНТЫ", deleted, limit=500)
+                if active:
+                    builder.add_section("АКТИВНЫЕ АККАУНТЫ", active, limit=500)
+                if unknown:
+                    unknown_formatted = [f"ID:{uid}" for uid in list(unknown)[:100]]
+                    builder.add_section("НЕИЗВЕСТНЫЕ ССЫЛКИ", unknown_formatted)
+                
+                mode_names = ["Только удаленные", "Только активные", "Все"]
+                builder.add_line(f"\nВсего: {len(all_ids)} | Режим: {mode_names[scan_mode]}")
+                self._send_report(peer, f"export_{int(time.time())}.txt", builder)
+                BulletinHelper.show_success(f"✅ Экспортировано: {len(deleted)}У {len(active)}А {len(unknown)}Н")
+            else:
+                summary = f"""📊 Результаты сканирования базы данных:
+• Всего уникальных ID: {len(all_ids)}
+• Удаленные аккаунты: {len(deleted)}
+• Активные аккаунты: {len(active)}
+• Отсутствуют в кеше: {len(unknown)}
+
+Используйте .localdb export для полного отчета в файле."""
+                run_on_ui_thread(lambda: send_text(peer, summary))
+                
+        except Exception as e:
+            log(f"Scan failed: {e}")
+            self._send_error(peer, f"Ошибка сканирования: {str(e)}")
+    
+    def _cmd_search(self, query: str, peer: Any):
+        if not query or len(query) < 2:
+            self._send_error(peer, "Запрос слишком короткий (мин. 2 символа)")
+            return
+        
+        if not self._database:
+            self._send_error(peer, "База данных недоступна")
+            return
+        
+        max_msgs = min(int(self.get_setting("max_msgs", "5000")), 20000)
+        keywords = [q.lower().strip() for q in query.split() if len(q.strip()) >= 2]
+        
+        if not keywords:
+            self._send_error(peer, "Нет валидных ключевых слов")
+            return
+        
+        BulletinHelper.show_info(f"🔍 Поиск: {', '.join(keywords)}")
+        
+        results = []
+        processed = 0
+        
+        try:
+            for table in self.MESSAGE_TABLES:
+                if processed >= max_msgs:
+                    break
+                
+                limit = min(max_msgs - processed, 5000)
+                sql = f"SELECT uid, date, data FROM {table} ORDER BY date DESC LIMIT {limit}"
+                
+                with CursorContext(self._database, sql) as cursor:
+                    if not cursor:
+                        continue
+                    
+                    while cursor.next() and processed < max_msgs:
+                        try:
+                            processed += 1
+                            blob = cursor.byteArrayValue(2)
+                            if not blob or len(blob) < 4:
+                                continue
+                            
+                            buffer = NativeByteBuffer(len(blob))
+                            buffer.writeBytes(blob)
+                            buffer.position(0)
+                            
+                            msg = TLRPC.Message.TLdeserialize(buffer, buffer.readInt32(True), True)
+                            if not msg or not msg.message:
+                                continue
+                            
+                            if self._match_keywords(msg.message.lower(), keywords):
+                                date_str = time.strftime('%Y-%m-%d %H:%M', time.localtime(cursor.intValue(1)))
+                                chat_id = cursor.longValue(0)
+                                preview = msg.message[:120].replace('\n', ' ')
+                                results.append(f"[{date_str}] {chat_id}: {preview}...")
+                                
+                                if len(results) >= 100:
+                                    break
+                                    
+                        except JavaException:
+                            continue
+                        except Exception as e:
+                            log(f"Search parse error: {e}")
+            
+            builder = ReportBuilder(f"ПОИСК: {' '.join(keywords)}")
+            builder.add_section("СОВПАДЕНИЯ", results, limit=100)
+            builder.add_line(f"\nПросканировано: {processed} | Найдено: {len(results)}")
+            self._send_report(peer, f"search_{int(time.time())}.txt", builder)
+            
+        except Exception as e:
+            log(f"Search error: {e}")
+            self._send_error(peer, f"Ошибка поиска: {str(e)}")
+    
+    def _cmd_whois(self, args: str, peer: Any):
+        uid = self._sanitize_id(args.split()[0] if args else "")
+        if not uid:
+            self._send_error(peer, "Использование: .localdb whois <id_пользователя>")
+            return
+        
+        if not self._database:
+            self._send_error(peer, "База данных недоступна")
+            return
+        
+        lines = []
+        user = self._controller.getUser(uid)
+        
+        if user:
+            username = getattr(user, 'username', 'Н/Д') or 'Н/Д'
+            first_name = getattr(user, 'first_name', '') or ''
+            last_name = getattr(user, 'last_name', '') or ''
+            full_name = f"{first_name} {last_name}".strip()
+            phone = getattr(user, 'phone', 'Скрыт') or 'Скрыт'
+            is_bot = "Да" if getattr(user, 'bot', False) else "Нет"
+            is_deleted = "Да" if self._is_deleted(user) else "Нет"
+            is_premium = "Да" if getattr(user, 'premium', False) else "Нет"
+            has_access_hash = "Да" if getattr(user, 'access_hash', None) else "Нет"
+            
+            lines.extend([
+                "[ЛОКАЛЬНЫЙ КЕШ]",
+                f"Юзернейм: @{username}",
+                f"Имя: {full_name}",
+                f"Телефон: {phone}",
+                f"Бот: {is_bot}",
+                f"Удален: {is_deleted}",
+                f"Премиум: {is_premium}",
+                f"Хеш доступа: {has_access_hash}",
+                ""
+            ])
+        else:
+            lines.extend(["[ЛОКАЛЬНЫЙ КЕШ] Не найдено", ""])
+        
+        tables_found = []
+        for table, field in self.SQL_TABLES:
+            try:
+                sql = f"SELECT 1 FROM {table} WHERE {field} = {uid} LIMIT 1"
+                with CursorContext(self._database, sql) as cursor:
+                    if cursor and cursor.next():
+                        tables_found.append(table)
+            except Exception:
+                continue
+        
+        tables_str = ', '.join(tables_found) if tables_found else 'Нет'
+        lines.extend([
+            "[ССЫЛКИ В БАЗЕ ДАННЫХ]",
+            f"Найдено в: {tables_str}",
+            ""
+        ])
+        
+        if self.get_setting("check_server", True) and user and getattr(user, 'access_hash', None):
+            self._fetch_server_info(uid, user.access_hash, lines, peer)
+            return
+        
+        builder = ReportBuilder(f"WHOIS {uid}")
+        builder.add_section("АНАЛИЗ", lines, limit=50)
+        self._send_text_chunks(peer, builder.build())
+    
+    def _cmd_send_msg(self, args: str, peer: Any):
+        match = re.match(r'(\d+)\s+(.+)', args.strip(), re.DOTALL)
+        if not match:
+            self._send_error(peer, "Использование: .localdb msg <id> <текст>")
+            return
+        
+        uid = int(match.group(1))
+        text = match.group(2).strip()
+        
+        if len(text) > 4096:
+            self._send_error(peer, "Сообщение слишком длинное (макс. 4096)")
+            return
+        
+        user = self._controller.getUser(uid)
+        if not user or not getattr(user, 'access_hash', None):
+            self._send_error(peer, "Нет хеша доступа или пользователь не найден")
+            return
+        
+        try:
+            input_peer = TLRPC.TL_inputPeerUser()
+            input_peer.user_id = uid
+            input_peer.access_hash = user.access_hash
+            
+            req = TLRPC.TL_messages_sendMessage()
+            req.peer = input_peer
+            req.message = text
+            req.random_id = int(time.time() * 1000000)
+            
+            def callback(resp, err):
+                if err:
+                    msg = f"❌ Ошибка: {err.text}"
+                else:
+                    msg = f"✅ Отправлено {uid}"
+                run_on_ui_thread(lambda: send_text(peer, msg))
+            
+            send_request(req, RequestCallback(callback))
+            
+        except Exception as e:
+            self._send_error(peer, f"Ошибка отправки: {e}")
+    
+    def _cmd_lookup(self, args: str, peer: Any):
+        ids = re.findall(r'\d+', args)[:100]
+        if not ids:
+            self._send_error(peer, "Использование: .localdb lookup <id1> <id2>...")
+            return
+        
+        results = []
+        for sid in ids:
+            uid = int(sid)
+            user = self._controller.getUser(uid)
+            
+            if user:
+                status = "УДАЛЕН" if self._is_deleted(user) else "АКТИВЕН"
+                username = getattr(user, 'username', '-') or '-'
+                first = getattr(user, 'first_name', '') or ''
+                last = getattr(user, 'last_name', '') or ''
+                name = f"{first} {last}".strip() or '-'
+                results.append(f"{uid:<12} @{username:<15} {name:<25} [{status}]")
+            else:
+                results.append(f"{uid:<12} [Нет в кеше]")
+        
+        builder = ReportBuilder("МАССОВЫЙ ПОИСК")
+        builder.add_section("РЕЗУЛЬТАТЫ", results)
+        self._send_report(peer, f"lookup_{int(time.time())}.txt", builder)
+    
+    def _cmd_help(self, args: str, peer: Any):
+        help_text = """📚 Команды анализа локальной БД:
+
+.localdb scan - Быстрое сканирование (только статистика)
+.localdb export - Полное сканирование с экспортом файла
+.localdb search <ключевые_слова> - Поиск сообщений
+.localdb whois <id_пользователя> - Глубокий анализ пользователя
+.localdb msg <id> <текст> - Отправить сообщение по ID
+.localdb lookup <id1> <id2>... - Массовый поиск (макс. 100)
+.localdb help - Это сообщение
+
+⚙️ Настройки: режим сканирования, лимиты, экспорт"""
+        send_text(peer, help_text)
+    
+    def _collect_user_ids(self, exclude_id: int) -> Set[int]:
+        ids = set()
+        
+        for table, field in self.SQL_TABLES:
+            try:
+                sql = f"SELECT DISTINCT {field} FROM {table} WHERE {field} > 0"
+                with CursorContext(self._database, sql) as cursor:
+                    if not cursor:
+                        continue
+                    while cursor.next():
+                        try:
+                            uid = cursor.longValue(0)
+                            if uid != exclude_id:
+                                ids.add(uid)
+                        except:
+                            continue
+            except Exception as e:
+                log(f"Collect error from {table}: {e}")
+        
+        return ids
+    
+    def _is_deleted(self, user) -> bool:
+        if getattr(user, 'deleted', False):
+            return True
+        if hasattr(user, 'flags'):
+            if (int(user.flags) & 0x400) != 0:
+                return True
+        if not getattr(user, 'first_name', None) and not getattr(user, 'last_name', None):
+            return True
+        return False
+    
+    def _format_user(self, user) -> str:
+        uid = getattr(user, 'id', 'Н/Д')
+        username = getattr(user, 'username', None) or "-"
+        first = getattr(user, 'first_name', '') or ''
+        last = getattr(user, 'last_name', '') or ''
+        name = f"{first} {last}".strip() or "-"
+        phone = getattr(user, 'phone', None)
+        phone_str = f" | +{phone}" if phone else ""
+        return f"ID:{uid} | @{username} | {name}{phone_str}"
+    
+    def _match_keywords(self, text: str, keywords: List[str]) -> bool:
+        words = set(text.split())
+        return any(kw in words for kw in keywords)
+    
+    def _fetch_server_info(self, uid: int, access_hash: int, lines: List[str], peer: Any):
+        try:
+            input_user = TLRPC.TL_inputUser()
+            input_user.user_id = uid
+            input_user.access_hash = access_hash
+            
+            req = TLRPC.TL_users_getFullUser()
+            req.id = input_user
+            
+            def callback(resp, error):
+                if error:
+                    lines.append(f"[СЕРВЕР] Ошибка: {error.text}")
+                elif resp:
+                    if resp.users and resp.users.size() > 0:
+                        u = resp.users.get(0)
+                        u_username = getattr(u, 'username', 'Н/Д')
+                        u_status = "Удален" if self._is_deleted(u) else "Активен"
+                        lines.extend([
+                            "[ДАННЫЕ СЕРВЕРА]",
+                            f"Юзернейм: @{u_username}",
+                            f"Статус: {u_status}",
+                        ])
+                    
+                    full = getattr(resp, 'full_user', None)
+                    if full:
+                        about = getattr(full, 'about', None)
+                        common_chats = getattr(full, 'common_chats_count', None)
+                        if about:
+                            lines.append(f"О себе: {about}")
+                        if common_chats:
+                            lines.append(f"Общие группы: {common_chats}")
+                
+                builder = ReportBuilder(f"WHOIS {uid}")
+                builder.add_section("ДАННЫЕ", lines, limit=100)
+                self._send_text_chunks(peer, builder.build())
+            
+            send_request(req, RequestCallback(callback))
+            
+        except Exception as e:
+            lines.append(f"[СЕРВЕР] Запрос не удался: {e}")
+            builder = ReportBuilder(f"WHOIS {uid}")
+            builder.add_section("ДАННЫЕ", lines, limit=100)
+            self._send_text_chunks(peer, builder.build())
+    
+    def _send_report(self, peer: Any, filename: str, builder: ReportBuilder):
+        content = builder.build()
+        filepath = None
+        
+        try:
+            safe_filename = re.sub(r'[^\w.-]', '_', filename)
+            filepath = os.path.join(get_cache_dir(), safe_filename)
+            write_file(filepath, content)
+            
+            my_id = self._config.getClientUserId()
+            run_on_ui_thread(lambda: send_document(my_id, filepath, caption=f"📄 {filename}"))
+            
+            if self.get_setting("auto_export", False):
+                self._send_text_chunks(peer, content)
+                
+        except Exception as e:
+            log(f"Export error: {e}")
+            self._send_error(peer, f"Не удалось отправить отчет: {e}")
+    
+    def _send_text_chunks(self, peer: Any, text: str):
+        chunks = [text[i:i+4000] for i in range(0, len(text), 4000)]
+        for i, chunk in enumerate(chunks):
+            if i > 0:
+                time.sleep(0.1)
+            run_on_ui_thread(lambda c=chunk: send_text(peer, c))
+    
+    def _send_error(self, peer: Any, message: str):
+        run_on_ui_thread(lambda: send_text(peer, f"❌ {message}"))

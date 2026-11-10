@@ -6230,6 +6230,35 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "local_db_analysis",
+      "name": "Анализ локальной БД",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/local_db_analysis/1.0.0/local_db_analysis.plugin",
+      "sha256": "978dae8c82edb60550ff465f1374671d37527605dd66cee86cca6346b1bb8432",
+      "size": 26004,
+      "description": "Database analysis tool: crawl, search, identify, export [.localdb]",
+      "description_i18n": {
+        "en": "Database analysis tool: crawl, search, identify, export [.localdb]",
+        "uk": "Інструмент аналізу бази даних: сканування, пошук, ідентифікація, експорт [.localdb]",
+        "ru": "Инструмент анализа базы данных: сканирование, поиск, идентификация, экспорт [.localdb]",
+        "pl": "Narzędzie do analizy bazy danych: przeszukiwanie, wyszukiwanie, identyfikacja, eksport [.localdb]",
+        "es": "Herramienta de análisis de bases de datos: rastrear, buscar, identificar, exportar [.localdb]",
+        "de": "Datenbankanalysetool: Crawlen, Suchen, Identifizieren, Exportieren [.localdb]",
+        "fr": "Outil d'analyse de base de données : explorer, rechercher, identifier, exporter [.localdb]",
+        "pt-BR": "Ferramenta de análise de banco de dados: rastrear, pesquisar, identificar, exportar [.localdb]",
+        "tr": "Veritabanı analiz aracı: tarama, arama, tanımlama, dışa aktarma [.localdb]",
+        "ar": "أداة تحليل قاعدة البيانات: الزحف والبحث والتعرف والتصدير [.localdb]",
+        "be": "Інструмент аналізу базы даных: сканаванне, пошук, ідэнтыфікацыя, экспарт [.localdb]",
+        "kk": "Дерекқорды талдау құралы: тексеріп шығу, іздеу, анықтау, экспорттау [.localdb]"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "files"
+      ]
     }
   ]
 }
