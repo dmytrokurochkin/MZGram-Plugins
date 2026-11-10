@@ -3285,6 +3285,34 @@
       "permissions": [
         "messages.read"
       ]
+    },
+    {
+      "id": "delete_from_gallery",
+      "name": "Delete From Gallery",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/delete_from_gallery/1.0/delete_from_gallery.plugin",
+      "sha256": "6ed48458ae7964b0982edd94a75ed77c7541ef004a535c639ce16784b8e41ffa",
+      "size": 9339,
+      "description": "Adds a Delete button to the attachment media picker menu. Permanently removes selected photos/videos from the device gallery.",
+      "description_i18n": {
+        "en": "Adds a Delete button to the attachment media picker menu. Permanently removes selected photos/videos from the device gallery.",
+        "uk": "Додає кнопку «Видалити» до меню вибору медіафайлів вкладених файлів. Назавжди видаляє вибрані фото/відео з галереї пристрою.",
+        "ru": "Добавляет кнопку «Удалить» в меню выбора медиафайлов вложений. Безвозвратно удаляет выбранные фотографии/видео из галереи устройства.",
+        "pl": "Dodaje przycisk Usuń do menu wyboru multimediów załączników. Trwale usuwa wybrane zdjęcia/filmy z galerii urządzenia.",
+        "es": "Agrega un botón Eliminar al menú del selector de medios adjuntos. Elimina permanentemente fotos/videos seleccionados de la galería del dispositivo.",
+        "de": "Fügt dem Medienauswahlmenü für Anhänge eine Schaltfläche „Löschen\" hinzu. Entfernt ausgewählte Fotos/Videos dauerhaft aus der Gerätegalerie.",
+        "fr": "Ajoute un bouton Supprimer au menu du sélecteur de support de pièce jointe. Supprime définitivement les photos/vidéos sélectionnées de la galerie de l'appareil.",
+        "pt-BR": "Adiciona um botão Excluir ao menu do seletor de mídia de anexo. Remove permanentemente fotos/vídeos selecionados da galeria do dispositivo.",
+        "tr": "Ek medya seçici menüsüne bir Sil düğmesi ekler. Seçilen fotoğrafları/videoları cihaz galerisinden kalıcı olarak kaldırır.",
+        "ar": "إضافة زر حذف إلى قائمة منتقي الوسائط المرفقة. إزالة الصور/مقاطع الفيديو المحددة من معرض الجهاز نهائيًا.",
+        "be": "Дадае кнопку \"Выдаліць\" у меню выбару носьбітаў укладанняў. Назаўсёды выдаляе выбраныя фатаграфіі/відэа з галерэі прылады.",
+        "kk": "Тіркеме медиа таңдау құралы мәзіріне Жою түймесін қосады. Таңдалған фотосуреттерді/бейнелерді құрылғы галереясынан біржола жояды."
+      },
+      "permissions": [
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
