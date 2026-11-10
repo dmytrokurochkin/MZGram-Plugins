@@ -8510,6 +8510,40 @@
       "permissions": [
         "messages.read"
       ]
+    },
+    {
+      "id": "playlist_to_profile",
+      "name": "Playlist to Profile",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/playlist_to_profile/1.1/playlist_to_profile.plugin",
+      "sha256": "b3abc51914ed4df11bebb0f65f1a7004bb9a58ddd37c462a001b3f84f9f33a6b",
+      "size": 111679,
+      "description": "Adds tracks from a playlist (YouTube, Yandex Music, VK, Spotify, SoundCloud...) to profile music",
+      "description_i18n": {
+        "en": "Adds tracks from a playlist (YouTube, Yandex Music, VK, Spotify, SoundCloud...) to profile music",
+        "uk": "Додає треки з плейлиста (YouTube, Yandex Music, VK, Spotify, SoundCloud...) в музику профілю",
+        "ru": "Добавляет треки из плейлиста (YouTube, Яндекс Музыка, ВК, Spotify, SoundCloud...) в музыку профиля.",
+        "pl": "Dodaje utwory z listy odtwarzania (YouTube, Yandex Music, VK, Spotify, SoundCloud...) do muzyki profilowej",
+        "es": "Agrega pistas de una lista de reproducción (YouTube, Yandex Music, VK, Spotify, SoundCloud...) al perfil de música",
+        "de": "Fügt Titel aus einer Playlist (YouTube, Yandex Music, VK, Spotify, SoundCloud...) zur Profilmusik hinzu",
+        "fr": "Ajoute des pistes d'une liste de lecture (YouTube, Yandex Music, VK, Spotify, SoundCloud...) au profil musical",
+        "pt-BR": "Adiciona faixas de uma lista de reprodução (YouTube, Yandex Music, VK, Spotify, SoundCloud...) ao perfil de música",
+        "tr": "Profil müziğine bir çalma listesinden (YouTube, Yandex Müzik, VK, Spotify, SoundCloud...) parçalar ekler",
+        "ar": "إضافة مقطوعات موسيقية من قائمة تشغيل (YouTube، وYandex Music، وVK، وSpotify، وSoundCloud...) إلى ملف تعريف الموسيقى",
+        "be": "Дадае трэкі з плэйліста (YouTube, Yandex Music, VK, Spotify, SoundCloud...) у профільную музыку",
+        "kk": "Профиль музыкасына ойнату тізімінен тректерді қосады (YouTube, Yandex Music, VK, Spotify, SoundCloud...)"
+      },
+      "requirements": [
+        "yt-dlp",
+        "mutagen"
+      ],
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files"
+      ]
     }
   ]
 }
