@@ -6842,6 +6842,34 @@
         "be": "Дадайце лакальныя тэгі да любога паведамлення і шукайце іх у чаце",
         "kk": "Кез келген хабарға жергілікті тегтерді қосыңыз және оларды чатта іздеңіз"
       }
+    },
+    {
+      "id": "metadata_stripper_pro",
+      "name": "Metadata Stripper",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/metadata_stripper_pro/1.1.0/metadata_stripper_pro.plugin",
+      "sha256": "e9a83ba43b340b921291223e3411906b86f77e912166f934b90e392413c16cb1",
+      "size": 9436,
+      "description": "Removes metadata from photos, videos, and document files before sending.",
+      "description_i18n": {
+        "en": "Removes metadata from photos, videos, and document files before sending.",
+        "uk": "Видаляє метадані з фотографій, відео та файлів документів перед надсиланням.",
+        "ru": "Удаляет метаданные из фотографий, видео и файлов документов перед отправкой.",
+        "pl": "Usuwa metadane ze zdjęć, filmów i plików dokumentów przed wysłaniem.",
+        "es": "Elimina metadatos de fotos, vídeos y archivos de documentos antes de enviarlos.",
+        "de": "Entfernt Metadaten aus Fotos, Videos und Dokumentdateien vor dem Senden.",
+        "fr": "Supprime les métadonnées des photos, des vidéos et des fichiers de documents avant l'envoi.",
+        "pt-BR": "Remove metadados de fotos, vídeos e arquivos de documentos antes do envio.",
+        "tr": "Göndermeden önce fotoğraflardan, videolardan ve belge dosyalarından meta verileri kaldırır.",
+        "ar": "يزيل البيانات التعريفية من الصور ومقاطع الفيديو وملفات المستندات قبل إرسالها.",
+        "be": "Выдаляе метаданыя з фота, відэа і файлаў дакументаў перад адпраўкай.",
+        "kk": "Жіберу алдында фотосуреттерден, бейнелерден және құжат файлдарынан метадеректерді жояды."
+      },
+      "permissions": [
+        "messages.send",
+        "files"
+      ]
     }
   ]
 }
