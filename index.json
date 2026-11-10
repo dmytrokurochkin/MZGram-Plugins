@@ -678,6 +678,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "SearchID",
+      "name": "SearchID",
+      "version": "1.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/SearchID/1.0.1/SearchID.plugin",
+      "sha256": "414b8965cca2c4058945aa21585d3ea936a158a720243e711bb099d72a92ee5d",
+      "size": 4624,
+      "description": "Now you can search for plugins by their ID",
+      "description_i18n": {
+        "en": "Now you can search for plugins by their ID",
+        "uk": "Тепер ви можете шукати плагіни за їхнім ідентифікатором",
+        "ru": "Теперь вы можете искать плагины по их идентификатору.",
+        "pl": "Teraz możesz wyszukiwać wtyczki według ich identyfikatora",
+        "es": "Ahora puedes buscar complementos por su ID",
+        "de": "Jetzt können Sie nach Plugins anhand ihrer ID suchen",
+        "fr": "Vous pouvez désormais rechercher des plugins par leur identifiant",
+        "pt-BR": "Agora você pode pesquisar plug-ins pelo ID",
+        "tr": "Artık eklentileri kimliklerine göre arayabilirsiniz",
+        "ar": "يمكنك الآن البحث عن المكونات الإضافية حسب معرفها",
+        "be": "Цяпер вы можаце шукаць убудовы па іх ID",
+        "kk": "Енді плагиндерді олардың идентификаторы бойынша іздеуге болады"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
