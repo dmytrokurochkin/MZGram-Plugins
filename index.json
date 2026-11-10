@@ -1877,6 +1877,35 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "bot_login",
+      "name": "Bot Login",
+      "version": "1.5",
+      "min_app_version": "1.0.0",
+      "file": "plugins/bot_login/1.5/bot_login.plugin",
+      "sha256": "fcf652762ffe86aadcd8080c76967e38e4f36ed5c3b1b9a8ada55f5ac5f546c7",
+      "size": 30331,
+      "description": "Log in to bot accounts using their API token. Use plugin settings or open the login page, tap the three-dot menu, and choose \"Log in as bot\".",
+      "description_i18n": {
+        "en": "Log in to bot accounts using their API token. Use plugin settings or open the login page, tap the three-dot menu, and choose \"Log in as bot\".",
+        "uk": "Увійдіть до облікових записів ботів, використовуючи їхні маркери API. Скористайтеся налаштуваннями плагіна або відкрийте сторінку входу, торкніться меню з трьома крапками та виберіть «Увійти як бот».",
+        "ru": "Войдите в учетные записи ботов, используя их токен API. Используйте настройки плагина или откройте страницу входа, коснитесь трехточечного меню и выберите «Войти как бот».",
+        "pl": "Zaloguj się do kont botów przy użyciu ich tokena API. Użyj ustawień wtyczki lub otwórz stronę logowania, dotknij menu z trzema kropkami i wybierz „Zaloguj się jako bot\".",
+        "es": "Inicie sesión en cuentas de bot utilizando su token API. Utilice la configuración del complemento o abra la página de inicio de sesión, toque el menú de tres puntos y elija \"Iniciar sesión como bot\".",
+        "de": "Melden Sie sich mit ihrem API-Token bei Bot-Konten an. Verwenden Sie die Plugin-Einstellungen oder öffnen Sie die Anmeldeseite, tippen Sie auf das Dreipunktmenü und wählen Sie „Als Bot anmelden\".",
+        "fr": "Connectez-vous aux comptes de robots à l'aide de leur jeton API. Utilisez les paramètres du plugin ou ouvrez la page de connexion, appuyez sur le menu à trois points et choisissez « Se connecter en tant que bot ».",
+        "pt-BR": "Faça login nas contas de bot usando seu token de API. Use as configurações do plugin ou abra a página de login, toque no menu de três pontos e escolha \"Fazer login como bot\".",
+        "tr": "API belirteçlerini kullanarak bot hesaplarında oturum açın. Eklenti ayarlarını kullanın veya oturum açma sayfasını açın, üç noktalı menüye dokunun ve \"Bot olarak oturum aç\"ı seçin.",
+        "ar": "قم بتسجيل الدخول إلى حسابات الروبوتات باستخدام رمز واجهة برمجة التطبيقات (API) الخاص بها. استخدم إعدادات البرنامج المساعد أو افتح صفحة تسجيل الدخول، وانقر على قائمة النقاط الثلاث، واختر \"تسجيل الدخول كروبوت\".",
+        "be": "Увайдзіце ва ўліковыя запісы ботаў, выкарыстоўваючы іх маркер API. Скарыстайцеся наладамі плагіна або адкрыйце старонку ўваходу, націсніце меню з трыма кропкамі і абярыце «Увайсці як бот».",
+        "kk": "API таңбалауышы арқылы бот тіркелгілеріне кіріңіз. Плагин параметрлерін пайдаланыңыз немесе кіру бетін ашыңыз, үш нүктелі мәзірді түртіп, «Бот ретінде кіру» таңдаңыз."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
