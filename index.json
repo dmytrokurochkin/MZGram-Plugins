@@ -232,6 +232,35 @@
         "network",
         "intents"
       ]
+    },
+    {
+      "id": "GWS",
+      "name": "GIF with Sound",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/GWS/1.0/GWS.plugin",
+      "sha256": "fa7629c5ff6311a9fca0849771ffe609c8cba3cc50015ce5a5c0076d8a8dc8bf",
+      "size": 22508,
+      "description": "Sends video as a GIF with sound",
+      "description_i18n": {
+        "en": "Sends video as a GIF with sound",
+        "uk": "Надсилає відео як GIF зі звуком",
+        "ru": "Отправляет видео в формате GIF со звуком.",
+        "pl": "Wysyła wideo jako GIF z dźwiękiem",
+        "es": "Envía vídeo como GIF con sonido.",
+        "de": "Sendet Video als GIF mit Ton",
+        "fr": "Envoie la vidéo au format GIF avec son",
+        "pt-BR": "Envia vídeo como GIF com som",
+        "tr": "Videoyu sesli GIF olarak gönderir",
+        "ar": "يرسل الفيديو كصورة GIF مع الصوت",
+        "be": "Адпраўляе відэа ў фармаце GIF з гукам",
+        "kk": "Бейнені дыбысы бар GIF ретінде жібереді"
+      },
+      "permissions": [
+        "network",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
