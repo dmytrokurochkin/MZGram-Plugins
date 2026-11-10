@@ -9631,6 +9631,34 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "roleplay_plugin",
+      "name": "RolePlay Commands",
+      "version": "1.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/roleplay_plugin/1.4/rpcmd.plugin",
+      "sha256": "2b292c65fc9ebf96c5c2dd9477ca498c24c64104fa94cb60cd27698cf7f6c828",
+      "size": 22047,
+      "description": "Plugin for role-playing commands. More information in settings",
+      "description_i18n": {
+        "en": "Plugin for role-playing commands. More information in settings",
+        "uk": "Плагін для рольових команд. Більше інформації в налаштуваннях",
+        "ru": "Плагин для ролевых команд. Подробная информация в настройках",
+        "pl": "Wtyczka do poleceń odgrywania ról. Więcej informacji w ustawieniach",
+        "es": "Complemento para comandos de juegos de rol. Más información en ajustes",
+        "de": "Plugin für Rollenspielbefehle. Weitere Informationen in den Einstellungen",
+        "fr": "Plugin pour les commandes de jeu de rôle. Plus d'informations dans les paramètres",
+        "pt-BR": "Plugin para comandos de RPG. Mais informações nas configurações",
+        "tr": "Rol yapma komutları için eklenti. Ayarlarda daha fazla bilgi",
+        "ar": "البرنامج المساعد لأوامر لعب الأدوار. مزيد من المعلومات في الإعدادات",
+        "be": "Убудова для ролевых каманд. Больш інфармацыі ў наладах",
+        "kk": "Рөлдік командаларға арналған плагин. Қосымша ақпарат параметрлерде"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send"
+      ]
     }
   ]
 }
