@@ -9993,6 +9993,34 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "second_voice",
+      "name": "Таймер голосовых: прошедшее/общее",
+      "version": "1.2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/second_voice/1.2.0/second_voice.plugin",
+      "sha256": "2512fbcda6b8d3a67d3a4c484981d05aefceeb11928cec302c4a6c0a366176b1",
+      "size": 18972,
+      "description": "Replaces the standard timer for voice messages with the 'past / general' format (for example: 01:09 / 02:16).",
+      "description_i18n": {
+        "en": "Replaces the standard timer for voice messages with the 'past / general' format (for example: 01:09 / 02:16).",
+        "uk": "Замінює стандартний таймер для голосових повідомлень на формат «минулий/загальний» (наприклад: 01:09 / 02:16).",
+        "ru": "Заменяет стандартный таймер голосовых сообщений на формат «прошлое/общее» (например: 01:09/02:16).",
+        "pl": "Zastępuje standardowy licznik czasu dla wiadomości głosowych formatem „przeszłym/ogólnym\" (na przykład: 01:09 / 02:16).",
+        "es": "Reemplaza el temporizador estándar para mensajes de voz con el formato 'pasado/general' (por ejemplo: 01:09 / 02:16).",
+        "de": "Ersetzt den Standard-Timer für Sprachnachrichten durch das Format „Vergangenheit/Allgemein\" (zum Beispiel: 01:09 / 02:16).",
+        "fr": "Remplace le minuteur standard des messages vocaux par le format 'passé / général' (par exemple : 01:09 / 02:16).",
+        "pt-BR": "Substitui o cronômetro padrão para mensagens de voz pelo formato 'passado/geral' (por exemplo: 01h09 / 02h16).",
+        "tr": "Sesli mesajlar için standart zamanlayıcıyı 'geçmiş / genel' formatıyla değiştirir (örneğin: 01:09 / 02:16).",
+        "ar": "يستبدل المؤقت القياسي للرسائل الصوتية بالتنسيق \"الماضي / العام\" (على سبيل المثال: 01:09 / 02:16).",
+        "be": "Замяняе стандартны таймер для галасавых паведамленняў на фармат «мінулае / агульнае» (напрыклад: 01:09 / 02:16).",
+        "kk": "Дауыстық хабарламалар үшін стандартты таймерді «өткен / жалпы» пішіміне ауыстырады (мысалы: 01:09 / 02:16)."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
