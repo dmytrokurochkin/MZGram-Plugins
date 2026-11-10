@@ -10193,6 +10193,35 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "settings_wallpaper",
+      "name": "Pro Wallpaper",
+      "version": "1.2.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/settings_wallpaper/1.2.2/settings_wallpaper.plugin",
+      "sha256": "fcdf3d0c3277d664c638d75fc360a46895e7d22a4de8d348040de43d36fa2ea7",
+      "size": 28323,
+      "description": "Photo against the background of settings and contacts, darkening, blurring and transparent blocks",
+      "description_i18n": {
+        "en": "Photo against the background of settings and contacts, darkening, blurring and transparent blocks",
+        "uk": "Фото на тлі налаштувань і контактів, затемнення, розмиття і прозорі блоки",
+        "ru": "Фото на фоне настроек и контактов, затемнение, размытие и прозрачные блоки",
+        "pl": "Zdjęcie na tle ustawień i kontaktów, przyciemnienia, rozmycia i przezroczyste bloki",
+        "es": "Foto en el contexto de configuraciones y contactos, oscurecimiento, desenfoque y bloques transparentes",
+        "de": "Foto vor dem Hintergrund von Einstellungen und Kontakten, Verdunkelung, Unschärfe und transparenten Blöcken",
+        "fr": "Photo sur fond de paramètres et de contacts, d'assombrissement, de flou et de blocs transparents",
+        "pt-BR": "Foto no fundo de configurações e contatos, escurecimento, desfoque e blocos transparentes",
+        "tr": "Ayarların ve kişilerin arka planına karşı fotoğraf, karartma, bulanıklaştırma ve şeffaf bloklar",
+        "ar": "الصورة على خلفية الإعدادات وجهات الاتصال، وكتل سواد، وعدم وضوح، وشفافة",
+        "be": "Фота на фоне налад і кантактаў, зацямненне, размыццё і празрыстыя блокі",
+        "kk": "Параметрлер мен контактілердің фонындағы фотосурет, күңгірттену, бұлыңғырлау және мөлдір блоктар"
+      },
+      "permissions": [
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
