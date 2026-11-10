@@ -5830,6 +5830,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "ipo",
+      "name": "IPO",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/ipo/1.0/ipo.plugin",
+      "sha256": "aacfee88c761ebc9933e588ce097c11325f9921584deeb3ad5eea1f372f484d0",
+      "size": 4814,
+      "description": "Tapping on the plugin icon opens the sticker pack from which this icon comes.",
+      "description_i18n": {
+        "en": "Tapping on the plugin icon opens the sticker pack from which this icon comes.",
+        "uk": "Натискання піктограми плагіна відкриває набір наклейок, з якого походить ця піктограма.",
+        "ru": "Нажатие на значок плагина открывает пакет наклеек, из которого взят этот значок.",
+        "pl": "Kliknięcie ikony wtyczki otwiera pakiet naklejek, z którego pochodzi ta ikona.",
+        "es": "Al tocar el ícono del complemento, se abre el paquete de calcomanías del que proviene este ícono.",
+        "de": "Durch Tippen auf das Plugin-Symbol wird das Stickerpaket geöffnet, aus dem dieses Symbol stammt.",
+        "fr": "En appuyant sur l'icône du plugin, vous ouvrez le pack d'autocollants d'où provient cette icône.",
+        "pt-BR": "Tocar no ícone do plugin abre o pacote de adesivos do qual vem este ícone.",
+        "tr": "Eklenti simgesine dokunulduğunda bu simgenin geldiği çıkartma paketi açılır.",
+        "ar": "يؤدي النقر على أيقونة البرنامج المساعد إلى فتح حزمة الملصقات التي يأتي منها هذا الرمز.",
+        "be": "Націсканне на значок убудовы адкрывае пакет стыкераў, з якога паходзіць гэты значок.",
+        "kk": "Плагин белгішесін түрту осы белгіше шығатын стикерлер жинағын ашады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
