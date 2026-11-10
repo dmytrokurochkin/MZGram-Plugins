@@ -6710,6 +6710,30 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "memorymatch",
+      "name": "Memory Match",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/memorymatch/1.0.0/memorymatch.plugin",
+      "sha256": "4e1a49e71def711149fd1a7e9ec9af06ca9f85bcd5a811a780c4c511e9a2fec0",
+      "size": 7126,
+      "description": "Play Memory Match. Flip cards to find pairs.",
+      "description_i18n": {
+        "en": "Play Memory Match. Flip cards to find pairs.",
+        "uk": "Грати в Memory Match. Перевертайте картки, щоб знайти пари.",
+        "ru": "Игра «Матч на память». Переворачивайте карточки, чтобы найти пары.",
+        "pl": "Zagraj w mecz pamięci. Odwróć karty, aby znaleźć pary.",
+        "es": "Juega al Partido de la Memoria. Voltear cartas para encontrar parejas.",
+        "de": "Spielen Sie Memory Match. Drehen Sie die Karten um, um Paare zu finden.",
+        "fr": "Jouez à un match de mémoire. Retournez les cartes pour trouver des paires.",
+        "pt-BR": "Jogue Jogo de Memória. Vire as cartas para encontrar pares.",
+        "tr": "Hafıza Eşleştirme oyna. Çiftleri bulmak için kartları çevirin.",
+        "ar": "لعب مباراة الذاكرة. اقلب البطاقات للعثور على الأزواج.",
+        "be": "Гуляць у Memory Match. Перагортвайце карты, каб знайсці пары.",
+        "kk": "Жад сәйкестігін ойнаңыз. Жұптарды табу үшін карталарды аударыңыз."
+      }
     }
   ]
 }
