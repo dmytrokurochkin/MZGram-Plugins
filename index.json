@@ -2778,6 +2778,35 @@
       "permissions": [
         "messages.read"
       ]
+    },
+    {
+      "id": "contact_self_name",
+      "name": "Contact Self Name",
+      "version": "1.1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/contact_self_name/1.1.2/contact_self_name-8553fafa.plugin",
+      "sha256": "9efad80ec2af79854237bb5f02aa5b44e51cf5159dd90a50d14b39c0191478d9",
+      "size": 58580,
+      "description": "Shows the contact's self-name and can locally replace its name in the interface. A public username and internet are required.",
+      "description_i18n": {
+        "en": "Shows the contact's self-name and can locally replace its name in the interface. A public username and internet are required.",
+        "uk": "Показує самоназву контакту та може локально замінити його ім'я в інтерфейсі. Потрібне публічне ім'я користувача та Інтернет.",
+        "ru": "Показывает собственное имя контакта и может локально заменить его имя в интерфейсе. Требуется общедоступное имя пользователя и доступ в Интернет.",
+        "pl": "Pokazuje nazwę kontaktu i może lokalnie zastąpić jego nazwę w interfejsie. Wymagana jest publiczna nazwa użytkownika i internet.",
+        "es": "Muestra el nombre propio del contacto y puede reemplazar localmente su nombre en la interfaz. Se requiere un nombre de usuario público e Internet.",
+        "de": "Zeigt den Eigennamen des Kontakts an und kann seinen Namen lokal in der Benutzeroberfläche ersetzen. Ein öffentlicher Benutzername und eine Internetverbindung sind erforderlich.",
+        "fr": "Affiche le nom du contact et peut remplacer localement son nom dans l'interface. Un nom d'utilisateur public et une connexion Internet sont requis.",
+        "pt-BR": "Mostra o nome próprio do contato e pode substituir localmente seu nome na interface. Um nome de usuário público e internet são necessários.",
+        "tr": "Kişinin kendi adını gösterir ve arayüzdeki adını yerel olarak değiştirebilir. Herkese açık bir kullanıcı adı ve internet gereklidir.",
+        "ar": "يعرض الاسم الذاتي لجهة الاتصال ويمكنه استبدال اسمه محليًا في الواجهة. مطلوب اسم مستخدم عام وإنترنت.",
+        "be": "Паказвае ўласнае імя кантакту і можа лакальна замяніць яго імя ў інтэрфейсе. Патрабуецца агульнадаступнае імя карыстальніка і інтэрнэт.",
+        "kk": "Контактінің өзіндік атын көрсетеді және интерфейсте оның атын жергілікті түрде ауыстыра алады. Жалпы пайдаланушы аты мен интернет қажет."
+      },
+      "permissions": [
+        "messages.read",
+        "network",
+        "hooks"
+      ]
     }
   ]
 }
