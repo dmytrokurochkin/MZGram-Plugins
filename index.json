@@ -3745,6 +3745,34 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "edit_mode",
+      "name": "Edit Mode",
+      "version": "6.9",
+      "min_app_version": "1.0.0",
+      "file": "plugins/edit_mode/6.9/edit_mode.plugin",
+      "sha256": "15355bdc112cd56fd1aa594616b3bd7baf75d80d4c4e23a1cbc3906a2e2bcf29",
+      "size": 118137,
+      "description": "delete and change the location of objects on the screen: like in the new TikTokYou update",
+      "description_i18n": {
+        "en": "delete and change the location of objects on the screen: like in the new TikTokYou update",
+        "uk": "видаляти та змінювати розташування об'єктів на екрані: як у новому оновленні TikTokYou",
+        "ru": "удалять и менять расположение объектов на экране: как в новом обновлении TikTokYou",
+        "pl": "usuwaj i zmieniaj lokalizację obiektów na ekranie: tak jak w nowej aktualizacji TikTokYou",
+        "es": "eliminar y cambiar la ubicación de objetos en la pantalla: como en el nuevo TikTok, actualizas",
+        "de": "Objekte auf dem Bildschirm löschen und deren Position ändern: wie im neuen TikTokYou-Update",
+        "fr": "supprimer et modifier l'emplacement des objets sur l'écran : comme dans la nouvelle mise à jour TikTokYou",
+        "pt-BR": "exclua e altere a localização dos objetos na tela: como no novo TikTokVocê atualiza",
+        "tr": "ekrandaki nesnelerin konumunu silin ve değiştirin: yeni TikTokYou güncellemesinde olduğu gibi",
+        "ar": "حذف وتغيير مواقع الكائنات على الشاشة: كما في تحديث TikTokYou الجديد",
+        "be": "выдаляць і мяняць размяшчэнне аб'ектаў на экране: як у новым абнаўленні TikTokYou",
+        "kk": "жою және экрандағы нысандардың орнын өзгерту: жаңа TikTokYou жаңартуындағы сияқты"
+      },
+      "permissions": [
+        "files",
+        "intents"
+      ]
     }
   ]
 }
