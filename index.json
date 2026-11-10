@@ -12063,6 +12063,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "weather",
+      "name": "Weather",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/weather/1.0/weather.plugin",
+      "sha256": "18a5761907387b36f84cae60db34ac21f0ba43534b72b130f738f015eee9648b",
+      "size": 12530,
+      "description": "Get current weather using OpenWeatherMap [.wt]",
+      "description_i18n": {
+        "en": "Get current weather using OpenWeatherMap [.wt]",
+        "uk": "Отримати поточну погоду за допомогою OpenWeatherMap [.wt]",
+        "ru": "Получите текущую погоду с помощью OpenWeatherMap [.wt]",
+        "pl": "Uzyskaj aktualną pogodę za pomocą OpenWeatherMap [.wt]",
+        "es": "Obtenga el clima actual usando OpenWeatherMap [.wt]",
+        "de": "Aktuelles Wetter mit OpenWeatherMap [.wt] abrufen",
+        "fr": "Obtenez la météo actuelle en utilisant OpenWeatherMap [.wt]",
+        "pt-BR": "Obtenha o clima atual usando OpenWeatherMap [.wt]",
+        "tr": "OpenWeatherMap [.wt] kullanarak güncel hava durumunu alın",
+        "ar": "احصل على الطقس الحالي باستخدام OpenWeatherMap [.wt]",
+        "be": "Атрымлівайце бягучую надвор'е з дапамогай OpenWeatherMap [.wt]",
+        "kk": "OpenWeatherMap [.wt] арқылы ағымдағы ауа райын алыңыз."
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }

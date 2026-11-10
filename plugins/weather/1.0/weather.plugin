@@ -1,0 +1,295 @@
+import requests
+from java.util import Locale
+from org.telegram.ui.ActionBar import AlertDialog
+from android_utils import log
+from ui.settings import Header, Switch, Divider, Input, Selector
+from base_plugin import BasePlugin, HookResult, HookStrategy
+from client_utils import get_last_fragment, send_message, run_on_queue
+
+__id__ = "weather"
+__name__ = "Weather"
+__description__ = "Get current weather using OpenWeatherMap [.wt]"
+__author__ = "@exteraDev"
+__min_version__ = "11.9.0"
+__icon__ = "exteraDevPlugins/2"
+__category__ = ["integrations"]
+
+API_BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
+
+LANG = {
+    "en": {
+        "settings_header": "Weather Plugin Settings",
+        "api_key": "API Key",
+        "api_key_sub": "Get your key at https://openweathermap.org/api",
+        "default_city": "Default City",
+        "default_city_sub": "City used if none is provided in the command",
+        "units": "Temperature Unit",
+        "units_items": ["Celsius", "Fahrenheit", "Kelvin"],
+        "show_humidity": "Show Humidity",
+        "show_humidity_sub": "Display air humidity",
+        "show_wind": "Show Wind",
+        "show_wind_sub": "Display wind speed",
+        "usage": "Command: .wt [city]",
+        "fetching": "Fetching weather...",
+        "usage_full": "Usage: .wt [city]\nExample: .wt London",
+        "no_api_key": "Please configure your OpenWeatherMap API Key in the plugin settings.",
+        "no_city": "Please provide a city or set a default city in the settings.",
+        "invalid_key": "Invalid or missing API Key.",
+        "city_not_found": "City '{city}' not found.",
+        "error_fetch": "Error fetching weather: {err}",
+        "error_format": "Error formatting weather information.",
+        "weather_in": "🌤️ Weather in {name}, {country}:\n",
+        "desc": "• {desc}\n",
+        "temp": "• Temperature: {temp}{unit} (Feels like: {feels}{unit})\n",
+        "humidity": "• Humidity: {humidity}%\n",
+        "wind": "• Wind: {wind_speed} m/s ({wind_dir})\n",
+    },
+    "pt": {
+        "settings_header": "Configurações do Clima",
+        "api_key": "Chave da API",
+        "api_key_sub": "Obtenha sua chave em https://openweathermap.org/api",
+        "default_city": "Cidade padrão",
+        "default_city_sub": "Cidade usada se não for informada no comando",
+        "units": "Unidade de Temperatura",
+        "units_items": ["Celsius", "Fahrenheit", "Kelvin"],
+        "show_humidity": "Mostrar Umidade",
+        "show_humidity_sub": "Exibir umidade do ar",
+        "show_wind": "Mostrar Vento",
+        "show_wind_sub": "Exibir velocidade do vento",
+        "usage": "Comando: .wt [cidade]",
+        "fetching": "Buscando clima...",
+        "usage_full": "Uso: .wt [cidade]\nExemplo: .wt São Paulo",
+        "no_api_key": "Configure sua chave da OpenWeatherMap nas configurações do plugin.",
+        "no_city": "Informe uma cidade ou defina uma cidade padrão nas configurações.",
+        "invalid_key": "Chave de API inválida ou ausente.",
+        "city_not_found": "Cidade '{city}' não encontrada.",
+        "error_fetch": "Erro ao buscar clima: {err}",
+        "error_format": "Erro ao formatar informações do clima.",
+        "weather_in": "🌤️ Clima em {name}, {country}:\n",
+        "desc": "• {desc}\n",
+        "temp": "• Temperatura: {temp}{unit} (Sensação: {feels}{unit})\n",
+        "humidity": "• Umidade: {humidity}%\n",
+        "wind": "• Vento: {wind_speed} m/s ({wind_dir})\n",
+    },
+    "ru": {
+        "settings_header": "Настройки погоды",
+        "api_key": "Ключ API",
+        "api_key_sub": "Получите ключ на https://openweathermap.org/api",
+        "default_city": "Город по умолчанию",
+        "default_city_sub": "Город, если не указан в команде",
+        "units": "Единица температуры",
+        "units_items": ["Цельсий", "Фаренгейт", "Кельвин"],
+        "show_humidity": "Показывать влажность",
+        "show_humidity_sub": "Показывать влажность воздуха",
+        "show_wind": "Показывать ветер",
+        "show_wind_sub": "Показывать скорость ветра",
+        "usage": "Команда: .wt [город]",
+        "fetching": "Получение погоды...",
+        "usage_full": "Использование: .wt [город]\nПример: .wt Москва",
+        "no_api_key": "Укажите ключ OpenWeatherMap в настройках плагина.",
+        "no_city": "Укажите город или задайте город по умолчанию в настройках.",
+        "invalid_key": "Неверный или отсутствующий API ключ.",
+        "city_not_found": "Город '{city}' не найден.",
+        "error_fetch": "Ошибка получения погоды: {err}",
+        "error_format": "Ошибка форматирования информации о погоде.",
+        "weather_in": "🌤️ Погода в {name}, {country}:\n",
+        "desc": "• {desc}\n",
+        "temp": "• Температура: {temp}{unit} (Ощущается как: {feels}{unit})\n",
+        "humidity": "• Влажность: {humidity}%\n",
+        "wind": "• Ветер: {wind_speed} м/с ({wind_dir})\n",
+    }
+}
+
+def _get_lang():
+    lang = Locale.getDefault().getLanguage().lower()
+    if lang.startswith("pt"):
+        return "pt"
+    if lang.startswith("ru"):
+        return "ru"
+    return "en"
+
+def _tr(key, **kwargs):
+    lang = _get_lang()
+    val = LANG.get(lang, LANG["en"]).get(key, "")
+    return val.format(**kwargs) if kwargs else val
+
+class WeatherPlugin(BasePlugin):
+    def __init__(self):
+        super().__init__()
+        self.progress_dialog = None
+
+    def create_settings(self):
+        lang = _get_lang()
+        return [
+            Header(text=_tr("settings_header")),
+            Input(
+                key="api_key",
+                text=_tr("api_key"),
+                default="",
+                subtext=_tr("api_key_sub")
+            ),
+            Input(
+                key="default_city",
+                text=_tr("default_city"),
+                default="São Paulo",
+                subtext=_tr("default_city_sub")
+            ),
+            Selector(
+                key="units",
+                text=_tr("units"),
+                default=0,
+                items=LANG[lang]["units_items"]
+            ),
+            Switch(
+                key="show_humidity",
+                text=_tr("show_humidity"),
+                default=True,
+                subtext=_tr("show_humidity_sub")
+            ),
+            Switch(
+                key="show_wind",
+                text=_tr("show_wind"),
+                default=True,
+                subtext=_tr("show_wind_sub")
+            ),
+            Divider(text=_tr("usage"))
+        ]
+
+    def on_plugin_load(self):
+        self.add_on_send_message_hook()
+        log("[WeatherPlugin] Loaded")
+
+    def on_plugin_unload(self):
+        log("[WeatherPlugin] Unloaded")
+        pass
+
+    def _get_units_param(self):
+        idx = self.get_setting("units", 0)
+        if idx == 0:
+            return "metric", "°C"
+        elif idx == 1:
+            return "imperial", "°F"
+        else:
+            return "standard", "K"
+
+    def _fetch_weather(self, city, api_key, units, lang):
+        try:
+            params = {
+                "q": city,
+                "appid": api_key,
+                "units": units,
+                "lang": lang
+            }
+            resp = requests.get(API_BASE_URL, params=params, timeout=10)
+            if resp.status_code == 401:
+                return None, _tr("invalid_key")
+            if resp.status_code == 404:
+                return None, _tr("city_not_found", city=city)
+            if resp.status_code != 200:
+                return None, _tr("error_fetch", err=resp.status_code)
+            return resp.json(), None
+        except Exception as e:
+            log(f"[WeatherPlugin] Exception: {e}")
+            return None, _tr("error_fetch", err=e)
+
+    def _format_weather(self, data, temp_unit):
+        try:
+            name = data.get("name", "Unknown")
+            sys = data.get("sys", {})
+            country = sys.get("country", "")
+            weather = data.get("weather", [{}])[0]
+            desc = weather.get("description", "No description").capitalize()
+            main = data.get("main", {})
+            temp = main.get("temp", "?")
+            feels = main.get("feels_like", "?")
+            humidity = main.get("humidity", "?")
+            wind = data.get("wind", {})
+            wind_speed = wind.get("speed", "?")
+            wind_deg = wind.get("deg", None)
+            wind_dir = self._deg_to_dir(wind_deg) if wind_deg is not None else "?"
+            msg = _tr("weather_in", name=name, country=country)
+            msg += _tr("desc", desc=desc)
+            msg += _tr("temp", temp=temp, feels=feels, unit=temp_unit)
+            if self.get_setting("show_humidity", True):
+                msg += _tr("humidity", humidity=humidity)
+            if self.get_setting("show_wind", True):
+                msg += _tr("wind", wind_speed=wind_speed, wind_dir=wind_dir)
+            return msg
+        except Exception as e:
+            log(f"[WeatherPlugin] Format error: {e}")
+            return _tr("error_format")
+
+    def _deg_to_dir(self, deg):
+        dirs = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
+        ix = int((deg + 22.5) // 45) % 8
+        return dirs[ix]
+
+    def on_send_message_hook(self, account, params):
+        if not hasattr(params, 'message') or not isinstance(params.message, str):
+            return HookResult()
+        msg = params.message.strip()
+        if not msg.startswith(".wt"):
+            return HookResult()
+
+        usage = _tr("usage_full")
+        parts = msg.split(None, 1)
+        city_arg = None
+        if len(parts) == 1:
+            city_arg = None
+        else:
+            city_arg = parts[1].strip() if parts[1].strip() else None
+
+        default_city = self.get_setting("default_city", "").strip()
+        if not default_city:
+            default_city = "São Paulo"
+
+        if not city_arg and not default_city:
+            params.message = usage
+            return HookResult(strategy=HookStrategy.MODIFY, params=params)
+
+        def fetch_and_reply(city_arg):
+            try:
+                api_key = self.get_setting("api_key", "").strip()
+                if not api_key:
+                    self._dismiss_dialog()
+                    send_message({"peer": getattr(params, "peer", None), "message": _tr("no_api_key")})
+                    return
+                city = city_arg if city_arg else default_city
+                if not city or not city.strip():
+                    self._dismiss_dialog()
+                    send_message({"peer": getattr(params, "peer", None), "message": _tr("no_city")})
+                    return
+                units, temp_unit = self._get_units_param()
+                data, error = self._fetch_weather(city, api_key, units, _get_lang())
+                if error:
+                    self._dismiss_dialog()
+                    send_message({"peer": getattr(params, "peer", None), "message": error})
+                    return
+                out_msg = self._format_weather(data, temp_unit)
+                self._dismiss_dialog()
+                send_message({"peer": getattr(params, "peer", None), "message": out_msg})
+            except Exception as e:
+                log(f"[WeatherPlugin] Error: {e}")
+                self._dismiss_dialog()
+                send_message({"peer": getattr(params, "peer", None), "message": _tr("error_fetch", err=e)})
+
+        try:
+            fragment = get_last_fragment()
+            if fragment is not None:
+                self.progress_dialog = AlertDialog(fragment.getParentActivity(), 3)
+                self.progress_dialog.show()
+        except Exception as e:
+            log(f"[WeatherPlugin] Progress dialog error: {e}")
+
+        run_on_queue(lambda: fetch_and_reply(city_arg))
+        params.message = _tr("fetching")
+        return HookResult(strategy=HookStrategy.CANCEL)
+
+    def _dismiss_dialog(self):
+        try:
+            if self.progress_dialog is not None and self.progress_dialog.isShowing():
+                self.progress_dialog.dismiss()
+        except Exception:
+            pass
+        finally:
+            self.progress_dialog = None
