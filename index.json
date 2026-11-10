@@ -6791,6 +6791,33 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "message_filter_cleaner",
+      "name": "Message Filter Cleaner",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/message_filter_cleaner/1.0.0/message_filter_cleaner.plugin",
+      "sha256": "b4793f9b07e760838faddd93f91d4f178f526a7000bb53ce965cc7fc5d0f1934",
+      "size": 12498,
+      "description": "Deletes messages using a text filter. Delete messages by text filter.",
+      "description_i18n": {
+        "en": "Deletes messages using a text filter. Delete messages by text filter.",
+        "uk": "Видаляє повідомлення за допомогою текстового фільтра. Видалення повідомлень за допомогою текстового фільтра.",
+        "ru": "Удаляет сообщения с помощью текстового фильтра. Удаление сообщений с помощью текстового фильтра.",
+        "pl": "Usuwa wiadomości za pomocą filtra tekstu. Usuń wiadomości według filtra tekstu.",
+        "es": "Elimina mensajes usando un filtro de texto. Eliminar mensajes mediante filtro de texto.",
+        "de": "Löscht Nachrichten mithilfe eines Textfilters. Nachrichten nach Textfilter löschen.",
+        "fr": "Supprime les messages à l'aide d'un filtre de texte. Supprimer les messages par filtre de texte.",
+        "pt-BR": "Exclui mensagens usando um filtro de texto. Exclua mensagens por filtro de texto.",
+        "tr": "Bir metin filtresi kullanarak mesajları siler. Mesajları metin filtresine göre silin.",
+        "ar": "حذف الرسائل باستخدام مرشح النص. حذف الرسائل عن طريق مرشح النص.",
+        "be": "Выдаляе паведамленні з дапамогай тэкставага фільтра. Выдаліць паведамленні з дапамогай тэкставага фільтра.",
+        "kk": "Мәтіндік сүзгіні пайдаланып хабарларды жояды. Мәтіндік сүзгі арқылы хабарларды жою."
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }
