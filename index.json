@@ -11431,6 +11431,33 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "text_transformer",
+      "name": "Text Transformer",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/text_transformer/1.0/text_transformer.plugin",
+      "sha256": "ef95400d8e4eca0e436c35ddacccc5dd1144baf01d0d1051a1d4262b0e743825",
+      "size": 12446,
+      "description": "Transform your message to various formats using the .rp command",
+      "description_i18n": {
+        "en": "Transform your message to various formats using the .rp command",
+        "uk": "Перетворіть своє повідомлення в різні формати за допомогою команди .rp",
+        "ru": "Преобразуйте свое сообщение в различные форматы с помощью команды .rp.",
+        "pl": "Przekształć swoją wiadomość w różne formaty za pomocą polecenia .rp",
+        "es": "Transforme su mensaje a varios formatos usando el comando .rp",
+        "de": "Wandeln Sie Ihre Nachricht mit dem Befehl .rp in verschiedene Formate um",
+        "fr": "Transformez votre message en différents formats à l'aide de la commande .rp",
+        "pt-BR": "Transforme sua mensagem em vários formatos usando o comando .rp",
+        "tr": ".rp komutunu kullanarak mesajınızı çeşitli formatlara dönüştürün",
+        "ar": "قم بتحويل رسالتك إلى تنسيقات مختلفة باستخدام الأمر .rp",
+        "be": "Пераўтварыце паведамленне ў розныя фарматы з дапамогай каманды .rp",
+        "kk": ".rp пәрменін пайдаланып хабарламаңызды әртүрлі пішімдерге түрлендіріңіз"
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
