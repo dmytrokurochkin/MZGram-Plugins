@@ -10021,6 +10021,34 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "selall",
+      "name": "Select All",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/selall/1.0/selall.plugin",
+      "sha256": "aa7bc3af9b820066150a0d3144bf2b52db972bc60437acdaf3b70032afddf073",
+      "size": 12631,
+      "description": "Select all media, gifs, links, etc. in profile Select all Media, GIFs, links, etc.",
+      "description_i18n": {
+        "en": "Select all media, gifs, links, etc. in profile Select all Media, GIFs, links, etc.",
+        "uk": "Вибрати всі мультимедійні файли, GIF-файли, посилання тощо в профілі Виберіть усі медіа-файли, GIF-файли, посилання тощо.",
+        "ru": "Выбрать все медиафайлы, GIF-файлы, ссылки и т. д. в профиле. Выбрать все медиафайлы, GIF-файлы, ссылки и т. д.",
+        "pl": "Wybierz wszystkie multimedia, gify, linki itp. w profilu Wybierz wszystkie multimedia, GIF, linki itp.",
+        "es": "Seleccione todos los medios, gifs, enlaces, etc. en el perfil. Seleccione todos los medios, GIF, enlaces, etc.",
+        "de": "Wählen Sie alle Medien, GIFs, Links usw. im Profil aus. Wählen Sie alle Medien, GIFs, Links usw. aus.",
+        "fr": "Sélectionnez tous les médias, gifs, liens, etc. dans le profil Sélectionnez tous les médias, GIF, liens, etc.",
+        "pt-BR": "Selecione todas as mídias, GIFs, links, etc. no perfil Selecione todas as mídias, GIFs, links, etc.",
+        "tr": "Profildeki tüm medyaları, GIF'leri, bağlantıları vb. seçin Tüm Medyaları, GIF'leri, bağlantıları vb. seçin.",
+        "ar": "حدد جميع الوسائط وملفات GIF والروابط وما إلى ذلك في الملف الشخصي حدد جميع الوسائط وملفات GIF والروابط وما إلى ذلك.",
+        "be": "Выберыце ўсе медыяфайлы, gif-файлы, спасылкі і г.д. у профілі Выберыце ўсе медыя-файлы, gif-файлы, спасылкі і г.д.",
+        "kk": "Профильдегі барлық мультимедиа файлдарын, gif файлдарын, сілтемелерді және т.б. таңдаңыз Барлық медианы, GIF файлдарын, сілтемелерді және т.б. таңдаңыз."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
