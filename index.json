@@ -3372,6 +3372,36 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "device_fingerprint_spoofer",
+      "name": "Device Fingerprint Spoofer",
+      "version": "3.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/device_fingerprint_spoofer/3.0.0/device_fingerprint_spoofer.plugin",
+      "sha256": "5b425d52b70345e0580a5ffb3d403d3d3217b49bbfe04b96a80c83357adf6986",
+      "size": 39987,
+      "description": "Substitution of device_model, system_version and app_version on Telegram servers (not locally). The editor in \"Devices\" is applied immediately.",
+      "description_i18n": {
+        "en": "Substitution of device_model, system_version and app_version on Telegram servers (not locally). The editor in \"Devices\" is applied immediately.",
+        "uk": "Заміна device_model, system_version і app_version на серверах Telegram (не локально). Редактор у «Пристроях» застосовується одразу.",
+        "ru": "Подмена device_model, system_version и app_version на серверах Telegram (не локально). Редактор в «Устройствах» применяется сразу.",
+        "pl": "Zastąpienie modelu_urządzenia, wersji_systemu i wersji_aplikacji na serwerach Telegramu (nie lokalnie). Edytor w „Urządzeniach\" zostanie zastosowany natychmiast.",
+        "es": "Sustitución de device_model, system_version y app_version en servidores de Telegram (no localmente). El editor en \"Dispositivos\" se aplica inmediatamente.",
+        "de": "Ersetzung von device_model, system_version und app_version auf Telegram-Servern (nicht lokal). Der Editor unter „Geräte\" wird sofort angewendet.",
+        "fr": "Substitution de device_model, system_version et app_version sur les serveurs Telegram (pas localement). L'éditeur dans \"Périphériques\" est appliqué immédiatement.",
+        "pt-BR": "Substituição de device_model, system_version e app_version nos servidores Telegram (não localmente). O editor em \"Dispositivos\" é aplicado imediatamente.",
+        "tr": "Device_model, system_version ve app_version'un Telegram sunucularında değiştirilmesi (yerel olarak değil). \"Cihazlar\"daki düzenleyici hemen uygulanır.",
+        "ar": "استبدال Device_model وsystem_version وapp_version على خوادم Telegram (وليس محليًا). يتم تطبيق المحرر الموجود في \"الأجهزة\" على الفور.",
+        "be": "Замена device_model, system_version і app_version на серверах Telegram (не лакальна). Рэдактар ​​у «Прыладах» прымяняецца адразу.",
+        "kk": "Telegram серверлерінде құрылғы_моделі, жүйелік_нұсқа және қолданба_нұсқасын ауыстыру (жергілікті емес). «Құрылғылардағы» редактор бірден қолданылады."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
