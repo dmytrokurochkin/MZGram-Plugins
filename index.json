@@ -2863,6 +2863,34 @@
         "files",
         "intents"
       ]
+    },
+    {
+      "id": "crypto_analiz",
+      "name": "Crypto Analiz",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/crypto_analiz/1.0/crypto_analiz.plugin",
+      "sha256": "2f326084918fa6dc8be8be0ca7197bee1736e0a5d9e70bf526a604f64a392dfb",
+      "size": 16888,
+      "description": "The plugin tracks the cryptocurrency rate .crypthelp",
+      "description_i18n": {
+        "en": "The plugin tracks the cryptocurrency rate .crypthelp",
+        "uk": "Плагін відстежує курс криптовалюти .crypthelp",
+        "ru": "Плагин отслеживает курс криптовалюты .crypthelp",
+        "pl": "Wtyczka śledzi kurs kryptowaluty .crypthelp",
+        "es": "El complemento rastrea la tasa de criptomonedas .crypthelp",
+        "de": "Das Plugin verfolgt den Kryptowährungskurs .crypthelp",
+        "fr": "Le plugin suit le taux de crypto-monnaie .crypthelp",
+        "pt-BR": "O plugin rastreia a taxa de criptomoeda .crypthelp",
+        "tr": "Eklenti kripto para birimi oranını takip ediyor .crypthelp",
+        "ar": "يتتبع البرنامج المساعد معدل العملة المشفرة .crypthelp",
+        "be": "Убудова адсочвае курс криптовалюты .crypthelp",
+        "kk": "Плагин криптовалюта бағамын қадағалайды .crypthelp"
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
