@@ -8824,6 +8824,40 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "proxy_sub",
+      "name": "Proxy Sub",
+      "version": "4.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/proxy_sub/4.0.0/proxy_sub.plugin",
+      "sha256": "e00d3ee6b77e8d9fa013e028db40f15926c773965a75929d18b55711a861d4b3",
+      "size": 46560,
+      "description": "Loads MTProto and WebProxy proxy lists from a remote source and adds them to the client. Features: • Filtering by protocols and countries with counters • Exporting proxies (MTProto, WebProxy, SOCKS) to Favorites by message or file • Recording plugin error logs and automatically sending them to the akresLogs forum every hour (optional)",
+      "description_i18n": {
+        "en": "Loads MTProto and WebProxy proxy lists from a remote source and adds them to the client. Features: • Filtering by protocols and countries with counters • Exporting proxies (MTProto, WebProxy, SOCKS) to Favorites by message or file • Recording plugin error logs and automatically sending them to the akresLogs forum every hour (optional)",
+        "uk": "Завантажує списки проксі MTProto та WebProxy із віддаленого джерела та додає їх до клієнта. Особливості: • Фільтрування за протоколами та країнами з лічильниками • Експорт проксі (MTProto, WebProxy, SOCKS) до вибраного за повідомленням або файлом • Запис журналів помилок плагіна та автоматичне надсилання їх на форум akresLogs щогодини (необов'язково)",
+        "ru": "Загружает списки прокси-серверов MTProto и WebProxy из удаленного источника и добавляет их клиенту. Возможности: • Фильтрация по протоколам и странам со счётчиками • Экспорт прокси (MTProto, WebProxy, SOCKS) в Избранное по сообщению или файлу • Запись журналов ошибок плагина и автоматическая отправка их на форум akresLogs каждый час (опционально)",
+        "pl": "Ładuje listy proxy MTProto i WebProxy ze zdalnego źródła i dodaje je do klienta. Funkcje: • Filtrowanie według protokołów i krajów z licznikami • Eksport serwerów proxy (MTProto, WebProxy, SOCKS) do Ulubionych według wiadomości lub pliku • Rejestrowanie logów błędów wtyczek i automatyczne wysyłanie ich na forum akresLogs co godzinę (opcjonalnie)",
+        "es": "Carga listas de proxy MTProto y WebProxy desde una fuente remota y las agrega al cliente. Características: • Filtrado por protocolos y países con contadores • Exportación de servidores proxy (MTProto, WebProxy, SOCKS) a Favoritos por mensaje o archivo • Grabación de registros de errores de complementos y envío automático al foro akresLogs cada hora (opcional)",
+        "de": "Lädt MTProto- und WebProxy-Proxy-Listen von einer Remote-Quelle und fügt sie dem Client hinzu. Funktionen: • Filtern nach Protokollen und Ländern mit Zählern • Exportieren von Proxys (MTProto, WebProxy, SOCKS) in Favoriten per Nachricht oder Datei • Aufzeichnen von Plugin-Fehlerprotokollen und automatisches Senden dieser stündlich an das akresLogs-Forum (optional)",
+        "fr": "Charge les listes de proxy MTProto et WebProxy à partir d'une source distante et les ajoute au client. Caractéristiques : • Filtrage par protocoles et pays avec compteurs • Exportation de proxys (MTProto, WebProxy, SOCKS) vers les Favoris par message ou fichier • Enregistrement des journaux d'erreurs du plugin et envoi automatique de ceux-ci au forum akresLogs toutes les heures (facultatif)",
+        "pt-BR": "Carrega listas de proxy MTProto e WebProxy de uma fonte remota e as adiciona ao cliente. Funcionalidades: • Filtragem por protocolos e países com contadores • Exportação de proxies (MTProto, WebProxy, SOCKS) para Favoritos por mensagem ou arquivo • Gravação de logs de erros do plugin e envio automático deles para o fórum akresLogs a cada hora (opcional)",
+        "tr": "Uzak bir kaynaktan MTProto ve WebProxy proxy listelerini yükler ve bunları istemciye ekler. Özellikler: • Protokollere ve sayaçların bulunduğu ülkelere göre filtreleme • Proxy'leri (MTProto, WebProxy, SOCKS) mesaj veya dosya ile Favorilere aktarma • Eklenti hata günlüklerini kaydetme ve bunları her saat başı otomatik olarak akresLogs forumuna gönderme (isteğe bağlı)",
+        "ar": "يقوم بتحميل قوائم وكيل MTProto وWebProxy من مصدر بعيد وإضافتها إلى العميل. الميزات: • التصفية حسب البروتوكولات والبلدان التي تحتوي على عدادات • تصدير الوكلاء (MTProto، WebProxy، SOCKS) إلى المفضلة عن طريق رسالة أو ملف • تسجيل سجلات أخطاء المكونات الإضافية وإرسالها تلقائيًا إلى منتدى akresLogs كل ساعة (اختياري)",
+        "be": "Загружае спісы проксі MTProto і WebProxy з аддаленай крыніцы і дадае іх у кліент. Асаблівасці: • Фільтраванне па пратаколах і краінах з лічыльнікамі • Экспарт проксі (MTProto, WebProxy, SOCKS) у абранае па паведамленні або файле • Запіс журналаў памылак плагіна і аўтаматычная адпраўка іх на форум akresLogs кожную гадзіну (неабавязкова)",
+        "kk": "MTProto және WebProxy прокси тізімдерін қашықтағы көзден жүктейді және оларды клиентке қосады. Мүмкіндіктер: • Есептегіштері бар протоколдар мен елдер бойынша сүзу • Прокси-серверлерді (MTProto, WebProxy, SOCKS) Таңдаулыларға хабар немесе файл арқылы экспорттау • Плагин қателерінің журналдарын жазу және оларды сағат сайын akresLogs форумына автоматты түрде жіберу (міндетті емес)"
+      },
+      "requirements": [
+        "babel"
+      ],
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files",
+        "settings"
+      ]
     }
   ]
 }
