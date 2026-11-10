@@ -624,6 +624,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "ReplacingCharacters",
+      "name": "Replacing Characters",
+      "version": "1.2 recode",
+      "min_app_version": "1.0.0",
+      "file": "plugins/ReplacingCharacters/1.2 recode/ReplacingCharacters.plugin",
+      "sha256": "87663e5efac77fc78d44ad941ea41be12a7039b90930442cc08bdc531d2909de",
+      "size": 32107,
+      "description": "Automatically applies custom text replacement rules before sending a message.",
+      "description_i18n": {
+        "en": "Automatically applies custom text replacement rules before sending a message.",
+        "uk": "Автоматично застосовує власні правила заміни тексту перед надсиланням повідомлення.",
+        "ru": "Автоматически применяет пользовательские правила замены текста перед отправкой сообщения.",
+        "pl": "Automatycznie stosuje niestandardowe reguły zamiany tekstu przed wysłaniem wiadomości.",
+        "es": "Aplica automáticamente reglas de reemplazo de texto personalizadas antes de enviar un mensaje.",
+        "de": "Wendet automatisch benutzerdefinierte Textersetzungsregeln an, bevor eine Nachricht gesendet wird.",
+        "fr": "Applique automatiquement des règles de remplacement de texte personnalisées avant d'envoyer un message.",
+        "pt-BR": "Aplica automaticamente regras personalizadas de substituição de texto antes de enviar uma mensagem.",
+        "tr": "Mesaj göndermeden önce özel metin değiştirme kurallarını otomatik olarak uygular.",
+        "ar": "يطبق قواعد استبدال النص المخصصة تلقائيًا قبل إرسال الرسالة.",
+        "be": "Аўтаматычна прымяняе ўласныя правілы замены тэксту перад адпраўкай паведамлення.",
+        "kk": "Хабарламаны жіберу алдында теңшелетін мәтінді ауыстыру ережелерін автоматты түрде қолданады."
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
