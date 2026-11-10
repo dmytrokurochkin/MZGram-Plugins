@@ -7919,6 +7919,33 @@
         "network",
         "files"
       ]
+    },
+    {
+      "id": "overlay_disabler",
+      "name": "Overlay Disabler",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/overlay_disabler/1.0/overlay_disabler.plugin",
+      "sha256": "93f09bc96d83b77e332140c53bce11e5bdb72a2b0b93fea36e91155e37cc7766",
+      "size": 811,
+      "description": "Disables blurry overlay for Video Messages.",
+      "description_i18n": {
+        "en": "Disables blurry overlay for Video Messages.",
+        "uk": "Вимикає розмите накладання для відеоповідомлень.",
+        "ru": "Отключает размытое наложение для видеосообщений.",
+        "pl": "Wyłącza rozmytą nakładkę dla wiadomości wideo.",
+        "es": "Desactiva la superposición borrosa para mensajes de video.",
+        "de": "Deaktiviert die verschwommene Überlagerung für Videonachrichten.",
+        "fr": "Désactive la superposition floue pour les messages vidéo.",
+        "pt-BR": "Desativa a sobreposição desfocada para mensagens de vídeo.",
+        "tr": "Video Mesajları için bulanık kaplamayı devre dışı bırakır.",
+        "ar": "تعطيل التراكب الضبابي لرسائل الفيديو.",
+        "be": "Адключае размытае накладанне для відэапаведамленняў.",
+        "kk": "Бейне хабарлар үшін бұлыңғыр қабаттасуды өшіреді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
