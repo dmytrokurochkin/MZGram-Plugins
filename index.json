@@ -1906,6 +1906,36 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "boykisser_meow",
+      "name": "Boykisser Corner",
+      "version": "1.4.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/boykisser_meow/1.4.2/boykisser_meow.plugin",
+      "sha256": "20d8fe645c2b898c897129d7ec81ea1232a7d1fd679c50fc99ea87845fa1efa7",
+      "size": 131854,
+      "description": "Meowing boykisser in the corner of the screen",
+      "description_i18n": {
+        "en": "Meowing boykisser in the corner of the screen",
+        "uk": "Нявкання boykisser в кутку екрану",
+        "ru": "Мяукающий парень в углу экрана",
+        "pl": "Miauczący boykisser w rogu ekranu",
+        "es": "Boykisser maullando en la esquina de la pantalla.",
+        "de": "Miauender Boykisser in der Ecke des Bildschirms",
+        "fr": "Boykisser miaulant dans le coin de l'écran",
+        "pt-BR": "Miando boykisser no canto da tela",
+        "tr": "Ekranın köşesinde miyavlayan erkek çocuk",
+        "ar": "مواء boykisser في زاوية الشاشة",
+        "be": "Мяўканне boykisser ў куце экрана",
+        "kk": "Экранның бұрышында мияулаған бойкиссер"
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
