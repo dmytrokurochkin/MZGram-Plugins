@@ -1594,6 +1594,34 @@
       "permissions": [
         "messages.read"
       ]
+    },
+    {
+      "id": "auto_sort_chats_ecubz",
+      "name": "🗂 Auto Sort Chats",
+      "version": "1.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/auto_sort_chats_ecubz/1.4/auto_sort_chats_ecubz.plugin",
+      "sha256": "ac4ce161c0f1080ece3321bb3c11a10422b4c059d0ea3244c89b0fcd4e5d1eca",
+      "size": 11132,
+      "description": "EN: Automatic sorting of chats by type. Groups: unread, personal, groups, channels, bots, etc.",
+      "description_i18n": {
+        "en": "EN: Automatic sorting of chats by type. Groups: unread, personal, groups, channels, bots, etc.",
+        "uk": "UK: Автоматичне сортування чатів за типом. Групи: непрочитані, особисті, групи, канали, боти тощо.",
+        "ru": "RU: Автоматическая сортировка чатов по типу. Группы: непрочитанные, личные, группы, каналы, боты и т.д.",
+        "pl": "PL: Automatyczne sortowanie czatów według typu. Grupy: nieprzeczytane, osobiste, grupy, kanały, boty itp.",
+        "es": "ES: Ordenación automática de chats por tipo. Grupos: no leídos, personales, grupos, canales, bots, etc.",
+        "de": "DE: Automatische Sortierung von Chats nach Typ. Gruppen: ungelesen, persönlich, Gruppen, Kanäle, Bots usw.",
+        "fr": "FR: Tri automatique des chats par type. Groupes : non lus, personnels, groupes, chaînes, robots, etc.",
+        "pt-BR": "PT: Classificação automática de chats por tipo. Grupos: não lidos, pessoais, grupos, canais, bots, etc.",
+        "tr": "TR: Sohbetlerin türe göre otomatik olarak sıralanması. Gruplar: okunmamış, kişisel, gruplar, kanallar, botlar vb.",
+        "ar": "AR: فرز تلقائي للمحادثات حسب النوع. المجموعات: غير مقروءة، شخصية، مجموعات، قنوات، روبوتات، إلخ.",
+        "be": "EN: Аўтаматычнае сартаванне чатаў па тыпу. Групы: непрачытаныя, асабістыя, групы, каналы, боты і г.д.",
+        "kk": "KK: чаттарды түрі бойынша автоматты сұрыптау. Топтар: оқылмаған, жеке, топтар, арналар, боттар және т.б."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
