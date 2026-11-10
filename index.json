@@ -3116,6 +3116,34 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "custom_support",
+      "name": "exteraGram SupportDevelopment",
+      "version": "1.0.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/custom_support/1.0.3/custom_support.plugin",
+      "sha256": "29d19b29a8daa1a04c22e9723c9d649084d437cdc5443b96b66e89bbb84d47ef",
+      "size": 167293,
+      "description": "Custom BottomSheet for tg://support",
+      "description_i18n": {
+        "en": "Custom BottomSheet for tg://support",
+        "uk": "Спеціальний BottomSheet для tg://support",
+        "ru": "Пользовательский нижний лист для tg://support",
+        "pl": "Niestandardowy arkusz dolny dla tg://support",
+        "es": "Hoja inferior personalizada para tg://support",
+        "de": "Benutzerdefiniertes BottomSheet für tg://support",
+        "fr": "Feuille de fond personnalisée pour tg://support",
+        "pt-BR": "BottomSheet personalizado para tg://support",
+        "tr": "tg://support için Özel BottomSheet",
+        "ar": "ورقة سفلية مخصصة لـ tg://support",
+        "be": "Карыстальніцкі BottomSheet для tg://support",
+        "kk": "tg://support үшін теңшелетін BottomSheet"
+      },
+      "permissions": [
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
