@@ -2163,6 +2163,34 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "card_reading",
+      "name": "Гадание на картах",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/card_reading/1.0/card_reading.plugin",
+      "sha256": "82eaea7c5fd717bbc6372e55970e5e68654a4ca5bdbd3d7ead41bffac7a0a6e3",
+      "size": 49638,
+      "description": "Cartomancy). The \"Guess\" button in the chat menu or the .guess command",
+      "description_i18n": {
+        "en": "Cartomancy). The \"Guess\" button in the chat menu or the .guess command",
+        "uk": "Картоманція). Кнопка «Вгадай» у меню чату або команда .guess",
+        "ru": "Картомантия). Кнопка «Угадай» в меню чата или команда .guess",
+        "pl": "Wróżenie). Przycisk „Zgadnij\" w menu czatu lub polecenie .zgadnij",
+        "es": "Cartomancia). El botón \"Adivinar\" en el menú de chat o el comando .guess",
+        "de": "Kartenlegen). Der „Guess\"-Button im Chat-Menü oder der .guess-Befehl",
+        "fr": "Cartomancie). Le bouton « Devinez » dans le menu de discussion ou la commande .guess",
+        "pt-BR": "Cartomancia). O botão \"Adivinhar\" no menu de bate-papo ou o comando .guess",
+        "tr": "İskambil falcılığı). Sohbet menüsündeki \"Tahmin et\" butonu veya .guess komutu",
+        "ar": "كارتومانسي). زر \"تخمين\" في قائمة الدردشة أو أمر .guess",
+        "be": "Cartomancy). Кнопка «Адгадай» у меню чата або каманда .guess",
+        "kk": "Картомантия). Чат мәзіріндегі «Ойлан» түймесі немесе .guess пәрмені"
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
