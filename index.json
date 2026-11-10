@@ -7860,6 +7860,36 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "open_street_map",
+      "name": "OpenStreetMap",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/open_street_map/1.0/open_street_map.plugin",
+      "sha256": "52ab201e87f0d66e02ee3a74c47fd65d9a48bc60e51888884f16198363658206",
+      "size": 129174,
+      "description": "Adding OpenStreetMap instead of Google. Fork Yandex Maps",
+      "description_i18n": {
+        "en": "Adding OpenStreetMap instead of Google. Fork Yandex Maps",
+        "uk": "Додавання OpenStreetMap замість Google. Форк Яндекс Карти",
+        "ru": "Добавление OpenStreetMap вместо Google. Форк Яндекс Карты",
+        "pl": "Dodanie OpenStreetMap zamiast Google. Widelce mapy Yandex",
+        "es": "Añadiendo OpenStreetMap en lugar de Google. Bifurcación de mapas de Yandex",
+        "de": "OpenStreetMap anstelle von Google hinzufügen. Fork Yandex Maps",
+        "fr": "Ajout d'OpenStreetMap à la place de Google. Cartes Yandex de Fourche",
+        "pt-BR": "Adicionando OpenStreetMap em vez do Google. Fork Yandex Mapas",
+        "tr": "Google yerine OpenStreetMap ekleniyor. Çatal Yandex Haritalar",
+        "ar": "إضافة OpenStreetMap بدلاً من Google. خرائط شوكة ياندكس",
+        "be": "Даданне OpenStreetMap замест Google. Відэлец яндэкс карт",
+        "kk": "Google орнына OpenStreetMap қосу. Яндекс карталары"
+      },
+      "permissions": [
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
