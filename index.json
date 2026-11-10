@@ -9038,6 +9038,35 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "quick_back",
+      "name": "Quick Back",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/quick_back/1.0/quick_back.plugin",
+      "sha256": "be99054be9077fb8fc0f1b0a782d935f5bdd79842675a822a39abb990f747e6d",
+      "size": 34509,
+      "description": "Instant return to home screen or section start via back gestures",
+      "description_i18n": {
+        "en": "Instant return to home screen or section start via back gestures",
+        "uk": "Миттєве повернення на головний екран або початок розділу за допомогою жестів назад",
+        "ru": "Мгновенный возврат на главный экран или запуск раздела с помощью жестов назад.",
+        "pl": "Natychmiastowy powrót do ekranu głównego lub rozpoczęcia sekcji za pomocą gestów cofania",
+        "es": "Regreso instantáneo a la pantalla de inicio o inicio de sección mediante gestos de retroceso",
+        "de": "Sofortige Rückkehr zum Startbildschirm oder Abschnittsanfang über Zurück-Gesten",
+        "fr": "Retour instantané à l'écran d'accueil ou au début de la section via des gestes de retour",
+        "pt-BR": "Retorno instantâneo à tela inicial ou início da seção por meio de gestos para trás",
+        "tr": "Geri hareketlerle ana ekrana veya bölüm başlangıcına anında dönüş",
+        "ar": "العودة الفورية إلى الشاشة الرئيسية أو بدء القسم عبر إيماءات الظهر",
+        "be": "Імгненны вяртанне на галоўны экран або пачатак раздзела з дапамогай жэстаў назад",
+        "kk": "Артқы қимылдар арқылы негізгі экранға немесе бөлімге жылдам оралу"
+      },
+      "permissions": [
+        "files",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
