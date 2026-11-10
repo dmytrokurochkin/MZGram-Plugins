@@ -11458,6 +11458,33 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "tg_linkkit",
+      "name": "TG LinkKit",
+      "version": "1.3.9",
+      "min_app_version": "1.0.0",
+      "file": "plugins/tg_linkkit/1.3.9/tg_linkkit.plugin",
+      "sha256": "9cc8b29f6b07d648eeb10193f0097c75bbcdd051b3f2e2caccc293fbebdc93d3",
+      "size": 57754,
+      "description": "Copies links, mentions, QR and Telegram profile/chat card.",
+      "description_i18n": {
+        "en": "Copies links, mentions, QR and Telegram profile/chat card.",
+        "uk": "Копіює посилання, згадки, QR і профіль/картку чату Telegram.",
+        "ru": "Копирует ссылки, упоминания, QR и профиль/карточку чата в Telegram.",
+        "pl": "Kopiuje linki, wzmianki, profile/karty czatu QR i Telegram.",
+        "es": "Copia enlaces, menciones, QR y perfil/tarjeta de chat de Telegram.",
+        "de": "Kopiert Links, Erwähnungen, QR- und Telegram-Profile/Chat-Karten.",
+        "fr": "Copie les liens, les mentions, le profil QR et la carte de discussion Telegram.",
+        "pt-BR": "Copia links, menções, QR e cartão de perfil/chat do Telegram.",
+        "tr": "Bağlantıları, bahisleri, QR'yi ve Telegram profilini/sohbet kartını kopyalar.",
+        "ar": "نسخ الروابط والإشارات وملف تعريف QR وTelegram/بطاقة الدردشة.",
+        "be": "Капіруе спасылкі, згадкі, QR і профіль/картку чата Telegram.",
+        "kk": "Сілтемелерді, ескертулерді, QR және Telegram профилін/чат картасын көшіреді."
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }
