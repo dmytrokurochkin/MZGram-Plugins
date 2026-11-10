@@ -6480,6 +6480,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "material_settings_list",
+      "name": "MaterialSettingsList",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/material_settings_list/1.0.0/material_settings_list.plugin",
+      "sha256": "a2a50f7ac1aef6b944911ed19522b09f8be450f44ac1ad626b10ad9ccfa08773",
+      "size": 48788,
+      "description": "Redesigns main settings list to match material concepts. > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 or greater!",
+      "description_i18n": {
+        "en": "Redesigns main settings list to match material concepts. > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 or greater!",
+        "uk": "Реконструює список основних налаштувань відповідно до концепцій матеріалів. > Потрібен **[ZwyLib](https://t.me/zwyPlugins/48)** версії 2.0.6 або новішої!",
+        "ru": "Изменен список основных настроек в соответствии с концепциями материалов. > Требуется **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 или более поздняя версия!",
+        "pl": "Przeprojektowuje główną listę ustawień, aby dopasować ją do koncepcji materiałów. > Wymaga **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 lub nowszej!",
+        "es": "Rediseña la lista de configuraciones principales para que coincida con los conceptos de materiales. > ¡Requiere **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 o superior!",
+        "de": "Überarbeitet die Haupteinstellungsliste entsprechend den Materialkonzepten. > Erfordert **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 oder höher!",
+        "fr": "Refonte la liste des paramètres principaux pour correspondre aux concepts matériels. > Nécessite **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 ou supérieur !",
+        "pt-BR": "Redesenha a lista de configurações principais para corresponder aos conceitos de materiais. > Requer **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 ou superior!",
+        "tr": "Ana ayarlar listesini malzeme konseptleriyle eşleşecek şekilde yeniden tasarlar. > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 veya üzerini gerektirir!",
+        "ar": "يعيد تصميم قائمة الإعدادات الرئيسية لتتناسب مع مفاهيم المواد. > يتطلب **[ZwyLib](https://t.me/zwyPlugins/48)** الإصدار 2.0.6 أو أحدث!",
+        "be": "Рэдызайн спісу асноўных налад у адпаведнасці з матэрыяльнымі канцэпцыямі. > Патрабуецца **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 або вышэй!",
+        "kk": "Материалдық ұғымдарға сәйкестендіру үшін негізгі параметрлер тізімін қайта жасайды. > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 немесе одан жоғары нұсқасын талап етеді!"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
