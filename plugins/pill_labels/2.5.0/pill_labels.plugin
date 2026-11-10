@@ -1,0 +1,1830 @@
+import colorsys
+import math
+import time
+from base_plugin import BasePlugin, MethodHook
+from ui.settings import Header, Switch
+try:
+    from ui.settings import Text
+except Exception:
+    Text = None
+try:
+    from ui.settings import Selector
+except Exception:
+    Selector = None
+try:
+    from ui.bulletin import BulletinHelper
+except Exception:
+    BulletinHelper = None
+try:
+    from android_utils import run_on_ui_thread as _run_on_ui
+except Exception:
+    _run_on_ui = None
+from java import jclass, jarray, dynamic_proxy, cast
+__id__ = "pill_labels"
+__name__ = "Pill Labels"
+__description__ = "Adds outlines around profile elements"
+__icon__ = "kittysforlife_by_fStikBot/19"
+__author__ = "@Persik_dll & claude"
+__version__ = "2.5.0"
+__min_version__ = "12.10.6"
+__category__ = ["appearance"]
+
+PILL_ALPHA = 0x2E
+
+PAD_X_DP = 9.0
+
+PAD_Y_DP = 1.0
+
+SHIFT_DP = 4.0
+
+_HANDLED = {"TextDetailCell", "AboutLinkCell"}
+
+_NEVER = {
+    "TextCell", "HeaderCell", "ShadowSectionCell", "DividerCell", "TextInfoPrivacyCell",
+    "TextCheckCell", "NotificationsCheckCell", "UserCell", "EmptyCell", "View",
+}
+
+_NEVER_SUBSTR = (
+    "Channel", "Gift", "Shared", "Check", "Switch", "Header", "Shadow",
+    "Empty", "Stories", "Media", "Loading", "Flicker", "Placeholder", "Page",
+)
+_styled = {}
+_field_cache = {}
+_misses = {}
+_generic_seen = set()
+_validating = set()
+_bg = {"color": None, "screen": None, "gen": 0, "source": None, "polls": 0}
+_last_style = [0.0]
+_screen_cache = [0.0, None, ""]
+_cur_tv = [None]
+_cur_owner = [None]
+_strips = []
+_owner_mode = [False]
+_strip_cls = [None]
+_td_cls = [None]
+_strip_ok = {}
+_icons = {}
+_owner = [None]
+_hours_cls = [None]
+_hours_field = [None]
+_plugin_ref = [None]
+_cfg_cache = [0.0, None]
+_theme_cache = {}
+
+_MISSING = object()
+
+class _J:
+    ready = False
+    density = None
+
+def _report(msg):
+    try:
+        if BulletinHelper is not None:
+            BulletinHelper.show_error(str(msg))
+    except Exception:
+        try:
+            BulletinHelper.show_info(str(msg))
+        except Exception:
+            pass
+
+def _ui(fn, delay=0):
+    def safe():
+        try:
+            fn()
+        except Exception as e:
+            _report("Ошибка: %s" % e)
+    if _run_on_ui is not None:
+        try:
+            _run_on_ui(safe, delay)
+            return
+        except TypeError:
+            try:
+                _run_on_ui(safe)
+                return
+            except Exception:
+                pass
+        except Exception as e:
+            pass
+    safe()
+
+def _init():
+    if _J.ready:
+        return
+    _J.TextView = jclass("android.widget.TextView")
+    _J.ViewGroup = jclass("android.view.ViewGroup")
+    _J.GD = jclass("android.graphics.drawable.GradientDrawable")
+    _J.LD = jclass("android.graphics.drawable.LayerDrawable")
+    _J.DrawableArr = jarray(jclass("android.graphics.drawable.Drawable"))
+    _J.Theme = jclass("org.telegram.ui.ActionBar.Theme")
+    klass = jclass("java.lang.Class")
+    _J.tv_cls = klass.forName("android.widget.TextView")
+    _J.vg_cls = klass.forName("android.view.ViewGroup")
+    _J.Strip = jclass("org.telegram.ui.Components.ScrollSlidingTextTabStrip")
+    _J.ready = True
+
+def _signed(v):
+    v &= 0xFFFFFFFF
+    return v - 0x100000000 if v >= 0x80000000 else v
+
+def _with_alpha(color, alpha):
+    return _signed((alpha << 24) | (color & 0x00FFFFFF))
+
+def _rgb_of(c):
+    return (c >> 16) & 255, (c >> 8) & 255, c & 255
+
+def _from_rgb(r, g, b):
+    return _signed(0xFF000000 | (int(round(r)) << 16) | (int(round(g)) << 8) | int(round(b)))
+
+def _hsv_of(c):
+    r, g, b = _rgb_of(c)
+    return colorsys.rgb_to_hsv(r / 255.0, g / 255.0, b / 255.0)
+
+def _from_hsv(h, s, v):
+    r, g, b = colorsys.hsv_to_rgb(h, s, v)
+    return _from_rgb(r * 255, g * 255, b * 255)
+
+def _lum(r, g, b):
+    def f(c):
+        c /= 255.0
+        return c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
+    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
+
+def _parse_hex(s):
+    s = (s or "").strip().lstrip("#")
+    if len(s) == 3:
+        s = "".join(c * 2 for c in s)
+    if len(s) != 6:
+        return None
+    try:
+        return _signed(0xFF000000 | int(s, 16))
+    except ValueError:
+        return None
+
+def _theme(names, fallback, ttl=0.6):
+    now = time.monotonic()
+    e = _theme_cache.get(names[0])
+    if e is not None and now - e[0] < ttl:
+        return e[1]
+    val = fallback
+    for n in names:
+        try:
+            val = _J.Theme.getColor(getattr(_J.Theme, n))
+            break
+        except Exception:
+            continue
+    _theme_cache[names[0]] = (now, val)
+    return val
+
+def _accent():
+    return _theme(
+        ("key_windowBackgroundWhiteBlueText", "key_chats_actionBackground", "key_featuredStickers_addButton"),
+        _signed(0xFF8774E1),
+    )
+
+def _gray():
+    return _theme(("key_windowBackgroundWhiteGrayText2", "key_windowBackgroundWhiteGrayText"), _signed(0xFF8A8A8A))
+
+def _card_bg():
+    return _theme(("key_windowBackgroundWhite",), _signed(0xFF000000))
+
+def _is_dark():
+    r, g, b = _rgb_of(_card_bg())
+    return _lum(r, g, b) < 0.4
+
+def _readable(color, ratio=4.5):
+    try:
+        r, g, b = _rgb_of(color)
+        br, bg_, bb = _rgb_of(_card_bg())
+        lb = _lum(br, bg_, bb)
+        target = 255.0 if lb < 0.5 else 0.0
+        rr, gg, bb2 = r, g, b
+        for i in range(11):
+            t = i / 10.0
+            rr = r + (target - r) * t
+            gg = g + (target - g) * t
+            bb2 = b + (target - b) * t
+            lc = _lum(rr, gg, bb2)
+            if (max(lc, lb) + 0.05) / (min(lc, lb) + 0.05) >= ratio:
+                break
+        return _from_rgb(rr, gg, bb2)
+    except Exception:
+        return color
+
+def _derive_bg_color(r, g, b):
+    h, s, v = colorsys.rgb_to_hsv(r / 255.0, g / 255.0, b / 255.0)
+    if s < 0.18:
+        if v < 0.035:
+            return None
+        return _from_rgb(r, g, b)
+    if v < 0.10:
+        return None
+    if _is_dark():
+        s, v = min(max(s, 0.28), 0.62), 0.96
+    else:
+        s, v = min(max(s, 0.50), 0.90), 0.52
+    return _from_hsv(h, s, v)
+
+PRESETS = [
+    ("🎨 Как в теме", "auto"),
+    ("🖼 С фона профиля", "profile"),
+    ("🟣 Фиолетовый", "#B388FF"),
+    ("🔵 Синий", "#5AA2FF"),
+    ("🩵 Бирюзовый", "#4DD0E1"),
+    ("🟢 Зелёный", "#66D17A"),
+    ("🟡 Жёлтый", "#F5C84B"),
+    ("🟠 Оранжевый", "#FF9B4A"),
+    ("🔴 Красный", "#FF6B6B"),
+    ("🩷 Розовый", "#FF7EB6"),
+    ("✏️ Свой цвет…", "custom"),
+]
+
+CUSTOM_IDX = len(PRESETS) - 1
+
+DEFAULT_IDX = 1
+
+def _color_idx(plugin):
+    try:
+        idx = int(plugin.get_setting("pill_color_idx", DEFAULT_IDX))
+    except Exception:
+        idx = DEFAULT_IDX
+    return max(0, min(len(PRESETS) - 1, idx))
+
+def _migrate_settings(plugin):
+    try:
+        if plugin.get_setting("pill_color_idx", None) is not None:
+            return
+        old = plugin.get_setting("pill_color", None)
+        if old is None:
+            return
+        old = str(old).strip()
+        idx = None
+        for i, (_, v) in enumerate(PRESETS):
+            if v.lower() == old.lower():
+                idx = i
+        if idx is None and _parse_hex(old) is not None:
+            plugin.set_setting("custom_color", old if old.startswith("#") else "#" + old)
+            idx = CUSTOM_IDX
+        if idx is not None:
+            plugin.set_setting("pill_color_idx", idx)
+    except Exception as e:
+        pass
+
+def _cfg(plugin):
+    now = time.monotonic()
+    if _cfg_cache[1] is not None and now - _cfg_cache[0] < 0.5:
+        return _cfg_cache[1]
+    c = {
+        "enabled": bool(plugin.get_setting("enabled", True)),
+        "mode": PRESETS[_color_idx(plugin)][1],
+        "custom": str(plugin.get_setting("custom_color", "") or ""),
+    }
+    _cfg_cache[0] = now
+    _cfg_cache[1] = c
+    return c
+
+def _get_field_walk(cls, name):
+    c = cls
+    while c is not None:
+        try:
+            f = c.getDeclaredField(name)
+            f.setAccessible(True)
+            return f
+        except Exception:
+            pass
+        c = c.getSuperclass()
+    return None
+
+def _lookup_value_field(cell):
+    cls = cell.getClass()
+    for name in ("valueTextView", "valueText", "subtitleTextView", "subtitle"):
+        f = _get_field_walk(cls, name)
+        if f is not None and _J.tv_cls.isAssignableFrom(f.getType()):
+            return f
+    found = []
+    for f in cls.getDeclaredFields():
+        if _J.tv_cls.isAssignableFrom(f.getType()):
+            f.setAccessible(True)
+            found.append(f)
+    if len(found) >= 2:
+        return found[1]
+    if len(found) == 1 and "AboutLinkCell" in str(cls.getName()):
+        return found[0]
+    return None
+
+def _value_view(cell):
+    cn = str(cell.getClass().getName())
+    f = _field_cache.get(cn, _MISSING)
+    if f is _MISSING:
+        f = _lookup_value_field(cell)
+        _field_cache[cn] = f
+    if f is None:
+        return None
+    v = f.get(cell)
+    return cast(_J.TextView, v) if v is not None else None
+
+def _collect_tvs(view, out, depth):
+    if not _J.vg_cls.isInstance(view):
+        return
+    vg = cast(_J.ViewGroup, view)
+    for i in range(vg.getChildCount()):
+        c = vg.getChildAt(i)
+        if _J.tv_cls.isInstance(c):
+            out.append(cast(_J.TextView, c))
+        elif depth < 4:
+            _collect_tvs(c, out, depth + 1)
+
+def _find_label(cell):
+    tvs = []
+    _collect_tvs(cell, tvs, 0)
+    cand = []
+    for tv in tvs:
+        t = tv.getText()
+        if t is None or len(str(t).strip()) == 0 or tv.getVisibility() != 0:
+            continue
+        cand.append((tv, float(tv.getTextSize())))
+    if len(cand) < 2:
+        return None
+    max_size = max(s for _, s in cand)
+    g2 = _gray()
+    g1 = _theme(("key_windowBackgroundWhiteGrayText",), g2)
+    for tv, size in cand:
+        if size >= max_size * 0.92:
+            continue
+        if int(tv.hashCode()) in _styled or int(tv.getCurrentTextColor()) in (g2, g1):
+            return tv
+    return None
+
+def _generic(plugin, cell):
+    _init()
+    cn = str(cell.getClass().getName())
+    simple = cn.rsplit(".", 1)[-1].rsplit("$", 1)[-1]
+    if simple in _HANDLED or simple in _NEVER or any(x in simple for x in _NEVER_SUBSTR):
+        return
+    if _misses.get(cn, 0) >= 3:
+        return
+    hc = _hours_cls[0]
+    if hc is not None and hc.isInstance(cell):
+        return
+    label = _find_label(cell)
+    if label is None:
+        n = _misses.get(cn, 0) + 1
+        _misses[cn] = n
+        if n == 3:
+            pass
+        return
+    h = int(label.hashCode())
+    if h in _styled:
+        _style_label(plugin, label)
+        return
+    if h not in _validating:
+        _validating.add(h)
+        _ui(lambda: _validate_generic(plugin, cell, label, cn, 1), 120)
+
+def _validate_generic(plugin, cell, label, cn, attempt=1):
+    h = int(label.hashCode())
+    if label.getWidth() <= 0 or cell.getHeight() <= 0:
+        if attempt < 4:
+            _ui(lambda: _validate_generic(plugin, cell, label, cn, attempt + 1), 250)
+        else:
+            _validating.discard(h)
+        return
+    _validating.discard(h)
+    d = _J.density or float(label.getResources().getDisplayMetrics().density)
+    t = label.getText()
+    text = str(t) if t is not None else ""
+    reason = None
+    if label.getLineCount() > 1:
+        reason = "multi-line label"
+    elif (int(label.getGravity()) & 7) == 1:
+        reason = "centered label"
+    elif cell.getHeight() > int(150 * d):
+        reason = "tall cell"
+    elif len(text) > 60:
+        reason = "long label"
+    elif label.getLeft() < int(PAD_X_DP * d):
+        reason = "no room on the left"
+    if reason is not None:
+        _misses[cn] = 3
+        if cn not in _generic_seen:
+            _generic_seen.add(cn)
+        return
+    if cn not in _generic_seen:
+        _generic_seen.add(cn)
+    _style_label(plugin, label)
+
+class _OwnerRef(object):
+    def __init__(self, h):
+        self.h = h
+    def hashCode(self):
+        return self.h
+
+def _screen_id():
+    now = time.monotonic()
+    if now - _screen_cache[0] < 0.3:
+        return _screen_cache[1]
+    sid = None
+    cname = ""
+    try:
+        from client_utils import get_last_fragment
+        f = get_last_fragment()
+        if f is not None:
+            sid = int(f.hashCode())
+            cname = str(f.getClass().getName())
+    except Exception:
+        pass
+    _screen_cache[0] = now
+    _screen_cache[1] = sid
+    _screen_cache[2] = cname
+    return sid
+
+def _tv_in_top_fragment(tv):
+    try:
+        from client_utils import get_last_fragment
+        f = get_last_fragment()
+        root = f.getFragmentView() if f is not None else None
+        if root is None:
+            return True
+        if not bool(tv.isAttachedToWindow()):
+            return True
+        p = tv.getParent()
+        for _ in range(60):
+            if p is None:
+                return False
+            if p == root:
+                return True
+            p = p.getParent()
+        return False
+    except Exception:
+        return True
+_method_cache = {}
+_pc_fields = {}
+
+def _num(v):
+    return int(str(v))
+
+def _fget(obj, name):
+    f = _get_field_walk(obj.getClass(), name)
+    if f is None:
+        return None
+    return f.get(obj)
+
+def _invoke(obj, name, *args):
+    cls = obj.getClass()
+    key = (str(cls.getName()), name, len(args))
+    m = _method_cache.get(key, _MISSING)
+    if m is _MISSING:
+        m = None
+        for cand in cls.getMethods():
+            if cand.getName() == name and len(cand.getParameterTypes()) == len(args):
+                m = cand
+                break
+        _method_cache[key] = m
+    if m is None:
+        raise AttributeError("%s.%s/%d" % (key[0], name, len(args)))
+    return m.invoke(obj, *args)
+
+def _theme_dark():
+    try:
+        return bool(_J.Theme.isCurrentThemeDark())
+    except Exception:
+        return _is_dark()
+
+def _peer_bgs(peer, dark):
+    for names in (("getBgColor1", "getBgColor2"), ("getColor1", "getColor2")):
+        vals = []
+        for n in names:
+            try:
+                try:
+                    v = _invoke(peer, n, dark)
+                except AttributeError:
+                    v = _invoke(peer, n)
+                vals.append(_signed(0xFF000000 | (_num(v) & 0xFFFFFF)))
+            except Exception:
+                pass
+        if vals:
+            return vals
+    return []
+
+def _fragment_peer_bgs(frag, dark):
+    cls = frag.getClass()
+    cn = str(cls.getName())
+    fields = _pc_fields.get(cn)
+    if fields is None:
+        fields = []
+        c = cls
+        while c is not None and str(c.getName()) != "java.lang.Object":
+            for f in c.getDeclaredFields():
+                try:
+                    tn = str(f.getType().getName())
+                    if tn.endswith("$PeerColor") or tn.endswith(".PeerColor"):
+                        f.setAccessible(True)
+                        fields.append(f)
+                except Exception:
+                    pass
+            c = c.getSuperclass()
+        fields.sort(key=lambda f: 0 if ("profile" in str(f.getName()).lower() or "peercolor" in str(f.getName()).lower()) else 1)
+        _pc_fields[cn] = fields
+    for f in fields:
+        try:
+            v = f.get(frag)
+            if v is None:
+                continue
+            bgs = _peer_bgs(v, dark)
+            if bgs:
+                return str(f.getName()), bgs
+        except Exception:
+            pass
+    return None, []
+
+def _profile_target(frag):
+    try:
+        acc = int(frag.getCurrentAccount())
+    except Exception:
+        acc = int(jclass("org.telegram.messenger.UserConfig").selectedAccount)
+    args = None
+    try:
+        args = frag.getArguments()
+    except Exception:
+        pass
+    if args is not None:
+        for key, kind in (("user_id", "user"), ("chat_id", "chat"), ("channel_id", "chat")):
+            try:
+                if bool(args.containsKey(key)):
+                    v = _num(args.get(key))
+                    if v:
+                        return acc, kind, abs(v)
+            except Exception:
+                pass
+    if "profile" in str(frag.getClass().getName()).lower():
+        try:
+            uid = _num(jclass("org.telegram.messenger.UserConfig").getInstance(acc).getClientUserId())
+            if uid:
+                return acc, "user", uid
+        except Exception:
+            pass
+    return None
+
+def _collectible_bgs(pc, dark):
+    for name in (("dark_colors", "colors") if dark else ("colors",)):
+        lst = _fget(pc, name)
+        if lst is None:
+            continue
+        n = _num(_invoke(lst, "size"))
+        vals = [_signed(0xFF000000 | (_num(_invoke(lst, "get", i)) & 0xFFFFFF)) for i in range(min(n, 4))]
+        if vals:
+            return vals
+    return []
+
+def _model_peer_bgs(acc, kind, pid, dark):
+    mc = jclass("org.telegram.messenger.MessagesController").getInstance(acc)
+    lid = jclass("java.lang.Long").valueOf(pid)
+    obj = mc.getUser(lid) if kind == "user" else mc.getChat(lid)
+    if obj is None:
+        return "unknown", []
+    helper = "org.telegram.messenger.UserObject" if kind == "user" else "org.telegram.messenger.ChatObject"
+    color_id = None
+    try:
+        color_id = int(jclass(helper).getProfileColorId(obj))
+    except Exception:
+        pc = _fget(obj, "profile_color")
+        if pc is None:
+            color_id = -1
+        else:
+            if "Collectible" in str(pc.getClass().getName()):
+                bgs = _collectible_bgs(pc, dark)
+                return ("color", bgs) if bgs else ("unknown", [])
+            v = _fget(pc, "color")
+            color_id = _num(v) if v is not None else -1
+    try:
+        st = _fget(obj, "emoji_status")
+        if st is not None and "Collectible" in str(st.getClass().getName()):
+            cp = jclass("org.telegram.messenger.MessagesController$PeerColor").fromCollectible(st)
+            if cp is not None:
+                cb = _peer_bgs(cp, dark)
+                if cb:
+                    return "color", cb
+    except Exception:
+        pass
+    if color_id < 0:
+        return "none", []
+    peer = _invoke(mc.profilePeerColors, "getColor", color_id, dark)
+    if peer is None:
+        return "unknown", []
+    bgs = _peer_bgs(peer, dark)
+    return ("color", bgs) if bgs else ("unknown", [])
+
+def _try_profile_data_color(frag=None):
+    if frag is None:
+        try:
+            from client_utils import get_last_fragment
+            frag = get_last_fragment()
+        except Exception:
+            frag = None
+    if frag is None:
+        return False
+    dark = _theme_dark()
+    src, bgs = None, []
+    try:
+        src, bgs = _fragment_peer_bgs(frag, dark)
+        if bgs:
+            src = "fragment." + src
+    except Exception as e:
+        pass
+    status = None
+    if not bgs:
+        try:
+            tgt = _profile_target(frag)
+            if tgt is not None:
+                status, bgs = _model_peer_bgs(tgt[0], tgt[1], tgt[2], dark)
+                src = "%s:%s" % (tgt[1], tgt[2])
+        except Exception as e:
+            pass
+    if not bgs:
+        if status == "none":
+            _bg["color"] = None
+            _bg["source"] = "data"
+            return True
+        return False
+    r1, g1, b1 = _rgb_of(bgs[0])
+    r2, g2, b2 = _rgb_of(bgs[-1])
+    t = 0.35 if len(bgs) > 1 else 0.0
+    base = _from_rgb(r1 + (r2 - r1) * t, g1 + (g2 - g1) * t, b1 + (b2 - b1) * t)
+    derived = _derive_bg_color(*_rgb_of(base))
+    _bg["color"] = derived
+    _bg["source"] = "data"
+    return True
+
+def _top_is(sid):
+    try:
+        from client_utils import get_last_fragment
+        f = get_last_fragment()
+        return f is not None and int(f.hashCode()) == sid
+    except Exception:
+        return True
+
+def _retry_data(sid, owner=None):
+    if owner is None:
+        _screen_cache[0] = 0.0
+        if _screen_id() != sid:
+            return
+    if _bg["screen"] != sid or _bg.get("source") == "data":
+        return
+    if _try_profile_data_color(owner):
+        _bg["gen"] += 1
+        _recolor_styled()
+    elif owner is not None and _top_is(sid) and _bg.get("polls", 0) == 0:
+        _request_bg()
+
+def _header_photo_expanded():
+    try:
+        root = None
+        try:
+            from client_utils import get_last_fragment
+            f = get_last_fragment()
+            if f is not None:
+                root = f.getFragmentView()
+        except Exception:
+            root = None
+        if root is None:
+            ctx = _context()
+            root = ctx.getWindow().getDecorView() if ctx is not None else None
+        if root is None:
+            return False
+        full_w = int(root.getWidth())
+        pending = [(root, 0)]
+        seen = 0
+        while pending and seen < 500:
+            v, depth = pending.pop(0)
+            seen += 1
+            name = str(v.getClass().getName())
+            if "ProfileGalleryView" in name or "AvatarsViewPager" in name:
+                if (int(v.getVisibility()) == 0 and float(v.getAlpha()) > 0.6
+                        and int(v.getHeight()) > 0 and int(v.getWidth()) >= 0.8 * full_w):
+                    return True
+                continue
+            if depth >= 10 or "RecyclerView" in name or "RecyclerListView" in name:
+                continue
+            if _J.vg_cls.isInstance(v):
+                vg = cast(_J.ViewGroup, v)
+                for i in range(vg.getChildCount()):
+                    pending.append((vg.getChildAt(i), depth + 1))
+        return False
+    except Exception as e:
+        return False
+
+def _profile_base():
+    now = time.monotonic()
+    owner = _cur_owner[0]
+    tv = _cur_tv[0]
+    if owner is not None:
+        sid = int(owner.hashCode())
+        new_screen = _bg["screen"] != sid
+        _owner_mode[0] = True
+    elif _owner_mode[0] and _bg["screen"] is not None:
+        sid = _bg["screen"]
+        new_screen = False
+    else:
+        sid = _screen_id()
+        if sid is not None:
+            new_screen = _bg["screen"] != sid
+            if new_screen and _bg["screen"] is not None and tv is not None and not _tv_in_top_fragment(tv):
+                new_screen = False
+        else:
+            new_screen = _bg["screen"] is None or now - _last_style[0] > 20.0
+            sid = _bg["screen"] if not new_screen else None
+    _last_style[0] = now
+    if new_screen:
+        _bg["screen"] = sid
+        _bg["color"] = None
+        _bg["source"] = None
+        _bg["polls"] = 0
+        frag = owner if (owner is not None and not isinstance(owner, _OwnerRef)) else None
+        if _try_profile_data_color(frag):
+            _bg["gen"] += 1
+        else:
+            if owner is None or _top_is(sid):
+                _request_bg()
+            for delay in (500, 1500, 3000):
+                _ui(lambda sid=sid, frag=frag: _retry_data(sid, frag), delay)
+        for delay in (0, 400):
+            _ui(_recolor_styled, delay)
+        for delay in (900, 1800, 3200, 5500, 9000):
+            _ui(_retint_icons, delay)
+        for delay in (0, 120, 600, 2000):
+            _ui(lambda tv=tv, d=delay: _sweep(tv, d == 600), delay)
+    c = _bg["color"]
+    return c if c is not None else _accent()
+
+def _base_color(cfg, passive=False):
+    mode = cfg["mode"]
+    if mode == "profile":
+        if passive:
+            return _bg["color"] if _bg["color"] is not None else _accent()
+        return _profile_base()
+    if mode == "auto":
+        return _accent()
+    c = _parse_hex(cfg["custom"] if mode == "custom" else mode)
+    return c if c is not None else _accent()
+
+def _blend(fg_argb, bg_rgb):
+    a = ((fg_argb >> 24) & 255) / 255.0
+    r, g, b = _rgb_of(fg_argb)
+    br, bgc, bb = _rgb_of(bg_rgb)
+    return _from_rgb(r * a + br * (1 - a), g * a + bgc * (1 - a), b * a + bb * (1 - a))
+
+def _ensure_contrast(color, bg, ratio=4.5):
+    br, bgc, bb = _rgb_of(bg)
+    lb = _lum(br, bgc, bb)
+    def cr(c):
+        rr, gg, b2 = _rgb_of(c)
+        lc = _lum(rr, gg, b2)
+        return (max(lc, lb) + 0.05) / (min(lc, lb) + 0.05)
+    if cr(color) >= ratio:
+        return color
+    r, g, b = _rgb_of(color)
+    best = None
+    for target in (255.0, 0.0):
+        for i in range(1, 11):
+            t = i / 10.0
+            c = _from_rgb(r + (target - r) * t, g + (target - g) * t, b + (target - b) * t)
+            if cr(c) >= ratio:
+                if best is None or t < best[0]:
+                    best = (t, c)
+                break
+    if best is not None:
+        return best[1]
+    white, black = _from_rgb(255, 255, 255), _from_rgb(0, 0, 0)
+    return white if cr(white) >= cr(black) else black
+
+def _label_colors(cfg, passive=False):
+    base = _base_color(cfg, passive)
+    text_color = _readable(base)
+    if cfg["mode"] == "profile" and _bg["color"] is not None:
+        r, g, b = _rgb_of(_bg["color"])
+        _, sat, val = colorsys.rgb_to_hsv(r / 255.0, g / 255.0, b / 255.0)
+        if sat < 0.18:
+            alpha = 0xD0 if val < 0.22 else 0xA8
+            fill_color = _with_alpha(_bg["color"], alpha)
+        else:
+            fill_color = _with_alpha(text_color, PILL_ALPHA)
+        text_color = _ensure_contrast(text_color, _blend(fill_color, _card_bg()))
+        return text_color, fill_color
+    return text_color, _with_alpha(text_color, PILL_ALPHA)
+
+def _prune():
+    now = time.monotonic()
+    for h in list(_styled.keys()):
+        ent = _styled[h]
+        try:
+            if now - ent[5] > 30.0 and not ent[0].isAttachedToWindow():
+                del _styled[h]
+        except Exception:
+            _styled.pop(h, None)
+
+class _OneShot(dynamic_proxy(jclass("android.view.View$OnLayoutChangeListener"))):
+    def __init__(self, fn):
+        super().__init__()
+        self.fn = fn
+    def onLayoutChange(self, v, left, top, right, bottom, old_left, old_top, old_right, old_bottom):
+        try:
+            if self.fn(v):
+                v.removeOnLayoutChangeListener(self)
+        except Exception as e:
+            pass
+
+def _sync(tv, ent):
+    w = tv.getWidth()
+    want = int(math.ceil(tv.getPaint().measureText(str(tv.getText())))) + tv.getPaddingLeft() + tv.getPaddingRight()
+    extra = (w - want) if w > want else 0
+    ent[2].setLayerInset(0, 0, 0, extra, 0)
+
+def _unclip(tv):
+    try:
+        p = tv.getParent()
+        if p is not None:
+            cast(_J.ViewGroup, p).setClipChildren(False)
+    except Exception:
+        pass
+
+def _on_layout(v):
+    tv = cast(_J.TextView, v)
+    ent = _styled.get(int(tv.hashCode()))
+    if ent is None:
+        return True
+    if tv.getWidth() <= 0:
+        return False
+    if _J.density:
+        px = int(round(PAD_X_DP * _J.density))
+        if int(tv.getLeft()) < px:
+            _unclip(tv)
+            tv.setTranslationX(float(-px))
+        else:
+            tv.setTranslationX(float(-min(px, max(0, int(tv.getLeft())))))
+    _sync(tv, ent)
+    ent[4] = 0.0
+    return True
+
+def _reset(tv):
+    ent = _styled.pop(int(tv.hashCode()), None)
+    if ent is None:
+        return
+    tv.setBackground(None)
+    tv.setPadding(0, 0, 0, 0)
+    tv.setTranslationX(0.0)
+    tv.setTranslationY(0.0)
+    tv.setTextColor(_gray())
+
+def _style_label(plugin, tv):
+    _init()
+    cfg = _cfg(plugin)
+    text = tv.getText()
+    if not cfg["enabled"] or text is None or len(str(text).strip()) == 0 or tv.getVisibility() != 0:
+        _reset(tv)
+        return
+    if _J.density is None:
+        _J.density = float(tv.getResources().getDisplayMetrics().density)
+    d = _J.density
+    px, py = int(round(PAD_X_DP * d)), int(round(PAD_Y_DP * d))
+    shift = int(round(SHIFT_DP * d))
+    _cur_tv[0] = tv
+    owner = _owner[0]
+    prev = _styled.get(int(tv.hashCode()))
+    keep = False
+    if owner is None and prev is not None and prev[6] is not None:
+        _cur_owner[0] = _OwnerRef(prev[6])
+        keep = cfg["mode"] == "profile" and _bg["screen"] is not None and prev[6] != _bg["screen"]
+    else:
+        _cur_owner[0] = owner
+    vis = fill_color = None
+    try:
+        if not keep:
+            vis, fill_color = _label_colors(cfg)
+    finally:
+        _cur_owner[0] = None
+    h = int(tv.hashCode())
+    ent = _styled.get(h)
+    is_new = ent is None
+    if ent is None:
+        if len(_styled) > 60:
+            _prune()
+        bg = _J.GD()
+        bg.setCornerRadius(16.0 * d)
+        layer = _J.LD(_J.DrawableArr([bg]))
+        ent = [tv, bg, layer, None, 0.0, time.monotonic(), None, None]
+        _styled[h] = ent
+    restored = False
+    try:
+        current_bg = tv.getBackground()
+        if current_bg is None or int(current_bg.hashCode()) != int(ent[2].hashCode()):
+            tv.setBackground(ent[2])
+            restored = True
+    except Exception:
+        try:
+            tv.setBackground(ent[2])
+            restored = True
+        except Exception:
+            pass
+    try:
+        if (int(tv.getPaddingLeft()) != px or int(tv.getPaddingTop()) != py or
+                int(tv.getPaddingRight()) != px or int(tv.getPaddingBottom()) != py):
+            tv.setPadding(px, py, px, py)
+            restored = True
+    except Exception:
+        pass
+    if ent[3] is None or restored:
+        tv.setTranslationX(float(-px))
+        try:
+            lp = tv.getLayoutParams()
+            if lp is not None and lp.width != -2:
+                lp.width = -2
+                tv.setLayoutParams(lp)
+        except Exception:
+            pass
+    if owner is not None:
+        ent[6] = int(owner.hashCode())
+    tv.setTranslationY(float(shift - py))
+    if not keep:
+        ent[1].setColor(fill_color)
+        tv.setTextColor(vis)
+        ent[7] = vis
+    cur = str(text)
+    if ent[3] != cur or restored:
+        ent[3] = cur
+        ent[2].setLayerInset(0, 0, 0, 0, 0)
+        now = time.monotonic()
+        if now - ent[4] > 1.0:
+            ent[4] = now
+            tv.addOnLayoutChangeListener(_OneShot(_on_layout))
+    if restored and not is_new:
+        pass
+
+def _make_pixel_listener(fn):
+    cls = getattr(_make_pixel_listener, "_cls", None)
+    if cls is None:
+        class _PixelListener(dynamic_proxy(jclass("android.view.PixelCopy$OnPixelCopyFinishedListener"))):
+            def __init__(self, fn):
+                super().__init__()
+                self.fn = fn
+            def onPixelCopyFinished(self, result):
+                try:
+                    self.fn(result)
+                except Exception as e:
+                    pass
+        cls = _PixelListener
+        _make_pixel_listener._cls = cls
+    return cls(fn)
+
+def _color_from_bitmap(bmp):
+    bw, bh = bmp.getWidth(), bmp.getHeight()
+    rs, gs, bs = [], [], []
+    for fy in (0.2, 0.4, 0.6, 0.8):
+        for fx in (0.10, 0.18, 0.26, 0.74, 0.82, 0.90):
+            px = bmp.getPixel(min(bw - 1, int(fx * bw)), min(bh - 1, int(fy * bh)))
+            if ((px >> 24) & 255) < 200:
+                continue
+            rs.append((px >> 16) & 255)
+            gs.append((px >> 8) & 255)
+            bs.append(px & 255)
+    if len(rs) < 8:
+        return None
+    def med(a):
+        return sorted(a)[len(a) // 2]
+    return _derive_bg_color(med(rs), med(gs), med(bs))
+
+def _request_bg():
+    _bg["gen"] += 1
+    gen = _bg["gen"]
+    _ui(lambda: _sample_bg(gen, 1), 120)
+
+def _bg_done(gen, attempt, color):
+    if gen != _bg["gen"]:
+        return
+    if _bg.get("source") == "data":
+        return
+    if color is not None:
+        _bg["color"] = color
+        _recolor_styled()
+    elif attempt < 4:
+        _ui(lambda: _sample_bg(gen, attempt + 1), 400)
+    else:
+        _bg["color"] = None
+        _recolor_styled()
+
+def _sample_bg(gen, attempt):
+    if gen != _bg["gen"]:
+        return
+    if _header_photo_expanded():
+        polls = _bg.get("polls", 0) + 1
+        _bg["polls"] = polls
+        if polls == 1:
+            pass
+        if polls <= 30:
+            _ui(lambda: _sample_bg(gen, attempt), 1000)
+        else:
+            _bg_done(gen, 4, None)
+        return
+    ctx = _context()
+    if ctx is None:
+        _bg_done(gen, attempt, None)
+        return
+    win = ctx.getWindow()
+    decor = win.getDecorView()
+    w, h = decor.getWidth(), decor.getHeight()
+    if w <= 0 or h <= 0:
+        _bg_done(gen, attempt, None)
+        return
+    strip = max(1, int(h * 0.2))
+    k = 8
+    dw, dh = max(1, w // k), max(1, strip // k)
+    bmp = jclass("android.graphics.Bitmap").createBitmap(
+        dw, dh, jclass("android.graphics.Bitmap$Config").ARGB_8888
+    )
+    def finish(result):
+        col = None
+        defer = False
+        try:
+            if _header_photo_expanded():
+                defer = True
+            elif result == 0:
+                col = _color_from_bitmap(bmp)
+        finally:
+            try:
+                bmp.recycle()
+            except Exception:
+                pass
+        if defer:
+            _ui(lambda: _sample_bg(gen, attempt), 1000)
+            return
+        _bg_done(gen, attempt, col)
+    try:
+        rect = jclass("android.graphics.Rect")(0, 0, w, strip)
+        handler = jclass("android.os.Handler")(jclass("android.os.Looper").getMainLooper())
+        jclass("android.view.PixelCopy").request(win, rect, bmp, _make_pixel_listener(finish), handler)
+        return
+    except Exception as e:
+        pass
+    col = None
+    try:
+        cv = jclass("android.graphics.Canvas")(bmp)
+        cv.scale(dw / float(w), dh / float(strip))
+        decor.draw(cv)
+        col = _color_from_bitmap(bmp)
+    except Exception as e:
+        pass
+    finally:
+        try:
+            bmp.recycle()
+        except Exception:
+            pass
+    _bg_done(gen, attempt, col)
+
+def _recolor_styled():
+    plugin = _plugin_ref[0]
+    if plugin is None:
+        return
+    if _cfg(plugin)["mode"] != "profile":
+        return
+    vis, fill = _label_colors(_cfg(plugin), True)
+    n = 0
+    cur = _bg["screen"]
+    for ent in list(_styled.values()):
+        try:
+            if ent[6] is not None and cur is not None and ent[6] != cur:
+                continue
+            ent[1].setColor(fill)
+            ent[0].setTextColor(vis)
+            ent[7] = vis
+            n += 1
+        except Exception as e:
+            pass
+    for strip in list(_strips):
+        try:
+            _apply_strip(strip, vis, fill)
+        except Exception:
+            pass
+    for k, iv in list(_icons.items()):
+        try:
+            d = iv.getDrawable()
+            if d is not None:
+                d.mutate().setColorFilter(vis, jclass("android.graphics.PorterDuff$Mode").MULTIPLY)
+                iv.invalidate()
+        except Exception:
+            _icons.pop(k, None)
+
+def _retint_icons():
+    cols = _cur_colors()
+    if cols is None:
+        return
+    for k, iv in list(_icons.items()):
+        try:
+            d = iv.getDrawable()
+            if d is not None:
+                d.mutate().setColorFilter(cols[0], jclass("android.graphics.PorterDuff$Mode").MULTIPLY)
+                iv.invalidate()
+        except Exception:
+            _icons.pop(k, None)
+
+def _load_class(name):
+    try:
+        loader = jclass("org.telegram.messenger.ApplicationLoader").applicationContext.getClassLoader()
+        return loader.loadClass(name)
+    except Exception as e:
+        pass
+    try:
+        return jclass("java.lang.Class").forName(name)
+    except Exception as e:
+        pass
+    try:
+        from hook_utils import find_class
+        c = find_class(name)
+        if c is not None and hasattr(c, "getDeclaredMethods"):
+            return c
+    except Exception:
+        pass
+    return None
+
+def _context():
+    try:
+        from client_utils import get_last_fragment
+        f = get_last_fragment()
+        if f is not None:
+            a = f.getParentActivity()
+            if a is not None:
+                return a
+    except Exception:
+        pass
+    try:
+        return jclass("org.telegram.ui.LaunchActivity").instance
+    except Exception:
+        return None
+
+class _ClickListener(dynamic_proxy(jclass("android.content.DialogInterface$OnClickListener"))):
+    def __init__(self, fn):
+        super().__init__()
+        self.fn = fn
+    def onClick(self, dialog, which):
+        try:
+            self.fn(which)
+        except Exception as e:
+            _report("Ошибка в диалоге: %s" % e)
+
+def _button_listener(fn):
+    cls = getattr(_button_listener, "_cls", None)
+    if cls is None:
+        iface = "android.content.DialogInterface$OnClickListener"
+        try:
+            builder = _load_class("org.telegram.ui.ActionBar.AlertDialog$Builder")
+            for m in builder.getMethods():
+                if m.getName() == "setPositiveButton":
+                    types = m.getParameterTypes()
+                    if len(types) == 2:
+                        iface = str(types[1].getName())
+                        break
+        except Exception as e:
+            pass
+        class _BtnListener(dynamic_proxy(jclass(iface))):
+            def __init__(self, fn):
+                super().__init__()
+                self.fn = fn
+            def onClick(self, *args):
+                try:
+                    self.fn(args[-1] if args else 0)
+                except Exception as e:
+                    _report("Ошибка в диалоге: %s" % e)
+        cls = _BtnListener
+        _button_listener._cls = cls
+    return cls(fn)
+
+def _toast(msg):
+    try:
+        if BulletinHelper is not None:
+            BulletinHelper.show_info(msg)
+    except Exception:
+        pass
+
+def _save_custom(plugin, hx):
+    plugin.set_setting("custom_color", hx)
+    plugin.set_setting("pill_color_idx", CUSTOM_IDX)
+    _cfg_cache[1] = None
+    _toast("Цвет %s сохранён. Откройте профиль заново" % hx)
+
+class _SeekListener(dynamic_proxy(jclass("android.widget.SeekBar$OnSeekBarChangeListener"))):
+    def __init__(self, fn):
+        super().__init__()
+        self.fn = fn
+    def onProgressChanged(self, seek_bar, progress, from_user):
+        if from_user:
+            try:
+                self.fn(progress)
+            except Exception as e:
+                pass
+    def onStartTrackingTouch(self, seek_bar):
+        pass
+    def onStopTrackingTouch(self, seek_bar):
+        pass
+
+class _HexWatcher(dynamic_proxy(jclass("android.text.TextWatcher"))):
+    def __init__(self, fn):
+        super().__init__()
+        self.fn = fn
+    def beforeTextChanged(self, s, start, count, after):
+        pass
+    def onTextChanged(self, s, start, before, count):
+        pass
+    def afterTextChanged(self, editable):
+        try:
+            self.fn(str(editable.toString()))
+        except Exception as e:
+            pass
+
+def _ask_custom_hex(plugin, ctx):
+    AlertDialog = jclass("org.telegram.ui.ActionBar.AlertDialog")
+    et = jclass("android.widget.EditText")(ctx)
+    cur = str(plugin.get_setting("custom_color", "") or "")
+    et.setSingleLine(True)
+    et.setHint("#RRGGBB")
+    et.setText(cur if cur.startswith("#") else "#")
+    et.setTextColor(_theme(("key_dialogTextBlack",), _signed(0xFFFFFFFF)))
+    et.setHintTextColor(_theme(("key_dialogTextGray2", "key_windowBackgroundWhiteHintText"), _signed(0xFF888888)))
+    d = ctx.getResources().getDisplayMetrics().density
+    et.setPadding(int(24 * d), int(12 * d), int(24 * d), int(12 * d))
+    def on_ok(_which):
+        c = _parse_hex(str(et.getText()))
+        if c is None:
+            _report("Нужен HEX вида #RRGGBB")
+            return
+        _save_custom(plugin, "#%06X" % (c & 0xFFFFFF))
+    b = AlertDialog.Builder(ctx)
+    b.setTitle("Свой цвет (HEX)")
+    b.setView(et)
+    b.setPositiveButton("OK", _button_listener(on_ok))
+    b.setNegativeButton("Отмена", None)
+    b.show()
+
+def _open_picker(plugin, ctx):
+    try:
+        _open_picker_impl(plugin, ctx)
+    except Exception as e:
+        _report("Палитра не открылась: %s" % e)
+        try:
+            _ask_custom_hex(plugin, ctx)
+        except Exception as e2:
+            _report("HEX-окно не открылось: %s" % e2)
+
+def _open_picker_impl(plugin, ctx):
+    AlertDialog = jclass("org.telegram.ui.ActionBar.AlertDialog")
+    LinearLayout = jclass("android.widget.LinearLayout")
+    LP = jclass("android.widget.LinearLayout$LayoutParams")
+    TextView = jclass("android.widget.TextView")
+    SeekBar = jclass("android.widget.SeekBar")
+    EditText = jclass("android.widget.EditText")
+    View = jclass("android.view.View")
+    ScrollView = jclass("android.widget.ScrollView")
+    GradientDrawable = jclass("android.graphics.drawable.GradientDrawable")
+    density = ctx.getResources().getDisplayMetrics().density
+    def dp(x):
+        return int(round(x * density))
+    text_color = _theme(("key_dialogTextBlack",), _signed(0xFFFFFFFF))
+    hint_color = _theme(("key_dialogTextGray2", "key_dialogTextHint"), _signed(0xFF888888))
+    start = _parse_hex(plugin.get_setting("custom_color", "")) or _readable(_accent())
+    h0, s0, v0 = _hsv_of(start)
+    st = {"h": h0, "s": s0, "v": v0, "busy": False}
+    def current():
+        return _from_hsv(st["h"], st["s"], st["v"])
+    ll = LinearLayout(ctx)
+    ll.setOrientation(1)
+    ll.setPadding(dp(24), dp(8), dp(24), dp(8))
+    def add(view, h=-2, top=0):
+        lp = LP(-1, h)
+        lp.topMargin = dp(top)
+        ll.addView(view, lp)
+    preview_bg = GradientDrawable()
+    preview_bg.setCornerRadius(float(dp(14)))
+    preview = View(ctx)
+    preview.setBackground(preview_bg)
+    add(preview, dp(44), 0)
+    def make_bar(title, maximum, value, fn):
+        label = TextView(ctx)
+        label.setText(title)
+        label.setTextColor(hint_color)
+        label.setTextSize(13.0)
+        add(label, -2, 12)
+        bar = SeekBar(ctx)
+        bar.setMax(maximum)
+        bar.setProgress(value)
+        bar.setOnSeekBarChangeListener(_SeekListener(fn))
+        add(bar, -2, 0)
+        return bar
+    def on_h(p):
+        st["h"] = min(p, 359.99) / 360.0
+        refresh()
+    def on_s(p):
+        st["s"] = p / 100.0
+        refresh()
+    def on_v(p):
+        st["v"] = p / 100.0
+        refresh()
+    hue_bar = make_bar("Тон", 360, int(round(st["h"] * 360)), on_h)
+    sat_bar = make_bar("Насыщенность", 100, int(round(st["s"] * 100)), on_s)
+    val_bar = make_bar("Яркость", 100, int(round(st["v"] * 100)), on_v)
+    et = EditText(ctx)
+    et.setSingleLine(True)
+    et.setHint("#RRGGBB")
+    et.setTextColor(text_color)
+    et.setHintTextColor(hint_color)
+    add(et, -2, 12)
+    def refresh(update_hex=True, update_bars=False):
+        c = current()
+        preview_bg.setColor(c)
+        if update_hex:
+            st["busy"] = True
+            et.setText("#%06X" % (c & 0xFFFFFF))
+            st["busy"] = False
+        if update_bars:
+            hue_bar.setProgress(int(round(st["h"] * 360)))
+            sat_bar.setProgress(int(round(st["s"] * 100)))
+            val_bar.setProgress(int(round(st["v"] * 100)))
+    def on_hex(text):
+        if st["busy"]:
+            return
+        c = _parse_hex(text)
+        if c is None:
+            return
+        st["h"], st["s"], st["v"] = _hsv_of(c)
+        refresh(update_hex=False, update_bars=True)
+    et.addTextChangedListener(_HexWatcher(on_hex))
+    refresh()
+    def on_ok(_which):
+        c = _parse_hex(str(et.getText()))
+        if c is None:
+            c = current()
+        _save_custom(plugin, "#%06X" % (c & 0xFFFFFF))
+    sv = ScrollView(ctx)
+    sv.addView(ll)
+    b = AlertDialog.Builder(ctx)
+    b.setTitle("Свой цвет")
+    b.setView(sv)
+    b.setPositiveButton("Готово", _button_listener(on_ok))
+    b.setNegativeButton("Отмена", None)
+    b.show()
+
+def _show_color_dialog(plugin):
+    ctx = _context()
+    if ctx is None:
+        _report("Не удалось получить контекст для окна")
+        return
+    AlertDialog = jclass("org.telegram.ui.ActionBar.AlertDialog")
+    def on_pick(which):
+        plugin.set_setting("pill_color_idx", which)
+        _cfg_cache[1] = None
+        if which == CUSTOM_IDX:
+            _ui(lambda: _open_picker(plugin, ctx), 150)
+        else:
+            _toast("Цвет: %s. Откройте профиль заново" % PRESETS[which][0])
+    bld = AlertDialog.Builder(ctx)
+    bld.setTitle("Цвет пилюли")
+    bld.setItems(jarray(jclass("java.lang.CharSequence"))([n for n, _ in PRESETS]), _ClickListener(on_pick))
+    bld.setNegativeButton("Отмена", None)
+    bld.show()
+
+class _BindHook(MethodHook):
+    def __init__(self, plugin):
+        super().__init__()
+        self.plugin = plugin
+    def after_hooked_method(self, param):
+        try:
+            self.plugin.style_cell(param.thisObject)
+        except Exception as e:
+            pass
+
+def _cell_style_intact(plugin, cell):
+    try:
+        if not _cfg(plugin)["enabled"]:
+            return True
+        tv = _value_view(cell)
+        if tv is None:
+            return True
+        ent = _styled.get(int(tv.hashCode()))
+        if ent is None or _J.density is None:
+            return False
+        bg = tv.getBackground()
+        if bg is None or int(bg.hashCode()) != int(ent[2].hashCode()):
+            return False
+        return int(tv.getPaddingLeft()) == int(round(PAD_X_DP * _J.density))
+    except Exception:
+        return False
+
+class _AboutCellRefreshHook(MethodHook):
+    def __init__(self, plugin, method_name):
+        super().__init__()
+        self.plugin = plugin
+        self.method_name = method_name
+    def after_hooked_method(self, param):
+        try:
+            if self.method_name != "updateColors" and _cell_style_intact(self.plugin, param.thisObject):
+                return
+            self.plugin.schedule_cell_refresh(param.thisObject, self.method_name)
+        except Exception as e:
+            pass
+
+class _AdapterHook(MethodHook):
+    def __init__(self, plugin):
+        super().__init__()
+        self.plugin = plugin
+    def before_hooked_method(self, param):
+        try:
+            _owner[0] = _fget(param.thisObject, "this$0")
+        except Exception:
+            _owner[0] = None
+    def after_hooked_method(self, param):
+        try:
+            holder = param.args[0]
+            try:
+                cell = cast(jclass("androidx.recyclerview.widget.RecyclerView$ViewHolder"), holder).itemView
+            except Exception:
+                cell = holder.itemView
+            _generic(self.plugin, cell)
+        except Exception as e:
+            pass
+        finally:
+            _owner[0] = None
+
+def _lerp(c1, c2, t):
+    r1, g1, b1 = _rgb_of(c1)
+    r2, g2, b2 = _rgb_of(c2)
+    return _from_rgb(r1 + (r2 - r1) * t, g1 + (g2 - g1) * t, b1 + (b2 - b1) * t)
+
+def _cur_colors():
+    plugin = _plugin_ref[0]
+    if plugin is None:
+        return None
+    cfg = _cfg(plugin)
+    if not cfg["enabled"]:
+        return None
+    return _label_colors(cfg, True)
+
+def _is_profile_strip(strip):
+    h = int(strip.hashCode())
+    ok = _strip_ok.get(h)
+    if ok is None:
+        try:
+            ok = _num(_fget(strip, "activeTextColorKey")) == int(_J.Theme.key_profile_tabSelectedText)
+        except Exception:
+            ok = False
+        if not ok and "SharedMediaLayout" in str(strip.getClass().getName()):
+            ok = True
+        if len(_strip_ok) > 40:
+            _strip_ok.clear()
+        _strip_ok[h] = ok
+    return ok
+
+def _apply_strip(strip, vis, fill):
+    strip = cast(_J.Strip, strip)
+    cast(_J.GD, strip.getSelectorDrawable()).setColor(fill)
+    tc = cast(_J.ViewGroup, _fget(strip, "tabsContainer"))
+    child = tc.getChildAt(_num(_fget(strip, "currentPosition")))
+    if child is not None:
+        cast(_J.TextView, child).setTextColor(vis)
+    strip.invalidate()
+
+def _style_strip(strip):
+    strip = cast(_J.Strip, strip)
+    if not _is_profile_strip(strip):
+        return
+    if _bg["screen"] is None:
+        return
+    cols = _cur_colors()
+    if cols is None:
+        return
+    _apply_strip(strip, cols[0], cols[1])
+    h = int(strip.hashCode())
+    if not any(int(x.hashCode()) == h for x in _strips):
+        if len(_strips) > 6:
+            del _strips[:3]
+        _strips.append(strip)
+
+def _tint_icon(cell):
+    cols = _cur_colors()
+    if cols is None:
+        return
+    iv = cast(jclass("android.widget.ImageView"), _fget(cell, "imageView"))
+    d = iv.getDrawable()
+    if d is None:
+        return
+    d.mutate().setColorFilter(cols[0], jclass("android.graphics.PorterDuff$Mode").MULTIPLY)
+    iv.invalidate()
+    if len(_icons) > 30:
+        _icons.clear()
+    k = int(iv.hashCode())
+    _icons[k] = iv
+    if k not in _guards:
+        try:
+            g = _IconGuard(iv)
+            iv.getViewTreeObserver().addOnPreDrawListener(g)
+            _guards[k] = g
+        except Exception:
+            pass
+
+_guards = {}
+
+class _IconGuard(dynamic_proxy(jclass("android.view.ViewTreeObserver$OnPreDrawListener"))):
+    def __init__(self, iv):
+        super().__init__()
+        self.iv = iv
+
+    def onPreDraw(self):
+        try:
+            cols = _cur_colors()
+            d = self.iv.getDrawable()
+            if cols is not None and d is not None:
+                want = jclass("android.graphics.PorterDuffColorFilter")(cols[0], jclass("android.graphics.PorterDuff$Mode").MULTIPLY)
+                cf = d.getColorFilter()
+                if cf is None or not cf.equals(want):
+                    d.mutate().setColorFilter(want)
+        except Exception:
+            pass
+        return True
+
+def _sweep(tv, deep=False):
+    if _plugin_ref[0] is None:
+        return
+    sc = _strip_cls[0]
+    if sc is None:
+        return
+    fr = _cur_owner[0]
+    if fr is None or isinstance(fr, _OwnerRef):
+        try:
+            from client_utils import get_last_fragment
+            fr = get_last_fragment()
+        except Exception:
+            fr = None
+    try:
+        sm = _fget(fr, "sharedMediaLayout") if fr is not None else None
+        st = _fget(sm, "scrollSlidingTextTabStrip") if sm is not None else None
+        if st is not None:
+            _style_strip(st)
+            return
+    except Exception:
+        pass
+    if not deep or tv is None:
+        return
+    try:
+        root = fr.getFragmentView() if fr is not None else tv.getRootView()
+    except Exception:
+        root = tv.getRootView()
+    q = [root]
+    seen = 0
+    while q and seen < 600:
+        v = q.pop(0)
+        seen += 1
+        try:
+            if sc.isInstance(v):
+                _style_strip(v)
+                return
+            if _J.vg_cls.isInstance(v):
+                vg = cast(_J.ViewGroup, v)
+                for i in range(vg.getChildCount()):
+                    q.append(vg.getChildAt(i))
+        except Exception:
+            pass
+
+class _StripColorsHook(MethodHook):
+    def after_hooked_method(self, param):
+        try:
+            _style_strip(param.thisObject)
+        except Exception:
+            pass
+
+class _StripAnimHook(MethodHook):
+    def after_hooked_method(self, param):
+        try:
+            strip = cast(_J.Strip, param.thisObject)
+            if not _is_profile_strip(strip):
+                return
+            cols = _cur_colors()
+            if cols is None:
+                return
+            new_tab, prev_tab = param.args[0], param.args[1]
+            if new_tab is None or prev_tab is None:
+                return
+            v = float(param.args[2])
+            un = _theme(("key_profile_tabText",), _gray())
+            cast(_J.TextView, prev_tab).setTextColor(_lerp(cols[0], un, v))
+            cast(_J.TextView, new_tab).setTextColor(_lerp(un, cols[0], v))
+        except Exception:
+            pass
+
+class _IconHook(MethodHook):
+    def after_hooked_method(self, param):
+        try:
+            _tint_icon(param.thisObject)
+        except Exception:
+            pass
+
+class _KeepColorHook(MethodHook):
+    def after_hooked_method(self, param):
+        try:
+            tv = _value_view(param.thisObject)
+            if tv is None:
+                return
+            ent = _styled.get(int(tv.hashCode()))
+            if ent is not None and ent[7] is not None and int(tv.getCurrentTextColor()) != ent[7]:
+                tv.setTextColor(ent[7])
+        except Exception:
+            pass
+        try:
+            _tint_icon(param.thisObject)
+        except Exception:
+            pass
+
+class _HoursHook(MethodHook):
+    def __init__(self, plugin):
+        super().__init__()
+        self.plugin = plugin
+    def after_hooked_method(self, param):
+        try:
+            self.plugin.style_hours(param.thisObject)
+        except Exception as e:
+            pass
+
+class PillLabelsPlugin(BasePlugin):
+    def create_settings(self):
+        items = [
+            Header(text="Подписи в профиле"),
+            Switch(
+                key="enabled",
+                text="Обводка вокруг подписей",
+                default=True,
+                subtext="«О себе», «Имя пользователя», «Адрес» и др. Меняется при следующем открытии профиля",
+            ),
+        ]
+        names = [n for n, _ in PRESETS]
+        added = False
+        if Selector is not None:
+            try:
+                items.append(Selector(
+                    key="pill_color_idx",
+                    text="Цвет пилюли",
+                    default=DEFAULT_IDX,
+                    items=names,
+                    on_change=self._on_color_change,
+                ))
+                added = True
+            except Exception as e:
+                pass
+        if not added and Text is not None:
+            try:
+                items.append(Text(
+                    text="Цвет пилюли: %s" % names[_color_idx(self)],
+                    on_click=self._on_pick_color,
+                ))
+            except Exception as e:
+                pass
+        return items
+    def _on_pick_color(self, *args):
+        _show_color_dialog(self)
+    def _on_color_change(self, *args):
+        _cfg_cache[1] = None
+        idx = args[0] if args else None
+        try:
+            if isinstance(idx, str):
+                idx = [n for n, _ in PRESETS].index(idx)
+            idx = int(idx)
+        except Exception:
+            idx = _color_idx(self)
+        if idx == CUSTOM_IDX:
+            ctx = _context()
+            if ctx is not None:
+                _ui(lambda: _open_picker(self, ctx), 250)
+    def on_plugin_load(self):
+        _init()
+        _plugin_ref[0] = self
+        _migrate_settings(self)
+        bind_hook = _BindHook(self)
+        for cls_name in ("org.telegram.ui.Cells.TextDetailCell", "org.telegram.ui.Cells.AboutLinkCell"):
+            cls = _load_class(cls_name)
+            if cls is None:
+                continue
+            count = 0
+            for m in cls.getDeclaredMethods():
+                try:
+                    name = m.getName()
+                    if name.startswith("setText") and "Value" in name:
+                        self.hook_method(m, bind_hook)
+                        count += 1
+                except Exception as e:
+                    pass
+            if cls_name.endswith("TextDetailCell"):
+                for m in cls.getDeclaredMethods():
+                    try:
+                        if str(m.getName()) == "updateColors":
+                            self.hook_method(m, _KeepColorHook())
+                        elif str(m.getName()) == "setImage":
+                            self.hook_method(m, _IconHook())
+                    except Exception as e:
+                        pass
+            if cls_name.endswith("AboutLinkCell"):
+                refresh_count = 0
+                for m in cls.getDeclaredMethods():
+                    try:
+                        if str(m.getName()) in ("updateColors", "onMeasure", "onLayout"):
+                            self.hook_method(m, _AboutCellRefreshHook(self, str(m.getName())))
+                            refresh_count += 1
+                    except Exception as e:
+                        pass
+        sc = _load_class("org.telegram.ui.Components.ScrollSlidingTextTabStrip")
+        _strip_cls[0] = sc
+        _td_cls[0] = _load_class("org.telegram.ui.Cells.TextDetailCell")
+        if sc is not None:
+            for m in sc.getDeclaredMethods():
+                try:
+                    n = str(m.getName())
+                    if n in ("updateColors", "finishAddingTabs", "selectTabWithId"):
+                        self.hook_method(m, _StripColorsHook())
+                    elif n == "setAnimationProgressInernal":
+                        self.hook_method(m, _StripAnimHook())
+                except Exception as e:
+                    pass
+        hc = _load_class("org.telegram.ui.Business.ProfileHoursCell")
+        if hc is not None:
+            _hours_cls[0] = hc
+            hours_hook = _HoursHook(self)
+            for m in hc.getDeclaredMethods():
+                try:
+                    if str(m.getName()) == "set":
+                        self.hook_method(m, hours_hook)
+                except Exception as e:
+                    pass
+        adapter_hook = _AdapterHook(self)
+        cls = _load_class("org.telegram.ui.ProfileActivity$ListAdapter")
+        if cls is None:
+            pass
+        else:
+            count = 0
+            for m in cls.getDeclaredMethods():
+                try:
+                    if m.getName() == "onBindViewHolder" and len(m.getParameterTypes()) == 2:
+                        self.hook_method(m, adapter_hook)
+                        count += 1
+                except Exception as e:
+                    pass
+    def schedule_cell_refresh(self, cell, reason="layout"):
+        try:
+            key = int(cell.hashCode())
+        except Exception:
+            key = id(cell)
+        seq = getattr(self, "_cell_refresh_seq", None)
+        if seq is None:
+            seq = {}
+            self._cell_refresh_seq = seq
+        token = seq.get(key, 0) + 1
+        seq[key] = token
+        def run():
+            try:
+                if seq.get(key) != token:
+                    return
+                seq.pop(key, None)
+                self.style_cell(cell)
+            except Exception as e:
+                pass
+        _ui(run, 70)
+    def on_plugin_unload(self):
+        _plugin_ref[0] = None
+        _styled.clear()
+        del _strips[:]
+        _icons.clear()
+        _bg["gen"] += 1
+        try:
+            self._cell_refresh_seq.clear()
+        except Exception:
+            pass
+    def style_hours(self, cell):
+        _init()
+        f = _hours_field[0]
+        if f is None:
+            f = _get_field_walk(cell.getClass(), "labelText")
+            _hours_field[0] = f
+        if f is None:
+            return
+        tv = cast(_J.TextView, jclass("java.lang.reflect.Array").get(f.get(cell), 0))
+        _unclip(tv)
+        try:
+            lp = tv.getLayoutParams()
+            if lp is not None:
+                mlp = cast(jclass("android.view.ViewGroup$MarginLayoutParams"), lp)
+                d = _J.density or float(tv.getResources().getDisplayMetrics().density)
+                top = int(round(33 * d))
+                if int(mlp.bottomMargin) != 0 or int(mlp.topMargin) == top:
+                    mlp.bottomMargin = 0
+                    if int(mlp.topMargin) == top:
+                        mlp.topMargin = int(round(32 * d))
+                    tv.setLayoutParams(mlp)
+        except Exception:
+            pass
+        _style_label(self, tv)
+    def style_cell(self, cell):
+        _init()
+        tv = _value_view(cell)
+        if tv is None:
+            return
+        _style_label(self, tv)

@@ -8198,6 +8198,33 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "pill_labels",
+      "name": "Pill Labels",
+      "version": "2.5.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/pill_labels/2.5.0/pill_labels.plugin",
+      "sha256": "983a3580b744a7781476a336a72ea83e976b4b5c27d228d4904b7820f0d04ce1",
+      "size": 59141,
+      "description": "Adds outlines around profile elements",
+      "description_i18n": {
+        "en": "Adds outlines around profile elements",
+        "uk": "Додає контури навколо елементів профілю",
+        "ru": "Добавляет контуры вокруг элементов профиля.",
+        "pl": "Dodaje kontury wokół elementów profilu",
+        "es": "Agrega contornos alrededor de los elementos del perfil.",
+        "de": "Fügt Umrisse um Profilelemente hinzu",
+        "fr": "Ajoute des contours autour des éléments de profil",
+        "pt-BR": "Adiciona contornos em torno dos elementos do perfil",
+        "tr": "Profil öğelerinin çevresine ana hatlar ekler",
+        "ar": "يضيف الخطوط العريضة حول عناصر الملف الشخصي",
+        "be": "Дадае контуры вакол элементаў профілю",
+        "kk": "Профиль элементтерінің айналасына контурларды қосады"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
