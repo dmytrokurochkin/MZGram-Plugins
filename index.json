@@ -9936,6 +9936,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "search_open_profile",
+      "name": "Search Open Profile",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/search_open_profile/1.0.0/search_open_profile.plugin",
+      "sha256": "85f8e2986fb71134e94d4bfc32ff8090467423b709c5f817b6b5a7c0eb5f09bf",
+      "size": 9744,
+      "description": "Opens the profile instead of the chat when a private chat is selected in search.",
+      "description_i18n": {
+        "en": "Opens the profile instead of the chat when a private chat is selected in search.",
+        "uk": "Відкриває профіль замість чату, якщо в пошуку вибрано приватний чат.",
+        "ru": "Открывает профиль вместо чата, когда в поиске выбран приватный чат.",
+        "pl": "Otwiera profil zamiast czatu, gdy w wyszukiwaniu wybrany zostanie czat prywatny.",
+        "es": "Abre el perfil en lugar del chat cuando se selecciona un chat privado en la búsqueda.",
+        "de": "Öffnet das Profil anstelle des Chats, wenn in der Suche ein privater Chat ausgewählt wird.",
+        "fr": "Ouvre le profil au lieu du chat lorsqu'un chat privé est sélectionné dans la recherche.",
+        "pt-BR": "Abre o perfil em vez do chat quando um chat privado é selecionado na pesquisa.",
+        "tr": "Aramada özel bir sohbet seçildiğinde sohbet yerine profili açar.",
+        "ar": "يفتح ملف التعريف بدلاً من الدردشة عند تحديد دردشة خاصة في البحث.",
+        "be": "Адкрывае профіль замест чата, калі ў пошуку выбраны прыватны чат.",
+        "kk": "Іздеуде жеке чат таңдалғанда, чаттың орнына профильді ашады."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
