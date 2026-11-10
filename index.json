@@ -7804,6 +7804,35 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "ok_playlists",
+      "name": "OK Playlists",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/ok_playlists/1.1.0/ok_playlists.plugin",
+      "sha256": "f02450b5217881d23db7c767f28d569e0368f8ce1de740a845f39e1eb063682a",
+      "size": 33536,
+      "description": "Fixes music playback: • progress is not preserved when switching tracks • only music from the current group topic is played",
+      "description_i18n": {
+        "en": "Fixes music playback: • progress is not preserved when switching tracks • only music from the current group topic is played",
+        "uk": "Виправлено відтворення музики: • прогрес не зберігається під час перемикання треків • відтворюється лише музика з поточної теми групи",
+        "ru": "Исправления воспроизведения музыки: • не сохраняется прогресс при переключении треков • воспроизводится только музыка из текущей темы группы",
+        "pl": "Naprawiono odtwarzanie muzyki: • postęp nie jest zachowywany przy przełączaniu utworów • odtwarzana jest tylko muzyka z bieżącego tematu grupy",
+        "es": "Corrige la reproducción de música: • el progreso no se conserva al cambiar de pista • solo se reproduce música del tema del grupo actual",
+        "de": "Behebt die Musikwiedergabe: • Der Fortschritt wird beim Titelwechsel nicht beibehalten. • Es wird nur Musik aus dem aktuellen Gruppenthema abgespielt",
+        "fr": "Corrige la lecture de musique : • la progression n'est pas préservée lors du changement de piste • seule la musique du sujet de groupe actuel est jouée",
+        "pt-BR": "Corrige a reprodução de música: • o progresso não é preservado ao mudar de faixa • apenas a música do tópico do grupo atual é reproduzida",
+        "tr": "Müzik çalma sorununu düzeltir: • parçalar değiştirilirken ilerleme korunmaz • yalnızca geçerli grup konusundaki müzik çalınır",
+        "ar": "إصلاحات تشغيل الموسيقى: • لا يتم الحفاظ على التقدم عند تبديل المسارات • يتم تشغيل الموسيقى من موضوع المجموعة الحالي فقط",
+        "be": "Выпраўлена прайграванне музыкі: • прагрэс не захоўваецца пры пераключэнні трэкаў • прайграваецца толькі музыка з бягучай тэмы групы",
+        "kk": "Музыканы ойнатуды түзетеді: • жолдарды ауыстырған кезде прогресс сақталмайды • тек ағымдағы топ тақырыбындағы музыка ойнатылады"
+      },
+      "permissions": [
+        "messages.read",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
