@@ -10452,6 +10452,34 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "shareui_modrinth",
+      "name": "Modrinth Search",
+      "version": "1.2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/shareui_modrinth/1.2.0/modrinth.plugin",
+      "sha256": "8f001add80b833d71d5fa4528d4cbdf55bbb8c9643a44eae3dba046c08f0c48e",
+      "size": 7963,
+      "description": "A plugin that searches for Minecraft modifications on modrinth.com. Commands: .srcmod - search for mods .srctp - search for resource packs .srcplug - search for plugins .srcdata - search for data packs .srcshd - search for shaders",
+      "description_i18n": {
+        "en": "A plugin that searches for Minecraft modifications on modrinth.com. Commands: .srcmod - search for mods .srctp - search for resource packs .srcplug - search for plugins .srcdata - search for data packs .srcshd - search for shaders",
+        "uk": "Плагін, який шукає модифікації Minecraft на modrinth.com. Команди: .srcmod - пошук модів .srctp - пошук пакетів ресурсів .srcplug - пошук плагінів .srcdata - пошук пакетів даних .srcshd - пошук шейдерів",
+        "ru": "Плагин, который ищет модификации Minecraft на modrinth.com. Команды: .srcmod - поиск модов .srctp - поиск пакетов ресурсов .srcplug - поиск плагинов .srcdata - поиск пакетов данных .srcshd - поиск шейдеров",
+        "pl": "Wtyczka wyszukująca modyfikacje Minecrafta na modrinth.com. Polecenia: .srcmod - wyszukiwanie modów .srctp - wyszukiwanie pakietów zasobów .srcplug - wyszukiwanie wtyczek .srcdata - wyszukiwanie pakietów danych .srcshd - wyszukiwanie shaderów",
+        "es": "Un complemento que busca modificaciones de Minecraft en modrinth.com. Comandos: .srcmod - buscar mods .srctp - buscar paquetes de recursos .srcplug - buscar complementos .srcdata - buscar paquetes de datos .srcshd - buscar sombreadores",
+        "de": "Ein Plugin, das auf modrinth.com nach Minecraft-Modifikationen sucht. Befehle: .srcmod - Suche nach Mods .srctp - Suche nach Ressourcenpaketen .srcplug - Suche nach Plugins .srcdata - Suche nach Datenpaketen .srcshd - Suche nach Shader",
+        "fr": "Un plugin qui recherche les modifications Minecraft sur modrinth.com. Commandes : .srcmod - recherche de mods .srctp - recherche de packs de ressources .srcplug - recherche de plugins .srcdata - recherche de packs de données .srcshd - recherche de shaders",
+        "pt-BR": "Um plugin que procura modificações no Minecraft em modrinth.com. Comandos: .srcmod - procure por mods .srctp - procure por pacotes de recursos .srcplug - procure por plugins .srcdata - procure por pacotes de dados .srcshd - procure por shaders",
+        "tr": "Modrinth.com'da Minecraft değişikliklerini arayan bir eklenti. Komutlar: .srcmod - modları arayın .srctp - kaynak paketlerini arayın .srcplug - eklentileri arayın .srcdata - veri paketlerini arayın .srcshd - gölgelendiricileri arayın",
+        "ar": "مكون إضافي يبحث عن تعديلات Minecraft على modrinth.com. الأوامر: .srcmod - البحث عن التعديلات .srctp - البحث عن حزم الموارد .srcplug - البحث عن المكونات الإضافية .srcdata - البحث عن حزم البيانات .srcshd - البحث عن التظليل",
+        "be": "Убудова, які шукае мадыфікацыі Minecraft на modrinth.com. Каманды: .srcmod - пошук модаў .srctp - пошук пакетаў рэсурсаў .srcplug - пошук убудоў .srcdata - пошук пакетаў дадзеных .srcshd - пошук шэйдараў",
+        "kk": "modrinth.com сайтында Minecraft модификацияларын іздейтін плагин. Пәрмендер: .srcmod - mods іздеу .srctp - ресурстар бумаларын іздеу .srcplug - плагиндерді іздеу .srcdata - деректер бумаларын іздеу .srcshd - шейдерлерді іздеу"
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
