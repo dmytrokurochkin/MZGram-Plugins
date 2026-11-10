@@ -541,6 +541,34 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "QPSwipe",
+      "name": "QPSwipe",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/QPSwipe/1.0/QPSwipe.plugin",
+      "sha256": "fa73fa141fb88b77f0b23b50ce2ed6b1f88cd3b79be2e3657561a95a9ac7205d",
+      "size": 65701,
+      "description": "EN: Erases all your messages in a chat, group or topic. Logic and texts in a SHA-256 verified dex core.",
+      "description_i18n": {
+        "en": "EN: Erases all your messages in a chat, group or topic. Logic and texts in a SHA-256 verified dex core.",
+        "uk": "UA: Стирає всі ваші повідомлення в чаті, групі чи темі. Логіка та тексти в верифікованому SHA-256 ядрі dex.",
+        "ru": "RU: Удаляет все ваши сообщения в чате, группе или теме. Логика и тексты в ядре dex, проверенном SHA-256.",
+        "pl": "PL: Usuwa wszystkie wiadomości z czatu, grupy lub tematu. Logika i teksty w rdzeniu dex zweryfikowanym za pomocą SHA-256.",
+        "es": "ES: Borra todos tus mensajes en un chat, grupo o tema. Lógica y textos en un núcleo dex verificado SHA-256.",
+        "de": "DE: Löscht alle Ihre Nachrichten in einem Chat, einer Gruppe oder einem Thema. Logik und Texte in einem SHA-256-verifizierten Dex-Kern.",
+        "fr": "FR: Efface tous vos messages dans une discussion, un groupe ou un sujet. Logique et textes dans un noyau dex vérifié SHA-256.",
+        "pt-BR": "PT: Apaga todas as suas mensagens em um chat, grupo ou tópico. Lógica e textos em um núcleo dex verificado SHA-256.",
+        "tr": "TR: Bir sohbet, grup veya konudaki tüm mesajlarınızı siler. SHA-256 onaylı dex çekirdeğindeki mantık ve metinler.",
+        "ar": "AR: يمسح جميع رسائلك في الدردشة أو المجموعة أو الموضوع. المنطق والنصوص في SHA-256 تم التحقق منها.",
+        "be": "EN: выдаляе ўсе вашы паведамленні ў чаце, групе або тэме. Логіка і тэксты ў ядры dex, правераным SHA-256.",
+        "kk": "KK: чаттағы, топтағы немесе тақырыптағы барлық хабарларды жояды. SHA-256 тексерілген декс ядросындағы логика және мәтіндер."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
