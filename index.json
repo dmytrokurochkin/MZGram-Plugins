@@ -10480,6 +10480,34 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "shareui_shareui",
+      "name": "ShareUI",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/shareui_shareui/1.0.0/shareui_shareui.plugin",
+      "sha256": "fdc51b47e75afe9ed715ad9d94dc1f9d21b08e79e771cf6d25c55848bce378f5",
+      "size": 5306,
+      "description": "And... no, this is not just my nickname.",
+      "description_i18n": {
+        "en": "And... no, this is not just my nickname.",
+        "uk": "І... ні, це не просто мій псевдонім.",
+        "ru": "И... нет, это не просто мой никнейм.",
+        "pl": "I... nie, to nie jest tylko mój pseudonim.",
+        "es": "Y... no, este no es sólo mi apodo.",
+        "de": "Und... nein, das ist nicht nur mein Spitzname.",
+        "fr": "Et... non, ce n'est pas seulement mon surnom.",
+        "pt-BR": "E... não, esse não é apenas meu apelido.",
+        "tr": "Ve... hayır, bu sadece benim takma adım değil.",
+        "ar": "و... لا، هذا ليس لقبي فقط.",
+        "be": "І... не, гэта не толькі мая мянушка.",
+        "kk": "Ал... жоқ, бұл менің лақап атым ғана емес."
+      },
+      "permissions": [
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
