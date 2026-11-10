@@ -1,0 +1,230 @@
+"""
+
+
+                            ДИСКЛЕЙМЕР
+
+Короче , если тебе нужен кусок кода из этого плагина , то пж
+указывай в описании или где-то еще , что взял код с @KangelPlugins 
+                              Спасибо
+                        🙏 БЛАГОСЛАВЛЕНИЕ 🙏
+
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⡤⠤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⡤⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠉⢀⣤⠶⠮⠷⣤⣀⡀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡼⠋⠈⣽⣆⠹⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⠶⠶⠶⠶⣄⠀⠀⠀⣞⣁⣠⠴⠯⠰⠶⠶⠶⣾⠁⠙⣯⣳⣥⠞⢹⠀⠀⠀⠀⠀⠀⡾⠀⢠⡾⠁⢹⠀⢻⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠏⠀⣊⣀⣐⣀⡈⢓⣦⡖⠋⠁⠀⡰⠂⠀⠀⠀⠀⣹⢠⣄⣽⠬⣾⠉⢹⠳⡄⠀⠀⠀⢸⠇⠀⢸⠀⢀⡼⡇⢈⡾⡦⣄⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡏⣠⡾⠉⢀⠀⣀⡽⠛⢃⡄⠀⠀⡜⠀⠀⠀⠀⠀⠀⠙⠛⠛⢧⡀⠈⠻⢾⡄⠈⢧⡀⠀⢸⠀⠀⢸⡰⡿⠛⡧⠊⡄⣿⣮⠳⣄⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡾⢹⡇⠀⠀⣴⠛⠀⢀⠎⠀⠀⣼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡹⣦⡀⠀⣳⠶⣾⣳⡄⣸⠀⠀⢸⠃⢀⣴⠃⠀⢡⣧⣽⠀⠹⡄⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⢸⡇⢰⡾⠓⠀⠀⡎⠀⠀⢠⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡞⡉⢺⣯⣫⡷⠦⡿⠙⢷⡇⠀⢀⡏⣠⠿⡟⠀⢠⣾⡖⡟⡆⠀⡇⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢧⠀⣳⢿⡾⠀⠀⣼⠁⠀⣀⣾⣿⠀⠀⡄⠀⠀⠀⠀⠀⢰⠀⠷⢿⡟⠁⠈⠻⣧⡇⣠⢾⣇⣤⠞⣴⠃⡾⠁⢀⡿⠉⠒⢻⡇⠀⡇⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢻⣧⡾⢠⠃⢀⡇⠀⢀⡾⠁⠸⣼⡀⣇⠀⠀⠀⣆⠀⢸⡆⠀⢠⢧⡀⠀⠀⡷⣞⣡⠎⣇⣤⠞⠁⡼⠁⢀⡿⠁⠀⠀⢹⠁⢠⠇⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡠⠀⢀⣿⣏⡇⢸⡀⠀⡇⠀⣾⠃⠀⠀⠉⠻⠏⠓⠶⠶⠿⢤⣀⡷⢄⣸⢮⣿⡦⣤⡟⠉⣿⢸⡏⠁⠀⣸⠁⢀⡞⠃⠀⠀⠔⡿⠀⡾⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⡒⠀⠘⣿⣿⡇⠸⣇⢰⡇⢰⣧⣶⣶⣶⡆⠀⠀⠀⠀⣴⣖⣄⣒⣦⣼⣏⣰⣾⠿⢾⣯⣉⣏⣾⡇⠀⠀⡇⠀⣼⠁⠀⠀⠀⣰⠃⣼⠅⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠳⠛⠶⣽⡇⠀⣿⡄⢻⣸⣎⠉⠉⠁⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠁⢹⡏⠁⠀⣸⡏⠙⡿⣻⠑⢄⠀⣧⠀⡟⡆⠀⠀⢨⠏⡴⡇⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⢷⠀⣿⢹⣄⣿⠿⡂⠀⠀⠀⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⢾⠁⠀⠀⡿⣧⠞⣱⠇⠀⡘⠦⡽⣄⣿⠹⣄⡴⢉⠔⠁⢳⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⠀⠀⠀⠀⢰⡿⢸⣧⠘⣟⠙⣿⡄⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣯⠖⠀⢰⣷⢇⡼⠃⢀⠞⠀⡆⠀⠙⣿⡦⠙⢶⡁⠀⠀⠀⠁⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠲⢿⠋⠉⠉⠙⢦⣀⠀⠀⣿⡇⢸⣿⡷⠼⢶⠽⣿⣆⠀⠈⠻⠤⠤⠤⠞⠀⠀⠀⠀⢴⣿⠇⠀⠀⣸⡿⠋⠀⠀⠎⠀⡞⠀⣠⠞⢁⠽⢦⡀⠙⢦⣀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⢀⠀⠀⢸⣅⠀⠀⠈⠉⠛⠉⠔⣻⣸⢸⣿⠿⣠⡏⣧⠙⢿⣧⣄⠀⠀⠀⠀⠀⠀⠀⣀⣴⣾⠃⠀⠀⢰⠇⠀⠀⠀⠀⠀⠀⣠⠞⢁⡔⠃⠀⠁⠋⠗⢦⣈⠳⣄⠀⠀⠀⠀⠀
+⠀⠀⢿⣝⢦⣸⡜⣆⠀⠀⠀⠀⡀⠀⣧⡇⠀⡿⠀⠀⠀⠉⠁⠀⠉⠛⢷⣄⣀⣠⣴⠞⠉⢁⡾⠁⠀⠀⣰⠏⠀⠀⠀⠀⠀⢠⣾⠃⢰⠏⠀⠀⠀⠀⠀⠀⠀⠉⠛⢷⣵⣄⠀⠀⠀
+⢻⣟⣿⡻⣎⢣⣳⡘⣆⠀⢠⡞⡏⠀⣾⣧⠀⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡟⣿⠀⣠⢂⣟⣡⠄⣠⢾⣋⣀⣀⣀⡀⠀⢰⣿⠃⢠⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣿⠻⣄⠀
+⡈⢻⣆⠻⡟⣆⢻⣧⢻⣄⡼⢸⡇⣦⣿⡼⣧⣽⡄⠀⠀⠀⠀⠀⠀⢀⣴⣋⣤⣿⢈⠟⢹⡿⣡⡞⠉⠉⠀⠀⣰⣶⣙⣷⣯⡏⠀⣸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣷⠈⢧
+⣖⠦⣾⣷⡙⠿⠀⠙⠀⢻⡇⢸⡇⠘⢿⣷⡌⠻⣿⣤⠀⠀⠀⣠⣶⡿⠋⣱⣿⠟⠁⣠⣿⢠⡏⠀⠀⢀⡾⠟⠋⠁⠀⣨⢿⡇⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣧⠀
+⠘⢿⣎⡙⠛⠂⠀⠀⠀⡼⠃⢸⠇⠘⡄⠙⠛⠀⠈⠉⠀⣠⣾⢏⡜⢡⡾⠛⠀⣠⡾⠉⢻⣿⣄⣀⡾⠛⠀⠀⠀⡠⠊⠀⠀⢳⠀⢳⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄
+⠀⠀⠙⢿⣦⡀⠀⠀⠀⠁⠀⢸⣇⠀⠀⠀⠀⠀⠀⢀⣾⣿⠃⡎⢠⡿⠥⣤⠞⠉⢰⣦⣀⡽⠛⠛⠀⠀⠀⢠⠎⠀⠀⠀⠀⠸⣆⠘⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣄⢇⠀⠀⠀⢳
+⠀⠀⠀⠀⣿⢹⣆⡀⠀⠀⡀⣈⣿⢻⡀⠀⠀⠀⢀⣾⢿⣇⠘⢠⡟⢀⡴⠋⣀⣸⣷⣿⠋⠁⠀⠀⠀⠀⢀⡇⠀⠀⠀⠀⠀⠀⢻⣷⣌⠳⣄⡀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠀⠀⠀⢸
+⠀⠀⠀⠀⠈⢻⣙⠛⠛⠉⠉⠉⠀⣾⣾⡀⠀⢀⣾⢏⣾⡾⢀⡞⢠⡾⣷⣿⣿⣿⠋⠀⠀⠀⠀⠀⡀⢀⡞⠀⠀⠀⠀⠀⠀⠀⢘⡌⠙⠷⣬⡻⣗⠒⠒⠦⠤⠤⠤⢤⣄⣀⠀⠀⢸
+⠀⠀⠀⠀⠀⠾⢯⡁⠀⠀⠀⠀⠠⢞⣻⢷⣤⣾⣏⣸⢹⣧⣸⣣⢟⣤⣿⣿⡿⠥⡄⠀⠀⠀⠀⠀⣧⣸⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠉⠙⠳⠤⠤⠤⣄⣀⣀⠀⠈⠉⠓⠿
+⠀⠀⠀⠀⠐⠦⡼⠥⠤⠤⢄⡤⠖⠋⠁⠘⡟⠀⠈⠳⣜⣿⣿⣣⣾⠟⠋⠁⠀⢸⡇⠀⠀⠀⠀⠀⢸⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠹⣲⣤⡀⠀
+⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⢀⡬⣝⠂⠀⠀⡇⠀⠀⣤⣙⡟⠉⡯⠤⠤⠀⠀⠠⡿⠀⠀⠀⠀⠀⠀⠈⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠴⠛⠁⠀⠙⣦
+⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠃⠀⣸⠀⢀⣴⡟⠀⠠⠔⠒⣧⣤⣷⡦⡄⠀⠀⠀⣧⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⢀⣤⠞⠁⠀⠀⢀⡤⠎⠀
+⠀⠀⠀⠀⠀⢈⣿⠀⠀⠀⢠⠀⠃⢠⠏⡼⠀⠀⠀⣠⡼⣿⣏⡏⢿⢄⠀⠀⠀⡏⢧⡀⠀⠀⠀⠀⠀⢸⡆⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⢀⡴⠋⠀⢀⣤⠴⠟⠉⠀⠀⠀
+⠀⠀⠀⠀⠀⢛⡻⡇⠀⠀⠈⠆⠀⢸⡄⠧⠤⠴⠛⠉⣸⣧⢻⠀⠘⠀⠛⠦⠼⠃⣀⣹⠆⠀⠀⠀⠀⠈⡇⠀⠀⠀⠀⠀⠀⠀⠀⢣⠀⠀⠀⢀⡴⠋⢀⣤⠞⠉⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠉⠀⠘⣿⡄⠀⠀⠀⠀⠀⢻⡀⠀⠀⢀⡼⣻⡽⢸⠀⠀⠀⠀⢀⣠⣏⠁⠀⠀⠀⠀⠀⠀⠀⣳⠀⠀⠀⠀⠀⠀⠀⠀⠘⡆⠀⢠⡟⢀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+
+                            DISCLAIMER
+
+Anyway, if you need a piece of code from this plugin, 
+please mention in the description or somewhere else that you got it from @KangelPlugins
+                             Thanks.
+                            🙏BLESS🙏
+
+"""
+
+__id__ = "Unlimited_GIFs"
+__name__ = "Unlimited GIFs"
+__description__ = "Removes the limit on the number of Saved GIFs via Xposed hooks"
+__version__ = "1.1.0"
+__author__ = "@ArThirtyFour | @KangelPlugins"
+__icon__ = "chaotianjiang/32"
+__min_version__ = "11.12.0"
+__category__ = ["media"]
+
+from base_plugin import BasePlugin, MethodHook, MethodReplacement
+from hook_utils import find_class
+from android_utils import log
+from client_utils import get_messages_controller
+import traceback
+
+class AddRecentGifReplacement(MethodReplacement):
+    def __init__(self, plugin):
+        self.plugin = plugin
+    
+    def replace_hooked_method(self, param):
+        try:
+            this_obj = param.thisObject
+            document = param.args[0]
+            
+            if document is None:
+                return None
+            
+            recentGifs_field = this_obj.getClass().getDeclaredField("recentGifs")
+            recentGifs_field.setAccessible(True)
+            recentGifs = recentGifs_field.get(this_obj)
+            
+            i2 = 0
+            while i2 < recentGifs.size():
+                document2 = recentGifs.get(i2)
+                if document2.id == document.id:
+                    recentGifs.remove(i2)
+                    recentGifs.add(0, document2)
+                    break
+                i2 += 1
+            else:
+                recentGifs.add(0, document)
+            
+            from java.util import ArrayList
+            from java.lang import Class
+            from java import jclass
+            
+            J_Integer = jclass("java.lang.Integer")
+            J_Boolean = jclass("java.lang.Boolean")
+            
+            arrayList = ArrayList()
+            arrayList.add(document)
+            
+            try:
+                ArrayList_class = Class.forName("java.util.ArrayList")
+                processMethod = this_obj.getClass().getDeclaredMethod(
+                    "processLoadedRecentDocuments",
+                    J_Integer.TYPE,
+                    ArrayList_class,
+                    J_Boolean.TYPE,
+                    J_Integer.TYPE,
+                    J_Boolean.TYPE
+                )
+                processMethod.setAccessible(True)
+                processMethod.invoke(this_obj, 0, arrayList, True, param.args[1], False)
+            except Exception as e:
+                log(f"[Unlimited_GIFs] Error calling processLoadedRecentDocuments: {e}")
+        
+        except Exception as e:
+            log(f"[Unlimited_GIFs] Error in replace_hooked_method: {e}\n{traceback.format_exc()}")
+        
+        return None
+
+
+class MessagesControllerInitHook(MethodHook):
+
+    def __init__(self, plugin):
+        self.plugin = plugin
+    
+    def after_hooked_method(self, param):
+        try:
+            this_obj = param.thisObject
+            if this_obj:
+                this_obj.savedGifsLimitDefault = 999999
+                this_obj.savedGifsLimitPremium = 999999
+                log("[Unlimited_GIFs] GIF limits set to unlimited")
+        except Exception as e:
+            log(f"[Unlimited_GIFs] Error in after_hooked_method: {e}")
+
+
+class UnlimitedGIFsPlugin(BasePlugin):
+    def __init__(self):
+        super().__init__()
+        self.init_hook = None
+        self.gif_hook = None
+    
+    def on_plugin_load(self):
+        try:
+            self._setup_hooks()
+            self._set_limits_immediately()
+            log("[Unlimited_GIFs] Plugin loaded successfully")
+        except Exception as e:
+            log(f"[Unlimited_GIFs] Error loading plugin: {e}\n{traceback.format_exc()}")
+    
+    def on_plugin_unload(self):
+        if self.init_hook:
+            self.unhook_method(self.init_hook)
+        if self.gif_hook:
+            self.unhook_method(self.gif_hook)
+        log("[Unlimited_GIFs] Plugin unloaded")
+    
+    def _set_limits_immediately(self):
+        try:
+            mc = get_messages_controller()
+            if mc:
+                mc.savedGifsLimitDefault = 999999
+                mc.savedGifsLimitPremium = 999999
+                log("[Unlimited_GIFs] Limits set immediately on existing MessagesController")
+        except Exception as e:
+            log(f"[Unlimited_GIFs] Could not set limits immediately: {e}")
+    
+    def _setup_hooks(self):
+        try:
+            MessagesController = find_class("org.telegram.messenger.MessagesController")
+            if not MessagesController:
+                log("[Unlimited_GIFs] MessagesController class not found!")
+                return
+            
+            try:
+                from java.lang import Integer
+                
+                constructor = MessagesController.getClass().getDeclaredConstructor(Integer.TYPE)
+                
+                handler = MessagesControllerInitHook(self)
+                self.init_hook = self.hook_method(constructor, handler)
+                
+                if self.init_hook:
+                    log("[Unlimited_GIFs] Successfully hooked MessagesController constructor")
+                else:
+                    log("[Unlimited_GIFs] Failed to hook MessagesController constructor")
+            except Exception as e:
+                log(f"[Unlimited_GIFs] Error hooking constructor: {e}\n{traceback.format_exc()}")
+                try:
+                    handler = MessagesControllerInitHook(self)
+                    unhook_list = self.hook_all_constructors(MessagesController, handler)
+                    if unhook_list:
+                        self.init_hook = unhook_list[0] if unhook_list else None
+                        log(f"[Unlimited_GIFs] Hooked {len(unhook_list)} constructors")
+                except Exception as e2:
+                    log(f"[Unlimited_GIFs] Error hooking all constructors: {e2}\n{traceback.format_exc()}")
+            
+            try:
+                from java.lang import Class
+                from java import jclass
+                
+                J_Integer = jclass("java.lang.Integer")
+                J_Boolean = jclass("java.lang.Boolean")
+                
+                MediaDataControllerClass = Class.forName("org.telegram.messenger.MediaDataController")
+                TLRPCDocumentClass = Class.forName("org.telegram.tgnet.TLRPC$Document")
+                
+                add_gif_method = MediaDataControllerClass.getDeclaredMethod(
+                    "addRecentGif",
+                    TLRPCDocumentClass,
+                    J_Integer.TYPE,
+                    J_Boolean.TYPE
+                )
+                add_gif_method.setAccessible(True)
+                
+                gif_handler = AddRecentGifReplacement(self)
+                self.gif_hook = self.hook_method(add_gif_method, gif_handler)
+                
+                if self.gif_hook:
+                    log("[Unlimited_GIFs] Successfully hooked addRecentGif method")
+                else:
+                    log("[Unlimited_GIFs] Failed to hook addRecentGif method")
+            except Exception as e:
+                log(f"[Unlimited_GIFs] Error hooking addRecentGif: {e}\n{traceback.format_exc()}")
+        except Exception as e:
+            log(f"[Unlimited_GIFs] Error in _setup_hooks: {e}\n{traceback.format_exc()}")

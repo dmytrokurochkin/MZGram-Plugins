@@ -812,6 +812,34 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "Unlimited_GIFs",
+      "name": "Unlimited GIFs",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/Unlimited_GIFs/1.1.0/Unlimited_GIFs.plugin",
+      "sha256": "a781862c55fa07c1f192b0c5611f7da5d46c0922206cd77f42b8016328326bc4",
+      "size": 13854,
+      "description": "Removes the limit on the number of Saved GIFs via Xposed hooks",
+      "description_i18n": {
+        "en": "Removes the limit on the number of Saved GIFs via Xposed hooks",
+        "uk": "Знімає обмеження на кількість збережених GIF-файлів через хуки Xposed",
+        "ru": "Убирает ограничение на количество сохраненных GIF-файлов с помощью хуков Xposed.",
+        "pl": "Usuwa limit liczby zapisanych plików GIF za pośrednictwem haków Xposed",
+        "es": "Elimina el límite en la cantidad de GIF guardados a través de ganchos Xposed",
+        "de": "Entfernt die Beschränkung der Anzahl gespeicherter GIFs über Xposed-Hooks",
+        "fr": "Supprime la limite du nombre de GIF enregistrés via les hooks Xposed",
+        "pt-BR": "Remove o limite do número de GIFs salvos por meio de ganchos Xposed",
+        "tr": "Xposed kancaları aracılığıyla Kaydedilen GIF sayısındaki sınırı kaldırır",
+        "ar": "يزيل الحد الأقصى لعدد صور GIF المحفوظة عبر خطافات Xpose",
+        "be": "Здымае абмежаванне на колькасць захаваных GIF-файлаў праз хукі Xposed",
+        "kk": "Xposed ілмектері арқылы сақталған GIF файлдарының санына шектеуді жояды"
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
