@@ -1,0 +1,95 @@
+from base_plugin import BasePlugin
+from hook_utils import find_class
+
+__id__ = "hide_bot_open_button"
+__name__ = "Hide Bot Open Button"
+__description__ = (
+    "RU: Скрывает кнопку «Открыть» (Mini Apps) у ботов в списке чатов и глобальном поиске.\n\n"
+    "EN: Hides the 'Open' (Mini Apps) button for bots in chat list and global search."
+)
+__author__ = "@pluginsc"
+__version__ = "1.1.2"
+__icon__ = "Open512/2"
+__app_version__ = ">=12.5.1"
+__category__ = ["appearance"]
+__sdk_version__ = ">=1.4.4.3"
+
+
+class HideBotOpenButtonPlugin(BasePlugin):
+    def __init__(self):
+        super().__init__()
+        self.f_dialog_allow = None
+        self.f_dialog_open = None
+        self.f_search_allow = None
+        self.f_search_open = None
+
+    def on_plugin_load(self):
+        try:
+            Class_cls = find_class("java.lang.Class")
+
+            try:
+                dialog_cell_cls = Class_cls.forName("org.telegram.ui.Cells.DialogCell")
+                self.f_dialog_allow = dialog_cell_cls.getDeclaredField("allowBotOpenButton")
+                self.f_dialog_allow.setAccessible(True)
+
+                try:
+                    self.f_dialog_open = dialog_cell_cls.getDeclaredField("openBot")
+                    self.f_dialog_open.setAccessible(True)
+                except Exception:
+                    self.f_dialog_open = None
+
+                f_allow = self.f_dialog_allow
+                f_open = self.f_dialog_open
+
+                def disable_dialog_open_button(param):
+                    cell = param.thisObject
+                    if cell is not None:
+                        try:
+                            f_allow.setBoolean(cell, False)
+                            if f_open is not None:
+                                f_open.setBoolean(cell, False)
+                        except Exception:
+                            pass
+                    return None
+
+                target_dialog_methods = {"setDialog", "checkBotOpenButton"}
+                for m in dialog_cell_cls.getDeclaredMethods():
+                    if m.getName() in target_dialog_methods:
+                        self.hook_method(m, before=disable_dialog_open_button)
+            except Exception:
+                pass
+
+            try:
+                profile_search_cls = Class_cls.forName("org.telegram.ui.Cells.ProfileSearchCell")
+                self.f_search_allow = profile_search_cls.getDeclaredField("allowBotOpenButton")
+                self.f_search_allow.setAccessible(True)
+
+                try:
+                    self.f_search_open = profile_search_cls.getDeclaredField("openBot")
+                    self.f_search_open.setAccessible(True)
+                except Exception:
+                    self.f_search_open = None
+
+                f_s_allow = self.f_search_allow
+                f_s_open = self.f_search_open
+
+                def disable_search_open_button(param):
+                    cell = param.thisObject
+                    if cell is not None:
+                        try:
+                            f_s_allow.setBoolean(cell, False)
+                            if f_s_open is not None:
+                                f_s_open.setBoolean(cell, False)
+                        except Exception:
+                            pass
+                    return None
+
+                target_search_methods = {"setData", "checkBotOpenButton", "setOpenButton"}
+                for m in profile_search_cls.getDeclaredMethods():
+                    if m.getName() in target_search_methods:
+                        self.hook_method(m, before=disable_search_open_button)
+            except Exception:
+                pass
+
+        except Exception:
+            pass

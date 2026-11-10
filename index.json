@@ -5240,6 +5240,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "hide_bot_open_button",
+      "name": "Hide Bot Open Button",
+      "version": "1.1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/hide_bot_open_button/1.1.2/hide_bot_open_button.plugin",
+      "sha256": "942325dd5c4b176bbcfd58d434186d835c302742d4df3e5790fd4c9e9107c7b8",
+      "size": 3725,
+      "description": "EN: Hides the \"Open\" button (Mini Apps) for bots in the chat list and global search. EN: Hides the 'Open' (Mini Apps) button for bots in chat list and global search.",
+      "description_i18n": {
+        "en": "EN: Hides the \"Open\" button (Mini Apps) for bots in the chat list and global search. EN: Hides the 'Open' (Mini Apps) button for bots in chat list and global search.",
+        "uk": "UA: приховує кнопку «Відкрити» (міні-програми) для ботів у списку чату та глобальному пошуку. UA: приховує кнопку «Відкрити» (міні-програми) для ботів у списку чату та глобальному пошуку.",
+        "ru": "RU: Скрывает кнопку «Открыть» (Мини-приложения) для ботов в списке чатов и глобальном поиске. RU: скрывает кнопку «Открыть» (мини-приложения) для ботов в списке чатов и глобальном поиске.",
+        "pl": "PL: Ukrywa przycisk „Otwórz\" (Mini Apps) dla botów na liście czatów i wyszukiwaniu globalnym. PL: Ukrywa przycisk „Otwórz\" (Mini aplikacje) dla botów na liście czatów i wyszukiwaniu globalnym.",
+        "es": "ES: Oculta el botón \"Abrir\" (Mini Apps) para bots en la lista de chat y búsqueda global. ES: Oculta el botón 'Abrir' (Mini aplicaciones) para bots en la lista de chat y la búsqueda global.",
+        "de": "DE: Blendet den „Öffnen\"-Button (Mini-Apps) für Bots in der Chat-Liste und der globalen Suche aus. DE: Versteckt die Schaltfläche „Öffnen\" (Mini-Apps) für Bots in der Chat-Liste und der globalen Suche.",
+        "fr": "FR : Masque le bouton \"Ouvrir\" (Mini Apps) pour les robots dans la liste de discussion et la recherche globale. FR : Masque le bouton « Ouvrir » (mini-applications) pour les robots dans la liste de discussion et la recherche globale.",
+        "pt-BR": "PT: Oculta o botão \"Abrir\" (Mini Apps) para bots na lista de chat e pesquisa global. PT: Oculta o botão 'Abrir' (Mini Apps) para bots na lista de chat e pesquisa global.",
+        "tr": "TR: Sohbet listesinde ve genel aramada botlar için \"Aç\" düğmesini (Mini Uygulamalar) gizler. TR: Sohbet listesinde ve genel aramada botlar için 'Aç' (Mini Uygulamalar) düğmesini gizler.",
+        "ar": "AR: إخفاء زر \"فتح\" (التطبيقات المصغرة) للروبوتات في قائمة الدردشة والبحث العالمي. AR: يخفي زر \"فتح\" (التطبيقات المصغرة) للروبوتات في قائمة الدردشة والبحث العالمي.",
+        "be": "EN: Хавае кнопку \"Адкрыць\" (міні-праграмы) для ботаў у спісе чатаў і глабальным пошуку. EN: Хавае кнопку «Адкрыць» (міні-праграмы) для ботаў у спісе чатаў і глабальным пошуку.",
+        "kk": "KK: чат тізіміндегі және ғаламдық іздеудегі боттарға арналған «Ашу» түймесін (шағын қолданбалар) жасырады. KK: чат тізіміндегі және ғаламдық іздеудегі боттарға арналған \"Ашу\" (шағын қолданбалар) түймесін жасырады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
