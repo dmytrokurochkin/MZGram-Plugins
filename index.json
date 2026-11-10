@@ -981,6 +981,33 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "add_to_folder",
+      "name": "Add to Folder in Folders",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/add_to_folder/1.1/add_to_folder.plugin",
+      "sha256": "c5bbcd49dd8b41299817c05ab85c39b38d7ee95e49b9d5e8d6eaa7ede5e6e50f",
+      "size": 4364,
+      "description": "Shows the \"Add to folder\" button when selecting chats inside a folder, not only on the main screen. Shows the \"Add to Folder\" button when selecting chats within a folder, not just on the home screen.",
+      "description_i18n": {
+        "en": "Shows the \"Add to folder\" button when selecting chats inside a folder, not only on the main screen. Shows the \"Add to Folder\" button when selecting chats within a folder, not just on the home screen.",
+        "uk": "Показує кнопку «Додати до папки» під час вибору чатів у папці, а не лише на головному екрані. Показує кнопку «Додати до папки» під час вибору чатів у папці, а не лише на головному екрані.",
+        "ru": "Показывает кнопку «Добавить в папку» при выборе чатов внутри папки, а не только на главном экране. Показывает кнопку «Добавить в папку» при выборе чатов внутри папки, а не только на главном экране.",
+        "pl": "Pokazuje przycisk „Dodaj do folderu\" podczas wybierania czatów w folderze, nie tylko na ekranie głównym. Pokazuje przycisk „Dodaj do folderu\" podczas wybierania czatów w folderze, a nie tylko na ekranie głównym.",
+        "es": "Muestra el botón \"Agregar a carpeta\" al seleccionar chats dentro de una carpeta, no solo en la pantalla principal. Muestra el botón \"Agregar a la carpeta\" al seleccionar chats dentro de una carpeta, no solo en la pantalla de inicio.",
+        "de": "Zeigt die Schaltfläche „Zum Ordner hinzufügen\" an, wenn Chats in einem Ordner ausgewählt werden, nicht nur auf dem Hauptbildschirm. Zeigt die Schaltfläche „Zum Ordner hinzufügen\" an, wenn Chats in einem Ordner ausgewählt werden, nicht nur auf dem Startbildschirm.",
+        "fr": "Affiche le bouton « Ajouter au dossier » lors de la sélection de discussions dans un dossier, pas seulement sur l'écran principal. Affiche le bouton « Ajouter au dossier » lors de la sélection de discussions dans un dossier, pas seulement sur l'écran d'accueil.",
+        "pt-BR": "Mostra o botão \"Adicionar à pasta\" ao selecionar chats dentro de uma pasta, não apenas na tela principal. Mostra o botão \"Adicionar à pasta\" ao selecionar bate-papos dentro de uma pasta, não apenas na tela inicial.",
+        "tr": "Yalnızca ana ekranda değil, bir klasör içindeki sohbetleri seçerken \"Klasöre ekle\" düğmesini gösterir. Yalnızca ana ekranda değil, bir klasör içindeki sohbetleri seçerken \"Klasöre Ekle\" düğmesini gösterir.",
+        "ar": "يظهر زر \"إضافة إلى مجلد\" عند تحديد الدردشات داخل مجلد، وليس فقط على الشاشة الرئيسية. يظهر زر \"إضافة إلى مجلد\" عند تحديد الدردشات داخل مجلد، وليس فقط على الشاشة الرئيسية.",
+        "be": "Паказвае кнопку «Дадаць у тэчку» пры выбары чатаў у папцы, а не толькі на галоўным экране. Паказвае кнопку «Дадаць у тэчку» пры выбары чатаў у папцы, а не толькі на галоўным экране.",
+        "kk": "Негізгі экранда ғана емес, қалта ішіндегі чаттарды таңдаған кезде «Қалтаға қосу» түймесін көрсетеді. Негізгі экранда ғана емес, қалта ішіндегі чаттарды таңдаған кезде «Қалтаға қосу» түймесін көрсетеді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
