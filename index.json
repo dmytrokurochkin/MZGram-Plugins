@@ -12321,6 +12321,34 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "zwyCrossfade",
+      "name": "Crossfade",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/zwyCrossfade/1.0.0/zwyCrossfade.plugin",
+      "sha256": "296ed0cc0cd0a1954f0e8eef4c1d35ca50b6909df965a3da34d491ff3d4a5ee1",
+      "size": 27987,
+      "description": "Smooth transition between music tracks: the ending track fades out while the next one fades in. > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 or greater!",
+      "description_i18n": {
+        "en": "Smooth transition between music tracks: the ending track fades out while the next one fades in. > Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 or greater!",
+        "uk": "Плавний перехід між музичними доріжками: кінцева доріжка згасає, а наступна - з'являється. > Потрібен **[ZwyLib](https://t.me/zwyPlugins/48)** версії 2.0.6 або новішої!",
+        "ru": "Плавный переход между музыкальными треками: конечный трек затухает, а следующий появляется. > Требуется **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 или более поздняя версия!",
+        "pl": "Płynne przejście między utworami muzycznymi: utwór końcowy zanika, a następny pojawia się. > Wymaga **[ZwyLib](https://t.me/zwyPlugins/48)** w wersji 2.0.6 lub nowszej!",
+        "es": "Transición suave entre pistas de música: la pista final se desvanece mientras la siguiente aparece. > ¡Requiere **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 o superior!",
+        "de": "Reibungsloser Übergang zwischen Musiktiteln: Der letzte Titel wird ausgeblendet, während der nächste eingeblendet wird. > Erfordert **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 oder höher!",
+        "fr": "Transition fluide entre les morceaux de musique : le morceau de fin disparaît tandis que le suivant apparaît. > Nécessite **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 ou supérieur !",
+        "pt-BR": "Transição suave entre faixas de música: a faixa final desaparece enquanto a próxima aparece. > Requer **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 ou superior!",
+        "tr": "Müzik parçaları arasında yumuşak geçiş: Bitiş parçası yavaş yavaş kaybolurken bir sonraki parça yavaş yavaş belirir. > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 veya üstünü gerektirir!",
+        "ar": "انتقال سلس بين المقطوعات الموسيقية: يتلاشى المسار النهائي بينما يتلاشى المسار التالي. > يتطلب **[ZwyLib](https://t.me/zwyPlugins/48)** الإصدار 2.0.6 أو أحدث!",
+        "be": "Плыўны пераход паміж музычнымі трэкамі: канчатковы трэк згасае, а наступны знікае. > Патрабуецца **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 або вышэй!",
+        "kk": "Музыкалық тректер арасындағы тегіс ауысу: соңғы трек өшіп, келесісі өшеді. > **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 немесе одан жоғары талап етіледі!"
+      },
+      "permissions": [
+        "messages.read",
+        "settings"
+      ]
     }
   ]
 }
