@@ -1322,6 +1322,33 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "articleViewerFix",
+      "name": "ArticleViewerFix",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/articleViewerFix/1.0.0/ArticleViewerFix.plugin",
+      "sha256": "8b610926712d709bfd301396a642fcef2f57d61b97eaab03ec36d8e125456984",
+      "size": 1036,
+      "description": "Disables the annoying close swipe (from left to right) in the browser. Disables annoying browser's close on swipe.",
+      "description_i18n": {
+        "en": "Disables the annoying close swipe (from left to right) in the browser. Disables annoying browser's close on swipe.",
+        "uk": "Вимикає дратівливе свайпування (зліва направо) у браузері. Вимикає надокучливе закриття браузера під час проведення.",
+        "ru": "Отключает раздражающее закрытие свайпа (слева направо) в браузере. Отключает раздражающее закрытие браузера при смахивании.",
+        "pl": "Wyłącza irytujące przesuwanie blisko (od lewej do prawej) w przeglądarce. Wyłącza irytujące zamykanie przeglądarki po przesunięciu.",
+        "es": "Desactiva el molesto deslizamiento cerrado (de izquierda a derecha) en el navegador. Desactiva el molesto cierre del navegador al deslizar el dedo.",
+        "de": "Deaktiviert das lästige Wischen zum Schließen (von links nach rechts) im Browser. Deaktiviert das lästige Schließen des Browsers beim Wischen.",
+        "fr": "Désactive le balayage de fermeture ennuyeux (de gauche à droite) dans le navigateur. Désactive la fermeture ennuyeuse du navigateur lors d'un balayage.",
+        "pt-BR": "Desativa o irritante deslizar para perto (da esquerda para a direita) no navegador. Desativa o irritante fechamento do navegador ao deslizar.",
+        "tr": "Tarayıcıda sinir bozucu yakın kaydırmayı (soldan sağa) devre dışı bırakır. Rahatsız edici tarayıcının kaydırıldığında kapanmasını devre dışı bırakır.",
+        "ar": "تعطيل السحب المغلق المزعج (من اليسار إلى اليمين) في المتصفح. Disables annoying browser's close on swipe.",
+        "be": "Адключае раздражняльнае правядзенне пальцам (злева направа) у браўзеры. Disables annoying browser's close on swipe.",
+        "kk": "Браузердегі тітіркендіргіш жабуды (солдан оңға қарай) өшіреді. Тітіркендіргіш браузерді сырғыту кезінде жабуды өшіреді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
