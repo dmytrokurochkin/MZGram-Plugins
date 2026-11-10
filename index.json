@@ -9714,6 +9714,34 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "rounds_manager",
+      "name": "Редактор кружков",
+      "version": "2.4.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/rounds_manager/2.4.0/rounds_manager.plugin",
+      "sha256": "e5eebf675b666a17e5871b4e934ebeee812c481fb7e1a6f5b50cc36d76a66f1a",
+      "size": 9676,
+      "description": "Allows you to edit the circle before sending, also adds functions such as turning off blur when recording",
+      "description_i18n": {
+        "en": "Allows you to edit the circle before sending, also adds functions such as turning off blur when recording",
+        "uk": "Дозволяє редагувати коло перед надсиланням, також додає такі функції, як вимикання розмиття під час запису",
+        "ru": "Позволяет редактировать круг перед отправкой, также добавляет такие функции, как отключение размытия при записи.",
+        "pl": "Umożliwia edycję okręgu przed wysłaniem, dodaje też takie funkcje jak wyłączenie rozmycia podczas nagrywania",
+        "es": "Permite editar el círculo antes de enviar, también agrega funciones como desactivar el desenfoque al grabar",
+        "de": "Ermöglicht das Bearbeiten des Kreises vor dem Senden und fügt außerdem Funktionen hinzu, z. B. das Ausschalten der Unschärfe bei der Aufnahme",
+        "fr": "Vous permet de modifier le cercle avant l'envoi, ajoute également des fonctions telles que la désactivation du flou lors de l'enregistrement",
+        "pt-BR": "Permite editar o círculo antes de enviar, também adiciona funções como desligar o desfoque durante a gravação",
+        "tr": "Göndermeden önce daireyi düzenlemenize olanak tanır, ayrıca kayıt sırasında bulanıklığın kapatılması gibi işlevler de ekler",
+        "ar": "يسمح لك بتحرير الدائرة قبل الإرسال، كما يضيف وظائف مثل إيقاف التمويه عند التسجيل",
+        "be": "Дазваляе рэдагаваць круг перад адпраўкай, а таксама дадае такія функцыі, як адключэнне размыцця падчас запісу",
+        "kk": "Жіберу алдында шеңберді өңдеуге мүмкіндік береді, сонымен қатар жазу кезінде бұлыңғырлықты өшіру сияқты функцияларды қосады."
+      },
+      "permissions": [
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }

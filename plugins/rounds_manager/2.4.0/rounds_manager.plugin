@@ -1,0 +1,212 @@
+from base_plugin import BasePlugin, MethodHook, MethodReplacement
+from android_utils import log, run_on_ui_thread, R
+from java import jclass, jint
+from java.lang import Long, Boolean, Integer, String as JString
+from hook_utils import *
+from android_utils import log
+from ui.settings import Header, Input, Divider, Switch, Selector, Text
+from ui.bulletin import BulletinHelper
+from client_utils import get_last_fragment
+import debugpy
+
+#debugpy.wait_for_client()
+__id__ = "rounds_manager"
+__name__ = "Редактор кружков"
+__description__ = "Позволяет редактировать кружок перед отправкой, также добавляет функции по типу отключения блюра при записи"
+__author__ = "@timofey776"
+__version__ = "2.4.0"
+__min_version__ = "11.11.0"
+__icon__ = "Mithay/117"
+__category__ = ["media"]
+
+
+timing = 650
+pause = False
+afterEdit = False
+class StopRecordingHook(MethodHook): #MethodHook        #MethodReplacement
+    
+    def __init__(self, plugin_instance):
+        super().__init__()
+        self.plugin = plugin_instance
+    
+    def before_hooked_method(self, param):  #replace_hooked_method
+        global saved_photo_layout
+        global timing
+        global pause
+        global afterEdit
+        #log(param.args)
+        if not pause and self.plugin.get_setting("Pause",False):
+            log("not paused, skip")
+            return
+        pause = False
+        if not self.plugin.get_setting("Editor",True):
+            log("2")
+            return
+
+        if not param.args[0].videoEditedInfo.roundVideo or afterEdit:   # param.args[0].videoEditedInfo.notReadyYet
+            log("1")
+            afterEdit = False
+            return
+        #----------------------------------------------------------------
+        #                   запуск редактора
+        def openVd():
+            chatAct = find_class("org.telegram.ui.ChatActivity")
+            method = chatAct.getClass().getDeclaredMethod("openVideoEditor",JString,JString)
+            method.setAccessible(True)
+            method.invoke(get_last_fragment(),param.args[0].path, None)
+        def CloseAnim():
+            chatAct = find_class("org.telegram.ui.ChatActivity")
+            method = chatAct.getClass().getDeclaredMethod("runCloseInstantCameraAnimation")
+            method.setAccessible(True)
+            method.invoke(get_last_fragment())
+        
+        
+        try:
+            runnbl = R(openVd)
+            closeR = R(CloseAnim)
+            log(timing)
+            run_on_ui_thread(runnbl, timing)
+            run_on_ui_thread(closeR,10)
+            #x = method.invoke(get_last_fragment(),param.args[0].path, None) #👈 "" - сообщение под видео в редакторе
+            #log("barebuh")
+        except Exception as e:
+            log(f"❌: {e}")
+    
+        #log(param.args[0])
+        param.setResult(None)
+        
+#——————————————————————————————————————————————————————————————————————————
+class BlurOff(MethodHook):
+    def __init__(self, plugin_instance):
+        super().__init__()
+        self.plugin = plugin_instance
+    
+    def before_hooked_method(self, param):
+        #log(param)
+        try:
+            run_on_ui_thread(lambda:set_private_field(param.thisObject,"drawBlur",not self.plugin.get_setting("Blur",True)))
+        except Exception as e:
+            self.plugin.log(f"be: {e}")
+    def after_hooked_method(self, param):
+        try:
+            run_on_ui_thread(lambda:set_private_field(param.thisObject,"drawBlur",not self.plugin.get_setting("Blur",True)))
+            
+        except Exception as e:
+            self.plugin.log(f"be: {e}")
+#——————————————————————————————————————————————————————————————————————————
+class sendMediaHook(MethodHook):
+    
+    def __init__(self, plugin_instance):
+        super().__init__()
+        self.plugin = plugin_instance
+    
+    def before_hooked_method(self, param):
+        
+        try:
+            global afterEdit
+            log("PHOTO ENTRY")
+            #log(param.args[0])
+            #log("VIDEO EDITED INFO")
+            #log(param.args[1])
+            #instCamObj = get_private_field(param.thisObject,"instantCameraView")
+            #isPause = not get_private_field(instCamObj, "recording")
+            #log(isPause)
+            #pause = False
+            #👆 изза логов тг крашится при отправке видео со стикерами
+            log(f"sendMedia, afteredit: {afterEdit}")
+            if not param.args[1].roundVideo and not self.plugin.get_setting("rndVideo",False) and not afterEdit:      
+                afterEdit = True
+                param.args[1].roundVideo = True
+                param.args[0].editedInfo.roundVideo = True
+            else:
+                afterEdit = False
+        except Exception as e:
+            self.plugin.log(f"be: {e}")
+ #——————————————————————————————————————————————————————————————————————————
+
+class togglePaus(MethodHook):
+    def __init__(self, plugin_instance):
+        super().__init__()
+        self.plugin = plugin_instance
+    def before_hooked_method(self, param):
+        global pause
+        pause = get_private_field(param.thisObject, "recording")
+        log(f"isPause: {pause}")
+
+
+#——————————————————————————————————————————————————————————————————————————
+#                                   ПЛАГИН
+class Plugin(BasePlugin):
+    
+    def __init__(self):
+        super().__init__()
+        self.hook_handler = None
+
+    #---------------------------------------------------------------------------------
+    #                              НАСТРОЙКИ
+
+    def create_settings(self):
+        def changeTiming(t: str):
+            global timing
+            timing = int(t)
+            self.on_plugin_load()
+        return [
+            Header(text="Настройки"),
+            Switch(text="Открывать редактор после записи",key="Editor",default=True,icon="media_button_restore"),
+            Switch(text="Отправлять кружок как видео",key="rndVideo",default=False,icon="msg_photos"),
+            Switch(text="Отключить блюр фона",key="Blur",default=True,icon="msg_spoiler"),
+            Switch(text="Открывать редактор только",subtext="при отправке из паузы",key="Pause",default=False,icon="ic_pauseinline"),
+            Input(key="timing",text="через сколько мс откроется редактор",default="650",icon="menu_views_recent",subtext="низкие значения могут привести к ошибкам",on_change=changeTiming),
+            Divider()
+        ]
+
+
+    def on_plugin_load(self):
+        global timing
+        timing = int(self.get_setting("timing","650"))
+        #debugpy.listen(("127.0.0.1", 5678))
+        #
+        #debugpy.wait_for_client()
+        chatAct = find_class("org.telegram.ui.ChatActivity")   
+        SendMessagesHelper = find_class("org.telegram.messenger.SendMessagesHelper")
+        SendMessagesHelperParams = find_class("org.telegram.messenger.SendMessagesHelper$SendMessageParams")
+        sendMessage = SendMessagesHelper.getClass().getDeclaredMethod("sendMessage",SendMessagesHelperParams) 
+        self.hook_method(sendMessage, StopRecordingHook(self))
+
+        #---------------------------------------------------------------------------------
+        #                          ХУК SendMedia после редактора
+        PhotoEntry = find_class("org.telegram.messenger.MediaController$PhotoEntry")
+        VideoEditedInfo = find_class("org.telegram.messenger.VideoEditedInfo")
+        sendMedia = chatAct.getClass().getDeclaredMethod("sendMedia",PhotoEntry,VideoEditedInfo,Boolean.TYPE,Integer.TYPE,Boolean.TYPE,Long.TYPE)
+        self.hook_method(sendMedia, sendMediaHook(self))
+
+        Context = find_class("android.content.Context")
+        Delegate = find_class("org.telegram.ui.Components.InstantCameraView$Delegate")
+        ResourcesProvider = find_class("org.telegram.ui.ActionBar.Theme$ResourcesProvider")
+        try:
+            inst = find_class("org.telegram.ui.Components.InstantCameraView").getClass()
+            instanCamConstr = inst.getDeclaredConstructor(Context,Delegate,ResourcesProvider)
+            instanCamConstr.setAccessible(True)
+            self.hook_method(instanCamConstr,BlurOff(self))
+
+            isPaused = inst.getDeclaredMethod("togglePause")
+            self.hook_method(isPaused,togglePaus(self))
+            
+        except Exception as e:
+          log(f"nfo: {e}")
+
+
+
+        
+    
+#——————————————————————————————————————————————————————————————————————————
+
+    def on_plugin_unload(self):
+        try:
+            self.hook_handler = None
+        except Exception as e:
+            self.log(f"❌: {e}")
+    
+
+    def log(self, message):
+        log(f"[RoundEditor] {message}")
