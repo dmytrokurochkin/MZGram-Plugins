@@ -6259,6 +6259,33 @@
         "messages.send",
         "files"
       ]
+    },
+    {
+      "id": "local_gift_hider",
+      "name": "Local Gift Hider",
+      "version": "1.1.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/local_gift_hider/1.1.4/local_gift_hider.plugin",
+      "sha256": "e5cef085789e2e1c861565a896a3be2802a3196f4635589446a9bcb7e1701c7d",
+      "size": 24379,
+      "description": "Locally hide gifts from your profile.",
+      "description_i18n": {
+        "en": "Locally hide gifts from your profile.",
+        "uk": "Локально приховайте подарунки зі свого профілю.",
+        "ru": "Локально скрыть подарки из своего профиля.",
+        "pl": "Lokalnie ukryj prezenty w swoim profilu.",
+        "es": "Oculta localmente los regalos de tu perfil.",
+        "de": "Verstecken Sie Geschenke lokal aus Ihrem Profil.",
+        "fr": "Cachez localement les cadeaux de votre profil.",
+        "pt-BR": "Oculte presentes localmente do seu perfil.",
+        "tr": "Hediyeleri profilinizden yerel olarak gizleyin.",
+        "ar": "إخفاء الهدايا محليًا من ملفك الشخصي.",
+        "be": "Лакальна схаваць падарункі са свайго профілю.",
+        "kk": "Профильдегі сыйлықтарды жасырыңыз."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
