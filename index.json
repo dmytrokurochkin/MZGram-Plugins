@@ -9402,6 +9402,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "readall",
+      "name": "Read All",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/readall/1.0/readall.plugin",
+      "sha256": "33d8c28ca86eb10769cc823a861bf20248ae04ecc0cbaea92f0779fe3a822439",
+      "size": 2002,
+      "description": "Adds a «Read all» button to the drawer.",
+      "description_i18n": {
+        "en": "Adds a «Read all» button to the drawer.",
+        "uk": "Додає кнопку «Читати все» в ящик.",
+        "ru": "Добавляет кнопку «Прочитать все» в ящик.",
+        "pl": "Dodaje przycisk «Przeczytaj wszystko» do szuflady.",
+        "es": "Agrega un botón «Leer todo» al cajón.",
+        "de": "Fügt der Schublade eine Schaltfläche „Alles lesen\" hinzu.",
+        "fr": "Ajoute un bouton « Lire tout » au tiroir.",
+        "pt-BR": "Adiciona um botão «Ler tudo» à gaveta.",
+        "tr": "Çekmeceye bir «Tümünü oku» düğmesi eklenir.",
+        "ar": "إضافة زر «قراءة الكل» إلى الدرج.",
+        "be": "Дадае кнопку «Прачытаць усё» ў скрыню.",
+        "kk": "Тартпаға «Барлығын оқу» түймесін қосады."
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }
