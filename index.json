@@ -8362,6 +8362,37 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "pinterest_pic",
+      "name": "Pinterest Pic",
+      "version": "2.6.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/pinterest_pic/2.6.4/pinterest_pic.plugin",
+      "sha256": "500d683681d3ae47ea4b84e76fc9e1a2f0175dbb372107680ba551f54ce08cdd",
+      "size": 69162,
+      "description": "Replaces Yandex with Pinterest in the inline `` search: same grid, endless scrolling, no API keys. A picked photo opens the editor (edit / caption), a floating sticker button sends it as a sticker.",
+      "description_i18n": {
+        "en": "Replaces Yandex with Pinterest in the inline `` search: same grid, endless scrolling, no API keys. A picked photo opens the editor (edit / caption), a floating sticker button sends it as a sticker.",
+        "uk": "Замінює Яндекс на Pinterest у вбудованому пошуку: та сама сітка, нескінченне прокручування, без ключів API. Вибране фото відкриває редактор (редагування / підпис), плаваюча кнопка наклейки надсилає його як наклейку.",
+        "ru": "Заменяет Яндекс на Pinterest во встроенном поиске: та же сетка, бесконечная прокрутка, нет ключей API. Выбранное фото открывает редактор (редактировать/подпись), плавающая кнопка стикера отправляет его как стикер.",
+        "pl": "Zastępuje Yandex Pinterestem w wyszukiwaniu inline: ta sama siatka, niekończące się przewijanie, brak kluczy API. Wybrane zdjęcie otwiera edytor (edycja / podpis), pływający przycisk naklejki wysyła je jako naklejkę.",
+        "es": "Reemplaza Yandex con Pinterest en la búsqueda `` en línea: misma cuadrícula, desplazamiento sin fin, sin claves API. Una foto seleccionada abre el editor (editar/título), un botón de etiqueta flotante la envía como una etiqueta.",
+        "de": "Ersetzt Yandex durch Pinterest in der Inline-Suche: gleiches Raster, endloses Scrollen, keine API-Schlüssel. Ein ausgewähltes Foto öffnet den Editor (Bearbeiten/Beschriftung), ein schwebender Sticker-Button sendet es als Sticker.",
+        "fr": "Remplace Yandex par Pinterest dans la `` recherche en ligne : même grille, défilement sans fin, pas de clés API. Une photo sélectionnée ouvre l'éditeur (édition/légende), un bouton d'autocollant flottant l'envoie sous forme d'autocollant.",
+        "pt-BR": "Substitui Yandex pelo Pinterest na pesquisa `` inline: mesma grade, rolagem infinita, sem chaves de API. Uma foto escolhida abre o editor (editar/legenda), um botão flutuante de adesivo a envia como adesivo.",
+        "tr": "Satır içi aramada Yandex'i Pinterest ile değiştirir: aynı ızgara, sonsuz kaydırma, API anahtarı yok. Seçilen bir fotoğraf düzenleyiciyi açar (düzenleme / başlık), kayan bir çıkartma düğmesi onu bir çıkartma olarak gönderir.",
+        "ar": "يستبدل Yandex بـ Pinterest في البحث المضمن ``: نفس الشبكة، والتمرير اللانهائي، ولا توجد مفاتيح API. تفتح الصورة المختارة المحرر (تحرير / تسمية توضيحية)، ويرسلها زر الملصق العائم كملصق.",
+        "be": "Замяняе Yandex на Pinterest ва ўбудаваным пошуку: тая ж сетка, бясконцая пракрутка, без ключоў API. Выбранае фота адкрывае рэдактар ​​(рэдагаванне / подпіс), плаваючая кнопка стыкера адпраўляе яго як стыкер.",
+        "kk": "Кірістірілген `` іздеуде Yandex-ті Pinterest-пен ауыстырады: бірдей тор, шексіз айналдыру, API кілттері жоқ. Таңдалған фотосурет редакторды ашады (өңдеу / жазу), қалқымалы стикер түймесі оны стикер ретінде жібереді."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
