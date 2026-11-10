@@ -8452,6 +8452,37 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "player_resume",
+      "name": "Player Resume",
+      "version": "1.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/player_resume/1.0.1/player_resume.plugin",
+      "sha256": "bb148369fd3aa3e0b6f504601dd2f0337f436f01bf8381cec82641fb763512ec",
+      "size": 139123,
+      "description": "Minimizing the player into a button at FAB when closing",
+      "description_i18n": {
+        "en": "Minimizing the player into a button at FAB when closing",
+        "uk": "Згортання гравця до кнопки на FAB під час закриття",
+        "ru": "Сворачивание плеера в кнопку на FAB при закрытии",
+        "pl": "Minimalizowanie odtwarzacza do przycisku w FAB podczas zamykania",
+        "es": "Minimizar el reproductor en un botón en FAB al cerrar",
+        "de": "Minimieren Sie den Player beim Schließen in eine Schaltfläche bei FAB",
+        "fr": "Réduire le lecteur en un bouton chez FAB lors de la fermeture",
+        "pt-BR": "Minimizando o player em um botão na FAB ao fechar",
+        "tr": "Oynatıcıyı kapatırken FAB'deki bir düğmeye küçültme",
+        "ar": "تصغير المشغل إلى زر في FAB عند الإغلاق",
+        "be": "Мінімізацыя прайгравальніка ў кнопку FAB пры закрыцці",
+        "kk": "Ойнатқышты жабу кезінде FAB түймешігіне кішірейту"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "files",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
