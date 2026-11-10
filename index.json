@@ -1768,6 +1768,33 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "better_previews",
+      "name": "Better Previews",
+      "version": "1.0.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/better_previews/1.0.2/better_previews.plugin",
+      "sha256": "5c0c6838d94f8668445da73e9953ae57affbc82364f3cc8207bf1a8876ad5659",
+      "size": 4808,
+      "description": "Modifies specific URLs (Twitter, TikTok, Reddit, Instagram, Pixiv) for better previews.",
+      "description_i18n": {
+        "en": "Modifies specific URLs (Twitter, TikTok, Reddit, Instagram, Pixiv) for better previews.",
+        "uk": "Змінює певні URL-адреси (Twitter, TikTok, Reddit, Instagram, Pixiv) для кращого попереднього перегляду.",
+        "ru": "Изменяет определенные URL-адреса (Twitter, TikTok, Reddit, Instagram, Pixiv) для улучшения предварительного просмотра.",
+        "pl": "Modyfikuje określone adresy URL (Twitter, TikTok, Reddit, Instagram, Pixiv) w celu uzyskania lepszego podglądu.",
+        "es": "Modifica URL específicas (Twitter, TikTok, Reddit, Instagram, Pixiv) para obtener mejores vistas previas.",
+        "de": "Ändert bestimmte URLs (Twitter, TikTok, Reddit, Instagram, Pixiv) für bessere Vorschauen.",
+        "fr": "Modifie les URL spécifiques (Twitter, TikTok, Reddit, Instagram, Pixiv) pour de meilleurs aperçus.",
+        "pt-BR": "Modifica URLs específicos (Twitter, TikTok, Reddit, Instagram, Pixiv) para melhores visualizações.",
+        "tr": "Daha iyi önizlemeler için belirli URL'leri (Twitter, TikTok, Reddit, Instagram, Pixiv) değiştirir.",
+        "ar": "يعدل عناوين URL محددة (Twitter وTikTok وReddit وInstagram وPixiv) للحصول على معاينات أفضل.",
+        "be": "Змяняе пэўныя URL (Twitter, TikTok, Reddit, Instagram, Pixiv) для лепшага папярэдняга прагляду.",
+        "kk": "Жақсырақ алдын ала қарау үшін арнайы URL мекенжайларын (Twitter, TikTok, Reddit, Instagram, Pixiv) өзгертеді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
