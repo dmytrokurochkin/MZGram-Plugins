@@ -10278,6 +10278,39 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "shareui_advcalc",
+      "name": "Advanced Calculator",
+      "version": "2.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/shareui_advcalc/2.0.0/shareui_advcalc.plugin",
+      "sha256": "9fe6c45e055c1a84a43a0f36ac1c2271b35ca50e014d8bba5f1cf86cc6a6ccf3",
+      "size": 17402,
+      "description": "**Advanced math, BMI, Currency, etc.** [Documentation](https://github.com/shareui/plugins/blob/main/assets/advcalcdocs.md)",
+      "description_i18n": {
+        "en": "**Advanced math, BMI, Currency, etc.** [Documentation](https://github.com/shareui/plugins/blob/main/assets/advcalcdocs.md)",
+        "uk": "**Розширена математика, ІМТ, валюта тощо.** [Документація](https://github.com/shareui/plugins/blob/main/assets/advcalcdocs.md)",
+        "ru": "**Продвинутая математика, ИМТ, валюта и т. д.** [Документация](https://github.com/shareui/plugins/blob/main/assets/advcalcdocs.md)",
+        "pl": "**Zaawansowana matematyka, BMI, waluta itp.** [Dokumentacja](https://github.com/shareui/plugins/blob/main/assets/advcalcdocs.md)",
+        "es": "**Matemáticas avanzadas, IMC, moneda, etc.** [Documentación](https://github.com/shareui/plugins/blob/main/assets/advcalcdocs.md)",
+        "de": "**Fortgeschrittene Mathematik, BMI, Währung usw.** [Dokumentation](https://github.com/shareui/plugins/blob/main/assets/advcalcdocs.md)",
+        "fr": "**Mathématiques avancées, IMC, devise, etc.** [Documentation](https://github.com/shareui/plugins/blob/main/assets/advcalcdocs.md)",
+        "pt-BR": "**Matemática avançada, IMC, moeda, etc.** [Documentação](https://github.com/shareui/plugins/blob/main/assets/advcalcdocs.md)",
+        "tr": "**İleri matematik, BMI, Para Birimi vb.** [Belgeler](https://github.com/shareui/plugins/blob/main/assets/advcalcdocs.md)",
+        "ar": "**الرياضيات المتقدمة ومؤشر كتلة الجسم والعملة وما إلى ذلك** [الوثائق](https://github.com/shareui/plugins/blob/main/assets/advcalcdocs.md)",
+        "be": "**Пашыраная матэматыка, ІМТ, валюта і г.д.** [Дакументацыя](https://github.com/shareui/plugins/blob/main/assets/advcalcdocs.md)",
+        "kk": "**Жетілдірілген математика, BMI, валюта және т.б.** [Құжаттама](https://github.com/shareui/plugins/blob/main/assets/advcalcdocs.md)"
+      },
+      "requirements": [
+        "mpmath"
+      ],
+      "permissions": [
+        "messages.send",
+        "network",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
