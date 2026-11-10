@@ -10911,6 +10911,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "spen_support",
+      "name": "Samsung S-Pen Support",
+      "version": "1.6.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/spen_support/1.6.0/spen_support.plugin",
+      "sha256": "381896f54ce3ce5b98d8682a6ac8301fd4381585f93f5b833c6bc0de80e1fd9d",
+      "size": 19035,
+      "description": "S Pen button support in chats. - Selecting text with a pen while holding the button - Selecting all text with a double tap - Selecting messages by swiping on the chat background - Pressing the button above the screen instead of touching",
+      "description_i18n": {
+        "en": "S Pen button support in chats. - Selecting text with a pen while holding the button - Selecting all text with a double tap - Selecting messages by swiping on the chat background - Pressing the button above the screen instead of touching",
+        "uk": "Підтримка кнопки S Pen у чатах. - Виділення тексту ручкою, утримуючи кнопку - Виділення всього тексту подвійним дотиком - Вибір повідомлень шляхом проведення пальцем по фону чату - Натискання кнопки над екраном замість торкання",
+        "ru": "Поддержка кнопок S Pen в чатах. - Выделение текста ручкой, удерживая кнопку - Выделение всего текста двойным касанием - Выбор сообщений свайпом по фону чата - Нажатие кнопки над экраном вместо касания",
+        "pl": "Obsługa przycisku S Pen w czatach. - Zaznaczanie tekstu piórem, przytrzymując przycisk - Zaznaczanie całego tekstu podwójnym dotknięciem - Wybieranie wiadomości przesuwaniem po tle czatu - Naciśnięcie przycisku nad ekranem zamiast dotykania",
+        "es": "Compatibilidad con el botón S Pen en chats. - Seleccionar texto con un bolígrafo mientras se mantiene presionado el botón - Seleccionar todo el texto con un doble toque - Seleccionar mensajes deslizando el dedo en el fondo del chat - Presionando el botón sobre la pantalla en lugar de tocar",
+        "de": "Unterstützung der S Pen-Taste in Chats. - Auswählen von Text mit einem Stift, während die Taste gedrückt gehalten wird - Auswählen des gesamten Textes durch Doppeltippen - Auswählen von Nachrichten durch Wischen auf dem Chat-Hintergrund - Drücken der Taste über dem Bildschirm, anstatt sie zu berühren",
+        "fr": "Prise en charge du bouton S Pen dans les discussions. - Sélectionner du texte avec un stylo tout en maintenant le bouton - Sélectionner tout le texte en appuyant deux fois - Sélectionner des messages en glissant sur l'arrière-plan du chat - Appuyer sur le bouton au-dessus de l'écran au lieu de toucher",
+        "pt-BR": "Suporte ao botão S Pen em bate-papos. - Selecionar texto com uma caneta enquanto segura o botão - Selecionar todo o texto com um toque duplo - Selecionar mensagens deslizando o dedo no fundo do chat - Pressionar o botão acima da tela em vez de tocar",
+        "tr": "Sohbetlerde S Pen düğmesi desteği. - Düğmeyi basılı tutarken kalemle metin seçme - Çift dokunuşla tüm metni seçme - Sohbet arka planını kaydırarak mesajları seçme - Dokunmak yerine ekranın üstündeki düğmeye basma",
+        "ar": "دعم زر S Pen في المحادثات. - تحديد النص بالقلم أثناء الضغط على الزر - تحديد النص بالكامل بنقرة مزدوجة - تحديد الرسائل عن طريق التمرير على خلفية الدردشة - الضغط على الزر الموجود أعلى الشاشة بدلاً من اللمس",
+        "be": "Падтрымка кнопак S Pen у чатах. - Вылучэнне тэксту ручкай, утрымліваючы кнопку - Вылучэнне ўсяго тэксту падвойным націскам - Выбар паведамленняў шляхам правядзення пальцам па фоне чата - Націсканне кнопкі над экранам замест дотыку",
+        "kk": "Чатта S Pen түймешігін қолдау. - Түймені басып тұрып қаламмен мәтінді таңдау - Екі рет түрту арқылы барлық мәтінді таңдау - Чат фонында сырғыту арқылы хабарларды таңдау - Түртудің орнына экран үстіндегі түймені басу"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
