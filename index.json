@@ -5914,6 +5914,35 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "killex",
+      "name": "KillEx",
+      "version": "0.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/killex/0.0.1/killex.plugin",
+      "sha256": "9798d6ae0f97d3c0db169a4214d155776f6be757e58439ff720aa5d98633fb33",
+      "size": 93945,
+      "description": "KillEx - Hide your ex forever Locally hides selected Telegram profiles: does not open profile, links, username search and mentions If you want to remove the ban, this will not be so easy",
+      "description_i18n": {
+        "en": "KillEx - Hide your ex forever Locally hides selected Telegram profiles: does not open profile, links, username search and mentions If you want to remove the ban, this will not be so easy",
+        "uk": "KillEx - назавжди приховати свого колишнього. Локально приховує вибрані профілі Telegram: не відкриває профіль, посилання, пошук імен користувачів і згадки. Якщо ви хочете зняти заборону, це буде не так просто",
+        "ru": "KillEx - Скрыть бывшего навсегда Локально скрывает выбранные профили Telegram: не открывает профиль, ссылки, поиск по имени пользователя и упоминания. Если вы захотите снять бан, это будет не так просто",
+        "pl": "KillEx - Ukryj swojego byłego na zawsze Lokalnie ukrywa wybrane profile Telegramu: nie otwiera profilu, linków, wyszukiwania nazw użytkowników i wzmianek Jeśli chcesz usunąć ban, nie będzie to takie proste",
+        "es": "KillEx - Oculta a tu ex para siempre Oculta localmente perfiles seleccionados de Telegram: no abre perfil, enlaces, búsqueda de nombre de usuario y menciones. Si quieres eliminar la prohibición, esto no será tan fácil.",
+        "de": "KillEx - Verstecke deinen Ex für immer. Versteckt lokal ausgewählte Telegram-Profile: Öffnet Profil, Links, Benutzernamensuche und Erwähnungen nicht. Wenn Sie die Sperre aufheben möchten, wird dies nicht so einfach sein",
+        "fr": "KillEx - Cachez votre ex pour toujours Masque localement les profils Telegram sélectionnés : n'ouvre pas le profil, les liens, la recherche de nom d'utilisateur et les mentions Si vous souhaitez supprimer l'interdiction, ce ne sera pas si simple",
+        "pt-BR": "KillEx - Esconda seu ex para sempre Oculta localmente perfis selecionados do Telegram: não abre perfil, links, pesquisa de nome de usuário e menções Se você deseja remover o banimento, isso não será tão fácil",
+        "tr": "KillEx - Eski sevgilinizi sonsuza kadar gizleyin Seçilen Telegram profillerini yerel olarak gizler: profili, bağlantıları, kullanıcı adı aramasını ve bahsetmeleri açmaz Yasağı kaldırmak istiyorsanız, bu o kadar kolay olmayacak",
+        "ar": "KillEx - إخفاء حبيبك السابق إلى الأبد يخفي ملفات تعريف Telegram المحددة محليًا: لا يفتح الملف الشخصي والروابط والبحث عن اسم المستخدم والإشارات إذا كنت تريد إزالة الحظر، فلن يكون ذلك سهلاً",
+        "be": "KillEx - схавайце свайго былога назаўсёды Лакальна хавае выбраныя профілі Telegram: не адкрывае профіль, спасылкі, пошук імя карыстальніка і згадкі Калі вы хочаце зняць забарону, гэта будзе не так проста",
+        "kk": "KillEx - бұрынғысын мәңгі жасыру Таңдалған Telegram профильдерін жергілікті жасырады: профильді, сілтемелерді, пайдаланушы атын іздеуді және ескертулерді ашпайды Егер тыйымды алып тастағыңыз келсе, бұл оңай болмайды."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
