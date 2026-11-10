@@ -5572,6 +5572,36 @@
         "messages.send",
         "files"
       ]
+    },
+    {
+      "id": "image_fx_fork",
+      "name": "ImageFX Ultimate",
+      "version": "3.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/image_fx_fork/3.0/image_fx_fork.plugin",
+      "sha256": "c422f8d3628742a468ad35340131bef2aded248516b2579f54f4257bfbb30075",
+      "size": 107960,
+      "description": "Photo editor in Google Photos style: filter categories, adjusting effect strength and pixel-by-pixel cropping",
+      "description_i18n": {
+        "en": "Photo editor in Google Photos style: filter categories, adjusting effect strength and pixel-by-pixel cropping",
+        "uk": "Фоторедактор у стилі Google Photos: фільтрація категорій, регулювання сили ефекту та попіксельне кадрування",
+        "ru": "Фоторедактор в стиле Google Photos: фильтрация категорий, настройка силы эффекта и попиксельная обрезка",
+        "pl": "Edytor zdjęć w stylu Zdjęć Google: kategorie filtrów, regulacja siły efektu i kadrowanie piksel po pikselu",
+        "es": "Editor de fotos al estilo de Google Fotos: filtrar categorías, ajustar la intensidad del efecto y recortar píxel a píxel",
+        "de": "Fotoeditor im Google Fotos-Stil: Filterkategorien, Anpassen der Effektstärke und pixelweises Zuschneiden",
+        "fr": "Éditeur de photos dans le style Google Photos : filtrer les catégories, ajuster la force de l'effet et recadrer pixel par pixel",
+        "pt-BR": "Editor de fotos no estilo Google Fotos: filtrar categorias, ajustar a intensidade do efeito e cortar pixel por pixel",
+        "tr": "Google Fotoğraflar tarzında fotoğraf düzenleyici: kategorileri filtreleme, efekt gücünü ayarlama ve piksel piksel kırpma",
+        "ar": "محرر الصور بأسلوب صور Google: تصفية الفئات وضبط قوة التأثير واقتصاص البكسل تلو الآخر",
+        "be": "Фотарэдактар ​​у стылі Google Photos: фільтр па катэгорыях, рэгуляванне сілы эфекту і папіксельная абрэзка",
+        "kk": "Google Photos стиліндегі фотосурет редакторы: сүзгі санаттары, әсер күшін реттеу және пиксель бойынша қию"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
