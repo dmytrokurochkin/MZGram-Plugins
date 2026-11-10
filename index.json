@@ -10827,6 +10827,34 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "songlinker",
+      "name": "Song Linker",
+      "version": "1.0.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/songlinker/1.0.4/songlinker.plugin",
+      "sha256": "d12a384d3b1f88a5ce9487764ed8b2a65d460bdadf60c154443ecd1856d46cb7",
+      "size": 40978,
+      "description": "Converts a link into hypertext.",
+      "description_i18n": {
+        "en": "Converts a link into hypertext.",
+        "uk": "Перетворює посилання на гіпертекст.",
+        "ru": "Преобразует ссылку в гипертекст.",
+        "pl": "Konwertuje link na hipertekst.",
+        "es": "Convierte un enlace en hipertexto.",
+        "de": "Wandelt einen Link in Hypertext um.",
+        "fr": "Convertit un lien en hypertexte.",
+        "pt-BR": "Converte um link em hipertexto.",
+        "tr": "Bir bağlantıyı hipermetne dönüştürür.",
+        "ar": "تحويل الرابط إلى نص تشعبي.",
+        "be": "Пераўтварае спасылку ў гіпертэкст.",
+        "kk": "Сілтемені гипермәтінге түрлендіреді."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send"
+      ]
     }
   ]
 }
