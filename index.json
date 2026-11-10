@@ -12122,6 +12122,37 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "whyfantiq_lyricsplus_plugin",
+      "name": "LyricsPlus",
+      "version": "2.1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/whyfantiq_lyricsplus_plugin/2.1.1/whyfantiq_lyricsplus_plugin.plugin",
+      "sha256": "79cf4dc861f9adda67aca0976ad5cec3a166cd1184ccd63af7df99aa4ae4f2f2",
+      "size": 177945,
+      "description": "Plugin for viewing lyrics. **To open the text** click on the three dots in the player → \"Show text\".",
+      "description_i18n": {
+        "en": "Plugin for viewing lyrics. **To open the text** click on the three dots in the player → \"Show text\".",
+        "uk": "Плагін для перегляду пісень. **Щоб відкрити текст** натисніть на три крапки в плеєрі → «Показати текст».",
+        "ru": "Плагин для просмотра текстов песен. **Чтобы открыть текст** нажмите на три точки в плеере → «Показать текст».",
+        "pl": "Wtyczka do przeglądania tekstów. **Aby otworzyć tekst** kliknij trzy kropki w odtwarzaczu → „Pokaż tekst\".",
+        "es": "Complemento para ver letras. **Para abrir el texto** haz clic en los tres puntos del reproductor → \"Mostrar texto\".",
+        "de": "Plugin zum Anzeigen von Liedtexten. **Um den Text zu öffnen** klicken Sie auf die drei Punkte im Player → „Text anzeigen\".",
+        "fr": "Plugin pour visualiser les paroles. **Pour ouvrir le texte** cliquez sur les trois points dans le lecteur → \"Afficher le texte\".",
+        "pt-BR": "Plugin para visualizar letras. **Para abrir o texto** clique nos três pontos do player → \"Mostrar texto\".",
+        "tr": "Şarkı sözlerini görüntülemek için eklenti. **Metni açmak için** oynatıcıdaki üç noktaya tıklayın → \"Metni göster\".",
+        "ar": "البرنامج المساعد لعرض كلمات الأغاني. **لفتح النص** انقر على النقاط الثلاث في المشغل → \"إظهار النص\".",
+        "be": "Убудова для прагляду песень. **Каб адкрыць тэкст** націсніце на тры кропкі ў плэеры → «Паказаць тэкст».",
+        "kk": "Ән мәтіндерін көруге арналған плагин. **Мәтінді ашу үшін** ойнатқыштағы үш нүктені басыңыз → «Мәтінді көрсету»."
+      },
+      "permissions": [
+        "messages.read",
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
