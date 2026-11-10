@@ -1150,6 +1150,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "alwaysShowDownloadManager",
+      "name": "AlwaysShowDownloadManager",
+      "version": "1.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/alwaysShowDownloadManager/1.0.1/alwaysShowDownloadManager.plugin",
+      "sha256": "59ae4208b122ddd7d54c79a398e8c09e65184d045192e945610868e8065a4ed8",
+      "size": 818,
+      "description": "Always Show Download Manager",
+      "description_i18n": {
+        "en": "Always Show Download Manager",
+        "uk": "Завжди показувати диспетчер завантажень",
+        "ru": "Всегда показывать диспетчер загрузок",
+        "pl": "Zawsze pokazuj Menedżera pobierania",
+        "es": "Mostrar siempre el administrador de descargas",
+        "de": "Download-Manager immer anzeigen",
+        "fr": "Toujours afficher le gestionnaire de téléchargement",
+        "pt-BR": "Sempre mostrar o gerenciador de downloads",
+        "tr": "İndirme Yöneticisini Her Zaman Göster",
+        "ar": "إظهار مدير التنزيل دائمًا",
+        "be": "Заўсёды паказваць дыспетчар загрузак",
+        "kk": "Әрқашан Жүктеу менеджерін көрсету"
+      },
+      "permissions": [
+        "network",
+        "hooks"
+      ]
     }
   ]
 }
