@@ -4598,6 +4598,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "forceedge2edge",
+      "name": "ForceEdge2Edge",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/forceedge2edge/1.0/forceedge2edge.plugin",
+      "sha256": "27f4a936e3ff74002dbf0bfde4e0c9ad3575737e5e9b218cb2aa53e0285ee88d",
+      "size": 616,
+      "description": "Forces the app to be always on the edge",
+      "description_i18n": {
+        "en": "Forces the app to be always on the edge",
+        "uk": "Примушує програму бути завжди на межі",
+        "ru": "Заставляет приложение всегда быть на переднем крае",
+        "pl": "Wymusza, aby aplikacja była zawsze na krawędzi",
+        "es": "Obliga a la aplicación a estar siempre al límite",
+        "de": "Erzwingt, dass die App immer am Rande bleibt",
+        "fr": "Force l'application à être toujours à la pointe",
+        "pt-BR": "Força o aplicativo a estar sempre no limite",
+        "tr": "Uygulamayı her zaman sınırda olmaya zorlar",
+        "ar": "يفرض على التطبيق أن يكون دائمًا على الحافة",
+        "be": "Прымушае праграму заўсёды быць на мяжы",
+        "kk": "Қолданбаны әрқашан шетте болуға мәжбүрлейді"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
