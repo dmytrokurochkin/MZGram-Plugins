@@ -5743,6 +5743,37 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "ios_circle",
+      "name": "iOS Circle",
+      "version": "3.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/ios_circle/3.3/ios_circle.plugin",
+      "sha256": "42d03a66a19095c988a0efda62621ec3b449ad71f748458832bf0765c0c9f2ed",
+      "size": 181972,
+      "description": "Smooth switching of modules (front / base) in circles as on IOS",
+      "description_i18n": {
+        "en": "Smooth switching of modules (front / base) in circles as on IOS",
+        "uk": "Плавне перемикання модулів (фронт / база) по колу як на IOS",
+        "ru": "Плавное переключение модулей (фронт/база) по кругу как на IOS",
+        "pl": "Płynne przełączanie modułów (przód/podstawa) w kółko jak na IOS",
+        "es": "Cambio suave de módulos (frontal/base) en círculos como en IOS",
+        "de": "Reibungsloses Umschalten der Module (Vorderseite/Basis) im Kreis wie bei IOS",
+        "fr": "Commutation fluide des modules (avant/base) en cercles comme sur IOS",
+        "pt-BR": "Troca suave de módulos (frontal/base) em círculos como no IOS",
+        "tr": "IOS'ta olduğu gibi modüllerin (ön / taban) daireler halinde sorunsuz şekilde değiştirilmesi",
+        "ar": "التبديل السلس للوحدات (الأمامية / القاعدة) في الدوائر كما هو الحال في IOS",
+        "be": "Плыўнае пераключэнне модуляў (франт / база) па крузе як на IOS",
+        "kk": "IOS жүйесіндегідей шеңберлерде модульдерді (алдыңғы / негіз) біркелкі ауыстыру"
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
