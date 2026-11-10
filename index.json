@@ -5375,6 +5375,35 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "hide_system_notifications",
+      "name": "Hide System Notifications",
+      "version": "1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/hide_system_notifications/1.2/hide_system_notifications.plugin",
+      "sha256": "fc700c5bbc9d824b86b48f8b80d7b80e584427f0bc9a3713f4b3948357398a25",
+      "size": 24577,
+      "description": "Hides system notifications in chat (intro, changing avatar, etc.)",
+      "description_i18n": {
+        "en": "Hides system notifications in chat (intro, changing avatar, etc.)",
+        "uk": "Приховує системні сповіщення в чаті (введення, зміна аватара тощо)",
+        "ru": "Скрывает системные уведомления в чате (заставка, смена аватара и т.д.)",
+        "pl": "Ukrywa powiadomienia systemowe na czacie (wprowadzenie, zmiana awatara itp.)",
+        "es": "Oculta notificaciones del sistema en el chat (introducción, cambio de avatar, etc.)",
+        "de": "Versteckt Systembenachrichtigungen im Chat (Einführung, Avatarwechsel usw.)",
+        "fr": "Masque les notifications système dans le chat (intro, changement d'avatar, etc.)",
+        "pt-BR": "Oculta notificações do sistema no chat (introdução, alteração de avatar, etc.)",
+        "tr": "Sohbetteki sistem bildirimlerini gizler (giriş, avatar değiştirme vb.)",
+        "ar": "إخفاء إشعارات النظام في الدردشة (المقدمة، تغيير الصورة الرمزية، وما إلى ذلك)",
+        "be": "Хавае сістэмныя апавяшчэнні ў чаце (інтра, змена аватара і г.д.)",
+        "kk": "Чаттағы жүйелік хабарландыруларды жасырады (кіріспе, аватарды өзгерту, т.б.)"
+      },
+      "permissions": [
+        "messages.read",
+        "network",
+        "hooks"
+      ]
     }
   ]
 }
