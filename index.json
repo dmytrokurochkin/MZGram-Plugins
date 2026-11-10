@@ -10684,6 +10684,35 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "similar_nft",
+      "name": "Similar NFT",
+      "version": "1.5.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/similar_nft/1.5.0/similar_nft.plugin",
+      "sha256": "5a1a09343e165a582aaeed411993b55b2dfdfdbadc224386306e0894d1341dda",
+      "size": 131939,
+      "description": "\"Similar NFTs\" button in the collectible gift window. Shows lots with the same model, background or symbol: prices, floor, median, filters by currency, price and rarity, favorites.",
+      "description_i18n": {
+        "en": "\"Similar NFTs\" button in the collectible gift window. Shows lots with the same model, background or symbol: prices, floor, median, filters by currency, price and rarity, favorites.",
+        "uk": "Кнопка «Подібні NFT» у вікні колекційних подарунків. Показує лоти з однаковою моделлю, фоном або символом: ціни, мінімум, медіана, фільтри за валютою, ціною та рідкістю, вибране.",
+        "ru": "Кнопка «Похожие NFT» в окне коллекционных подарков. Показывает лоты с одинаковой моделью, фоном или символом: цены, минимальная цена, медиана, фильтры по валюте, цене и редкости, избранное.",
+        "pl": "Przycisk „Podobne NFT\" w oknie prezentów kolekcjonerskich. Pokazuje przedmioty z tym samym modelem, tłem lub symbolem: ceny, minimalną cenę, medianę, filtruje według waluty, ceny i rzadkości, ulubione.",
+        "es": "Botón \"NFT similares\" en la ventana de obsequio coleccionable. Muestra lotes con el mismo modelo, fondo o símbolo: precios, piso, mediana, filtros por moneda, precio y rareza, favoritos.",
+        "de": "Schaltfläche „Ähnliche NFTs\" im Sammelgeschenkfenster. Zeigt Lose mit demselben Modell, Hintergrund oder Symbol an: Preise, Mindestpreis, Median, Filter nach Währung, Preis und Seltenheit, Favoriten.",
+        "fr": "Bouton « NFT similaires » dans la fenêtre des cadeaux à collectionner. Affiche les lots avec le même modèle, fond ou symbole : prix, plancher, médiane, filtres par devise, prix et rareté, favoris.",
+        "pt-BR": "Botão \"NFTs semelhantes\" na janela de presentes colecionáveis. Mostra lotes com o mesmo modelo, fundo ou símbolo: preços, piso, mediana, filtros por moeda, preço e raridade, favoritos.",
+        "tr": "Koleksiyonluk hediyeler penceresindeki \"Benzer NFT'ler\" düğmesi. Aynı model, arka plan veya sembole sahip partileri gösterir: fiyatlar, taban değer, ortalama değer, para birimine, fiyata ve nadirliğe göre filtreler, favoriler.",
+        "ar": "زر \"NFTs مماثلة\" في نافذة الهدايا القابلة للتحصيل. يعرض الكثير بنفس النموذج أو الخلفية أو الرمز: الأسعار والأرضية والوسيط والمرشحات حسب العملة والسعر والندرة والمفضلة.",
+        "be": "Кнопка «Падобныя NFT» у акне калекцыйных падарункаў. Паказвае лоты з аднолькавай мадэллю, фонам або сімвалам: цэны, мінімум, медыяна, фільтры па валюце, цане і рэдкасці, абранае.",
+        "kk": "Коллекциялық сыйлық терезесіндегі \"Ұқсас NFTs\" түймесі. Үлгі, фон немесе символы бірдей лоттарды көрсетеді: бағалар, еден, медиана, валюта бойынша сүзгілер, баға және сиректік, таңдаулылар."
+      },
+      "permissions": [
+        "messages.read",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
