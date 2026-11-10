@@ -2947,6 +2947,35 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "currency_converter",
+      "name": "Currency Converter",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/currency_converter/1.0/Converter.plugin",
+      "sha256": "885502965aa1e04635664de79f04ac8e61cdadd86d27b649bee0295cab7c0138",
+      "size": 23839,
+      "description": "Converts fiat and cryptocurrencies with current rates Usage: .conv <from> to <to> <amount> Examples: • .conv usd to rub 100 • .conv btc to usd 1 • .conv eth to rub 5 Supports fiat and 20 cryptocurrencies (BTC, ETH, USDT, BNB, SOL, XRP, USDC, ADA, DOGE, TRX, TON, LINK, MATIC, DOT, DAI, LTC, SHIB, BCH, AVAX, UNI)",
+      "description_i18n": {
+        "en": "Converts fiat and cryptocurrencies with current rates Usage: .conv <from> to <to> <amount> Examples: • .conv usd to rub 100 • .conv btc to usd 1 • .conv eth to rub 5 Supports fiat and 20 cryptocurrencies (BTC, ETH, USDT, BNB, SOL, XRP, USDC, ADA, DOGE, TRX, TON, LINK, MATIC, DOT, DAI, LTC, SHIB, BCH, AVAX, UNI)",
+        "uk": "Конвертує фіатні та криптовалюти за поточними курсами. Використання: .conv <від> до <до> <сума> Приклади: • .conv usd до руб. 100 • .conv btc до долар США 1 • .conv eth до руб. 5 Підтримує фіат і 20 криптовалют (BTC, ETH, USDT, BNB, SOL, XRP, USDC, ADA, DOGE, TRX, TON, LINK, MATIC, DOT, DAI, LTC, SHIB, BCH, AVAX, UNI)",
+        "ru": "Конвертирует фиатные и криптовалюты по текущим курсам. Использование: .conv <from> в <to> <сумма> Примеры: • .conv usd в 100 рублей • .conv btc в 1 доллары США • .conv eth в рубли 5 Поддерживает фиат и 20 криптовалют (BTC, ETH, USDT, BNB, SOL, XRP, USDC, ADA, DOGE, TRX, TON, LINK, MATIC, DOT, DAI, LTC, SHIB, BCH, AVAX, UNI)",
+        "pl": "Przelicza waluty fiat i kryptowaluty według aktualnych kursów Zastosowanie: .conv <od> do <do> <kwota> Przykłady: • .conv usd na rub 100 • .conv btc na usd 1 • .conv eth na rub 5 Obsługuje fiat i 20 kryptowalut (BTC, ETH, USDT, BNB, SOL, XRP, USDC, ADA, DOGE, TRX, TON, LINK, MATIC, DOT, DAI, LTC, SHIB, BCH, AVAX, UNI)",
+        "es": "Convierte monedas fiduciarias y criptomonedas con las tasas actuales Uso: .conv <de> a <a> <cantidad> Ejemplos: • .conv usd para frotar 100 • .conv btc para usar 1 • .conv eth para frotar 5 Admite fiat y 20 criptomonedas (BTC, ETH, USDT, BNB, SOL, XRP, USDC, ADA, DOGE, TRX, TON, LINK, MATIC, PUNTO, DAI, LTC, SHIB, BCH, AVAX, UNI)",
+        "de": "Konvertiert Fiat- und Kryptowährungen mit aktuellen Kursen. Verwendung: .conv <von> in <bis> <Betrag> Beispiele: • .conv usd in 100 Rubel • .conv BTC in 1 USD • .conv eth in 5 Rubel Unterstützt Fiat und 20 Kryptowährungen (BTC, ETH, USDT, BNB, SOL, XRP, USDC, ADA, DOGE, TRX, TON, LINK, MATIC, DOT, DAI, LTC, SHIB, BCH, AVAX, UNI)",
+        "fr": "Convertit les monnaies fiduciaires et les crypto-monnaies avec les taux actuels Utilisation : .conv <de> à <à> <montant> Exemples : • .conv usd pour frotter 100 • .conv btc en usd 1 • .conv eth pour frotter 5 Prend en charge la monnaie fiduciaire et 20 crypto-monnaies (BTC, ETH, USDT, BNB, SOL, XRP, USDC, ADA, DOGE, TRX, TON, LINK, MATIC, DOT, DAI, LTC, SHIB, BCH, AVAX, UNI)",
+        "pt-BR": "Converte moedas fiduciárias e criptomoedas com taxas atuais Uso: .conv <de> para <to> <quantidade> Exemplos: • .conv usd para esfregar 100 • .conv btc para usd 1 • .conv eth para esfregar 5 Suporta fiat e 20 criptomoedas (BTC, ETH, USDT, BNB, SOL, XRP, USDC, ADA, DOGE, TRX, TON, LINK, MATIC, DOT, DAI, LTC, SHIB, BCH, AVAX, UNI)",
+        "tr": "Fiat ve kripto para birimlerini geçerli kurlarla dönüştürür Kullanım: .conv <from> - <to> <amount> Örnekler: • .conv usd'den rub 100'e • .conv btc'den usd 1'e • .conv eth'den rub 5'e Fiat ve 20 kripto para birimlerini destekler (BTC, ETH, USDT, BNB, SOL, XRP, USDC, ADA, DOGE, TRX, TON, LINK, MATIC, DOT, DAI, LTC, SHIB, BCH, AVAX, UNI)",
+        "ar": "تحويل العملات الورقية والعملات المشفرة بالمعدلات الحالية الاستخدام: .conv <من> إلى <to> <amount> أمثلة: • .conv usd إلى Rub 100 • .conv btc إلى usd 1 • .conv eth إلى Rub 5 يدعم العملات الورقية و20 عملة مشفرة (BTC، ETH، USDT، BNB، SOL، XRP، USDC، ADA، DOGE، TRX، TON، LINK، MATIC، DOT، DAI، LTC، SHIB، BCH، AVAX، UNI)",
+        "be": "Канвертуе фіят і крыптавалюты з бягучымі курсамі. Выкарыстанне: .conv <ад> да <да> <сума> Прыклады: • .conv usd да руб 100 • .conv btc да долар 1 • .conv eth да руб 5 Падтрымка фіят і 20 крыптавалют (BTC, ETH, USDT, BNB, SOL, XRP, USDC, ADA, DOGE, TRX, TON, LINK, MATIC, DOT, DAI, LTC, SHIB, BCH, AVAX, UNI)",
+        "kk": "Fiat және криптовалюталарды ағымдағы бағамдармен түрлендіреді Қолдану: .conv <from> to <to> <soma> Мысалдар: • .conv usd to rub 100 • .conv btc to usd 1 • .conv eth to rub 5 Fiat және 20 криптовалюталарды (X,BTC, ETH, XRP, BTC, BTH, USD) қолдайды. USDC, ADA, DOGE, TRX, TON, LINK, MATIC, DOT, DAI, LTC, SHIB, BCH, AVAX, UNI)"
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "files"
+      ]
     }
   ]
 }
