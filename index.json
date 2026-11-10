@@ -2360,6 +2360,35 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "chat_colors",
+      "name": "Chat Colors",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/chat_colors/1.0/chat_colors.plugin",
+      "sha256": "a7217c0cc672615e3558b8f3391b522f7e031bc0900a84315b4eb4f53ece8de5",
+      "size": 14727,
+      "description": "**Custom color for selected chats** in the chat list.",
+      "description_i18n": {
+        "en": "**Custom color for selected chats** in the chat list.",
+        "uk": "**Власний колір для вибраних чатів** у списку чатів.",
+        "ru": "**Пользовательский цвет для выбранных чатов** в списке чатов.",
+        "pl": "**Niestandardowy kolor dla wybranych czatów** na liście czatów.",
+        "es": "**Color personalizado para chats seleccionados** en la lista de chats.",
+        "de": "**Benutzerdefinierte Farbe für ausgewählte Chats** in der Chat-Liste.",
+        "fr": "**Couleur personnalisée pour les discussions sélectionnées** dans la liste de discussions.",
+        "pt-BR": "**Cor personalizada para chats selecionados** na lista de chat.",
+        "tr": "Sohbet listesinde **seçili sohbetler için özel renk**.",
+        "ar": "**لون مخصص للدردشات المحددة** في قائمة الدردشات.",
+        "be": "**Карыстальніцкі колер для выбраных чатаў** у спісе чатаў.",
+        "kk": "**Таңдалған чаттар үшін таңдалған түс** чат тізімінде."
+      },
+      "permissions": [
+        "messages.read",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
