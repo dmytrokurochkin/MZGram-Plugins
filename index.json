@@ -6032,6 +6032,38 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "link_guard",
+      "name": "Link Guard",
+      "version": "1.7.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/link_guard/1.7.0/link_guard.plugin",
+      "sha256": "5fbe87b162ce4f9228809ff78c76ae07d17924cc376cbd802a6e9c11d4c5ded9",
+      "size": 117923,
+      "description": "Checks links before clicking: shows the real domain, catches phishing and character substitution, cleans out trackers. Checks links before you open them: reveals the real domain, catches phishing and look-alike characters, strips trackers.",
+      "description_i18n": {
+        "en": "Checks links before clicking: shows the real domain, catches phishing and character substitution, cleans out trackers. Checks links before you open them: reveals the real domain, catches phishing and look-alike characters, strips trackers.",
+        "uk": "Перевіряє посилання перед натисканням: показує справжній домен, ловить фішинг і підміну символів, очищає трекери. Перевіряє посилання перед тим, як їх відкрити: розкриває справжній домен, виловлює фішингові та схожих персонажів, видаляє трекери.",
+        "ru": "Проверяет ссылки перед переходом: показывает реальный домен, ловит фишинг и подмену символов, чистит трекеры. Проверяет ссылки перед их открытием: выявляет настоящий домен, ловит фишинговые и похожие символы, удаляет трекеры.",
+        "pl": "Sprawdza linki przed kliknięciem: pokazuje prawdziwą domenę, wychwytuje phishing i podstawianie znaków, czyści moduły śledzące. Sprawdza linki przed ich otwarciem: ujawnia prawdziwą domenę, wyłapuje phishing i podobne postacie, usuwa moduły śledzące.",
+        "es": "Comprueba los enlaces antes de hacer clic: muestra el dominio real, detecta phishing y sustitución de caracteres, limpia los rastreadores. Comprueba los enlaces antes de abrirlos: revela el dominio real, detecta phishing y personajes parecidos, elimina los rastreadores.",
+        "de": "Überprüft Links vor dem Klicken: Zeigt die echte Domain an, erkennt Phishing und Zeichenersetzungen und bereinigt Tracker. Überprüft Links, bevor Sie sie öffnen: Enthüllt die echte Domain, fängt Phishing- und Doppelgänger ab und entfernt Tracker.",
+        "fr": "Vérifie les liens avant de cliquer : affiche le domaine réel, détecte le phishing et la substitution de caractères, nettoie les trackers. Vérifie les liens avant de les ouvrir : révèle le domaine réel, détecte le phishing et les personnages similaires, supprime les trackers.",
+        "pt-BR": "Verifica os links antes de clicar: mostra o domínio real, detecta phishing e substituição de caracteres, limpa rastreadores. Verifica os links antes de abri-los: revela o domínio real, detecta phishing e caracteres semelhantes, remove rastreadores.",
+        "tr": "Tıklamadan önce bağlantıları kontrol eder: gerçek etki alanını gösterir, kimlik avını ve karakter değişikliğini yakalar, izleyicileri temizler. Bağlantıları açmadan önce kontrol eder: gerçek alanı ortaya çıkarır, kimlik avı ve benzer karakterleri yakalar, izleyicileri çıkarır.",
+        "ar": "التحقق من الروابط قبل النقر: يعرض النطاق الحقيقي، ويكتشف التصيد الاحتيالي واستبدال الأحرف، وينظف أدوات التتبع. التحقق من الروابط قبل فتحها: يكشف عن النطاق الحقيقي، ويلتقط التصيد الاحتيالي والشخصيات المتشابهة، ويزيل أجهزة التتبع.",
+        "be": "Правярае спасылкі перад націскам: паказвае сапраўдны дамен, ловіць фішынг і падмену сімвалаў, ачышчае трэкеры. Правярае спасылкі перад тым, як іх адкрыць: выяўляе сапраўдны дамен, ловіць фішынгавых і падобных персанажаў, выдаляе трэкеры.",
+        "kk": "Басудан бұрын сілтемелерді тексереді: нақты доменді көрсетеді, фишингті және кейіпкерлерді ауыстыруды ұстайды, трекерлерді тазартады. Сілтемелерді ашпас бұрын тексереді: нақты доменді ашады, фишинг пен ұқсас таңбаларды ұстайды, трекерлерді ажыратады."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
