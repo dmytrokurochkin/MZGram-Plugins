@@ -6918,6 +6918,34 @@
         "be": "Убудова для гульні ў тральшчык. Выкарыстанне: у чаце Three Dots --> Убудовы --> Minesweeper",
         "kk": "Minesweeper ойнауға арналған плагин. Қолданылуы: Үш нүкте чатында --> Плагиндер --> Minesweeper"
       }
+    },
+    {
+      "id": "mini_app_domain",
+      "name": "Mini App Domain",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/mini_app_domain/1.0/mini_app_domain.plugin",
+      "sha256": "2f7f20c67b8a90a05d035ff4b074d3694bc283ba1afe6aec56c241cf5e1a89ac",
+      "size": 13701,
+      "description": "Shows the Mini App domain in the header.",
+      "description_i18n": {
+        "en": "Shows the Mini App domain in the header.",
+        "uk": "Показує домен Mini App у заголовку.",
+        "ru": "Показывает домен мини-приложения в заголовке.",
+        "pl": "Pokazuje domenę Mini App w nagłówku.",
+        "es": "Muestra el dominio de la mini aplicación en el encabezado.",
+        "de": "Zeigt die Mini-App-Domäne in der Kopfzeile an.",
+        "fr": "Affiche le domaine de la mini-application dans l'en-tête.",
+        "pt-BR": "Mostra o domínio do Mini App no ​​cabeçalho.",
+        "tr": "Başlıkta Mini Uygulama alanını gösterir.",
+        "ar": "يعرض مجال التطبيق المصغر في الرأس.",
+        "be": "Паказвае дамен Mini App у загалоўку.",
+        "kk": "Тақырыпта шағын қолданба доменін көрсетеді."
+      },
+      "permissions": [
+        "network",
+        "hooks"
+      ]
     }
   ]
 }
