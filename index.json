@@ -6592,6 +6592,37 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "media_transformer_ecubz",
+      "name": "Media Transformer",
+      "version": "9.0.7",
+      "min_app_version": "1.0.0",
+      "file": "plugins/media_transformer_ecubz/9.0.7/media_transformer_ecubz.plugin",
+      "sha256": "06dc05704442b80ab32214148bea74c2e629301262c5c6e04d8ad5a821a3cf69",
+      "size": 114221,
+      "description": "Transforms videos into circles and audio files into voice messages. Supports Watch Once mode, long video cutting, preview menu and media editor.",
+      "description_i18n": {
+        "en": "Transforms videos into circles and audio files into voice messages. Supports Watch Once mode, long video cutting, preview menu and media editor.",
+        "uk": "Перетворює відео в кола, а аудіофайли в голосові повідомлення. Підтримує режим перегляду один раз, нарізку довгого відео, меню попереднього перегляду та медіаредактор.",
+        "ru": "Преобразует видео в круги, а аудиофайлы в голосовые сообщения. Поддерживает режим «Однократный просмотр», обрезку длинных видео, меню предварительного просмотра и медиаредактор.",
+        "pl": "Przekształca filmy w kręgi, a pliki audio w wiadomości głosowe. Obsługuje tryb Obejrzyj raz, wycinanie długich filmów, menu podglądu i edytor multimediów.",
+        "es": "Transforma vídeos en círculos y archivos de audio en mensajes de voz. Admite el modo Ver una vez, corte de video largo, menú de vista previa y editor de medios.",
+        "de": "Verwandelt Videos in Kreise und Audiodateien in Sprachnachrichten. Unterstützt den Modus „Einmal ansehen\", das Schneiden langer Videos, das Vorschaumenü und den Medieneditor.",
+        "fr": "Transforme les vidéos en cercles et les fichiers audio en messages vocaux. Prend en charge le mode Watch Once, le découpage vidéo long, le menu de prévisualisation et l'éditeur multimédia.",
+        "pt-BR": "Transforma vídeos em círculos e arquivos de áudio em mensagens de voz. Suporta modo Assistir uma vez, corte de vídeo longo, menu de visualização e editor de mídia.",
+        "tr": "Videoları çevrelere ve ses dosyalarını sesli mesajlara dönüştürür. Bir Kez İzle modunu, uzun video kesmeyi, önizleme menüsünü ve medya düzenleyiciyi destekler.",
+        "ar": "يحول مقاطع الفيديو إلى دوائر والملفات الصوتية إلى رسائل صوتية. يدعم وضع المشاهدة مرة واحدة، وتقطيع الفيديو الطويل، وقائمة المعاينة، ومحرر الوسائط.",
+        "be": "Пераўтварае відэа ў кругі, а аўдыяфайлы - у галасавыя паведамленні. Падтрымлівае рэжым прагляду адзін раз, нарэзку доўгага відэа, меню папярэдняга прагляду і рэдактар ​​мультымедыя.",
+        "kk": "Бейнелерді шеңберлерге және аудио файлдарды дауыстық хабарларға түрлендіреді. Бір рет көру режимін, ұзақ бейнені кесуді, алдын ала қарау мәзірін және медиа редакторды қолдайды."
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
