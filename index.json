@@ -7292,6 +7292,36 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "music_stats_v2",
+      "name": "Music Stats",
+      "version": "2.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/music_stats_v2/2.3/music_stats_v2.plugin",
+      "sha256": "3d87a3d9c262c44ea93e463243cdd62a500bc0a1c192966b58005439c314eb3e",
+      "size": 45014,
+      "description": "Detailed music statistics: time tracking, top tracks and artists. Customizable daily goal.",
+      "description_i18n": {
+        "en": "Detailed music statistics: time tracking, top tracks and artists. Customizable daily goal.",
+        "uk": "Детальна музична статистика: відстеження часу, найпопулярніші треки та виконавці. Настроювана щоденна мета.",
+        "ru": "Подробная музыкальная статистика: учет времени, топ треков и исполнителей. Настраиваемая ежедневная цель.",
+        "pl": "Szczegółowe statystyki muzyczne: śledzenie czasu, najpopularniejsze utwory i artyści. Konfigurowalny cel dzienny.",
+        "es": "Estadísticas musicales detalladas: seguimiento del tiempo, pistas principales y artistas. Objetivo diario personalizable.",
+        "de": "Detaillierte Musikstatistiken: Zeiterfassung, Top-Titel und Künstler. Anpassbares Tagesziel.",
+        "fr": "Statistiques musicales détaillées : suivi du temps, meilleurs morceaux et artistes. Objectif quotidien personnalisable.",
+        "pt-BR": "Estatísticas musicais detalhadas: controle de tempo, principais faixas e artistas. Meta diária personalizável.",
+        "tr": "Ayrıntılı müzik istatistikleri: zaman takibi, en iyi parçalar ve sanatçılar. Özelleştirilebilir günlük hedef.",
+        "ar": "إحصائيات الموسيقى التفصيلية: تتبع الوقت وأفضل المقاطع الصوتية والفنانين. هدف يومي قابل للتخصيص.",
+        "be": "Падрабязная музычная статыстыка: улік часу, папулярныя трэкі і выканаўцы. Наладжвальная штодзённая мэта.",
+        "kk": "Толық музыка статистикасы: уақытты бақылау, үздік тректер және әртістер. Реттелетін күнделікті мақсат."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "files",
+        "intents"
+      ]
     }
   ]
 }
