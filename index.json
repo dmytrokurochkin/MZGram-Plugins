@@ -3174,6 +3174,34 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "cuturl",
+      "name": "CutURL",
+      "version": "1.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/cuturl/1.0.1/cuturl.plugin",
+      "sha256": "cab92161e7272a9f28eb65651e153108d5dd31178bdc7a3e370bd6033451a93a",
+      "size": 13537,
+      "description": "Shorten URLs using Cutt.ly, TinyURL, is.gd, Cleanuri, Bitly or Clck.ru. Use .cut <link>",
+      "description_i18n": {
+        "en": "Shorten URLs using Cutt.ly, TinyURL, is.gd, Cleanuri, Bitly or Clck.ru. Use .cut <link>",
+        "uk": "Скоротіть URL-адреси за допомогою Cutt.ly, TinyURL, is.gd, Cleanuri, Bitly або Clck.ru. Використовуйте .cut <link>",
+        "ru": "Сократите URL-адреса с помощью Cutt.ly, TinyURL, is.gd, Cleanuri, Bitly или Clck.ru. Используйте .cut <ссылка>",
+        "pl": "Skracaj adresy URL za pomocą Cutt.ly, TinyURL, is.gd, Cleanuri, Bitly lub Clck.ru. Użyj .cut <link>",
+        "es": "Acorte las URL usando Cutt.ly, TinyURL, is.gd, Cleanuri, Bitly o Clck.ru. Utilice .cut <enlace>",
+        "de": "Kürzen Sie URLs mit Cutt.ly, TinyURL, is.gd, Cleanuri, Bitly oder Clck.ru. Verwenden Sie .cut <Link>",
+        "fr": "Raccourcissez les URL à l'aide de Cutt.ly, TinyURL, is.gd, Cleanuri, Bitly ou Clck.ru. Utilisez .cut <lien>",
+        "pt-BR": "Encurte URLs usando Cutt.ly, TinyURL, is.gd, Cleanuri, Bitly ou Clck.ru. Usar .cut <link>",
+        "tr": "URL'leri Cutt.ly, TinyURL, is.gd, Cleanuri, Bitly veya Clck.ru kullanarak kısaltın. .cut <link> kullanın",
+        "ar": "قم بتقصير عناوين URL باستخدام Cutt.ly أو TinyURL أو is.gd أو Cleanuri أو Bitly أو Clck.ru. استخدم .cut <الرابط>",
+        "be": "Скароціце URL-адрасы з дапамогай Cutt.ly, TinyURL, is.gd, Cleanuri, Bitly або Clck.ru. Выкарыстоўвайце .cut <спасылка>",
+        "kk": "Cutt.ly, TinyURL, is.gd, Cleanuri, Bitly немесе Clck.ru арқылы URL мекенжайларын қысқартыңыз. .cut <link> пайдаланыңыз"
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
