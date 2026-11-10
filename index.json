@@ -7350,6 +7350,34 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "mute_account",
+      "name": "Mute Account",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/mute_account/1.0/mute_account.plugin",
+      "sha256": "d52a73d8f64a9687c012c6c4ae754b4cb6777d86d0584041f1f6020bbb0abc66",
+      "size": 5313,
+      "description": "The plugin disables push notifications and local pop-ups only for selected accounts.",
+      "description_i18n": {
+        "en": "The plugin disables push notifications and local pop-ups only for selected accounts.",
+        "uk": "Плагін вимикає push-сповіщення та локальні спливаючі вікна лише для вибраних облікових записів.",
+        "ru": "Плагин отключает push-уведомления и локальные всплывающие окна только для выбранных учетных записей.",
+        "pl": "Wtyczka wyłącza powiadomienia push i lokalne wyskakujące okienka tylko dla wybranych kont.",
+        "es": "El complemento deshabilita las notificaciones automáticas y las ventanas emergentes locales solo para cuentas seleccionadas.",
+        "de": "Das Plugin deaktiviert Push-Benachrichtigungen und lokale Popups nur für ausgewählte Konten.",
+        "fr": "Le plugin désactive les notifications push et les fenêtres contextuelles locales uniquement pour les comptes sélectionnés.",
+        "pt-BR": "O plugin desativa notificações push e pop-ups locais apenas para contas selecionadas.",
+        "tr": "Eklenti, yalnızca seçilen hesaplar için anlık bildirimleri ve yerel açılır pencereleri devre dışı bırakır.",
+        "ar": "يقوم المكون الإضافي بتعطيل الإشعارات والنوافذ المنبثقة المحلية للحسابات المحددة فقط.",
+        "be": "Убудова адключае push-апавяшчэнні і лакальныя ўсплывальныя вокны толькі для выбраных уліковых запісаў.",
+        "kk": "Плагин тек таңдалған тіркелгілер үшін push хабарландырулары мен жергілікті қалқымалы терезелерді өшіреді."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
