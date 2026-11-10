@@ -11720,6 +11720,33 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "uname-in-name",
+      "name": "UserName-In-Name",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/uname-in-name/1.1.0/uname-in-name.plugin",
+      "sha256": "47b137f706999693788c940f4d21160aa8eef3ccbf3b620e1afdffd14ba6064b",
+      "size": 43855,
+      "description": "Displaying the username in the username according to a given template",
+      "description_i18n": {
+        "en": "Displaying the username in the username according to a given template",
+        "uk": "Відображення імені користувача в імені користувача за заданим шаблоном",
+        "ru": "Отображение имени пользователя в имени пользователя по заданному шаблону",
+        "pl": "Wyświetlanie nazwy użytkownika w nazwie użytkownika według zadanego szablonu",
+        "es": "Mostrar el nombre de usuario en el nombre de usuario según una plantilla determinada",
+        "de": "Anzeige des Benutzernamens im Benutzernamen gemäß einer vorgegebenen Vorlage",
+        "fr": "Afficher le nom d'utilisateur dans le nom d'utilisateur selon un modèle donné",
+        "pt-BR": "Exibindo o nome de usuário no nome de usuário de acordo com um determinado modelo",
+        "tr": "Belirli bir şablona göre kullanıcı adının kullanıcı adında görüntülenmesi",
+        "ar": "عرض اسم المستخدم في اسم المستخدم حسب قالب معين",
+        "be": "Адлюстраванне імя карыстальніка ў імя карыстальніка па зададзеным шаблоне",
+        "kk": "Пайдаланушы атын берілген үлгіге сәйкес пайдаланушы атында көрсету"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
