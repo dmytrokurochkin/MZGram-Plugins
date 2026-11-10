@@ -7687,6 +7687,36 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "notification_center",
+      "name": "Notification Center",
+      "version": "4.6",
+      "min_app_version": "1.0.0",
+      "file": "plugins/notification_center/4.6/notification_center.plugin",
+      "sha256": "243e0218633df44fed18a60d95760c231d03220c9a34d9cf37b81bad670260d8",
+      "size": 74424,
+      "description": "Discord-style notification center: saves replies to your messages and mentions of you.",
+      "description_i18n": {
+        "en": "Discord-style notification center: saves replies to your messages and mentions of you.",
+        "uk": "Центр сповіщень у стилі Discord: зберігає відповіді на ваші повідомлення та згадки про вас.",
+        "ru": "Центр уведомлений в стиле Discord: сохраняет ответы на ваши сообщения и упоминания о вас.",
+        "pl": "Centrum powiadomień w stylu Discorda: zapisuje odpowiedzi na Twoje wiadomości i wzmianki o Tobie.",
+        "es": "Centro de notificaciones estilo Discord: guarda las respuestas a tus mensajes y las menciones tuyas.",
+        "de": "Benachrichtigungscenter im Discord-Stil: Speichert Antworten auf Ihre Nachrichten und Erwähnungen von Ihnen.",
+        "fr": "Centre de notification de style Discord : enregistre les réponses à vos messages et les mentions de vous.",
+        "pt-BR": "Central de notificações estilo Discord: salva respostas às suas mensagens e menções sobre você.",
+        "tr": "Discord tarzı bildirim merkezi: mesajlarınıza verilen yanıtları ve sizden bahsedilenleri kaydeder.",
+        "ar": "مركز الإشعارات على نمط Discord: يحفظ الردود على رسائلك والإشارات إليك.",
+        "be": "Цэнтр апавяшчэнняў у стылі Discord: захоўвае адказы на вашы паведамленні і згадкі пра вас.",
+        "kk": "Discord стиліндегі хабарландыру орталығы: хабарламаларыңызға жауаптар мен сіз туралы айтылғандарды сақтайды."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
