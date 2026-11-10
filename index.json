@@ -1376,6 +1376,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "attach_gallery_grid",
+      "name": "Attach Gallery Grid",
+      "version": "1.2.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/attach_gallery_grid/1.2.2/attach_gallery_grid.plugin",
+      "sha256": "313eb52ffb0306d7ff1180eb1f2a53feb50175880ce0212fa5ea4e088443779e",
+      "size": 86171,
+      "description": "Attachment gallery, stickers & GIF grids: pinch-to-zoom columns, square proportional cells, smooth zoom animations, and instant selection circle scaling without delays.",
+      "description_i18n": {
+        "en": "Attachment gallery, stickers & GIF grids: pinch-to-zoom columns, square proportional cells, smooth zoom animations, and instant selection circle scaling without delays.",
+        "uk": "Галерея вкладень, наклейки та GIF-сітки: стовпці, які можна масштабувати, квадратні пропорційні комірки, плавна анімація масштабування та миттєве масштабування кола виділення без затримок.",
+        "ru": "Галерея вложений, стикеры и сетки GIF: столбцы с возможностью масштабирования, квадратные пропорциональные ячейки, плавная анимация масштабирования и мгновенное масштабирование круга выделения без задержек.",
+        "pl": "Galeria załączników, naklejki i siatki GIF: kolumny z możliwością przybliżenia przez uszczypnięcie, kwadratowe komórki proporcjonalne, płynne animacje powiększania i natychmiastowe skalowanie okręgu wyboru bez opóźnień.",
+        "es": "Galería de archivos adjuntos, pegatinas y cuadrículas GIF: columnas que se pueden pellizcar para hacer zoom, celdas proporcionales cuadradas, animaciones de zoom suaves y escalado de círculos de selección instantánea y sin demoras.",
+        "de": "Anhangsgalerie, Aufkleber und GIF-Raster: Pinch-to-Zoom-Spalten, quadratische Proportionalzellen, flüssige Zoom-Animationen und sofortige Skalierung des Auswahlkreises ohne Verzögerungen.",
+        "fr": "Galerie de pièces jointes, autocollants et grilles GIF : colonnes à pincer pour zoomer, cellules carrées proportionnelles, animations de zoom fluides et mise à l'échelle instantanée du cercle de sélection sans délai.",
+        "pt-BR": "Galeria de anexos, adesivos e grades GIF: colunas de pinça para zoom, células quadradas proporcionais, animações de zoom suaves e escala de círculo de seleção instantânea sem atrasos.",
+        "tr": "Ek galerisi, çıkartmalar ve GIF ızgaraları: sıkıştırarak yakınlaştırılabilen sütunlar, kare orantılı hücreler, yumuşak yakınlaştırma animasyonları ve gecikmeler olmadan anında seçim dairesi ölçeklendirmesi.",
+        "ar": "معرض المرفقات والملصقات وشبكات GIF: أعمدة يتم الضغط عليها للتكبير/التصغير، وخلايا مربعة متناسبة، ورسوم متحركة سلسة للتكبير/التصغير، وقياس دائرة التحديد الفوري دون تأخير.",
+        "be": "Галерэя ўкладанняў, налепкі і GIF-сеткі: слупкі, якія павялічваюцца, квадратныя прапарцыйныя ячэйкі, плыўная анімацыя маштабавання і імгненнае маштабаванне круга выбару без затрымак.",
+        "kk": "Тіркеме галереясы, стикерлер және GIF торлары: масштабтау үшін шымшу бағандары, квадраттық пропорционалды ұяшықтар, тегіс масштабтау анимациялары және кідіріссіз таңдау шеңберін масштабтау."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
