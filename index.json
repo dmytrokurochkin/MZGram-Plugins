@@ -1992,6 +1992,35 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "bubble_pop",
+      "name": "Bubble Pop",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/bubble_pop/1.0.0/bubble_pop.plugin",
+      "sha256": "79dac349f1d8a96da99541a4642dd1d9cde799cfd3531601dd6105643eba9a35",
+      "size": 26288,
+      "description": "🫧 Pop bubbles right on the screen! ⚠️ IMPORTANT: The 'Overlay on top of other applications' permission is required to work.",
+      "description_i18n": {
+        "en": "🫧 Pop bubbles right on the screen! ⚠️ IMPORTANT: The 'Overlay on top of other applications' permission is required to work.",
+        "uk": "🫧 Пускайте бульбашки прямо на екрані! ⚠️ ВАЖЛИВО: для роботи потрібен дозвіл «Накладання поверх інших програм».",
+        "ru": "🫧 Лопайте пузыри прямо на экране! ⚠️ВАЖНО: для работы необходимо разрешение «Наложение поверх других приложений».",
+        "pl": "🫧 Pop bąbelki bezpośrednio na ekranie! ⚠️ WAŻNE: Do działania wymagane jest zezwolenie „Nakładka na inne aplikacje\".",
+        "es": "🫧 ¡Explota burbujas directamente en la pantalla! ⚠️ IMPORTANTE: Se requiere el permiso 'Superposición sobre otras aplicaciones' para funcionar.",
+        "de": "🫧 Lass Blasen direkt auf dem Bildschirm platzen! ⚠️ WICHTIG: Zum Funktionieren ist die Berechtigung „Auf anderen Anwendungen überlagern\" erforderlich.",
+        "fr": "🫧 Faites éclater des bulles directement sur l'écran ! ⚠️ IMPORTANT : L'autorisation 'Superposition sur d'autres applications' est requise pour fonctionner.",
+        "pt-BR": "🫧 Estoure bolhas diretamente na tela! ⚠️ IMPORTANTE: A permissão 'Sobrepor sobre outros aplicativos' é necessária para funcionar.",
+        "tr": "🫧 Ekranda baloncukları patlatın! ⚠️ ÖNEMLİ: Çalışması için 'Diğer uygulamaların üstüne yer paylaşımı' izni gereklidir.",
+        "ar": "🫧 فرقع الفقاعات مباشرة على الشاشة! ⚠️ هام: مطلوب إذن \"التراكب فوق التطبيقات الأخرى\" للعمل.",
+        "be": "🫧 Выбухайце бурбалкі прама на экране! ⚠️ ВАЖНА: для працы патрабуецца дазвол «Накладанне на іншыя праграмы».",
+        "kk": "🫧 Экранда көпіршіктер пайда болады! ⚠️ МАҢЫЗДЫ: жұмыс істеу үшін \"Басқа қолданбалардың үстіне қабаттасу\" рұқсаты қажет."
+      },
+      "permissions": [
+        "network",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
