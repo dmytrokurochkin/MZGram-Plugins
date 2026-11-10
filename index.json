@@ -1484,6 +1484,34 @@
         "be": "Прымушае аддзяляць гукавыя прылады і гнутка кантралюе цішыню.",
         "kk": "Бөлек аудио құрылғыларды мәжбүрлейді және үнсіздікті икемді басқарады."
       }
+    },
+    {
+      "id": "auto_advanced",
+      "name": "Автоматическая подпись к сообщению",
+      "version": "1.3.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/auto_advanced/1.3.4/autoadvanced.plugin",
+      "sha256": "8ea5f1046b42994c54a6a018234e63caec78ed92f06043efe02730da3f1eb861",
+      "size": 18071,
+      "description": "Adds a custom signature to each message you send, with formatting options.",
+      "description_i18n": {
+        "en": "Adds a custom signature to each message you send, with formatting options.",
+        "uk": "До кожного повідомлення, яке ви надсилаєте, додається спеціальний підпис із параметрами форматування.",
+        "ru": "Добавляет пользовательскую подпись к каждому отправляемому вами сообщению с параметрами форматирования.",
+        "pl": "Dodaje niestandardowy podpis do każdej wysyłanej wiadomości wraz z opcjami formatowania.",
+        "es": "Agrega una firma personalizada a cada mensaje que envía, con opciones de formato.",
+        "de": "Fügt jeder von Ihnen gesendeten Nachricht eine benutzerdefinierte Signatur mit Formatierungsoptionen hinzu.",
+        "fr": "Ajoute une signature personnalisée à chaque message que vous envoyez, avec des options de formatage.",
+        "pt-BR": "Adiciona uma assinatura personalizada a cada mensagem enviada, com opções de formatação.",
+        "tr": "Gönderdiğiniz her mesaja biçimlendirme seçenekleriyle özel bir imza ekler.",
+        "ar": "يضيف توقيعًا مخصصًا لكل رسالة ترسلها، مع خيارات التنسيق.",
+        "be": "Дадае ўласны подпіс да кожнага паведамлення, якое вы адпраўляеце, з параметрамі фарматавання.",
+        "kk": "Сіз жіберген әрбір хабарға пішімдеу опцияларымен теңшелетін қолтаңба қосады."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send"
+      ]
     }
   ]
 }
