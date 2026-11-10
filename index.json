@@ -1094,6 +1094,35 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "altushka_clicker_pg",
+      "name": "Altushka Clicker",
+      "version": "2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/altushka_clicker_pg/2.0/altushka_clicker_pg.plugin",
+      "sha256": "7a481f4fa7bad00472ffb120be6f3b811938b6ced01ea8453600e1a72200d33a",
+      "size": 93587,
+      "description": "tapai on your diva",
+      "description_i18n": {
+        "en": "tapai on your diva",
+        "uk": "тапаї на вашій диві",
+        "ru": "тапай на твою диву",
+        "pl": "tapai na twojej divie",
+        "es": "tapai en tu diva",
+        "de": "Tapai auf deiner Diva",
+        "fr": "tapai sur ta diva",
+        "pt-BR": "tapai na sua diva",
+        "tr": "divanızdaki tapai",
+        "ar": "تاباي على المغنية الخاصة بك",
+        "be": "тапай на тваю дзіву",
+        "kk": "Диваңызда тапай"
+      },
+      "permissions": [
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
