@@ -1,0 +1,566 @@
+"""
+                            ДИСКЛЕЙМЕР
+
+Короче , если тебе нужен кусок кода из этого плагина , то пж
+указывай в описании или где-то еще , что взял код с @KangelPlugins
+                              Спасибо
+                        🙏 БЛАГОСЛАВЛЕНИЕ 🙏
+
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⡤⠤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⡤⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠉⢀⣤⠶⠮⠷⣤⣀⡀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡼⠋⠈⣽⣆⠹⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⠶⠶⠶⠶⣄⠀⠀⠀⣞⣁⣠⠴⠯⠰⠶⠶⠶⣾⠁⠙⣯⣳⣥⠞⢹⠀⠀⠀⠀⠀⠀⡾⠀⢠⡾⠁⢹⠀⢻⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠏⠀⣊⣀⣐⣀⡈⢓⣦⡖⠋⠁⠀⡰⠂⠀⠀⠀⠀⣹⢠⣄⣽⠬⣾⠉⢹⠳⡄⠀⠀⠀⢸⠇⠀⢸⠀⢀⡼⡇⢈⡾⡦⣄⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡏⣠⡾⠉⢀⠀⣀⡽⠛⢃⡄⠀⠀⡜⠀⠀⠀⠀⠀⠀⠙⠛⠛⢧⡀⠈⠻⢾⡄⠈⢧⡀⠀⢸⠀⠀⢸⡰⡿⠛⡧⠊⡄⣿⣮⠳⣄⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡾⢹⡇⠀⠀⣴⠛⠀⢀⠎⠀⠀⣼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡹⣦⡀⠀⣳⠶⣾⣳⡄⣸⠀⠀⢸⠃⢀⣴⠃⠀⢡⣧⣽⠀⠹⡄⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⢸⡇⢰⡾⠓⠀⠀⡎⠀⠀⢠⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡞⡉⢺⣯⣫⡷⠦⡿⠙⢷⡇⠀⢀⡏⣠⠿⡟⠀⢠⣾⡖⡟⡆⠀⡇⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢧⠀⣳⢿⡾⠀⠀⣼⠁⠀⣀⣾⣿⠀⠀⡄⠀⠀⠀⠀⠀⢰⠀⠷⢿⡟⠁⠈⠻⣧⡇⣠⢾⣇⣤⠞⣴⠃⡾⠁⢀⡿⠉⠒⢻⡇⠀⡇⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢻⣧⡾⢠⠃⢀⡇⠀⢀⡾⠁⠸⣼⡀⣇⠀⠀⠀⣆⠀⢸⡆⠀⢠⢧⡀⠀⠀⡷⣞⣡⠎⣇⣤⠞⠁⡼⠁⢀⡿⠁⠀⠀⢹⠁⢠⠇⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡠⠀⢀⣿⣏⡇⢸⡀⠀⡇⠀⣾⠃⠀⠀⠉⠻⠏⠓⠶⠶⠿⢤⣀⡷⢄⣸⢮⣿⡦⣤⡟⠉⣿⢸⡏⠁⠀⣸⠁⢀⡞⠃⠀⠀⠔⡿⠀⡾⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⡒⠀⠘⣿⣿⡇⠸⣇⢰⡇⢰⣧⣶⣶⣶⡆⠀⠀⠀⠀⣴⣖⣄⣒⣦⣼⣏⣰⣾⠿⢾⣯⣉⣏⣾⡇⠀⠀⡇⠀⣼⠁⠀⠀⠀⣰⠃⣼⠅⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠳⠛⠶⣽⡇⠀⣿⡄⢻⣸⣎⠉⠉⠁⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠁⢹⡏⠁⠀⣸⡏⠙⡿⣻⠑⢄⠀⣧⠀⡟⡆⠀⠀⢨⠏⡴⡇⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⢷⠀⣿⢹⣄⣿⠿⡂⠀⠀⠀⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⢾⠁⠀⠀⡿⣧⠞⣱⠇⠀⡘⠦⡽⣄⣿⠹⣄⡴⢉⠔⠁⢳⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⠀⠀⠀⠀⢰⡿⢸⣧⠘⣟⠙⣿⡄⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣯⠖⠀⢰⣷⢇⡼⠃⢀⠞⠀⡆⠀⠙⣿⡦⠙⢶⡁⠀⠀⠀⠁⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠲⢿⠋⠉⠉⠙⢦⣀⠀⠀⣿⡇⢸⣿⡷⠼⢶⠽⣿⣆⠀⠈⠻⠤⠤⠤⠞⠀⠀⠀⠀⢴⣿⠇⠀⠀⣸⡿⠋⠀⠀⠎⠀⡞⠀⣠⠞⢁⠽⢦⡀⠙⢦⣀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⢀⠀⠀⢸⣅⠀⠀⠈⠉⠛⠉⠔⣻⣸⢸⣿⠿⣠⡏⣧⠙⢿⣧⣄⠀⠀⠀⠀⠀⠀⠀⣀⣴⣾⠃⠀⠀⢰⠇⠀⠀⠀⠀⠀⠀⣠⠞⢁⡔⠃⠀⠁⠋⠗⢦⣈⠳⣄⠀⠀⠀⠀⠀
+⠀⠀⢿⣝⢦⣸⡜⣆⠀⠀⠀⠀⡀⠀⣧⡇⠀⡿⠀⠀⠀⠉⠁⠀⠉⠛⢷⣄⣀⣠⣴⠞⠉⢁⡾⠁⠀⠀⣰⠏⠀⠀⠀⠀⠀⢠⣾⠃⢰⠏⠀⠀⠀⠀⠀⠀⠀⠉⠛⢷⣵⣄⠀⠀⠀
+⢻⣟⣿⡻⣎⢣⣳⡘⣆⠀⢠⡞⡏⠀⣾⣧⠀⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡟⣿⠀⣠⢂⣟⣡⠄⣠⢾⣋⣀⣀⣀⡀⠀⢰⣿⠃⢠⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣿⠻⣄⠀
+⡈⢻⣆⠻⡟⣆⢻⣧⢻⣄⡼⢸⡇⣦⣿⡼⣧⣽⡄⠀⠀⠀⠀⠀⠀⢀⣴⣋⣤⣿⢈⠟⢹⡿⣡⡞⠉⠉⠀⠀⣰⣶⣙⣷⣯⡏⠀⣸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣷⠈⢧
+⣖⠦⣾⣷⡙⠿⠀⠙⠀⢻⡇⢸⡇⠘⢿⣷⡌⠻⣿⣤⠀⠀⠀⣠⣶⡿⠋⣱⣿⠟⠁⣠⣿⢠⡏⠀⠀⢀⡾⠟⠋⠁⠀⣨⢿⡇⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣧⠀
+⠘⢿⣎⡙⠛⠂⠀⠀⠀⡼⠃⢸⠇⠘⡄⠙⠛⠀⠈⠉⠀⣠⣾⢏⡜⢡⡾⠛⠀⣠⡾⠉⢻⣿⣄⣀⡾⠛⠀⠀⠀⡠⠊⠀⠀⢳⠀⢳⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄
+⠀⠀⠙⢿⣦⡀⠀⠀⠀⠁⠀⢸⣇⠀⠀⠀⠀⠀⠀⢀⣾⣿⠃⡎⢠⡿⠥⣤⠞⠉⢰⣦⣀⡽⠛⠛⠀⠀⠀⢠⠎⠀⠀⠀⠀⠸⣆⠘⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣄⢇⠀⠀⠀⢳
+⠀⠀⠀⠀⣿⢹⣆⡀⠀⠀⡀⣈⣿⢻⡀⠀⠀⠀⢀⣾⢿⣇⠘⢠⡟⢀⡴⠋⣀⣸⣷⣿⠋⠁⠀⠀⠀⠀⢀⡇⠀⠀⠀⠀⠀⠀⢻⣷⣌⠳⣄⡀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠀⠀⠀⢸
+⠀⠀⠀⠀⠈⢻⣙⠛⠛⠉⠉⠉⠀⣾⣾⡀⠀⢀⣾⢏⣾⡾⢀⡞⢠⡾⣷⣿⣿⣿⠋⠀⠀⠀⠀⠀⡀⢀⡞⠀⠀⠀⠀⠀⠀⠀⢘⡌⠙⠷⣬⡻⣗⠒⠒⠦⠤⠤⠤⢤⣄⣀⠀⠀⢸
+⠀⠀⠀⠀⠀⠾⢯⡁⠀⠀⠀⠀⠠⢞⣻⢷⣤⣾⣏⣸⢹⣧⣸⣣⢟⣤⣿⣿⡿⠥⡄⠀⠀⠀⠀⠀⣧⣸⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠉⠙⠳⠤⠤⠤⣄⣀⣀⠀⠈⠉⠓⠿
+⠀⠀⠀⠀⠐⠦⡼⠥⠤⠤⢄⡤⠖⠋⠁⠘⡟⠀⠈⠳⣜⣿⣿⣣⣾⠟⠋⠁⠀⢸⡇⠀⠀⠀⠀⠀⢸⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠹⣲⣤⡀⠀
+⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⢀⡬⣝⠂⠀⠀⡇⠀⠀⣤⣙⡟⠉⡯⠤⠤⠀⠀⠠⡿⠀⠀⠀⠀⠀⠀⠈⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠴⠛⠁⠀⠙⣦
+⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠃⠀⣸⠀⢀⣴⡟⠀⠠⠔⠒⣧⣤⣷⡦⡄⠀⠀⠀⣧⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⢀⣤⠞⠁⠀⠀⢀⡤⠎⠀
+⠀⠀⠀⠀⠀⢈⣿⠀⠀⠀⢠⠀⠃⢠⠏⡼⠀⠀⠀⣠⡼⣿⣏⡏⢿⢄⠀⠀⠀⡏⢧⡀⠀⠀⠀⠀⠀⢸⡆⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⢀⡴⠋⠀⢀⣤⠴⠟⠉⠀⠀⠀
+⠀⠀⠀⠀⠀⢛⡻⡇⠀⠀⠈⠆⠀⢸⡄⠧⠤⠴⠛⠉⣸⣧⢻⠀⠘⠀⠛⠦⠼⠃⣀⣹⠆⠀⠀⠀⠀⠈⡇⠀⠀⠀⠀⠀⠀⠀⠀⢣⠀⠀⠀⢀⡴⠋⢀⣤⠞⠉⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠉⠀⠘⣿⡄⠀⠀⠀⠀⠀⢻⡀⠀⠀⢀⡼⣻⡽⢸⠀⠀⠀⠀⢀⣠⣏⠁⠀⠀⠀⠀⠀⠀⠀⣳⠀⠀⠀⠀⠀⠀⠀⠀⠘⡆⠀⢠⡟⢀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+
+                            DISCLAIMER
+
+Anyway, if you need a piece of code from this plugin,
+please mention in the description or somewhere else that you got it from @KangelPlugins
+                             Thanks.
+                            🙏BLESS🙏
+"""
+
+from base_plugin import BasePlugin, MenuItemData, MenuItemType
+from client_utils import get_last_fragment, get_messages_controller, run_on_queue, send_request, RequestCallback, get_user_config
+from android_utils import run_on_ui_thread, OnClickListener
+from ui.bulletin import BulletinHelper
+from ui.alert import AlertDialogBuilder
+
+from java.util import ArrayList
+from org.telegram.tgnet import TLRPC
+from java import jint, dynamic_proxy
+from org.telegram.messenger import AndroidUtilities
+from org.telegram.ui.ActionBar import Theme, BottomSheet
+from org.telegram.ui.Components import NumberPicker, LayoutHelper
+from android.view import View, Gravity
+from android.widget import LinearLayout, TextView, ScrollView
+from android.util import TypedValue
+import datetime
+
+__id__ = "dchat_cleaner"
+__name__ = "Chat Cleaner"
+__description__ = "Плагин удаляющий сообщения по дате / Plugin for delete message from date"
+__author__ = "@ArThirtyFour | @KangelPlugins"
+__version__ = "1.0.0"
+__icon__ = "Meowbahhkawaiistickers_by_fStikBot/2"
+__min_version__ = "11.12.0"
+__category__ = ["chats"]
+
+STRINGS = {
+    "en": {
+        "menu": "Delete by time",
+        "header": "Delete by time range",
+        "own": "Own messages only",
+        "own_sub": "Delete only your own messages",
+        "confirm": "Confirm deletion",
+        "confirm_sub": "Show confirmation dialog before deleting",
+        "no_chat": "Could not identify chat",
+        "title": "Select date range",
+        "from": "From",
+        "to": "To",
+        "day": "Day",
+        "month": "Month",
+        "year": "Year",
+        "hour": "Hour",
+        "min": "Min",
+        "find": "Find & Delete",
+        "cancel": "Cancel",
+        "bad_range": "Selected range is invalid",
+        "searching": "Searching...",
+        "search_err": "Search error: {e}",
+        "none": "No messages found",
+        "found": "Found: {n}",
+        "sure": "Confirmation",
+        "sure_msg": "Delete {n} messages?\nThis cannot be undone!",
+        "del": "Delete",
+        "done": "Deleted {n} messages",
+        "del_err": "Delete error: {e}",
+        "no_perm": "You don't have permission to delete messages in this chat",
+        "err": "Error: {e}",
+    },
+    "ru": {
+        "menu": "Удалить по времени",
+        "header": "Удаление по времени",
+        "own": "Только свои",
+        "own_sub": "Удалять только свои сообщения",
+        "confirm": "Подтверждать удаление",
+        "confirm_sub": "Диалог перед удалением",
+        "no_chat": "Не удалось определить чат",
+        "title": "Выберите период",
+        "from": "От",
+        "to": "До",
+        "day": "День",
+        "month": "Месяц",
+        "year": "Год",
+        "hour": "Час",
+        "min": "Мин",
+        "find": "Найти и удалить",
+        "cancel": "Отмена",
+        "bad_range": "Некорректный диапазон",
+        "searching": "Поиск...",
+        "search_err": "Ошибка: {e}",
+        "none": "Не найдено",
+        "found": "Найдено: {n}",
+        "sure": "Подтверждение",
+        "sure_msg": "Удалить {n} сообщений?\nОтменить нельзя!",
+        "del": "Удалить",
+        "done": "Удалено {n}",
+        "del_err": "Ошибка: {e}",
+        "no_perm": "Нет прав на удаление сообщений в этом чате",
+        "err": "Ошибка: {e}",
+    },
+}
+
+
+class DateRangeCleanerPlugin(BasePlugin):
+
+    def on_plugin_load(self):
+        self._dialog_id = 0
+        self._message_ids = []
+        self._lang = "en"
+        try:
+            from org.telegram.messenger import LocaleController
+            lc = LocaleController.getInstance()
+            if lc:
+                lang = str(lc.getCurrentLocale().getLanguage()).lower()
+                if lang.startswith("ru"):
+                    self._lang = "ru"
+        except Exception:
+            pass
+
+        self.add_menu_item(MenuItemData(
+            menu_type=MenuItemType.CHAT_ACTION_MENU,
+            text=self._s("menu"),
+            on_click=self._on_click,
+            icon="msg_delete_solar"
+        ))
+
+    def _s(self, key, **kw):
+        d = STRINGS.get(self._lang, STRINGS["en"])
+        t = d.get(key, STRINGS["en"].get(key, key))
+        if kw:
+            return t.format(**kw)
+        return t
+
+    def _on_click(self, context):
+        self.log("[DRC] clicked")
+        dialog_id = context.get("dialog_id")
+        if not dialog_id or dialog_id == 0:
+            BulletinHelper.show_error(self._s("no_chat"))
+            return
+        self._dialog_id = dialog_id
+        self.log(f"[DRC] dialog_id={dialog_id}")
+        run_on_ui_thread(lambda: self._show_date_picker())
+
+    def _show_date_picker(self):
+        try:
+            fragment = get_last_fragment()
+            if not fragment:
+                return
+            act = fragment.getParentActivity()
+            if not act:
+                return
+
+            now = datetime.datetime.now()
+            cur_year = now.year
+
+            builder = BottomSheet.Builder(act, False, None)
+            builder.setApplyBottomPadding(False)
+            builder.setApplyTopPadding(False)
+
+            root = LinearLayout(act)
+            root.setOrientation(LinearLayout.VERTICAL)
+            root.setPadding(AndroidUtilities.dp(16), AndroidUtilities.dp(8),
+                            AndroidUtilities.dp(16), AndroidUtilities.dp(24))
+
+            scroll = ScrollView(act)
+            container = LinearLayout(act)
+            container.setOrientation(LinearLayout.VERTICAL)
+
+            title = TextView(act)
+            title.setText(self._s("title"))
+            title.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20)
+            title.setTypeface(AndroidUtilities.bold())
+            title.setGravity(Gravity.CENTER)
+            title.setTextColor(Theme.getColor(Theme.key_dialogTextBlack))
+            title.setPadding(0, AndroidUtilities.dp(12), 0, AndroidUtilities.dp(16))
+            container.addView(title, LayoutHelper.createLinear(-1, -2))
+
+            def make_picker(label, start, fmt=None):
+                col = LinearLayout(act)
+                col.setOrientation(LinearLayout.VERTICAL)
+                col.setGravity(Gravity.CENTER)
+                lbl = TextView(act)
+                lbl.setText(label)
+                lbl.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 11)
+                lbl.setGravity(Gravity.CENTER)
+                lbl.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteGrayText2))
+                col.addView(lbl, LayoutHelper.createLinear(-2, -2))
+                p = NumberPicker(act, None)
+                p.setItemCount(5)
+                p.setMinValue(0)
+                p.setMaxValue(100000)
+                p.setWrapSelectorWheel(False)
+                if fmt:
+                    p.setFormatter(fmt)
+                p.setValue(start)
+                col.addView(p, LayoutHelper.createLinear(-2, -2))
+                return col, p
+
+            month_labels = (["Янв","Фев","Мар","Апр","Май","Июн",
+                             "Июл","Авг","Сен","Окт","Ноя","Дек"]
+                            if self._lang == "ru"
+                            else ["Jan","Feb","Mar","Apr","May","Jun",
+                                  "Jul","Aug","Sep","Oct","Nov","Dec"])
+
+            def fmt_day(v):
+                return str((v - 1) % 31 + 1)
+
+            def fmt_month(v):
+                return month_labels[(v - 1) % 12]
+
+            def fmt_year(v):
+                return str(cur_year + (v - 50000))
+
+            def fmt_hour(v):
+                return str(v % 24)
+
+            def fmt_min(v):
+                return str(v % 60)
+
+            def make_formatter(fn):
+                class Fmt(dynamic_proxy(NumberPicker.Formatter)):
+                    def format(self, v):
+                        return fn(v)
+                return Fmt()
+
+            day_fmt = make_formatter(fmt_day)
+            month_fmt = make_formatter(fmt_month)
+            year_fmt = make_formatter(fmt_year)
+            hour_fmt = make_formatter(fmt_hour)
+            min_fmt = make_formatter(fmt_min)
+
+            def val_day(p):
+                return (p.getValue() - 1) % 31 + 1
+
+            def val_month(p):
+                return (p.getValue() - 1) % 12 + 1
+
+            def val_year(p):
+                return cur_year + (p.getValue() - 50000)
+
+            def val_hour(p):
+                return p.getValue() % 24
+
+            def val_min(p):
+                return p.getValue() % 60
+
+            def make_row(dd, dm, dy, hh, mm):
+                row = LinearLayout(act)
+                row.setOrientation(LinearLayout.HORIZONTAL)
+                row.setGravity(Gravity.CENTER)
+                sd, sp1 = make_picker(self._s("day"), 50000 - (50000 % 31) + (dd % 31), day_fmt)
+                sm, sp2 = make_picker(self._s("month"), 50000 - (50000 % 12) + (dm % 12), month_fmt)
+                sy, sp3 = make_picker(self._s("year"), 50000 + dy - cur_year, year_fmt)
+                sh, sp4 = make_picker(self._s("hour"), 50000 - (50000 % 24) + (hh % 24), hour_fmt)
+                smin, sp5 = make_picker(self._s("min"), 50000 - (50000 % 60) + (mm % 60), min_fmt)
+                row.addView(sd, LayoutHelper.createLinear(-2, -2, 1.0))
+                row.addView(sm, LayoutHelper.createLinear(-2, -2, 1.0))
+                row.addView(sy, LayoutHelper.createLinear(-2, -2, 1.0))
+                row.addView(sh, LayoutHelper.createLinear(-2, -2, 1.0))
+                row.addView(smin, LayoutHelper.createLinear(-2, -2, 1.0))
+                return row, sp1, sp2, sp3, sp4, sp5
+
+            from_label = TextView(act)
+            from_label.setText(self._s("from"))
+            from_label.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14)
+            from_label.setTypeface(AndroidUtilities.bold())
+            from_label.setTextColor(Theme.getColor(Theme.key_dialogTextBlack))
+            from_label.setPadding(0, 0, 0, AndroidUtilities.dp(4))
+            container.addView(from_label, LayoutHelper.createLinear(-1, -2))
+
+            start_row, s_d, s_m, s_y, s_h, s_min = make_row(now.day, now.month, cur_year, 0, 0)
+            container.addView(start_row, LayoutHelper.createLinear(-1, -2, 0, 0, 0, 12))
+
+            to_label = TextView(act)
+            to_label.setText(self._s("to"))
+            to_label.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14)
+            to_label.setTypeface(AndroidUtilities.bold())
+            to_label.setTextColor(Theme.getColor(Theme.key_dialogTextBlack))
+            to_label.setPadding(0, AndroidUtilities.dp(8), 0, AndroidUtilities.dp(4))
+            container.addView(to_label, LayoutHelper.createLinear(-1, -2))
+
+            end_row, e_d, e_m, e_y, e_h, e_min = make_row(now.day, now.month, cur_year, 23, 59)
+            container.addView(end_row, LayoutHelper.createLinear(-1, -2, 0, 0, 0, 12))
+
+            scroll.addView(container, LayoutHelper.createFrame(-1, -2))
+            root.addView(scroll, LayoutHelper.createLinear(-1, -2))
+
+            div = View(act)
+            div.setBackgroundColor(Theme.getColor(Theme.key_divider))
+            root.addView(div, LayoutHelper.createLinear(-1, 1, 0, 16, 0, 8))
+
+            plug = self
+            only_own_state = [plug.get_setting("only_own", False)]
+            confirm_state = [plug.get_setting("confirm_delete", True)]
+            ref = [None]
+
+            def make_toggle(label, sub, state, cb):
+                row = LinearLayout(act)
+                row.setOrientation(LinearLayout.HORIZONTAL)
+                row.setGravity(Gravity.CENTER_VERTICAL)
+                row.setPadding(AndroidUtilities.dp(8), AndroidUtilities.dp(8), AndroidUtilities.dp(8), AndroidUtilities.dp(8))
+                row.setClickable(True)
+                row.setBackground(Theme.createSimpleSelectorRoundRectDrawable(
+                    AndroidUtilities.dp(8),
+                    Theme.getColor(Theme.key_dialogBackground),
+                    Theme.getColor(Theme.key_dialogBackgroundGray)))
+                txt = LinearLayout(act)
+                txt.setOrientation(LinearLayout.VERTICAL)
+                txt.setPadding(AndroidUtilities.dp(8), 0, 0, 0)
+                t = TextView(act)
+                t.setText(label)
+                t.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15)
+                t.setTextColor(Theme.getColor(Theme.key_dialogTextBlack))
+                txt.addView(t, LayoutHelper.createLinear(-1, -2))
+                st = TextView(act)
+                st.setText(sub)
+                st.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12)
+                st.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteGrayText2))
+                txt.addView(st, LayoutHelper.createLinear(-1, -2))
+                row.addView(txt, LayoutHelper.createLinear(0, -2, 1.0))
+                check = TextView(act)
+                check.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20)
+                check.setTextColor(Theme.getColor(Theme.key_featuredStickers_buttonText))
+                check.setGravity(Gravity.CENTER)
+                check.setMinimumWidth(AndroidUtilities.dp(36))
+                def update():
+                    check.setText("✓" if state[0] else "")
+                update()
+                def toggle(v):
+                    state[0] = not state[0]
+                    update()
+                    plug.set_setting(cb, state[0])
+                row.setOnClickListener(OnClickListener(toggle))
+                row.addView(check, LayoutHelper.createLinear(-2, -2))
+                return row
+
+            root.addView(make_toggle(self._s("own"), self._s("own_sub"), only_own_state, "only_own"),
+                         LayoutHelper.createLinear(-1, -2, 0, 0, 0, 4))
+            root.addView(make_toggle(self._s("confirm"), self._s("confirm_sub"), confirm_state, "confirm_delete"),
+                         LayoutHelper.createLinear(-1, -2, 0, 0, 0, 8))
+
+            ok = TextView(act)
+            ok.setText(self._s("find"))
+            ok.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16)
+            ok.setTypeface(AndroidUtilities.bold())
+            ok.setGravity(Gravity.CENTER)
+            ok.setTextColor(Theme.getColor(Theme.key_featuredStickers_buttonText))
+            ok.setMinimumHeight(AndroidUtilities.dp(48))
+            ok.setPadding(AndroidUtilities.dp(16), AndroidUtilities.dp(16), AndroidUtilities.dp(16), AndroidUtilities.dp(16))
+            try:
+                ok.setBackground(Theme.createSimpleSelectorRoundRectDrawable(
+                    AndroidUtilities.dp(12),
+                    Theme.getColor(Theme.key_featuredStickers_addButton),
+                    Theme.getColor(Theme.key_featuredStickers_addButtonPressed)))
+            except Exception:
+                ok.setBackgroundColor(Theme.getColor(Theme.key_featuredStickers_addButton))
+            ok.setClickable(True)
+
+            def on_ok(v):
+                try:
+                    st = int(datetime.datetime(val_year(s_y), val_month(s_m), val_day(s_d), val_hour(s_h), val_min(s_min), 0).timestamp())
+                    et = int(datetime.datetime(val_year(e_y), val_month(e_m), val_day(e_d), val_hour(e_h), val_min(e_min), 0).timestamp())
+                    self.log(f"[DRC] ok clicked: st={st} et={et}")
+                    if st >= et:
+                        BulletinHelper.show_error(plug._s("bad_range"))
+                        return
+                    if ref[0]:
+                        ref[0].dismiss()
+                    plug._start_search(st, et)
+                except Exception as e:
+                    BulletinHelper.show_error(plug._s("err", e=e))
+
+            ok.setOnClickListener(OnClickListener(on_ok))
+            root.addView(ok, LayoutHelper.createLinear(-1, -2, 0, 0, 0, 4))
+
+            cancel = TextView(act)
+            cancel.setText(self._s("cancel"))
+            cancel.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16)
+            cancel.setGravity(Gravity.CENTER)
+            try:
+                cancel.setTextColor(Theme.getColor(Theme.key_text_RedRegular))
+            except Exception:
+                cancel.setTextColor(Theme.getColor(Theme.key_dialogTextRed))
+            cancel.setMinimumHeight(AndroidUtilities.dp(48))
+            cancel.setPadding(AndroidUtilities.dp(16), AndroidUtilities.dp(16), AndroidUtilities.dp(16), AndroidUtilities.dp(16))
+            cancel.setBackground(Theme.createSimpleSelectorRoundRectDrawable(
+                AndroidUtilities.dp(8),
+                Theme.getColor(Theme.key_dialogBackground),
+                Theme.getColor(Theme.key_dialogBackgroundGray)))
+            cancel.setClickable(True)
+
+            def on_cancel(v):
+                if ref[0]:
+                    ref[0].dismiss()
+            cancel.setOnClickListener(OnClickListener(on_cancel))
+            root.addView(cancel, LayoutHelper.createLinear(-1, -2))
+
+            builder.setCustomView(root)
+            sheet = builder.create()
+            ref[0] = sheet
+            sheet.show()
+
+        except Exception as e:
+            self.log(f"[DRC] picker error: {e}")
+
+    def _start_search(self, start_ts, end_ts):
+        self.log(f"[DRC] search start_ts={start_ts} end_ts={end_ts}")
+        self._message_ids = []
+        self._search_start = start_ts
+        self._search_end = end_ts
+        BulletinHelper.show_info(self._s("searching"))
+        run_on_queue(lambda: self._do_search(start_ts, end_ts, 0))
+
+    def _do_search(self, start_ts, end_ts, offset_id):
+        try:
+            mc = get_messages_controller()
+            peer = mc.getInputPeer(self._dialog_id)
+            req = TLRPC.TL_messages_search()
+            req.peer = peer
+            req.limit = 100
+            req.q = ""
+            req.offset_id = offset_id
+            req.min_date = start_ts - 1
+            req.max_date = end_ts
+            req.filter = TLRPC.TL_inputMessagesFilterEmpty()
+            req.hash = 0
+            req.min_id = 0
+            req.max_id = 0
+            req.add_offset = 0
+
+            if self.get_setting("only_own", False):
+                req.from_id = mc.getInputPeer(get_user_config().getCurrentUser())
+                req.flags |= 1
+
+            self.log(f"[DRC] search req: min_date={req.min_date} max_date={req.max_date} offset_id={offset_id}")
+
+            def on_resp(response, error):
+                if error:
+                    self.log(f"[DRC] search error: {error.text}")
+                    BulletinHelper.show_error(self._s("search_err", e=error.text))
+                    return
+                if not hasattr(response, 'messages') or not response.messages or response.messages.isEmpty():
+                    self.log(f"[DRC] search done, total={len(self._message_ids)}")
+                    run_on_ui_thread(lambda: self._on_search_complete())
+                    return
+                arr = response.messages.toArray()
+                self.log(f"[DRC] search got {len(arr)} msgs, first_id={arr[0].id} last_id={arr[len(arr)-1].id}")
+                count = 0
+                for m in arr:
+                    if m.date >= start_ts and m.date <= end_ts:
+                        self._message_ids.append(m.id)
+                        count += 1
+                    else:
+                        self.log(f"[DRC] skipped msg id={m.id} date={m.date} (out of range)")
+                if len(arr) < 100:
+                    self.log(f"[DRC] search complete, total={len(self._message_ids)}")
+                    run_on_ui_thread(lambda: self._on_search_complete())
+                else:
+                    next_offset = arr[len(arr) - 1].id
+                    self.log(f"[DRC] search pagination, next_offset={next_offset}")
+                    run_on_queue(lambda: self._do_search(start_ts, end_ts, next_offset))
+
+            send_request(req, RequestCallback(on_resp))
+        except Exception as e:
+            self.log(f"[DRC] search error: {e}")
+            run_on_ui_thread(lambda: BulletinHelper.show_error(self._s("err", e=e)))
+
+    def _on_search_complete(self):
+        n = len(self._message_ids)
+        self.log(f"[DRC] search complete, found={n}")
+        if n == 0:
+            BulletinHelper.show_error(self._s("none"))
+            return
+        BulletinHelper.show_info(self._s("found", n=n))
+        if self.get_setting("confirm_delete", True):
+            self._show_confirm(n)
+        else:
+            self._do_delete()
+
+    def _show_confirm(self, n):
+        try:
+            f = get_last_fragment()
+            if not f:
+                return
+            ctx = f.getContext()
+            if not ctx:
+                return
+            b = AlertDialogBuilder(ctx, AlertDialogBuilder.ALERT_TYPE_MESSAGE)
+            b.set_title(self._s("sure"))
+            b.set_message(self._s("sure_msg", n=n))
+            b.set_positive_button(self._s("del"), lambda d, w: self._do_delete())
+            b.set_negative_button(self._s("cancel"), lambda d, w: d.dismiss())
+            b.show()
+        except Exception as e:
+            self.log(f"[DRC] confirm error: {e}")
+
+    def _do_delete(self):
+        if not self._message_ids:
+            return
+        try:
+            mc = get_messages_controller()
+            total = len(self._message_ids)
+            self.log(f"[DRC] deleting {total} messages, dialog_id={self._dialog_id}")
+            deleted = 0
+            errors = 0
+            for i in range(0, total, 100):
+                chunk = self._message_ids[i:i + 100]
+                jl = ArrayList()
+                for mid in chunk:
+                    jl.add(jint(mid))
+                try:
+                    self.log(f"[DRC] delete batch {i//100 + 1}: ids={chunk[0]}..{chunk[-1]} ({len(chunk)} msgs)")
+                    mc.deleteMessages(jl, None, None, self._dialog_id, 0, True, 0)
+                    deleted += len(chunk)
+                    self.log(f"[DRC] batch {i//100 + 1} deleted ok")
+                except Exception as e:
+                    self.log(f"[DRC] delete batch error: {e}")
+                    errors += len(chunk)
+            self._message_ids = []
+            self.log(f"[DRC] delete complete: deleted={deleted} errors={errors}")
+            if errors > 0 and deleted == 0:
+                BulletinHelper.show_error(self._s("no_perm"))
+            elif errors > 0:
+                BulletinHelper.show_info(f"Deleted {deleted}, failed {errors}")
+            else:
+                BulletinHelper.show_info(self._s("done", n=deleted))
+        except Exception as e:
+            self.log(f"[DRC] delete error: {e}")
+            BulletinHelper.show_error(self._s("del_err", e=e))

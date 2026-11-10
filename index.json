@@ -3202,6 +3202,33 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "dchat_cleaner",
+      "name": "Chat Cleaner",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/dchat_cleaner/1.0.0/dchat_cleaner.plugin",
+      "sha256": "78d7bc80d324cb38292e5e410681dbf27d7d94f8c3822b17b7847206412f0153",
+      "size": 29447,
+      "description": "Plugin for delete message from date",
+      "description_i18n": {
+        "en": "Plugin for delete message from date",
+        "uk": "Плагін для видалення повідомлення з дати",
+        "ru": "Плагин для удаления сообщения с даты",
+        "pl": "Wtyczka do usuwania wiadomości z daty",
+        "es": "Complemento para eliminar mensaje de la fecha",
+        "de": "Plugin zum Löschen einer Nachricht ab Datum",
+        "fr": "Plugin pour supprimer le message de la date",
+        "pt-BR": "Plugin para excluir mensagem da data",
+        "tr": "Mesajı tarihten itibaren silmek için eklenti",
+        "ar": "البرنامج المساعد لحذف الرسالة من التاريخ",
+        "be": "Убудова для выдалення паведамлення з даты",
+        "kk": "Күннен бастап хабарды жоюға арналған плагин"
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }
