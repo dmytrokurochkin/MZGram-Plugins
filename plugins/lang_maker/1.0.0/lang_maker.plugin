@@ -1,0 +1,578 @@
+# coding: utf-8
+from __future__ import annotations
+
+import json
+import os
+import re
+import time
+from typing import Any, Dict, List
+
+import requests
+
+from android_utils import copy_to_clipboard, run_on_ui_thread
+from base_plugin import BasePlugin
+from client_utils import (
+    get_last_fragment,
+    get_user_config,
+    run_on_queue,
+    send_document,
+    send_request,
+)
+from file_utils import ensure_dir_exists, get_files_dir, read_file, write_file
+from ui.alert import AlertDialogBuilder
+from ui.bulletin import BulletinHelper
+from ui.settings import Divider, Header, Input, Selector, Text
+
+__id__ = "lang_maker"
+__name__ = "Lang Maker"
+__description__ = (
+    "Редактор языков Telegram. Выбираешь основу (English или Русский), "
+    "правишь нужные строки прямо в настройках плагина и применяешь язык "
+    "одной кнопкой. Перевод через ИИ (Groq) — по желанию."
+)
+__author__ = "@s1mclick"
+__version__ = "1.0.0"
+__icon__ = "Scittlescope_by_fStikBot/40"
+__app_version__ = ">=12.9.0"
+__category__ = ["appearance", "integrations"]
+
+STRINGS_URL = (
+    "https://raw.githubusercontent.com/DrKLO/Telegram/master/"
+    "TMessagesProj/src/main/res/values/strings.xml"
+)
+GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+MODELS_URL = "https://api.groq.com/openai/v1/models"
+DOCS_URL = "https://telegra.ph/Stroki-Telegram--oglavlenie-09-20"
+
+META = ("LanguageName", "LanguageNameInEnglish", "LanguageCode")
+PLURALS = ("_zero", "_one", "_two", "_few", "_many", "_other")
+PLACEHOLDERS = re.compile(r"%\d+\$[sdf]|%[sdf]|\*\*|__|\\n")
+
+MAIN_MODULES = (
+    "Chats", "Contacts", "Calls", "Search", "Send", "Cancel", "Delete", "Edit",
+    "Save", "Back", "Message", "Reply", "Forward", "Copy", "Mute", "Pin",
+    "Archive", "Block", "Notifications", "Privacy", "Profile", "Language",
+    "Share", "Add", "New",
+)
+PAGE = 40
+AI_CHUNK = 40
+AI_LIMIT = 120
+
+
+class Plugin(BasePlugin):
+    _en = None
+    _ru = None
+
+    def on_plugin_load(self):
+        if not self._read("en.json"):
+            run_on_queue(self._download_english)
+
+    def _dir(self) -> str:
+        path = os.path.join(get_files_dir(), "lang_maker")
+        ensure_dir_exists(path)
+        return path
+
+    def _read(self, name: str) -> dict:
+        try:
+            return json.loads(read_file(os.path.join(self._dir(), name)))
+        except Exception:
+            return {}
+
+    def _write(self, name: str, data: dict):
+        write_file(os.path.join(self._dir(), name), json.dumps(data, ensure_ascii=False))
+
+    def _english(self) -> Dict[str, str]:
+        if not self._en:
+            self._en = self._read("en.json")
+        return self._en
+
+    def _russian(self) -> Dict[str, str]:
+        if not self._ru:
+            self._ru = self._read("ru.json")
+        return self._ru
+
+    def _download_english(self):
+        try:
+            text = requests.get(STRINGS_URL, timeout=60).text
+        except Exception as e:
+            BulletinHelper.show_error("Не скачались строки Telegram: %s" % str(e)[:60])
+            return
+        strings = {}
+        for name, value in re.findall(r'<string\s+name="([^"]+)"[^>]*>(.*?)</string>', text, re.S):
+            value = value.strip()
+            if value and "<![CDATA[" not in value:
+                strings[name] = value
+        self._write("en.json", strings)
+        self._en = strings
+        BulletinHelper.show_success("Строки Telegram загружены: %d" % len(strings))
+        self.set_setting("gen", self._gen(), reload_settings=True)
+
+    @staticmethod
+    def _same_placeholders(old: str, new: str) -> bool:
+        return (sorted(PLACEHOLDERS.findall(old)) == sorted(PLACEHOLDERS.findall(new))
+                and old.count("%") == new.count("%"))
+
+    @staticmethod
+    def _human(raw: str) -> str:
+        s = re.sub(r"&#(\d+);", lambda m: chr(int(m.group(1))), raw)
+        s = s.replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&")
+        return re.sub(r"\\(?!n)", "", s)
+
+    @staticmethod
+    def _raw(text: str) -> str:
+        s = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+        s = re.sub(r"(?<!\\)'", "\\\\'", s)
+        return s.replace("\n", "\\n")
+
+    def _base(self) -> Dict[str, str]:
+        en = self._english()
+        if self.get_setting("base_lang", 0) == 1 and self._russian():
+            merged = dict(en)
+            merged.update({k: v for k, v in self._russian().items() if k in en})
+            return merged
+        return en
+
+    def _gen(self) -> int:
+        return int(self.get_setting("gen", 0) or 0)
+
+    def _name(self, key: str) -> str:
+        return "v%d_%s" % (self._gen(), key)
+
+    def _edited(self) -> Dict[str, str]:
+        prefix = "v%d_" % self._gen()
+        en, ru = self._english(), self._russian()
+        out = {}
+        for name, value in self.export_settings().items():
+            if not name.startswith(prefix) or not value:
+                continue
+            key = name[len(prefix):]
+            if key not in en:
+                continue
+            if value in (self._human(en[key]), self._human(ru.get(key, ""))):
+                continue
+            out[key] = value
+        return out
+
+    @staticmethod
+    def _module_of(key: str) -> str:
+        name = key
+        for suffix in PLURALS:
+            if name.endswith(suffix):
+                name = name[: -len(suffix)]
+                break
+        m = re.match(r"([A-Z][a-z0-9]+|[a-z]+)", name)
+        return m.group(1) if m else name
+
+    def _modules(self, base: Dict[str, str]) -> Dict[str, List[str]]:
+        groups: Dict[str, List[str]] = {}
+        for key in base:
+            groups.setdefault(self._module_of(key), []).append(key)
+        return groups
+
+    def create_settings(self) -> List[Any]:
+        items = [
+            Header(text="Язык"),
+            Input(
+                key="lang_name", text="Название", default="Мой язык",
+                subtext="Так язык будет называться в списке", icon="msg_edit",
+            ),
+            Input(
+                key="lang_name_en", text="Название по-английски", default="My language",
+                icon="msg_edit",
+            ),
+            Input(
+                key="lang_code", text="Код языка", default="mylang",
+                subtext="Латиница, цифры и _ (до 10 символов)",
+                icon="msg_info", on_change=self._on_code,
+            ),
+            Selector(
+                key="base_lang", text="Основа языка", default=0,
+                items=["English", "Русский"], icon="msg_language",
+                on_change=self._on_base,
+            ),
+            Divider(text="Строки, которые ты не менял, берутся из основы"),
+            Header(text="Строки"),
+        ]
+
+        if not self._english():
+            items.append(Text(
+                text="Загрузить строки Telegram",
+                subtext="Без них редактировать нечего",
+                icon="msg_download", accent=True,
+                on_click=lambda v: run_on_queue(self._download_english),
+            ))
+        else:
+            items += [
+                Text(
+                    text="Основные разделы", icon="msg_list",
+                    create_sub_fragment=self._main_page,
+                ),
+                Text(
+                    text="Все модули", icon="msg_list",
+                    create_sub_fragment=self._all_page,
+                ),
+                Input(
+                    key="search", text="Поиск по строкам", default="",
+                    subtext="Ключ или текст, потом откройте результаты",
+                    icon="msg_search",
+                ),
+                Text(
+                    text="Показать результаты поиска", icon="msg_search",
+                    create_sub_fragment=self._search_page,
+                ),
+            ]
+
+        items += [
+            Divider(text="ИИ — по желанию"),
+            Text(
+                text="Перевод через Groq", icon="msg_secret",
+                create_sub_fragment=self._ai_page,
+            ),
+            Divider(),
+            Header(text="Готово"),
+            Text(
+                text="Применить язык", subtext="Включится сразу",
+                icon="msg_download", accent=True,
+                on_click=lambda v: self._apply(),
+            ),
+            Text(
+                text="Отправить .xml в Избранное", icon="msg_send",
+                on_click=lambda v: self._to_saved(),
+            ),
+            Text(
+                text="Сбросить все правки", icon="msg_delete", red=True,
+                on_click=lambda v: self._confirm_reset(),
+            ),
+            Divider(),
+            Text(text="Как это работает", icon="msg_help", on_click=lambda v: self._help()),
+            Text(
+                text="Все строки Telegram (telegra.ph)", icon="msg_link",
+                on_click=lambda v: (copy_to_clipboard(DOCS_URL),
+                                    BulletinHelper.show_success("Ссылка скопирована")),
+            ),
+        ]
+        return items
+
+    def _row(self, key: str, base: Dict[str, str]) -> Input:
+        return Input(
+            key=self._name(key), text=key, default=self._human(base[key]),
+            icon="msg_edit",
+            on_change=lambda value, k=key: self._check(k, value),
+        )
+
+    def _module_rows(self, title: str, keys: List[str], page: int, base: Dict[str, str]) -> List[Any]:
+        pages = max(1, -(-len(keys) // PAGE))
+        rows: List[Any] = [Header(text="%s — страница %d из %d" % (title, page + 1, pages))]
+        if page == 0:
+            rows.append(Text(
+                text="Перевести модуль через ИИ", subtext="Нужен ключ Groq",
+                icon="msg_secret", accent=True,
+                on_click=lambda v: self._ai_run(keys[:AI_LIMIT]),
+            ))
+        for key in keys[page * PAGE:(page + 1) * PAGE]:
+            rows.append(self._row(key, base))
+        if (page + 1) * PAGE < len(keys):
+            rows.append(Text(
+                text="Дальше", icon="msg_arrow_forward",
+                create_sub_fragment=lambda: self._module_rows(title, keys, page + 1, base),
+            ))
+        return rows
+
+    def _module_page(self, module: str) -> List[Any]:
+        base = self._base()
+        return self._module_rows(module, self._modules(base)[module], 0, base)
+
+    def _module_link(self, module: str, keys: List[str], edited: Dict[str, str]) -> Text:
+        changed = sum(1 for k in keys if k in edited)
+        return Text(
+            text=module, subtext="строк: %d, изменено: %d" % (len(keys), changed),
+            create_sub_fragment=lambda m=module: self._module_page(m),
+        )
+
+    def _main_page(self) -> List[Any]:
+        groups = self._modules(self._base())
+        by_lower = {m.lower(): m for m in groups}
+        edited = self._edited()
+        rows: List[Any] = [Header(text="Основные разделы")]
+        for name in MAIN_MODULES:
+            real = by_lower.get(name.lower())
+            if real:
+                rows.append(self._module_link(real, groups[real], edited))
+        return rows
+
+    def _all_page(self) -> List[Any]:
+        groups = self._modules(self._base())
+        edited = self._edited()
+        rows: List[Any] = [Header(text="Все модули: %d" % len(groups))]
+        for name in sorted(groups, key=str.lower):
+            rows.append(self._module_link(name, groups[name], edited))
+        return rows
+
+    def _search_page(self) -> List[Any]:
+        query = (self.get_setting("search", "") or "").strip().lower()
+        base = self._base()
+        found = []
+        if query:
+            for key, raw in base.items():
+                if query in key.lower() or query in self._human(raw).lower():
+                    found.append(key)
+                    if len(found) == PAGE:
+                        break
+        rows: List[Any] = [Header(text="Найдено: %d (не больше %d)" % (len(found), PAGE))]
+        rows += [self._row(k, base) for k in found]
+        return rows
+
+    def _ai_page(self) -> List[Any]:
+        return [
+            Header(text="Groq"),
+            Input(
+                key="groq_key", text="Ключ Groq", default="",
+                subtext="console.groq.com → API Keys", icon="msg_secret",
+            ),
+            Input(
+                key="ai_style", text="Язык или стиль", default="",
+                subtext="Например: язык пиратов", icon="msg_edit",
+            ),
+            Input(
+                key="ai_model", text="Модель (необязательно)", default="",
+                subtext="Пусто — выберется рабочая сама", icon="msg_list",
+            ),
+            Divider(text="Кнопка перевода лежит внутри каждого модуля. Уже изменённые строки ИИ не трогает."),
+        ]
+
+    def _on_code(self, value: str):
+        clean = re.sub(r"[^A-Za-z0-9_]", "", value)[:10].lower()
+        if clean != value:
+            self.set_setting("lang_code", clean, reload_settings=True)
+
+    def _on_base(self, index: int):
+        if index == 1 and not self._russian():
+            BulletinHelper.show_info("Скачиваю русский пакет…")
+            self._download_russian()
+        else:
+            self.set_setting("base_lang", index, reload_settings=True)
+
+    def _check(self, key: str, value: str):
+        original = self._human(self._base().get(key, ""))
+        if self._same_placeholders(original, value):
+            return
+        self.set_setting(self._name(key), original, reload_settings=True)
+        BulletinHelper.show_error("Не трогай %s и ** в тексте, они нужны Telegram" % "%1$s")
+
+    def _download_russian(self):
+        from org.telegram.tgnet import TLRPC
+
+        def done(response, error):
+            if error or response is None:
+                BulletinHelper.show_error("Русский пакет не скачался")
+                self.set_setting("base_lang", 0, reload_settings=True)
+                return
+            pack = {}
+            items = response.strings
+            for i in range(items.size()):
+                s = items.get(i)
+                if isinstance(s, TLRPC.TL_langPackString):
+                    pack[str(s.key)] = self._raw(str(s.value))
+                elif isinstance(s, TLRPC.TL_langPackStringPluralized):
+                    forms = (s.zero_value, s.one_value, s.two_value,
+                             s.few_value, s.many_value, s.other_value)
+                    for suffix, form in zip(PLURALS, forms):
+                        if form:
+                            pack[str(s.key) + suffix] = self._raw(str(form))
+            self._write("ru.json", pack)
+            self._ru = pack
+            BulletinHelper.show_success("Русский пакет: %d строк" % len(pack))
+            self.set_setting("base_lang", 1, reload_settings=True)
+
+        req = TLRPC.TL_langpack_getLangPack()
+        req.lang_code = "ru"
+        send_request(req, done)
+
+    def _setting(self, name: str) -> str:
+        return (self.get_setting(name, "") or "").strip()
+
+    def _pick_model(self, key: str) -> str:
+        custom = self._setting("ai_model")
+        if custom:
+            return custom
+        try:
+            r = requests.get(MODELS_URL, headers={"Authorization": "Bearer " + key}, timeout=30)
+            ids = [m["id"] for m in r.json()["data"]]
+            skip = ("whisper", "orpheus", "guard", "tts", "compound")
+            ids = [i for i in ids if not any(s in i.lower() for s in skip)]
+            for want in ("openai/gpt-oss-120b", "openai/gpt-oss-20b"):
+                if want in ids:
+                    return want
+            return ids[0]
+        except Exception:
+            return "openai/gpt-oss-120b"
+
+    def _ask_groq(self, model: str, key: str, style: str, part: Dict[str, str]) -> Dict[str, str]:
+        system = (
+            "Ты переделываешь строки интерфейса Telegram под нужный язык или стиль. "
+            "Тебе дают JSON {ключ: текст}. Верни только JSON {ключ: новый текст} с теми же "
+            "ключами. Плейсхолдеры %1$s, %d, ** и __ и последовательность \\n оставляй "
+            "как есть. Без пояснений."
+        )
+        body = {
+            "model": model,
+            "temperature": 0.4,
+            "response_format": {"type": "json_object"},
+            "messages": [
+                {"role": "system", "content": system},
+                {"role": "user", "content": "Стиль: %s\n%s" % (style, json.dumps(part, ensure_ascii=False))},
+            ],
+        }
+        headers = {"Authorization": "Bearer " + key}
+        for _ in range(3):
+            r = requests.post(GROQ_URL, headers=headers, json=body, timeout=90)
+            if r.status_code == 200:
+                return json.loads(r.json()["choices"][0]["message"]["content"])
+            if r.status_code == 429:
+                wait = float(r.headers.get("retry-after", "5"))
+                if wait > 60:
+                    raise RuntimeError("лимит Groq исчерпан, попробуй позже")
+                time.sleep(wait + 1)
+            elif r.status_code == 400:
+                body.pop("response_format", None)
+            elif r.status_code in (401, 403):
+                raise RuntimeError("ключ Groq не подошёл")
+            else:
+                raise RuntimeError("Groq ответил %d" % r.status_code)
+        raise RuntimeError("Groq не ответил")
+
+    def _ai_run(self, keys: List[str]):
+        key, style = self._setting("groq_key"), self._setting("ai_style")
+        if not key or not style:
+            BulletinHelper.show_error("Впиши ключ и стиль: Перевод через Groq")
+            return
+
+        def work():
+            base = self._base()
+            done_already = self._edited()
+            todo = [k for k in keys if k not in done_already]
+            if not todo:
+                BulletinHelper.show_info("Все строки модуля уже изменены")
+                return
+            BulletinHelper.show_info("Перевожу %d строк…" % len(todo))
+            changed = 0
+            try:
+                model = self._pick_model(key)
+                for i in range(0, len(todo), AI_CHUNK):
+                    part = {k: self._human(base[k]) for k in todo[i:i + AI_CHUNK]}
+                    answer = self._ask_groq(model, key, style, part)
+                    for k, old in part.items():
+                        new = str(answer.get(k, ""))
+                        if new and self._same_placeholders(old, new):
+                            self.set_setting(self._name(k), new)
+                            changed += 1
+                BulletinHelper.show_success("Готово: изменено %d" % changed)
+            except Exception as e:
+                BulletinHelper.show_error("%s (изменено %d)" % (str(e)[:70], changed))
+            self.set_setting("gen", self._gen(), reload_settings=True)
+
+        run_on_queue(work)
+
+    def _build_xml(self) -> str:
+        base = self._base()
+        changed = {k: self._raw(v) for k, v in self._edited().items()}
+
+        def meta(name: str, default: str) -> str:
+            value = self._setting(name) or default
+            return re.sub(r"[&|<>]", "", value)
+
+        code = re.sub(r"[^A-Za-z0-9_]", "", self._setting("lang_code") or "mylang")[:10].lower() or "mylang"
+        lines = [
+            '<?xml version="1.0" encoding="utf-8"?>',
+            "<resources>",
+            '    <string name="LanguageName">%s</string>' % meta("lang_name", "Мой язык"),
+            '    <string name="LanguageNameInEnglish">%s</string>' % meta("lang_name_en", "My language"),
+            '    <string name="LanguageCode">%s</string>' % code,
+        ]
+        for key, raw in base.items():
+            if key not in META:
+                lines.append('    <string name="%s">%s</string>' % (key, changed.get(key, raw)))
+        lines.append("</resources>")
+        return "\n".join(lines) + "\n"
+
+    def _write_xml(self) -> str:
+        code = re.sub(r"[^A-Za-z0-9_]", "", self._setting("lang_code") or "mylang") or "mylang"
+        path = os.path.join(self._dir(), code + ".xml")
+        write_file(path, self._build_xml())
+        return path
+
+    def _apply(self):
+        if not self._english():
+            BulletinHelper.show_error("Сначала загрузи строки Telegram")
+            return
+
+        def work():
+            path = self._write_xml()
+
+            def on_ui():
+                from java.io import File
+                from org.telegram.messenger import LocaleController, UserConfig
+                ok = LocaleController.getInstance().applyLanguageFile(File(path), UserConfig.selectedAccount)
+                if ok:
+                    BulletinHelper.show_success("Язык применён")
+                else:
+                    BulletinHelper.show_error("Telegram не принял файл. Проверь название и код")
+
+            run_on_ui_thread(on_ui)
+
+        run_on_queue(work)
+
+    def _to_saved(self):
+        if not self._english():
+            BulletinHelper.show_error("Сначала загрузи строки Telegram")
+            return
+
+        def work():
+            path = self._write_xml()
+            me = get_user_config().getClientUserId()
+            send_document(me, path, caption="Файл языка. Нажми на него и выбери «Применить файл локализации»")
+            BulletinHelper.show_success("Файл в Избранном")
+
+        run_on_queue(work)
+
+    def _dialog(self, title: str, text: str, ok_text: str = "Понятно", on_ok=None):
+        def show():
+            fragment = get_last_fragment()
+            activity = fragment.getParentActivity() if fragment else None
+            if not activity:
+                return
+            builder = AlertDialogBuilder(activity)
+            builder.set_title(title)
+            builder.set_message(text)
+
+            def ok(b, which):
+                b.dismiss()
+                if on_ok:
+                    on_ok()
+
+            builder.set_positive_button(ok_text, ok)
+            if on_ok:
+                builder.set_negative_button("Отмена", lambda b, w: b.dismiss())
+            builder.show()
+
+        run_on_ui_thread(show)
+
+    def _help(self):
+        self._dialog(
+            "Как это работает",
+            "1. Задай название и код языка.\n"
+            "2. Выбери основу: English или Русский. Строки, которые ты не менял, "
+            "останутся на этом языке.\n"
+            "3. Открой «Строки», выбери модуль и нажми на строку, чтобы изменить её. "
+            "Такие вставки, как %1$s или **, менять нельзя.\n"
+            "4. По желанию ИИ (Groq) переведёт модуль за тебя.\n"
+            "5. «Применить язык» включит его сразу, «Отправить .xml в Избранное» "
+            "сохранит файл.",
+        )
+
+    def _confirm_reset(self):
+        def reset():
+            self.set_setting("gen", self._gen() + 1, reload_settings=True)
+            BulletinHelper.show_success("Правки сброшены")
+
+        self._dialog("Сбросить правки?", "Все изменённые строки вернутся к основе.", "Сбросить", reset)

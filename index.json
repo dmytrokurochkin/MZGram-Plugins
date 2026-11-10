@@ -5973,6 +5973,36 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "lang_maker",
+      "name": "Lang Maker",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/lang_maker/1.0.0/lang_maker.plugin",
+      "sha256": "5ddfcd3782facf1651ea9664f6fe6b552a64f9ed159a7dc2f1c1d5e2933a2b03",
+      "size": 24378,
+      "description": "Telegram language editor. You select the base (English or Russian), edit the necessary lines directly in the plugin settings and apply the language with one button.",
+      "description_i18n": {
+        "en": "Telegram language editor. You select the base (English or Russian), edit the necessary lines directly in the plugin settings and apply the language with one button.",
+        "uk": "Мовний редактор Telegram. Ви вибираєте базу (англійську або російську), редагуєте потрібні рядки прямо в налаштуваннях плагіна і застосовуєте мову однією кнопкою.",
+        "ru": "Языковой редактор Telegram. Вы выбираете базу (английскую или русскую), редактируете необходимые строки прямо в настройках плагина и применяете язык одной кнопкой.",
+        "pl": "Edytor języka telegramu. Wybierasz bazę (angielski lub rosyjski), edytujesz niezbędne linie bezpośrednio w ustawieniach wtyczki i stosujesz język jednym przyciskiem.",
+        "es": "Editor de idiomas de Telegram. Selecciona la base (inglés o ruso), edita las líneas necesarias directamente en la configuración del complemento y aplica el idioma con un botón.",
+        "de": "Telegram-Spracheditor. Sie wählen die Basis (Englisch oder Russisch), bearbeiten die notwendigen Zeilen direkt in den Plugin-Einstellungen und wenden die Sprache mit einem Knopfdruck an.",
+        "fr": "Éditeur de langage Telegram. Vous sélectionnez la base (anglais ou russe), modifiez les lignes nécessaires directement dans les paramètres du plugin et appliquez la langue avec un seul bouton.",
+        "pt-BR": "Editor de linguagem de telegrama. Você seleciona a base (inglês ou russo), edita as linhas necessárias diretamente nas configurações do plugin e aplica o idioma com um botão.",
+        "tr": "Telegram dil editörü. Tabanı (İngilizce veya Rusça) seçer, gerekli satırları doğrudan eklenti ayarlarında düzenler ve dili tek tuşla uygularsınız.",
+        "ar": "محرر لغة برقية. يمكنك تحديد القاعدة (الإنجليزية أو الروسية)، وتحرير الأسطر الضرورية مباشرة في إعدادات البرنامج المساعد وتطبيق اللغة بزر واحد.",
+        "be": "Тэлеграм моўны рэдактар. Вы выбіраеце базу (англійская або руская), рэдагуеце патрэбныя радкі непасрэдна ў наладах плагіна і ўжываеце мову адной кнопкай.",
+        "kk": "Telegram тілінің редакторы. Сіз базаны таңдайсыз (ағылшын немесе орыс), қажетті жолдарды тікелей плагин параметрлерінде өңдейсіз және тілді бір түймемен қолданасыз."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files"
+      ]
     }
   ]
 }
