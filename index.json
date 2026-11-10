@@ -204,6 +204,34 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "ExteraRSS",
+      "name": "ExteraRSS",
+      "version": "2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/ExteraRSS/2.0/ExteraRSS.plugin",
+      "sha256": "7b1d00fd71f7c5ca2fbdc07e662cfb11670a25819bb96f1e2940a9394aa58353",
+      "size": 204141,
+      "description": "RSS + Telegram in one feed",
+      "description_i18n": {
+        "en": "RSS + Telegram in one feed",
+        "uk": "RSS + Telegram в одній стрічці",
+        "ru": "RSS + Telegram в одной ленте",
+        "pl": "RSS + Telegram w jednym kanale",
+        "es": "RSS + Telegram en un solo feed",
+        "de": "RSS + Telegramm in einem Feed",
+        "fr": "RSS + Telegram dans un seul flux",
+        "pt-BR": "RSS + Telegram em um feed",
+        "tr": "Tek beslemede RSS + Telegram",
+        "ar": "RSS + Telegram في خلاصة واحدة",
+        "be": "RSS + Telegram у адной стужцы",
+        "kk": "RSS + Telegram бір арнада"
+      },
+      "permissions": [
+        "network",
+        "intents"
+      ]
     }
   ]
 }
