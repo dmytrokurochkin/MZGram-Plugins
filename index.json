@@ -11258,6 +11258,34 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "tailed-tts",
+      "name": "text-to-speech",
+      "version": "1.4",
+      "min_app_version": "1.0.0",
+      "file": "plugins/tailed-tts/1.4/tailed-tts.plugin",
+      "sha256": "99447be1386d8800c6d90f852a8b80951c8ed39bf68b31662c0a6201ccc7faa6",
+      "size": 11885,
+      "description": "uses voicerss api to voice your text with .tts [text] command",
+      "description_i18n": {
+        "en": "uses voicerss api to voice your text with .tts [text] command",
+        "uk": "використовує Voicerss API для озвучення вашого тексту за допомогою команди .tts [текст].",
+        "ru": "использует voicerss API для озвучивания вашего текста с помощью команды .tts [текст]",
+        "pl": "używa interfejsu API Voicerss do wypowiadania tekstu za pomocą polecenia .tts [tekst].",
+        "es": "utiliza la API de voicerss para expresar su texto con el comando .tts [texto]",
+        "de": "verwendet die Voicerss-API, um Ihren Text mit dem Befehl .tts [Text] auszusprechen",
+        "fr": "utilise l'API Voicerss pour exprimer votre texte avec la commande .tts [text]",
+        "pt-BR": "usa API voicerss para dar voz ao seu texto com o comando .tts [texto]",
+        "tr": ".tts [text] komutuyla metninizi seslendirmek için Voicerss API'yi kullanır",
+        "ar": "يستخدم voicerss api للتعبير عن النص الخاص بك باستخدام أمر .tts [text].",
+        "be": "выкарыстоўвае API voicerss для агучвання вашага тэксту з дапамогай каманды .tts [тэкст].",
+        "kk": ".tts [text] пәрменімен мәтінді дыбыстау үшін voicerss api пайдаланады"
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
