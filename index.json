@@ -11567,6 +11567,33 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "token_guard",
+      "name": "Token Guard",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/token_guard/1.0.0/token_guard.plugin",
+      "sha256": "6d66025c1a433fa3322966e22e34e63648151fbf788251ac97a97bb7030300a4",
+      "size": 2267,
+      "description": "Protection against accidental sending of tokens, keys and personal data",
+      "description_i18n": {
+        "en": "Protection against accidental sending of tokens, keys and personal data",
+        "uk": "Захист від випадкової відправки токенів, ключів і персональних даних",
+        "ru": "Защита от случайной отправки токенов, ключей и личных данных",
+        "pl": "Ochrona przed przypadkowym przesłaniem tokenów, kluczy i danych osobowych",
+        "es": "Protección contra envío accidental de tokens, claves y datos personales",
+        "de": "Schutz vor versehentlichem Versenden von Token, Schlüsseln und persönlichen Daten",
+        "fr": "Protection contre l'envoi accidentel de tokens, clés et données personnelles",
+        "pt-BR": "Proteção contra envio acidental de tokens, chaves e dados pessoais",
+        "tr": "Belirteçlerin, anahtarların ve kişisel verilerin yanlışlıkla gönderilmesine karşı koruma",
+        "ar": "الحماية ضد الإرسال العرضي للرموز والمفاتيح والبيانات الشخصية",
+        "be": "Абарона ад выпадковай адпраўкі токенаў, ключоў і асабістых дадзеных",
+        "kk": "Токендерді, кілттерді және жеке деректерді кездейсоқ жіберуден қорғау"
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
