@@ -3970,6 +3970,39 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "exitfy",
+      "name": "exitFy (legacy)",
+      "version": "3.0.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/exitfy/3.0.3/exitfy.plugin",
+      "sha256": "7f38be170f563bb9462cb0fc8799c48c39699f272eef61b333be084a5ab9eeab",
+      "size": 301266,
+      "description": "Application download speed optimization.",
+      "description_i18n": {
+        "en": "Application download speed optimization.",
+        "uk": "Оптимізація швидкості завантаження програми.",
+        "ru": "Оптимизация скорости загрузки приложений.",
+        "pl": "Optymalizacja szybkości pobierania aplikacji.",
+        "es": "Optimización de la velocidad de descarga de aplicaciones.",
+        "de": "Optimierung der Download-Geschwindigkeit von Anwendungen.",
+        "fr": "Optimisation de la vitesse de téléchargement des applications.",
+        "pt-BR": "Otimização da velocidade de download do aplicativo.",
+        "tr": "Uygulama indirme hızı optimizasyonu.",
+        "ar": "تحسين سرعة تنزيل التطبيق.",
+        "be": "Аптымізацыя хуткасці загрузкі прыкладання.",
+        "kk": "Application download speed optimization."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
