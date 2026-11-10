@@ -7322,6 +7322,34 @@
         "files",
         "intents"
       ]
+    },
+    {
+      "id": "music_tab",
+      "name": "Music Tab",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/music_tab/1.0.0/music_tab.plugin",
+      "sha256": "374febeb26abac545d21fb2535a5ff0bc54ac21500ee05a8511e9cbb6eef9283",
+      "size": 11586,
+      "description": "Replaces the Contacts button on the home screen with a Music button. When pressed, the latest or first music from Favorites or from the selected chat opens.",
+      "description_i18n": {
+        "en": "Replaces the Contacts button on the home screen with a Music button. When pressed, the latest or first music from Favorites or from the selected chat opens.",
+        "uk": "Замінює кнопку «Контакти» на головному екрані кнопкою «Музика». Після натискання відкривається остання або перша музика з вибраного або з вибраного чату.",
+        "ru": "Заменяет кнопку «Контакты» на главном экране кнопкой «Музыка». При нажатии открывается последняя или первая музыка из Избранного или из выбранного чата.",
+        "pl": "Zastępuje przycisk Kontakty na ekranie głównym przyciskiem Muzyka. Po naciśnięciu otwiera się ostatnia lub pierwsza muzyka z Ulubionych lub z wybranego czatu.",
+        "es": "Reemplaza el botón Contactos en la pantalla de inicio con un botón de Música. Cuando se presiona, se abre la última o la primera música de Favoritos o del chat seleccionado.",
+        "de": "Ersetzt die Schaltfläche „Kontakte\" auf dem Startbildschirm durch eine Schaltfläche „Musik\". Beim Drücken wird die neueste oder erste Musik aus den Favoriten oder aus dem ausgewählten Chat geöffnet.",
+        "fr": "Remplace le bouton Contacts de l'écran d'accueil par un bouton Musique. Lorsque vous appuyez dessus, la dernière ou la première musique des Favoris ou du chat sélectionné s'ouvre.",
+        "pt-BR": "Substitui o botão Contatos na tela inicial por um botão Música. Quando pressionado, a última ou a primeira música dos Favoritos ou do bate-papo selecionado é aberta.",
+        "tr": "Ana ekrandaki Kişiler düğmesini Müzik düğmesiyle değiştirir. Basıldığında Favoriler'deki veya seçilen sohbetteki en yeni veya ilk müzik açılır.",
+        "ar": "يستبدل زر جهات الاتصال الموجود على الشاشة الرئيسية بزر الموسيقى. عند الضغط عليه، يتم فتح أحدث أو أول موسيقى من المفضلة أو من الدردشة المحددة.",
+        "be": "Замяняе кнопку «Кантакты» на галоўным экране кнопкай «Музыка». Пры націсканні адкрываецца апошняя або першая музыка з Выбранага або з выбранага чата.",
+        "kk": "Негізгі экрандағы «Контактілер» түймесін «Музыка» түймесіне ауыстырады. Басқан кезде Таңдаулылардағы немесе таңдалған чаттағы соңғы немесе бірінші музыка ашылады."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
