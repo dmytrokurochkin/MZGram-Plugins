@@ -6425,6 +6425,34 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "lyrics_genius",
+      "name": "Genius extension for Reach Text",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/lyrics_genius/1.1/lyrics_genius.plugin",
+      "sha256": "cb0014f9e5772f43e65dc6a79002e7e50e01fddf23c88a89a4fde26d781f2487",
+      "size": 13353,
+      "description": "Adds genuis.com as a provider for lyrics for the Reach Text plugin",
+      "description_i18n": {
+        "en": "Adds genuis.com as a provider for lyrics for the Reach Text plugin",
+        "uk": "Додає genuis.com як постачальник текстів для плагіна Reach Text",
+        "ru": "Добавляет genuis.com в качестве поставщика текстов для плагина Reach Text.",
+        "pl": "Dodaje genuis.com jako dostawcę tekstów dla wtyczki Reach Text",
+        "es": "Agrega genuis.com como proveedor de letras para el complemento Reach Text",
+        "de": "Fügt genuis.com als Anbieter für Liedtexte für das Reach Text-Plugin hinzu",
+        "fr": "Ajoute genuis.com en tant que fournisseur de paroles pour le plugin Reach Text",
+        "pt-BR": "Adiciona genuis.com como fornecedor de letras para o plugin Reach Text",
+        "tr": "Reach Text eklentisinin şarkı sözü sağlayıcısı olarak genuis.com'u ekler",
+        "ar": "إضافة موقع genuis.com كموفر للكلمات الخاصة بالمكون الإضافي Reach Text",
+        "be": "Дадае genuis.com у якасці пастаўшчыка песень для плагіна Reach Text",
+        "kk": "Genuis.com сайтын Reach Text плагиніне арналған сөздерді жеткізуші ретінде қосады"
+      },
+      "permissions": [
+        "network",
+        "hooks"
+      ]
     }
   ]
 }
