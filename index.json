@@ -6946,6 +6946,37 @@
         "network",
         "hooks"
       ]
+    },
+    {
+      "id": "mini_app_float",
+      "name": "Mini App Float",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/mini_app_float/1.1/mini_app_float.plugin",
+      "sha256": "5db655285fc58f17e5f12237771e7c54dd50e5b05f185327943231d102195316",
+      "size": 103912,
+      "description": "Minimizes mini-apps and websites from the browser into a floating window",
+      "description_i18n": {
+        "en": "Minimizes mini-apps and websites from the browser into a floating window",
+        "uk": "Згортає міні-програми та веб-сайти з браузера у плаваюче вікно",
+        "ru": "Сворачивает мини-приложения и веб-сайты из браузера в плавающее окно.",
+        "pl": "Minimalizuje miniaplikacje i strony internetowe z przeglądarki do pływającego okna",
+        "es": "Minimiza miniaplicaciones y sitios web desde el navegador en una ventana flotante",
+        "de": "Minimiert Mini-Apps und Websites aus dem Browser in ein schwebendes Fenster",
+        "fr": "Réduit les mini-applications et les sites Web du navigateur dans une fenêtre flottante",
+        "pt-BR": "Minimiza miniaplicativos e sites do navegador em uma janela flutuante",
+        "tr": "Tarayıcıdaki mini uygulamaları ve web sitelerini kayan bir pencereye küçültür",
+        "ar": "يقلل التطبيقات المصغرة ومواقع الويب من المتصفح إلى نافذة عائمة",
+        "be": "Згортвае міні-праграмы і вэб-сайты з браўзера ў плавае акно",
+        "kk": "Шағын қолданбалар мен веб-сайттарды браузерден қалқымалы терезеге азайтады"
+      },
+      "permissions": [
+        "messages.read",
+        "network",
+        "intents",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
