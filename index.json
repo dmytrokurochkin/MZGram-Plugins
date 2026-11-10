@@ -9458,6 +9458,33 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "record_blocker",
+      "name": "Record Blocker",
+      "version": "1.1.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/record_blocker/1.1.3/record_blocker.plugin",
+      "sha256": "3fb8c92c946d06a1219e202d83e526fe1638912b1ccee6ab2e7a07d19030b0b7",
+      "size": 3227,
+      "description": "A complete ban on manual recording of voices and circles: the record button simply does not work. The plugin saves you from accidentally recording and sending a voice or circle with an unsuccessful tap on the button.",
+      "description_i18n": {
+        "en": "A complete ban on manual recording of voices and circles: the record button simply does not work. The plugin saves you from accidentally recording and sending a voice or circle with an unsuccessful tap on the button.",
+        "uk": "Повна заборона ручного запису голосів і кіл: просто не працює кнопка запису. Плагін позбавляє вас від випадкового запису та відправки голосу або кола при невдалому натисканні на кнопку.",
+        "ru": "Полный запрет на ручную запись голосов и кругов: кнопка записи просто не работает. Плагин спасает от случайной записи и отправки голоса или круга при неудачном нажатии на кнопку.",
+        "pl": "Całkowity zakaz ręcznego nagrywania głosów i kręgów: przycisk nagrywania po prostu nie działa. Wtyczka chroni Cię przed przypadkowym nagraniem i wysłaniem głosu lub kręgu po nieudanym dotknięciu przycisku.",
+        "es": "Prohibición total de la grabación manual de voces y círculos: el botón de grabación simplemente no funciona. El complemento le evita grabar y enviar accidentalmente una voz o un círculo al tocar el botón sin éxito.",
+        "de": "Ein völliges Verbot der manuellen Aufnahme von Stimmen und Kreisen: Die Aufnahmetaste funktioniert einfach nicht. Das Plugin verhindert, dass Sie versehentlich eine Stimme oder einen Kreis aufzeichnen und senden, wenn Sie erfolglos auf die Schaltfläche tippen.",
+        "fr": "Une interdiction totale de l'enregistrement manuel des voix et des cercles : le bouton d'enregistrement ne fonctionne tout simplement pas. Le plugin vous évite d'enregistrer et d'envoyer accidentellement une voix ou un cercle en appuyant sans succès sur le bouton.",
+        "pt-BR": "Proibição total da gravação manual de vozes e círculos: o botão de gravação simplesmente não funciona. O plug-in evita que você grave e envie acidentalmente uma voz ou um círculo com um toque malsucedido no botão.",
+        "tr": "Seslerin ve çevrelerin manuel olarak kaydedilmesinin tamamen yasaklanması: kayıt düğmesi çalışmıyor. Eklenti, düğmeye başarısız bir dokunuşla yanlışlıkla bir ses veya daire kaydedip göndermenizi önler.",
+        "ar": "حظر كامل على التسجيل اليدوي للأصوات والدوائر: زر التسجيل ببساطة لا يعمل. يوفر لك البرنامج المساعد تسجيل وإرسال صوت أو دائرة عن طريق الخطأ بنقرة غير ناجحة على الزر.",
+        "be": "Поўная забарона на ручную запіс галасоў і колаў: проста не працуе кнопка запісу. Убудова пазбаўляе вас ад выпадковай запісу і адпраўкі голасу або круга пры няўдалым націску на кнопку.",
+        "kk": "Дауыстар мен шеңберлерді қолмен жазуға толық тыйым: жазу түймесі жай жұмыс істемейді. Плагин сізді түймені сәтсіз түрту арқылы дауысты немесе шеңберді кездейсоқ жазып алудан және жіберуден сақтайды."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
