@@ -898,6 +898,34 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "account_stats",
+      "name": "Статистика аккаунта",
+      "version": "1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/account_stats/1.2/account_stats.plugin",
+      "sha256": "116f966d30ac5cb7e6eea9854276028c779ad46b90e0ddd4f6910c270fc1237e",
+      "size": 22601,
+      "description": "Shows statistics for all chats in the account. Command: .stats",
+      "description_i18n": {
+        "en": "Shows statistics for all chats in the account. Command: .stats",
+        "uk": "Показує статистику для всіх чатів в обліковому записі. Команда: .stats",
+        "ru": "Показывает статистику по всем чатам в аккаунте. Команда: .stats",
+        "pl": "Pokazuje statystyki wszystkich czatów na koncie. Polecenie: .stats",
+        "es": "Muestra estadísticas de todos los chats de la cuenta. Comando: .estadísticas",
+        "de": "Zeigt Statistiken für alle Chats im Konto an. Befehl: .stats",
+        "fr": "Affiche les statistiques de toutes les discussions du compte. Commande : .stats",
+        "pt-BR": "Mostra estatísticas de todos os chats da conta. Comando: .stats",
+        "tr": "Hesaptaki tüm sohbetlerin istatistiklerini gösterir. Komut: .stats",
+        "ar": "- إظهار إحصائيات لجميع الدردشات الموجودة في الحساب. الأمر: .الإحصائيات",
+        "be": "Паказвае статыстыку ўсіх чатаў у акаўнце. Каманда: .stats",
+        "kk": "Есептік жазбадағы барлық чаттардың статистикасын көрсетеді. Пәрмен: .stats"
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send"
+      ]
     }
   ]
 }
