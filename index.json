@@ -4625,6 +4625,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "formatsend",
+      "name": "FormatSend",
+      "version": "1.2.3",
+      "min_app_version": "1.0.0",
+      "file": "plugins/formatsend/1.2.3/formatsend.plugin",
+      "sha256": "dc97da5c209af6d2484bf68b6916e3ff0114d72b0bd3be59acc8deadee50a6af",
+      "size": 30251,
+      "description": "Automatic message formatting: bold, italic, spoiler, quote, etc. By holding down the filter selection button.",
+      "description_i18n": {
+        "en": "Automatic message formatting: bold, italic, spoiler, quote, etc. By holding down the filter selection button.",
+        "uk": "Автоматичне форматування повідомлення: напівжирний, курсив, спойлер, цитата тощо. Утримуючи кнопку вибору фільтра.",
+        "ru": "Автоматическое форматирование сообщений: жирный, курсив, спойлер, цитата и т.д. Удерживая кнопку выбора фильтра.",
+        "pl": "Automatyczne formatowanie wiadomości: pogrubienie, kursywa, spoiler, cytat itp. Po przytrzymaniu przycisku wyboru filtra.",
+        "es": "Formato automático de mensajes: negrita, cursiva, spoiler, comillas, etc. Manteniendo pulsado el botón de selección de filtro.",
+        "de": "Automatische Nachrichtenformatierung: Fett, Kursiv, Spoiler, Zitat usw. Durch Gedrückthalten der Filterauswahltaste.",
+        "fr": "Mise en forme automatique des messages : gras, italique, spoiler, citation, etc. En maintenant enfoncé le bouton de sélection du filtre.",
+        "pt-BR": "Formatação automática de mensagens: negrito, itálico, spoiler, citação, etc. Mantendo pressionado o botão de seleção de filtro.",
+        "tr": "Otomatik mesaj biçimlendirme: kalın, italik, spoiler, alıntı vb. Filtre seçim düğmesini basılı tutarak.",
+        "ar": "التنسيق التلقائي للرسالة: غامق، مائل، مفسد، اقتباس، وما إلى ذلك من خلال الضغط باستمرار على زر اختيار الفلتر.",
+        "be": "Аўтаматычнае фарматаванне паведамлення: тлусты шрыфт, курсіў, спойлер, цытата і г. д. Утрымліваючы кнопку выбару фільтра.",
+        "kk": "Хабарды автоматты түрде пішімдеу: қалың, көлбеу, спойлер, дәйексөз, т.б.. Сүзгі таңдау түймесін басып тұру арқылы."
+      },
+      "permissions": [
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
