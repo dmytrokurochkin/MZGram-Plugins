@@ -651,6 +651,33 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "Round_Videos_Configurator",
+      "name": "Round Videos Configurator",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/Round_Videos_Configurator/1.0.0/Round_Videos_Configurator.plugin",
+      "sha256": "82636e9085f4eaf4cefe5ce2aeb8e7708c730744b1233000ccc33539f8ed3c71",
+      "size": 2467,
+      "description": "Allows to set custom resolution and bitrate for round videos.",
+      "description_i18n": {
+        "en": "Allows to set custom resolution and bitrate for round videos.",
+        "uk": "Дозволяє встановити власну роздільну здатність і бітрейт для круглих відео.",
+        "ru": "Позволяет устанавливать собственное разрешение и битрейт для круглых видео.",
+        "pl": "Umożliwia ustawienie niestandardowej rozdzielczości i szybkości transmisji dla okrągłych filmów.",
+        "es": "Permite configurar una resolución personalizada y una tasa de bits para videos redondos.",
+        "de": "Ermöglicht das Festlegen einer benutzerdefinierten Auflösung und Bitrate für runde Videos.",
+        "fr": "Permet de définir une résolution et un débit personnalisés pour les vidéos rondes.",
+        "pt-BR": "Permite definir resolução e taxa de bits personalizadas para vídeos redondos.",
+        "tr": "Yuvarlak videolar için özel çözünürlük ve bit hızı ayarlamanıza olanak tanır.",
+        "ar": "يسمح بتعيين الدقة المخصصة ومعدل البت لمقاطع الفيديو المستديرة.",
+        "be": "Дазваляе ўсталяваць карыстацкае дазвол і бітрэйт для круглых відэа.",
+        "kk": "Дөңгелек бейнелер үшін реттелетін ажыратымдылық пен бит жылдамдығын орнатуға мүмкіндік береді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
