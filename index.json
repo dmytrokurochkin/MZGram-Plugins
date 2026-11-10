@@ -8001,6 +8001,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "paranoia",
+      "name": "Paranoia",
+      "version": "1.2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/paranoia/1.2.0/paranoia.plugin",
+      "sha256": "7a8e864420b03bb7f1dec8563c7ad41a9ff06e1e73176399d28407d6b9eaeb82",
+      "size": 3790,
+      "description": "Prevents accidental sending of non-existent commands starting with '.'",
+      "description_i18n": {
+        "en": "Prevents accidental sending of non-existent commands starting with '.'",
+        "uk": "Запобігає випадковому надсиланню неіснуючих команд, які починаються з «.»",
+        "ru": "Предотвращает случайную отправку несуществующих команд, начинающихся с «.».",
+        "pl": "Zapobiega przypadkowemu wysyłaniu nieistniejących poleceń rozpoczynających się od „.\"",
+        "es": "Evita el envío accidental de comandos inexistentes que comienzan con '.'",
+        "de": "Verhindert das versehentliche Senden nicht vorhandener Befehle, die mit „.\" beginnen.",
+        "fr": "Empêche l'envoi accidentel de commandes inexistantes commençant par '.'",
+        "pt-BR": "Impede o envio acidental de comandos inexistentes começando com '.'",
+        "tr": "'.' ile başlayan, var olmayan komutların yanlışlıkla gönderilmesini önler.",
+        "ar": "يمنع الإرسال غير المقصود لأوامر غير موجودة تبدأ بـ '.'",
+        "be": "Прадухіляе выпадковую адпраўку неіснуючых каманд, якія пачынаюцца з '.'",
+        "kk": "'.' деп басталатын жоқ пәрмендердің кездейсоқ жіберілуін болдырмайды."
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
