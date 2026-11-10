@@ -9233,6 +9233,34 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "radio_station",
+      "name": "Radio Station",
+      "version": "5.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/radio_station/5.0.0/radio_station.plugin",
+      "sha256": "0916296a280e586383562dd671862f60a62af3cd30826667d9db0aba91261d12",
+      "size": 61008,
+      "description": "Background Internet radio directly in ExteraGram",
+      "description_i18n": {
+        "en": "Background Internet radio directly in ExteraGram",
+        "uk": "Фонове Інтернет-радіо прямо в ExteraGram",
+        "ru": "Фоновое интернет-радио прямо в ExteraGram",
+        "pl": "Radio internetowe w tle bezpośrednio w ExteraGramie",
+        "es": "Radio por Internet en segundo plano directamente en ExteraGram",
+        "de": "Hintergrund-Internetradio direkt in ExteraGram",
+        "fr": "Radio Internet en arrière-plan directement dans ExteraGram",
+        "pt-BR": "Rádio na Internet em segundo plano diretamente no ExteraGram",
+        "tr": "Doğrudan ExteraGram'da arka planda İnternet radyosu",
+        "ar": "خلفية راديو الإنترنت مباشرة في ExteraGram",
+        "be": "Фонавае Інтэрнэт-радыё непасрэдна ў ExteraGram",
+        "kk": "Фондық интернет радиосы тікелей ExteraGram ішінде"
+      },
+      "permissions": [
+        "messages.send",
+        "network"
+      ]
     }
   ]
 }
