@@ -11649,6 +11649,39 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "translatica",
+      "name": "Translatica",
+      "version": "1.0.6",
+      "min_app_version": "1.0.0",
+      "file": "plugins/translatica/1.0.6/translatica.plugin",
+      "sha256": "08409d0166cd2c81e9ae52f684c415badd0f502587e9c7c3b2e5792998309773",
+      "size": 406623,
+      "description": "A context-aware translation plugin that **intelligently adapts messages to sound natural** in the target language, with advanced controls over translation behavior, reply handling, and language targeting. A context-sensitive translation plugin that **intelligently adapts messages to sound natural** in the target language, with advanced control over translation behavior, response processing, and language selection.",
+      "description_i18n": {
+        "en": "A context-aware translation plugin that **intelligently adapts messages to sound natural** in the target language, with advanced controls over translation behavior, reply handling, and language targeting. A context-sensitive translation plugin that **intelligently adapts messages to sound natural** in the target language, with advanced control over translation behavior, response processing, and language selection.",
+        "uk": "Контекстно-залежний плагін перекладу, який **інтелектуально адаптує повідомлення, щоб вони звучали природно** на цільовій мові, з розширеними засобами керування поведінкою перекладу, обробкою відповідей і орієнтацією на мову. Контекстно-залежний плагін перекладу, який **інтелектуально адаптує повідомлення, щоб вони звучали природно** на цільовій мові, з розширеним контролем над поведінкою перекладу, обробкою відповіді та вибором мови.",
+        "ru": "Плагин контекстно-зависимого перевода, который **интеллектуально адаптирует сообщения так, чтобы они звучали естественно** на целевом языке, с расширенными возможностями управления поведением перевода, обработкой ответов и языковым таргетингом. Плагин контекстно-зависимого перевода, который **интеллектуально адаптирует сообщения так, чтобы они звучали естественно** на целевом языке, с расширенным контролем над поведением перевода, обработкой ответов и выбором языка.",
+        "pl": "Kontekstowa wtyczka do tłumaczenia, która **inteligentnie dostosowuje wiadomości tak, aby brzmiały naturalnie** w języku docelowym, z zaawansowaną kontrolą nad zachowaniem w tłumaczeniu, obsługą odpowiedzi i kierowaniem na język. Kontekstowa wtyczka do tłumaczenia, która **inteligentnie dostosowuje wiadomości tak, aby brzmiały naturalnie** w języku docelowym, z zaawansowaną kontrolą nad zachowaniem w tłumaczeniu, przetwarzaniem odpowiedzi i wyborem języka.",
+        "es": "Un complemento de traducción sensible al contexto que **adapta inteligentemente los mensajes para que suenen naturales** en el idioma de destino, con controles avanzados sobre el comportamiento de traducción, el manejo de respuestas y la orientación por idioma. Un complemento de traducción sensible al contexto que **adapta inteligentemente los mensajes para que suenen naturales** en el idioma de destino, con control avanzado sobre el comportamiento de traducción, el procesamiento de respuestas y la selección de idioma.",
+        "de": "Ein kontextsensitives Übersetzungs-Plugin, das Nachrichten intelligent anpasst, damit sie in der Zielsprache natürlich klingen**, mit erweiterten Kontrollen über Übersetzungsverhalten, Antwortverarbeitung und Sprachausrichtung. Ein kontextsensitives Übersetzungs-Plugin, das Nachrichten intelligent anpasst, damit sie in der Zielsprache natürlich klingen**, mit erweiterter Kontrolle über das Übersetzungsverhalten, die Antwortverarbeitung und die Sprachauswahl.",
+        "fr": "Un plugin de traduction contextuel qui **adapte intelligemment les messages pour qu'ils paraissent naturels** dans la langue cible, avec des contrôles avancés sur le comportement de traduction, la gestion des réponses et le ciblage linguistique. Un plugin de traduction contextuel qui **adapte intelligemment les messages pour qu'ils paraissent naturels** dans la langue cible, avec un contrôle avancé sur le comportement de traduction, le traitement des réponses et la sélection de la langue.",
+        "pt-BR": "Um plug-in de tradução com reconhecimento de contexto que **adapta mensagens de forma inteligente para soarem naturais** no idioma de destino, com controles avançados sobre comportamento de tradução, tratamento de respostas e idioma de destino. Um plug-in de tradução sensível ao contexto que **adapta mensagens de maneira inteligente para soarem naturais** no idioma de destino, com controle avançado sobre o comportamento da tradução, processamento de respostas e seleção de idioma.",
+        "tr": "Çeviri davranışı, yanıt yönetimi ve dil hedefleme üzerinde gelişmiş kontrollerle, hedef dilde **mesajları doğal görünecek şekilde akıllıca uyarlayan** bağlama duyarlı bir çeviri eklentisi. Çeviri davranışı, yanıt işleme ve dil seçimi üzerinde gelişmiş kontrolle **mesajları hedef dilde doğal görünecek şekilde akıllıca uyarlayan** bağlama duyarlı bir çeviri eklentisi.",
+        "ar": "مكون إضافي للترجمة يراعي السياق ** يعمل على تكييف الرسائل بذكاء لتبدو طبيعية ** في اللغة الهدف، مع عناصر تحكم متقدمة في سلوك الترجمة ومعالجة الرد واستهداف اللغة. مكون إضافي للترجمة حساس للسياق ** يعمل على تكييف الرسائل بذكاء لتبدو طبيعية ** في اللغة الهدف، مع تحكم متقدم في سلوك الترجمة ومعالجة الاستجابة واختيار اللغة.",
+        "be": "Убудова для перакладу з улікам кантэксту, якая **разумна адаптуе паведамленні, каб яны гучалі натуральна** на мэтавай мове, з пашыранымі сродкамі кантролю над паводзінамі перакладу, апрацоўкай адказаў і арыентацыяй на мову. Кантэкстна-залежны плагін для перакладу, які **разумна адаптуе паведамленні, каб яны гучалі натуральна** на мэтавай мове, з пашыраным кантролем над паводзінамі перакладу, апрацоўкай адказаў і выбарам мовы.",
+        "kk": "Аударма әрекетін, жауаптарды өңдеуді және тілдің таргеттелуін кеңейтілген басқару элементтері бар мәтінмәнді ескеретін аударма плагині. Аударма әрекетін, жауаптарды өңдеуді және тілді таңдауды кеңейтілген бақылау арқылы мақсатты тілдегі **хабарларды табиғи дыбысқа интеллектуалды түрде бейімдейтін** мәтінмәнге сезімтал аударма плагині."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
