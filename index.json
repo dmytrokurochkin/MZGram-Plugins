@@ -11833,6 +11833,35 @@
         "messages.read",
         "messages.send"
       ]
+    },
+    {
+      "id": "visual_ecstasy",
+      "name": "Visual Ecstasy",
+      "version": "1.5",
+      "min_app_version": "1.0.0",
+      "file": "plugins/visual_ecstasy/1.5/visual_ecstasy.plugin",
+      "sha256": "fd9b345c7cb4f58939921cd1ea35b471e0ea9cb17163274d55bc19f4bf40eca3",
+      "size": 95581,
+      "description": "Various visual customization: multi-colored liquid glass, vignette, etc..",
+      "description_i18n": {
+        "en": "Various visual customization: multi-colored liquid glass, vignette, etc..",
+        "uk": "Різноманітна візуальна настройка: різнокольорове рідке скло, віньєтка тощо.",
+        "ru": "Различная визуальная настройка: разноцветное жидкое стекло, виньетка и т.д.",
+        "pl": "Różne możliwości dostosowania wizualnego: wielobarwne płynne szkło, winieta itp.",
+        "es": "Diversas personalizaciones visuales: vidrio líquido multicolor, viñeta, etc.",
+        "de": "Verschiedene visuelle Anpassungen: mehrfarbiges Flüssigglas, Vignette usw.",
+        "fr": "Diverses personnalisations visuelles : verre liquide multicolore, vignette, etc.",
+        "pt-BR": "Diversas personalizações visuais: vidro líquido multicolorido, vinheta, etc.",
+        "tr": "Çeşitli görsel özelleştirmeler: çok renkli sıvı cam, vinyet vb.",
+        "ar": "التخصيص البصري المتنوع: الزجاج السائل متعدد الألوان، والمقالة القصيرة، وما إلى ذلك.",
+        "be": "Розная візуальная налада: рознакаляровае вадкае шкло, віньетка і інш.",
+        "kk": "Түрлі визуалды теңшеу: түрлі-түсті сұйық шыны, виньетка және т.б."
+      },
+      "permissions": [
+        "network",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
