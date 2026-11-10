@@ -5186,6 +5186,33 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "hide_admin_rank_chat",
+      "name": "Hide Admin Rank (Chat)",
+      "version": "1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/hide_admin_rank_chat/1.0/hide_admin_rank_chat.plugin",
+      "sha256": "e982beae9b9f8d806642db80ab261d90164284e529c27b48eb99307ab9c5a4ed",
+      "size": 2826,
+      "description": "Disables clicking on a role next to chat messages.",
+      "description_i18n": {
+        "en": "Disables clicking on a role next to chat messages.",
+        "uk": "Вимикає натискання ролі поруч із повідомленнями чату.",
+        "ru": "Отключает нажатие на роль рядом с сообщениями чата.",
+        "pl": "Wyłącza możliwość klikania roli obok wiadomości na czacie.",
+        "es": "Desactiva hacer clic en una función junto a los mensajes de chat.",
+        "de": "Deaktiviert das Klicken auf eine Rolle neben Chat-Nachrichten.",
+        "fr": "Désactive le clic sur un rôle à côté des messages de discussion.",
+        "pt-BR": "Desativa o clique em uma função próxima às mensagens de bate-papo.",
+        "tr": "Sohbet mesajlarının yanındaki role tıklamayı devre dışı bırakır.",
+        "ar": "تعطيل النقر على الدور الموجود بجوار رسائل الدردشة.",
+        "be": "Адключае націск на ролю побач з паведамленнямі чата.",
+        "kk": "Чат хабарларының жанындағы рөлді басуды өшіреді."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
