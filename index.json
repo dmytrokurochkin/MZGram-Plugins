@@ -10049,6 +10049,35 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "send_as_round_video",
+      "name": "Send as Round Video",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/send_as_round_video/1.0.0/send_as_round_video.plugin",
+      "sha256": "e6d02a207a208ffc9cfa0dfeed3bd8d91f63c91456c4e5b173589434dd10c74a",
+      "size": 31501,
+      "description": "Adds a menu option to send any video as a round video note message (circle).",
+      "description_i18n": {
+        "en": "Adds a menu option to send any video as a round video note message (circle).",
+        "uk": "Додає опцію меню для надсилання будь-якого відео як круглого відеоповідомлення (коло).",
+        "ru": "Добавляет опцию меню для отправки любого видео в виде круглого сообщения с видеозаметкой (круг).",
+        "pl": "Dodaje opcję menu umożliwiającą wysłanie dowolnego filmu w postaci okrągłej notatki wideo (okrąg).",
+        "es": "Agrega una opción de menú para enviar cualquier video como un mensaje de nota de video redondo (círculo).",
+        "de": "Fügt eine Menüoption zum Senden jedes Videos als runde Videonotiznachricht (Kreis) hinzu.",
+        "fr": "Ajoute une option de menu pour envoyer n'importe quelle vidéo sous forme de message de note vidéo rond (cercle).",
+        "pt-BR": "Adiciona uma opção de menu para enviar qualquer vídeo como uma mensagem redonda de nota de vídeo (círculo).",
+        "tr": "Herhangi bir videoyu yuvarlak video notu mesajı (daire) olarak göndermek için bir menü seçeneği ekler.",
+        "ar": "إضافة خيار القائمة لإرسال أي فيديو كرسالة ملاحظة فيديو مستديرة (دائرة).",
+        "be": "Дадае опцыю меню для адпраўкі любога відэа ў выглядзе круглага відэапаведамлення (круг).",
+        "kk": "Кез келген бейнені дөңгелек бейне жазба хабарламасы (шеңбер) ретінде жіберу үшін мәзір опциясын қосады."
+      },
+      "permissions": [
+        "messages.send",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
