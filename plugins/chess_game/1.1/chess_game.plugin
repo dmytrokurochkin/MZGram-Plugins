@@ -1,0 +1,1500 @@
+import json
+import random
+import threading
+import time
+
+from base_plugin import BasePlugin, HookResult, HookStrategy
+from ui.settings import Header, Switch, Selector, Text
+from ui.bulletin import BulletinHelper
+from android_utils import run_on_ui_thread, OnClickListener, log
+
+__id__ = "chess_game"
+__name__ = "Chess"
+__description__ = "Шахматы в окне Телеграма: против бота (4 уровня) или вдвоём на одном телефоне. Ходы подсказываются, есть отмена хода и сохранение партии. Команда .chess. Команда .chesshelp чтобы просмотреть все команды."
+__author__ = "@Hiromi_Higuruma0"
+__version__ = "1.1"
+__app_version__ = ">=12.10.06"
+__category__ = ["fun"]
+
+# ---------- фигуры и таблицы ----------
+
+P, N, B, R, Q, K = 1, 2, 3, 4, 5, 6
+WK, WQ, BK, BQ = 1, 2, 4, 8
+VALUES = {P: 100, N: 320, B: 330, R: 500, Q: 900, K: 0}
+MATE = 100000
+INF = 10 ** 9
+
+KN_OFF = [(-2, -1), (-2, 1), (-1, -2), (-1, 2), (1, -2), (1, 2), (2, -1), (2, 1)]
+KG_OFF = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+DIAG = [(-1, -1), (-1, 1), (1, -1), (1, 1)]
+ORTH = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+
+def _targets(offsets):
+    table = []
+    for sq in range(64):
+        r, c = divmod(sq, 8)
+        table.append([(r + dr) * 8 + c + dc for dr, dc in offsets if 0 <= r + dr < 8 and 0 <= c + dc < 8])
+    return table
+
+
+def _rays(dirs):
+    table = []
+    for sq in range(64):
+        r, c = divmod(sq, 8)
+        rays = []
+        for dr, dc in dirs:
+            ray, rr, cc = [], r + dr, c + dc
+            while 0 <= rr < 8 and 0 <= cc < 8:
+                ray.append(rr * 8 + cc)
+                rr += dr
+                cc += dc
+            if ray:
+                rays.append(ray)
+        table.append(rays)
+    return table
+
+
+KNIGHT_T, KING_T = _targets(KN_OFF), _targets(KG_OFF)
+DIAG_R, ORTH_R = _rays(DIAG), _rays(ORTH)
+PAWN_ATT = {1: _targets([(-1, -1), (-1, 1)]), -1: _targets([(1, -1), (1, 1)])}
+ROOK_RIGHTS = {63: WK, 56: WQ, 7: BK, 0: BQ}
+
+PST = {
+    P: [0, 0, 0, 0, 0, 0, 0, 0, 50, 50, 50, 50, 50, 50, 50, 50, 10, 10, 20, 30, 30, 20, 10, 10,
+        5, 5, 10, 25, 25, 10, 5, 5, 0, 0, 0, 20, 20, 0, 0, 0, 5, -5, -10, 0, 0, -10, -5, 5,
+        5, 10, 10, -20, -20, 10, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0],
+    N: [-50, -40, -30, -30, -30, -30, -40, -50, -40, -20, 0, 0, 0, 0, -20, -40, -30, 0, 10, 15, 15, 10, 0, -30,
+        -30, 5, 15, 20, 20, 15, 5, -30, -30, 0, 15, 20, 20, 15, 0, -30, -30, 5, 10, 15, 15, 10, 5, -30,
+        -40, -20, 0, 5, 5, 0, -20, -40, -50, -40, -30, -30, -30, -30, -40, -50],
+    B: [-20, -10, -10, -10, -10, -10, -10, -20, -10, 0, 0, 0, 0, 0, 0, -10, -10, 0, 5, 10, 10, 5, 0, -10,
+        -10, 5, 5, 10, 10, 5, 5, -10, -10, 0, 10, 10, 10, 10, 0, -10, -10, 10, 10, 10, 10, 10, 10, -10,
+        -10, 5, 0, 0, 0, 0, 5, -10, -20, -10, -10, -10, -10, -10, -10, -20],
+    R: [0, 0, 0, 0, 0, 0, 0, 0, 5, 10, 10, 10, 10, 10, 10, 5, -5, 0, 0, 0, 0, 0, 0, -5,
+        -5, 0, 0, 0, 0, 0, 0, -5, -5, 0, 0, 0, 0, 0, 0, -5, -5, 0, 0, 0, 0, 0, 0, -5,
+        -5, 0, 0, 0, 0, 0, 0, -5, 0, 0, 0, 5, 5, 0, 0, 0],
+    Q: [-20, -10, -10, -5, -5, -10, -10, -20, -10, 0, 0, 0, 0, 0, 0, -10, -10, 0, 5, 5, 5, 5, 0, -10,
+        -5, 0, 5, 5, 5, 5, 0, -5, 0, 0, 5, 5, 5, 5, 0, -5, -10, 5, 5, 5, 5, 5, 0, -10,
+        -10, 0, 5, 0, 0, 0, 0, -10, -20, -10, -10, -5, -5, -10, -10, -20],
+}
+KING_MID = [-30, -40, -40, -50, -50, -40, -40, -30, -30, -40, -40, -50, -50, -40, -40, -30,
+            -30, -40, -40, -50, -50, -40, -40, -30, -30, -40, -40, -50, -50, -40, -40, -30,
+            -20, -30, -30, -40, -40, -30, -30, -20, -10, -20, -20, -20, -20, -20, -20, -10,
+            20, 20, 0, 0, 0, 0, 20, 20, 20, 30, 10, 0, 0, 10, 30, 20]
+KING_END = [-50, -40, -30, -20, -20, -30, -40, -50, -30, -20, -10, 0, 0, -10, -20, -30,
+            -30, -10, 20, 30, 30, 20, -10, -30, -30, -10, 30, 40, 40, 30, -10, -30,
+            -30, -10, 30, 40, 40, 30, -10, -30, -30, -10, 20, 30, 30, 20, -10, -30,
+            -30, -30, 0, 0, 0, 0, -30, -30, -50, -30, -30, -30, -30, -30, -30, -50]
+
+# уровни бота: (название, глубина поиска, секунд на ход)
+LEVELS = [("Новичок", 0, 0.0), ("Любитель", 2, 1.0), ("Средний", 3, 2.5), ("Сильный", 4, 5.0)]
+
+
+# ---------- правила шахмат ----------
+
+class State:
+    __slots__ = ("board", "turn", "castle", "ep", "half", "full")
+
+    def __init__(self, board, turn, castle, ep, half, full):
+        self.board, self.turn, self.castle, self.ep, self.half, self.full = board, turn, castle, ep, half, full
+
+
+def start_state():
+    return from_fen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+
+
+def from_fen(fen):
+    parts = fen.split()
+    board = []
+    for ch in parts[0]:
+        if ch == "/":
+            continue
+        if ch.isdigit():
+            board += [0] * int(ch)
+        else:
+            t = {"p": P, "n": N, "b": B, "r": R, "q": Q, "k": K}[ch.lower()]
+            board.append(t if ch.isupper() else -t)
+    castle = 0
+    for ch in parts[2] if len(parts) > 2 else "-":
+        castle |= {"K": WK, "Q": WQ, "k": BK, "q": BQ}.get(ch, 0)
+    ep = -1
+    if len(parts) > 3 and parts[3] != "-":
+        ep = (8 - int(parts[3][1])) * 8 + "abcdefgh".index(parts[3][0])
+    half = int(parts[4]) if len(parts) > 4 else 0
+    full = int(parts[5]) if len(parts) > 5 else 1
+    return State(board, 1 if parts[1] == "w" else -1, castle, ep, half, full)
+
+
+def attacked(board, sq, by):
+    """Бьёт ли сторона by клетку sq."""
+    for s in PAWN_ATT[-by][sq]:
+        if board[s] == by * P:
+            return True
+    for s in KNIGHT_T[sq]:
+        if board[s] == by * N:
+            return True
+    for s in KING_T[sq]:
+        if board[s] == by * K:
+            return True
+    for ray in DIAG_R[sq]:
+        for s in ray:
+            v = board[s]
+            if v:
+                if v == by * B or v == by * Q:
+                    return True
+                break
+    for ray in ORTH_R[sq]:
+        for s in ray:
+            v = board[s]
+            if v:
+                if v == by * R or v == by * Q:
+                    return True
+                break
+    return False
+
+
+def in_check(st):
+    return attacked(st.board, st.board.index(st.turn * K), -st.turn)
+
+
+def pseudo_moves(st):
+    b, side, moves = st.board, st.turn, []
+    for sq in range(64):
+        v = b[sq]
+        if v * side <= 0:
+            continue
+        t = abs(v)
+        if t == P:
+            r = sq // 8
+            dr = -side
+            one = sq + dr * 8
+            promo_rank = 0 if side == 1 else 7
+            if b[one] == 0:
+                if one // 8 == promo_rank:
+                    moves += [(sq, one, p) for p in (Q, R, B, N)]
+                else:
+                    moves.append((sq, one, 0))
+                    if r == (6 if side == 1 else 1) and b[one + dr * 8] == 0:
+                        moves.append((sq, one + dr * 8, 0))
+            for s in PAWN_ATT[side][sq]:
+                if b[s] * side < 0:
+                    if s // 8 == promo_rank:
+                        moves += [(sq, s, p) for p in (Q, R, B, N)]
+                    else:
+                        moves.append((sq, s, 0))
+                elif s == st.ep:
+                    moves.append((sq, s, 0))
+        elif t == N:
+            moves += [(sq, s, 0) for s in KNIGHT_T[sq] if b[s] * side <= 0]
+        elif t == K:
+            moves += [(sq, s, 0) for s in KING_T[sq] if b[s] * side <= 0]
+            home = 60 if side == 1 else 4
+            if sq == home and not attacked(b, sq, -side):
+                ks, qs = (WK, WQ) if side == 1 else (BK, BQ)
+                if (st.castle & ks and b[sq + 3] == side * R and b[sq + 1] == 0 and b[sq + 2] == 0
+                        and not attacked(b, sq + 1, -side) and not attacked(b, sq + 2, -side)):
+                    moves.append((sq, sq + 2, 0))
+                if (st.castle & qs and b[sq - 4] == side * R and b[sq - 1] == 0 and b[sq - 2] == 0
+                        and b[sq - 3] == 0 and not attacked(b, sq - 1, -side)
+                        and not attacked(b, sq - 2, -side)):
+                    moves.append((sq, sq - 2, 0))
+        else:
+            rays = []
+            if t in (B, Q):
+                rays += DIAG_R[sq]
+            if t in (R, Q):
+                rays += ORTH_R[sq]
+            for ray in rays:
+                for s in ray:
+                    x = b[s]
+                    if x * side > 0:
+                        break
+                    moves.append((sq, s, 0))
+                    if x:
+                        break
+    return moves
+
+
+def make_move(st, mv):
+    frm, to, promo = mv
+    b = st.board[:]
+    side = st.turn
+    piece = b[frm]
+    t = abs(piece)
+    captured = b[to]
+    ep_new = -1
+    castle = st.castle
+    if t == P:
+        if to == st.ep and frm % 8 != to % 8 and captured == 0:  # взятие на проходе
+            b[to + (8 if side == 1 else -8)] = 0
+            captured = -side * P
+        if abs(to - frm) == 16:
+            ep_new = (frm + to) // 2
+    elif t == K:
+        if abs(to - frm) == 2:  # рокировка: переносим ладью
+            if to > frm:
+                b[frm + 1], b[frm + 3] = b[frm + 3], 0
+            else:
+                b[frm - 1], b[frm - 4] = b[frm - 4], 0
+        castle &= ~(WK | WQ) if side == 1 else ~(BK | BQ)
+    for corner, mask in ROOK_RIGHTS.items():
+        if frm == corner or to == corner:
+            castle &= ~mask
+    b[to] = side * promo if promo else piece
+    b[frm] = 0
+    half = 0 if (t == P or captured) else st.half + 1
+    return State(b, -side, castle, ep_new, half, st.full + (1 if side == -1 else 0))
+
+
+def legal_moves(st):
+    side, res = st.turn, []
+    for mv in pseudo_moves(st):
+        nb = make_move(st, mv).board
+        if not attacked(nb, nb.index(side * K), -side):
+            res.append(mv)
+    return res
+
+
+def insufficient(board):
+    pieces = [(sq, abs(v)) for sq, v in enumerate(board) if v and abs(v) != K]
+    if not pieces:
+        return True
+    if len(pieces) == 1 and pieces[0][1] in (N, B):
+        return True
+    if all(t == B for _, t in pieces):
+        return len({(sq // 8 + sq % 8) % 2 for sq, _ in pieces}) == 1
+    return False
+
+
+def pos_key(st):
+    return (tuple(st.board), st.turn, st.castle, st.ep)
+
+
+def sq_name(sq):
+    return "abcdefgh"[sq % 8] + str(8 - sq // 8)
+
+
+def uci(mv):
+    return sq_name(mv[0]) + sq_name(mv[1]) + ("" if not mv[2] else "nbrq"[(N, B, R, Q).index(mv[2])])
+
+
+def to_fen(st):
+    rows = []
+    for r in range(8):
+        row, empty = "", 0
+        for v in st.board[r * 8:(r + 1) * 8]:
+            if not v:
+                empty += 1
+                continue
+            row += (str(empty) if empty else "") + ("PNBRQK"[abs(v) - 1] if v > 0 else "pnbrqk"[abs(v) - 1])
+            empty = 0
+        rows.append(row + (str(empty) if empty else ""))
+    castle = "".join(ch for ch, bit in (("K", WK), ("Q", WQ), ("k", BK), ("q", BQ)) if st.castle & bit) or "-"
+    ep = sq_name(st.ep) if st.ep >= 0 else "-"
+    return f"{'/'.join(rows)} {'w' if st.turn == 1 else 'b'} {castle} {ep} {st.half} {st.full}"
+
+
+def san(st, mv, legal=None):
+    """Ход в алгебраической записи: Nf3, exd5, O-O, e8=Q+, Qxf7#."""
+    legal = legal if legal is not None else legal_moves(st)
+    frm, to, promo = mv
+    b = st.board
+    piece = abs(b[frm])
+    if piece == K and abs(to - frm) == 2:
+        text = "O-O" if to > frm else "O-O-O"
+    else:
+        capture = b[to] != 0 or (piece == P and frm % 8 != to % 8)
+        if piece == P:
+            text = ("abcdefgh"[frm % 8] + "x" if capture else "") + sq_name(to)
+            if promo:
+                text += "=" + "NBRQ"[(N, B, R, Q).index(promo)]
+        else:
+            others = [m for m in legal if m != mv and m[1] == to and abs(b[m[0]]) == piece]
+            dis = ""
+            if others:
+                if all(m[0] % 8 != frm % 8 for m in others):
+                    dis = "abcdefgh"[frm % 8]
+                elif all(m[0] // 8 != frm // 8 for m in others):
+                    dis = str(8 - frm // 8)
+                else:
+                    dis = sq_name(frm)
+            text = "NBRQK"[piece - 2] + dis + ("x" if capture else "") + sq_name(to)
+    nxt = make_move(st, mv)
+    if in_check(nxt):
+        text += "#" if not legal_moves(nxt) else "+"
+    return text
+
+
+def movetext(ucis, result="*"):
+    """Партия в виде «1. e4 e5 2. Nf3 …» по списку ходов в формате uci. None, если ход не распознан."""
+    st, parts_ = start_state(), []
+    for text in ucis:
+        legal = legal_moves(st)
+        mv = next((m for m in legal if uci(m) == text), None)
+        if mv is None:
+            return None
+        if st.turn == 1:
+            parts_.append(f"{st.full}.")
+        parts_.append(san(st, mv, legal))
+        st = make_move(st, mv)
+    return " ".join(parts_ + [result])
+
+
+def game_result(game):
+    """Результат закончившейся партии в записи PGN."""
+    status = game.status()
+    if status == "mate":
+        return "0-1" if game.state.turn == 1 else "1-0"
+    return "1/2-1/2" if status in OVER else "*"
+
+
+class Game:
+    """Партия: список позиций и ходов, отмена, статус."""
+
+    def __init__(self, fen=None):
+        self.reset(fen)
+
+    def reset(self, fen=None):
+        self.states = [from_fen(fen) if fen else start_state()]
+        self.moves = []
+
+    @property
+    def state(self):
+        return self.states[-1]
+
+    def legal(self):
+        return legal_moves(self.state)
+
+    def play(self, mv):
+        self.states.append(make_move(self.state, mv))
+        self.moves.append(mv)
+
+    def undo(self, plies=1):
+        for _ in range(plies):
+            if self.moves:
+                self.moves.pop()
+                self.states.pop()
+
+    def replay(self, ucis):
+        """Восстановление партии из сохранённых ходов; при ошибке возвращает False."""
+        self.reset()
+        try:
+            for text in ucis:
+                mv = next(m for m in self.legal() if uci(m) == text)
+                self.play(mv)
+            return True
+        except StopIteration:
+            self.reset()
+            return False
+
+    def status(self):
+        st = self.state
+        moves = legal_moves(st)
+        check = in_check(st)
+        if not moves:
+            return "mate" if check else "stalemate"
+        if st.half >= 100:
+            return "fifty"
+        if insufficient(st.board):
+            return "material"
+        key = pos_key(st)
+        if sum(1 for s in self.states if pos_key(s) == key) >= 3:
+            return "repetition"
+        return "check" if check else "ok"
+
+
+OVER = ("mate", "stalemate", "fifty", "material", "repetition")
+PTS = {P: 1, N: 3, B: 3, R: 5, Q: 9}
+CHESS_COMMAND = ".chess"  # команда запуска фиксирована и в настройках не меняется
+HELP_COMMAND = ".chesshelp"  # быстрый список команд
+
+
+def captured_pieces(game):
+    """Взятые фигуры: (взятые белыми — чёрные, взятые чёрными — белые). Типы фигур, самые ценные первыми."""
+    by_white, by_black = [], []
+    for st, mv in zip(game.states, game.moves):
+        target = st.board[mv[1]]
+        if not target and abs(st.board[mv[0]]) == P and mv[0] % 8 != mv[1] % 8:
+            target = -st.turn * P  # взятие на проходе
+        if target:
+            (by_white if st.turn == 1 else by_black).append(abs(target))
+    key = lambda t: -VALUES[t]
+    return sorted(by_white, key=key), sorted(by_black, key=key)
+
+
+def fmt_clock(secs):
+    m, sec = divmod(max(0, int(secs)), 60)
+    return f"{m}:{sec:02d}"
+
+
+# ---------- бот ----------
+
+def evaluate(st):
+    """Оценка позиции с точки зрения стороны, которая ходит."""
+    b = st.board
+    heavy = sum(VALUES[abs(v)] for v in b if v and abs(v) in (N, B, R, Q))
+    king_table = KING_END if heavy <= 2600 else KING_MID
+    score = 0
+    for sq, v in enumerate(b):
+        if not v:
+            continue
+        t = abs(v)
+        idx = sq if v > 0 else sq ^ 56
+        val = VALUES[t] + (king_table[idx] if t == K else PST[t][idx] if t in PST else 0)
+        score += val if v > 0 else -val
+    return score * st.turn
+
+
+class Searcher:
+    def __init__(self, seconds):
+        self.deadline = time.time() + seconds
+        self.nodes = 0
+        self.stop = False
+
+    def _tick(self):
+        self.nodes += 1
+        if self.nodes & 255 == 0 and time.time() > self.deadline:
+            self.stop = True
+
+    @staticmethod
+    def ordered(st, moves):
+        b = st.board
+
+        def key(mv):
+            victim = abs(b[mv[1]])
+            return 10 * VALUES.get(victim, 0) - VALUES[abs(b[mv[0]])] + (800 if mv[2] else 0)
+
+        return sorted(moves, key=key, reverse=True)
+
+    def quiesce(self, st, alpha, beta, qd):
+        self._tick()
+        if self.stop:
+            return 0
+        stand = evaluate(st)
+        if stand >= beta:
+            return stand
+        alpha = max(alpha, stand)
+        if qd >= 6:
+            return stand
+        side = st.turn
+        caps = [m for m in pseudo_moves(st) if st.board[m[1]] or m[2]]
+        for mv in self.ordered(st, caps):
+            nxt = make_move(st, mv)
+            if attacked(nxt.board, nxt.board.index(side * K), -side):
+                continue
+            score = -self.quiesce(nxt, -beta, -alpha, qd + 1)
+            if self.stop:
+                return 0
+            if score >= beta:
+                return score
+            alpha = max(alpha, score)
+        return alpha
+
+    def negamax(self, st, depth, alpha, beta, ply):
+        self._tick()
+        if self.stop:
+            return 0
+        chk = in_check(st)
+        if chk and ply < 8:
+            depth += 1
+        if depth <= 0:
+            return self.quiesce(st, alpha, beta, 0)
+        moves = legal_moves(st)
+        if not moves:
+            return -MATE + ply if chk else 0
+        if st.half >= 100 or insufficient(st.board):
+            return 0
+        best = -INF
+        for mv in self.ordered(st, moves):
+            score = -self.negamax(make_move(st, mv), depth - 1, -beta, -alpha, ply + 1)
+            if self.stop:
+                return 0
+            best = max(best, score)
+            alpha = max(alpha, best)
+            if alpha >= beta:
+                break
+        return best
+
+    def best_move(self, st, max_depth):
+        moves = self.ordered(st, legal_moves(st))
+        best = moves[0]
+        for depth in range(1, max_depth + 1):
+            alpha, cur_best, cur_score = -INF, None, -INF
+            for mv in moves:
+                score = -self.negamax(make_move(st, mv), depth - 1, -INF, -alpha, 1)
+                if self.stop:
+                    break
+                if score > cur_score:
+                    cur_score, cur_best = score, mv
+                alpha = max(alpha, score)
+            if cur_best is None:
+                break
+            best = cur_best
+            moves.remove(best)
+            moves.insert(0, best)
+            if self.stop or cur_score > MATE - 100:
+                break
+        return best
+
+    def root_scores(self, st, moves, depth):
+        out = []
+        for mv in moves:
+            out.append((-self.negamax(make_move(st, mv), depth - 1, -INF, INF, 1), mv))
+            if self.stop:
+                break
+        return out
+
+
+def choose_move(st, level, rng=None, time_left=None):
+    """Выбор хода ботом. level: 0 новичок, 1 любитель, 2 средний, 3 сильный.
+    time_left — остаток на часах бота в секундах (если часы включены): бот думает не дольше 1/20 остатка."""
+    rng = rng or random
+    moves = legal_moves(st)
+    if not moves:
+        return None
+    if level <= 0:
+        return rng.choice(moves)
+    _, depth, seconds = LEVELS[min(level, len(LEVELS) - 1)]
+    if time_left is not None:
+        seconds = min(seconds, max(0.05, time_left / 20))
+    searcher = Searcher(seconds)
+    if level == 1:  # среди почти равных ходов выбираем случайный, чтобы бот не был однообразным
+        scored = searcher.root_scores(st, Searcher.ordered(st, moves), depth)
+        if not scored:
+            return rng.choice(moves)
+        top = max(s for s, _ in scored)
+        return rng.choice([mv for s, mv in scored if s >= top - 50])
+    return searcher.best_move(st, depth)
+
+
+# ---------- цвета и оформление ----------
+
+def rgb(r, g, b):
+    v = (0xFF << 24) | (r << 16) | (g << 8) | b
+    return v - (1 << 32) if v >= (1 << 31) else v
+
+
+def parts(c):
+    return ((c >> 16) & 255, (c >> 8) & 255, c & 255)
+
+
+def mix(a, b, t):
+    (ra, ga, ba), (rb, gb, bb) = parts(a), parts(b)
+    return rgb(int(ra + (rb - ra) * t), int(ga + (gb - ga) * t), int(ba + (bb - ba) * t))
+
+
+BOARDS = [((240, 217, 181), (181, 136, 99)), ((238, 238, 210), (118, 150, 86)),
+          ((222, 227, 230), (140, 162, 173)), ((220, 220, 220), (150, 150, 150))]
+BOARD_NAMES = ["Классика", "Зелёная", "Синяя", "Серая"]
+MODE_NAMES = ["Против бота", "Вдвоём на одном телефоне"]
+COLOR_NAMES = ["Белые", "Чёрные", "Случайно"]
+CLOCK_MINUTES = [0, 1, 3, 5, 10, 15, 30]
+CLOCK_NAMES = ["Без часов", "1 мин", "3 мин", "5 мин", "10 мин", "15 мин", "30 мин"]
+INC_SECS = [0, 1, 2, 3, 5, 10]
+INC_NAMES = ["Без прибавки", "+1 сек", "+2 сек", "+3 сек", "+5 сек", "+10 сек"]
+COLOR_WORDS = {"white": 0, "w": 0, "белые": 0, "black": 1, "b": 1, "чёрные": 1, "черные": 1,
+               "random": 2, "r": 2, "случайно": 2}
+GLYPH = {K: "♚", Q: "♛", R: "♜", B: "♝", N: "♞", P: "♟"}  # заливные символы, цвет задаём сами
+TEXT_STYLE = "\uFE0E"  # просим текстовое, а не эмодзи-начертание
+C_WHITE_PIECE, C_BLACK_PIECE = rgb(252, 252, 252), rgb(28, 28, 30)
+C_SEL, C_LAST, C_CHECK, C_HINT, C_TIP = rgb(46, 125, 190), rgb(245, 220, 70), rgb(220, 50, 47), rgb(40, 40, 40), rgb(70, 190, 110)
+C_BG, C_FG = rgb(28, 29, 33), rgb(255, 255, 255)
+
+RESULT_TEXT = {"stalemate": "Пат. Ничья", "fifty": "Ничья по правилу 50 ходов",
+               "repetition": "Ничья: тройное повторение", "material": "Ничья: не хватает материала"}
+
+
+def end_text(status, loser):
+    """Текст итога партии. loser — цвет проигравшего (1 белые, -1 чёрные) для мата, времени и сдачи."""
+    if status in RESULT_TEXT:
+        return RESULT_TEXT[status]
+    winner = "чёрные" if loser == 1 else "белые"
+    prefix = {"mate": "Мат.", "timeout": "Время вышло.",
+              "resign": ("Белые" if loser == 1 else "Чёрные") + " сдались."}[status]
+    return f"{prefix} Победили {winner}"
+
+
+def pgn_result(status, loser):
+    if status in ("mate", "timeout", "resign"):
+        return "0-1" if loser == 1 else "1-0"
+    return "1/2-1/2" if status else "*"
+
+
+def result_for(player, status, loser):
+    """Итог для игрока: 'w' победа, 'd' ничья, 'l' поражение."""
+    if status in ("mate", "timeout", "resign"):
+        return "l" if loser == player else "w"
+    return "d"
+
+
+def stats_text(stats):
+    lines = []
+    for i, (name, _, _) in enumerate(LEVELS):
+        s = stats.get(str(i))
+        if s:
+            lines.append(f"{name}: побед {s.get('w', 0)}, ничьих {s.get('d', 0)}, поражений {s.get('l', 0)}")
+    return "\n".join(lines) or "Партий против бота пока нет"
+
+
+# ---------- плагин ----------
+
+class ChessPlugin(BasePlugin):
+    def create_settings(self):
+        return [
+            Header(text="Шахматы"),
+            Text(text="Играть", on_click=self._ui_play),
+            Text(text="Сбросить статистику", on_click=self._ui_reset),
+            Header(text="Настройки"),
+            Switch(key="enabled", text="Плагин включён", default=True),
+            Text(text="Команды", on_click=self._ui_help),
+            Text(text="Игра", create_sub_fragment=self._page_game),
+            Text(text="Вид", create_sub_fragment=self._page_view),
+        ]
+
+    def _page_game(self):
+        return [
+            Header(text="Игра"),
+            Selector(key="mode", text="Режим", default=0, items=MODE_NAMES),
+            Selector(key="color", text="Ваш цвет", default=0, items=COLOR_NAMES),
+            Selector(key="level", text="Сложность бота", default=1, items=[n for n, _, _ in LEVELS]),
+            Selector(key="clock", text="Время на партию", default=0, items=CLOCK_NAMES),
+            Selector(key="inc", text="Прибавка за ход", default=0, items=INC_NAMES),
+            Switch(key="auto_queen", text="Всегда превращать в ферзя", default=False),
+            Switch(key="hint_btn", text="Кнопка «Подсказка»", default=True),
+        ]
+
+    def _page_view(self):
+        return [
+            Header(text="Вид"),
+            Selector(key="board", text="Доска", default=0, items=BOARD_NAMES),
+            Switch(key="hints", text="Подсвечивать ходы фигуры", default=True),
+            Switch(key="show_last", text="Подсвечивать последний ход", default=True),
+            Switch(key="show_coords", text="Показывать координаты", default=True),
+            Switch(key="show_captured", text="Показывать взятые фигуры", default=True),
+            Switch(key="auto_flip", text="Поворачивать доску к игроку (вдвоём)", default=True),
+        ]
+
+    def _int(self, key, default, lo, hi):
+        try:
+            v = int(str(self.get_setting(key, default)).strip())
+        except ValueError:
+            v = default
+        return max(lo, min(hi, v))
+
+    def on_plugin_load(self):
+        self._override = None  # одноразовый выбор цвета из команды «new white»
+        self._session = 0  # номер открытого окна: ответы бота и подсказки из старых окон игнорируются
+        self.add_on_send_message_hook()
+
+    def _toast(self, text):
+        run_on_ui_thread(lambda: BulletinHelper.show_info(text))
+
+    # ---------- статистика и сохранённые партии ----------
+
+    def _json(self, key):
+        try:
+            raw = str(self.get_setting(key, "") or "")
+            return json.loads(raw) if raw else None
+        except Exception:
+            return None
+
+    def _put(self, key, data):
+        try:
+            self.set_setting(key, json.dumps(data) if data else "")
+        except Exception as e:
+            log(f"chess: не удалось сохранить {key}: {e}")
+
+    def _stats(self):
+        data = self._json("stats_json")
+        return data if isinstance(data, dict) else {}
+
+    def _load_game(self):
+        data = self._json("saved_game")
+        if isinstance(data, dict) and isinstance(data.get("moves"), list) and data["moves"]:
+            return data
+        return None
+
+    def _load_last(self):
+        data = self._json("last_game")
+        if isinstance(data, dict) and isinstance(data.get("moves"), list) and data["moves"]:
+            return data
+        return None
+
+    # ---------- команды ----------
+
+    def _trigger(self):
+        return CHESS_COMMAND
+
+    def _args(self, msg):
+        trig, low = self._trigger().lower(), msg.strip().lower()
+        if low == trig:
+            return []
+        if low.startswith(trig + " "):
+            return low[len(trig):].split()
+        return None
+
+    def on_send_message_hook(self, account, params):
+        if not self.get_setting("enabled", True):
+            return HookResult()
+        msg = getattr(params, "message", None)
+        if isinstance(msg, str):
+            low = msg.strip().lower()
+            # Теперь команда .chesshelp всегда отправляет список команд в чат
+            if low.startswith(HELP_COMMAND):
+                params.message = self._help_text()
+                return HookResult(strategy=HookStrategy.MODIFY, params=params)
+
+        args = self._args(msg) if isinstance(msg, str) else None
+        if args is None:
+            return HookResult()
+        try:
+            self._run_command(args)
+        except Exception as e:
+            log(f"chess: ошибка команды: {e}")
+            self._toast("Не удалось выполнить команду")
+        return HookResult(strategy=HookStrategy.CANCEL)
+
+    def _new_game(self, color_idx):
+        self._put("saved_game", None)
+        self._override = color_idx
+        self._open_game()
+
+    def _run_command(self, args):
+        cmd, rest = (args[0], args[1:]) if args else ("", [])
+        trig = self._trigger()
+        if cmd == "":
+            self._open_game()
+        elif cmd in COLOR_WORDS:
+            self._new_game(COLOR_WORDS[cmd])
+        elif cmd == "new":
+            self._new_game(COLOR_WORDS.get(rest[0]) if rest else None)
+        elif cmd in ("bot", "2p"):
+            self.set_setting("mode", 0 if cmd == "bot" else 1)
+            self._new_game(None)
+        elif cmd == "level":
+            if not (rest and rest[0].isdigit() and 1 <= int(rest[0]) <= len(LEVELS)):
+                self._toast(f"Уровень от 1 до {len(LEVELS)}: {trig} level 3")
+                return
+            idx = int(rest[0]) - 1
+            self.set_setting("level", idx)
+            saved = self._load_game()
+            if saved:  # сохранённая партия тоже переходит на новый уровень
+                saved["level"] = idx
+                self._put("saved_game", saved)
+            self._toast(f"Сложность: {LEVELS[idx][0]}")
+        elif cmd == "clock":
+            self._set_clock(rest)
+        elif cmd == "stats":
+            self._info("Статистика", stats_text(self._stats()))
+        elif cmd in ("fen", "pgn"):
+            self._export(cmd)
+        elif cmd in ("help", "?"):
+            self._info("Команды", self._help_text())
+        else:
+            self._toast(f"Неизвестная команда. Список: {trig} help")
+
+    def _help_text(self):
+        t = self._trigger()
+        return "\n".join([
+            "♟ **Команды шахмат:**",
+            f"{t} — открыть игру (продолжит сохранённую)",
+            f"{t} new [white|black|random] — новая партия",
+            f"{t} bot / {t} 2p — против бота или вдвоём",
+            f"{t} level 1-4 — сложность бота",
+            f"{t} clock 5 | 5+3 | off — часы: минуты и прибавка",
+            f"{t} stats — статистика против бота",
+            f"{t} fen — скопировать позицию",
+            f"{t} pgn — скопировать партию",
+            f"{HELP_COMMAND} — отправить этот список в чат",
+        ])
+
+    def _set_clock(self, rest):
+        if not rest:
+            self._toast("Например: clock 5, clock 5+3 или clock off")
+            return
+        word = rest[0]
+        if word in ("off", "0", "выкл"):
+            self.set_setting("clock", 0)
+            self.set_setting("inc", 0)
+            self._toast("Часы выключены (со следующей партии)")
+            return
+        minutes, _, plus = word.partition("+")
+        try:
+            m, inc = int(minutes), int(plus) if plus else 0
+        except ValueError:
+            self._toast("Формат: clock 5 или clock 5+3")
+            return
+        if m not in CLOCK_MINUTES[1:] or inc not in INC_SECS:
+            self._toast("Минуты: " + ", ".join(map(str, CLOCK_MINUTES[1:])) + ". Прибавка: "
+                        + ", ".join(map(str, INC_SECS)))
+            return
+        self.set_setting("clock", CLOCK_MINUTES.index(m))
+        self.set_setting("inc", INC_SECS.index(inc))
+        self._toast(f"Часы: {m} мин" + (f" +{inc} сек" if inc else "") + " (со следующей партии)")
+
+    def _export(self, kind):
+        saved, last = self._load_game(), self._load_last()
+        data = saved or last
+        if not data:
+            self._toast("Партий ещё не было")
+            return
+        result = "*" if saved else last.get("result", "*")
+        game = Game()
+        if not game.replay(data["moves"]):
+            self._toast("Не удалось восстановить партию")
+            return
+        if kind == "fen":
+            self._copy(to_fen(game.state), "Позиция (FEN) скопирована")
+        else:
+            self._copy(movetext(data["moves"], result) or "", "Партия (PGN) скопирована")
+
+    def _copy(self, text, ok):
+        try:
+            from org.telegram.messenger import AndroidUtilities
+            AndroidUtilities.addToClipboard(text)
+            self._toast(ok)
+        except Exception as e:
+            log(f"chess: не удалось скопировать: {e}")
+            self._toast("Не удалось скопировать")
+
+    def _info(self, title, message):
+        def build():
+            try:
+                from client_utils import get_last_fragment
+                from ui.alert import AlertDialogBuilder
+                ctx = get_last_fragment().getParentActivity()
+                b = AlertDialogBuilder(ctx)
+                b.set_title(title)
+                b.set_message(message)
+                b.set_positive_button("Закрыть", lambda *a: b.dismiss())
+                b.show()
+            except Exception as e:
+                log(f"chess: окно не открылось: {e}")
+
+        run_on_ui_thread(build)
+
+    def _ui_play(self, *args):
+        self._open_game()
+
+    def _ui_help(self, *args):
+        self._info("Команды", self._help_text())
+
+    def _ui_reset(self, *args):
+        def build():
+            try:
+                from client_utils import get_last_fragment
+                from ui.alert import AlertDialogBuilder
+                ctx = get_last_fragment().getParentActivity()
+                b = AlertDialogBuilder(ctx)
+                b.set_title("Сбросить статистику?")
+                b.set_message("Счётчики побед, ничьих и поражений будут обнулены.")
+
+                def do_reset(*a):
+                    self._put("stats_json", None)
+                    b.dismiss()
+                    BulletinHelper.show_info("Статистика сброшена")
+
+                b.set_positive_button("Сбросить", do_reset)
+                b.set_negative_button("Отмена", lambda *a: b.dismiss())
+                b.show()
+            except Exception as e:
+                log(f"chess: диалог сброса не открылся: {e}")
+
+        run_on_ui_thread(build)
+
+    # ---------- окно с игрой ----------
+
+    def _open_game(self):
+        cfg = {
+            "mode": self._int("mode", 0, 0, 1), "color": self._int("color", 0, 0, 2),
+            "level": self._int("level", 1, 0, len(LEVELS) - 1),
+            "base": CLOCK_MINUTES[self._int("clock", 0, 0, len(CLOCK_MINUTES) - 1)] * 60,
+            "inc": INC_SECS[self._int("inc", 0, 0, len(INC_SECS) - 1)],
+            "auto_queen": bool(self.get_setting("auto_queen", False)),
+            "hint_btn": bool(self.get_setting("hint_btn", True)),
+            "hints": bool(self.get_setting("hints", True)),
+            "show_last": bool(self.get_setting("show_last", True)),
+            "show_coords": bool(self.get_setting("show_coords", True)),
+            "show_captured": bool(self.get_setting("show_captured", True)),
+            "auto_flip": bool(self.get_setting("auto_flip", True)),
+            "board": BOARDS[self._int("board", 0, 0, len(BOARDS) - 1)],
+        }
+        override, self._override = self._override, None
+        self._session += 1
+        session = self._session
+
+        def build():
+            try:
+                from android.widget import ScrollView, LinearLayout, TextView
+                from android.graphics import Typeface
+                from org.telegram.messenger import AndroidUtilities
+                from org.telegram.ui.ActionBar import Theme
+                from client_utils import get_last_fragment
+                from ui.alert import AlertDialogBuilder
+
+                ctx = get_last_fragment().getParentActivity()
+
+                def dp(x):
+                    return int(AndroidUtilities.dp(x))
+
+                def theme(key, fallback):
+                    try:
+                        return Theme.getColor(getattr(Theme, key))
+                    except Exception:
+                        return fallback
+
+                c_bg = theme("key_dialogBackground", C_BG)
+                c_fg = theme("key_dialogTextBlack", C_FG)
+                c_gray = theme("key_dialogTextGray2", mix(C_BG, C_FG, 0.6))
+                c_btn = mix(c_bg, c_fg, 0.14)
+                light, dark = rgb(*cfg["board"][0]), rgb(*cfg["board"][1])
+
+                sw = int(ctx.getResources().getDisplayMetrics().widthPixels)
+                grid_w = sw - dp(48) - dp(24) - dp(2)  # ширина диалога минус поля и отступы
+                label_w = dp(14) if cfg["show_coords"] else 0
+                cell = max(dp(26), (grid_w - label_w) // 8 - 2)
+
+                def lp(w, h, margin=0):
+                    p = LinearLayout.LayoutParams(w, h)
+                    p.setMargins(margin, margin, margin, margin)
+                    return p
+
+                def text(s, size, color, w=-2, h=-2, gravity=17, bold=False):
+                    tv = TextView(ctx)
+                    tv.setText(s)
+                    tv.setTextSize(size)
+                    tv.setTextColor(color)
+                    tv.setGravity(gravity)
+                    tv.setIncludeFontPadding(False)
+                    if bold:
+                        try:
+                            tv.setTypeface(None, Typeface.BOLD)
+                        except Exception:
+                            pass
+                    tv.setLayoutParams(lp(w, h))
+                    return tv
+
+                def hrow():
+                    r = LinearLayout(ctx)
+                    r.setOrientation(LinearLayout.HORIZONTAL)
+                    r.setGravity(17)
+                    return r
+
+                def button(label, w, handler, size=13.0):
+                    b = text(label, size, c_fg, w, dp(44))
+                    b.setBackgroundColor(c_btn)
+                    b.setLayoutParams(lp(w, dp(44), dp(4)))
+                    b.setOnClickListener(OnClickListener(lambda *a: handler()))
+                    return b
+
+                def confirm(title, message, yes_label, on_yes):
+                    d = AlertDialogBuilder(ctx)
+                    d.set_title(title)
+                    d.set_message(message)
+
+                    def yes(*a):
+                        d.dismiss()
+                        on_yes()
+
+                    d.set_positive_button(yes_label, yes)
+                    d.set_negative_button("Отмена", lambda *a: d.dismiss())
+                    d.show()
+
+                root = LinearLayout(ctx)
+                root.setOrientation(LinearLayout.VERTICAL)
+                root.setGravity(1)
+                root.setPadding(dp(12), dp(8), dp(12), dp(12))
+
+                status_tv = text("", 16.0, c_fg, -2, dp(28))
+                last_tv = text("", 12.0, c_gray, -2, dp(18))
+                root.addView(status_tv)
+                root.addView(last_tv)
+
+                # --- состояние ---
+                game = Game()
+                g = {"mode": cfg["mode"], "player": 1, "level": cfg["level"], "sel": None, "targets": {},
+                     "pending": None, "thinking": False, "gen": 0, "hgen": 0, "over": False, "end": None,
+                     "recorded": False, "manual_flip": False, "hint": None, "panel": False, "ticks": 0,
+                     "base": cfg["base"], "inc": cfg["inc"], "clock": {1: 0.0, -1: 0.0}, "last_t": None}
+                first = {"color": override}  # одноразовый выбор цвета из команды
+
+                def reset_clock(remaining=None):
+                    base = float(g["base"])
+                    g["clock"] = {1: float(remaining[0]) if remaining else base,
+                                  -1: float(remaining[1]) if remaining else base}
+                    g["last_t"] = None
+
+                def new_setup():
+                    col = first["color"] if first["color"] is not None else cfg["color"]
+                    first["color"] = None
+                    player = random.choice([1, -1]) if col == 2 else (1 if col == 0 else -1)
+                    g.update(mode=cfg["mode"], level=cfg["level"], player=player, base=cfg["base"], inc=cfg["inc"])
+                    reset_clock()
+
+                saved = self._load_game()
+                if saved and game.replay(saved["moves"]) and game.status() not in OVER:
+                    g.update(mode=int(saved.get("mode", 0)), player=int(saved.get("color", 1)),
+                             level=int(saved.get("level", 1)), base=int(saved.get("base", 0)),
+                             inc=int(saved.get("inc", 0)))
+                    reset_clock(saved.get("clock") if g["base"] else None)
+                else:
+                    game.reset()
+                    new_setup()
+
+                # --- полоски игроков: взятые фигуры и часы ---
+                def strip():
+                    row = hrow()
+                    cap = text("", 17.0, c_fg, grid_w - dp(84), dp(28), 19)
+                    clk = text("", 16.0, c_fg, dp(80), dp(28), 21, True)
+                    row.addView(cap)
+                    row.addView(clk)
+                    return row, cap, clk
+
+                top_row, top_cap, top_clk = strip()
+                bottom_row, bottom_cap, bottom_clk = strip()
+                root.addView(top_row)
+
+                # --- доска с координатами ---
+                cells, rank_tvs = [], []
+                for r in range(8):
+                    row = hrow()
+                    if cfg["show_coords"]:
+                        rt = text("", 11.0, c_gray, label_w, cell + 2)
+                        rank_tvs.append(rt)
+                        row.addView(rt)
+                    for c in range(8):
+                        t = text("", 10.0, C_WHITE_PIECE, cell, cell, 17, True)
+                        t.setTextSize(0, float(cell * 0.72))  # размер в пикселях, подгоняем под клетку
+                        t.setLayoutParams(lp(cell, cell, 1))
+                        t.setOnClickListener(OnClickListener(lambda *a, i=r * 8 + c: tap(i)))
+                        row.addView(t)
+                        cells.append(t)
+                    root.addView(row)
+
+                file_tvs = []
+                if cfg["show_coords"]:
+                    frow = hrow()
+                    frow.addView(text("", 11.0, c_gray, label_w, dp(16)))
+                    for c in range(8):
+                        ft = text("", 11.0, c_gray, cell + 2, dp(16))
+                        file_tvs.append(ft)
+                        frow.addView(ft)
+                    root.addView(frow)
+
+                root.addView(bottom_row)
+
+                # выбор фигуры при превращении пешки
+                promo_row = hrow()
+                promo_row.setVisibility(8)
+                promo_btns = {}
+                for p in (Q, R, B, N):
+                    pb = text(GLYPH[p] + TEXT_STYLE, 28.0, c_fg, cell + dp(8), dp(48), 17, True)
+                    pb.setBackgroundColor(c_btn)
+                    pb.setLayoutParams(lp(cell + dp(8), dp(48), dp(4)))
+                    pb.setOnClickListener(OnClickListener(lambda *a, p=p: choose_promo(p)))
+                    promo_btns[p] = pb
+                    promo_row.addView(pb)
+                root.addView(promo_row)
+
+                # --- кнопки ---
+                bw = (grid_w - dp(24)) // 3
+                row1, row2 = hrow(), hrow()
+                for label, handler in (("Отмена хода", lambda: undo()), ("Повернуть", lambda: flip()),
+                                       ("Новая игра", lambda: new_game())):
+                    row1.addView(button(label, bw, handler))
+                for label, handler in (("Подсказка", lambda: hint()), ("Ходы", lambda: toggle_moves()),
+                                       ("Сдаться", lambda: resign())):
+                    row2.addView(button(label, bw, handler))
+                root.addView(text("", 4.0, c_fg, -2, dp(6)))
+                root.addView(row1)
+                root.addView(row2)
+
+                # панель со списком ходов
+                moves_panel = LinearLayout(ctx)
+                moves_panel.setOrientation(LinearLayout.VERTICAL)
+                moves_panel.setGravity(1)
+                moves_panel.setVisibility(8)
+                moves_tv = text("", 13.0, c_fg, grid_w, -2, 3)
+                moves_tv.setTextIsSelectable(True)
+                moves_tv.setPadding(0, dp(8), 0, dp(4))
+                moves_panel.addView(moves_tv)
+                crow = hrow()
+                crow.addView(button("Копировать PGN", (grid_w - dp(16)) // 2, lambda: copy_pgn()))
+                crow.addView(button("Копировать FEN", (grid_w - dp(16)) // 2, lambda: copy_fen()))
+                moves_panel.addView(crow)
+                root.addView(moves_panel)
+
+                info_tv = text("", 12.0, c_gray, grid_w, -2, 3)
+                info_tv.setPadding(0, dp(8), 0, 0)
+                root.addView(info_tv)
+
+                # --- вспомогательное ---
+                def flipped():
+                    if g["mode"] == 0:
+                        base = g["player"] == -1
+                    else:
+                        base = cfg["auto_flip"] and game.state.turn == -1  # доска смотрит на того, кто ходит
+                    return base != g["manual_flip"]
+
+                def pgn_res():
+                    end = g["end"]
+                    if end:
+                        status, loser = end
+                        return pgn_result(status, game.state.turn if status == "mate" else loser)
+                    return "*"
+
+                def ucis():
+                    return [uci(m) for m in game.moves]
+
+                def status_line():
+                    end = g["end"]
+                    if end:
+                        status, loser = end
+                        return end_text(status, game.state.turn if status == "mate" else loser)
+                    if g["thinking"]:
+                        return "Бот думает…"
+                    turn = game.state.turn
+                    return ("Ход белых" if turn == 1 else "Ход чёрных") + (" · Шах!" if in_check(game.state) else "")
+
+                # --- отрисовка ---
+                def paint():
+                    st = game.state
+                    fl = flipped()
+                    last = game.moves[-1] if (game.moves and cfg["show_last"]) else None
+                    king_sq = st.board.index(st.turn * K) if in_check(st) else -1
+                    for i in range(64):
+                        sq = 63 - i if fl else i
+                        r, c = divmod(sq, 8)
+                        bg = light if (r + c) % 2 == 0 else dark
+                        if last and sq in (last[0], last[1]):
+                            bg = mix(bg, C_LAST, 0.5)
+                        if g["hint"] and sq in g["hint"]:
+                            bg = mix(bg, C_TIP, 0.65)
+                        if sq == king_sq:
+                            bg = mix(bg, C_CHECK, 0.65)
+                        if sq == g["sel"]:
+                            bg = mix(bg, C_SEL, 0.6)
+                        v = st.board[sq]
+                        label, color = "", C_HINT
+                        if v:
+                            label = GLYPH[abs(v)] + TEXT_STYLE
+                            color = C_WHITE_PIECE if v > 0 else C_BLACK_PIECE
+                            if sq in g["targets"] and cfg["hints"]:
+                                bg = mix(bg, C_CHECK, 0.45)  # фигуру можно взять
+                        elif sq in g["targets"] and cfg["hints"]:
+                            label, color = "•", mix(bg, C_HINT, 0.55)
+                        view = cells[i]
+                        view.setBackgroundColor(bg)
+                        view.setText(label)
+                        view.setTextColor(color)
+                        try:  # тонкий контур, чтобы белые фигуры были видны на светлых клетках
+                            view.setShadowLayer(3.0, 0.0, 0.0, C_BLACK_PIECE if v > 0 else C_WHITE_PIECE) if v else \
+                                view.setShadowLayer(0.0, 0.0, 0.0, 0)
+                        except Exception:
+                            pass
+                    if cfg["show_coords"]:
+                        for r in range(8):
+                            rank_tvs[r].setText(str(r + 1 if fl else 8 - r))
+                        for c in range(8):
+                            file_tvs[c].setText("abcdefgh"[7 - c if fl else c])
+
+                def refresh_strips():
+                    fl = flipped()
+                    bottom, top = (-1, 1) if fl else (1, -1)
+                    by_white, by_black = captured_pieces(game)
+                    pts = sum(PTS[t] for t in by_white) - sum(PTS[t] for t in by_black)
+                    for col, cap_tv, clk_tv in ((bottom, bottom_cap, bottom_clk), (top, top_cap, top_clk)):
+                        taken = by_white if col == 1 else by_black
+                        adv = pts if col == 1 else -pts
+                        if cfg["show_captured"]:
+                            cap_tv.setText("".join(GLYPH[t] for t in taken) + (f" +{adv}" if adv > 0 else ""))
+                            cap_tv.setTextColor(C_BLACK_PIECE if col == 1 else C_WHITE_PIECE)
+                            try:
+                                cap_tv.setShadowLayer(3.0, 0.0, 0.0, C_WHITE_PIECE if col == 1 else C_BLACK_PIECE)
+                            except Exception:
+                                pass
+                        else:
+                            cap_tv.setText("")
+                        if g["base"]:
+                            clk_tv.setText(fmt_clock(g["clock"][col]))
+                            running = (not g["over"]) and len(game.moves) >= 2 and game.state.turn == col
+                            clk_tv.setTextColor(C_SEL if running else c_fg)
+                        else:
+                            clk_tv.setText("")
+
+                def refresh_moves():
+                    if g["panel"]:
+                        moves_tv.setText(movetext(ucis(), pgn_res()) if game.moves else "Ходов пока нет")
+
+                def refresh(tip=None):
+                    status_tv.setText(status_line())
+                    if tip:
+                        last_tv.setText(tip)
+                    elif game.moves:
+                        m = game.moves[-1]
+                        last_tv.setText(f"Последний ход: {sq_name(m[0])}–{sq_name(m[1])}")
+                    else:
+                        last_tv.setText("Нажми на фигуру, потом на клетку")
+                    if g["mode"] == 0:
+                        s = self._stats().get(str(g["level"]), {})
+                        info_tv.setText(f"Против бота ({LEVELS[g['level']][0]}): побед {s.get('w', 0)}, "
+                                        f"ничьих {s.get('d', 0)}, поражений {s.get('l', 0)}")
+                    else:
+                        info_tv.setText("Игра вдвоём на одном телефоне")
+                    refresh_strips()
+                    refresh_moves()
+
+                def persist():
+                    if game.moves and not g["over"]:
+                        self._put("saved_game", {"moves": ucis(), "mode": g["mode"], "color": g["player"],
+                                                 "level": g["level"], "base": g["base"], "inc": g["inc"],
+                                                 "clock": [g["clock"][1], g["clock"][-1]]})
+                    else:
+                        self._put("saved_game", None)
+
+                # --- часы ---
+                def consume():
+                    """Списывает прошедшее время со стороны, чей ход. True, если время вышло."""
+                    now = time.time()
+                    if not g["base"] or g["over"] or len(game.moves) < 2:
+                        g["last_t"] = now
+                        return False
+                    if g["last_t"] is not None:
+                        side = game.state.turn
+                        g["clock"][side] = max(0.0, g["clock"][side] - (now - g["last_t"]))
+                    g["last_t"] = now
+                    return g["clock"][game.state.turn] <= 0
+
+                def tick():
+                    g["ticks"] += 1
+                    if g["ticks"] > 3 and not root.isAttachedToWindow():
+                        return  # окно закрыли: цикл останавливается сам
+                    if consume():
+                        end_game("timeout", game.state.turn)
+                    else:
+                        refresh_strips()
+                    run_on_ui_thread(tick, 1000)
+
+                # --- конец партии ---
+                def end_game(status, loser=None):
+                    if g["over"]:
+                        return
+                    g.update(over=True, end=(status, loser), thinking=False, sel=None, targets={}, pending=None,
+                             hint=None)
+                    g["gen"] += 1
+                    promo_row.setVisibility(8)
+                    if g["mode"] == 0 and not g["recorded"]:
+                        g["recorded"] = True
+                        who = game.state.turn if status == "mate" else loser
+                        stats = self._stats()
+                        s = stats.setdefault(str(g["level"]), {"w": 0, "d": 0, "l": 0})
+                        s[result_for(g["player"], status, who)] += 1
+                        self._put("stats_json", stats)
+                    self._put("saved_game", None)
+                    self._put("last_game", {"moves": ucis(), "result": pgn_res()})
+                    paint()
+                    refresh()
+
+                # --- ход бота и подсказка ---
+                def bot_time_left():
+                    return g["clock"][-g["player"]] if (g["base"] and len(game.moves) >= 2) else None
+
+                def maybe_bot():
+                    if g["mode"] != 0 or g["over"] or game.state.turn == g["player"]:
+                        return
+                    g["gen"] += 1
+                    gen = g["gen"]
+                    g["thinking"] = True
+                    refresh()
+                    state, level, left = game.state, g["level"], bot_time_left()
+
+                    def work():
+                        try:
+                            mv = choose_move(state, level, time_left=left)
+                        except Exception as e:
+                            log(f"chess: ошибка бота: {e}")
+                            moves = legal_moves(state)
+                            mv = random.choice(moves) if moves else None
+                        run_on_ui_thread(lambda: apply_bot(gen, mv))
+
+                    threading.Thread(target=work, daemon=True).start()
+
+                def apply_bot(gen, mv):
+                    if session != self._session or gen != g["gen"] or mv is None:
+                        return
+                    g["thinking"] = False
+                    commit(mv)
+
+                def hint():
+                    if g["over"] or g["thinking"] or (g["mode"] == 0 and game.state.turn != g["player"]):
+                        return
+                    if not cfg["hint_btn"]:
+                        self._toast("Подсказки выключены в настройках")
+                        return
+                    g["hgen"] += 1
+                    hgen, state = g["hgen"], game.state
+                    last_tv.setText("Подсказка: думаю…")
+
+                    def work():
+                        try:
+                            mv = choose_move(state, 2)
+                        except Exception as e:
+                            log(f"chess: ошибка подсказки: {e}")
+                            mv = None
+                        run_on_ui_thread(lambda: apply_hint(hgen, state, mv))
+
+                    threading.Thread(target=work, daemon=True).start()
+
+                def apply_hint(hgen, state, mv):
+                    if session != self._session or hgen != g["hgen"] or game.state is not state or mv is None or g["over"]:
+                        return
+                    g["hint"] = (mv[0], mv[1])
+                    paint()
+                    refresh("Подсказка: " + san(state, mv))
+
+                # --- ходы игрока ---
+                def commit(mv):
+                    if consume():  # время вышло до того, как ход сделан
+                        end_game("timeout", game.state.turn)
+                        return
+                    mover = game.state.turn
+                    game.play(mv)
+                    if g["base"] and len(game.moves) > 2:
+                        g["clock"][mover] += g["inc"]
+                    g.update(sel=None, targets={}, pending=None, hint=None)
+                    g["hgen"] += 1
+                    promo_row.setVisibility(8)
+                    status = game.status()
+                    if status in OVER:
+                        end_game(status)
+                        return
+                    persist()
+                    paint()
+                    refresh()
+                    maybe_bot()
+
+                def choose_promo(p):
+                    mvs = g["pending"]
+                    if not mvs:
+                        return
+                    for mv in mvs:
+                        if mv[2] == p:
+                            commit(mv)
+                            return
+
+                def tap(i):
+                    if g["over"] or g["thinking"] or g["pending"]:
+                        return
+                    if g["mode"] == 0 and game.state.turn != g["player"]:
+                        return
+                    sq = 63 - i if flipped() else i
+                    if g["sel"] is not None and sq in g["targets"]:
+                        mvs = g["targets"][sq]
+                        if mvs[0][2]:  # превращение пешки
+                            if cfg["auto_queen"]:
+                                commit([m for m in mvs if m[2] == Q][0])
+                            else:
+                                g["pending"] = mvs
+                                col = C_WHITE_PIECE if game.state.turn == 1 else C_BLACK_PIECE
+                                for pb in promo_btns.values():
+                                    pb.setTextColor(col)
+                                promo_row.setVisibility(0)
+                            return
+                        commit(mvs[0])
+                        return
+                    v = game.state.board[sq]
+                    if v * game.state.turn > 0 and sq != g["sel"]:
+                        g["sel"] = sq
+                        g["targets"] = {}
+                        for mv in game.legal():
+                            if mv[0] == sq:
+                                g["targets"].setdefault(mv[1], []).append(mv)
+                    else:
+                        g.update(sel=None, targets={})
+                    paint()
+
+                # --- кнопки ---
+                def undo():
+                    if g["end"] and g["end"][0] in ("timeout", "resign"):
+                        self._toast("Партия окончена, отмена недоступна")
+                        return
+                    g["gen"] += 1
+                    g["hgen"] += 1
+                    g.update(thinking=False, hint=None)
+                    if not game.moves:
+                        return
+                    game.undo(1)
+                    if g["mode"] == 0 and game.state.turn != g["player"] and game.moves:
+                        game.undo(1)
+                    g.update(over=False, end=None, sel=None, targets={}, pending=None)
+                    g["last_t"] = time.time()
+                    promo_row.setVisibility(8)
+                    persist()
+                    paint()
+                    refresh()
+                    maybe_bot()
+
+                def flip():
+                    g["manual_flip"] = not g["manual_flip"]
+                    paint()
+                    refresh_strips()
+
+                def do_new_game():
+                    g["gen"] += 1
+                    g["hgen"] += 1
+                    game.reset()
+                    new_setup()
+                    g.update(sel=None, targets={}, pending=None, thinking=False, over=False, end=None,
+                             recorded=False, manual_flip=False, hint=None)
+                    promo_row.setVisibility(8)
+                    persist()
+                    paint()
+                    refresh()
+                    maybe_bot()
+
+                def new_game():
+                    if game.moves and not g["over"]:
+                        confirm("Новая игра?", "Текущая партия будет потеряна.", "Начать", do_new_game)
+                    else:
+                        do_new_game()
+
+                def do_resign():
+                    loser = g["player"] if g["mode"] == 0 else game.state.turn
+                    end_game("resign", loser)
+
+                def resign():
+                    if g["over"] or not game.moves:
+                        return
+                    who = "Вы сдаётесь" if g["mode"] == 0 else ("Белые сдаются" if game.state.turn == 1 else "Чёрные сдаются")
+                    confirm("Сдаться?", who + ". Партия будет засчитана как поражение.", "Сдаться", do_resign)
+
+                def toggle_moves():
+                    g["panel"] = not g["panel"]
+                    moves_panel.setVisibility(0 if g["panel"] else 8)
+                    refresh_moves()
+
+                def copy_pgn():
+                    self._copy(movetext(ucis(), pgn_res()) or "", "Партия (PGN) скопирована")
+
+                def copy_fen():
+                    self._copy(to_fen(game.state), "Позиция (FEN) скопирована")
+
+                scroll = ScrollView(ctx)
+                scroll.addView(root)
+
+                builder = AlertDialogBuilder(ctx)
+                builder.set_title("Шахматы")
+                builder.set_view(scroll)
+                builder.set_negative_button("Закрыть", lambda *a: builder.dismiss())
+                builder.show()
+                paint()
+                refresh()
+                if g["base"]:
+                    g["last_t"] = time.time()
+                    run_on_ui_thread(tick, 1000)
+                maybe_bot()
+            except Exception as e:
+                log(f"chess: окно не открылось: {e}")
+                BulletinHelper.show_info(f"Шахматы не запустились: {e}")
+
+        run_on_ui_thread(build)

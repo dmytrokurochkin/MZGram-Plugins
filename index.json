@@ -2532,6 +2532,33 @@
         "messages.read",
         "files"
       ]
+    },
+    {
+      "id": "chess_game",
+      "name": "Chess",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/chess_game/1.1/chess_game.plugin",
+      "sha256": "2c263dc8649cd95ab717a22d6d902f59203a04199928f189fb8d3114820ab723",
+      "size": 64614,
+      "description": "Chess in the Telegram window: against a bot (4 levels) or together on one phone. Moves are suggested, moves can be canceled and the game can be saved.",
+      "description_i18n": {
+        "en": "Chess in the Telegram window: against a bot (4 levels) or together on one phone. Moves are suggested, moves can be canceled and the game can be saved.",
+        "uk": "Шахи у вікні Telegram: проти бота (4 рівні) або разом на одному телефоні. Ходи пропонуються, ходи можна скасувати, а гру можна зберегти.",
+        "ru": "Шахматы в окне Telegram: против бота (4 уровня) или вдвоем на одном телефоне. Ходы предлагаются, ходы можно отменить и игру можно сохранить.",
+        "pl": "Szachy w oknie Telegramu: przeciwko botowi (4 poziomy) lub razem na jednym telefonie. Sugerowane są ruchy, ruchy można anulować, a grę można zapisać.",
+        "es": "Ajedrez en la ventana de Telegram: contra un bot (4 niveles) o juntos en un teléfono. Se sugieren movimientos, se pueden cancelar movimientos y se puede guardar el juego.",
+        "de": "Schach im Telegram-Fenster: gegen einen Bot (4 Level) oder gemeinsam auf einem Telefon. Züge werden vorgeschlagen, Züge können abgebrochen und die Partie gespeichert werden.",
+        "fr": "Échecs dans la fenêtre Telegram : contre un bot (4 niveaux) ou ensemble sur un seul téléphone. Des mouvements sont suggérés, les mouvements peuvent être annulés et la partie peut être sauvegardée.",
+        "pt-BR": "Xadrez na janela do Telegram: contra um bot (4 níveis) ou juntos no mesmo telefone. Os movimentos são sugeridos, os movimentos podem ser cancelados e o jogo pode ser salvo.",
+        "tr": "Telegram penceresinde satranç: bir bota karşı (4 seviye) veya bir telefonda birlikte. Hareketler önerilebilir, hamleler iptal edilebilir ve oyun kaydedilebilir.",
+        "ar": "الشطرنج في نافذة Telegram: ضد الروبوت (4 مستويات) أو معًا على هاتف واحد. يتم اقتراح التحركات، ويمكن إلغاء التحركات ويمكن حفظ اللعبة.",
+        "be": "Шахматы ў акне Telegram: супраць бота (4 ўзроўні) або разам на адным тэлефоне. Хады прапануюцца, хады можна адмяніць і гульню можна захаваць.",
+        "kk": "Telegram терезесіндегі шахмат: ботқа қарсы (4 деңгей) немесе бір телефонда бірге. Қозғалыстар ұсынылады, қозғалыстардан бас тартуға және ойынды сақтауға болады."
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
