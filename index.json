@@ -4653,6 +4653,34 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "formatted_copy",
+      "name": "formatted copy",
+      "version": "1.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/formatted_copy/1.0.1/formatted_copy.plugin",
+      "sha256": "5e33aae950ee18e170056685fd831380bf6f5fed9b5cce7b98d672a96815f9b5",
+      "size": 44201,
+      "description": "formatting copied messages",
+      "description_i18n": {
+        "en": "formatting copied messages",
+        "uk": "форматування скопійованих повідомлень",
+        "ru": "форматирование скопированных сообщений",
+        "pl": "formatowanie skopiowanych wiadomości",
+        "es": "formatear mensajes copiados",
+        "de": "Formatieren kopierter Nachrichten",
+        "fr": "formatage des messages copiés",
+        "pt-BR": "formatando mensagens copiadas",
+        "tr": "kopyalanan mesajları biçimlendirme",
+        "ar": "تنسيق الرسائل المنسوخة",
+        "be": "фарматаванне скапіяваных паведамленняў",
+        "kk": "көшірілген хабарламаларды пішімдеу"
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
