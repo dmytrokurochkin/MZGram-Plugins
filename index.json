@@ -3567,6 +3567,36 @@
         "files",
         "intents"
       ]
+    },
+    {
+      "id": "doc_viewer",
+      "name": "Doc Viewer",
+      "version": "2.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/doc_viewer/2.0.0/doc_viewer.plugin",
+      "sha256": "133b856594ed9ce33fe278257f52f4d92bdec6d419ef8ededf42e8edbcac792a",
+      "size": 101542,
+      "description": "View files within the application: PDF, DOCX, XLSX, PPTX, ODF, RTF, EPUB, FB2, Markdown, HTML, SVG, CSV, JSON, code, archives, letters, images",
+      "description_i18n": {
+        "en": "View files within the application: PDF, DOCX, XLSX, PPTX, ODF, RTF, EPUB, FB2, Markdown, HTML, SVG, CSV, JSON, code, archives, letters, images",
+        "uk": "Перегляд файлів у програмі: PDF, DOCX, XLSX, PPTX, ODF, RTF, EPUB, FB2, Markdown, HTML, SVG, CSV, JSON, код, архіви, листи, зображення",
+        "ru": "Просмотр файлов внутри приложения: PDF, DOCX, XLSX, PPTX, ODF, RTF, EPUB, FB2, Markdown, HTML, SVG, CSV, JSON, код, архивы, письма, изображения.",
+        "pl": "Przeglądaj pliki w aplikacji: PDF, DOCX, XLSX, PPTX, ODF, RTF, EPUB, FB2, Markdown, HTML, SVG, CSV, JSON, kod, archiwa, listy, obrazy",
+        "es": "Ver archivos dentro de la aplicación: PDF, DOCX, XLSX, PPTX, ODF, RTF, EPUB, FB2, Markdown, HTML, SVG, CSV, JSON, código, archivos, cartas, imágenes",
+        "de": "Dateien in der Anwendung anzeigen: PDF, DOCX, XLSX, PPTX, ODF, RTF, EPUB, FB2, Markdown, HTML, SVG, CSV, JSON, Code, Archive, Briefe, Bilder",
+        "fr": "Visualisez les fichiers au sein de l'application : PDF, DOCX, XLSX, PPTX, ODF, RTF, EPUB, FB2, Markdown, HTML, SVG, CSV, JSON, code, archives, lettres, images",
+        "pt-BR": "Visualize arquivos dentro do aplicativo: PDF, DOCX, XLSX, PPTX, ODF, RTF, EPUB, FB2, Markdown, HTML, SVG, CSV, JSON, código, arquivos, cartas, imagens",
+        "tr": "Uygulama içindeki dosyaları görüntüleyin: PDF, DOCX, XLSX, PPTX, ODF, RTF, EPUB, FB2, Markdown, HTML, SVG, CSV, JSON, kod, arşivler, mektuplar, resimler",
+        "ar": "عرض الملفات داخل التطبيق: PDF، DOCX، XLSX، PPTX، ODF، RTF، EPUB، FB2، Markdown، HTML، SVG، CSV، JSON، الكود، الأرشيف، الحروف، الصور",
+        "be": "Прагляд файлаў у праграме: PDF, DOCX, XLSX, PPTX, ODF, RTF, EPUB, FB2, Markdown, HTML, SVG, CSV, JSON, код, архівы, лісты, выявы",
+        "kk": "Қолданбадағы файлдарды көру: PDF, DOCX, XLSX, PPTX, ODF, RTF, EPUB, FB2, Markdown, HTML, SVG, CSV, JSON, код, мұрағаттар, хаттар, кескіндер"
+      },
+      "permissions": [
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
