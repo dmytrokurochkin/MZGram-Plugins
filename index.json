@@ -5348,6 +5348,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "hide_shortcuts",
+      "name": "HideShortcuts",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/hide_shortcuts/1.0.0/hide_shortcuts.plugin",
+      "sha256": "ba3597dc4059b2b2a9b0a85055812a8515699edf21e31881f3e552243405290c",
+      "size": 10582,
+      "description": "Hides contacts/chats from the app's quick shortcuts, leaving only New Conversation and Safe Mode.",
+      "description_i18n": {
+        "en": "Hides contacts/chats from the app's quick shortcuts, leaving only New Conversation and Safe Mode.",
+        "uk": "Приховує контакти/чати від швидких ярликів програми, залишаючи лише нову розмову та безпечний режим.",
+        "ru": "Скрывает контакты/чаты из быстрых ярлыков приложения, оставляя только «Новый разговор» и «Безопасный режим».",
+        "pl": "Ukrywa kontakty/czaty przed szybkimi skrótami aplikacji, pozostawiając tylko nową rozmowę i tryb awaryjny.",
+        "es": "Oculta contactos/chats de los atajos rápidos de la aplicación, dejando solo Nueva conversación y Modo seguro.",
+        "de": "Versteckt Kontakte/Chats vor den Schnellverknüpfungen der App, so dass nur „Neue Konversation\" und der abgesicherte Modus übrig bleiben.",
+        "fr": "Masque les contacts/chats des raccourcis rapides de l'application, ne laissant que la nouvelle conversation et le mode sans échec.",
+        "pt-BR": "Oculta contatos/chats dos atalhos rápidos do app, deixando apenas Nova Conversa e Modo de Segurança.",
+        "tr": "Kişileri/sohbetleri uygulamanın hızlı kısayollarından gizleyerek yalnızca Yeni Konuşma ve Güvenli Mod'u bırakır.",
+        "ar": "يخفي جهات الاتصال/الدردشات من الاختصارات السريعة للتطبيق، ويترك فقط المحادثة الجديدة والوضع الآمن.",
+        "be": "Хавае кантакты/чаты ад хуткіх ярлыкоў праграмы, пакідаючы толькі новую размову і бяспечны рэжым.",
+        "kk": "Қолданбаның жылдам пернелер тіркесімінен контактілерді/чаттарды жасырып, тек Жаңа сөйлесу және қауіпсіз режимді қалдырады."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
