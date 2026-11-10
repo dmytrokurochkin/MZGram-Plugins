@@ -4118,6 +4118,33 @@
       "permissions": [
         "network"
       ]
+    },
+    {
+      "id": "fake_motion_blur",
+      "name": "fake motion blur",
+      "version": "3.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/fake_motion_blur/3.0.1/fake_motion_blur.plugin",
+      "sha256": "801bf2d49139c60d3c1d9ec8f353567a21e9c652849cba5a88a57579c565d77f",
+      "size": 4549,
+      "description": "directed motion blur when scrolling in all lists (gpu renderEffect, android 12+)",
+      "description_i18n": {
+        "en": "directed motion blur when scrolling in all lists (gpu renderEffect, android 12+)",
+        "uk": "спрямоване розмиття руху під час прокручування у всіх списках (gpu renderEffect, android 12+)",
+        "ru": "направленное размытие изображения при прокрутке всех списков (gpu renderEffect, android 12+)",
+        "pl": "ukierunkowane rozmycie ruchu podczas przewijania wszystkich list (gpu renderEffect, Android 12+)",
+        "es": "Desenfoque de movimiento dirigido al desplazarse por todas las listas (gpu renderEffect, Android 12+)",
+        "de": "gerichtete Bewegungsunschärfe beim Scrollen in allen Listen (GPU RenderEffect, Android 12+)",
+        "fr": "flou de mouvement dirigé lors du défilement dans toutes les listes (gpu renderEffect, android 12+)",
+        "pt-BR": "desfoque de movimento direcionado ao rolar em todas as listas (gpu renderEffect, android 12+)",
+        "tr": "Tüm listelerde kaydırırken yönlendirilmiş hareket bulanıklığı (gpu renderEffect, Android 12+)",
+        "ar": "تمويه الحركة الموجهة عند التمرير في جميع القوائم (GPU renderEffect، android 12+)",
+        "be": "накіраванае размыццё руху пры пракрутцы ва ўсіх спісах (gpu renderEffect, android 12+)",
+        "kk": "барлық тізімдерде жылжу кезінде бағытталған қозғалыс бұлдыры (gpu renderEffect, android 12+)"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
