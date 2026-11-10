@@ -11116,6 +11116,35 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "sticker_bar",
+      "name": "Sticker_bar",
+      "version": "0.3.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/sticker_bar/0.3.0/sticker_bar.plugin",
+      "sha256": "9250fba2bf2e4917fd4c37ce17f5a70d5af4b6b569c4804da2701d9ae092dae0",
+      "size": 61715,
+      "description": "A panel with 5 quick stickers above the input line. Selection from your Telegram packs.",
+      "description_i18n": {
+        "en": "A panel with 5 quick stickers above the input line. Selection from your Telegram packs.",
+        "uk": "Панель із 5 швидкими стікерами над рядком введення. Вибір із ваших пакетів Telegram.",
+        "ru": "Панель с 5 быстрыми наклейками над строкой ввода. Выбор из ваших пакетов Telegram.",
+        "pl": "Panel z 5 szybkimi naklejkami nad linią wprowadzania. Wybór z pakietów Telegramu.",
+        "es": "Un panel con 5 pegatinas rápidas encima de la línea de entrada. Selección de tus packs de Telegram.",
+        "de": "Ein Panel mit 5 Schnellaufklebern über der Eingabezeile. Auswahl aus Ihren Telegram-Paketen.",
+        "fr": "Un panneau avec 5 autocollants rapides au-dessus de la ligne de saisie. Sélection parmi vos packs Telegram.",
+        "pt-BR": "Um painel com 5 adesivos rápidos acima da linha de entrada. Seleção de seus pacotes do Telegram.",
+        "tr": "Giriş satırının üzerinde 5 hızlı çıkartma bulunan bir panel. Telegram paketlerinizden seçim.",
+        "ar": "لوحة بها 5 ملصقات سريعة فوق خط الإدخال. الاختيار من حزم Telegram الخاصة بك.",
+        "be": "Панэль з 5 хуткімі стыкерамі над радком уводу. Выбар з вашых пакетаў Telegram.",
+        "kk": "Енгізу сызығының үстінде 5 жылдам стикері бар панель. Telegram пакеттеріңізден таңдау."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "hooks"
+      ]
     }
   ]
 }
