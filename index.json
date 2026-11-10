@@ -7005,6 +7005,34 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "miniapp_devtools",
+      "name": "MiniApp DevTools",
+      "version": "3.2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/miniapp_devtools/3.2.0/miniapp_devtools.plugin",
+      "sha256": "1c6f308d6e4d8e9b96931db95e2d7d9af6ed8b64bb62175b3e02078a6dd60c8d",
+      "size": 16301,
+      "description": "Full Chrome-style DevTools for Telegram Mini Apps. Network tab with headers, bodies and binary decoder.",
+      "description_i18n": {
+        "en": "Full Chrome-style DevTools for Telegram Mini Apps. Network tab with headers, bodies and binary decoder.",
+        "uk": "Повні інструменти розробки в стилі Chrome для програм Telegram Mini. Вкладка «Мережа» із заголовками, тілами та двійковим декодером.",
+        "ru": "Полные инструменты разработчика в стиле Chrome для мини-приложений Telegram. Вкладка «Сеть» с заголовками, телами и двоичным декодером.",
+        "pl": "Pełne narzędzia deweloperskie w stylu Chrome dla miniaplikacji Telegram. Zakładka Sieć z nagłówkami, treścią i dekoderem binarnym.",
+        "es": "DevTools completo estilo Chrome para aplicaciones Telegram Mini. Pestaña de red con encabezados, cuerpos y decodificador binario.",
+        "de": "Vollständige DevTools im Chrome-Stil für Telegram Mini Apps. Registerkarte „Netzwerk\" mit Headern, Textkörpern und Binärdecoder.",
+        "fr": "DevTools complets de style Chrome pour les applications Telegram Mini. Onglet Réseau avec en-têtes, corps et décodeur binaire.",
+        "pt-BR": "DevTools completos no estilo Chrome para mini aplicativos Telegram. Guia Rede com cabeçalhos, corpos e decodificador binário.",
+        "tr": "Telegram Mini Uygulamaları için tam Chrome tarzı DevTools. Başlıkları, gövdeleri ve ikili kod çözücüyü içeren ağ sekmesi.",
+        "ar": "أدوات تطوير كاملة بنمط Chrome لتطبيقات Telegram Mini. علامة تبويب الشبكة مع الرؤوس والنصوص ووحدة فك التشفير الثنائية.",
+        "be": "Поўны DevTools у стылі Chrome для міні-праграм Telegram. Укладка \"Сетка\" з загалоўкамі, целам і бінарным дэкодэрам.",
+        "kk": "Telegram Mini қолданбаларына арналған толық Chrome стиліндегі DevTools. Тақырыптары, денелері және екілік декодері бар желі қойындысы."
+      },
+      "permissions": [
+        "network",
+        "hooks"
+      ]
     }
   ]
 }
