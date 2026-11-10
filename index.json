@@ -7833,6 +7833,33 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "oneline",
+      "name": "Oneline",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/oneline/1.0.0/oneline.plugin",
+      "sha256": "a75c6f58fee63031388f8dac00a1fe7d75908a48f625c09c2c54351d75dfcfa7",
+      "size": 32327,
+      "description": "Extension Oneline for Telegram.",
+      "description_i18n": {
+        "en": "Extension Oneline for Telegram.",
+        "uk": "Розширення Oneline для Telegram.",
+        "ru": "Расширение Oneline для Telegram.",
+        "pl": "Rozszerzenie Oneline dla Telegramu.",
+        "es": "Extensión Oneline para Telegram.",
+        "de": "Erweiterung Oneline für Telegram.",
+        "fr": "Extension Oneline pour Telegram.",
+        "pt-BR": "Extensão Oneline para Telegram.",
+        "tr": "Telegram için Oneline Uzantısı.",
+        "ar": "ملحق Oneline لـ Telegram.",
+        "be": "Пашырэнне Oneline для Telegram.",
+        "kk": "Telegram үшін Oneline кеңейтімі."
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
