@@ -6369,6 +6369,33 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "long_quote_auto",
+      "name": "LongQuoteAuto",
+      "version": "1.4.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/long_quote_auto/1.4.0/long_quote_auto.plugin",
+      "sha256": "cdd5ffac8b611a84647234a7154ce6869827fb474b5b578885b69e592f63c733",
+      "size": 3126,
+      "description": "Collapses the message into a quote if there are trigger words (crashlogs), so as not to shit in a long text in the chat.",
+      "description_i18n": {
+        "en": "Collapses the message into a quote if there are trigger words (crashlogs), so as not to shit in a long text in the chat.",
+        "uk": "Згортає повідомлення в цитату, якщо є тригерні слова (crashlogs), щоб не срати в довгий текст в чаті.",
+        "ru": "Сворачивает сообщение в цитату, если есть слова-триггеры (крашлоги), чтобы не срать длинным текстом в чате.",
+        "pl": "Zwija wiadomość w cytat, jeśli istnieją słowa wyzwalające (dzienniki awarii), aby nie wrzucać długiego tekstu na czacie.",
+        "es": "Contrae el mensaje entre comillas si hay palabras desencadenantes (crashlogs), para no cagar en un texto largo en el chat.",
+        "de": "Reduziert die Nachricht in ein Zitat, wenn Triggerwörter (Crashlogs) vorhanden sind, um nicht in einen langen Text im Chat zu scheißen.",
+        "fr": "Réduit le message en citation s'il y a des mots déclencheurs (crashlogs), afin de ne pas chier dans un long texte dans le chat.",
+        "pt-BR": "Recolhe a mensagem em uma citação se houver palavras-gatilho (crashlogs), para não cagar em um texto longo no chat.",
+        "tr": "Tetikleyici kelimeler (çökme günlükleri) varsa, sohbete uzun bir metin yazmamak için mesajı bir alıntıya daraltır.",
+        "ar": "طي الرسالة إلى اقتباس إذا كانت هناك كلمات تشغيل (سجلات الأعطال)، حتى لا يتم إدخال نص طويل في الدردشة.",
+        "be": "Згортвае паведамленне ў цытату, калі ёсць трыгерныя словы (crashlogs), каб не сраць у доўгі тэкст у чаце.",
+        "kk": "Триггер сөздер (crashlogs) бар болса, чатта ұзақ мәтінді жібермеу үшін хабарламаны тырнақшаға жинайды."
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
