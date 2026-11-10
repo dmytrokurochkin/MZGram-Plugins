@@ -3060,6 +3060,34 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "custom_recent_reactions",
+      "name": "Custom Recent Reactions",
+      "version": "1.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/custom_recent_reactions/1.2/custom_recent_reactions.plugin",
+      "sha256": "75fd2a2f15276d15b2ec6d32a41ec6d29696f6405b98bc00d0895ef576fb60aa",
+      "size": 84435,
+      "description": "Replace the recent reactions in the message reaction panel with your own set.",
+      "description_i18n": {
+        "en": "Replace the recent reactions in the message reaction panel with your own set.",
+        "uk": "Замініть останні реакції на панелі реакцій на повідомлення власним набором.",
+        "ru": "Замените недавние реакции на панели реакций на сообщения своим собственным набором.",
+        "pl": "Zastąp ostatnie reakcje w panelu reakcji na wiadomości własnym zestawem.",
+        "es": "Reemplace las reacciones recientes en el panel de reacciones de mensajes con su propio conjunto.",
+        "de": "Ersetzen Sie die letzten Reaktionen im Nachrichtenreaktionsbereich durch Ihren eigenen Satz.",
+        "fr": "Remplacez les réactions récentes dans le panneau de réaction aux messages par votre propre ensemble.",
+        "pt-BR": "Substitua as reações recentes no painel de reações de mensagens pelo seu próprio conjunto.",
+        "tr": "Mesaj reaksiyon panelindeki en son reaksiyonları kendi grubunuzla değiştirin.",
+        "ar": "استبدل التفاعلات الأخيرة في لوحة تفاعل الرسائل بمجموعتك الخاصة.",
+        "be": "Заменіце нядаўнія рэакцыі на панэлі рэакцый на паведамленні сваім уласным наборам.",
+        "kk": "Хабарлама реакциясы тақтасындағы соңғы реакцияларды өз жиынтығыңызбен ауыстырыңыз."
+      },
+      "permissions": [
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
