@@ -9348,6 +9348,33 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "reaction_finder",
+      "name": "Top Reaction Finder",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/reaction_finder/1.0.0/reaction_finder.plugin",
+      "sha256": "01975c25b329e3c5ce9f3e00e7b7db8da18172de9cf1bf3076d458fec715299b",
+      "size": 17474,
+      "description": "Searches the chat/dialogue for the most popular message based on the selected reaction.",
+      "description_i18n": {
+        "en": "Searches the chat/dialogue for the most popular message based on the selected reaction.",
+        "uk": "Шукає в чаті/діалозі найпопулярніші повідомлення на основі вибраної реакції.",
+        "ru": "Ищет в чате/диалоге самое популярное сообщение на основе выбранной реакции.",
+        "pl": "Wyszukuje na czacie/dialogu najpopularniejszą wiadomość na podstawie wybranej reakcji.",
+        "es": "Busca en el chat/diálogo el mensaje más popular según la reacción seleccionada.",
+        "de": "Durchsucht den Chat/Dialog nach der beliebtesten Nachricht basierend auf der ausgewählten Reaktion.",
+        "fr": "Recherche dans le chat/dialogue le message le plus populaire en fonction de la réaction sélectionnée.",
+        "pt-BR": "Pesquisa no chat/diálogo a mensagem mais popular com base na reação selecionada.",
+        "tr": "Seçilen tepkiye göre sohbet/diyalogda en popüler mesajı arar.",
+        "ar": "يبحث في الدردشة/الحوار عن الرسالة الأكثر شيوعًا بناءً على التفاعل المحدد.",
+        "be": "Шукае ў чаце/дыялогу самае папулярнае паведамленне на аснове абранай рэакцыі.",
+        "kk": "Таңдалған реакция негізінде ең танымал хабарды чатты/диалогты іздейді."
+      },
+      "permissions": [
+        "messages.read"
+      ]
     }
   ]
 }
