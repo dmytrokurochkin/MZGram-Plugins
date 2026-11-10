@@ -10655,6 +10655,35 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "shortcuts",
+      "name": "Shortcuts",
+      "version": "1.3.2",
+      "min_app_version": "1.0.0",
+      "file": "plugins/shortcuts/1.3.2/shortcuts.plugin",
+      "sha256": "f81c77506f01a7bcfda90d27e09b15d5181fe53ba74b77d8e5a907ac3107d85a",
+      "size": 56349,
+      "description": "Creates shortcuts to all plugins and almost all of their functionality",
+      "description_i18n": {
+        "en": "Creates shortcuts to all plugins and almost all of their functionality",
+        "uk": "Створює ярлики для всіх плагінів і майже всіх їхніх функцій",
+        "ru": "Создает ярлыки для всех плагинов и почти всех их функций.",
+        "pl": "Tworzy skróty do wszystkich wtyczek i prawie całej ich funkcjonalności",
+        "es": "Crea accesos directos a todos los complementos y casi todas sus funciones.",
+        "de": "Erstellt Verknüpfungen zu allen Plugins und fast allen deren Funktionalität",
+        "fr": "Crée des raccourcis vers tous les plugins et presque toutes leurs fonctionnalités",
+        "pt-BR": "Cria atalhos para todos os plugins e quase todas as suas funcionalidades",
+        "tr": "Tüm eklentilere ve neredeyse tüm işlevlerine kısayollar oluşturur",
+        "ar": "ينشئ اختصارات لجميع المكونات الإضافية وجميع وظائفها تقريبًا",
+        "be": "Стварае цэтлікі для ўсіх убудоў і амаль усіх іх функцый",
+        "kk": "Барлық плагиндерге және олардың барлық дерлік функцияларына төте жолдарды жасайды"
+      },
+      "permissions": [
+        "network",
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
