@@ -5492,6 +5492,33 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "html_formatter",
+      "name": "HTML Formatter",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/html_formatter/1.1.0/HTML Formatter.plugin",
+      "sha256": "e5457dc5c00c1791060fa61f845b54c51dc647462bb1845396599160f7075c54",
+      "size": 8738,
+      "description": "Converts HTML markup to Telegram formatting",
+      "description_i18n": {
+        "en": "Converts HTML markup to Telegram formatting",
+        "uk": "Перетворює розмітку HTML у формат Telegram",
+        "ru": "Преобразует HTML-разметку в формат Telegram.",
+        "pl": "Konwertuje znaczniki HTML na formatowanie Telegramu",
+        "es": "Convierte el marcado HTML al formato de Telegram",
+        "de": "Konvertiert HTML-Markup in Telegram-Formatierung",
+        "fr": "Convertit le balisage HTML au format Telegram",
+        "pt-BR": "Converte marcação HTML para formatação de Telegram",
+        "tr": "HTML işaretlemesini Telegram formatına dönüştürür",
+        "ar": "يحول علامات HTML إلى تنسيق Telegram",
+        "be": "Пераўтварае разметку HTML у фармат Telegram",
+        "kk": "HTML белгілеуді Telegram пішіміне түрлендіреді"
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
