@@ -12091,6 +12091,37 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "whisper_transcribe",
+      "name": "Transcriber",
+      "version": "2.3.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/whisper_transcribe/2.3.1/whisper_transcribe.plugin",
+      "sha256": "d1e0e775e0bcac23b5c2f6d8fac46b83fcad5cf310e3c50b464b4bbcfce3925a",
+      "size": 90316,
+      "description": "Replaces Telegram's transcription service with free state-of-the-art alternatives.",
+      "description_i18n": {
+        "en": "Replaces Telegram's transcription service with free state-of-the-art alternatives.",
+        "uk": "Замінює службу транскрипції Telegram безкоштовними найсучаснішими альтернативами.",
+        "ru": "Заменяет службу транскрипции Telegram бесплатными современными альтернативами.",
+        "pl": "Zastępuje usługę transkrypcji Telegrama bezpłatnymi, najnowocześniejszymi alternatywami.",
+        "es": "Reemplaza el servicio de transcripción de Telegram por alternativas gratuitas de última generación.",
+        "de": "Ersetzt den Transkriptionsdienst von Telegram durch kostenlose, hochmoderne Alternativen.",
+        "fr": "Remplace le service de transcription de Telegram par des alternatives gratuites de pointe.",
+        "pt-BR": "Substitui o serviço de transcrição do Telegram por alternativas gratuitas de última geração.",
+        "tr": "Telegram'ın transkripsiyon hizmetini ücretsiz, son teknoloji alternatiflerle değiştirir.",
+        "ar": "يستبدل خدمة النسخ في Telegram ببدائل مجانية ومتطورة.",
+        "be": "Замяняе службу транскрыпцыі Telegram бясплатнымі сучаснымі альтэрнатывамі.",
+        "kk": "Telegram транскрипция қызметін тегін заманауи баламалармен ауыстырады."
+      },
+      "permissions": [
+        "messages.read",
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
