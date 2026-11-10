@@ -10106,6 +10106,37 @@
         "files",
         "hooks"
       ]
+    },
+    {
+      "id": "send_sound_on_message",
+      "name": "SendSound",
+      "version": "2.2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/send_sound_on_message/2.2.0/SendSound.Plugin",
+      "sha256": "695a21e4794ccc76695e9edce18b5ab58fcf36b221678fe23d14077021dc68e2",
+      "size": 23999,
+      "description": "Custom sounds and pictures when sending a message",
+      "description_i18n": {
+        "en": "Custom sounds and pictures when sending a message",
+        "uk": "Власні звуки та зображення під час надсилання повідомлення",
+        "ru": "Пользовательские звуки и изображения при отправке сообщения",
+        "pl": "Niestandardowe dźwięki i obrazy podczas wysyłania wiadomości",
+        "es": "Sonidos e imágenes personalizados al enviar un mensaje.",
+        "de": "Benutzerdefinierte Töne und Bilder beim Senden einer Nachricht",
+        "fr": "Sons et images personnalisés lors de l'envoi d'un message",
+        "pt-BR": "Sons e imagens personalizados ao enviar uma mensagem",
+        "tr": "Mesaj gönderirken özel sesler ve resimler",
+        "ar": "الأصوات والصور المخصصة عند إرسال رسالة",
+        "be": "Карыстальніцкія гукі і малюнкі пры адпраўцы паведамлення",
+        "kk": "Хабарлама жіберу кезінде реттелетін дыбыстар мен суреттер"
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
