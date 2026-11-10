@@ -2559,6 +2559,34 @@
       "permissions": [
         "messages.send"
       ]
+    },
+    {
+      "id": "chip_folders",
+      "name": "Chip Folders",
+      "version": "1.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/chip_folders/1.0.1/chip_folders.plugin",
+      "sha256": "8a0e39f6b740697bf8611a65cf6d6e45c2f8d5ca39a638b19300e84ceccdeffb",
+      "size": 107705,
+      "description": "Chat folder panel in the style of Material 3 chips with smooth rounded morphing. Material 3 chip style folders bar with smooth corner morphing.",
+      "description_i18n": {
+        "en": "Chat folder panel in the style of Material 3 chips with smooth rounded morphing. Material 3 chip style folders bar with smooth corner morphing.",
+        "uk": "Панель папки чату в стилі чіпсів Material 3 з плавним округлим морфінгом. Панель папок у стилі 3 чіпів із плавним зміненням кутів.",
+        "ru": "Панель папок чата в стиле фишек Material 3 с плавным закругленным морфингом. Материал: панель папок в стиле «3 чипа» с плавным изменением углов.",
+        "pl": "Panel folderów czatu w stylu chipów Material 3 z płynnym zaokrąglonym morfingiem. Materiałowy pasek folderów w stylu 3 chipów z płynnym przekształcaniem narożników.",
+        "es": "Panel de carpeta de chat al estilo de los chips Material 3 con una transformación suave y redondeada. Material Barra de carpetas estilo chip de 3 con esquinas suaves.",
+        "de": "Chat-Ordner-Panel im Stil von Material 3-Chips mit sanft abgerundetem Morphing. Material: 3-Chip-Ordnerleiste mit sanfter Eckenveränderung.",
+        "fr": "Panneau de dossier de discussion dans le style des puces Material 3 avec un morphing arrondi et lisse. Barre de dossiers à 3 puces avec morphing de coins lisses.",
+        "pt-BR": "Painel de pasta de bate-papo no estilo dos chips Material 3 com morphing arredondado suave. Barra de pastas estilo chip de material 3 com transformação de canto suave.",
+        "tr": "Pürüzsüz yuvarlak geçişli, Material 3 çipleri tarzında sohbet klasörü paneli. Malzeme Pürüzsüz köşe dönüşümüne sahip 3 çip tarzı klasör çubuğu.",
+        "ar": "لوحة مجلد الدردشة بأسلوب شرائح Material 3 مع تحول دائري سلس. شريط مجلدات بنمط 3 شرائح مع زاوية ناعمة تتحول.",
+        "be": "Панэль тэчак чата ў стылі чыпаў Material 3 з плыўным закругленым марфінгам. Матэрыял 3 панэлі папак у стылі чып з плаўным змяненнем кутоў.",
+        "kk": "Тегіс дөңгелектелген морфингі бар Material 3 чиптері стиліндегі сөйлесу қалтасының панелі. Материалдық 3 чип стиліндегі қалталар жолағы бұрыштары тегіс."
+      },
+      "permissions": [
+        "settings",
+        "hooks"
+      ]
     }
   ]
 }
