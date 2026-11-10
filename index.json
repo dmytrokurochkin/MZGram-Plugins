@@ -4878,6 +4878,33 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "gift_id",
+      "name": "Gift ID",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/gift_id/1.1/gift_id.plugin",
+      "sha256": "47382fede616d1510aace2c5f74d4f8d80943448b215b71fcb22f65b866b2914",
+      "size": 3358,
+      "description": "Shows the gift ID in its info",
+      "description_i18n": {
+        "en": "Shows the gift ID in its info",
+        "uk": "Показує ідентифікатор подарунка в інформації",
+        "ru": "Показывает идентификатор подарка в своей информации.",
+        "pl": "Pokazuje identyfikator prezentu w informacjach",
+        "es": "Muestra el ID del regalo en su información.",
+        "de": "Zeigt die Geschenk-ID in seinen Informationen an",
+        "fr": "Affiche l'identifiant du cadeau dans ses informations",
+        "pt-BR": "Mostra o ID do presente em suas informações",
+        "tr": "Bilgilerinde hediye kimliğini gösterir",
+        "ar": "يظهر معرف الهدية في معلوماته",
+        "be": "Паказвае ідэнтыфікатар падарунка ў сваёй інфармацыі",
+        "kk": "Ақпаратта сыйлық идентификаторын көрсетеді"
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
