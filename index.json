@@ -9797,6 +9797,35 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "save_emoji",
+      "name": "Save Emoji",
+      "version": "1.1.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/save_emoji/1.1.0/save_emoji.plugin",
+      "sha256": "6ad2c8f06c9ef74c9458e97fcdfc43927fe878eef33b0207195136dcec9816e3",
+      "size": 77053,
+      "description": "Adds a button to save emoji and stickers to the Downloads folder",
+      "description_i18n": {
+        "en": "Adds a button to save emoji and stickers to the Downloads folder",
+        "uk": "Додає кнопку для збереження емодзі та наклейок у папку завантажень",
+        "ru": "Добавляет кнопку для сохранения смайлов и стикеров в папку «Загрузки».",
+        "pl": "Dodaje przycisk umożliwiający zapisywanie emoji i naklejek w folderze Pobrane",
+        "es": "Agrega un botón para guardar emoji y stickers en la carpeta Descargas",
+        "de": "Fügt eine Schaltfläche zum Speichern von Emojis und Aufklebern im Ordner „Downloads\" hinzu",
+        "fr": "Ajoute un bouton pour enregistrer les emoji et les autocollants dans le dossier Téléchargements",
+        "pt-BR": "Adiciona um botão para salvar emojis e adesivos na pasta Downloads",
+        "tr": "Emojileri ve çıkartmaları İndirilenler klasörüne kaydetmek için bir düğme ekler",
+        "ar": "إضافة زر لحفظ الرموز التعبيرية والملصقات في مجلد التنزيلات",
+        "be": "Дадае кнопку для захавання эмодзі і стыкераў у папку \"Спампоўкі\".",
+        "kk": "Жүктеулер қалтасына эмодзилер мен стикерлерді сақтау түймешігін қосады"
+      },
+      "permissions": [
+        "files",
+        "intents",
+        "hooks"
+      ]
     }
   ]
 }
