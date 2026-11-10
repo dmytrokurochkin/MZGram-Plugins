@@ -2053,6 +2053,33 @@
         "settings",
         "hooks"
       ]
+    },
+    {
+      "id": "cactuslib_mini",
+      "name": "CactusLib Mini",
+      "version": "1.0.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/cactuslib_mini/1.0.1/cactusLibMini.plugin",
+      "sha256": "4e599ad4ffd099256e21fb2549c4b2cdab5b588cc9004806e133058f2ca54e51",
+      "size": 6371,
+      "description": "Mini version of CactusLib :D",
+      "description_i18n": {
+        "en": "Mini version of CactusLib :D",
+        "uk": "Міні-версія CactusLib :D",
+        "ru": "Мини-версия CactusLib :D",
+        "pl": "Mini wersja CactusLib :D",
+        "es": "Versión mini de CactusLib :D",
+        "de": "Mini-Version von CactusLib :D",
+        "fr": "Version mini de CactusLib :D",
+        "pt-BR": "Versão mini do CactusLib :D",
+        "tr": "CactusLib'in mini versiyonu :D",
+        "ar": "نسخة مصغرة من CactusLib :D",
+        "be": "Міні-версія CactusLib :D",
+        "kk": "CactusLib шағын нұсқасы: D"
+      },
+      "permissions": [
+        "messages.send"
+      ]
     }
   ]
 }
