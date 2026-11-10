@@ -1233,6 +1233,35 @@
         "messages.read",
         "hooks"
       ]
+    },
+    {
+      "id": "anixart_plugin",
+      "name": "Anixart",
+      "version": "1.8",
+      "min_app_version": "1.0.0",
+      "file": "plugins/anixart_plugin/1.8/anixart_plugin.plugin",
+      "sha256": "b0d9e79a231cd076247251331d4ee9f2fcea0c9ae89a900711ea76e9ab6a6f84",
+      "size": 106341,
+      "description": "Anixart. Search and watch anime, random release, info by ID, trends, lists, profile, genres, episode tracking, viewing, custom lists.",
+      "description_i18n": {
+        "en": "Anixart. Search and watch anime, random release, info by ID, trends, lists, profile, genres, episode tracking, viewing, custom lists.",
+        "uk": "Anixart. Шукайте та дивіться аніме, випадковий випуск, інформацію за ID, тенденції, списки, профіль, жанри, відстеження епізодів, перегляд, спеціальні списки.",
+        "ru": "Аниксарт. Поиск и просмотр аниме, случайный выпуск, информация по идентификатору, тенденции, списки, профиль, жанры, отслеживание эпизодов, просмотр, пользовательские списки.",
+        "pl": "Anixart. Wyszukuj i oglądaj anime, losowe wydania, informacje według identyfikatora, trendy, listy, profil, gatunki, śledzenie odcinków, przeglądanie, listy niestandardowe.",
+        "es": "Anixart. Busque y mire anime, lanzamiento aleatorio, información por ID, tendencias, listas, perfil, géneros, seguimiento de episodios, visualización, listas personalizadas.",
+        "de": "Anixart. Anime suchen und ansehen, zufällige Veröffentlichung, Informationen nach ID, Trends, Listen, Profil, Genres, Episodenverfolgung, Anzeige, benutzerdefinierte Listen.",
+        "fr": "Anixart. Recherchez et regardez des anime, des sorties aléatoires, des informations par identifiant, des tendances, des listes, des profils, des genres, le suivi des épisodes, la visualisation, des listes personnalisées.",
+        "pt-BR": "Anixart. Pesquise e assista animes, lançamento aleatório, informações por ID, tendências, listas, perfil, gêneros, rastreamento de episódios, visualização, listas personalizadas.",
+        "tr": "Anixart. Anime, rastgele sürüm, kimliğe göre bilgi, trendler, listeler, profil, türler, bölüm izleme, görüntüleme, özel listeleri arayın ve izleyin.",
+        "ar": "أنيكسارت. ابحث وشاهد الرسوم المتحركة، إصدار عشوائي، معلومات حسب المعرف، الاتجاهات، القوائم، الملف الشخصي، الأنواع، تتبع الحلقة، العرض، القوائم المخصصة.",
+        "be": "Anixart. Пошук і прагляд анімэ, выпадковы выпуск, інфармацыя па ID, тэндэнцыі, спісы, профіль, жанры, адсочванне серый, прагляд, карыстальніцкія спісы.",
+        "kk": "Аниксарт. Аниме, кездейсоқ шығарылым, идентификатор бойынша ақпарат, трендтер, тізімдер, профиль, жанрлар, эпизодтарды бақылау, қарау, пайдаланушы тізімдерін іздеңіз және көріңіз."
+      },
+      "permissions": [
+        "messages.send",
+        "network",
+        "files"
+      ]
     }
   ]
 }
