@@ -9152,6 +9152,33 @@
         "intents",
         "hooks"
       ]
+    },
+    {
+      "id": "quiet_reactions",
+      "name": "Quiet Reactions",
+      "version": "1.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/quiet_reactions/1.0.0/quiet_reactions.plugin",
+      "sha256": "053b4db739631a5a853e518fc7d26cc796ebdd4ec883505c7287f5a0d1015f45",
+      "size": 25739,
+      "description": "Management of large reactions, effects, vibration and auto-reading in groups and DMs. Manage big fullscreen reactions, background effects, vibration and auto-read in groups and PMs.",
+      "description_i18n": {
+        "en": "Management of large reactions, effects, vibration and auto-reading in groups and DMs. Manage big fullscreen reactions, background effects, vibration and auto-read in groups and PMs.",
+        "uk": "Управління великими реакціями, ефектами, вібрацією та автозчитуванням у групах та DM. Керуйте повноекранними реакціями, фоновими ефектами, вібрацією та автоматичним читанням у групах і особистих повідомленнях.",
+        "ru": "Управление большими реакциями, эффектами, вибрацией и авточтением в группах и в Директ. Управляйте большими полноэкранными реакциями, фоновыми эффектами, вибрацией и авточтением в группах и личных сообщениях.",
+        "pl": "Zarządzanie dużymi reakcjami, efektami, wibracjami i automatycznym odczytem w grupach i DM. Zarządzaj dużymi reakcjami na pełnym ekranie, efektami tła, wibracjami i automatycznym odczytem w grupach i PMach.",
+        "es": "Gestión de grandes reacciones, efectos, vibración y autolectura en grupos y DMs. Administre grandes reacciones en pantalla completa, efectos de fondo, vibración y lectura automática en grupos y MP.",
+        "de": "Verwaltung großer Reaktionen, Effekte, Vibration und automatisches Lesen in Gruppen und DMs. Verwalten Sie große Vollbildreaktionen, Hintergrundeffekte, Vibration und automatisches Lesen in Gruppen und PMs.",
+        "fr": "Gestion des grandes réactions, effets, vibrations et auto-lecture en groupes et DM. Gérez les grandes réactions en plein écran, les effets d'arrière-plan, les vibrations et la lecture automatique dans les groupes et les MP.",
+        "pt-BR": "Gerenciamento de grandes reações, efeitos, vibração e leitura automática em grupos e DMs. Gerencie grandes reações em tela cheia, efeitos de fundo, vibração e leitura automática em grupos e PMs.",
+        "tr": "Gruplarda ve DM'lerde büyük reaksiyonların, efektlerin, titreşimin ve otomatik okumanın yönetimi. Gruplarda ve PM'lerde büyük tam ekran reaksiyonlarını, arka plan efektlerini, titreşimi ve otomatik okumayı yönetin.",
+        "ar": "إدارة التفاعلات الكبيرة والتأثيرات والاهتزازات والقراءة التلقائية في المجموعات والرسائل المباشرة. إدارة ردود الفعل الكبيرة بملء الشاشة، وتأثيرات الخلفية، والاهتزاز، والقراءة التلقائية في المجموعات والرسائل الخاصة.",
+        "be": "Кіраванне вялікімі рэакцыямі, эфектамі, вібрацыяй і аўтасчытваннем у групах і DM. Кіруйце вялікімі поўнаэкраннымі рэакцыямі, фонавымі эфектамі, вібрацыяй і аўтаматычным чытаннем у групах і асабістых паведамленнях.",
+        "kk": "Топтар мен DM-де үлкен реакцияларды, әсерлерді, діріл мен автооқуды басқару. Толық экрандағы үлкен реакцияларды, фондық әсерлерді, дірілді және топтарда және PM-де автоматты оқуды басқарыңыз."
+      },
+      "permissions": [
+        "hooks"
+      ]
     }
   ]
 }
