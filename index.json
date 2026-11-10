@@ -3882,6 +3882,35 @@
         "be": "Эквалайзер для музычнага плэера: 5 дыяпазонаў, прадусталяваныя налады, узмацненне басоў, віртуалізатар і ўзмацненне гучнасці. > Патрабуецца **[ZwyLib](https://t.me/zwyPlugins/48)** версія 2.0.6 або вышэй!",
         "kk": "Музыка ойнатқышына арналған эквалайзер: 5 диапазон, алдын ала орнатулар, бассты күшейту, виртуализатор және дыбыс деңгейін арттыру. > **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.6 немесе одан жоғары нұсқасын қажет етеді!"
       }
+    },
+    {
+      "id": "etg_max",
+      "name": "MAX Tab",
+      "version": "2.0.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/etg_max/2.0.0/etg_max.plugin",
+      "sha256": "8118eb721e12258147996e0b7494c0bec882c004628c336e8d9842226820c9fd",
+      "size": 17321,
+      "description": "Adds a rightmost MAX tab to ExteraGram chat folders and opens web.max.ru in a native WebView.",
+      "description_i18n": {
+        "en": "Adds a rightmost MAX tab to ExteraGram chat folders and opens web.max.ru in a native WebView.",
+        "uk": "Додає крайню праву вкладку MAX до папок чату ExteraGram і відкриває web.max.ru у рідному WebView.",
+        "ru": "Добавляет крайнюю правую вкладку MAX в папки чата ExteraGram и открывает web.max.ru в собственном WebView.",
+        "pl": "Dodaje skrajną prawą kartę MAX do folderów czatu ExteraGram i otwiera web.max.ru w natywnym widoku WebView.",
+        "es": "Agrega una pestaña MAX situada más a la derecha a las carpetas de chat de ExteraGram y abre web.max.ru en un WebView nativo.",
+        "de": "Fügt den ExteraGram-Chat-Ordnern eine MAX-Registerkarte ganz rechts hinzu und öffnet web.max.ru in einer nativen WebView.",
+        "fr": "Ajoute un onglet MAX le plus à droite aux dossiers de discussion ExteraGram et ouvre web.max.ru dans une WebView native.",
+        "pt-BR": "Adiciona uma guia MAX mais à direita às pastas de bate-papo ExteraGram e abre web.max.ru em um WebView nativo.",
+        "tr": "ExteraGram sohbet klasörlerine en sağdaki MAX sekmesini ekler ve web.max.ru'yu yerel bir Web Görünümünde açar.",
+        "ar": "إضافة علامة تبويب MAX في أقصى اليمين إلى مجلدات الدردشة ExteraGram وفتح web.max.ru في WebView الأصلي.",
+        "be": "Дадае крайнюю правую ўкладку MAX у тэчкі чатаў ExteraGram і адкрывае web.max.ru ва ўласным WebView.",
+        "kk": "ExteraGram чат қалталарына ең оң жақ MAX қойындысын қосады және web.max.ru сайтын жергілікті WebView ішінде ашады."
+      },
+      "permissions": [
+        "network",
+        "files",
+        "hooks"
+      ]
     }
   ]
 }
