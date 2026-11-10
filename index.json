@@ -3003,6 +3003,34 @@
       "permissions": [
         "hooks"
       ]
+    },
+    {
+      "id": "custom_emoji_nick",
+      "name": "Custom Emoji Nick",
+      "version": "1.1",
+      "min_app_version": "1.0.0",
+      "file": "plugins/custom_emoji_nick/1.1/custom_emoji_nick.plugin",
+      "sha256": "3eca26e28fb514d0ed3ea4b00987fcc0a849351562153d70138b03b1fda1311c",
+      "size": 40039,
+      "description": "Selecting custom emoji in the contact name",
+      "description_i18n": {
+        "en": "Selecting custom emoji in the contact name",
+        "uk": "Вибір власних емодзі в імені контакту",
+        "ru": "Выбор собственного смайлика в имени контакта",
+        "pl": "Wybieranie niestandardowego emoji w nazwie kontaktu",
+        "es": "Seleccionar emoji personalizado en el nombre del contacto",
+        "de": "Auswahl eines benutzerdefinierten Emojis im Kontaktnamen",
+        "fr": "Sélection d'emoji personnalisé dans le nom du contact",
+        "pt-BR": "Selecionando emoji personalizado no nome do contato",
+        "tr": "Kişi adında özel emoji seçme",
+        "ar": "تحديد الرموز التعبيرية المخصصة في اسم جهة الاتصال",
+        "be": "Выбар карыстальніцкіх эмодзі ў імені кантакта",
+        "kk": "Контакт атауында реттелетін эмодзи таңдалуда"
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
