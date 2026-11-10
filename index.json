@@ -10564,6 +10564,36 @@
         "messages.send",
         "network"
       ]
+    },
+    {
+      "id": "shazam_by_audio_pg",
+      "name": "Shazam (по аудио)",
+      "version": "1.0.9",
+      "min_app_version": "1.0.0",
+      "file": "plugins/shazam_by_audio_pg/1.0.9/shazam_by_audio_pg.plugin",
+      "sha256": "519dc5bb0a4570e208e54f86a0dd62247c232f117471af58e4285eab3471b399",
+      "size": 24652,
+      "description": "Identifies music by audio file or voice message (.shazam in response). The result is in a dialogue with detailed information and links.",
+      "description_i18n": {
+        "en": "Identifies music by audio file or voice message (.shazam in response). The result is in a dialogue with detailed information and links.",
+        "uk": "Ідентифікує музику за аудіофайлом або голосовим повідомленням (.shazam у відповідь). Результат - діалог із детальною інформацією та посиланнями.",
+        "ru": "Идентифицирует музыку по аудиофайлу или голосовому сообщению (.shazam в ответ). Результат - диалог с подробной информацией и ссылками.",
+        "pl": "Identyfikuje muzykę na podstawie pliku audio lub wiadomości głosowej (w odpowiedzi .shazam). Rezultatem jest dialog ze szczegółowymi informacjami i linkami.",
+        "es": "Identifica música por archivo de audio o mensaje de voz (.shazam en respuesta). El resultado es un diálogo con información detallada y enlaces.",
+        "de": "Identifiziert Musik anhand einer Audiodatei oder Sprachnachricht (.shazam als Antwort). Das Ergebnis ist ein Dialog mit detaillierten Informationen und Links.",
+        "fr": "Identifie la musique par fichier audio ou message vocal (.shazam en réponse). Le résultat est un dialogue avec des informations détaillées et des liens.",
+        "pt-BR": "Identifica música por arquivo de áudio ou mensagem de voz (.shazam em resposta). O resultado está em um diálogo com informações detalhadas e links.",
+        "tr": "Identifies music by audio file or voice message (.shazam in response). The result is in a dialogue with detailed information and links.",
+        "ar": "يحدد الموسيقى عن طريق ملف صوتي أو رسالة صوتية (.shazam ردًا على ذلك). والنتيجة هي حوار يحتوي على معلومات وروابط مفصلة.",
+        "be": "Ідэнтыфікуе музыку па гукавым файле або галасавым паведамленні (.shazam у адказ). Вынік - дыялог з падрабязнай інфармацыяй і спасылкамі.",
+        "kk": "Музыканы аудио файл немесе дауыстық хабарлама арқылы анықтайды (жауап ретінде .shazam). Нәтиже - егжей-тегжейлі ақпарат пен сілтемелер бар диалог."
+      },
+      "permissions": [
+        "messages.read",
+        "messages.send",
+        "network",
+        "files"
+      ]
     }
   ]
 }

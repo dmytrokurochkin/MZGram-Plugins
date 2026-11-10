@@ -1,0 +1,426 @@
+__id__ = "shazam_by_audio_pg"
+__name__ = "Shazam (по аудио)"
+__description__ = "Определяет музыку по аудиофайлу или голосовому сообщению (.shazam в ответ). Результат в диалоге с подробной информацией и ссылками. Точность зависит от качества аудио (для голосовых сообщений может быть ниже)."
+__version__ = "1.0.9"
+__author__ = "@galaxy_conqueror"
+__min_version__ = "11.12.0"
+__category__ = ["media", "integrations"]
+
+import os
+import uuid
+import time
+import threading
+import traceback
+import json
+import requests
+import shutil
+from typing import Any, Optional
+from java.io import File
+
+from base_plugin import BasePlugin, HookResult, HookStrategy
+from client_utils import send_message, get_last_fragment, run_on_queue
+from android_utils import log, run_on_ui_thread
+from ui.bulletin import BulletinHelper
+from ui.alert import AlertDialogBuilder
+from ui.settings import Header, Input, Divider, Text
+from org.telegram.messenger import ApplicationLoader, MessageObject, FileLoader, UserConfig, AndroidUtilities, R as R_tg
+from org.telegram.tgnet import TLRPC
+from android.graphics import Color
+
+class ShazamPlugin(BasePlugin):
+    def __init__(self):
+        super().__init__()
+        self.pg_temp_dir = None
+        self.pg_processing = False
+        self.pg_loading_dialog: Optional[AlertDialogBuilder] = None
+        self.last_shazam_request_time = 0 # Для ограничения частоты запросов
+        self.shazam_cooldown_seconds = 10 # Время ожидания между запросами в секундах
+
+    def on_plugin_load(self):
+        self.pg_temp_dir = self._prepare_temp_dir()
+        if not self.pg_temp_dir:
+            run_on_ui_thread(lambda: BulletinHelper.show_error("Не удалось инициализировать временную директорию для Shazam плагина."))
+            log(f"[{__id__}] Ошибка: Не удалось инициализировать временную директорию.")
+            return
+
+        self.add_on_send_message_hook()
+        log(f"[{__id__}] Плагин 'Shazam (по аудио)' загружен.")
+        self._cleanup_old_files()
+
+    def on_plugin_unload(self):
+        if self.pg_temp_dir and self.pg_temp_dir.exists():
+            try:
+                for file_obj in self.pg_temp_dir.listFiles():
+                    if file_obj.isFile():
+                        file_obj.delete()
+                log(f"[{__id__}] Временные файлы удалены из {self.pg_temp_dir.getAbsolutePath()}.")
+            except Exception as e:
+                log(f"[{__id__}] Ошибка при очистке временной директории: {e}")
+        self._dismiss_loading_dialog()
+        log(f"[{__id__}] Плагин 'Shazam (по аудио)' выгружен.")
+
+    def create_settings(self):
+        return [
+            Header(text="Настройки Shazam"),
+            Input(
+                key="shazam_command",
+                text="Команда активации",
+                default=".shazam",
+                subtext="Напишите эту команду в ответ на аудиофайл.",
+                icon="input_bot1_solar"
+            ),
+            Input(
+                key="auddio_api_token",
+                text="Audd.io API Токен",
+                default="",
+                subtext="Получите на https://audd.io/develop. Обязателен для работы!",
+                icon="menu_feature_code_solar"
+            ),
+            Divider(text="Как пользоваться:"),
+            Text(text="1. Получите API-токен на Audd.io (https://audd.io/develop)."),
+            Text(text="2. Вставьте его в поле выше."),
+            Text(text="3. В чате ответьте на аудиофайл или голосовое сообщение командой, указанной в 'Команде активации' (по умолчанию .shazam)."),
+            Divider(text="Важно: Плагин может определять музыку только по аудиофайлам. Не поддерживает запись с микрофона. Результат будет показан в всплывающем окне с расширенной информацией. Точность определения зависит от качества исходного аудио. Для голосовых сообщений точность может быть ниже.")
+        ]
+
+    def _prepare_temp_dir(self) -> Optional[File]:
+        try:
+            base_dir = ApplicationLoader.getFilesDirFixed()
+            if not base_dir:
+                return None
+            temp_dir = File(base_dir, "ShazamAudioTemp")
+            if not temp_dir.exists():
+                if not temp_dir.mkdirs():
+                    log(f"[{__id__}] Не удалось создать временную директорию: {temp_dir.getAbsolutePath()}")
+                    return None
+            return temp_dir
+        except Exception as e:
+            log(f"[{__id__}] Ошибка при подготовке временной директории: {e}\n{traceback.format_exc()}")
+            return None
+
+    def _cleanup_old_files(self, max_age_hours=1):
+        if not self.pg_temp_dir:
+            return
+        try:
+            now = time.time()
+            max_age_seconds = max_age_hours * 3600
+            for file_obj in self.pg_temp_dir.listFiles():
+                if file_obj.isFile() and now - (file_obj.lastModified() / 1000) > max_age_seconds:
+                    file_obj.delete()
+                    log(f"[{__id__}] Удален старый временный файл: {file_obj.getName()}")
+        except Exception as e:
+            log(f"[{__id__}] Ошибка при очистке старых файлов: {e}\n{traceback.format_exc()}")
+
+    def _download_audio_sync(self, message_obj: MessageObject, document_to_download: TLRPC.Document) -> Optional[str]:
+        """
+        Синхронно загружает аудиофайл из MessageObject во временную директорию плагина.
+        Принимает уже извлеченный и валидированный TLRPC.Document.
+        Возвращает путь к загруженному файлу или None в случае ошибки.
+        """
+        if not self.pg_temp_dir:
+            log(f"[{__id__}] _download_audio_sync: Временная директория не инициализирована.")
+            return None
+
+        try:
+            mime_type = getattr(document_to_download, 'mime_type', 'audio/ogg')
+            file_extension = ".ogg"
+            if "mp3" in mime_type: file_extension = ".mp3"
+            elif "wav" in mime_type: file_extension = ".wav"
+            elif "flac" in mime_type: file_extension = ".flac"
+            elif "m4a" in mime_type: file_extension = ".m4a"
+            elif "opus" in mime_type: file_extension = ".ogg" # Voice messages often use opus codec in ogg container
+
+            final_temp_file_path_str = File(self.pg_temp_dir, f"audio_{uuid.uuid4().hex}{file_extension}").getAbsolutePath()
+            
+            file_loader = FileLoader.getInstance(UserConfig.selectedAccount)
+            
+            # Получаем путь к файлу в кэше Telegram на основе оригинального MessageOwner
+            telegram_cache_file_path_obj = file_loader.getPathToMessage(message_obj.messageOwner)
+            telegram_cache_file_path_str = telegram_cache_file_path_obj.getAbsolutePath() if telegram_cache_file_path_obj else None
+
+            downloaded_telegram_cache_path = None
+
+            # 1. Проверяем, есть ли файл уже в кэше Telegram
+            if telegram_cache_file_path_str and os.path.exists(telegram_cache_file_path_str) and os.path.getsize(telegram_cache_file_path_str) > 0:
+                downloaded_telegram_cache_path = telegram_cache_file_path_str
+                log(f"[{__id__}] Аудиофайл уже в кэше Telegram: {telegram_cache_file_path_str}")
+            else:
+                # 2. Если файла нет в кэше, инициируем его загрузку в кэш Telegram
+                # FileLoader.loadFile ожидает TLRPC.Document в качестве первого аргумента.
+                file_loader.loadFile(document_to_download, message_obj, mime_type.split('/')[0], FileLoader.PRIORITY_HIGH, 0)
+                
+                pg_timeout = 60 # Ждем до 60 секунд для загрузки в кэш Telegram
+                for _pg_iterator_index in range(pg_timeout):
+                    if telegram_cache_file_path_str and os.path.exists(telegram_cache_file_path_str) and os.path.getsize(telegram_cache_file_path_str) > 0:
+                        downloaded_telegram_cache_path = telegram_cache_file_path_str
+                        log(f"[{__id__}] Аудиофайл загружен в кэш Telegram после ожидания: {telegram_cache_file_path_str}")
+                        break
+                    time.sleep(1) # Ждем 1 секунду
+            
+            if not downloaded_telegram_cache_path:
+                log(f"[{__id__}] Ошибка: Не удалось загрузить аудиофайл в кэш Telegram после ожидания.")
+                return None
+
+            # 3. Копируем файл из кэша Telegram в нашу временную директорию
+            shutil.copyfile(downloaded_telegram_cache_path, final_temp_file_path_str)
+            log(f"[{__id__}] Аудиофайл скопирован из кэша Telegram во временную директорию плагина: {final_temp_file_path_str}")
+            return final_temp_file_path_str
+
+        except Exception as e:
+            log(f"[{__id__}] Ошибка при загрузке/копировании аудиофайла: {e}\n{traceback.format_exc()}")
+            return None
+
+    def _identify_music(self, audio_path: str) -> Optional[dict]:
+        api_token = self.get_setting("auddio_api_token", "").strip()
+        if not api_token:
+            run_on_ui_thread(lambda: BulletinHelper.show_error("Ошибка: Audd.io API Токен не указан в настройках плагина."))
+            log(f"[{__id__}] Ошибка: Audd.io API Токен отсутствует.")
+            return None
+
+        url = "https://api.audd.io/"
+        params = {
+            "api_token": api_token,
+            "return": "lyrics,artist,title,album,label,song_link,release_date,genres,spotify,youtube,deezer,apple_music"
+        }
+
+        try:
+            with open(audio_path, 'rb') as f:
+                content_type = 'audio/mpeg' if '.mp3' in audio_path.lower() else 'audio/ogg'
+                files = {'file': (os.path.basename(audio_path), f, content_type)}
+                response = requests.post(url, data=params, files=files, timeout=30)
+            response.raise_for_status()
+
+            result = response.json()
+            if result.get("status") == "success" and result.get("result"):
+                return result["result"]
+            else:
+                error_message = result.get("error", {}).get("error_message", "Неизвестная ошибка Audd.io.")
+                log(f"[{__id__}] Ошибка от Audd.io: {error_message} (Полный ответ: {result})")
+                run_on_ui_thread(lambda: BulletinHelper.show_error(f"Не удалось определить музыку: {error_message}"))
+                return None
+        except requests.exceptions.Timeout:
+            log(f"[{__id__}] Ошибка: Время ожидания запроса к Audd.io истекло.")
+            run_on_ui_thread(lambda: BulletinHelper.show_error("Время ожидания запроса к Audd.io истекло."))
+            return None
+        except requests.exceptions.RequestException as e:
+            log(f"[{__id__}] Ошибка запроса к Audd.io: {e}\n{traceback.format_exc()}")
+            run_on_ui_thread(lambda: BulletinHelper.show_error(f"Ошибка сети при запросе к Audd.io: {e}"))
+            return None
+        except json.JSONDecodeError as e:
+            log(f"[{__id__}] Ошибка парсинга JSON от Audd.io: {e}\nОтвет: {response.text}")
+            run_on_ui_thread(lambda: BulletinHelper.show_error(f"Ошибка обработки ответа от Audd.io: {e}"))
+            return None
+        except Exception as e:
+            log(f"[{__id__}] Непредвиденная ошибка при определении музыки: {e}\n{traceback.format_exc()}")
+            run_on_ui_thread(lambda: BulletinHelper.show_error(f"Непредвиденная ошибка: {e}"))
+            return None
+
+    def _show_loading_dialog(self):
+        fragment = get_last_fragment()
+        activity = fragment.getParentActivity() if fragment else None
+
+        if not activity:
+            log(f"[{__id__}] Не удалось получить контекст для AlertDialog загрузки.")
+            return
+
+        def _action():
+            try:
+                builder = AlertDialogBuilder(activity)
+                builder.set_title("Определение музыки...")
+                builder.set_top_animation(R_tg.raw.dots_loading, AndroidUtilities.dp(60), True, Color.TRANSPARENT, None)
+                builder.set_cancelable(False)
+                builder.set_canceled_on_touch_outside(False)
+                self.pg_loading_dialog = builder.show()
+            except Exception as e:
+                log(f"[{__id__}] Ошибка при создании или показе AlertDialog загрузки: {e}\n{traceback.format_exc()}")
+                BulletinHelper.show_error(f"Ошибка UI загрузки: {e}")
+
+        run_on_ui_thread(_action)
+
+    def _dismiss_loading_dialog(self):
+        def _action():
+            if self.pg_loading_dialog:
+                try:
+                    self.pg_loading_dialog.dismiss() 
+                except Exception as e:
+                    log(f"[{__id__}] Ошибка при скрытии AlertDialog загрузки: {e}")
+                finally:
+                    self.pg_loading_dialog = None
+        run_on_ui_thread(_action)
+
+    def _show_result_dialog(self, title: str, message: str, copy_text: Optional[str] = None):
+        fragment = get_last_fragment()
+        activity = fragment.getParentActivity() if fragment else None
+
+        if not activity:
+            log(f"[{__id__}] Не удалось получить контекст для AlertDialog.")
+            run_on_ui_thread(lambda: BulletinHelper.show_error("Не удалось отобразить диалог (нет контекста)."))
+            return
+
+        def _action():
+            try:
+                builder = AlertDialogBuilder(activity)
+                builder.set_title(title)
+                builder.set_message(message)
+                
+                builder.set_top_animation(R_tg.raw.sound_on, AndroidUtilities.dp(40), False, Color.TRANSPARENT, None)
+                
+                if copy_text:
+                    def copy_action(bld, which):
+                        if AndroidUtilities.addToClipboard(copy_text):
+                            BulletinHelper.show_copied_to_clipboard()
+                        bld.dismiss()
+                    builder.set_positive_button("Копировать", copy_action)
+                    builder.set_negative_button("Закрыть", lambda bld, which: bld.dismiss())
+                else:
+                    builder.set_positive_button("Закрыть", lambda bld, which: bld.dismiss())
+
+                builder.set_cancelable(True)
+                builder.set_canceled_on_touch_outside(True)
+                builder.show()
+            except Exception as e:
+                log(f"[{__id__}] Ошибка при создании или показе AlertDialog: {e}\n{traceback.format_exc()}")
+                BulletinHelper.show_error(f"Ошибка UI: {e}")
+
+        run_on_ui_thread(_action)
+
+    def _process_shazam_request(self, original_params: Any, reply_msg: MessageObject, document_to_process: TLRPC.Document):
+        """
+        Основная логика определения музыки, выполняется в фоновом потоке.
+        Принимает уже извлеченный и валидированный TLRPC.Document.
+        """
+        if self.pg_processing:
+            run_on_ui_thread(lambda: BulletinHelper.show_error("Уже идет процесс определения музыки. Пожалуйста, подождите."))
+            return
+
+        self.pg_processing = True
+        audio_path = None
+        
+        self._show_loading_dialog()
+        
+        try:
+            # Передаем reply_msg и document_to_process в функцию загрузки
+            audio_path = self._download_audio_sync(reply_msg, document_to_process)
+            if not audio_path:
+                self._show_result_dialog("Ошибка", "Не удалось загрузить аудиофайл для определения.")
+                return
+
+            result = self._identify_music(audio_path)
+            
+            if result:
+                title = result.get("title", "Неизвестно")
+                artist = result.get("artist", "Неизвестно")
+                album = result.get("album", "Неизвестно")
+                label = result.get("label", "Неизвестно")
+                release_date = result.get("release_date")
+                genres = result.get("genres")
+                
+                song_link = result.get("song_link")
+                spotify_link = result.get("spotify", {}).get("link")
+                youtube_link = result.get("youtube", {}).get("link")
+                apple_music_link = result.get("apple_music", {}).get("link")
+                deezer_link = result.get("deezer", {}).get("link")
+
+                output_message_parts = [
+                    f"🎤 *Исполнитель:* {artist}",
+                    f"🎵 *Название:* {title}",
+                    f"💿 *Альбом:* {album}",
+                    f"🏷️ *Лейбл:* {label}"
+                ]
+                
+                if release_date:
+                    year = release_date.split('-')[0] if '-' in release_date else release_date
+                    output_message_parts.append(f"🗓️ *Год выпуска:* {year}")
+                
+                genre_names = []
+                if genres:
+                    genre_names = [g.get("name", "") for g in genres if g.get("name")]
+                    if genre_names:
+                        output_message_parts.append(f"🎶 *Жанр(ы):* {', '.join(genre_names)}")
+                
+                output_message_links = []
+                if song_link:
+                    output_message_links.append(f"🔗 [Audd.io]({song_link})")
+                if spotify_link:
+                    output_message_links.append(f"🔗 [Spotify]({spotify_link})")
+                if youtube_link:
+                    output_message_links.append(f"🔗 [YouTube]({youtube_link})")
+                
+                output_message = "\n".join(output_message_parts)
+                if output_message_links:
+                    output_message += "\n\n*Ссылки:*\n" + "\n".join(output_message_links)
+
+                copy_content_parts = [
+                    f"Исполнитель: {artist}",
+                    f"Название: {title}",
+                    f"Альбом: {album}",
+                    f"Лейбл: {label}"
+                ]
+                if release_date:
+                    copy_content_parts.append(f"Год выпуска: {year}")
+                if genre_names:
+                    copy_content_parts.append(f"Жанр(ы): {', '.join(genre_names)}")
+                
+                copy_content_links = []
+                if song_link: copy_content_links.append(f"Audd.io: {song_link}")
+                if spotify_link: copy_content_links.append(f"Spotify: {spotify_link}")
+                if youtube_link: copy_content_links.append(f"YouTube: {youtube_link}")
+                if apple_music_link: copy_content_links.append(f"Apple Music: {apple_music_link}")
+                if deezer_link: copy_content_links.append(f"Deezer: {deezer_link}")
+
+                if copy_content_links:
+                    copy_content = "\n".join(copy_content_parts) + "\n\nСсылки:\n" + "\n".join(copy_content_links)
+                else:
+                    copy_content = "\n".join(copy_content_parts)
+
+                self._show_result_dialog("Музыка определена!", output_message, copy_content)
+                run_on_ui_thread(lambda: BulletinHelper.show_success("Музыка успешно определена!", get_last_fragment()))
+            else:
+                self._show_result_dialog("Не удалось определить музыку", "Попробуйте еще раз с более чистым аудио.")
+
+        except Exception as e:
+            error_details = traceback.format_exc()
+            log(f"[{__id__}] Критическая ошибка в _process_shazam_request: {e}\n{error_details}")
+            self._show_result_dialog("Критическая ошибка", f"Произошла непредвиденная ошибка: {e}\n\nПодробности в логах.")
+        finally:
+            self._dismiss_loading_dialog()
+            if audio_path and os.path.exists(audio_path):
+                run_on_queue(lambda: os.remove(audio_path), delay=500)
+                log(f"[{__id__}] Временный аудиофайл удален: {audio_path}")
+            self.pg_processing = False
+
+    def on_send_message_hook(self, account: int, params: Any) -> HookResult:
+        if not hasattr(params, "message") or not isinstance(params.message, str):
+            return HookResult()
+
+        command_prefix = self.get_setting("shazam_command", ".shazam").strip()
+        if not params.message.lower().startswith(command_prefix):
+            return HookResult()
+        
+        current_time = time.time()
+        if current_time - self.last_shazam_request_time < self.shazam_cooldown_seconds:
+            remaining_time = int(self.shazam_cooldown_seconds - (current_time - self.last_shazam_request_time))
+            run_on_ui_thread(lambda: BulletinHelper.show_error(f"Подождите {remaining_time} сек. перед новым запросом Shazam.", get_last_fragment()))
+            return HookResult(strategy=HookStrategy.CANCEL)
+
+        if not hasattr(params, "replyToMsg") or not params.replyToMsg:
+            run_on_ui_thread(lambda: BulletinHelper.show_error("Пожалуйста, ответьте на аудиофайл или голосовое сообщение командой .shazam", get_last_fragment()))
+            return HookResult(strategy=HookStrategy.CANCEL)
+
+        reply_msg = params.replyToMsg
+        
+        document_to_process = MessageObject.getDocument(reply_msg)
+
+        if not document_to_process:
+            run_on_ui_thread(lambda: BulletinHelper.show_error("Не удалось получить медиа-данные из ответного сообщения. Убедитесь, что это аудиофайл или голосовое сообщение.", get_last_fragment()))
+            return HookResult(strategy=HookStrategy.CANCEL)
+
+        if not hasattr(document_to_process, 'mime_type') or not document_to_process.mime_type.startswith("audio"):
+            run_on_ui_thread(lambda: BulletinHelper.show_error("Ответ на сообщение должен быть аудиофайлом или голосовым сообщением.", get_last_fragment()))
+            return HookResult(strategy=HookStrategy.CANCEL)
+        
+        self.last_shazam_request_time = current_time
+
+        threading.Thread(target=self._process_shazam_request, args=(params, reply_msg, document_to_process), daemon=True).start()
+        
+        return HookResult(strategy=HookStrategy.CANCEL)
