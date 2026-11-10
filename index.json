@@ -7407,6 +7407,34 @@
         "messages.send",
         "hooks"
       ]
+    },
+    {
+      "id": "mute_person",
+      "name": "Mute Person",
+      "version": "2.0",
+      "min_app_version": "1.0.0",
+      "file": "plugins/mute_person/2.0/mute_person.plugin",
+      "sha256": "d2d31915599b1ed573d9822538fbe2108e2d85eee817a4e5e3075962e4deec50",
+      "size": 18940,
+      "description": "Disables notifications from a specific person in a chat, group or channel - while notifications from other participants continue to arrive as usual.",
+      "description_i18n": {
+        "en": "Disables notifications from a specific person in a chat, group or channel - while notifications from other participants continue to arrive as usual.",
+        "uk": "Вимикає сповіщення від певної особи в чаті, групі чи каналі, тоді як сповіщення від інших учасників надходять у звичайному режимі.",
+        "ru": "Отключает уведомления от конкретного человека в чате, группе или канале - при этом уведомления от других участников продолжают приходить в обычном режиме.",
+        "pl": "Wyłącza powiadomienia od określonej osoby na czacie, grupie lub kanale, podczas gdy powiadomienia od innych uczestników nadal przychodzą normalnie.",
+        "es": "Desactiva las notificaciones de una persona específica en un chat, grupo o canal, mientras que las notificaciones de otros participantes continúan llegando como de costumbre.",
+        "de": "Deaktiviert Benachrichtigungen von einer bestimmten Person in einem Chat, einer Gruppe oder einem Kanal - während Benachrichtigungen von anderen Teilnehmern weiterhin wie gewohnt eingehen.",
+        "fr": "Désactive les notifications d'une personne spécifique dans une discussion, un groupe ou un canal, tandis que les notifications des autres participants continuent d'arriver comme d'habitude.",
+        "pt-BR": "Desativa notificações de uma pessoa específica em um chat, grupo ou canal - enquanto as notificações de outros participantes continuam chegando normalmente.",
+        "tr": "Bir sohbet, grup veya kanaldaki belirli bir kişiden gelen bildirimleri devre dışı bırakırken diğer katılımcılardan gelen bildirimler her zamanki gibi gelmeye devam eder.",
+        "ar": "تعطيل الإشعارات الواردة من شخص معين في الدردشة أو المجموعة أو القناة - بينما تستمر الإشعارات من المشاركين الآخرين في الوصول كالمعتاد.",
+        "be": "Адключае апавяшчэнні ад пэўнага чалавека ў чаце, групе або на канале - у той час як апавяшчэнні ад іншых удзельнікаў працягваюць прыходзіць у звычайным рэжыме.",
+        "kk": "Чаттағы, топтағы немесе арнадағы белгілі бір адамнан хабарландыруларды өшіреді - басқа қатысушылардан хабарландырулар әдеттегідей түсуін жалғастырады."
+      },
+      "permissions": [
+        "messages.read",
+        "hooks"
+      ]
     }
   ]
 }
