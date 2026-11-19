@@ -1,0 +1,43 @@
+from base_plugin import BasePlugin, MethodHook
+from hook_utils import find_class
+
+__id__ = "big_reactions"
+__name__ = "Big Reactions"
+__description__ = (
+    "Every reaction is sent as a big one by default, with the full-screen effect animation, no need to hold it for 3 seconds."
+)
+__author__ = "@huecoder"
+__version__ = "1.0.0-mz1"
+__min_version__ = "11.9.0"
+__category__ = ["chats", "appearance"]
+
+
+class _SendReactionHook(MethodHook):
+    def __init__(self, plugin):
+        self.plugin = plugin
+
+    def before_hooked_method(self, param):
+        args = param.args
+        # args[3] = big, args[2] = the reaction being added
+        if len(args) >= 5 and args[2] is not None:
+            args[3] = True  # force big
+
+
+class BigReactionsPlugin(BasePlugin):
+    def on_plugin_load(self):
+        self._hooks = []
+        cls = find_class("org.telegram.messenger.SendMessagesHelper")
+        if cls is None:
+            self.log("SendMessagesHelper not found")
+            return
+        # the choke point of all reactions
+        self._hooks = self.hook_all_methods(cls, "sendReaction", _SendReactionHook(self)) or []
+        self.log(f"Big Reactions: hooked {len(self._hooks)} overload(s)")
+
+    def on_plugin_unload(self):
+        for h in getattr(self, "_hooks", []):
+            try:
+                self.unhook_method(h)
+            except Exception:
+                pass
+        self._hooks = []
