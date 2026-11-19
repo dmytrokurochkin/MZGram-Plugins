@@ -1,8 +1,8 @@
 __id__ = "avatar_in_dm_dex"
 __name__ = "Avatar In DM dex"
-__description__ = "Показывает аватар собеседника в личных чатах возле входящих сообщений, как в беседах, вместо стандартного аватара в actionbar"
+__description__ = "Shows the other person's avatar next to incoming messages in private chats, like in groups, instead of the avatar in the top bar"
 __author__ = "@KUNSESHBOY"
-__version__ = "1.0"
+__version__ = "1.0-mz1"
 __min_version__ = "12.10.6"
 __icon__ = "M_A665/1" 
 __category__ = ["appearance", "chats"]

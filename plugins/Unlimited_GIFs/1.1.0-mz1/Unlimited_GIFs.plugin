@@ -1,12 +1,12 @@
 """
 
 
-                            ДИСКЛЕЙМЕР
+                            DISCLAIMER
 
-Короче , если тебе нужен кусок кода из этого плагина , то пж
-указывай в описании или где-то еще , что взял код с @KangelPlugins 
-                              Спасибо
-                        🙏 БЛАГОСЛАВЛЕНИЕ 🙏
+In short, if you need a piece of code from this plugin, please
+mention in the description or elsewhere that you took it from @KangelPlugins
+                              Thank you
+                        🙏 BLESSING 🙏
 
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⡤⠤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⡤⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠉⢀⣤⠶⠮⠷⣤⣀⡀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡼⠋⠈⣽⣆⠹⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -52,7 +52,7 @@ please mention in the description or somewhere else that you got it from @Kangel
 __id__ = "Unlimited_GIFs"
 __name__ = "Unlimited GIFs"
 __description__ = "Removes the limit on the number of Saved GIFs via Xposed hooks"
-__version__ = "1.1.0"
+__version__ = "1.1.0-mz1"
 __author__ = "@ArThirtyFour | @KangelPlugins"
 __icon__ = "chaotianjiang/32"
 __min_version__ = "11.12.0"

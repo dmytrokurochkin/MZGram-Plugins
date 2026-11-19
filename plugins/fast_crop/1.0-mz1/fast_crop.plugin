@@ -35,9 +35,9 @@ def tr(ru, en):
 
 __id__ = "fast_crop"
 __name__ = "FastCrop"
-__description__ = "Быстрый кроп фото\видео\гиф жестом зума в буфер обмена как в галерее на iOS"
+__description__ = "Quick crop of photos, videos and GIFs to the clipboard with a zoom gesture, like in the iOS gallery"
 __author__ = "@dekma0091 && @DefinitelyNotDekma"
-__version__ = "1.0"
+__version__ = "1.0-mz1"
 __icon__ = "pixelcamera/19"
 __min_version__ = "12.10.6"
 __category__ = ["media"]

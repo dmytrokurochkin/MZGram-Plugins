@@ -1,7 +1,20 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 __id__ = "gift_id"
 __name__ = "Gift ID"
 __author__ = "@PESSDES_Plugins"
-__version__ = "1.1"
+__version__ = "1.1-mz1"
 __description__ = """Shows the gift ID in its info"""
 
 from org.telegram.tgnet.tl import TL_stars
@@ -60,7 +73,7 @@ def add_copy_row(table, id):
     table.addRow(
                     "ID",
                     str(id),
-                    "копировать",
+                    _mz_t("копіювати", "copy", "копировать"),
                     OnCopy(str(id))
                 )
 

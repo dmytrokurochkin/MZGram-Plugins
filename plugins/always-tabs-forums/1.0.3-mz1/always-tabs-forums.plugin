@@ -1,7 +1,4 @@
 """
-    Считаешь что плагин хороший, или нашел баг?
-    Пиши @shikaatux
-
     Do you think the plugin is good, or did you find a bug?
     Write to @shikaatux
 """
@@ -10,7 +7,7 @@ __id__ = "always-tabs-forums"
 __name__ = "Always tabs forums"
 __description__ = "Enable tab view in all forums"
 __author__ = "@shikaatux | @shikaatuxplugins"
-__version__ = "1.0.3"
+__version__ = "1.0.3-mz1"
 __icon__ = "shextera_by_fStikBot/0"
 __min_version__ = "11.12.0"
 __category__ = ["appearance"]

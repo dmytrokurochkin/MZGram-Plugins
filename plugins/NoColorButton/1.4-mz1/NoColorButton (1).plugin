@@ -1,8 +1,8 @@
 __id__ = "NoColorButton"
 __name__ = "No Color Button"
-__description__ = "Убирает чёртовы цветные кнопки от ботов (прям любые)."
+__description__ = "Removes colored buttons from all bots."
 __author__ = "original @pixwet, fork by @Tsarkei"
-__version__ = "1.4"
+__version__ = "1.4-mz1"
 __icon__ = "te4_lei3_xi1_ya4_by_fStikBot/12"
 __app_version__ = ">=12.10.6"
 __category__ = ["appearance"]

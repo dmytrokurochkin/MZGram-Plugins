@@ -1,10 +1,10 @@
 __id__ = "block_blast"
 __name__ = "Block Blast"
-__description__ = "Block blast в Exteragram! канал создателя @devavaika. Идея было взято с Tetris game: @SaturnFake"
+__description__ = "Block Blast in exteragram! Creator's channel: @devavaika. The idea comes from Tetris game: @SaturnFake"
 __author__ = "@avaikaW"
 __icon__ = "OtagatO_by_fStikBot/25"
 __min_version__ = "12.5.1"
-__version__ = "1.0.0"
+__version__ = "1.0.0-mz1"
 __category__ = ["fun"]
 
 from base_plugin import BasePlugin, HookResult, HookStrategy, MenuItemData, MenuItemType, AppEvent
@@ -126,7 +126,31 @@ def t(key, **kwargs):
         "reset_success": "High score reset!",
         "credit": "Idea: Tetris game @SaturnFake",
     }
-    d = ru if lang.startswith("ru") else en
+    uk = {
+        "score": "Рахунок: {score}",
+        "high_score": "Рекорд: {score}",
+        "lines_cleared": "Ліній: {lines}",
+        "game_over_title": "Гру закінчено",
+        "game_over_message": "Ваш рахунок: {score}\nРекорд: {high_score}",
+        "new_record": "Новий рекорд!",
+        "restart": "Заново",
+        "exit": "Вийти",
+        "close": "Закрити",
+        "reset": "Скинути",
+        "menu_title": "Block Blast!",
+        "dialog_title": "Block Blast!",
+        "command_help": "Надішліть .blast або виберіть Block Blast! у меню з трьома крапками",
+        "drag_hint": "Перетягніть фігуру на поле або торкніться",
+        "settings_title": "Block Blast!",
+        "grid_size_label": "Розмір поля: {size}x{size}",
+        "grid_size_pick": "Виберіть розмір",
+        "version_info": "Версія: {version}",
+        "reset_high_score": "Скинути рекорд",
+        "reset_confirm": "Ви впевнені?",
+        "reset_success": "Рекорд скинуто!",
+        "credit": "Ідея: Tetris game @SaturnFake",
+    }
+    d = uk if lang.startswith("uk") else ru if lang.startswith("ru") else en
     val = d.get(key, key)
     if kwargs:
         return val.format(**kwargs)

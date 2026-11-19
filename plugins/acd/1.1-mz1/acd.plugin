@@ -26,19 +26,19 @@
                                                        
                                                        
                                                        
--->  я ᴛᴀᴋ ʍноᴦо ᴄᴛᴀᴩᴀᴧᴄя, чᴛо ᴨᴇᴩᴇᴄᴛᴀᴩᴀᴧᴄя>< <--
+-->  I tried so hard that I overdid it >< <--
 
-``  ᴨᴧᴀ7ин ᴄдᴇᴧᴀн: @ᴋᴀ1ᴘʟᴜɢɪɴs
-``  ᴇᴄᴧи чᴛо ᴋоᴨиᴩоʙᴀᴛь ᴨоᴧноᴄᴛью нᴇᴧьзя! ᴀ изʍᴇниᴛь ʍожно, ᴄᴨᴩоᴄиʙ у ᴀʙᴛоᴩᴀ ϶ᴛоᴦо ᴨᴧᴀ7инᴀ^`^
+``  plugin made by: @ka1plugins
+``  note: copying it whole is not allowed! changing it is allowed after asking the author of this plugin^`^
 
 """
 
 
 __id__ = "acd"
 __name__ = "Album Cover Downloader"
-__description__ = "Сохраняет обложку трека в галерею\nSaves track cover to gallery"
+__description__ = "Saves the track cover to the gallery"
 __author__ = "@ka1Plugins"
-__version__ = "1.1"
+__version__ = "1.1-mz1"
 __icon__ = "ka1Plugins/0"
 __app_version__ = ">=13.1.1"
 __category__ = ["media"]
@@ -62,10 +62,12 @@ def to_signed_32(val: int) -> int:
     return val if val < 0x80000000 else val - 0x100000000
 
 
-def _t(ru, en):
+def _t(ru, en, uk=None):
     try:
         from org.telegram.messenger import LocaleController
         loc = LocaleController.getCurrentLocale()
+        if loc and loc.getLanguage() == "uk" and uk:
+            return uk
         if loc and loc.getLanguage() == "ru":
             return ru
     except Exception:
@@ -318,7 +320,7 @@ class AlbumCoverDownloaderPlugin(BasePlugin):
             btn.setClickable(True)
             btn.setFocusable(True)
             btn.setVisibility(View.INVISIBLE)
-            btn.setContentDescription(_t("Сохранить обложку", "Save cover"))
+            btn.setContentDescription(_t("Сохранить обложку", "Save cover", "Зберегти обкладинку"))
             
             bg = GradientDrawable()
             bg.setShape(GradientDrawable.OVAL)
@@ -361,7 +363,7 @@ class AlbumCoverDownloaderPlugin(BasePlugin):
                 
                 bmp = rcv.getBitmap() if rcv else None
                 if not bmp or bmp.isRecycled():
-                    self._finish(source, btn, False, _t("Обложка недоступна", "Cover unavailable"))
+                    self._finish(source, btn, False, _t("Обложка недоступна", "Cover unavailable", "Обкладинка недоступна"))
                     return
                 run_on_queue(lambda: self._save_bg(source, btn, bmp, track_name))
             except Exception as e:
@@ -419,7 +421,7 @@ class AlbumCoverDownloaderPlugin(BasePlugin):
                 except Exception:
                     pass
                     
-            self._finish(source, btn, True, _t("Обложка сохранена в галерею", "Cover saved to gallery"))
+            self._finish(source, btn, True, _t("Обложка сохранена в галерею", "Cover saved to gallery", "Обкладинку збережено в галерею"))
         except Exception as e:
             self._finish(source, btn, False, str(e))
 

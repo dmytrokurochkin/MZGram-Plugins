@@ -9,9 +9,9 @@ from org.telegram.ui.Components import LayoutHelper
 
 __id__ = "gifter_avatar"
 __name__ = "Gifter Avatar"
-__description__ = "Отображает аватар подарившего подарок в меню добавления подарков в коллекцию\nПрямо как в профиле. По удержанию на подарке открывается меню подарка"
+__description__ = "Shows the gift giver's avatar in the menu for adding gifts to the collection, like in the profile. Hold a gift to open its menu"
 __author__ = "@alexeykasp"
-__version__ = "1.2.1"
+__version__ = "1.2.1-mz1"
 __app_version__ = ">=12.8.1"
 __category__ = ["appearance"]
 __sdk_version__ = ">=1.4.3.10"

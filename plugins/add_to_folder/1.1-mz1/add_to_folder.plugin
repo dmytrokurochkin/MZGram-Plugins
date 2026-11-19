@@ -8,12 +8,9 @@ from hook_utils import get_private_field
 
 __id__ = "add_to_folder"
 __name__ = "Add to Folder in Folders"
-__description__ = ("Shows the \"Add to folder\" button when selecting chats "
-                    "inside a folder, not only on the main screen.\n\n"
-                    "Показывает кнопку «Добавить в папку» при выборе чатов "
-                    "внутри папки, а не только на главном экране.")
+__description__ = ("Shows the “Add to folder” button when you select chats inside a folder, not only on the main screen.")
 __author__ = "@itNotMax - @MaxExteraPlugins"
-__version__ = "1.1"
+__version__ = "1.1-mz1"
 __icon__ = "MaxExteraPluginsStickers/14"
 __min_version__ = "12.1.1"
 __app_version__ = ">=12.1.1"

@@ -8,9 +8,9 @@ from org.telegram.messenger import ApplicationLoader
 
 __id__ = "fuck_now_playing"
 __name__ = "Fuck Now Playing"
-__description__ = "Скрывает карточку с треком из профилей"
+__description__ = "Hides the track card in profiles"
 __author__ = "@dekma0091"
-__version__ = "1.0"
+__version__ = "1.0-mz1"
 __icon__ = "pixelcamera/9"
 __min_version__ = "12.5.1"
 __category__ = ["appearance"]
