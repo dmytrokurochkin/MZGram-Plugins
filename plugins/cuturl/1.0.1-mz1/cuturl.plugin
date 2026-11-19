@@ -9,9 +9,9 @@ from markdown_utils import parse_markdown
 
 __id__ = "cuturl"
 __name__ = "CutURL"
-__description__ = "Shorten URLs using Cutt.ly, TinyURL, is.gd, Cleanuri, Bitly or Clck.ru. Use .cut <link>"
+__description__ = "Shorten URLs using Cutt.ly, TinyURL, is.gd, Cleanuri or Bitly. Use .cut <link>"
 __author__ = "@AGeekApple, @exteraDevPlugins"
-__version__ = "1.0.1"
+__version__ = "1.0.1-mz1"
 __min_version__ = "11.12.0"
 __icon__ = "ApplePlugins/2"
 __category__ = ["integrations", "tools"]
@@ -21,6 +21,7 @@ TRANSLATIONS = {
         "en": "Usage: .cut <url>",
         "pt": "Uso: .cut <url>",
         "es": "Uso: .cut <url>",
+        "uk": "Використання: .cut <url>",
         "ru": "Использование: .cut <url>",
         "fr": "Utilisation : .cut <url>"
     },
@@ -28,6 +29,7 @@ TRANSLATIONS = {
         "en": "API key not set. Set it in plugin settings.",
         "pt": "Chave API não configurada. Defina nas configurações.",
         "es": "Clave API no establecida. Defínela en ajustes.",
+        "uk": "Ключ API не задано. Задайте його в налаштуваннях плагіна.",
         "ru": "Ключ API не установлен. Установите в настройках.",
         "fr": "Clé API non définie. Définissez-la dans les paramètres."
     },
@@ -35,6 +37,7 @@ TRANSLATIONS = {
         "en": "Bitly token not set. Set it in plugin settings.",
         "pt": "Token Bitly não configurado. Defina nas configurações.",
         "es": "Token de Bitly no establecido. Defínelo en ajustes.",
+        "uk": "Токен Bitly не задано. Задайте його в налаштуваннях плагіна.",
         "ru": "Токен Bitly не установлен. Установите в настройках.",
         "fr": "Jeton Bitly non défini. Définissez-le dans les paramètres."
     },
@@ -42,6 +45,7 @@ TRANSLATIONS = {
         "en": "Shortening URL...",
         "pt": "Encurtando URL...",
         "es": "Acortando URL...",
+        "uk": "Скорочую посилання...",
         "ru": "Сокращение URL...",
         "fr": "Raccourcissement de l’URL..."
     },
@@ -49,6 +53,7 @@ TRANSLATIONS = {
         "en": "Error shortening URL: {error}",
         "pt": "Erro ao encurtar URL: {error}",
         "es": "Error al acortar URL: {error}",
+        "uk": "Не вдалося скоротити посилання: {error}",
         "ru": "Ошибка при сокращении URL: {error}",
         "fr": "Erreur lors du raccourcissement : {error}"
     },
@@ -56,6 +61,7 @@ TRANSLATIONS = {
         "en": "Error: {error}",
         "pt": "Erro: {error}",
         "es": "Error: {error}",
+        "uk": "Помилка: {error}",
         "ru": "Ошибка: {error}",
         "fr": "Erreur : {error}"
     },
@@ -63,6 +69,7 @@ TRANSLATIONS = {
         "en": "Shortening...",
         "pt": "Encurtando...",
         "es": "Acortando...",
+        "uk": "Скорочую...",
         "ru": "Сокращение...",
         "fr": "Raccourcissement..."
     },
@@ -70,6 +77,7 @@ TRANSLATIONS = {
         "en": "Shortener",
         "pt": "Encurtador",
         "es": "Acortador",
+        "uk": "Сервіс скорочення",
         "ru": "Сократитель",
         "fr": "Raccourcisseur"
     },
@@ -77,6 +85,7 @@ TRANSLATIONS = {
         "en": "CutURL Settings",
         "pt": "Configurações do CutURL",
         "es": "Configuraciones de CutURL",
+        "uk": "Налаштування CutURL",
         "ru": "Настройки CutURL",
         "fr": "Paramètres CutURL"
     },
@@ -84,6 +93,7 @@ TRANSLATIONS = {
         "en": "Use .cut <url> to shorten links",
         "pt": "Use .cut <url> para encurtar links",
         "es": "Usa .cut <url> para acortar enlaces",
+        "uk": "Надішліть .cut <url>, щоб скоротити посилання",
         "ru": "Используйте .cut <url> для сокращения ссылок",
         "fr": "Utilisez .cut <url> pour raccourcir des liens"
     },
@@ -91,6 +101,7 @@ TRANSLATIONS = {
         "en": "Enable token inputs",
         "pt": "Ativar entrada de tokens",
         "es": "Habilitar entradas de tokens",
+        "uk": "Поля для токенів",
         "ru": "Включить ввод токенов",
         "fr": "Activer les champs de jeton"
     },
@@ -98,6 +109,7 @@ TRANSLATIONS = {
         "en": "Show API/token fields for Cutt.ly and Bitly",
         "pt": "Mostrar campos de API/token para Cutt.ly e Bitly",
         "es": "Mostrar campos de API/token para Cutt.ly y Bitly",
+        "uk": "Показати поля ключа API й токена для Cutt.ly і Bitly",
         "ru": "Показать поля API/токена для Cutt.ly и Bitly",
         "fr": "Afficher les champs API/jeton pour Cutt.ly et Bitly"
     },
@@ -105,6 +117,7 @@ TRANSLATIONS = {
         "en": "Cutt.ly API Key",
         "pt": "Chave da API Cutt.ly",
         "es": "Clave API de Cutt.ly",
+        "uk": "Ключ API Cutt.ly",
         "ru": "API ключ Cutt.ly",
         "fr": "Clé API Cutt.ly"
     },
@@ -112,6 +125,7 @@ TRANSLATIONS = {
         "en": "Only needed for Cutt.ly. Get it from https://cutt.ly",
         "pt": "Necessário apenas para o Cutt.ly. Obtenha em https://cutt.ly",
         "es": "Solo se necesita para Cutt.ly. Consíguelo en https://cutt.ly",
+        "uk": "Потрібен лише для Cutt.ly. Отримати його можна на https://cutt.ly",
         "ru": "Нужно только для Cutt.ly. Получите на https://cutt.ly",
         "fr": "Nécessaire uniquement pour Cutt.ly. Obtenez-le sur https://cutt.ly"
     },
@@ -119,6 +133,7 @@ TRANSLATIONS = {
         "en": "Bitly Access Token",
         "pt": "Token de Acesso Bitly",
         "es": "Token de Acceso Bitly",
+        "uk": "Токен доступу Bitly",
         "ru": "Токен доступа Bitly",
         "fr": "Jeton d'accès Bitly"
     },
@@ -126,6 +141,7 @@ TRANSLATIONS = {
         "en": "Needed only if Bitly is selected",
         "pt": "Necessário apenas se o Bitly estiver selecionado",
         "es": "Solo necesario si se selecciona Bitly",
+        "uk": "Потрібен, лише якщо вибрано Bitly",
         "ru": "Нужно только если выбран Bitly",
         "fr": "Nécessaire uniquement si Bitly est sélectionné"
     },
@@ -133,6 +149,7 @@ TRANSLATIONS = {
         "en": "Tap to copy",
         "pt": "Toque para copiar",
         "es": "Toca para copiar",
+        "uk": "Натисніть, щоб скопіювати",
         "ru": "Нажмите, чтобы скопировать",
         "fr": "Touchez pour copier"
     },
@@ -140,6 +157,7 @@ TRANSLATIONS = {
         "en": "Link in code style for quick copy",
         "pt": "Link em estilo código para copiar rápido",
         "es": "Enlace en estilo código para copia rápida",
+        "uk": "Посилання моноширинним шрифтом, щоб швидко скопіювати",
         "ru": "Ссылка в стиле кода для копирования",
         "fr": "Lien en style code pour copie rapide"
     }
@@ -164,7 +182,7 @@ class CutURL(BasePlugin):
                 icon="filled_link_solar",
                 text=tr("shortener"),
                 default=0,
-                items=["Cutt.ly", "TinyURL", "is.gd", "Cleanuri", "Bitly", "Clck.ru"]
+                items=["Cutt.ly", "TinyURL", "is.gd", "Cleanuri", "Bitly"]
             ),
 
             Switch(
@@ -224,6 +242,8 @@ class CutURL(BasePlugin):
 
         url_to_shorten = parts[1].strip()
         shortener_index = self.get_setting("shortener_index", 0)
+        if shortener_index == 5:  # MZGram: Clck.ru (Yandex) is gone, is.gd needs no key
+            shortener_index = 2
         api_key = self.get_setting("api_key", "").strip()
         bitly_token = self.get_setting("bitly_token", "").strip()
         use_monospace = self.get_setting("use_monospace", True)
@@ -302,22 +322,6 @@ class CutURL(BasePlugin):
             if "link" not in data:
                 raise Exception(tr("error_shortening", error=data.get("message", "Unknown error")))
             return data["link"]
-
-        elif shortener_index == 5:
-            headers = {
-                "User-Agent": "Mozilla/5.0 (compatible; CutURLPlugin/1.0; +https://t.me/AGeekApple)"
-            }
-            res = requests.get("https://clck.ru/--", params={"url": url}, headers=headers, timeout=10)
-            content = res.text.strip()
-            log(f"[CutURL] clck.ru response: {content}")
-
-            if res.status_code != 200:
-                raise Exception(tr("error_shortening", error=f"HTTP {res.status_code} from clck.ru"))
-
-            if not content.startswith("https://clck.ru/"):
-                raise Exception(tr("error_shortening", error=f"Invalid response from clck.ru: {content[:100]}"))
-
-            return content
 
         else:
             raise Exception("Unknown shortener selected.")

@@ -25,19 +25,17 @@ __id__ = "songlinker"
 __name__ = "Song Linker"
 __description__ = "Converts a link into hypertext."
 __author__ = "@kotilnyaplugins"
-__version__ = "1.0.4"
+__version__ = "1.0.4-mz1"
 __icon__ = "Konataizumi0_by_fStikBot/6"
 __app_version__ = ">=12.10.6"
 __category__ = ["chats", "media", "integrations"]
 
 PATTERNS = [
     r'open\.spotify\.com/(?:track|album|playlist|artist|user)/',
-    r'music\.yandex\.(?:com|ru)/(?:album|playlists|artist)/',
     r'music\.apple\.com/(?:profile/|[^/]+/(?:album|song|artist)/)',
     r'music\.youtube\.com/',
     r'(?:on\.)?soundcloud\.com/',
     r'tidal\.com/',
-    r'zvuk\.com/',
     r'deezer\.com(?:/[a-zA-Z]{2})?/(?:track|album|artist|playlist)/',
     r'link\.deezer\.com/s/',
     r'song\.link/',
@@ -88,7 +86,7 @@ STRINGS = {
         "about_title": "Features and limitations",
         "about_dialog_message": (
             "The plugin converts links from music services into a hyperlink with the title and author.\n\n"
-            "Supported platforms: Spotify, Apple Music, Yandex Music, Tidal, YouTube Music, SoundCloud, SberZvuk, Deezer and song.link.\n\n"
+            "Supported platforms: Spotify, Apple Music, Tidal, YouTube Music, SoundCloud, Deezer and song.link.\n\n"
             "The plugin also works with links from Twitter, Pixiv, Danbooru, Zerochan, Unsplash and DeviantArt, if the appropriate setting is enabled.\n\n"
             "Please note that the link preview must load before sending the message; otherwise, the plugin will not work.\n"
             "On some platforms, it is impossible to explicitly separate the title from the author name in the preview, so title from preview is used.\n"
@@ -117,7 +115,7 @@ STRINGS = {
         "about_title": "Возможности и ограничения",
         "about_dialog_message": (
             "Плагин преобразует ссылки с музыкальных сервисов в гиперссылку с названием и автором.\n\n"
-            "Поддерживаемые платформы: Spotify, Apple Music, Яндекс Музыка, Tidal, YouTube Music, SoundCloud, СберЗвук, Deezer и song.link.\n\n"
+            "Поддерживаемые платформы: Spotify, Apple Music, Tidal, YouTube Music, SoundCloud, Deezer и song.link.\n\n"
             "Плагин также работает с ссылками из Twitter, Pixiv, Danbooru, Zerochan, Unsplash и DeviantArt, если включена соответствующая настройка.\n\n"
             "Имейте ввиду, что требуется загрузка превью ссылки перед отправкой сообщения, иначе плагин не сработает.\n"
             "У некоторых платформ невозможно явно отделить название от имени автора в превью, поэтому используется тайтл с превью.\n"
@@ -550,8 +548,6 @@ class SongLinkerPlugin(BasePlugin):
 
         if "spotify" in p:
             return "Spotify"
-        if "yandex" in p:
-            return "Яндекс Музыка" if is_ru else "Yandex Music"
         if "apple" in p:
             return "Apple Music"
         if "youtube" in p:
@@ -560,8 +556,6 @@ class SongLinkerPlugin(BasePlugin):
             return "SoundCloud"
         if "tidal" in p:
             return "Tidal"
-        if "zvuk" in p:
-            return "Звук" if is_ru else "Zvuk"
         if "deezer" in p:
             return "Deezer"
         if "song.link" in p:
@@ -586,7 +580,7 @@ class SongLinkerPlugin(BasePlugin):
 
     def parse_info(self, platform: str, url_title: str, url_description: str = ""):
         match platform:
-            case "open.spotify.com/track/" | "music.yandex.com/album/" | "music.yandex.ru/album/":
+            case "open.spotify.com/track/":
                 if platform == "open.spotify.com/track/":
                     sections = url_description.split("·") 
                 else:
@@ -664,14 +658,6 @@ class SongLinkerPlugin(BasePlugin):
                 else:
                     return url_title
                 
-            case "zvuk.com/":
-                sections = re.split(r'\s+[-–—−]\s+', url_title) 
-                if len(sections) > 1:
-                    title = sections[0]
-                    return title
-                else:
-                    return url_title
-
             case "deezer.com/track/" | "deezer.com/album/" | "link.deezer.com/s/" | "deezer.com/playlist/":
                 title = url_title
                 authors = url_description

@@ -22,7 +22,7 @@ __id__ = "radio_station"
 __name__ = "Radio Station"
 __description__ = "Фоновое интернет-радио прямо в ExteraGram"
 __author__ = "@RapFurBitches & @ccsFM"
-__version__ = "5.0.0"
+__version__ = "5.0.0-mz1"
 __icon__ = "Plugins50kk_by_fStikBot/4"
 __app_version__ = ">=12.5.1"
 __category__ = ["media"]
@@ -31,15 +31,16 @@ __sdk_version__ = ">=1.4.5.1"
 # Built-in stations, grouped by interface language. Only one group is active
 # at a time, chosen by the detected exteraGram interface language. Custom
 # stations added by the user are always shown in addition to the active group.
-STATIONS_RU: Tuple[Tuple[str, str], ...] = (
-    ("Европа Плюс", "https://ep256.hostingradio.ru:8052/europaplus256.mp3"),
-    ("Дорожное радио", "https://dorognoe.hostingradio.ru:8000/radio"),
-    ("Радио Шансон", "https://chanson.hostingradio.ru:8041/chanson256.mp3"),
-    ("Радио Русский Рок", "https://nashe1.hostingradio.ru:18000/rock-128.mp3"),
-    ("Ретро FM", "https://retroserver.streamr.ru:8043/retro128.mp3"),
-    ("Studio 21", "https://radio-studio21.ru:8000/radio.aac"),
-    ("Monte-Carlo", "https://montecarlo.hostingradio.ru:8041/montecarlo128.mp3"),
-    ("Comedy Radio", "https://ic6.101.ru:8000/v3_1"),
+# MZGram: the Russian station group is replaced by Ukrainian stations
+STATIONS_UK: Tuple[Tuple[str, str], ...] = (
+    ("Українське радіо", "https://radio.ukr.radio/ur1-mp3"),
+    ("Радіо Промінь", "https://radio.ukr.radio/ur2-mp3"),
+    ("Радіо Культура", "https://radio.ukr.radio/ur3-mp3"),
+    ("Хіт FM", "https://online.hitfm.ua/HitFM"),
+    ("Kiss FM", "https://online.kissfm.ua/KissFM"),
+    ("Radio Relax", "https://online.radiorelax.ua/RadioRelax"),
+    ("Radio ROKS", "https://online.radioroks.ua/RadioROKS"),
+    ("Мелодія FM", "https://online.melodiafm.ua/MelodiaFM"),
 )
 
 STATIONS_EN: Tuple[Tuple[str, str], ...] = (
@@ -510,7 +511,7 @@ class RadioStationPlugin(BasePlugin):
     # ── Station data ────────────────────────────────────────────────────
 
     def _base_stations(self) -> Tuple[Tuple[str, str], ...]:
-        return STATIONS_RU if self._lang() == "ru" else STATIONS_EN
+        return STATIONS_UK if self._lang() == "uk" else STATIONS_EN
 
     def _custom_stations(self) -> List[Tuple[str, str]]:
         raw = self.get_setting("custom_stations_json", "[]")

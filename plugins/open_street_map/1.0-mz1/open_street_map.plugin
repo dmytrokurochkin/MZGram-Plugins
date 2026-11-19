@@ -27,7 +27,7 @@ __id__ = "open_street_map"
 __name__ = "OpenStreetMap"
 __description__ = "Добавление OpenStreetMap вместо Google. Fork Яндекс Карты"
 __author__ = "@etodsk, @Knyaz_vsey_Tmy & ChatGPT"
-__version__ = "1.0"
+__version__ = "1.0-mz1"
 __icon__ = "rebornexterayamap/0"
 __app_version__ = ">=12.10.6"
 __category__ = ["integrations"]
@@ -1912,7 +1912,8 @@ class YandexProvider(Base):
 
     @joverload("getMapsAppPackageName", [])
     def getMapsAppPackageName(self):
-        return "ru.yandex.yandexmaps"
+        # MZGram: offer Google Maps, not the Yandex Maps app
+        return str(jclass("org.telegram.messenger.GoogleMapsProvider")().getMapsAppPackageName())
 
     @joverload("getInstallMapsString", [])
     def getInstallMapsString(self):

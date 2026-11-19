@@ -13,7 +13,7 @@ __description__ = (
 )
 __icon__ = "zwyPluginsIcons/2"
 __id__ = "googlethat"
-__version__ = "1.0.4"
+__version__ = "1.0.4-mz1"
 __author__ = "@zwylair"
 __min_version__ = "12.0.1"
 __category__ = ["integrations", "tools"]
@@ -109,7 +109,8 @@ def register_commands():
 
     @dp.register_command("gt")
     def google_that_command(params, _: int, *args) -> HookResult:
-        search_engine = list(SEARCH_ENGINES.keys())[S.search_engine.get()]
+        engines = list(SEARCH_ENGINES.keys())
+        search_engine = engines[min(max(S.search_engine.get(), 0), len(engines) - 1)]  # MZGram: Yandex was removed from the list
         search_text = " ".join(map(str, args)).strip()
         params.message = SEARCH_ENGINES[search_engine] + quote(search_text)
         return HookResult(strategy=HookStrategy.MODIFY, params=params)
@@ -124,7 +125,6 @@ SEARCH_ENGINES = {
     "Yahoo": "https://search.yahoo.com/search?p=",
     "DuckDuckGo": "https://duckduckgo.com/?q=",
     "Baidu": "https://www.baidu.com/s?wd=",
-    "Yandex": "https://yandex.com/search/?text=",
     "Ecosia": "https://www.ecosia.org/search?q=",
     "Ask": "https://www.ask.com/web?q=",
     "LetMeGoogleThatForYou": "https://letmegooglethat.com/?q="

@@ -11,7 +11,7 @@ from com.exteragram.messenger.plugins.ui import PluginSettingsActivity
 
 __id__ = "requisites_sender"
 __name__ = "rekvplug"
-__version__ = "2.1.0"
+__version__ = "2.1.0-mz1"
 __author__ = "@shrdevv"
 __description__ = "Отправляет указанные в настройках реквизиты по команде .rekv / обязательно посмотри .helprekv"
 __min_version__ = "11.12.0"
@@ -23,9 +23,6 @@ REQUISITES = [
     ("wallet", "Wallet"),
     ("tonhub", "TONhub"),
     ("bank_card", "Bank card"),
-    ("yumoney", "ЮMoney"),
-    ("donation_alerts", "Donation alerts"),
-    ("boosty", "Boosty"),
     ("patreon", "Patreon")
 ]
 MAX_CUSTOM_FIELDS = 5
@@ -34,9 +31,6 @@ FLAG_MAP = {
     '-th': 'tonhub',
     '-w': 'wallet',
     '-bc': 'bank_card',
-    '-ym': 'yumoney',
-    '-d': 'donation_alerts',
-    '-b': 'boosty',
     '-p': 'patreon',
 }
 HELP_TEXT = (
@@ -45,9 +39,6 @@ HELP_TEXT = (
     "`-th` - отключает TONhub\n"
     "`-w` - отключает Wallet\n"
     "`-bc` - отключает Bank card\n"
-    "`-ym` - отключает ЮMoney\n"
-    "`-d` - отключает Donation alerts\n"
-    "`-b` - отключает Boosty\n"
     "`-p` - отключает Patreon\n\n"
     "_Можно использовать несколько флагов сразу, например:_\n"
     "`.rekv -p -tk`"

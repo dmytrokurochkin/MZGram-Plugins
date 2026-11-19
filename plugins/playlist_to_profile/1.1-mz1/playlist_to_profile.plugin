@@ -38,9 +38,9 @@ from java.lang import Integer
 
 __id__ = "playlist_to_profile"
 __name__ = "Playlist to Profile"
-__description__ = "Добавляет треки из плейлиста (YouTube, Яндекс Музыка, VK, Spotify, SoundCloud...) в музыку профиля"
+__description__ = "Добавляет треки из плейлиста (YouTube, Spotify, SoundCloud...) в музыку профиля"
 __author__ = "@rei_plugins (@optimist_opti)"
-__version__ = "1.1"
+__version__ = "1.1-mz1"
 __icon__ = "rei_plugins/1"
 __app_version__ = ">=12.10.6"
 __category__ = ["media", "integrations"]
@@ -175,9 +175,6 @@ class SourceError(Exception):
 
 
 UA_BROWSER = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36"
-UA_VK = "KateMobileAndroid/56 lite-460 (Android 4.4.2; SDK 19; x86; unknown Android SDK built for x86; en)"
-YM_API = "https://api.music.yandex.net"
-
 _BAD_WORDS = (
     "live", "cover", "remix", "karaoke", "instrumental", "nightcore",
     "slowed", "reverb", "sped", "speed", "8d", "mashup", "minus", "concert",
@@ -261,42 +258,6 @@ def _score_search_entry(e: dict, artist: str, title: str, duration: int):
     return score
 
 
-def _parse_yandex_url(url: str):
-    m = re.search(r"music\.yandex\.[a-z]+/users/([^/?#]+)/playlists/(\d+)", url)
-    if m:
-        return ("playlist", m.group(1), m.group(2))
-    m = re.search(r"music\.yandex\.[a-z]+/playlists/([^/?#]+)", url)
-    if m:
-        return ("playlist_uuid", m.group(1))
-    m = re.search(r"music\.yandex\.[a-z]+/album/(\d+)/track/(\d+)", url)
-    if m:
-        return ("track", m.group(1), m.group(2))
-    m = re.search(r"music\.yandex\.[a-z]+/album/(\d+)", url)
-    if m:
-        return ("album", m.group(1))
-    m = re.search(r"music\.yandex\.[a-z]+/track/(\d+)", url)
-    if m:
-        return ("track", None, m.group(1))
-    return None
-
-
-def _parse_vk_url(url: str):
-    m = re.search(r"vk\.(?:com|ru)/music/(?:playlist|album)/(-?\d+)_(\d+)(?:_([0-9a-zA-Z]+))?", url)
-    if m:
-        return ("playlist", m.group(1), m.group(2), m.group(3) or "")
-    m = re.search(r"act=audio_playlist(-?\d+)_(\d+)", url)
-    if m:
-        k = re.search(r"access_hash=([0-9a-zA-Z]+)", url)
-        return ("playlist", m.group(1), m.group(2), k.group(1) if k else "")
-    m = re.search(r"vk\.(?:com|ru)/audio(-?\d+_\d+)(?:_([0-9a-zA-Z]+))?(?:[?/#]|$)", url)
-    if m:
-        return ("audio", m.group(1), m.group(2) or "")
-    m = re.search(r"vk\.(?:com|ru)/audios(-?\d+)", url)
-    if m:
-        return ("audios", m.group(1))
-    return None
-
-
 def _parse_spotify_url(url: str):
     m = re.search(r"(?:open\.spotify\.com/(?:intl-[a-z]+/)?|spotify:)(playlist|album|track)[/:]([A-Za-z0-9]+)", url)
     if m:
@@ -377,86 +338,6 @@ def _spotify_extract(html: str, kind: str) -> list:
         artist = ", ".join(names) if names else ent.get("subtitle")
         mk(ent.get("title") or ent.get("name"), artist, ent.get("duration"), ent.get("uri"), cover)
     return out
-
-
-def _ya_track(t) -> Optional[dict]:
-    if not isinstance(t, dict):
-        return None
-    raw_id = t.get("realId") or t.get("id")
-    if not raw_id:
-        return None
-    tid = str(raw_id).split(":")[0]
-    title = (t.get("title") or "").strip()
-    if not title:
-        return None
-    ver = (t.get("version") or "").strip()
-    if ver:
-        title = "%s (%s)" % (title, ver)
-    names = []
-    for a in (t.get("artists") or []):
-        if isinstance(a, dict) and a.get("name"):
-            names.append(str(a["name"]).strip())
-    album_id = None
-    album_title = ""
-    albums = t.get("albums") or []
-    if albums and isinstance(albums[0], dict):
-        album_id = albums[0].get("id")
-        album_title = (albums[0].get("title") or "").strip()
-    cover = t.get("coverUri") or t.get("ogImage") or ""
-    cover_url = ""
-    if cover:
-        cover = cover.replace("%%", "1000x1000")
-        cover_url = cover if cover.startswith("http") else "https://" + cover
-    url = ""
-    if album_id:
-        url = "https://music.yandex.ru/album/%s/track/%s" % (album_id, tid)
-    try:
-        duration = int((t.get("durationMs") or 0) / 1000)
-    except Exception:
-        duration = 0
-    return {
-        "id": "ym_" + tid,
-        "provider": "yandex",
-        "title": title,
-        "artist": ", ".join(names[:3]),
-        "album": album_title,
-        "url": url,
-        "cover_url": cover_url,
-        "duration": duration,
-    }
-
-
-def _vk_track(it) -> Optional[dict]:
-    if not isinstance(it, dict):
-        return None
-    title = (it.get("title") or "").strip()
-    if not title:
-        return None
-    sub = (it.get("subtitle") or "").strip()
-    if sub:
-        title = "%s (%s)" % (title, sub)
-    cover = ""
-    album_title = ""
-    alb = it.get("album")
-    if isinstance(alb, dict):
-        album_title = (alb.get("title") or "").strip()
-    if isinstance(alb, dict) and isinstance(alb.get("thumb"), dict):
-        th = alb["thumb"]
-        cover = th.get("photo_600") or th.get("photo_1200") or th.get("photo_300") or ""
-    try:
-        duration = int(it.get("duration") or 0)
-    except Exception:
-        duration = 0
-    return {
-        "id": "vk_%s_%s" % (it.get("owner_id"), it.get("id")),
-        "provider": "vk",
-        "title": title,
-        "artist": (it.get("artist") or "").strip(),
-        "album": album_title,
-        "url": "",
-        "cover_url": cover,
-        "duration": duration,
-    }
 
 
 def _image_kind(data: bytes) -> Optional[str]:
@@ -1603,7 +1484,7 @@ class PlaylistToProfilePlugin(BasePlugin):
                 key="playlist_url",
                 text="Ссылка на плейлист",
                 default="",
-                subtext="YouTube / Яндекс / VK / Spotify / SoundCloud и др.",
+                subtext="YouTube / Spotify / SoundCloud и др.",
                 icon=_icon("msg_link", "msg_link2"),
             ),
             *self._controls_rows(),
@@ -1650,7 +1531,7 @@ class PlaylistToProfilePlugin(BasePlugin):
                 key="fallback_youtube",
                 text="Искать звук на YouTube",
                 default=True,
-                subtext="Если у источника нет звука или он отдаёт превью (VK, Spotify, Яндекс)",
+                subtext="Если у источника нет звука или он отдаёт превью (Spotify)",
                 icon=_icon("filled_sound_on", "msg_search"),
             ),
             Switch(
@@ -1664,7 +1545,7 @@ class PlaylistToProfilePlugin(BasePlugin):
             Header(text="Дополнительно"),
             Text(
                 text="Источники и аккаунты",
-                subtext="Токены Яндекс Музыки и VK, cookies.txt",
+                subtext="cookies.txt",
                 icon=_icon("msg_secret", "msg_permissions", "msg_settings"),
                 create_sub_fragment=self._sources_page,
             ),
@@ -1672,24 +1553,6 @@ class PlaylistToProfilePlugin(BasePlugin):
 
     def _sources_page(self) -> List[Any]:
         return [
-            Header(text="Яндекс Музыка"),
-            Input(
-                key="yandex_token",
-                text="Токен",
-                default="",
-                subtext="Нужен только для приватных плейлистов",
-                icon=_icon("msg_secret", "msg_permissions"),
-            ),
-            Divider(),
-            Header(text="VK"),
-            Input(
-                key="vk_token",
-                text="Токен",
-                default="",
-                subtext="Обязателен для плейлистов VK",
-                icon=_icon("msg_permissions", "msg_secret"),
-            ),
-            Divider(),
             Header(text="yt-dlp"),
             Input(
                 key="cookies_path",
@@ -1990,11 +1853,9 @@ class PlaylistToProfilePlugin(BasePlugin):
         if any(h in low for h in _SHORT_HOSTS):
             url = _resolve_redirect(url)
             low = url.lower()
-        if "music.yandex." in low:
-            return self._tracks_yandex(url)
-        is_vk_video = ("/video" in low or "/clip" in low or "vkvideo." in low)
-        if ("vk.com/" in low or "vk.ru/" in low) and not is_vk_video:
-            return self._tracks_vk(url)
+        if "music.yandex." in low or "vk.com/" in low or "vk.ru/" in low or "vkvideo." in low:
+            # MZGram: Yandex Music and VK are not supported
+            raise SourceError("Yandex Music and VK are not supported")
         return self._tracks_ytdlp(url)
 
     def _tracks_ytdlp(self, url: str) -> list:
@@ -2090,150 +1951,6 @@ class PlaylistToProfilePlugin(BasePlugin):
             BulletinHelper.show_info("Spotify отдаёт первые ~100 треков плейлиста")
         return tracks
 
-
-    def _ya_headers(self) -> dict:
-        h = {
-            "X-Yandex-Music-Client": "YandexMusicAndroid/24023231",
-            "Accept": "application/json",
-            "Accept-Language": "ru",
-        }
-        tok = (self.get_setting("yandex_token", "") or "").strip()
-        if tok:
-            h["Authorization"] = "OAuth " + tok
-        return h
-
-    def _ya_fetch_tracks_by_ids(self, ids: list) -> dict:
-        out = {}
-        for i in range(0, len(ids), 100):
-            chunk = ids[i:i + 100]
-            try:
-                data = _http_json(
-                    YM_API + "/tracks",
-                    headers=self._ya_headers(),
-                    data={"track-ids": ",".join(chunk), "with-positions": "False"},
-                )
-                for t in (data.get("result") or []):
-                    if isinstance(t, dict):
-                        rid = str(t.get("realId") or t.get("id") or "").split(":")[0]
-                        if rid:
-                            out[rid] = t
-            except Exception as e:
-                log("[P2P] ya tracks: %s" % str(e)[:150])
-        return out
-
-    def _tracks_yandex(self, url: str) -> list:
-        parsed = _parse_yandex_url(url)
-        if not parsed:
-            raise SourceError("Не понимаю ссылку Яндекс Музыки")
-        hdr = self._ya_headers()
-        raw_tracks = []
-        try:
-            kind = parsed[0]
-            items = []
-            if kind == "playlist":
-                data = _http_json(YM_API + "/users/%s/playlists/%s" % (parsed[1], parsed[2]), headers=hdr)
-                res = data.get("result")
-                if isinstance(res, list) and res:
-                    res = res[0]
-                items = (res or {}).get("tracks") or []
-            elif kind == "playlist_uuid":
-                data = _http_json(YM_API + "/playlist/" + parsed[1], headers=hdr)
-                items = (data.get("result") or {}).get("tracks") or []
-            elif kind == "album":
-                data = _http_json(YM_API + "/albums/%s/with-tracks" % parsed[1], headers=hdr)
-                for vol in ((data.get("result") or {}).get("volumes") or []):
-                    items.extend(vol or [])
-            elif kind == "track":
-                items = [{"id": parsed[2], "albumId": parsed[1]}]
-            def _full(it):
-                if not isinstance(it, dict):
-                    return None
-                if isinstance(it.get("track"), dict):
-                    return it["track"]
-                if it.get("title") and it.get("artists") is not None:
-                    return it
-                return None
-
-            missing = [str(it["id"]).split(":")[0] for it in items
-                       if isinstance(it, dict) and it.get("id") and _full(it) is None]
-            fetched = self._ya_fetch_tracks_by_ids(missing) if missing else {}
-            for it in items:
-                if not isinstance(it, dict):
-                    continue
-                t = _full(it) or fetched.get(str(it.get("id") or "").split(":")[0])
-                if t:
-                    raw_tracks.append(t)
-        except Exception as e:
-            log("[P2P] yandex api error: %s" % str(e)[:200])
-            raw_tracks = []
-        tracks = [x for x in (_ya_track(t) for t in raw_tracks) if x]
-        if tracks:
-            log("[P2P] yandex: %d tracks" % len(tracks))
-            return tracks
-        log("[P2P] yandex api пуст, пробую yt-dlp")
-        try:
-            tracks = self._tracks_ytdlp(url)
-        except SourceError:
-            tracks = []
-        if not tracks:
-            raise SourceError("Не удалось получить плейлист Яндекс Музыки (он публичный?)")
-        return tracks
-
-
-    def _vk_call(self, method: str, params: dict):
-        token = (self.get_setting("vk_token", "") or "").strip()
-        if not token:
-            raise SourceError("Для VK нужен токен: Настройки плагина → Токен VK")
-        p = {"v": "5.131", "access_token": token}
-        p.update(params)
-        try:
-            data = _http_json("https://api.vk.com/method/" + method,
-                              headers={"User-Agent": UA_VK}, data=p)
-        except Exception as e:
-            raise SourceError("VK недоступен: " + str(e)[:80])
-        err = data.get("error") if isinstance(data, dict) else None
-        if err:
-            code = err.get("error_code")
-            msg = err.get("error_msg") or "ошибка"
-            if code == 5:
-                raise SourceError("VK: токен недействителен")
-            raise SourceError("VK: %s (%s)" % (msg[:80], code))
-        return data.get("response")
-
-    def _tracks_vk(self, url: str) -> list:
-        parsed = _parse_vk_url(url)
-        if not parsed:
-            raise SourceError("Не понимаю ссылку VK (нужен плейлист или аудио)")
-        kind = parsed[0]
-        raw = []
-        if kind == "audio":
-            audios = parsed[1] + (("_" + parsed[2]) if parsed[2] else "")
-            resp = self._vk_call("audio.getById", {"audios": audios})
-            raw = list(resp or [])
-        else:
-            params = {"count": 1000}
-            if kind == "playlist":
-                params["owner_id"] = parsed[1]
-                params["album_id"] = parsed[2]
-                if parsed[3]:
-                    params["access_key"] = parsed[3]
-            else:
-                params["owner_id"] = parsed[1]
-            offset = 0
-            while True:
-                if self._stop_flag:
-                    break
-                params["offset"] = offset
-                resp = self._vk_call("audio.get", params) or {}
-                items = resp.get("items") or []
-                raw.extend(items)
-                total = int(resp.get("count") or 0)
-                offset += len(items)
-                if not items or (total and offset >= total):
-                    break
-        tracks = [x for x in (_vk_track(it) for it in raw) if x]
-        log("[P2P] vk: %d tracks" % len(tracks))
-        return tracks
 
     def _download_best_thumb(self, info: dict, tid: str) -> Optional[str]:
         candidates = []

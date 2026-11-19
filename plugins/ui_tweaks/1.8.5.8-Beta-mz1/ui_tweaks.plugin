@@ -73,7 +73,7 @@ __id__ = "ui_tweaks"
 __name__ = "UiTweaks"
 __type__ = "plugin"
 __description__ = "Well sometimes you just need to tweak things... (requires [QuantaHut](https://t.me/QuantaPlugins/228))"
-__version__ = "1.8.5.8-Beta"
+__version__ = "1.8.5.8-Beta-mz1"
 __author__ = "@luvztroy"
 __beta__ = "True"
 __min_version__ = "12.5.1"
@@ -2148,7 +2148,6 @@ class UiTweaksPlugin(BasePlugin):
         
         settings.extend([
             Header(text=getString("support", "Support Development")),
-            Text(text=getString("boosty", "Boosty"), icon="boosty_icon", on_click=lambda v: self._open_boosty(), link_alias="boosty"),
             Text(text=getString("ton_keeper", "Ton Keeper"), icon="ton_icon", on_click=lambda v: self._copy_ton_address(), link_alias="ton_keeper"),
             Text(text=getString("know_more", "Know more"), icon="msg_info", accent=True, on_click=lambda v: self._show_donation_info(), on_long_click=lambda v: self._toggle_branch_selector()),
             Divider(text=getString("another_services", "If the provided services are not available in your country, you can contact me via [direct message](https://t.me/luvztroy)")),
@@ -2507,14 +2506,6 @@ class UiTweaksPlugin(BasePlugin):
     def _restart_after_bulletin(self):
         from quantahut import restart_app
         restart_app()
-    
-    def _open_boosty(self):
-        from android.content import Intent
-        from android.net import Uri
-        
-        intent = Intent(Intent.ACTION_VIEW)
-        intent.setData(Uri.parse("https://boosty.to/luvztroy/donate"))
-        get_last_fragment().getParentActivity().startActivity(intent)
     
     def _copy_ton_address(self):
         clipboard = get_last_fragment().getParentActivity().getSystemService(Context.CLIPBOARD_SERVICE)

@@ -2,7 +2,7 @@ __id__ = "currency_converter"
 __name__ = "Currency Converter"
 __description__ = "Конвертирует фиатные и криптовалюты с актуальными курсами\n\nИспользование: .conv <из> to <в> <сумма>\n\nПримеры:\n• .conv usd to rub 100\n• .conv btc to usd 1\n• .conv eth to rub 5\n\nПоддержка фиата и 20 криптовалют (BTC, ETH, USDT, BNB, SOL, XRP, USDC, ADA, DOGE, TRX, TON, LINK, MATIC, DOT, DAI, LTC, SHIB, BCH, AVAX, UNI)"
 __author__ = "@oxd5f & @explugin"
-__version__ = "1.0"
+__version__ = "1.0-mz1"
 __icon__ = "pyDevSticker/1"
 __min_version__ = "11.12.0"
 __category__ = ["tools", "integrations"]
@@ -74,12 +74,7 @@ PAYMENT_METHODS = [
 	("usdt_bep20", "USDT BEP20"),
 	("btc", "BTC"),
 	("eth", "ETH"),
-    ("sbp", "СБП"),
 	("bank_card", "Bank card"),
-    ("tbank", "TBank"),
-	("yumoney", "ЮMoney"),
-	("donation_alerts", "Donation alerts"),
-	("boosty", "Boosty"),
 	("patreon", "Patreon")
 ]
 
