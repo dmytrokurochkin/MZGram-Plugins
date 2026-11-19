@@ -373,35 +373,6 @@
       ]
     },
     {
-      "id": "LatRussLang",
-      "name": "Латинский русский",
-      "version": "1.1.0",
-      "min_app_version": "1.0.0",
-      "file": "plugins/LatRussLang/1.1.0/LatRussLang.plugin",
-      "sha256": "00afbb3d1af72416882e89181887fce497e7d7019514cf34f42826a906c0054d",
-      "size": 5850,
-      "description": "Plugin that translates outgoing messages into Lat. Russian and back.",
-      "description_i18n": {
-        "en": "Plugin that translates outgoing messages into Lat. Russian and back.",
-        "uk": "Плагін, який перекладає вихідні повідомлення на лат. російською і назад.",
-        "ru": "Плагин, переводящий исходящие сообщения на лат. Русский и обратно.",
-        "pl": "Wtyczka tłumacząca wiadomości wychodzące na język łac. Rosyjski i z powrotem.",
-        "es": "Complemento que traduce mensajes salientes al lat. Ruso y viceversa.",
-        "de": "Plugin, das ausgehende Nachrichten ins Lateinische übersetzt. Russisch und zurück.",
-        "fr": "Plugin qui traduit les messages sortants en Lat. Russe et retour.",
-        "pt-BR": "Plugin que traduz mensagens enviadas para Lat. Russo e de volta.",
-        "tr": "Giden mesajları Lat diline çeviren eklenti. Rusça ve geri.",
-        "ar": "البرنامج المساعد الذي يترجم الرسائل الصادرة إلى Lat. الروسية والعودة.",
-        "be": "Плагін, які перакладае выходныя паведамленні на лат. Рускі і назад.",
-        "kk": "Шығыс хабарларды лат тіліне аударатын плагин. Орыс және кері."
-      },
-      "permissions": [
-        "messages.read",
-        "messages.send",
-        "hooks"
-      ]
-    },
-    {
       "id": "NoCallConfirmation",
       "name": "No Call Confirmation",
       "version": "1.0.0",
@@ -1235,35 +1206,6 @@
       ]
     },
     {
-      "id": "anixart_plugin",
-      "name": "Anixart",
-      "version": "1.8",
-      "min_app_version": "1.0.0",
-      "file": "plugins/anixart_plugin/1.8/anixart_plugin.plugin",
-      "sha256": "b0d9e79a231cd076247251331d4ee9f2fcea0c9ae89a900711ea76e9ab6a6f84",
-      "size": 106341,
-      "description": "Anixart. Search and watch anime, random release, info by ID, trends, lists, profile, genres, episode tracking, viewing, custom lists.",
-      "description_i18n": {
-        "en": "Anixart. Search and watch anime, random release, info by ID, trends, lists, profile, genres, episode tracking, viewing, custom lists.",
-        "uk": "Anixart. Шукайте та дивіться аніме, випадковий випуск, інформацію за ID, тенденції, списки, профіль, жанри, відстеження епізодів, перегляд, спеціальні списки.",
-        "ru": "Аниксарт. Поиск и просмотр аниме, случайный выпуск, информация по идентификатору, тенденции, списки, профиль, жанры, отслеживание эпизодов, просмотр, пользовательские списки.",
-        "pl": "Anixart. Wyszukuj i oglądaj anime, losowe wydania, informacje według identyfikatora, trendy, listy, profil, gatunki, śledzenie odcinków, przeglądanie, listy niestandardowe.",
-        "es": "Anixart. Busque y mire anime, lanzamiento aleatorio, información por ID, tendencias, listas, perfil, géneros, seguimiento de episodios, visualización, listas personalizadas.",
-        "de": "Anixart. Anime suchen und ansehen, zufällige Veröffentlichung, Informationen nach ID, Trends, Listen, Profil, Genres, Episodenverfolgung, Anzeige, benutzerdefinierte Listen.",
-        "fr": "Anixart. Recherchez et regardez des anime, des sorties aléatoires, des informations par identifiant, des tendances, des listes, des profils, des genres, le suivi des épisodes, la visualisation, des listes personnalisées.",
-        "pt-BR": "Anixart. Pesquise e assista animes, lançamento aleatório, informações por ID, tendências, listas, perfil, gêneros, rastreamento de episódios, visualização, listas personalizadas.",
-        "tr": "Anixart. Anime, rastgele sürüm, kimliğe göre bilgi, trendler, listeler, profil, türler, bölüm izleme, görüntüleme, özel listeleri arayın ve izleyin.",
-        "ar": "أنيكسارت. ابحث وشاهد الرسوم المتحركة، إصدار عشوائي، معلومات حسب المعرف، الاتجاهات، القوائم، الملف الشخصي، الأنواع، تتبع الحلقة، العرض، القوائم المخصصة.",
-        "be": "Anixart. Пошук і прагляд анімэ, выпадковы выпуск, інфармацыя па ID, тэндэнцыі, спісы, профіль, жанры, адсочванне серый, прагляд, карыстальніцкія спісы.",
-        "kk": "Аниксарт. Аниме, кездейсоқ шығарылым, идентификатор бойынша ақпарат, трендтер, тізімдер, профиль, жанрлар, эпизодтарды бақылау, қарау, пайдаланушы тізімдерін іздеңіз және көріңіз."
-      },
-      "permissions": [
-        "messages.send",
-        "network",
-        "files"
-      ]
-    },
-    {
       "id": "anti_via_bot",
       "name": "Анти-бот-Инлайн 🥷",
       "version": "4.1",
@@ -1708,36 +1650,6 @@
       "permissions": [
         "network",
         "files",
-        "hooks"
-      ]
-    },
-    {
-      "id": "ayu_yandex_maps",
-      "name": "Яндекс Карты",
-      "version": "1.0.0",
-      "min_app_version": "1.0.0",
-      "file": "plugins/ayu_yandex_maps/1.0.0/ayu_yandex_maps.plugin",
-      "sha256": "7c614c98f8d0d1a8711cf6bc7d260c7b519552befe550d676b75d42ff76e0d3f",
-      "size": 157988,
-      "description": "Return of Yandex Maps API instead of Google. Your own JavaScript API key is required.",
-      "description_i18n": {
-        "en": "Return of Yandex Maps API instead of Google. Your own JavaScript API key is required.",
-        "uk": "Повернення API Яндекс Карт замість Google. Потрібен власний ключ JavaScript API.",
-        "ru": "Возвращение API Яндекс Карт вместо Google. Требуется ваш собственный ключ API JavaScript.",
-        "pl": "Powrót API Yandex Maps zamiast Google. Wymagany jest własny klucz JavaScript API.",
-        "es": "Retorno de la API de Yandex Maps en lugar de Google. Se requiere su propia clave API de JavaScript.",
-        "de": "Rückkehr der Yandex Maps API anstelle von Google. Ihr eigener JavaScript-API-Schlüssel ist erforderlich.",
-        "fr": "Retour de l'API Yandex Maps au lieu de Google. Votre propre clé API JavaScript est requise.",
-        "pt-BR": "Retorno da API Yandex Maps em vez do Google. É necessária sua própria chave de API JavaScript.",
-        "tr": "Google yerine Yandex Haritalar API'sinin iadesi. Kendi JavaScript API anahtarınız gereklidir.",
-        "ar": "عودة واجهة برمجة تطبيقات خرائط Yandex بدلاً من Google. مطلوب مفتاح JavaScript API الخاص بك.",
-        "be": "Вяртанне API Yandex Maps замест Google. Патрабуецца ваш уласны ключ JavaScript API.",
-        "kk": "Google орнына Yandex Maps API қайтару. Жеке JavaScript API кілті қажет."
-      },
-      "permissions": [
-        "network",
-        "files",
-        "intents",
         "hooks"
       ]
     },
@@ -3882,35 +3794,6 @@
         "be": "Эквалайзер для музычнага плэера: 5 дыяпазонаў, прадусталяваныя налады, узмацненне басоў, віртуалізатар і ўзмацненне гучнасці. > Патрабуецца **[ZwyLib](https://t.me/zwyPlugins/48)** версія 2.0.6 або вышэй!",
         "kk": "Музыка ойнатқышына арналған эквалайзер: 5 диапазон, алдын ала орнатулар, бассты күшейту, виртуализатор және дыбыс деңгейін арттыру. > **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.6 немесе одан жоғары нұсқасын қажет етеді!"
       }
-    },
-    {
-      "id": "etg_max",
-      "name": "MAX Tab",
-      "version": "2.0.0",
-      "min_app_version": "1.0.0",
-      "file": "plugins/etg_max/2.0.0/etg_max.plugin",
-      "sha256": "8118eb721e12258147996e0b7494c0bec882c004628c336e8d9842226820c9fd",
-      "size": 17321,
-      "description": "Adds a rightmost MAX tab to ExteraGram chat folders and opens web.max.ru in a native WebView.",
-      "description_i18n": {
-        "en": "Adds a rightmost MAX tab to ExteraGram chat folders and opens web.max.ru in a native WebView.",
-        "uk": "Додає крайню праву вкладку MAX до папок чату ExteraGram і відкриває web.max.ru у рідному WebView.",
-        "ru": "Добавляет крайнюю правую вкладку MAX в папки чата ExteraGram и открывает web.max.ru в собственном WebView.",
-        "pl": "Dodaje skrajną prawą kartę MAX do folderów czatu ExteraGram i otwiera web.max.ru w natywnym widoku WebView.",
-        "es": "Agrega una pestaña MAX situada más a la derecha a las carpetas de chat de ExteraGram y abre web.max.ru en un WebView nativo.",
-        "de": "Fügt den ExteraGram-Chat-Ordnern eine MAX-Registerkarte ganz rechts hinzu und öffnet web.max.ru in einer nativen WebView.",
-        "fr": "Ajoute un onglet MAX le plus à droite aux dossiers de discussion ExteraGram et ouvre web.max.ru dans une WebView native.",
-        "pt-BR": "Adiciona uma guia MAX mais à direita às pastas de bate-papo ExteraGram e abre web.max.ru em um WebView nativo.",
-        "tr": "ExteraGram sohbet klasörlerine en sağdaki MAX sekmesini ekler ve web.max.ru'yu yerel bir Web Görünümünde açar.",
-        "ar": "إضافة علامة تبويب MAX في أقصى اليمين إلى مجلدات الدردشة ExteraGram وفتح web.max.ru في WebView الأصلي.",
-        "be": "Дадае крайнюю правую ўкладку MAX у тэчкі чатаў ExteraGram і адкрывае web.max.ru ва ўласным WebView.",
-        "kk": "ExteraGram чат қалталарына ең оң жақ MAX қойындысын қосады және web.max.ru сайтын жергілікті WebView ішінде ашады."
-      },
-      "permissions": [
-        "network",
-        "files",
-        "hooks"
-      ]
     },
     {
       "id": "etg_weekday",
@@ -6625,33 +6508,6 @@
       ]
     },
     {
-      "id": "mediaupl",
-      "name": "MediaUPL",
-      "version": "1.0.0",
-      "min_app_version": "1.0.0",
-      "file": "plugins/mediaupl/1.0.0/Media_UPL.plugin",
-      "sha256": "f316ea45ff74f7f97bfd19058c79b0fee9ce31c43a10f7bba11a7d383f8129fa",
-      "size": 13281,
-      "description": "Adds a 'Get link' button to the message menu for uploading media to the hosting upl.yufic.ru. Adds a 'Get link' button to the message menu to upload media to upl.yufic.ru.",
-      "description_i18n": {
-        "en": "Adds a 'Get link' button to the message menu for uploading media to the hosting upl.yufic.ru. Adds a 'Get link' button to the message menu to upload media to upl.yufic.ru.",
-        "uk": "Додає кнопку «Отримати посилання» в меню повідомлень для завантаження медіа на хостинг upl.yufic.ru. Додає кнопку «Отримати посилання» в меню повідомлень для завантаження медіа на upl.yufic.ru.",
-        "ru": "Добавляет в меню сообщений кнопку \"Получить ссылку\" для загрузки медиа на хостинг upl.yufic.ru. Добавляет кнопку «Получить ссылку» в меню сообщений для загрузки медиа на upl.yufic.ru.",
-        "pl": "Dodaje przycisk „Pobierz link\" do menu wiadomości umożliwiający przesyłanie multimediów na hosting upl.yufic.ru. Dodaje przycisk „Pobierz link\" do menu wiadomości, aby przesłać multimedia do upl.yufic.ru.",
-        "es": "Agrega un botón 'Obtener enlace' al menú de mensajes para cargar medios en el alojamiento upl.yufic.ru. Agrega un botón 'Obtener enlace' al menú de mensajes para cargar medios en upl.yufic.ru.",
-        "de": "Fügt dem Nachrichtenmenü eine Schaltfläche „Link abrufen\" hinzu, um Medien auf das Hosting upl.yufic.ru hochzuladen. Fügt dem Nachrichtenmenü eine Schaltfläche „Link abrufen\" hinzu, um Medien auf upl.yufic.ru hochzuladen.",
-        "fr": "Ajoute un bouton « Obtenir le lien » au menu des messages pour télécharger des médias sur l'hébergement upl.yufic.ru. Ajoute un bouton « Obtenir le lien » au menu des messages pour télécharger des médias sur upl.yufic.ru.",
-        "pt-BR": "Adiciona um botão 'Obter link' ao menu de mensagens para enviar mídia para a hospedagem upl.yufic.ru. Adiciona um botão 'Obter link' ao menu de mensagens para fazer upload de mídia para upl.yufic.ru.",
-        "tr": "upl.yufic.ru barındırma hizmetine medya yüklemek için mesaj menüsüne bir 'Bağlantıyı al' düğmesi ekler. Upl.yufic.ru'ya medya yüklemek için mesaj menüsüne bir 'Bağlantıyı al' düğmesi eklenir.",
-        "ar": "إضافة زر \"الحصول على الرابط\" إلى قائمة الرسائل لتحميل الوسائط إلى استضافة upl.yufic.ru. إضافة زر \"الحصول على الرابط\" إلى قائمة الرسائل لتحميل الوسائط إلى upl.yufic.ru.",
-        "be": "Дадае ў меню паведамленняў кнопку «Атрымаць спасылку» для загрузкі мультымедыя на хостынг upl.yufic.ru. Дадае кнопку «Атрымаць спасылку» ў меню паведамленняў для загрузкі мультымедыя на upl.yufic.ru.",
-        "kk": "upl.yufic.ru хостингіне мультимедианы жүктеп салу үшін хабар мәзіріне «Сілтеме алу» түймесін қосады. upl.yufic.ru сайтына мультимедианы жүктеп салу үшін хабар мәзіріне «Сілтеме алу» түймесін қосады."
-      },
-      "permissions": [
-        "network"
-      ]
-    },
-    {
       "id": "melodic_piano_typing",
       "name": "Melodic Piano Sequencer",
       "version": "1.8.0",
@@ -7945,34 +7801,6 @@
       },
       "permissions": [
         "hooks"
-      ]
-    },
-    {
-      "id": "ozonsearch_ozon_420",
-      "name": "OzonSearch",
-      "version": "4.6.3",
-      "min_app_version": "1.0.0",
-      "file": "plugins/ozonsearch_ozon_420/4.6.3/ozonsearch_ozon_420.plugin",
-      "sha256": "9bc3e7537eaaeb04f54bc1fdb8a8a57cd313a056904cbe7aa0ea0b5b74a2df64",
-      "size": 168726,
-      "description": "Search for products on Ozon via live chat! Commands: .ozon <query>",
-      "description_i18n": {
-        "en": "Search for products on Ozon via live chat! Commands: .ozon <query>",
-        "uk": "Шукайте продукти на Ozon через чат! Команди: .ozon <запит>",
-        "ru": "Ищите товары на Ozon через чат! Команды: .ozon <запрос>",
-        "pl": "Szukaj produktów na Ozon za pośrednictwem czatu na żywo! Polecenia: .ozon <zapytanie>",
-        "es": "¡Busque productos en Ozon a través del chat en vivo! Comandos: .ozon <consulta>",
-        "de": "Suchen Sie per Live-Chat nach Produkten auf Ozon! Befehle: .ozon <Abfrage>",
-        "fr": "Recherchez des produits sur Ozon via le chat en direct ! Commandes : .ozon <requête>",
-        "pt-BR": "Pesquise produtos no Ozon via chat ao vivo! Comandos: .ozon <consulta>",
-        "tr": "Canlı sohbet yoluyla Ozon'da ürünleri arayın! Komutlar: .ozon <sorgu>",
-        "ar": "ابحث عن المنتجات على Ozon عبر الدردشة المباشرة! الأوامر: .ozon <query>",
-        "be": "Шукайце прадукты на Ozon праз жывы чат! Каманды: .ozon <запыт>",
-        "kk": "Тікелей чат арқылы Ozon өнімдерін іздеңіз! Пәрмендер: .ozon <query>"
-      },
-      "permissions": [
-        "messages.send",
-        "network"
       ]
     },
     {
@@ -10596,36 +10424,6 @@
       ]
     },
     {
-      "id": "shikimori_search",
-      "name": "Shikimori Search",
-      "version": "1.5",
-      "min_app_version": "1.0.0",
-      "file": "plugins/shikimori_search/1.5/shikimori_search.plugin",
-      "sha256": "3b165115df8d8f9d3ee3eb1ecb39c8d5f72a6bce7c958ffd63c0f6d6ae18a414",
-      "size": 90932,
-      "description": "Search anime, manga and statistics on Shikimori",
-      "description_i18n": {
-        "en": "Search anime, manga and statistics on Shikimori",
-        "uk": "Шукайте аніме, мангу та статистичні дані про Shikimori",
-        "ru": "Поиск аниме, манги и статистики по Сикимори",
-        "pl": "Wyszukaj anime, mangę i statystyki dotyczące Shikimori",
-        "es": "Busca anime, manga y estadísticas sobre Shikimori.",
-        "de": "Suchen Sie nach Anime, Manga und Statistiken zu Shikimori",
-        "fr": "Recherche d'anime, de manga et de statistiques sur Shikimori",
-        "pt-BR": "Pesquise animes, mangás e estatísticas sobre Shikimori",
-        "tr": "Shikimori'de anime, manga ve istatistik arayın",
-        "ar": "ابحث عن الأنمي والمانجا والإحصائيات على Shikimori",
-        "be": "Пошук анімэ, мангі і статыстыкі па Shikimori",
-        "kk": "Шикимориден аниме, манга және статистиканы іздеңіз"
-      },
-      "permissions": [
-        "messages.send",
-        "network",
-        "files",
-        "hooks"
-      ]
-    },
-    {
       "id": "shimeji",
       "name": "Shimeji",
       "version": "2.0.0",
@@ -10997,36 +10795,6 @@
       ]
     },
     {
-      "id": "stars_unlock_rub",
-      "name": "Stars Unlock & RUB",
-      "version": "2.1.0",
-      "min_app_version": "1.0.0",
-      "file": "plugins/stars_unlock_rub/2.1.0/stars_unlock_rub.plugin",
-      "sha256": "7cab244c60cba4063cdff29f55c2afb34ef3754db22068e8fac6975a4a084d8e",
-      "size": 51222,
-      "description": "Calculates the date of unlocking stars for withdrawal (through the list of transactions, +21 days from the Central Bank) and adds the exchange rate next to $ in the Monetization section. Channel with updates and other plugins",
-      "description_i18n": {
-        "en": "Calculates the date of unlocking stars for withdrawal (through the list of transactions, +21 days from the Central Bank) and adds the exchange rate next to $ in the Monetization section. Channel with updates and other plugins",
-        "uk": "Розраховує дату розблокування зірок для виведення (через список транзакцій, +21 день від ЦБ) і додає курс обміну біля $ в розділі Монетизація. Канал з оновленнями та іншими плагінами",
-        "ru": "Рассчитывает дату разблокировки звезд для вывода (через список транзакций, +21 день от ЦБ) и добавляет курс обмена рядом с $ в разделе Монетизация. Канал с обновлениями и другими плагинами",
-        "pl": "Oblicza datę odblokowania gwiazdek do wypłaty (poprzez listę transakcji, +21 dni od Banku Centralnego) i dodaje kurs wymiany obok $ w sekcji Monetyzacja. Kanał z aktualizacjami i innymi wtyczkami",
-        "es": "Calcula la fecha de desbloqueo de estrellas para retiro (a través del listado de transacciones, +21 días del Banco Central) y agrega el tipo de cambio al lado de $ en la sección Monetización. Canal con actualizaciones y otros complementos.",
-        "de": "Berechnet das Datum der Freischaltung von Sternen für die Auszahlung (über die Liste der Transaktionen, +21 Tage von der Zentralbank) und fügt den Wechselkurs neben $ im Abschnitt „Monetarisierung\" hinzu. Kanal mit Updates und anderen Plugins",
-        "fr": "Calcule la date de déverrouillage des étoiles pour le retrait (via la liste des transactions, +21 jours depuis la Banque Centrale) et ajoute le taux de change à côté de $ dans la section Monétisation. Chaîne avec mises à jour et autres plugins",
-        "pt-BR": "Calcula a data de desbloqueio de estrelas para saque (através da lista de transações, +21 dias do Banco Central) e adiciona a taxa de câmbio ao lado de $ na seção Monetização. Canal com atualizações e outros plugins",
-        "tr": "Para çekme için yıldızların kilidinin açılacağı tarihi hesaplar (işlem listesi aracılığıyla, Merkez Bankası'ndan +21 gün) ve Para Kazanma bölümünde döviz kurunu $'ın yanına ekler. Güncellemelerin ve diğer eklentilerin bulunduğu kanal",
-        "ar": "حساب تاريخ فتح النجوم للسحب (من خلال قائمة المعاملات، +21 يومًا من البنك المركزي) وإضافة سعر الصرف بجوار $ في قسم تحقيق الدخل. قناة مع التحديثات والمكونات الإضافية الأخرى",
-        "be": "Разлічвае дату разблакіроўкі зорак для вываду (праз спіс транзакцый, +21 дзень ад ЦБ) і дадае абменны курс побач з $ у раздзеле Манетызацыя. Канал з абнаўленнямі і іншымі ўбудовамі",
-        "kk": "Шығаруға арналған жұлдыздардың құлпын ашу күнін есептейді (транзакциялар тізімі арқылы, Орталық банктен +21 күн) және Монетизация бөліміндегі доллардың жанына айырбас бағамын қосады. Жаңартулары және басқа плагиндері бар арна"
-      },
-      "permissions": [
-        "messages.read",
-        "network",
-        "intents",
-        "hooks"
-      ]
-    },
-    {
       "id": "status_adder",
       "name": "Status Adder",
       "version": "1.9",
@@ -11343,40 +11111,6 @@
       ]
     },
     {
-      "id": "telegram_jam",
-      "name": "Telegram Jam",
-      "version": "0.11.2",
-      "min_app_version": "1.0.0",
-      "file": "plugins/telegram_jam/0.11.2/telegram_jam.plugin",
-      "sha256": "2a6a2cf81672081a34e5a4a4f83098bf91d9b929d96b0a2806d73fa5a41768a5",
-      "size": 188581,
-      "description": "Joint listening to music in Telegram, like Jam in Spotify: up to 5 people listen to one track synchronously through a standard player. The server only synchronizes the player and does not receive audio, calls or correspondence.",
-      "description_i18n": {
-        "en": "Joint listening to music in Telegram, like Jam in Spotify: up to 5 people listen to one track synchronously through a standard player. The server only synchronizes the player and does not receive audio, calls or correspondence.",
-        "uk": "Спільне прослуховування музики в Telegram, як Jam в Spotify: до 5 людей синхронно слухають один трек через стандартний плеєр. Сервер лише синхронізує плеєр і не приймає аудіо, дзвінки та листування.",
-        "ru": "Совместное прослушивание музыки в Telegram, как Jam в Spotify: до 5 человек синхронно слушают один трек через стандартный плеер. Сервер только синхронизирует плеер и не принимает аудио, звонки и переписку.",
-        "pl": "Wspólne słuchanie muzyki w Telegramie, jak Jam w Spotify: do 5 osób synchronicznie słucha jednego utworu za pomocą standardowego odtwarzacza. Serwer synchronizuje jedynie odtwarzacz i nie odbiera dźwięku, połączeń ani korespondencji.",
-        "es": "Escucha conjunta de música en Telegram, como Jam en Spotify: hasta 5 personas escuchan una pista de forma sincronizada a través de un reproductor estándar. El servidor solo sincroniza el reproductor y no recibe audio, llamadas ni correspondencia.",
-        "de": "Gemeinsames Musikhören in Telegram, wie Jam in Spotify: Bis zu 5 Personen hören synchron einen Titel über einen Standardplayer. Der Server synchronisiert nur den Player und empfängt keine Audiodaten, Anrufe oder Korrespondenz.",
-        "fr": "Écoute conjointe de musique dans Telegram, comme Jam dans Spotify : jusqu'à 5 personnes écoutent une piste de manière synchrone via un lecteur standard. Le serveur synchronise uniquement le lecteur et ne reçoit pas d'audio, d'appels ou de correspondance.",
-        "pt-BR": "Escuta conjunta de música no Telegram, como Jam no Spotify: até 5 pessoas ouvem uma faixa de forma síncrona por meio de um player padrão. O servidor apenas sincroniza o player e não recebe áudio, chamadas ou correspondência.",
-        "tr": "Spotify'daki Jam gibi Telegram'da ortak müzik dinleme: Standart bir oynatıcı aracılığıyla en fazla 5 kişi aynı anda bir parçayı dinler. Sunucu yalnızca oynatıcıyı senkronize eder ve ses, çağrı veya yazışma almaz.",
-        "ar": "الاستماع المشترك إلى الموسيقى في Telegram، مثل Jam في Spotify: يستمع ما يصل إلى 5 أشخاص إلى مقطع صوتي واحد بشكل متزامن من خلال مشغل قياسي. يقوم الخادم فقط بمزامنة المشغل ولا يستقبل الصوت أو المكالمات أو المراسلات.",
-        "be": "Сумеснае праслухоўванне музыкі ў Telegram, як Jam у Spotify: да 5 чалавек сінхронна слухаюць адзін трэк праз стандартны плэер. Сервер толькі сінхранізуе плэер і не прымае аўдыё, званкі і перапіску.",
-        "kk": "Spotify-дағы Jam сияқты Telegram-да музыканы бірлесіп тыңдау: стандартты ойнатқыш арқылы бір тректі синхронды түрде 5 адамға дейін тыңдайды. Сервер тек ойнатқышты үндестіреді және дыбысты, қоңырауларды немесе хат-хабарларды қабылдамайды."
-      },
-      "requirements": [
-        "websocket-client>=1.8.0"
-      ],
-      "permissions": [
-        "messages.read",
-        "messages.send",
-        "network",
-        "settings",
-        "hooks"
-      ]
-    },
-    {
       "id": "temp_sub",
       "name": "TempSub",
       "version": "3.1.0",
@@ -11593,34 +11327,6 @@
       },
       "permissions": [
         "messages.send"
-      ]
-    },
-    {
-      "id": "tomato_bom",
-      "name": "Tomato bom",
-      "version": "1.2.8",
-      "min_app_version": "1.0.0",
-      "file": "plugins/tomato_bom/1.2.8/tomato_bom.plugin",
-      "sha256": "5870d955701281306bb42e915205c5ba49a4c4893806f7e7bea68dabf7edcd0a",
-      "size": 11491,
-      "description": "Throws tomatoes. Clamping = machine gun fire.",
-      "description_i18n": {
-        "en": "Throws tomatoes. Clamping = machine gun fire.",
-        "uk": "Кидає помідори. Затиск = кулеметний вогонь.",
-        "ru": "Бросает помидоры. Зажим = пулеметный огонь.",
-        "pl": "Rzuca pomidorami. Zaciśnięcie = ogień z karabinu maszynowego.",
-        "es": "Tira tomates. Sujeción = fuego de ametralladora.",
-        "de": "Wirft Tomaten. Klemmen = Maschinengewehrfeuer.",
-        "fr": "Jette des tomates. Serrage = tir de mitrailleuse.",
-        "pt-BR": "Joga tomates. Aperto = tiro de metralhadora.",
-        "tr": "Domates atar. Sıkıştırma = makineli tüfek ateşi.",
-        "ar": "يرمي الطماطم. لقط = نار مدفع رشاش.",
-        "be": "Кідае памідоры. Заціск = кулямётны агонь.",
-        "kk": "Томатты лақтырады. Қысу = пулеметтің атысы."
-      },
-      "permissions": [
-        "network",
-        "files"
       ]
     },
     {
