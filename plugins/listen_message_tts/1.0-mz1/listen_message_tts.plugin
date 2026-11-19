@@ -1,8 +1,21 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 __id__ = "listen_message_tts"
-__name__ = "Прослушать сообщение"
-__version__ = "1.0"
+__name__ = "Listen to Message"
+__version__ = "1.0-mz1"
 __author__ = "MandreAI CLI"
-__description__ = "Добавляет пункт в контекстное меню сообщения: Прослушать. Использует системный TextToSpeech (Google, если установлен), без внешних API."
+__description__ = "Adds a Listen item to the message context menu. Uses the system TextToSpeech (Google, if installed), no external APIs."
 __min_version__ = "11.9.0"
 __icon__ = "exteraPlugins/0"
 __category__ = ["chats", "media"]
@@ -29,7 +42,7 @@ class ListenMessageTTSPlugin(BasePlugin):
         try:
             self._menu_id = self.add_menu_item(MenuItemData(
                 menu_type=MenuItemType.MESSAGE_CONTEXT_MENU,
-                text="Прослушать",
+                text=_mz_t("Прослухати", "Listen", "Прослушать"),
                 icon="msg_voice",
                 on_click=self._on_listen_click,
                 condition="message != null && ((message.messageText != null && message.messageText.length() > 0) || message.caption != null)",
@@ -141,7 +154,7 @@ class ListenMessageTTSPlugin(BasePlugin):
             if not (_TTSState.tts is not None and _TTSState.init_ok):
                 ok = self._ensure_tts(ctx)
                 if not ok:
-                    log("[TTS] Инициализация синтезатора... Нажмите ещё раз через секунду")
+                    log("[TTS] Initializing the synthesizer... Tap again in a second")
                     return
             def speak_on_ui():
                 try:
@@ -208,10 +221,10 @@ class ListenMessageTTSPlugin(BasePlugin):
             msg = context.get('message')
             text = self._extract_message_text(msg)
             if ctx is None:
-                log("[TTS] Нет Android Context для инициализации TTS")
+                log("[TTS] No Android Context to initialize TTS")
                 return
             if not text:
-                log("[TTS] Нет текста для озвучивания")
+                log("[TTS] No text to speak")
                 return
             self._speak_text(ctx, text)
         except Exception as e:

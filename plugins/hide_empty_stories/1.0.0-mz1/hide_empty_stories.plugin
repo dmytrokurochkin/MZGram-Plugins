@@ -1,13 +1,10 @@
 __id__ = "hide_empty_stories"
 __name__ = "Hide Empty Posts"
 __description__ = (
-    "Скрывает в вашем профиле вкладки «Публикации» и «Архив публикаций», если в них ничего нет "
-    "(публикаций не было или все скрыты). Вкладка «Подарки» остаётся. Работает автоматически, без настроек.\n"
-    "Hides the \"Posts\" and \"Posts archive\" tabs in your own profile when they are empty. "
-    "The \"Gifts\" tab stays. Works automatically, no settings."
+    "Hides the “Posts” and “Posts archive” tabs in your own profile when they are empty. The “Gifts” tab stays. Works automatically, no settings."
 )
 __author__ = "@countryrussia24 & Claude"
-__version__ = "1.0.0"
+__version__ = "1.0.0-mz1"
 __min_version__ = "12.10.6"
 __app_version__ = ">=12.10.6"
 __category__ = ["appearance"]
@@ -17,25 +14,25 @@ from base_plugin import BasePlugin, MethodHook
 from client_utils import get_last_fragment
 from hook_utils import find_class
 
-# Идентификаторы вкладок в SharedMediaLayout
+# Tab ids in SharedMediaLayout
 TAB_STORIES = 8
 TAB_ARCHIVED_STORIES = 9
 
-# Типы списков историй в StoriesController
+# Story list types in StoriesController
 LIST_PINNED = 0
 LIST_ARCHIVE = 1
 
 
 class AddTabHook(MethodHook):
     def _own_dialog_id(self):
-        """dialog_id открытого профиля, если это МОЙ профиль, иначе None."""
+        """dialog_id of the open profile if it is MY profile, otherwise None."""
         fragment = get_last_fragment()
         if fragment is None:
             return None
         UserConfig = find_class("org.telegram.messenger.UserConfig")
         own_id = int(UserConfig.getInstance(UserConfig.selectedAccount).getClientUserId())
         name = fragment.getClass().getName()
-        # Вкладка «Профиль» внизу главного экрана — это всегда мой профиль
+        # The Profile tab at the bottom of the main screen is always my profile
         if "MainTabsActivity" in name:
             return own_id
         if "ProfileActivity" not in name:
@@ -65,10 +62,10 @@ class AddTabHook(MethodHook):
             list_type = LIST_PINNED if tab_id == TAB_STORIES else LIST_ARCHIVE
             count = self._count(dialog_id, list_type)
             if count is not None and count <= 0:
-                # пропускаем оригинальный addTextTab -> вкладка не добавится
+                # skip the original addTextTab -> the tab is not added
                 param.setResult(None)
         except Exception:
-            # при любой ошибке ничего не скрываем, интерфейс остаётся как есть
+            # on any error hide nothing, the interface stays as it is
             pass
 
 

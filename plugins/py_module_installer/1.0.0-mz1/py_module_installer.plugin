@@ -1,8 +1,21 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 __id__ = "py_module_installer"
 __name__ = "ModuleInstaller"
-__description__ = "Установка .py модулей Heroku/Hikka прямо из Telegram с отображением метаданных и команд."
+__description__ = "Installs Heroku/Hikka .py modules right from Telegram and shows their metadata and commands."
 __author__ = "@RnPlugins"
-__version__ = "1.0.0"
+__version__ = "1.0.0-mz1"
 __icon__ = "RnDev/11"
 __app_version__ = ">=12.5.1"
 __category__ = ["tools", "integrations"]
@@ -97,12 +110,12 @@ class Plugin(BasePlugin):
                             return
                         builder = AlertDialogBuilder(ctx, AlertDialogBuilder.ALERT_TYPE_MESSAGE)
                         builder.set_title("ModuleInstaller")
-                        builder.set_message("Укажите префикс команд юзербота в настройках плагина.")
-                        builder.set_positive_button("Настройки", lambda d, _: (
+                        builder.set_message(_mz_t("Вкажіть префікс команд юзербота в налаштуваннях плагіна.", "Set the userbot command prefix in the plugin settings.", "Укажите префикс команд юзербота в настройках плагина."))
+                        builder.set_positive_button(_mz_t("Налаштування", "Settings", "Настройки"), lambda d, _: (
                             d.dismiss(),
                             self._open_settings(),
                         ))
-                        builder.set_negative_button("Позже", lambda d, _: d.dismiss())
+                        builder.set_negative_button(_mz_t("Пізніше", "Later", "Позже"), lambda d, _: d.dismiss())
                         builder.show()
                     except Exception as e:
                         self.log(f"show_prefix_alert error: {e}")
@@ -150,7 +163,7 @@ class Plugin(BasePlugin):
             Header(text="ModuleInstaller"),
             Input(
                 key="prefix",
-                text="Префикс команд",
+                text=_mz_t("Префікс команд", "Command prefix", "Префикс команд"),
                 default="",
                 icon="msg_link",
                 on_change=self._on_prefix_change,

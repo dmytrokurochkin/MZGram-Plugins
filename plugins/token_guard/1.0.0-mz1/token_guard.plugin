@@ -1,3 +1,16 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 from typing import Any, List
 from base_plugin import BasePlugin, HookResult, HookStrategy
 from ui.settings import Header, Switch, Text
@@ -5,9 +18,9 @@ import re
 
 __id__ = "token_guard"
 __name__ = "Token Guard"
-__description__ = "Защита от случайной отправки токенов, ключей и личных данных"
+__description__ = "Protects against accidentally sending tokens, keys and personal data"
 __author__ = "@Darkrelay"
-__version__ = "1.0.0"
+__version__ = "1.0.0-mz1"
 __app_version__ = ">=12.5.1"
 __category__ = ["privacy"]
 __sdk_version__ = ">=1.4.3.3"
@@ -18,8 +31,8 @@ class TokenGuardPlugin(BasePlugin):
     def create_settings(self) -> List[Any]:
         return [
             Header(text="Token Guard"),
-            Switch(key="enabled", text="Включить защиту", default=True),
-            Text(text="Плагин предотвращает случайную отправку API ключей, токенов, номеров и email."),
+            Switch(key="enabled", text=_mz_t("Увімкнути захист", "Enable protection", "Включить защиту"), default=True),
+            Text(text=_mz_t("Плагін не дає випадково надіслати ключі API, токени, номери телефонів і email.", "The plugin prevents accidentally sending API keys, tokens, phone numbers and emails.", "Плагин предотвращает случайную отправку API ключей, токенов, номеров и email.")),
         ]
 
     def on_plugin_load(self):
@@ -38,7 +51,7 @@ class TokenGuardPlugin(BasePlugin):
         msg = params.message.strip()
 
         if self.is_sensitive(msg):
-            params.message = "⚠️ Обнаружены личные данные или токен. Отправка заблокирована."
+            params.message = _mz_t("⚠️ Знайдено особисті дані або токен. Надсилання заблоковано.", "⚠️ Personal data or a token was found. Sending is blocked.", "⚠️ Обнаружены личные данные или токен. Отправка заблокирована.")
             result.strategy = HookStrategy.MODIFY
             result.params = params
             return result
@@ -49,10 +62,10 @@ class TokenGuardPlugin(BasePlugin):
         patterns = [
             r"sk-[A-Za-z0-9]{20,}",                      # OpenAI API key
             r"\d{9}:[A-Za-z0-9_-]{35}",                  # Telegram bot token
-            r"\+?\d{10,15}",                             # Телефон
+            r"\+?\d{10,15}",                             # Phone
             r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+",  # Email
             r"(mnemonic|seed phrase|private key)",       # Seed/crypto
-            r"[A-Za-z0-9_\-]{32,}",                      # Длинный токен
+            r"[A-Za-z0-9_\-]{32,}",                      # Long token
         ]
 
         for pattern in patterns:

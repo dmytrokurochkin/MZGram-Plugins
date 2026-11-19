@@ -10,8 +10,8 @@ from org.telegram.messenger import ApplicationLoader
 
 __id__ = "download_chat_wallpaper"
 __name__ = "Chat Wallpaper Downloader"
-__description__ = "Скачивает кастомный фон чата или группы\n\nИспользование: Зайти в группу или чат где есть кастомный фон, Три точки, Плагины, Скачать кастомный фон.\n\nИсходник фона скачается в Загрузки устройства"
-__version__ = "1.0.0"
+__description__ = "Downloads a chat's or group's custom background\n\nHow to use: open a group or chat with a custom background, Three dots, Plugins, Download custom background.\n\nThe background file is saved to the device Downloads"
+__version__ = "1.0.0-mz1"
 __icon__ = "icons_for_plugins_shimenkov/0"
 __author__ = "@n_shimenkov"
 __min_version__ = "12.5.1"
@@ -24,6 +24,13 @@ STRINGS = {
         "success":      "Wallpaper saved to Downloads!",
         "no_wallpaper": "No custom wallpaper set ¯\_(ツ)_/¯",
         "error":        "Failed to save wallpaper :(",
+    },
+    "uk": {
+        "menu_text":    "Завантажити власний фон",
+        "menu_subtext": "Зберегти фон чату в «Завантаження»",
+        "success":      "Фон збережено в «Завантаження»!",
+        "no_wallpaper": "Власний фон не встановлено ¯\\_(ツ)_/¯",
+        "error":        "Не вдалося зберегти фон :(",
     },
     "ru": {
         "menu_text":    "Скачать кастомный фон",

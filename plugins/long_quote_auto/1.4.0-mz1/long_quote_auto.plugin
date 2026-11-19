@@ -1,3 +1,16 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 import re
 from typing import Any, List
 from base_plugin import BasePlugin, HookResult, HookStrategy
@@ -7,10 +20,10 @@ from org.telegram.tgnet import TLRPC
 
 __id__ = "long_quote_auto"
 __name__ = "LongQuoteAuto"
-__description__ = "Сворачивает сообщение в цитату при наличии триггер-слов(крашлоги), чтоб не срать длинным текстом в чат."
+__description__ = "Collapses a message into a quote when it has trigger words (crash logs), so long texts do not flood the chat."
 __author__ = "@KUNSESHBOY"
 __min_version__ = "12.5.1"
-__version__ = "1.4.0"
+__version__ = "1.4.0-mz1"
 __icon__ = "SunnyAnime/3"
 __category__ = ["chats"]
 
@@ -79,18 +92,18 @@ class LongQuoteAutoPlugin(BasePlugin):
 
     def create_settings(self) -> List[Any]:
         return [
-            Header(text="Основные настройки"),
+            Header(text=_mz_t("Основні налаштування", "Main settings", "Основные настройки")),
             Switch(
                 key="enabled",
-                text="Включить авто-цитату",
+                text=_mz_t("Увімкнути автоцитату", "Enable auto quote", "Включить авто-цитату"),
                 default=True,
-                subtext="Сворачивать сообщения при наличии триггеров",
+                subtext=_mz_t("Згортати повідомлення з тригерами", "Collapse messages that have triggers", "Сворачивать сообщения при наличии триггеров"),
             ),
             Switch(
                 key="skip_commands",
-                text="Игнорировать команды",
+                text=_mz_t("Ігнорувати команди", "Ignore commands", "Игнорировать команды"),
                 default=True,
-                subtext="Не сворачивать сообщения, начинающиеся с '.'",
+                subtext=_mz_t("Не згортати повідомлення, що починаються з '.'", "Don't collapse messages that start with '.'", "Не сворачивать сообщения, начинающиеся с '.'"),
             ),
-            Header(text="Автор: @KUNSESHBOY"),
+            Header(text=_mz_t("Автор: @KUNSESHBOY", "Author: @KUNSESHBOY", "Автор: @KUNSESHBOY")),
         ]

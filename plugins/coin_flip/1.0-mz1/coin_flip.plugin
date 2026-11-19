@@ -1,6 +1,19 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 __id__ = "coin_flip"
 __name__ = "Coin Flip"
-__version__ = "1.0"
+__version__ = "1.0-mz1"
 __author__ = "v1sile"
 __description__ = "Plugin for playing Heads or Tails"
 __min_version__ = "12.1.1"
@@ -32,7 +45,9 @@ class CoinFlip(BasePlugin):
         try:
             from org.telegram.messenger import LocaleController
             lang = LocaleController.getInstance().getCurrentLocale().getLanguage()
-            if lang in ["ru", "uk", "be"]:
+            if lang == "uk":
+                return "uk"
+            if lang == "ru":
                 return "ru"
             return "en"
         except:
@@ -41,7 +56,7 @@ class CoinFlip(BasePlugin):
     def get_text(self, key: str) -> str:
         texts = {
             "help": {
-                "ru": (
+                "uk": "Гра «Орел чи решка»\n\nКоманди:\n.flip - підкинути монетку\n.flip help - показати це повідомлення", "ru": (
                     "Игра Орёл и Решка\n\n"
                     "Команды:\n"
                     ".flip - подбросить монетку\n"
@@ -55,19 +70,19 @@ class CoinFlip(BasePlugin):
                 )
             },
             "result": {
-                "ru": "Монета упала. Результат: {}",
+                "uk": "Монета впала. Результат: {}", "ru": "Монета упала. Результат: {}",
                 "en": "Coin fell. Result: {}"
             },
             "heads": {
-                "ru": "Орёл",
+                "uk": "Орел", "ru": "Орёл",
                 "en": "Heads"
             },
             "tails": {
-                "ru": "Решка",
+                "uk": "Решка", "ru": "Решка",
                 "en": "Tails"
             },
             "error": {
-                "ru": "Ошибка: {}",
+                "uk": "Помилка: {}", "ru": "Ошибка: {}",
                 "en": "Error: {}"
             }
         }
@@ -83,11 +98,11 @@ class CoinFlip(BasePlugin):
         
     def create_settings(self):
         return [
-            Header("Информация"),
+            Header(_mz_t("Інформація", "Information", "Информация")),
             Input(
                 "info",
                 "",
-                "Команда: .flip",
+                _mz_t("Команда: .flip", "Command: .flip", "Команда: .flip"),
                 "",
                 enabled=False
             )

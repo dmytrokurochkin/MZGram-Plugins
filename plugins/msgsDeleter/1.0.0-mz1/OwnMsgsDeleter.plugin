@@ -1,3 +1,16 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 import client_utils
 from android_utils import run_on_ui_thread, log
 from client_utils import send_request, get_messages_controller
@@ -12,9 +25,9 @@ from org.telegram.messenger import MessageObject, LocaleController, R, Applicati
 
 
 __name__ = "Own Messages Deleter"
-__description__ = "Удаляет все собственные сообщения в чате/группе.\n\nDeletes all your own message in chat/group."
+__description__ = "Deletes all your own messages in a chat or group."
 __icon__ = "Miku_u/11"
-__version__ = "1.0.0"
+__version__ = "1.0.0-mz1"
 __id__ = "msgsDeleter"
 __author__ = "@bleizix"
 __min_version__ = "11.12.0"
@@ -48,10 +61,10 @@ class OwnMessagesDeleter(BasePlugin):
                 builder = AlertDialogBuilder(ctx, AlertDialogBuilder.ALERT_TYPE_MESSAGE)
 
                 lang = LocaleController.getInstance().getCurrentLocale().getLanguage()
-                if lang.startswith('ru'):
-                    builder.set_title("Удалить сообщения?")
-                    builder.set_message("Удалить абсолютно все свои сообщения? Это действие невозможно отменить")
-                    builder.set_positive_button("Да", lambda dialog, which : self.delete_user_history_with_search(fragment, context.get("dialog_id"), 0, 0, client_utils.get_connections_manager().getCurrentTime(), None))
+                if lang.startswith(('ru', 'uk')):
+                    builder.set_title(_mz_t("Видалити повідомлення?", "Delete messages?", "Удалить сообщения?"))
+                    builder.set_message(_mz_t("Видалити геть усі свої повідомлення? Цю дію не можна скасувати", "Do you really want to delete all your messages? This action cannot be undone.", "Удалить абсолютно все свои сообщения? Это действие невозможно отменить"))
+                    builder.set_positive_button(_mz_t("Так", "Yes", "Да"), lambda dialog, which : self.delete_user_history_with_search(fragment, context.get("dialog_id"), 0, 0, client_utils.get_connections_manager().getCurrentTime(), None))
                 else:
                     builder.set_title("Delete messages?")
                     builder.set_message("Do you really want to delete all your messages? This action cannot be undone.")
@@ -64,8 +77,8 @@ class OwnMessagesDeleter(BasePlugin):
                     ayugram = False
 
                 if (ayugram):
-                    if lang.startswith('ru'):
-                        builder.set_neutral_button("Да, не сохраняя локально", lambda dialog, which :self.delete_user_history_with_search(fragment, context.get("dialog_id"), 0, 0, client_utils.get_connections_manager().getCurrentTime(), None, True))
+                    if lang.startswith(('ru', 'uk')):
+                        builder.set_neutral_button(_mz_t("Так, не зберігаючи локально", "Yes, without saving locally", "Да, не сохраняя локально"), lambda dialog, which :self.delete_user_history_with_search(fragment, context.get("dialog_id"), 0, 0, client_utils.get_connections_manager().getCurrentTime(), None, True))
                     else:
                         builder.set_neutral_button("Yes, without saving locally", lambda dialog, which :self.delete_user_history_with_search(fragment, context.get("dialog_id"), 0, 0, client_utils.get_connections_manager().getCurrentTime(), None, True))
 
@@ -78,8 +91,8 @@ class OwnMessagesDeleter(BasePlugin):
                 BulletinHelper.show_error(f"error: {e}")
 
         lang = LocaleController.getInstance().getCurrentLocale().getLanguage()
-        isRussian = lang.startswith('ru')
-        textToShow = "Удал. свои соо." if isRussian else "Delete own msgs"
+        isRussian = lang.startswith(('ru', 'uk'))
+        textToShow = _mz_t("Видал. свої пов.", "Delete own msgs", "Удал. свои соо.") if isRussian else "Delete own msgs"
         self.add_menu_item(
             MenuItemData(
                 menu_type=MenuItemType.CHAT_ACTION_MENU,

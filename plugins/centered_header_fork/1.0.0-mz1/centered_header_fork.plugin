@@ -1,3 +1,16 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 from java.util import Locale
 from ui.settings import Header, Selector, Divider, Switch, Input
 from base_plugin import BasePlugin, MethodHook, MethodReplacement
@@ -7,7 +20,7 @@ __id__ = "centered_header_fork"
 __name__ = "Centered header (fork)"
 __description__ = "Centered header for chats"
 __author__ = "@ScorpiOVN_sc (@n0white)"
-__version__ = "1.0.0"
+__version__ = "1.0.0-mz1"
 __icon__ = "VislBejbi9/17"
 __min_version__ = "12.1.1"
 __category__ = ["appearance"]
@@ -403,23 +416,23 @@ class CenteredHeaderPlugin(BasePlugin):
         x_idx = _safe_int(self.get_setting("x_idx", 0))
         y_idx = _safe_int(self.get_setting("y_idx", 0))
         
-        if lang.startswith("ru"):
+        if lang.startswith(("ru", "uk")):
             return [
-                Header(text="Настройки текста"),
-                Switch(key="scrolling_enabled", text="Бегущая строка (Marquee)", default=scrolling),
-                Input(key="safe_margin", text="Боковой отступ (dp)", default=margin_val),
+                Header(text=_mz_t("Налаштування тексту", "Text settings", "Настройки текста")),
+                Switch(key="scrolling_enabled", text=_mz_t("Біжучий рядок (Marquee)", "Scrolling text (Marquee)", "Бегущая строка (Marquee)"), default=scrolling),
+                Input(key="safe_margin", text=_mz_t("Бічний відступ (dp)", "Side margin (dp)", "Боковой отступ (dp)"), default=margin_val),
                 
                 Divider(text=""),
-                Header(text="Настройки аватара"),
+                Header(text=_mz_t("Налаштування аватарки", "Avatar settings", "Настройки аватара")),
                 Input(
                 key="x_idx",
-                text="Сдвиг по X",
+                text=_mz_t("Зсув по X", "X offset", "Сдвиг по X"),
                 default=x_idx),
                 Input(
                 key="y_idx",
-                text="Сдвиг по Y",
+                text=_mz_t("Зсув по Y", "Y offset", "Сдвиг по Y"),
                 default=y_idx),
-                Divider(text="После изменения настроек перезайдите в чат")
+                Divider(text=_mz_t("Після зміни налаштувань перезайдіть у чат", "Reopen the chat after changing the settings", "После изменения настроек перезайдите в чат"))
             ]
         
         return [

@@ -1,9 +1,22 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 __id__ = "account_hider"
 __name__ = "AccountHider"
 __category__ = ["privacy"]
-__description__ = "Скрывает аккаунты из списков. Зажми «Аккаунт» в настройках, 2 раза тапни по профилю в навигации или зажми стрелку в боковом меню."
+__description__ = "Hides accounts from lists. Hold “Account” in the settings, double-tap your profile in the navigation or hold the arrow in the side menu."
 __author__ = "@RnPlugins"
-__version__ = "1.0.3"
+__version__ = "1.0.3-mz1"
 __icon__ = "RnDev/37"
 __app_version__ = ">=12.10.6"
 __sdk_version__ = ">=1.4.3.3"
@@ -49,19 +62,19 @@ class Plugin(BasePlugin):
 
     def create_settings(self):
         return [
-            Header(text="Уведомления"),
+            Header(text=_mz_t("Сповіщення", "Notifications", "Уведомления")),
             Switch(
                 key="mute_hidden",
-                text="Заглушить скрытые",
+                text=_mz_t("Заглушити сховані", "Mute hidden accounts", "Заглушить скрытые"),
                 default=False,
                 icon="msg_mute",
                 on_change=self._on_mute_change,
             ),
-            Divider(text="Без уведомлений от скрытых аккаунтов"),
-            Header(text="Подпись аккаунта"),
+            Divider(text=_mz_t("Без сповіщень від схованих акаунтів", "No notifications from hidden accounts", "Без уведомлений от скрытых аккаунтов")),
+            Header(text=_mz_t("Підпис акаунта", "Account caption", "Подпись аккаунта")),
             Switch(
                 key="sub_phone",
-                text="Номер",
+                text=_mz_t("Номер", "Number", "Номер"),
                 default=False,
                 icon="msg_calls",
                 on_change=self._on_pref_change("sub_phone"),
@@ -75,7 +88,7 @@ class Plugin(BasePlugin):
             ),
             Switch(
                 key="sub_username",
-                text="Юзернейм",
+                text=_mz_t("Ім'я користувача", "Username", "Юзернейм"),
                 default=False,
                 icon="msg_mention",
                 on_change=self._on_pref_change("sub_username"),

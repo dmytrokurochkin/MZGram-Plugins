@@ -1,8 +1,21 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 __id__ = "second_voice"
-__name__ = "Таймер голосовых: прошедшее/общее"
-__description__ = "Заменяет стандартный таймер у голосовых сообщений на формат 'прошедшее / общее' (например: 01:09 / 02:16)."
+__name__ = "Voice Timer: elapsed/total"
+__description__ = "Replaces the voice message timer with an 'elapsed / total' format (for example: 01:09 / 02:16)."
 __author__ = "@buligaEplugins & @incLu_01"
-__version__ = "1.2.0"
+__version__ = "1.2.0-mz1"
 __icon__ = "BuligaPlugins/3"
 __min_version__ = "11.12.0"
 __category__ = ["media"]
@@ -508,16 +521,16 @@ class VoiceTimerPlugin(BasePlugin):
     def create_settings(self):
         from ui.settings import Header, Switch, Text, Divider
         return [
-            Header(text="Таймер голосовых"),
+            Header(text=_mz_t("Таймер голосових", "Voice timer", "Таймер голосовых")),
             Switch(
                 key="invert_order",
-                text="Инвертировать порядок",
+                text=_mz_t("Інвертувати порядок", "Invert the order", "Инвертировать порядок"),
                 default=False,
-                subtext="Показывать 'общее / прошедшее' вместо 'прошедшее / общее'",
+                subtext=_mz_t("Показувати «усього / минуло» замість «минуло / усього»", "Show 'total / elapsed' instead of 'elapsed / total'", "Показывать 'общее / прошедшее' вместо 'прошедшее / общее'"),
                 icon="msg_sort",
             ),
             Divider(),
-            Text(text="Авторы: @buligaEplugins, @incLu_01", icon="msg_info"),
+            Text(text=_mz_t("Автори: @buligaEplugins, @incLu_01", "Authors: @buligaEplugins, @incLu_01", "Авторы: @buligaEplugins, @incLu_01"), icon="msg_info"),
         ]
 
     def _schedule_final_refresh(self, cell):

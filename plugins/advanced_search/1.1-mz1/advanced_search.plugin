@@ -1,8 +1,8 @@
 __id__ = "advanced_search"
-__name__ = "Продвинутый поиск"
-__description__ = "Продвинутый поиск по чатам, документам с фильтрами по дате, юзеру, типу медиа"
+__name__ = "Advanced Search"
+__description__ = "Advanced search in chats and documents with filters by date, user and media type"
 __author__ = "@dekma0091"
-__version__ = "1.1"
+__version__ = "1.1-mz1"
 __icon__ = "pixelcamera/16"
 __min_version__ = "12.5.1"
 __category__ = ["chats"]
@@ -20,17 +20,26 @@ def is_english():
     try:
         lang = str(LocaleController.getLocaleStringIso639() or "").lower()
         if lang:
-            return not (lang.startswith("ru") or lang.startswith("uk") or lang.startswith("be"))
+            return not lang.startswith("ru")
     except Exception:
         pass
     try:
         Locale = jclass("java.util.Locale")
         lang = str(Locale.getDefault().getLanguage() or "").lower()
-        return not (lang.startswith("ru") or lang.startswith("uk") or lang.startswith("be"))
+        return not lang.startswith("ru")
     except Exception:
         return False
 
-def tr(ru, en):
+def _mz_is_uk():
+    try:
+        Locale = jclass("java.util.Locale")
+        return str(Locale.getDefault().getLanguage() or "").lower().startswith("uk")
+    except Exception:
+        return False
+
+def tr(ru, en, uk=None):
+    if uk and _mz_is_uk():
+        return uk
     return en if is_english() else ru
 
 ENTRY_CLASS = "ni.dekma.advanced_search.AdvancedSearchBridge"
@@ -151,18 +160,18 @@ class AdvancedSearchPlugin(BasePlugin):
 
     def create_settings(self):
         return [
-            Header(text=tr("Отображение кнопки", "Button display")),
+            Header(text=tr("Отображение кнопки", "Button display", "Показ кнопки")),
             Switch(
                 key="show_main_search_btn",
-                text=tr("Показывать кнопку расширенного поиска в строке главного экрана", "Show advanced search button in main screen bar"),
+                text=tr("Показывать кнопку расширенного поиска в строке главного экрана", "Show advanced search button in main screen bar", "Показувати кнопку розширеного пошуку в рядку головного екрана"),
                 default=True,
                 icon="msg_search",
                 on_change=self.on_show_main_search_changed,
             ),
-            Header(text=tr("Обучение и подсказки", "Tutorial & hints")),
+            Header(text=tr("Обучение и подсказки", "Tutorial & hints", "Навчання й підказки")),
             Text(
-                text=tr("Сбросить подсказку первого запуска", "Reset first launch hint"),
-                subtext=tr("Показать подсказку по долгому тапу при следующем поиске", "Show long tap hint on next search"),
+                text=tr("Сбросить подсказку первого запуска", "Reset first launch hint", "Скинути підказку першого запуску"),
+                subtext=tr("Показать подсказку по долгому тапу при следующем поиске", "Show long tap hint on next search", "Показати підказку довгим дотиком під час наступного пошуку"),
                 icon="help",
                 on_click=self.on_reset_hint_click,
             ),
