@@ -1,0 +1,182 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
+from base_plugin import BasePlugin, MethodHook
+from java import jclass
+
+__id__ = "etg_weekday"
+__name__ = "Day of the week"
+__description__ = "Adds the day of the week next to the date."
+__author__ = "@kissplugin"
+__version__ = "1.1.0-mz1"
+__icon__ = "msg_calendar"
+__app_version__ = ">=12.5.1"
+__category__ = ["appearance"]
+__sdk_version__ = ">=1.4.3.3"
+
+LOCALE_CONTROLLER = "org.telegram.messenger.LocaleController"
+
+# Day-of-week display modes (value = index of the Selector item)
+MODE_FULL = 0    # Monday
+MODE_SHORT = 1   # Mon
+MODE_NUMBER = 2  # 1
+
+
+class _AfterFormatDateChat(MethodHook):
+    def __init__(self, plugin):
+        self.plugin = plugin
+
+    def after_hooked_method(self, param):
+        self.plugin.append_weekday(param)
+
+
+class WeekdayPlugin(BasePlugin):
+    def on_plugin_load(self):
+        self._install_hooks()
+
+    def on_plugin_unload(self):
+        return
+
+    def create_settings(self):
+        try:
+            from ui.settings import Divider, Header, Selector
+        except Exception:
+            return []
+        return [
+            Header(text=_mz_t("День тижня", "Day of the week", "День недели")),
+            Selector(
+                key="mode",
+                text=_mz_t("Формат", "Format", "Формат"),
+                default=MODE_FULL,
+                items=[_mz_t("Повний (понеділок)", "Full (Monday)", "Полное (понедельник)"), _mz_t("Скорочений (пн)", "Short (Mon)", "Сокращённое (пн)"), _mz_t("Номер (1-7)", "Number (1-7)", "Номер (1–7)")],
+                icon="msg_calendar",
+            ),
+            Divider(
+                text=(
+                    _mz_t("Номер тижня починається з понеділка: понеділок = 1, ... неділя = 7.", "The week number starts from Monday: Monday = 1, ... Sunday = 7.", ("Номер недели начинается с понедельника: "
+                    "понедельник = 1, ... воскресенье = 7."))
+                )
+            ),
+        ]
+
+    def _install_hooks(self):
+        LocaleController = self._class_ref(LOCALE_CONTROLLER)
+        if LocaleController is None:
+            self._log("Weekday: LocaleController lookup failed")
+            return
+        try:
+            hooks = self.hook_all_methods(LocaleController, "formatDateChat", _AfterFormatDateChat(self))
+            self._log(f"Weekday: hooks installed formatDateChat={len(hooks)}")
+        except Exception as e:
+            self._log(f"Weekday: hook install failed: {e}")
+
+    def append_weekday(self, param):
+        try:
+            result = param.getResult()
+            if result is None:
+                return
+            text = str(result)
+            args = list(param.args or [])
+            if not args:
+                return
+            date_seconds = int(args[0])
+            if date_seconds <= 0:
+                return
+            weekday = self._weekday_name(date_seconds)
+            if not weekday:
+                return
+            suffix = f", {weekday}"
+            # formatDateChat(date) delegates to formatDateChat(date, checkYear);
+            # both are hooked, so skip if the weekday is already appended.
+            if text.endswith(suffix):
+                return
+            param.setResult(f"{text}{suffix}")
+        except Exception as e:
+            self._log(f"Weekday: append failed: {e}")
+
+    def _weekday_name(self, date_seconds):
+        try:
+            mode = int(self.get_setting("mode", MODE_FULL))
+        except Exception:
+            mode = MODE_FULL
+        if mode == MODE_NUMBER:
+            return self._weekday_number(date_seconds)
+        try:
+            Date = jclass("java.util.Date")
+            SimpleDateFormat = jclass("java.text.SimpleDateFormat")
+            pattern = "EEE" if mode == MODE_SHORT else "EEEE"
+            locale = self._current_locale()
+            fmt = SimpleDateFormat(pattern, locale) if locale is not None else SimpleDateFormat(pattern)
+            return str(fmt.format(Date(date_seconds * 1000)))
+        except Exception as e:
+            self._log(f"Weekday: format failed: {e}")
+            return None
+
+    def _weekday_number(self, date_seconds):
+        try:
+            Date = jclass("java.util.Date")
+            Calendar = jclass("java.util.Calendar")
+            cal = Calendar.getInstance()
+            cal.setTime(Date(date_seconds * 1000))
+            # Calendar.DAY_OF_WEEK: Sunday=1 ... Saturday=7.
+            # Converting to ISO: Monday=1 ... Sunday=7.
+            dow = int(cal.get(Calendar.DAY_OF_WEEK))
+            iso = (dow + 5) % 7 + 1
+            return str(iso)
+        except Exception as e:
+            self._log(f"Weekday: number failed: {e}")
+            return None
+
+    def _current_locale(self):
+        try:
+            LocaleController = self._class_ref(LOCALE_CONTROLLER)
+            inst = LocaleController.getInstance()
+            try:
+                loc = inst.getCurrentLocale()
+            except Exception:
+                loc = inst.currentLocale
+            if loc is not None:
+                return loc
+        except Exception:
+            pass
+        try:
+            Locale = jclass("java.util.Locale")
+            return Locale.getDefault()
+        except Exception:
+            return None
+
+    def _class_ref(self, name):
+        try:
+            ctx = jclass("org.telegram.messenger.ApplicationLoader").applicationContext
+            loader = ctx.getClassLoader()
+            if loader is not None:
+                return loader.loadClass(name)
+        except Exception:
+            pass
+        try:
+            Class = jclass("java.lang.Class")
+            return Class.forName(name)
+        except Exception:
+            pass
+        try:
+            cls = jclass(name)
+            if hasattr(cls, "getDeclaredMethod"):
+                return cls
+            if hasattr(cls, "class_"):
+                return cls.class_
+        except Exception:
+            return None
+        return None
+
+    def _log(self, _message):
+        return
