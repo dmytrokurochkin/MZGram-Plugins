@@ -1,0 +1,796 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
+
+import json
+from typing import Any, Dict, List, Optional
+
+from base_plugin import (
+    BasePlugin,
+    HookResult,
+    HookStrategy,
+    MenuItemData,
+    MenuItemType,
+    MethodHook,
+)
+from hook_utils import find_class, get_private_field
+from ui.alert import AlertDialogBuilder
+from ui.bulletin import BulletinHelper
+from ui.settings import Divider, Header, Input, Switch, Text
+from client_utils import get_last_fragment
+from android_utils import run_on_ui_thread
+
+__id__ = "shadow_ban"
+__name__ = "Shadow Ban"
+__description__ = (
+    "Hides messages of selected users for you only.\nAdd a person through their profile - they will not know.\n\n**New in 1.1.0:** word and symbol filter - hides any messages containing the given words/symbols."
+)
+__author__ = "@kester && @pulseplugin"
+__version__ = "1.1.0-mz1"
+__icon__ = "pulseplugin/0"
+__app_version__ = ">=12.5.1"
+__category__ = ["chats"]
+__sdk_version__ = ">=1.4.3.3"
+
+
+
+# Extract sender_id from MessageObject in every possible way
+
+def _extract_uid(msg_obj, debug_log=None) -> Optional[int]:
+    """Tries all known ways to get the sender's user_id."""
+    try:
+        owner = getattr(msg_obj, "messageOwner", None)
+        if owner is None:
+            if debug_log:
+                debug_log("_extract_uid: messageOwner is None")
+            return None
+
+        if debug_log:
+            # Log all owner fields for diagnostics
+            try:
+                fields = [f.getName() for f in owner.getClass().getDeclaredFields()]
+                debug_log(f"messageOwner fields: {fields[:30]}")
+            except Exception:
+                pass
+
+        # 1. from_id as TLRPC.Peer (Layer 73+)
+        peer = getattr(owner, "from_id", None)
+        if debug_log:
+            debug_log(f"from_id raw = {peer}, type = {type(peer)}")
+
+        if peer is not None:
+            # This is a Peer object
+            if hasattr(peer, "user_id"):
+                uid = int(getattr(peer, "user_id", 0) or 0)
+                if uid:
+                    if debug_log:
+                        debug_log(f"uid via peer.user_id = {uid}")
+                    return uid
+            # May be an int directly (old API)
+            try:
+                uid = int(peer)
+                if uid > 0:
+                    if debug_log:
+                        debug_log(f"uid via int(peer) = {uid}")
+                    return uid
+            except Exception:
+                pass
+
+        # 2. Direct numeric field from_id
+        try:
+            raw = getattr(owner, "from_id", None)
+            if isinstance(raw, int) and raw > 0:
+                if debug_log:
+                    debug_log(f"uid via raw from_id int = {raw}")
+                return raw
+        except Exception:
+            pass
+
+        # 3. sender_id (some forks)
+        for field in ("sender_id", "senderId"):
+            val = getattr(owner, field, None)
+            if val and int(val) > 0:
+                if debug_log:
+                    debug_log(f"uid via {field} = {val}")
+                return int(val)
+
+        # 4. dialog_id (in private chats = user_id)
+        did = getattr(owner, "dialog_id", None)
+        if did and int(did) > 0:
+            if debug_log:
+                debug_log(f"uid via dialog_id = {did}")
+            return int(did)
+
+        # 5. Through MessageObject directly
+        for attr in ("fromChatId", "from_chat_id"):
+            val = getattr(msg_obj, attr, None)
+            if val and int(val) > 0:
+                if debug_log:
+                    debug_log(f"uid via msg.{attr} = {val}")
+                return int(val)
+
+        if debug_log:
+            debug_log("_extract_uid: all methods gave no result")
+    except Exception as e:
+        if debug_log:
+            debug_log(f"_extract_uid exception: {e}")
+    return None
+
+
+
+# ── Word/symbol filtering
+
+WORD_FILTER_KEY = "word_filter_v1"
+WORD_FILTER_ENABLED_KEY = "word_filter_enabled"
+WORD_FILTER_CASE_KEY = "word_filter_case"
+
+# Word separator in storage
+_WORD_SEP = "\n"
+
+
+def _wf_load(plugin) -> list:
+    """Loads the filter word list from settings."""
+    try:
+        raw = plugin.get_setting(WORD_FILTER_KEY, "")
+        if not raw:
+            return []
+        return [w for w in raw.split(_WORD_SEP) if w.strip()]
+    except Exception:
+        return []
+
+
+def _wf_save(plugin, words: list):
+    """Saves the word list to settings and updates the plugin cache."""
+    plugin._word_filter_cache = [w for w in words if w.strip()]
+    plugin.set_setting(
+        WORD_FILTER_KEY,
+        _WORD_SEP.join(plugin._word_filter_cache),
+        reload_settings=True,
+    )
+
+
+def _wf_matches(plugin, msg_obj) -> bool:
+    """
+    Returns True if the message text contains at least one
+    word/symbol from the filter list.
+    """
+    if not plugin.get_setting(WORD_FILTER_ENABLED_KEY, False):
+        return False
+    words = getattr(plugin, "_word_filter_cache", [])
+    if not words:
+        return False
+    try:
+        text = ""
+        owner = getattr(msg_obj, "messageOwner", None)
+        if owner is not None:
+            text = str(getattr(owner, "message", "") or "")
+        # Fallback: try messageText
+        if not text:
+            mt = getattr(msg_obj, "messageText", None)
+            if mt is not None:
+                text = str(mt)
+        if not text:
+            return False
+        case_sensitive = plugin.get_setting(WORD_FILTER_CASE_KEY, False)
+        haystack = text if case_sensitive else text.lower()
+        for w in words:
+            needle = w.strip() if case_sensitive else w.strip().lower()
+            if needle and needle in haystack:
+                return True
+    except Exception as e:
+        plugin.log(f"[ShadowBan] _wf_matches error: {e}")
+    return False
+
+
+# Hook on ChatMessageCell.setMessageObject
+
+class CellHook(MethodHook):
+    def __init__(self, plugin: "ShadowBanPlugin"):
+        self.plugin = plugin
+
+    def after_hooked_method(self, param):
+        if not self.plugin.get_setting("enabled", True):
+            return
+        try:
+            cell = param.thisObject
+            if cell is None:
+                return
+
+            # Try both possible private field names
+            msg_obj = None
+            for field_name in ("currentMessageObject", "messageObject", "message"):
+                msg_obj = get_private_field(cell, field_name)
+                if msg_obj is not None:
+                    break
+
+            if msg_obj is None:
+                # Last resort: from the method arguments
+                if param.args and len(param.args) > 0:
+                    msg_obj = param.args[0]
+
+            if msg_obj is None:
+                return
+
+            debug = self.plugin._debug_log if self.plugin.get_setting("debug", False) else None
+            uid = _extract_uid(msg_obj, debug)
+
+            if debug:
+                debug(f"CellHook: uid={uid}, banned={uid and self.plugin.is_banned(uid)}")
+
+            by_ban  = bool(uid and self.plugin.is_banned(uid))
+            by_word = _wf_matches(self.plugin, msg_obj)
+
+            if by_ban or by_word:
+                cell.setVisibility(8)  # View.GONE
+                try:
+                    lp = cell.getLayoutParams()
+                    if lp is not None:
+                        lp.height = 0
+                        cell.setLayoutParams(lp)
+                except Exception:
+                    pass
+                if by_ban:
+                    self.plugin.log(f"[ShadowBan] Cell hidden from uid={uid}")
+                else:
+                    self.plugin.log("[ShadowBan] Cell hidden by word filter")
+        except Exception as e:
+            self.plugin.log(f"[ShadowBan] CellHook error: {e}")
+
+
+
+# Hook on MessagesController methods - filter the ArrayList before the UI
+
+class MCHook(MethodHook):
+    def __init__(self, plugin: "ShadowBanPlugin"):
+        self.plugin = plugin
+
+    def before_hooked_method(self, param):
+        if not self.plugin.get_setting("enabled", True):
+            return
+        try:
+            debug = self.plugin._debug_log if self.plugin.get_setting("debug", False) else None
+            for i, arg in enumerate(param.args or []):
+                if arg is None:
+                    continue
+                try:
+                    cls_name = arg.getClass().getName()
+                    if "ArrayList" not in cls_name and "List" not in cls_name:
+                        continue
+                    if arg.size() == 0:
+                        continue
+                    first = arg.get(0)
+                    if first is None or not hasattr(first, "messageOwner"):
+                        continue
+                    # This is a list of MessageObject - filter by ban and by words
+                    to_remove = []
+                    for j in range(arg.size()):
+                        item = arg.get(j)
+                        if item is None:
+                            continue
+                        uid = _extract_uid(item, debug)
+                        if uid and self.plugin.is_banned(uid):
+                            to_remove.append(("ban", uid, item))
+                        elif _wf_matches(self.plugin, item):
+                            to_remove.append(("word", uid, item))
+                    for reason, uid, m in to_remove:
+                        arg.remove(m)
+                        if reason == "ban":
+                            self.plugin.log(f"[ShadowBan] MC: message from uid={uid} removed")
+                        else:
+                            self.plugin.log("[ShadowBan] MC: message removed by word filter")
+                except Exception:
+                    continue
+        except Exception as e:
+            self.plugin.log(f"[ShadowBan] MCHook error: {e}")
+
+
+
+# Diagnostic hook - logs all MessageObject (for debug mode)
+
+class DiagHook(MethodHook):
+    def __init__(self, plugin: "ShadowBanPlugin"):
+        self.plugin = plugin
+
+    def after_hooked_method(self, param):
+        if not self.plugin.get_setting("debug", False):
+            return
+        try:
+            cell = param.thisObject
+            if cell is None:
+                return
+            msg_obj = None
+            for fn in ("currentMessageObject", "messageObject", "message"):
+                msg_obj = get_private_field(cell, fn)
+                if msg_obj is not None:
+                    break
+            if msg_obj is None and param.args:
+                msg_obj = param.args[0]
+            if msg_obj is None:
+                return
+            uid = _extract_uid(msg_obj, self.plugin._debug_log)
+            self.plugin._debug_log(f"DiagHook: rendered cell, sender uid={uid}")
+        except Exception as e:
+            self.plugin._debug_log(f"DiagHook error: {e}")
+
+
+
+# Main plugin class
+
+class ShadowBanPlugin(BasePlugin):
+
+    BANNED_KEY = "banned_v3"
+
+    # ── Lifecycle
+
+    def on_plugin_load(self):
+        self.log("ShadowBan v3: loading…")
+        self._banned_cache: Dict[int, str] = self._load_banned()
+        self._word_filter_cache: list = _wf_load(self)
+        self._xposed_hooks: list = []
+
+        # Profile menu
+        self.add_menu_item(MenuItemData(
+            menu_type=MenuItemType.PROFILE_ACTION_MENU,
+            text=_mz_t("Тіньовий бан", "Shadow ban", "Теневой бан"),
+            on_click=self._on_profile_click,
+            icon="msg_block",
+            subtext=_mz_t("Приховати / відновити повідомлення", "Hide / restore messages", "Скрыть / восстановить сообщения"),
+            priority=5,
+        ))
+
+        # Level 3 (TL update hooks - always)
+        self.add_hook("TL_updateNewMessage")
+        self.add_hook("TL_updateNewChannelMessage")
+
+        # Levels 1 and 2 (Xposed)
+        self._hook_cells()
+        self._hook_mc()
+
+        self.log(f"ShadowBan v3: ready. Xposed hooks: {len(self._xposed_hooks)}. Banned: {len(self._banned_cache)}")
+
+    def on_plugin_unload(self):
+        self.log("ShadowBan v3: unloaded.")
+
+    def _debug_log(self, msg: str):
+        self.log(f"[ShadowBan DBG] {msg}")
+
+    # ── Storage
+
+    def _load_banned(self) -> Dict[int, str]:
+        try:
+            return {int(k): v for k, v in json.loads(self.get_setting(self.BANNED_KEY, "{}")).items()}
+        except Exception:
+            return {}
+
+    def _save_banned(self):
+        self.set_setting(
+            self.BANNED_KEY,
+            json.dumps({str(k): v for k, v in self._banned_cache.items()}),
+            reload_settings=True,
+        )
+
+    def is_banned(self, uid: int) -> bool:
+        return uid in self._banned_cache
+
+    def ban_user(self, uid: int, name: str):
+        self._banned_cache[uid] = name
+        self._save_banned()
+        self.log(f"[ShadowBan] Banned: {name} (id={uid})")
+
+    def unban_user(self, uid: int):
+        name = self._banned_cache.pop(uid, str(uid))
+        self._save_banned()
+        self.log(f"[ShadowBan] Unbanned: {name} (id={uid})")
+
+    def get_banned_list(self) -> Dict[int, str]:
+        return dict(self._banned_cache)
+
+    # ── Xposed: cells
+
+    def _hook_cells(self):
+        """
+        Hook ChatMessageCell - the method called on every cell render.
+        We use hook_all_methods to cover all overloads.
+        """
+        for class_name in (
+            "org.telegram.ui.Cells.ChatMessageCell",
+            "org.telegram.ui.Cells.ChatActionCell",
+        ):
+            try:
+                cls = find_class(class_name)
+                if cls is None:
+                    self.log(f"[ShadowBan] Class not found: {class_name}")
+                    continue
+
+                hook = CellHook(self)
+                # setMessageObject - the main method that binds data to the View
+                for method_name in ("setMessageObject", "setMessage", "bind"):
+                    try:
+                        r = self.hook_all_methods(cls, method_name, hook)
+                        if r:
+                            self._xposed_hooks.extend(r)
+                            self.log(f"[ShadowBan] {class_name}.{method_name}: {len(r)} hooks")
+                    except Exception as e:
+                        self.log(f"[ShadowBan] {class_name}.{method_name}: {e}")
+            except Exception as e:
+                self.log(f"[ShadowBan] _hook_cells ({class_name}): {e}")
+
+    # ── Xposed: MessagesController
+
+    def _hook_mc(self):
+        try:
+            cls = find_class("org.telegram.messenger.MessagesController")
+            if cls is None:
+                self.log("[ShadowBan] MessagesController not found")
+                return
+            hook = MCHook(self)
+            for name in (
+                "updateInterfaceWithMessages",
+                "processNewDifferenceParams",
+                "processUpdateArray",
+                "addToMessagesAndNotify",
+                "notifyDataSetChanged",
+            ):
+                try:
+                    r = self.hook_all_methods(cls, name, hook)
+                    if r:
+                        self._xposed_hooks.extend(r)
+                        self.log(f"[ShadowBan] MC.{name}: {len(r)}")
+                except Exception:
+                    pass
+        except Exception as e:
+            self.log(f"[ShadowBan] _hook_mc: {e}")
+
+    # ── Level 3: TL update hook
+
+    def on_update_hook(self, update_name: str, account: int, update: Any) -> HookResult:
+        if not self.get_setting("enabled", True):
+            return HookResult()
+        if update_name not in ("TL_updateNewMessage", "TL_updateNewChannelMessage"):
+            return HookResult()
+        try:
+            msg = getattr(update, "message", None)
+            if msg is None:
+                return HookResult()
+            debug = self._debug_log if self.get_setting("debug", False) else None
+            if debug:
+                debug(f"on_update_hook: {update_name}, msg type={type(msg)}")
+            uid = _extract_uid(type("_Wrap", (), {"messageOwner": msg})(), debug)
+            wrap = type("_Wrap", (), {"messageOwner": msg, "messageText": getattr(msg, "message", "")})()
+            if uid and self.is_banned(uid):
+                self.log(f"[ShadowBan] TL update from uid={uid} cancelled")
+                return HookResult(strategy=HookStrategy.CANCEL)
+            if _wf_matches(self, wrap):
+                self.log("[ShadowBan] TL update cancelled by word filter")
+                return HookResult(strategy=HookStrategy.CANCEL)
+        except Exception as e:
+            self.log(f"[ShadowBan] on_update_hook: {e}")
+        return HookResult()
+
+    # ── Profile menu
+
+    def _on_profile_click(self, context: Dict[str, Any]):
+        user = context.get("user")
+        if user is None:
+            BulletinHelper.show_error(_mz_t("Не вдалося отримати дані користувача", "Couldn't get the user data", "Не удалось получить данные пользователя"))
+            return
+        uid = int(user.id)
+        fname = str(getattr(user, "first_name", "") or "")
+        lname = str(getattr(user, "last_name", "") or "")
+        name = (fname + " " + lname).strip() or f"id{uid}"
+        self._show_confirm(uid, name, self.is_banned(uid))
+
+    def _show_confirm(self, uid: int, name: str, already_banned: bool):
+        def do():
+            frag = get_last_fragment()
+            if not frag:
+                return
+            act = frag.getParentActivity()
+            if not act:
+                return
+            b = AlertDialogBuilder(act)
+            if already_banned:
+                b.set_title(_mz_t("Прибрати з тіньового бану?", "Remove from shadow ban?", "Убрать из теневого бана?"))
+                b.set_message(_mz_t(f"Повідомлення від {name} знову відображатимуться у вас.", f"Messages from {name} will be shown to you again.", f"Сообщения от {name} снова будут отображаться у вас."))
+
+                def ok(bld, _):
+                    self.unban_user(uid)
+                    bld.dismiss()
+                    BulletinHelper.show_success(_mz_t(f"{name} прибрано з тіньового бану", f"{name} removed from shadow ban", f"{name} убран из теневого бана"))
+
+                b.set_positive_button(_mz_t("Прибрати з бану", "Remove from ban", "Убрать из бана"), ok)
+            else:
+                b.set_title(_mz_t("Додати в тіньовий бан?", "Add to shadow ban?", "Добавить в теневой бан?"))
+                b.set_message(
+                    _mz_t(f"Ви перестанете бачити повідомлення від {name}.\nКористувач не отримає жодного сповіщення.", f"You will stop seeing messages from {name}.\nThe user will not get any notification.", (f"Вы перестанете видеть сообщения от {name}.\n"
+                    "Пользователь не получит никакого уведомления."))
+                )
+
+                def ok(bld, _):
+                    self.ban_user(uid, name)
+                    bld.dismiss()
+                    BulletinHelper.show_success(_mz_t(f"{name} додано в тіньовий бан", f"{name} added to shadow ban", f"{name} добавлен в теневой бан"))
+
+                b.set_positive_button(_mz_t("У тіньовий бан", "Shadow ban", "В теневой бан"), ok)
+                b.make_button_red(AlertDialogBuilder.BUTTON_POSITIVE)
+            b.set_negative_button(_mz_t("Скасувати", "Cancel", "Отмена"), lambda bld, _: bld.dismiss())
+            b.show()
+
+        run_on_ui_thread(do)
+
+    # ── Settings
+
+    def create_settings(self) -> List[Any]:
+        banned = self.get_banned_list()
+        rows: List[Any] = [
+            Header(text=_mz_t("Основне", "General", "Основные")),
+            Switch(
+                key="enabled",
+                text=_mz_t("Увімкнути тіньовий бан", "Enable shadow ban", "Включить теневой бан"),
+                default=True,
+                subtext=_mz_t("Вимкніть, щоб тимчасово бачити все", "Turn off to see everything temporarily", "Выключите, чтобы временно видеть всё"),
+                icon="msg_block",
+            ),
+            Switch(
+                key="debug",
+                text=_mz_t("Режим налагодження", "Debug mode", "Режим отладки"),
+                default=False,
+                subtext=_mz_t("Пише в лог структуру повідомлень: увімкніть, якщо плагін не працює", "Writes the message structure to the log: turn on if the plugin does not work", "Пишет в лог структуру сообщений - включите если плагин не работает"),
+                icon="msg_info",
+            ),
+            Divider(),
+            Header(text=_mz_t(f"Забанені користувачі ({len(banned)})", f"Banned users ({len(banned)})", f"Забаненные пользователи ({len(banned)})")),
+        ]
+
+        if not banned:
+            rows.append(Text(
+                text=_mz_t("Список порожній", "The list is empty", "Список пуст"),
+                subtext=_mz_t("Відкрийте профіль → «Тіньовий бан»", "Open a profile → \"Shadow ban\"", "Откройте профиль → «Теневой бан»"),
+            ))
+        else:
+            for uid, name in sorted(banned.items(), key=lambda x: x[1].lower()):
+                u, n = uid, name
+                rows.append(Text(
+                    text=n,
+                    subtext=_mz_t(f"ID: {u}  •  натисніть, щоб розбанити", f"ID: {u}  •  tap to unban", f"ID: {u}  •  нажмите для разбана"),
+                    icon="msg_block",
+                    red=True,
+                    on_click=lambda _v, _u=u, _n=n: self._settings_unban(_u, _n),
+                ))
+
+        rows += [
+            Divider(),
+            Text(
+                text=_mz_t("Очистити все", "Clear all", "Очистить всё"),
+                icon="msg_clear_history",
+                red=True,
+                on_click=self._settings_clear,
+            ),
+        ]
+
+        # ── Word filter section
+        words = list(self._word_filter_cache)
+        rows += [
+            Divider(),
+            Header(text=_mz_t(f"Фільтр слів/символів ({len(words)})", f"Word/symbol filter ({len(words)})", f"Фильтр слов/символов ({len(words)})")),
+            Switch(
+                key=WORD_FILTER_ENABLED_KEY,
+                text=_mz_t("Увімкнути фільтр слів", "Enable word filter", "Включить фильтр слов"),
+                default=False,
+                subtext=_mz_t("Приховує повідомлення, що містять будь-яке зі слів у списку", "Hides messages containing any of the words in the list", "Скрывает сообщения, содержащие любое из слов в списке"),
+                icon="msg_filter",
+                on_change=lambda v: self.set_setting(WORD_FILTER_ENABLED_KEY, v),
+            ),
+            Switch(
+                key=WORD_FILTER_CASE_KEY,
+                text=_mz_t("Враховувати регістр", "Match case", "Учитывать регистр"),
+                default=False,
+                subtext=_mz_t("Увімкніть, щоб «Привіт» і «привіт» вважалися різними словами", "Turn on so that \"Hello\" and \"hello\" count as different words", "Включите, чтобы «Привет» и «привет» считались разными словами"),
+                icon="msg_text",
+                on_change=lambda v: self.set_setting(WORD_FILTER_CASE_KEY, v),
+            ),
+            Text(
+                text=_mz_t("Додати слово / символ", "Add a word / symbol", "Добавить слово / символ"),
+                subtext=_mz_t("Натисніть, щоб ввести нове слово або символ", "Tap to enter a new word or symbol", "Нажмите, чтобы ввести новое слово или символ"),
+                icon="msg_add",
+                accent=True,
+                on_click=self._wf_add_dialog,
+            ),
+        ]
+
+        if not words:
+            rows.append(Text(
+                text=_mz_t("Список фільтрів порожній", "The filter list is empty", "Список фильтров пуст"),
+                subtext=_mz_t("Натисніть «Додати» вище", "Tap \"Add\" above", "Нажмите «Добавить» выше"),
+            ))
+        else:
+            for word in sorted(words):
+                w = word
+                rows.append(Text(
+                    text=w,
+                    subtext=_mz_t("Натисніть, щоб видалити", "Tap to delete", "Нажмите для удаления"),
+                    icon="msg_close",
+                    red=True,
+                    on_click=lambda _v, _w=w: self._wf_remove(_w),
+                ))
+
+        rows.append(Text(
+            text=_mz_t("Очистити всі фільтри слів", "Clear all word filters", "Очистить все фильтры слов"),
+            icon="msg_clear_history",
+            red=True,
+            on_click=self._wf_clear,
+        ))
+
+        return rows
+
+    def _settings_unban(self, uid: int, name: str):
+        def do():
+            frag = get_last_fragment()
+            if not frag:
+                return
+            act = frag.getParentActivity()
+            if not act:
+                return
+            b = AlertDialogBuilder(act)
+            b.set_title(_mz_t("Прибрати з тіньового бану?", "Remove from shadow ban?", "Убрать из теневого бана?"))
+            b.set_message(_mz_t(f"Повідомлення від {name} знову будуть видимі.", f"Messages from {name} will be visible again.", f"Сообщения от {name} снова будут видны."))
+
+            def ok(bld, _):
+                self.unban_user(uid)
+                bld.dismiss()
+                BulletinHelper.show_success(_mz_t(f"{name} розбанено", f"{name} unbanned", f"{name} разбанен"))
+                self.set_setting("_ts", str(uid), reload_settings=True)
+
+            b.set_positive_button(_mz_t("Прибрати", "Remove", "Убрать"), ok)
+            b.set_negative_button(_mz_t("Скасувати", "Cancel", "Отмена"), lambda bld, _: bld.dismiss())
+            b.show()
+
+        run_on_ui_thread(do)
+
+    def _settings_clear(self, _v=None):
+        if not self._banned_cache:
+            BulletinHelper.show_info(_mz_t("Список уже порожній", "The list is already empty", "Список уже пуст"))
+            return
+
+        def do():
+            frag = get_last_fragment()
+            if not frag:
+                return
+            act = frag.getParentActivity()
+            if not act:
+                return
+            b = AlertDialogBuilder(act)
+            b.set_title(_mz_t("Очистити список?", "Clear the list?", "Очистить список?"))
+            b.set_message(_mz_t("Повідомлення від усіх користувачів знову стануть видимі.", "Messages from all users will be visible again.", "Сообщения от всех пользователей снова станут видны."))
+
+            def ok(bld, _):
+                n = len(self._banned_cache)
+                self._banned_cache.clear()
+                self._save_banned()
+                bld.dismiss()
+                BulletinHelper.show_success(_mz_t(f"Тіньовий бан знято з користувачів: {n}", f"Shadow ban lifted from {n} users", f"Снят теневой бан с {n} пользователей"))
+                self.set_setting("_ts", "clear", reload_settings=True)
+
+            b.set_positive_button(_mz_t("Очистити", "Clear", "Очистить"), ok)
+            b.make_button_red(AlertDialogBuilder.BUTTON_POSITIVE)
+            b.set_negative_button(_mz_t("Скасувати", "Cancel", "Отмена"), lambda bld, _: bld.dismiss())
+            b.show()
+
+        run_on_ui_thread(do)
+
+    # ── Word filter management methods
+
+    def _wf_add_dialog(self, _v=None):
+        """Shows a dialog for entering a new filter word."""
+        def do():
+            frag = get_last_fragment()
+            if not frag:
+                return
+            act = frag.getParentActivity()
+            if not act:
+                return
+            try:
+                from android.widget import EditText as JEditText
+                et = JEditText(act)
+                et.setHint(_mz_t("Слово, фраза або символ", "Word, phrase or symbol", "Слово, фраза или символ"))
+                et.setSingleLine(True)
+                pad = 48
+                et.setPadding(pad, pad // 2, pad, pad // 2)
+
+                b = AlertDialogBuilder(act)
+                b.set_title(_mz_t("Додати у фільтр", "Add to filter", "Добавить в фильтр"))
+                b.set_message(
+                    _mz_t("Будь-яке повідомлення, що містить це слово або символ, буде приховано локально.", "Any message containing this word or symbol will be hidden locally.", ("Любое сообщение, содержащее это слово или символ, "
+                    "будет скрыто локально."))
+                )
+                b.set_view(et)
+
+                def ok(bld, _):
+                    word = str(et.getText()).strip()
+                    bld.dismiss()
+                    if not word:
+                        BulletinHelper.show_info(_mz_t("⚠️ Введіть слово або символ", "⚠️ Enter a word or symbol", "⚠️ Введите слово или символ"))
+                        return
+                    words = list(self._word_filter_cache)
+                    if word in words:
+                        BulletinHelper.show_info(_mz_t(f"«{word}» уже в списку", f"\"{word}\" is already in the list", f"«{word}» уже в списке"))
+                        return
+                    words.append(word)
+                    _wf_save(self, words)
+                    BulletinHelper.show_success(_mz_t(f"«{word}» додано у фільтр", f"\"{word}\" added to the filter", f"«{word}» добавлен в фильтр"))
+
+                b.set_positive_button(_mz_t("Додати", "Add", "Добавить"), ok)
+                b.set_negative_button(_mz_t("Скасувати", "Cancel", "Отмена"), lambda bld, _: bld.dismiss())
+                b.create()
+                b.set_cancelable(True)
+                b.show()
+            except Exception as e:
+                self.log(f"[ShadowBan] _wf_add_dialog error: {e}")
+
+        run_on_ui_thread(do)
+
+    def _wf_remove(self, word: str):
+        """Removes a word from the filter (with confirmation)."""
+        def do():
+            frag = get_last_fragment()
+            if not frag:
+                return
+            act = frag.getParentActivity()
+            if not act:
+                return
+            b = AlertDialogBuilder(act)
+            b.set_title(_mz_t("Видалити з фільтра?", "Delete from the filter?", "Удалить из фильтра?"))
+            b.set_message(_mz_t(f"«{word}» буде видалено зі списку фільтрів.", f"\"{word}\" will be removed from the filter list.", f"«{word}» будет удалён из списка фильтров."))
+
+            def ok(bld, _):
+                words = [w for w in self._word_filter_cache if w != word]
+                _wf_save(self, words)
+                bld.dismiss()
+                BulletinHelper.show_success(_mz_t(f"«{word}» видалено з фільтра", f"\"{word}\" removed from the filter", f"«{word}» удалён из фильтра"))
+
+            b.set_positive_button(_mz_t("Видалити", "Delete", "Удалить"), ok)
+            b.make_button_red(AlertDialogBuilder.BUTTON_POSITIVE)
+            b.set_negative_button(_mz_t("Скасувати", "Cancel", "Отмена"), lambda bld, _: bld.dismiss())
+            b.show()
+
+        run_on_ui_thread(do)
+
+    def _wf_clear(self, _v=None):
+        """Clears the whole word filter list (with confirmation)."""
+        if not self._word_filter_cache:
+            BulletinHelper.show_info(_mz_t("Список фільтрів уже порожній", "The filter list is already empty", "Список фильтров уже пуст"))
+            return
+
+        def do():
+            frag = get_last_fragment()
+            if not frag:
+                return
+            act = frag.getParentActivity()
+            if not act:
+                return
+            b = AlertDialogBuilder(act)
+            b.set_title(_mz_t("Очистити фільтр слів?", "Clear the word filter?", "Очистить фильтр слов?"))
+            b.set_message(_mz_t("Усі слова й символи буде видалено з фільтра.", "All words and symbols will be removed from the filter.", "Все слова и символы будут удалены из фильтра."))
+
+            def ok(bld, _):
+                n = len(self._word_filter_cache)
+                _wf_save(self, [])
+                bld.dismiss()
+                BulletinHelper.show_success(_mz_t(f"Видалено фільтрів: {n}", f"Filters removed: {n}", f"Удалено фильтров: {n}"))
+
+            b.set_positive_button(_mz_t("Очистити", "Clear", "Очистить"), ok)
+            b.make_button_red(AlertDialogBuilder.BUTTON_POSITIVE)
+            b.set_negative_button(_mz_t("Скасувати", "Cancel", "Отмена"), lambda bld, _: bld.dismiss())
+            b.show()
+
+        run_on_ui_thread(do)
