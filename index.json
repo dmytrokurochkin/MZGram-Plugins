@@ -9784,11 +9784,11 @@
     {
       "id": "search_bar_control",
       "name": "Search Bar Control",
-      "version": "4.0",
+      "version": "4.0-mz1",
       "min_app_version": "1.0.0",
-      "file": "plugins/search_bar_control/4.0/search_bar_control.plugin",
-      "sha256": "e7c6de1b94085ed7ea46b78cb749b95d32b0a8065784589b69d477634e5b07fc",
-      "size": 22606,
+      "file": "plugins/search_bar_control/4.0-mz1/search_bar_control.plugin",
+      "sha256": "ddab19f6c0e7b5e273466e1c0013025d00a788ece2e15aee76a4840a5b4f4d23",
+      "size": 23907,
       "description": "Pins the search bar on the main page and helps collapse stories.",
       "description_i18n": {
         "en": "Pins the search bar on the main page and helps collapse stories.",

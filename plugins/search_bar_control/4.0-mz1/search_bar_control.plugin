@@ -11,7 +11,7 @@ __id__ = "search_bar_control"
 __name__ = "Search Bar Control"
 __description__ = "Pins the search bar on the main page and helps collapse stories."
 __author__ = "@itNotMax - @MaxExteraPlugins"
-__version__ = "4.0"
+__version__ = "4.0-mz1"
 __icon__ = "MaxExteraPluginsStickers/3"
 __min_version__ = "12.5.1"
 __app_version__ = ">=12.5.1"
@@ -56,6 +56,16 @@ def unsigned(c):
         return 0
     return c if c >= 0 else c + 0x100000000
 
+
+
+def _sbc_default_lang():
+    # MZGram: the plugin's own language picker starts at the app language (Ukrainian or Russian), else English
+    try:
+        from java.util import Locale
+        code = str(Locale.getDefault().getLanguage())
+    except Exception:
+        return 0
+    return 2 if code == "uk" else (1 if code == "ru" else 0)
 
 class ScrollYHook(MethodHook):
 
@@ -530,92 +540,104 @@ class SearchBarControlPlugin(BasePlugin):
             pass
 
     def create_settings(self) -> List[Any]:
-        lang = self.get_setting("lang", 0)
-        is_ru = (lang == 1)
+        lang = self.get_setting("lang", _sbc_default_lang())
+        try:
+            lang = int(lang)
+        except Exception:
+            lang = 0
+
+        def L(en, ru, uk):
+            # MZGram: 0 English, 1 Russian, 2 Ukrainian
+            return uk if lang == 2 else (ru if lang == 1 else en)
+
         return [
-            Header(text="Localization" if not is_ru else "Локализация"),
+            Header(text=L("Localization", "Локализация", "Локалізація")),
             Selector(
                 key="lang",
-                text="Language" if not is_ru else "Язык",
-                default=0,
-                items=["English", "Русский"],
+                text=L("Language", "Язык", "Мова"),
+                default=_sbc_default_lang(),
+                items=["English", "Русский", "Українська"],
                 on_change=self._on_lang_change,
             ),
             Divider(),
-            Header(text="Information" if not is_ru else "Информация"),
+            Header(text=L("Information", "Информация", "Інформація")),
             Text(
-                text="Documentation" if not is_ru else "Документация",
+                text=L("Documentation", "Документация", "Документація"),
                 icon="msg_link",
                 on_click=self._open_telegraph("https://telegra.ph/Dokumentaciya-k-plaginu-Search-Bar-Control-06-28"),
             ),
             Text(
-                text="Author Channel" if not is_ru else "Канал автора",
+                text=L("Author Channel", "Канал автора", "Канал автора"),
                 icon="msg_channel",
                 on_click=self._open_internal("https://t.me/MaxExteraPlugins"),
             ),
             Divider(),
-            Header(text="Search Bar" if not is_ru else "Строка поиска"),
+            Header(text=L("Search Bar", "Строка поиска", "Рядок пошуку")),
             Text(
-                text="Hide Search Bar" if not is_ru else "Скрыть строку поиска",
+                text=L("Hide Search Bar", "Скрыть строку поиска", "Приховати рядок пошуку"),
                 icon="msg_customize",
-                subtext="Open exteraGram settings" if not is_ru else "Открыть настройки exteraGram",
+                subtext=L("Open exteraGram settings", "Открыть настройки exteraGram", "Відкрити налаштування exteraGram"),
                 on_click=self._open_internal("https://t.me/exteraSettings?s=hideDialogsSearchBar"),
             ),
             Selector(
                 key="pin_mode",
-                text="Pin Mode:" if not is_ru else "Закреплять:",
+                text=L("Pin Mode:", "Закреплять:", "Закріплювати:"),
                 default=0,
                 items=[
                     "Main page only",
                     "Archive only",
                     "Everywhere (Main + Archive)",
-                ] if not is_ru else [
+                ] if lang == 0 else ([
                     "Только на главной",
                     "Только в архиве",
                     "Везде (главная+архив)",
-                ],
+                ] if lang == 1 else [
+                    "Лише на головній",
+                    "Лише в архіві",
+                    "Усюди (головна й архів)",
+                ]),
             ),
             Divider(),
-            Header(text="Stories" if not is_ru else "Истории"),
+            Header(text=L("Stories", "Истории", "Історії")),
             Text(
-                text="Hide Stories" if not is_ru else "Скрыть истории",
+                text=L("Hide Stories", "Скрыть истории", "Приховати історії"),
                 icon="msg_customize",
-                subtext="Open exteraGram settings" if not is_ru else "Открыть настройки exteraGram",
+                subtext=L("Open exteraGram settings", "Открыть настройки exteraGram", "Відкрити налаштування exteraGram"),
                 on_click=self._open_internal("https://t.me/exteraSettings?s=hideStories"),
             ),
             Switch(
                 key="collapse_stories",
-                text="Collapse Stories" if not is_ru else "Свернуть истории",
+                text=L("Collapse Stories", "Свернуть истории", "Згорнути історії"),
                 default=False,
             ),
             Divider(),
-            Header(text="Panel Customization" if not is_ru else "Кастомизация панели"),
+            Header(text=L("Panel Customization", "Кастомизация панели", "Вигляд панелі")),
             Input(
                 key="panel_bg_color",
-                text="Background Color" if not is_ru else "Цвет фона",
+                text=L("Background Color", "Цвет фона", "Колір тла"),
                 default="",
-                subtext="#RRGGBB or #RRGGBBAA" if not is_ru else "#RRGGBB или #RRGGBBAA",
+                subtext=L("#RRGGBB or #RRGGBBAA", "#RRGGBB или #RRGGBBAA", "#RRGGBB або #RRGGBBAA"),
                 on_change=self._on_style_change,
             ),
             Input(
                 key="panel_text_color",
-                text="Hint Text Color" if not is_ru else "Цвет подсказки",
+                text=L("Hint Text Color", "Цвет подсказки", "Колір підказки"),
                 default="",
-                subtext="#RRGGBB or #RRGGBBAA — label «Search chats»" if not is_ru else "#RRGGBB или #RRGGBBAA — надпись «Поиск чатов»",
+                subtext=L("#RRGGBB or #RRGGBBAA — label «Search chats»", "#RRGGBB или #RRGGBBAA — надпись «Поиск чатов»", "#RRGGBB або #RRGGBBAA, напис «Пошук чатів»"),
                 on_change=self._on_style_change,
             ),
             Input(
                 key="panel_icon_color",
-                text="Icon Color" if not is_ru else "Цвет иконок",
+                text=L("Icon Color", "Цвет иконок", "Колір значків"),
                 default="",
-                subtext="#RRGGBB or #RRGGBBAA (empty = text color)" if not is_ru else "#RRGGBB или #RRGGBBAA (если пусто = цвет текста)",
+                subtext=L("#RRGGBB or #RRGGBBAA (empty = text color)", "#RRGGBB или #RRGGBBAA (если пусто = цвет текста)", "#RRGGBB або #RRGGBBAA (якщо порожньо, колір тексту)"),
                 on_change=self._on_style_change,
             ),
             Input(
                 key="panel_radius",
-                text="Corner Radius (dp)" if not is_ru else "Закругление углов (dp)",
+                text=L("Corner Radius (dp)", "Закругление углов (dp)", "Заокруглення кутів (dp)"),
                 default="",
-                subtext="Number, e.g.: 18" if not is_ru else "Число, например: 18",
+                subtext=L("Number, e.g.: 18", "Число, например: 18", "Число, наприклад: 18"),
                 on_change=self._on_style_change,
             ),
         ]
