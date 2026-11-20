@@ -1,0 +1,533 @@
+"""
+Edge TTS Voiceover: plugin for exteraGram.
+
+Adds a 'Voice (TTS)' item to the message context menu. When tapped,
+the message text is voiced through Microsoft Edge TTS and played
+locally on the device (in the background, without sending to the chat).
+
+Important: the plugin does NOT use the edge-tts library (it pulls in aiohttp, which
+needs binary wheels and does not install in Chaquopy/Android). Instead,
+the Edge TTS protocol (WebSocket + DRM token Sec-MS-GEC) is implemented
+directly in pure Python on top of the websocket-client package, which has
+pure Python wheels and installs fine via the exteraGram PIP engine.
+"""
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
+
+import hashlib
+import os
+import struct
+import time
+import traceback
+import uuid
+from datetime import datetime, timezone
+from typing import Any, List
+
+from base_plugin import BasePlugin, MenuItemData, MenuItemType
+from ui.settings import Header, Selector, Switch, Input, Text, Divider
+from ui.bulletin import BulletinHelper
+from ui.alert import AlertDialogBuilder
+from client_utils import run_on_queue, get_last_fragment, PLUGINS_QUEUE
+from file_utils import get_cache_dir, ensure_dir_exists, delete_file
+from android_utils import run_on_ui_thread
+
+__id__ = "edge_tts_voiceover"
+__name__ = "Edge TTS Voiceover"
+__description__ = "Voices messages through Microsoft Edge TTS and plays the sound locally on the device (an item in the message context menu)."
+__author__ = "@S0cket_UWU & Claude & @The_Wisest"
+__version__ = "2.1.0-mz1"
+__min_version__ = "12.9.0"
+__icon__ = "exteraPlugins/1"
+__requirements__ = ["websocket-client", "certifi"]
+__category__ = ["media", "integrations"]
+
+# ----------------------------------------------------------------------
+# Voice list: (human-readable name, edge-tts voice id)
+# ----------------------------------------------------------------------
+VOICES = [
+    (_mz_t("Російська (Світлана, жін.)", "Russian (Svetlana, female)", "Русский (Светлана, жен.)"), "ru-RU-SvetlanaNeural"),
+    (_mz_t("Російська (Дмитро, чол.)", "Russian (Dmitry, male)", "Русский (Дмитрий, муж.)"), "ru-RU-DmitryNeural"),
+    (_mz_t("Англійська US (Aria, жін.)", "English US (Aria, female)", "Английский US (Aria, жен.)"), "en-US-AriaNeural"),
+    (_mz_t("Англійська US (Guy, чол.)", "English US (Guy, male)", "Английский US (Guy, муж.)"), "en-US-GuyNeural"),
+    (_mz_t("Українська (Polina, жін.)", "Ukrainian (Polina, female)", "Украинский (Polina, жен.)"), "uk-UA-PolinaNeural"),
+    (_mz_t("Українська (Ostap, чол.)", "Ukrainian (Ostap, male)", "Украинский (Ostap, муж.)"), "uk-UA-OstapNeural"),
+]
+VOICE_NAMES = [v[0] for v in VOICES]
+DEFAULT_VOICE_INDEX = 0
+
+# ----------------------------------------------------------------------
+# Edge TTS protocol constants (see github.com/rany2/edge-tts)
+# ----------------------------------------------------------------------
+TRUSTED_CLIENT_TOKEN = "6A5AA1D4EAFF4E9FB37E23D68491D6F4"
+WIN_EPOCH = 11644473600  # difference between the Unix epoch (1970) and Windows (1601), in seconds
+S_TO_NS = 1_000_000_000  # seconds -> nanoseconds
+
+CHROMIUM_FULL_VERSION = "143.0.3650.75"
+CHROMIUM_MAJOR_VERSION = CHROMIUM_FULL_VERSION.split(".", 1)[0]
+SEC_MS_GEC_VERSION = f"1-{CHROMIUM_FULL_VERSION}"
+
+BASE_URL = "speech.platform.bing.com/consumer/speech/synthesize/readaloud"
+WSS_URL = f"wss://{BASE_URL}/edge/v1"
+
+BASE_HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        f"(KHTML, like Gecko) Chrome/{CHROMIUM_MAJOR_VERSION}.0.0.0 "
+        "Safari/537.36 "
+        f"Edg/{CHROMIUM_MAJOR_VERSION}.0.0.0"
+    ),
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "en-US,en;q=0.9",
+}
+WSS_ORIGIN = "chrome-extension://jdiccldimpdaibmpdkjnbmckianbfold"
+WSS_HEADERS = dict(BASE_HEADERS)
+WSS_HEADERS.update({
+    "Pragma": "no-cache",
+    "Cache-Control": "no-cache",
+})
+
+MAX_CHUNK_CHARS = 1500  # safe size of one SSML request
+
+
+def _generate_sec_ms_gec() -> str:
+    """Generates the Sec-MS-GEC DRM token required by the Edge TTS service."""
+    ticks = time.time()
+    ticks += WIN_EPOCH
+    ticks -= ticks % 300  # round down to a 5-minute window
+    ticks *= S_TO_NS / 100  # convert to 100-nanosecond Windows ticks
+    to_hash = f"{ticks:.0f}{TRUSTED_CLIENT_TOKEN}"
+    return hashlib.sha256(to_hash.encode("ascii")).hexdigest().upper()
+
+
+def _date_to_string() -> str:
+    """X-Timestamp format expected by the service (as in a real browser)."""
+    now = datetime.now(timezone.utc)
+    return now.strftime("%a %b %d %Y %H:%M:%S GMT+0000 (Coordinated Universal Time)")
+
+
+def _escape_ssml(text: str) -> str:
+    return (
+        text.replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+        .replace("'", "&apos;")
+    )
+
+
+def _split_text(text: str, max_len: int = MAX_CHUNK_CHARS) -> List[str]:
+    text = text.strip()
+    if len(text) <= max_len:
+        return [text]
+
+    chunks = []
+    current = ""
+    for word in text.split(" "):
+        candidate = (current + " " + word).strip() if current else word
+        if len(candidate) > max_len and current:
+            chunks.append(current)
+            current = word
+        else:
+            current = candidate
+    if current:
+        chunks.append(current)
+    return chunks
+
+
+def _parse_message(data: bytes):
+    header_end = data.find(b"\r\n\r\n")
+    if header_end == -1:
+        return {}, data
+    header_bytes = data[:header_end]
+    body = data[header_end + 4:]
+    headers = {}
+    for line in header_bytes.split(b"\r\n"):
+        if b":" in line:
+            key, value = line.split(b":", 1)
+            headers[key.strip()] = value.strip()
+    return headers, body
+
+
+def _synthesize_chunk(text: str, voice_id: str, rate: str, pitch: str) -> bytes:
+    """Synchronously synthesizes one piece of text and returns mp3 bytes."""
+    import websocket
+
+    sslopt = None
+    try:
+        import certifi
+        sslopt = {"ca_certs": certifi.where()}
+    except Exception:
+        sslopt = None  # fall back to system certificates if certifi is unavailable
+
+    connection_id = uuid.uuid4().hex
+    url = (
+        f"{WSS_URL}?TrustedClientToken={TRUSTED_CLIENT_TOKEN}"
+        f"&Sec-MS-GEC={_generate_sec_ms_gec()}"
+        f"&Sec-MS-GEC-Version={SEC_MS_GEC_VERSION}"
+        f"&ConnectionId={connection_id}"
+    )
+    header_list = [f"{k}: {v}" for k, v in WSS_HEADERS.items()]
+
+    connect_kwargs = dict(header=header_list, timeout=15, origin=WSS_ORIGIN)
+    if sslopt:
+        connect_kwargs["sslopt"] = sslopt
+
+    try:
+        ws = websocket.create_connection(url, **connect_kwargs)
+    except Exception as exc:
+        status = getattr(exc, "status_code", None)
+        resp_headers = getattr(exc, "resp_headers", None)
+        detail = f"WS connect failed: {type(exc).__name__}: {exc}"
+        if status is not None:
+            detail += f" | HTTP status={status}"
+        if resp_headers:
+            detail += f" | headers={dict(resp_headers)}"
+        raise RuntimeError(detail) from exc
+
+    try:
+        timestamp = _date_to_string()
+        config_message = (
+            f"X-Timestamp:{timestamp}\r\n"
+            "Content-Type:application/json; charset=utf-8\r\n"
+            "Path:speech.config\r\n\r\n"
+            '{"context":{"synthesis":{"audio":{'
+            '"metadataoptions":{"sentenceBoundaryEnabled":"false","wordBoundaryEnabled":"false"},'
+            '"outputFormat":"audio-24khz-48kbitrate-mono-mp3"}}}}'
+        )
+        ws.send(config_message)
+
+        locale = "-".join(voice_id.split("-")[:2])
+        ssml = (
+            "<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' "
+            f"xml:lang='{locale}'>"
+            f"<voice name='{voice_id}'>"
+            f"<prosody pitch='{pitch}' rate='{rate}' volume='+0%'>"
+            f"{_escape_ssml(text)}"
+            "</prosody></voice></speak>"
+        )
+        request_id = uuid.uuid4().hex
+        ssml_message = (
+            f"X-RequestId:{request_id}\r\n"
+            "Content-Type:application/ssml+xml\r\n"
+            f"X-Timestamp:{timestamp}\r\n"
+            "Path:ssml\r\n\r\n"
+            f"{ssml}"
+        )
+        ws.send(ssml_message)
+
+        audio = bytearray()
+        while True:
+            opcode, data = ws.recv_data()
+            if opcode == websocket.ABNF.OPCODE_TEXT:
+                headers, _ = _parse_message(
+                    data if isinstance(data, bytes) else data.encode("utf-8")
+                )
+                if headers.get(b"Path") == b"turn.end":
+                    break
+            elif opcode == websocket.ABNF.OPCODE_BINARY:
+                if len(data) < 2:
+                    continue
+                header_len = struct.unpack(">H", data[:2])[0]
+                audio += data[2 + header_len:]
+            elif opcode == websocket.ABNF.OPCODE_CLOSE:
+                break
+        return bytes(audio)
+    finally:
+        try:
+            ws.close()
+        except Exception:
+            pass
+
+
+class EdgeTTSVoiceoverPlugin(BasePlugin):
+
+    def on_plugin_load(self):
+        self.menu_item = self.add_menu_item(
+            MenuItemData(
+                menu_type=MenuItemType.MESSAGE_CONTEXT_MENU,
+                text=_mz_t("Озвучити (TTS)", "Voice (TTS)", "Озвучить (TTS)"),
+                on_click=self.on_voiceover_click,
+                icon="msg_speak",
+                subtext=_mz_t("Edge TTS, локально", "Edge TTS, locally", "Edge TTS, локально"),
+                priority=5,
+            )
+        )
+        self.multi_menu_item = self.add_menu_item(
+            MenuItemData(
+                menu_type=MenuItemType.CHAT_ACTION_MENU,
+                text=_mz_t("Озвучити виділене (TTS)", "Voice selected (TTS)", "Озвучить выделенное (TTS)"),
+                on_click=self.on_voiceover_selected_click,
+                icon="msg_speak",
+                subtext=_mz_t("Склеїти й озвучити одним запитом", "Join and voice in one request", "Склеить и озвучить одним запросом"),
+                priority=5,
+            )
+        )
+        self.log("Edge TTS Voiceover plugin loaded")
+
+    def on_plugin_unload(self):
+        if getattr(self, "menu_item", None):
+            self.remove_menu_item(self.menu_item)
+        if getattr(self, "multi_menu_item", None):
+            self.remove_menu_item(self.multi_menu_item)
+
+    # ------------------------------------------------------------------
+    # Settings
+    # ------------------------------------------------------------------
+    def create_settings(self) -> List[Any]:
+        return [
+            Header(text=_mz_t("Озвучка Edge TTS", "Edge TTS Voiceover", "Edge TTS Озвучка")),
+            Selector(
+                key="voice_index",
+                text=_mz_t("Голос", "Voice", "Голос"),
+                items=VOICE_NAMES,
+                default=DEFAULT_VOICE_INDEX,
+            ),
+            Input(
+                key="rate",
+                text=_mz_t("Швидкість мовлення", "Speech rate", "Скорость речи"),
+                default="+0%",
+                subtext=_mz_t("Наприклад: +0%, +20%, -15%", "For example: +0%, +20%, -15%", "Например: +0%, +20%, -15%"),
+            ),
+            Input(
+                key="pitch",
+                text=_mz_t("Висота голосу", "Voice pitch", "Тон голоса"),
+                default="+0Hz",
+                subtext=_mz_t("Наприклад: +0Hz, +10Hz, -10Hz", "For example: +0Hz, +10Hz, -10Hz", "Например: +0Hz, +10Hz, -10Hz"),
+            ),
+            Divider(),
+            Switch(
+                key="delete_after_play",
+                text=_mz_t("Видаляти аудіофайл після відтворення", "Delete audio file after playback", "Удалять аудиофайл после воспроизведения"),
+                default=True,
+            ),
+            Text(
+                text=_mz_t("Як користуватися", "How to use", "Как пользоваться"),
+                subtext=_mz_t("Одне повідомлення: затисни його → «Озвучити (TTS)». Кілька повідомлень: виділи їх (затисни, потім торкай інші) і натисни «Озвучити виділене (TTS)» на верхній панелі. Тексти склеяться за порядком і озвучаться одним запитом.", "One message: long-press it → «Voice (TTS)». Several messages: select them (long-press, then tap the others) and tap «Voice selected (TTS)» on the top bar. The texts are joined in order and voiced in one request.", "Одно сообщение: зажмите его → «Озвучить (TTS)». Несколько сообщений: выделите их (зажать, затем тапать остальные) и нажмите «Озвучить выделенное (TTS)» на верхней панели — тексты склеятся по порядку и озвучатся одним запросом."),
+            ),
+        ]
+
+    # ------------------------------------------------------------------
+    # Menu item handler
+    # ------------------------------------------------------------------
+    def on_voiceover_click(self, context):
+        message = context.get("message")
+
+        if message is None:
+            BulletinHelper.show_error(_mz_t("Не вдалося отримати повідомлення", "Couldn't get the message", "Не удалось получить сообщение"))
+            return
+
+        text = self._extract_text(message)
+        if not text:
+            BulletinHelper.show_error(_mz_t("У повідомленні немає тексту для озвучення", "The message has no text to voice", "В сообщении нет текста для озвучки"))
+            return
+
+        BulletinHelper.show_info(_mz_t("Створюю озвучку…", "Generating voiceover…", "Генерирую озвучку…"))
+        run_on_queue(lambda: self._process(text), PLUGINS_QUEUE)
+
+    def _extract_text(self, message) -> str:
+        try:
+            # In media messages (photo/video with a caption) the messageText field often
+            # holds a service placeholder such as "🖼 Photo" / "📹 Video",
+            # rather than the caption itself. The real text/caption is in the raw
+            # TLRPC.Message as messageOwner.message; if it is available,
+            # we fully trust it (an empty caption means there is no text, not
+            # a placeholder from messageText).
+            owner = getattr(message, "messageOwner", None)
+            if owner is not None:
+                raw = getattr(owner, "message", None)
+                return str(raw).strip() if raw else ""
+
+            text = getattr(message, "messageText", None) or getattr(message, "message", None)
+            if text is None:
+                return ""
+            return str(text).strip()
+        except Exception:
+            self.log(f"Failed to extract text: {traceback.format_exc()}")
+            return ""
+
+    # ------------------------------------------------------------------
+    # Handler for the "Voice selected" button (action bar when
+    # several messages are selected at the top of the screen)
+    # ------------------------------------------------------------------
+    def on_voiceover_selected_click(self, context):
+        self.log(f"CHAT_ACTION_MENU context keys: {list(context.keys())}")
+
+        messages = self._extract_selected_messages(context)
+        if not messages:
+            self._show_error(
+                "Edge TTS",
+                _mz_t(
+                    "Не вдалося отримати список виділених повідомлень.\n"
+                    f"Доступні ключі контексту: {list(context.keys())}\n\n"
+                    "Надішліть цей текст розробнику, щоб виправити плагін.",
+                    "Couldn't get the list of selected messages.\n"
+                    f"Available context keys: {list(context.keys())}\n\n"
+                    "Send this text to the developer so they can fix the plugin.",
+                    "Не удалось получить список выделенных сообщений.\n"
+                    f"Доступные ключи контекста: {list(context.keys())}\n\n"
+                    "Пришлите этот текст разработчику, чтобы поправить плагин.",
+                ),
+            )
+            return
+
+        items = []
+        for m in messages:
+            t = self._extract_text(m)
+            if not t:
+                continue
+            try:
+                mid = m.getId()
+            except Exception:
+                mid = 0
+            items.append((mid, t))
+
+        if not items:
+            BulletinHelper.show_error(_mz_t("У виділених повідомленнях немає тексту для озвучення", "There is no text to voice in the selected messages", "В выделенных сообщениях нет текста для озвучки"))
+            return
+
+        items.sort(key=lambda pair: pair[0])  # chronological order by ID
+        combined = "\n".join(t for _, t in items)
+
+        BulletinHelper.show_info(_mz_t(f"Озвучую {len(items)} повідомлень…", f"Voicing {len(items)} messages…", f"Озвучиваю {len(items)} сообщений…"))
+        run_on_queue(lambda: self._process(combined), PLUGINS_QUEUE)
+
+    def _extract_selected_messages(self, context) -> List[Any]:
+        """Tries to get the list of selected messages from different
+        possible context keys (the exact key name in the SDK is not
+        documented explicitly, so the variants are tried one by one)."""
+        for key in ("messages", "selectedMessages", "selected_messages", "groupedMessages"):
+            value = context.get(key)
+            if not value:
+                continue
+            try:
+                items = list(value)
+            except TypeError:
+                items = [value]
+            if items:
+                return items
+
+        single = context.get("message")
+        if single is not None:
+            return [single]
+
+        return []
+
+    # ------------------------------------------------------------------
+    # Dialog with the full error text (the bulletin cuts long lines)
+    # ------------------------------------------------------------------
+    def _show_error(self, title: str, message: str):
+        self.log(f"{title}: {message}")
+
+        def _show():
+            try:
+                fragment = get_last_fragment()
+                activity = fragment.getParentActivity() if fragment else None
+                if activity is None:
+                    raise RuntimeError("no activity")
+                builder = AlertDialogBuilder(activity)
+                builder.set_title(title)
+                builder.set_message(message)
+                builder.set_positive_button("OK", lambda bld, which: bld.dismiss())
+                builder.create()
+                builder.show()
+            except Exception:
+                self.log(f"Failed to show alert dialog: {traceback.format_exc()}")
+                BulletinHelper.show_error(message[:200])
+
+        run_on_ui_thread(_show)
+
+    # ------------------------------------------------------------------
+    # Generation and playback (runs on the background queue)
+    # ------------------------------------------------------------------
+    def _process(self, text: str):
+        try:
+            out_path = self._generate_tts(text)
+        except Exception as exc:
+            self._show_error(_mz_t("Помилка Edge TTS", "Edge TTS error", "Ошибка Edge TTS"), f"{type(exc).__name__}: {exc}")
+            return
+
+        if not out_path or not os.path.exists(out_path) or os.path.getsize(out_path) == 0:
+            self._show_error(_mz_t("Помилка Edge TTS", "Edge TTS error", "Ошибка Edge TTS"), _mz_t("Порожній аудіофайл: сервіс не повернув звуку", "Empty audio file: the service returned no sound", "Пустой аудиофайл — сервис не вернул звук"))
+            return
+
+        try:
+            self._play_audio(out_path)
+        except Exception as exc:
+            self._show_error(_mz_t("Помилка відтворення", "Playback error", "Ошибка воспроизведения"), f"{type(exc).__name__}: {exc}")
+        finally:
+            if self.get_setting("delete_after_play", True):
+                delete_file(out_path)
+
+    def _play_audio(self, path: str):
+        from android.media import MediaPlayer, AudioManager
+
+        player = MediaPlayer()
+        try:
+            player.setAudioStreamType(AudioManager.STREAM_MUSIC)
+            player.setDataSource(path)
+            player.prepare()  # synchronous preparation, we are already on a background thread
+            duration_ms = player.getDuration()
+            player.start()
+            time.sleep(max(duration_ms, 0) / 1000.0 + 0.3)
+        finally:
+            try:
+                player.stop()
+            except Exception:
+                pass
+            try:
+                player.release()
+            except Exception:
+                pass
+
+    def _generate_tts(self, text: str) -> str:
+        voice_index = self.get_setting("voice_index", DEFAULT_VOICE_INDEX)
+        try:
+            voice_id = VOICES[int(voice_index)][1]
+        except (ValueError, IndexError, TypeError):
+            voice_id = VOICES[DEFAULT_VOICE_INDEX][1]
+
+        rate = self.get_setting("rate", "+0%") or "+0%"
+        pitch = self.get_setting("pitch", "+0Hz") or "+0Hz"
+
+        cache_dir = os.path.join(get_cache_dir(), "edge_tts_voiceover")
+        ensure_dir_exists(cache_dir)
+        out_path = os.path.join(cache_dir, f"tts_{int(time.time() * 1000)}.mp3")
+
+        chunks = _split_text(text)
+        with open(out_path, "wb") as f:
+            for chunk in chunks:
+                audio_bytes = self._synthesize_chunk_with_retry(chunk, voice_id, rate, pitch)
+                f.write(audio_bytes)
+
+        return out_path
+
+    def _synthesize_chunk_with_retry(
+        self, text: str, voice_id: str, rate: str, pitch: str, max_attempts: int = 3
+    ) -> bytes:
+        """Sometimes the connection to the Microsoft server drops midway
+        (network failure / server closed the socket). In such cases,
+        just try to reconnect again instead of showing the error at once."""
+        last_exc = None
+        for attempt in range(1, max_attempts + 1):
+            try:
+                return _synthesize_chunk(text, voice_id, rate, pitch)
+            except Exception as exc:
+                last_exc = exc
+                self.log(
+                    f"TTS attempt {attempt}/{max_attempts} failed: "
+                    f"{type(exc).__name__}: {exc}"
+                )
+                if attempt < max_attempts:
+                    time.sleep(0.7 * attempt)
+        raise last_exc

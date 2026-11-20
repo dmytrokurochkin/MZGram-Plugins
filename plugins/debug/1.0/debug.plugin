@@ -1,3 +1,16 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 import os
 import traceback
 import plugins_manager
@@ -30,21 +43,21 @@ class DebugPlugin(BasePlugin):
 
     def create_settings(self):
         lang = Locale.getDefault().getLanguage()
-        if lang.startswith("ru"):
+        if lang.startswith(("ru", "uk")):
             settings_options = [
-                ("show_device_info", "Показать информацию об устройстве", "Включить детали устройства в вывод отладки"),
-                ("show_app_info", "Показать информацию о приложении", "Включить версию приложения в вывод"),
-                ("show_plugins", "Показать активные плагины", "Показать все включённые плагины в выводе"),
-                ("show_connection", "Показать информацию о соединении", "Включить детали сети"),
-                ("show_storage", "Показать информацию о хранилище", "Включить детали хранилища и кэша"),
-                ("show_memory", "Показать информацию о памяти", "Включить использование ОЗУ"),
-                ("show_account", "Показать информацию об аккаунте", "Включить основную информацию об аккаунте"),
-                ("show_battery", "Показать информацию о батарее", "Включить статус батареи"),
-                ("show_display", "Показать информацию о дисплее", "Включить детали экрана"),
-                ("show_system", "Показать информацию о системе", "Включить аптайм и язык системы"),
+                ("show_device_info", _mz_t("Показати інформацію про пристрій", "Show device information", "Показать информацию об устройстве"), _mz_t("Додавати деталі пристрою до виводу налагодження", "Include device details in the debug output", "Включить детали устройства в вывод отладки")),
+                ("show_app_info", _mz_t("Показати інформацію про застосунок", "Show app information", "Показать информацию о приложении"), _mz_t("Додавати версію застосунку до виводу", "Include the app version in the output", "Включить версию приложения в вывод")),
+                ("show_plugins", _mz_t("Показати активні плагіни", "Show active plugins", "Показать активные плагины"), _mz_t("Показувати всі увімкнені плагіни у виводі", "List all enabled plugins in the debug output", "Показать все включённые плагины в выводе")),
+                ("show_connection", _mz_t("Показати інформацію про з'єднання", "Show connection information", "Показать информацию о соединении"), _mz_t("Додавати деталі мережі", "Include network details", "Включить детали сети")),
+                ("show_storage", _mz_t("Показати інформацію про сховище", "Show storage information", "Показать информацию о хранилище"), _mz_t("Додавати деталі сховища і кешу", "Include storage and cache details", "Включить детали хранилища и кэша")),
+                ("show_memory", _mz_t("Показати інформацію про пам'ять", "Show memory information", "Показать информацию о памяти"), _mz_t("Додавати використання ОЗП", "Include RAM usage", "Включить использование ОЗУ")),
+                ("show_account", _mz_t("Показати інформацію про акаунт", "Show account information", "Показать информацию об аккаунте"), _mz_t("Додавати основну інформацію про акаунт", "Include basic account information", "Включить основную информацию об аккаунте")),
+                ("show_battery", _mz_t("Показати інформацію про батарею", "Show battery information", "Показать информацию о батарее"), _mz_t("Додавати стан батареї", "Include battery status", "Включить статус батареи")),
+                ("show_display", _mz_t("Показати інформацію про дисплей", "Show display information", "Показать информацию о дисплее"), _mz_t("Додавати деталі екрана", "Include screen details", "Включить детали экрана")),
+                ("show_system", _mz_t("Показати інформацію про систему", "Show system information", "Показать информацию о системе"), _mz_t("Додавати час роботи і мову системи", "Include system uptime and language", "Включить аптайм и язык системы")),
             ]
-            header_text = "Настройки отладочного плагина"
-            divider_text = "Команда: .dg"
+            header_text = _mz_t("Налаштування плагіна налагодження", "Debug plugin settings", "Настройки отладочного плагина")
+            divider_text = _mz_t("Команда: .dg", "Command: .dg", "Команда: .dg")
         elif lang.startswith("pt"):
             settings_options = [
                 ("show_device_info", "Mostrar informações do dispositivo", "Incluir detalhes do dispositivo na saída de debug"),

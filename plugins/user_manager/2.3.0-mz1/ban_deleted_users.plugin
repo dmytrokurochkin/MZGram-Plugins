@@ -1,0 +1,1389 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
+__id__ = "user_manager"
+__name__ = "Member management"
+__description__ = "Plugin for managing chat and channel members with quick access from the chat menu and the .bandel command.\n\nAvailable actions:\n• Delete deleted accounts\n• Delete bots\n• Delete inactive users\n• Delete online users\n• Delete offline users\n• Delete new users (raids)\n\nUse the menu (3 dots) in the chat for quick access or the .bandel command."
+__author__ = "Raitorinkus"
+__version__ = "2.3.0-mz1"
+__icon__ = "RTnKs/4"
+__min_version__ = "11.12.0"
+__category__ = ["chats"]
+
+import threading
+import time
+import traceback
+import re
+from typing import Any, List, Dict, Set, Optional
+from datetime import datetime, timedelta
+
+from base_plugin import BasePlugin, HookResult, HookStrategy, MenuItemData, MenuItemType
+from client_utils import send_message, send_request, get_messages_controller, get_last_fragment
+from ui.settings import Header, Input, Switch, Divider, Text
+from ui.bulletin import BulletinHelper
+from ui.alert import AlertDialogBuilder
+from org.telegram.tgnet import TLRPC
+from org.telegram.messenger import LocaleController, ChatObject, ApplicationLoader, UserConfig, MessagesController
+from java.util import ArrayList
+
+class UserManagerPlugin(BasePlugin):
+    """
+    Optimized plugin for managing chat and channel members
+    """
+
+    def __init__(self):
+        super().__init__()
+        self._chat_menu_items = {}
+        self._current_operation = None
+        self._operation_lock = threading.Lock()
+        self._current_language = "ru"
+
+    def on_plugin_load(self):
+        """Called when the plugin loads."""
+        self.log("User Manager plugin loaded")
+        self._detect_language()
+        self._add_chat_menu_items()
+
+    def on_plugin_unload(self):
+        """Called when the plugin unloads."""
+        self.log("User Manager plugin unloaded")
+        self._remove_chat_menu_items()
+
+    def _detect_language(self):
+        """Detects the system language"""
+        try:
+            locale = LocaleController.getInstance().getCurrentLocale()
+            language = locale.getLanguage().lower()
+            if language.startswith(('ru', 'uk')):
+                self._current_language = "ru"
+            else:
+                self._current_language = "en"
+            self.log(f"Language detected: {self._current_language}")
+        except:
+            self._current_language = "ru"
+
+    def get_localized_string(self, key, **kwargs):
+        """Returns a localized string"""
+        strings = {
+            "ru": {
+                # Main messages
+                "operation_cancelled": _mz_t("Операцію скасовано", "Operation cancelled", "Операция отменена"),
+                "chat_info_error": _mz_t("Не вдалося отримати інформацію про чат", "Couldn't get chat info", "Не удалось получить информацию о чате"),
+                "already_running": _mz_t("Операція вже виконується...", "Operation already running...", "Операция уже выполняется..."),
+                "no_rights": _mz_t("Недостатньо прав для видалення учасників", "Not enough rights to remove members", "Недостаточно прав для удаления участников"),
+                "channel_data_error": _mz_t("Не вдалося отримати дані каналу", "Couldn't get channel data", "Не удалось получить данные канала"),
+                "api_error": _mz_t("Помилка API: {}", "API error: {}", "Ошибка API: {}"),
+                "no_users_to_delete": _mz_t("Учасників для видалення не знайдено", "No members to remove found", "Участников для удаления не найдено"),
+                "start_deletion": _mz_t("Починаємо видалення {} учасників...", "Starting removal of {} members...", "Начинаем удаление {} участников..."),
+                "deleted_count": _mz_t("Видалено {}/{} учасників...", "Removed {}/{} members...", "Удалено {}/{} участников..."),
+                "success_deletion": _mz_t("Успішно видалено {}/{} учасників", "Successfully removed {}/{} members", "Успешно удалено {}/{} участников"),
+                
+                # Filter names for confirmation (correct forms)
+                "confirm_deleted": _mz_t("видалені акаунти", "deleted accounts", "удалённые аккаунты"),
+                "confirm_bots": _mz_t("ботів", "bots", "ботов"), 
+                "confirm_inactive": _mz_t("неактивних користувачів", "inactive users", "неактивных пользователей"),
+                "confirm_online": _mz_t("онлайн-користувачів", "online users", "онлайн пользователей"),
+                "confirm_offline": _mz_t("офлайн-користувачів", "offline users", "оффлайн пользователей"),
+                "confirm_raid": _mz_t("нових користувачів (рейд)", "new users (raid)", "новых пользователей (рейд)"),
+                
+                # Confirmations
+                "confirm_title": _mz_t("Підтвердження", "Confirmation", "Подтверждение"),
+                "confirm_delete": _mz_t("Ви впевнені, що хочете видалити {}? Цю дію неможливо скасувати.", "Are you sure you want to delete {}? This action is irreversible.", "Вы уверены, что хотите удалить {}? Это действие необратимо."),
+                "confirm_button_delete": _mz_t("Видалити", "Delete", "Удалить"),
+                "confirm_button_cancel": _mz_t("Скасувати", "Cancel", "Отмена"),
+                
+                # Time
+                "minute_singular": _mz_t("хвилину", "minute", "минуту"),
+                "minute_dual": _mz_t("хвилини", "minutes", "минуты"), 
+                "minute_plural": _mz_t("хвилин", "minutes", "минут"),
+                "hour_singular": _mz_t("годину", "hour", "час"),
+                "hour_dual": _mz_t("години", "hours", "часа"),
+                "hour_plural": _mz_t("годин", "hours", "часов"),
+                "and": _mz_t("і", "and", "и"),
+                
+                # Command
+                "command_help_title": _mz_t("Використання команди {}", "Command usage: {}", "Использование команды {}"),
+                "command_help_filters": _mz_t("Доступні фільтри:", "Available filters:", "Доступные фильтры:"),
+                "command_help_examples": _mz_t("Приклади:", "Examples:", "Примеры:"),
+                "command_help_all": _mz_t("усі основні фільтри", "all main filters", "все основные фильтры"),
+                
+                # Menu
+                "menu_deleted": _mz_t("Видалити видалені", "Delete deleted", "Удалить удалённые"),
+                "menu_bots": _mz_t("Видалити ботів", "Delete bots", "Удалить ботов"),
+                "menu_inactive": _mz_t("Видалити неактивних", "Delete inactive", "Удалить неактивных"), 
+                "menu_online": _mz_t("Видалити онлайн", "Delete online", "Удалить онлайн"),
+                "menu_offline": _mz_t("Видалити офлайн", "Delete offline", "Удалить оффлайн"),
+                "menu_raid": _mz_t("Видалити рейд", "Delete raid", "Удалить рейд"),
+                
+                # Settings
+                "settings_command": _mz_t("Команда для видалення", "Removal command", "Команда для удаления"),
+                "settings_command_desc": _mz_t("Основна команда для видалення учасників. Можна змінити на будь-яку іншу.", "Main command for removing members. It can be changed to any other.", "Основная команда для удаления участников. Можно изменить на любую другую."),
+                "settings_confirm": _mz_t("Підтверджувати перед видаленням", "Confirm before removing", "Подтверждать перед удалением"),
+                "settings_confirm_desc": _mz_t("Показувати діалог підтвердження перед видаленням учасників", "Show a confirmation dialog before removing members", "Показывать диалог подтверждения перед удалением участников"),
+                "settings_filters": _mz_t("Фільтри учасників", "Member filters", "Фильтры участников"),
+                "settings_deleted": _mz_t("Видалені акаунти", "Deleted accounts", "Удалённые аккаунты"),
+                "settings_deleted_desc": _mz_t("Увімкнути фільтр видалених акаунтів", "Enable deleted accounts filter", "Включить фильтр удалённых аккаунтов"),
+                "settings_bots": _mz_t("Боти", "Bots", "Боты"),
+                "settings_bots_desc": _mz_t("Увімкнути фільтр ботів", "Enable bots filter", "Включить фильтр ботов"),
+                "settings_inactive": _mz_t("Неактивні користувачі", "Inactive users", "Неактивные пользователи"), 
+                "settings_inactive_desc": _mz_t("Увімкнути фільтр неактивних користувачів", "Enable inactive users filter", "Включить фильтр неактивных пользователей"),
+                "settings_online": _mz_t("Користувачі онлайн", "Online users", "Онлайн пользователи"),
+                "settings_online_desc": _mz_t("Увімкнути фільтр користувачів онлайн", "Enable online users filter", "Включить фильтр онлайн пользователей"), 
+                "settings_offline": _mz_t("Користувачі офлайн", "Offline users", "Оффлайн пользователи"),
+                "settings_offline_desc": _mz_t("Увімкнути фільтр користувачів офлайн", "Enable offline users filter", "Включить фильтр оффлайн пользователей"),
+                "settings_raid": _mz_t("Нові користувачі (рейди)", "New users (raids)", "Новые пользователи (рейды)"),
+                "settings_raid_desc": _mz_t("Увімкнути фільтр нових користувачів", "Enable new users filter", "Включить фильтр новых пользователей"),
+                "settings_params": _mz_t("Параметри фільтрів", "Filter settings", "Параметры фильтров"),
+                "settings_inactive_days": _mz_t("Днів неактивності", "Days of inactivity", "Дней неактивности"), 
+                "settings_inactive_days_desc": _mz_t("Скільки днів користувач має бути неактивним", "How many days a user must be inactive", "Сколько дней пользователь должен быть неактивен"),
+                "settings_raid_time": _mz_t("Час для рейду", "Raid time", "Время для рейда"),
+                "settings_raid_time_desc": _mz_t("Формат: 1m (1 хвилина) - 24h (24 години). Приклади: 30m, 2h, 1h30m", "Format: 1m (1 minute) - 24h (24 hours). Examples: 30m, 2h, 1h30m", "Формат: 1m (1 минута) - 24h (24 часа). Примеры: 30m, 2h, 1h30m"),
+                "settings_exclusions": _mz_t("Винятки", "Exclusions", "Исключения"),
+                "settings_exclude_usernames": _mz_t("Імена користувачів", "Usernames", "Имена пользователей"),
+                "settings_exclude_usernames_desc": _mz_t("Регулярний вираз, наприклад: admin|bot", "Regular expression, for example: admin|bot", "Регулярное выражение, например: admin|bot"),
+                "settings_exclude_user_ids": _mz_t("ID користувачів", "User IDs", "ID пользователей"), 
+                "settings_exclude_user_ids_desc": _mz_t("Список ID через кому", "Comma-separated list of IDs", "Список ID через запятую"),
+                "settings_exclude_nicknames": _mz_t("Відображувані імена", "Display names", "Отображаемые имена"),
+                "settings_exclude_nicknames_desc": _mz_t("Регулярний вираз для імені", "Regular expression for the name", "Регулярное выражение для имени"),
+                "settings_guide": _mz_t("Інструкція з використання", "Usage guide", "Инструкция по использованию"),
+            },
+            "en": {
+                # Main messages
+                "operation_cancelled": "Operation cancelled",
+                "chat_info_error": "Failed to get chat information", 
+                "already_running": "Operation already in progress...",
+                "no_rights": "Not enough rights to delete participants",
+                "channel_data_error": "Failed to get channel data",
+                "api_error": "API error: {}",
+                "no_users_to_delete": "No participants found to delete",
+                "start_deletion": "Starting deletion of {} participants...",
+                "deleted_count": "Deleted {}/{} participants...",
+                "success_deletion": "Successfully deleted {}/{} participants",
+                
+                # Filter names for confirmation
+                "confirm_deleted": "deleted accounts",
+                "confirm_bots": "bots",
+                "confirm_inactive": "inactive users",
+                "confirm_online": "online users", 
+                "confirm_offline": "offline users",
+                "confirm_raid": "new users (raid)",
+                
+                # Confirmations
+                "confirm_title": "Confirmation",
+                "confirm_delete": "Are you sure you want to delete {}? This action is irreversible.",
+                "confirm_button_delete": "Delete", 
+                "confirm_button_cancel": "Cancel",
+                
+                # Time
+                "minute_singular": "minute",
+                "minute_dual": "minutes",
+                "minute_plural": "minutes",
+                "hour_singular": "hour",
+                "hour_dual": "hours", 
+                "hour_plural": "hours",
+                "and": "and",
+                
+                # Command
+                "command_help_title": "Usage of command {}",
+                "command_help_filters": "Available filters:",
+                "command_help_examples": "Examples:", 
+                "command_help_all": "all main filters",
+                
+                # Menu
+                "menu_deleted": "Delete deleted",
+                "menu_bots": "Delete bots",
+                "menu_inactive": "Delete inactive",
+                "menu_online": "Delete online", 
+                "menu_offline": "Delete offline",
+                "menu_raid": "Delete raid",
+                
+                # Settings
+                "settings_command": "Delete command",
+                "settings_command_desc": "Main command for deleting participants. Can be changed to any other.",
+                "settings_confirm": "Confirm before deletion", 
+                "settings_confirm_desc": "Show confirmation dialog before deleting participants",
+                "settings_filters": "Participant filters",
+                "settings_deleted": "Deleted accounts",
+                "settings_deleted_desc": "Enable deleted accounts filter",
+                "settings_bots": "Bots",
+                "settings_bots_desc": "Enable bots filter", 
+                "settings_inactive": "Inactive users",
+                "settings_inactive_desc": "Enable inactive users filter",
+                "settings_online": "Online users",
+                "settings_online_desc": "Enable online users filter",
+                "settings_offline": "Offline users",
+                "settings_offline_desc": "Enable offline users filter", 
+                "settings_raid": "New users (raids)",
+                "settings_raid_desc": "Enable new users filter",
+                "settings_params": "Filter parameters",
+                "settings_inactive_days": "Inactivity days",
+                "settings_inactive_days_desc": "How many days user should be inactive",
+                "settings_raid_time": "Time for raid", 
+                "settings_raid_time_desc": "Format: 1m (1 minute) - 24h (24 hours). Examples: 30m, 2h, 1h30m",
+                "settings_exclusions": "Exclusions",
+                "settings_exclude_usernames": "Usernames",
+                "settings_exclude_usernames_desc": "Regular expression, e.g.: admin|bot",
+                "settings_exclude_user_ids": "User IDs", 
+                "settings_exclude_user_ids_desc": "List of IDs separated by commas",
+                "settings_exclude_nicknames": "Display names", 
+                "settings_exclude_nicknames_desc": "Regular expression for name",
+                "settings_guide": "Usage guide",
+            }
+        }
+        
+        lang_strings = strings.get(self._current_language, strings["ru"])
+        text = lang_strings.get(key, key)
+        
+        # Replace the parameters if present
+        if kwargs:
+            try:
+                text = text.format(**kwargs)
+            except:
+                pass
+                
+        return text
+
+    def _format_time_duration(self, minutes: int) -> str:
+        """Formats time in a readable form with the correct word forms"""
+        if minutes < 60:
+            return self._format_minutes(minutes)
+        else:
+            hours = minutes // 60
+            mins = minutes % 60
+            
+            hours_str = self._format_hours(hours)
+            
+            if mins == 0:
+                return hours_str
+            else:
+                mins_str = self._format_minutes(mins)
+                return f"{hours_str} {self.get_localized_string('and')} {mins_str}"
+
+    def _format_minutes(self, minutes: int) -> str:
+        """Formats minutes with the correct forms"""
+        if self._current_language == "ru":
+            if minutes == 1:
+                return f"1 {self.get_localized_string('minute_singular')}"
+            elif 2 <= minutes <= 4:
+                return f"{minutes} {self.get_localized_string('minute_dual')}"
+            else:
+                return f"{minutes} {self.get_localized_string('minute_plural')}"
+        else:
+            if minutes == 1:
+                return f"1 {self.get_localized_string('minute_singular')}"
+            else:
+                return f"{minutes} {self.get_localized_string('minute_plural')}"
+
+    def _format_hours(self, hours: int) -> str:
+        """Formats hours with the correct forms"""
+        if self._current_language == "ru":
+            if hours == 1:
+                return f"1 {self.get_localized_string('hour_singular')}"
+            elif 2 <= hours <= 4:
+                return f"{hours} {self.get_localized_string('hour_dual')}"
+            else:
+                return f"{hours} {self.get_localized_string('hour_plural')}"
+        else:
+            if hours == 1:
+                return f"1 {self.get_localized_string('hour_singular')}"
+            else:
+                return f"{hours} {self.get_localized_string('hour_plural')}"
+
+    def on_send_message_hook(self, account, params) -> HookStrategy:
+        """Message handler for the .bandel command"""
+        try:
+            message = params.message
+            if not message or not isinstance(message, str):
+                return HookStrategy.CONTINUE
+
+            text = message.strip()
+            command = self.get_setting("command_name", ".bandel").strip()
+            
+            if not command:
+                command = ".bandel"
+                
+            # Check whether the message starts with the command
+            if not text.startswith(command):
+                return HookStrategy.CONTINUE
+
+            # Cancel sending the message with the command
+            # Get the command arguments
+            args_text = text[len(command):].strip()
+            args = args_text.split() if args_text else []
+            
+            # Handle the command in a separate thread
+            def process_command():
+                self._process_bandel_command(params.dialog_id, args)
+            
+            threading.Thread(target=process_command, daemon=True).start()
+            
+            return HookStrategy.CANCEL
+            
+        except Exception as e:
+            self.log(f"Error handling command: {e}")
+            return HookStrategy.CONTINUE
+
+    def _process_bandel_command(self, dialog_id: int, args: List[str]):
+        """Handles the .bandel command with arguments"""
+        try:
+            if not dialog_id:
+                BulletinHelper.show_error(self.get_localized_string("chat_info_error"))
+                return
+                
+            chat = get_messages_controller().getChat(abs(dialog_id))
+            if not chat:
+                BulletinHelper.show_error(self.get_localized_string("chat_info_error"))
+                return
+                
+            # Check administrator rights
+            if not self._check_admin_rights_directly(chat):
+                BulletinHelper.show_error(self.get_localized_string("no_rights"))
+                return
+            
+            # If there are no arguments, show the help
+            if not args:
+                self._show_command_help(dialog_id)
+                return
+                
+            # Parse the arguments
+            filters = self._parse_command_args(args)
+            if not filters:
+                self._show_command_help(dialog_id)
+                return
+                
+            # Show the confirmation and start the removal
+            def start_deletion():
+                self._current_operation = "command"
+                threading.Thread(
+                    target=self._process_delete_command,
+                    args=(abs(dialog_id), "", {}, filters),
+                    daemon=True
+                ).start()
+                
+            filter_names = self._get_filter_display_names(filters)
+            filter_text = ", ".join(filter_names)
+            
+            if not self.get_setting("confirm_before_delete", True):
+                start_deletion()
+            else:
+                self._show_command_confirmation(filter_text, start_deletion)
+                
+        except Exception as e:
+            self.log(f"Error handling bandel command: {e}")
+            BulletinHelper.show_error(self.get_localized_string("api_error", error=str(e)))
+
+    def _parse_command_args(self, args: List[str]) -> Dict[str, bool]:
+        """Parses command arguments into filters"""
+        filters = {}
+        arg_mapping = {
+            'deleted': 'deleted',
+            'del': 'deleted',
+            'd': 'deleted',
+            
+            'bots': 'bots', 
+            'bot': 'bots',
+            'b': 'bots',
+            
+            'inactive': 'inactive',
+            'inact': 'inactive',
+            'i': 'inactive',
+            
+            'online': 'online',
+            'on': 'online',
+            'o': 'online',
+            
+            'offline': 'offline',
+            'off': 'offline',
+            'f': 'offline',
+            
+            'raid': 'raid',
+            'new': 'raid',
+            'r': 'raid',
+            
+            'all': 'all'
+        }
+        
+        for arg in args:
+            arg_lower = arg.lower().strip()
+            if arg_lower in arg_mapping:
+                filter_key = arg_mapping[arg_lower]
+                filters[filter_key] = True
+                
+        # If all is given, enable all main filters
+        if 'all' in filters:
+            filters = {
+                'deleted': True,
+                'bots': True, 
+                'inactive': True,
+                'online': False,
+                'offline': False,
+                'raid': True
+            }
+            
+        return filters
+
+    def _get_filter_display_names(self, filters: Dict[str, bool]) -> List[str]:
+        """Returns readable filter names"""
+        names = {
+            'deleted': self.get_localized_string("confirm_deleted"),
+            'bots': self.get_localized_string("confirm_bots"),
+            'inactive': self.get_localized_string("confirm_inactive"), 
+            'online': self.get_localized_string("confirm_online"),
+            'offline': self.get_localized_string("confirm_offline"),
+            'raid': self.get_localized_string("confirm_raid")
+        }
+        
+        result = []
+        for filter_key, enabled in filters.items():
+            if enabled and filter_key in names:
+                result.append(names[filter_key])
+                
+        return result
+
+    def _show_command_help(self, dialog_id: int):
+        """Shows help for the command"""
+        command = self.get_setting("command_name", ".bandel").strip()
+        if not command:
+            command = ".bandel"
+            
+        help_text = _mz_t(f"""
+{self.get_localized_string('command_help_title', command=command)}
+
+{self.get_localized_string('command_help_filters')}
+deleted - {self.get_localized_string('confirm_deleted')}
+bots - {self.get_localized_string('confirm_bots')}  
+inactive - {self.get_localized_string('confirm_inactive')}
+online - {self.get_localized_string('confirm_online')}
+offline - {self.get_localized_string('confirm_offline')}
+raid - {self.get_localized_string('confirm_raid')}
+all - {self.get_localized_string('command_help_all')}
+
+{self.get_localized_string('command_help_examples')}
+{command} deleted - {self.get_localized_string('menu_deleted').lower()}
+{command} bots raid - {self.get_localized_string('menu_bots').lower()} {self.get_localized_string('and')} {self.get_localized_string('menu_raid').lower()}
+{command} all - {self.get_localized_string('command_help_all')}
+
+Фільтри та винятки можна налаштувати в налаштуваннях плагіна
+        """, f"""
+{self.get_localized_string('command_help_title', command=command)}
+
+{self.get_localized_string('command_help_filters')}
+deleted - {self.get_localized_string('confirm_deleted')}
+bots - {self.get_localized_string('confirm_bots')}  
+inactive - {self.get_localized_string('confirm_inactive')}
+online - {self.get_localized_string('confirm_online')}
+offline - {self.get_localized_string('confirm_offline')}
+raid - {self.get_localized_string('confirm_raid')}
+all - {self.get_localized_string('command_help_all')}
+
+{self.get_localized_string('command_help_examples')}
+{command} deleted - {self.get_localized_string('menu_deleted').lower()}
+{command} bots raid - {self.get_localized_string('menu_bots').lower()} {self.get_localized_string('and')} {self.get_localized_string('menu_raid').lower()}
+{command} all - {self.get_localized_string('command_help_all')}
+
+Filters and exclusions can be set up in the plugin settings
+        """, (f"""
+{self.get_localized_string('command_help_title', command=command)}
+
+{self.get_localized_string('command_help_filters')}
+deleted - {self.get_localized_string('confirm_deleted')}
+bots - {self.get_localized_string('confirm_bots')}  
+inactive - {self.get_localized_string('confirm_inactive')}
+online - {self.get_localized_string('confirm_online')}
+offline - {self.get_localized_string('confirm_offline')}
+raid - {self.get_localized_string('confirm_raid')}
+all - {self.get_localized_string('command_help_all')}
+
+{self.get_localized_string('command_help_examples')}
+{command} deleted - {self.get_localized_string('menu_deleted').lower()}
+{command} bots raid - {self.get_localized_string('menu_bots').lower()} {self.get_localized_string('and')} {self.get_localized_string('menu_raid').lower()}
+{command} all - {self.get_localized_string('command_help_all')}
+
+Фильтры и исключения можно настроить в настройках плагина
+        """))
+        
+        send_message(help_text.strip(), dialog_id)
+
+    def _show_command_confirmation(self, filter_text: str, callback):
+        """Shows a confirmation for the command"""
+        def on_confirm(dialog, which):
+            callback()
+            
+        def on_cancel(dialog, which):
+            BulletinHelper.show_info(self.get_localized_string("operation_cancelled"))
+            
+        fragment = get_last_fragment()
+        ctx = fragment.getContext() if fragment else ApplicationLoader.applicationContext
+        
+        builder = AlertDialogBuilder(ctx, AlertDialogBuilder.ALERT_TYPE_MESSAGE)
+        builder.set_title(self.get_localized_string("confirm_title"))
+        builder.set_message(self.get_localized_string("confirm_delete", filters=filter_text))
+        builder.set_positive_button(self.get_localized_string("confirm_button_delete"), on_confirm)
+        builder.set_negative_button(self.get_localized_string("confirm_button_cancel"), on_cancel)
+        builder.set_cancelable(True)
+        builder.show()
+
+    def create_settings(self):
+        """Creates the plugin settings UI."""
+        settings = [
+            Header(self.get_localized_string("settings_command")),
+            Input(
+                key="command_name", 
+                text=self.get_localized_string("settings_command"), 
+                default=".bandel", 
+                icon="msg_cmd",
+                subtext=self.get_localized_string("settings_command_desc")
+            ),
+            
+            Header(self.get_localized_string("settings_confirm")),
+            Switch(
+                key="confirm_before_delete", 
+                text=self.get_localized_string("settings_confirm"), 
+                default=True, 
+                icon="msg_warning",
+                subtext=self.get_localized_string("settings_confirm_desc")
+            ),
+            
+            Header(self.get_localized_string("settings_filters")),
+            Switch(
+                key="filter_deleted", 
+                text=self.get_localized_string("settings_deleted"), 
+                default=True, 
+                icon="msg_user_remove",
+                subtext=self.get_localized_string("settings_deleted_desc")
+            ),
+            Switch(
+                key="filter_bots", 
+                text=self.get_localized_string("settings_bots"), 
+                default=False, 
+                icon="msg_bots_solar",
+                subtext=self.get_localized_string("settings_bots_desc")
+            ),
+            Switch(
+                key="filter_inactive", 
+                text=self.get_localized_string("settings_inactive"), 
+                default=False, 
+                icon="msg_autodelete_1m_solar",
+                subtext=self.get_localized_string("settings_inactive_desc")
+            ),
+            Switch(
+                key="filter_online", 
+                text=self.get_localized_string("settings_online"), 
+                default=False, 
+                icon="msg_online",
+                subtext=self.get_localized_string("settings_online_desc")
+            ),
+            Switch(
+                key="filter_offline", 
+                text=self.get_localized_string("settings_offline"), 
+                default=False, 
+                icon="msg_contacts_solar",
+                subtext=self.get_localized_string("settings_offline_desc")
+            ),
+            Switch(
+                key="filter_raid", 
+                text=self.get_localized_string("settings_raid"), 
+                default=False, 
+                icon="msg_folders_groups_solar",
+                subtext=self.get_localized_string("settings_raid_desc")
+            ),
+            
+            Header(self.get_localized_string("settings_params")),
+            Input(
+                key="inactive_days", 
+                text=self.get_localized_string("settings_inactive_days"), 
+                default="30", 
+                subtext=self.get_localized_string("settings_inactive_days_desc")
+            ),
+            Input(
+                key="raid_time", 
+                text=self.get_localized_string("settings_raid_time"), 
+                default="1h", 
+                subtext=self.get_localized_string("settings_raid_time_desc")
+            ),
+            
+            Header(self.get_localized_string("settings_exclusions")),
+            Input(
+                key="exclude_usernames", 
+                text=self.get_localized_string("settings_exclude_usernames"), 
+                default="",
+                subtext=self.get_localized_string("settings_exclude_usernames_desc")
+            ),
+            Input(
+                key="exclude_user_ids", 
+                text=self.get_localized_string("settings_exclude_user_ids"), 
+                default="",
+                subtext=self.get_localized_string("settings_exclude_user_ids_desc")
+            ),
+            Input(
+                key="exclude_nicknames", 
+                text=self.get_localized_string("settings_exclude_nicknames"), 
+                default="",
+                subtext=self.get_localized_string("settings_exclude_nicknames_desc")
+            ),
+            
+            Text(
+                text=self.get_localized_string("settings_guide"),
+                icon="msg_help",
+                on_click=self._show_plugin_guide
+            )
+        ]
+        
+        return settings
+
+    def _add_chat_menu_items(self):
+        """Adds menu items to the chat."""
+        menu_items = [
+            ('deleted', self.get_localized_string("menu_deleted"), "msg_user_remove", self._on_delete_deleted_accounts),
+            ('bots', self.get_localized_string("menu_bots"), "msg_bots_solar", self._on_delete_bots),
+            ('inactive', self.get_localized_string("menu_inactive"), "msg_autodelete_1m_solar", self._on_delete_inactive_users),
+            ('online', self.get_localized_string("menu_online"), "msg_online", self._on_delete_online_users),
+            ('offline', self.get_localized_string("menu_offline"), "msg_contacts_solar", self._on_delete_offline_users),
+            ('raid', self.get_localized_string("menu_raid"), "msg_folders_groups_solar", self._on_delete_raid_users)
+        ]
+        
+        for item_id, text, icon, handler in menu_items:
+            try:
+                self._chat_menu_items[item_id] = self.add_menu_item(MenuItemData(
+                    menu_type=MenuItemType.CHAT_ACTION_MENU,
+                    text=text,
+                    icon=icon,
+                    priority=10 + len(self._chat_menu_items),
+                    on_click=handler
+                ))
+            except Exception as e:
+                self.log(f"Error adding menu item {item_id}: {e}")
+
+    def _remove_chat_menu_items(self):
+        """Removes menu items from the chat."""
+        for menu_item in self._chat_menu_items.values():
+            try:
+                self.remove_menu_item(menu_item)
+            except Exception as e:
+                self.log(f"Error removing menu item: {e}")
+        self._chat_menu_items.clear()
+
+    def _get_current_chat_info(self):
+        """Gets information about the current chat."""
+        try:
+            fragment = get_last_fragment()
+            if not fragment:
+                return None, None
+            
+            dialog_id = fragment.getDialogId()
+            if not dialog_id:
+                return None, None
+                
+            chat = get_messages_controller().getChat(abs(dialog_id))
+            return dialog_id, chat
+        except Exception as e:
+            self.log(f"Error getting chat info: {e}")
+            return None, None
+
+    def _show_confirmation_dialog(self, filter_type: str, callback):
+        """Shows the confirmation dialog with the correct texts."""
+        if not self.get_setting("confirm_before_delete", True):
+            callback()
+            return
+            
+        filter_names = {
+            'deleted': self.get_localized_string("confirm_deleted"),
+            'bots': self.get_localized_string("confirm_bots"),
+            'offline': self.get_localized_string("confirm_offline"),
+            'online': self.get_localized_string("confirm_online"),
+            'inactive': self.get_localized_string("confirm_inactive"),
+            'raid': self.get_localized_string("confirm_raid")
+        }
+        
+        filter_name = filter_names.get(filter_type, filter_type)
+        
+        # Special message for a raid with time
+        if filter_type == 'raid':
+            raid_time_str = self.get_setting("raid_time", "1h")
+            raid_minutes = self._parse_time_string(raid_time_str)
+            time_display = self._format_time_duration(raid_minutes)
+            
+            if self._current_language == "ru":
+                filter_name = _mz_t(f"{self.get_localized_string('confirm_raid')}, які зайшли за останні {time_display}", f"{self.get_localized_string('confirm_raid')}, who joined in the last {time_display}", f"{self.get_localized_string('confirm_raid')}, зашедших за последние {time_display}")
+            else:
+                filter_name = f"{self.get_localized_string('confirm_raid')} who joined in the last {time_display}"
+        
+        def on_confirm(dialog, which):
+            callback()
+            
+        def on_cancel(dialog, which):
+            BulletinHelper.show_info(self.get_localized_string("operation_cancelled"))
+            
+        fragment = get_last_fragment()
+        ctx = fragment.getContext() if fragment else ApplicationLoader.applicationContext
+        
+        builder = AlertDialogBuilder(ctx, AlertDialogBuilder.ALERT_TYPE_MESSAGE)
+        builder.set_title(self.get_localized_string("confirm_title"))
+        builder.set_message(self.get_localized_string("confirm_delete", filters=filter_name))
+        builder.set_positive_button(self.get_localized_string("confirm_button_delete"), on_confirm)
+        builder.set_negative_button(self.get_localized_string("confirm_button_cancel"), on_cancel)
+        builder.set_cancelable(True)
+        builder.show()
+
+    # Menu handlers
+    def _on_delete_deleted_accounts(self, context):
+        self._show_confirmation_dialog('deleted', 
+            lambda: self._start_deletion_process('deleted'))
+
+    def _on_delete_bots(self, context):
+        self._show_confirmation_dialog('bots',
+            lambda: self._start_deletion_process('bots'))
+
+    def _on_delete_inactive_users(self, context):
+        self._show_confirmation_dialog('inactive',
+            lambda: self._start_deletion_process('inactive'))
+
+    def _on_delete_online_users(self, context):
+        self._show_confirmation_dialog('online',
+            lambda: self._start_deletion_process('online'))
+
+    def _on_delete_offline_users(self, context):
+        self._show_confirmation_dialog('offline', 
+            lambda: self._start_deletion_process('offline'))
+
+    def _on_delete_raid_users(self, context):
+        self._show_confirmation_dialog('raid',
+            lambda: self._start_deletion_process('raid'))
+
+    def _start_deletion_process(self, filter_type: str):
+        """Starts the removal process."""
+        dialog_id, chat = self._get_current_chat_info()
+        if not dialog_id or not chat:
+            BulletinHelper.show_error(self.get_localized_string("chat_info_error"))
+            return
+            
+        if self._current_operation:
+            BulletinHelper.show_info(self.get_localized_string("already_running"))
+            return
+            
+        self._current_operation = filter_type
+        threading.Thread(
+            target=self._process_chat_deletion,
+            args=(abs(dialog_id), filter_type),
+            daemon=True
+        ).start()
+
+    def _process_chat_deletion(self, peer_id: int, filter_type: str):
+        """Handles removal from the chat context."""
+        try:
+            self._process_delete_command(peer_id, filter_type, {}, {})
+        except Exception as e:
+            self.log(f"Error in removal process: {e}")
+            BulletinHelper.show_error(self.get_localized_string("api_error", error=str(e)))
+        finally:
+            self._current_operation = None
+
+    def _process_delete_command(self, peer_id: int, filter_arg: str, exclusions: Dict, command_filters: Dict = None):
+        """Main process for removing members."""
+        try:
+            chat = get_messages_controller().getChat(abs(peer_id))
+            if not chat:
+                BulletinHelper.show_error(self.get_localized_string("chat_info_error"))
+                return
+                
+            # Check administrator rights before starting
+            if not self._check_admin_rights_directly(chat):
+                BulletinHelper.show_error(self.get_localized_string("no_rights"))
+                return
+                
+            # If filters were passed from the command, use them
+            if command_filters is not None:
+                self._fetch_chat_participants(peer_id, chat, "", exclusions, command_filters)
+            else:
+                self._fetch_chat_participants(peer_id, chat, filter_arg, exclusions, {})
+                
+        except Exception as e:
+            self.log(f"Error handling command: {e}")
+            BulletinHelper.show_error(self.get_localized_string("api_error", error=str(e)))
+
+    def _fetch_chat_participants(self, peer_id: int, chat: TLRPC.Chat, filter_arg: str, exclusions: Dict, command_filters: Dict):
+        """Collects chat members."""
+        if ChatObject.isChannel(chat):
+            self._fetch_channel_participants(peer_id, chat, filter_arg, exclusions, command_filters)
+        else:
+            self._fetch_group_participants(peer_id, chat, filter_arg, exclusions, command_filters)
+
+    def _fetch_channel_participants(self, peer_id: int, chat: TLRPC.Chat, filter_arg: str, exclusions: Dict, command_filters: Dict):
+        """Collects channel members."""
+        input_channel = get_messages_controller().getInputChannel(chat.id)
+        if not input_channel:
+            BulletinHelper.show_error(self.get_localized_string("channel_data_error"))
+            return
+            
+        self._fetch_channel_recursive(peer_id, input_channel, filter_arg, exclusions, command_filters, 0, {}, [])
+
+    def _fetch_channel_recursive(self, peer_id: int, input_channel: TLRPC.InputChannel, filter_arg: str, 
+                               exclusions: Dict, command_filters: Dict, offset: int, all_users: Dict, all_participants: List):
+        """Recursively collects channel members."""
+        if offset >= 10000:  # Limit for safety
+            self._process_participants(peer_id, filter_arg, exclusions, command_filters, None, all_users, all_participants)
+            return
+            
+        req = TLRPC.TL_channels_getParticipants()
+        req.channel = input_channel
+        req.filter = TLRPC.TL_channelParticipantsRecent()  # Get all members
+        req.offset = offset
+        req.limit = 200
+        req.hash = 0
+        
+        def callback(response, error):
+            if error:
+                self.log(f"Channel API error: {error.text}")
+                BulletinHelper.show_error(self.get_localized_string("api_error", error=error.text))
+                return
+                
+            if response and hasattr(response, 'users'):
+                all_users.update({u.id: u for u in response.users.toArray()})
+                
+            participants = []
+            if response and hasattr(response, 'participants'):
+                participants = list(response.participants.toArray())
+                all_participants.extend(participants)
+                
+            if len(participants) >= 199:
+                self._fetch_channel_recursive(peer_id, input_channel, filter_arg, exclusions, command_filters,
+                                            offset + len(participants), all_users, all_participants)
+            else:
+                chat = get_messages_controller().getChat(abs(peer_id))
+                self._process_participants(peer_id, filter_arg, exclusions, command_filters, chat, all_users, all_participants)
+        
+        send_request(req, callback)
+
+    def _fetch_group_participants(self, peer_id: int, chat: TLRPC.Chat, filter_arg: str, exclusions: Dict, command_filters: Dict):
+        """Collects group members."""
+        req = TLRPC.TL_messages_getFullChat()
+        req.chat_id = chat.id
+        
+        def callback(response, error):
+            if error:
+                self.log(f"Group API error: {error.text}")
+                BulletinHelper.show_error(self.get_localized_string("api_error", error=error.text))
+                return
+                
+            all_users = {}
+            all_participants = []
+            
+            if response and hasattr(response, 'users'):
+                all_users.update({u.id: u for u in response.users.toArray()})
+                
+            if response and hasattr(response, 'full_chat') and hasattr(response.full_chat, 'participants'):
+                all_participants = list(response.full_chat.participants.participants.toArray())
+                
+            self._process_participants(peer_id, filter_arg, exclusions, command_filters, chat, all_users, all_participants)
+        
+        send_request(req, callback)
+
+    def _process_participants(self, peer_id: int, filter_arg: str, exclusions: Dict, command_filters: Dict,
+                            chat: TLRPC.Chat, all_users: Dict, all_participants: List):
+        """Processes the collected members."""
+        try:
+            # Check rights once more just in case
+            if not self._check_admin_rights_directly(chat):
+                BulletinHelper.show_error(self.get_localized_string("no_rights"))
+                return
+                
+            # Filter users
+            users_to_delete = self._filter_users(all_participants, all_users, filter_arg, exclusions, command_filters)
+            
+            if not users_to_delete:
+                BulletinHelper.show_info(self.get_localized_string("no_users_to_delete"))
+                return
+                
+            # Perform the removal
+            self._delete_users(chat, users_to_delete)
+            
+        except Exception as e:
+            self.log(f"Error processing members: {e}")
+            BulletinHelper.show_error(self.get_localized_string("api_error", error=str(e)))
+
+    def _filter_users(self, participants: List, all_users: Dict, filter_arg: str, exclusions: Dict, command_filters: Dict) -> List[TLRPC.User]:
+        """Filters users for removal."""
+        # Determine the active filters
+        if command_filters:
+            active_filters = command_filters
+        else:
+            active_filters = self._get_active_filters(filter_arg)
+            
+        my_id = UserConfig.getInstance(UserConfig.selectedAccount).getClientUserId()
+        filtered_users = []
+        
+        for participant in participants:
+            user_id = self._get_user_id_from_participant(participant)
+            if not user_id or user_id == my_id:
+                continue
+                
+            user = all_users.get(user_id)
+            if not user:
+                continue
+                
+            if self._should_delete_user(user, participant, active_filters) and not self._is_excluded(user, exclusions):
+                filtered_users.append(user)
+                
+        return filtered_users
+
+    def _get_user_id_from_participant(self, participant) -> Optional[int]:
+        """Extracts the user ID from a member."""
+        if hasattr(participant, 'user_id'):
+            return participant.user_id
+        elif hasattr(participant, 'peer') and hasattr(participant.peer, 'user_id'):
+            return participant.peer.user_id
+        return None
+
+    def _get_active_filters(self, filter_arg: str) -> Dict[str, bool]:
+        """Determines the active filters from the settings."""
+        if filter_arg:
+            return {filter_arg.lower(): True}
+            
+        active_filters = {}
+        filter_mapping = {
+            'filter_deleted': 'deleted',
+            'filter_bots': 'bots', 
+            'filter_online': 'online',
+            'filter_offline': 'offline',
+            'filter_inactive': 'inactive',
+            'filter_raid': 'raid'
+        }
+        
+        for setting_key, filter_name in filter_mapping.items():
+            active_filters[filter_name] = self.get_setting(setting_key, False)
+                
+        return active_filters
+
+    def _should_delete_user(self, user: TLRPC.User, participant: Any, active_filters: Dict[str, bool]) -> bool:
+        """Determines whether the user should be removed."""
+        # Check each active filter
+        if active_filters.get('deleted', False) and user.deleted:
+            return True
+        if active_filters.get('bots', False) and user.bot:
+            return True
+        if active_filters.get('online', False) and self._is_online(user):
+            return True
+        if active_filters.get('offline', False) and not self._is_online(user):
+            return True
+        if active_filters.get('inactive', False) and self._is_inactive(user):
+            return True
+        if active_filters.get('raid', False) and self._is_raid_user(participant):
+            return True
+            
+        return False
+
+    def _check_admin_rights_directly(self, chat: TLRPC.Chat) -> bool:
+        """Direct check of administrator rights in the chat."""
+        try:
+            my_id = UserConfig.getInstance(UserConfig.selectedAccount).getClientUserId()
+            
+            # If we are the chat creator, we always have rights
+            if hasattr(chat, 'creator') and chat.creator:
+                return True
+                
+            # Check administrator rights via MessagesController
+            messages_controller = get_messages_controller()
+            
+            # For channels/supergroups
+            if ChatObject.isChannel(chat):
+                # Get channel information
+                input_channel = messages_controller.getInputChannel(chat.id)
+                if not input_channel:
+                    return False
+                    
+                # Request channel information to get the rights
+                req = TLRPC.TL_channels_getFullChannel()
+                req.channel = input_channel
+                
+                result = [None]
+                event = threading.Event()
+                
+                def callback(response, error):
+                    if response and hasattr(response, 'full_chat'):
+                        result[0] = response.full_chat
+                    event.set()
+                
+                send_request(req, callback)
+                event.wait(timeout=10)
+                
+                full_chat = result[0]
+                if full_chat and hasattr(full_chat, 'admin_rights'):
+                    admin_rights = full_chat.admin_rights
+                    if admin_rights and hasattr(admin_rights, 'ban_users'):
+                        return admin_rights.ban_users
+                        
+            # For regular groups
+            else:
+                # In groups check via ChatObject
+                return ChatObject.canUserDoAdminAction(chat, my_id)
+                
+            return False
+            
+        except Exception as e:
+            self.log(f"Error checking administrator rights: {e}")
+            return False
+
+    def _is_online(self, user: TLRPC.User) -> bool:
+        """Checks whether the user is online."""
+        if not user or not user.status:
+            return False
+            
+        return isinstance(user.status, (TLRPC.TL_userStatusOnline, TLRPC.TL_userStatusRecently))
+
+    def _is_inactive(self, user: TLRPC.User) -> bool:
+        """Checks whether the user is inactive (by period)."""
+        if not user or not user.status:
+            return False
+            
+        try:
+            inactive_days = int(self.get_setting("inactive_days", "30"))
+        except:
+            inactive_days = 30
+            
+        current_time = int(time.time())
+        
+        # Check the time of the last activity
+        if isinstance(user.status, TLRPC.TL_userStatusOffline):
+            last_seen = user.status.was_online
+            days_passed = (current_time - last_seen) / (24 * 3600)
+            return days_passed >= inactive_days
+            
+        # For other statuses, if they are not online
+        elif not self._is_online(user):
+            # For users who have not been online for a long time
+            return True
+            
+        return False
+
+    def _is_raid_user(self, participant) -> bool:
+        """Checks whether the user is part of a raid (a new user)."""
+        raid_time_str = self.get_setting("raid_time", "1h")
+        raid_minutes = self._parse_time_string(raid_time_str)
+            
+        # Current time
+        current_time = int(time.time())
+        
+        # Time before which users count as new (in seconds)
+        raid_threshold = current_time - (raid_minutes * 60)
+        
+        # Get the user's join date
+        join_date = getattr(participant, 'date', 0)
+        
+        # If the user joined after the threshold, it is a raid
+        return join_date > raid_threshold
+
+    def _is_excluded(self, user: TLRPC.User, exclusions: Dict) -> bool:
+        """Checks whether the user is excluded."""
+        # Check by username
+        exclude_usernames = self.get_setting("exclude_usernames", "").strip()
+        if exclude_usernames:
+            username = getattr(user, 'username', '') or ''
+            if username and re.search(exclude_usernames, username, re.IGNORECASE):
+                return True
+                
+        # Check by ID
+        exclude_user_ids = self.get_setting("exclude_user_ids", "").strip()
+        if exclude_user_ids:
+            try:
+                ids = [int(x.strip()) for x in exclude_user_ids.split(',') if x.strip().isdigit()]
+                if user.id in ids:
+                    return True
+            except ValueError:
+                pass
+                
+        # Check by name
+        exclude_nicknames = self.get_setting("exclude_nicknames", "").strip()
+        if exclude_nicknames:
+            first_name = getattr(user, 'first_name', '') or ''
+            last_name = getattr(user, 'last_name', '') or ''
+            full_name = f"{first_name} {last_name}".strip()
+            if full_name and re.search(exclude_nicknames, full_name, re.IGNORECASE):
+                return True
+                
+        return False
+
+    def _delete_users(self, chat: TLRPC.Chat, users: List[TLRPC.User]):
+        """Removes users from the chat."""
+        total = len(users)
+        if total == 0:
+            return
+            
+        BulletinHelper.show_info(self.get_localized_string("start_deletion", total=total))
+        deleted_count = 0
+        is_channel = ChatObject.isChannel(chat)
+        
+        for i, user in enumerate(users):
+            try:
+                self._delete_single_user(chat, user, is_channel)
+                deleted_count += 1
+                
+                # Update progress every 10 users
+                if (i + 1) % 10 == 0:
+                    BulletinHelper.show_info(self.get_localized_string("deleted_count", current=deleted_count, total=total))
+                    
+                time.sleep(0.15)  # Pause to avoid limits
+                
+            except Exception as e:
+                self.log(f"Error removing user {user.id}: {e}")
+                
+        BulletinHelper.show_success(self.get_localized_string("success_deletion", deleted=deleted_count, total=total))
+
+    def _delete_single_user(self, chat: TLRPC.Chat, user: TLRPC.User, is_channel: bool):
+        """Removes one user."""
+        if is_channel:
+            # For channels/supergroups
+            req = TLRPC.TL_channels_editBanned()
+            req.channel = get_messages_controller().getInputChannel(chat.id)
+            req.participant = TLRPC.TL_inputPeerUser()
+            req.participant.user_id = user.id
+            req.participant.access_hash = getattr(user, 'access_hash', 0)
+            req.banned_rights = TLRPC.TL_chatBannedRights()
+            req.banned_rights.view_messages = True
+            req.banned_rights.until_date = 0
+        else:
+            # For regular groups
+            req = TLRPC.TL_messages_deleteChatUser()
+            req.chat_id = chat.id
+            req.user_id = TLRPC.TL_inputUser()
+            req.user_id.user_id = user.id
+            req.user_id.access_hash = getattr(user, 'access_hash', 0)
+            
+        send_request(req, lambda r, e: None)
+
+    def _parse_time_string(self, time_str: str) -> int:
+        """Parses a time string into minutes."""
+        try:
+            time_str = time_str.strip().lower()
+            
+            # If the string is empty, return the default 60 minutes
+            if not time_str:
+                return 60
+                
+            total_minutes = 0
+            
+            # Regular expression to find numbers with h and m suffixes
+            pattern = r'(\d+)([hm])'
+            matches = re.findall(pattern, time_str)
+            
+            if not matches:
+                # If there are no suffixes, try to parse it as a number (minutes)
+                try:
+                    minutes = int(time_str)
+                    return max(1, min(minutes, 1440))  # Limit of 1-1440 minutes
+                except:
+                    return 60  # Default value on error
+            
+            for value, unit in matches:
+                num = int(value)
+                if unit == 'h':
+                    total_minutes += num * 60
+                elif unit == 'm':
+                    total_minutes += num
+            
+            # Limit the range from 1 minute to 24 hours (1440 minutes)
+            return max(1, min(total_minutes, 1440))
+            
+        except Exception as e:
+            self.log(f"Error parsing time: {e}")
+            return 60  # Default value on error
+
+    def _show_plugin_guide(self, view=None):
+        """Shows the usage guide."""
+        command = self.get_setting("command_name", ".bandel").strip()
+        if not command:
+            command = ".bandel"
+            
+        if self._current_language == "ru":
+            title = _mz_t("Керування учасниками - посібник", "User Management - Guide", "Управление участниками - Руководство")
+            text = _mz_t(f"""
+Швидке керування через меню чату (3 крапки):
+
+• {self.get_localized_string("menu_deleted")} - видаляє видалені акаунти
+• {self.get_localized_string("menu_bots")} - видаляє всіх ботів  
+• {self.get_localized_string("menu_inactive")} - видаляє користувачів, неактивних понад N днів
+• {self.get_localized_string("menu_online")} - видаляє користувачів, які зараз онлайн
+• {self.get_localized_string("menu_offline")} - видаляє всіх, хто зараз не в мережі
+• {self.get_localized_string("menu_raid")} - видаляє нових користувачів (за останні N хвилин)
+
+Команда {command}
+
+Використовуйте команду в чаті для швидкого видалення:
+
+{command} deleted - {self.get_localized_string("menu_deleted").lower()}
+{command} bots raid - {self.get_localized_string("menu_bots").lower()} {self.get_localized_string('and')} {self.get_localized_string("menu_raid").lower()}  
+{command} all - усі основні фільтри
+
+Налаштування фільтрів:
+
+• Днів неактивності - скільки днів користувач має бути неактивним
+• Час для рейду - за який час вважати користувачів новими
+• Винятки - захист певних користувачів від видалення
+
+Система винятків:
+
+• Імена користувачів - регулярний вираз для @username
+• ID користувачів - список ID через кому
+• Відображувані імена - регулярний вираз для імен
+
+ВАЖЛИВО!
+- Використовуйте з обережністю, дії незворотні!
+- Завжди перевіряйте права адміністратора
+- Налаштуйте винятки для захисту важливих користувачів
+- Перед масовим видаленням зробіть тест на невеликій групі
+
+Поради:
+1. Спочатку протестуйте на маленькій групі
+2. Налаштуйте винятки для адміністраторів і ботів
+3. Використовуйте підтвердження перед видаленням
+4. Перевіряйте результати видалення
+            """, f"""
+Quick management via chat menu (3 dots):
+
+• {self.get_localized_string("menu_deleted")} - deletes deleted accounts
+• {self.get_localized_string("menu_bots")} - deletes all bots  
+• {self.get_localized_string("menu_inactive")} - deletes users inactive for more than N days
+• {self.get_localized_string("menu_online")} - deletes users who are online now
+• {self.get_localized_string("menu_offline")} - deletes everyone who is offline now
+• {self.get_localized_string("menu_raid")} - deletes new users (joined in the last N minutes)
+
+Command {command}
+
+Use the command in chat for quick removal:
+
+{command} deleted - {self.get_localized_string("menu_deleted").lower()}
+{command} bots raid - {self.get_localized_string("menu_bots").lower()} {self.get_localized_string('and')} {self.get_localized_string("menu_raid").lower()}  
+{command} all - all main filters
+
+Filter settings:
+
+• Inactivity days - how many days a user must be inactive
+• Raid time - the time window for counting users as new
+• Exclusions - protect certain users from removal
+
+Exclusion system:
+
+• Usernames - regular expression for @username
+• User IDs - comma-separated list of IDs
+• Display names - regular expression for names
+
+IMPORTANT!
+- Use with caution, actions are irreversible!
+- Always check administrator rights
+- Set up exclusions to protect important users
+- Before a mass removal, test on a small group
+
+Tips:
+1. Test on a small group first
+2. Set up exclusions for administrators and bots
+3. Use the confirmation before removal
+4. Check the removal results
+            """, (f"""
+Быстрое управление через меню чата (3 точки):
+
+• {self.get_localized_string("menu_deleted")} - удаляет удалённые аккаунты
+• {self.get_localized_string("menu_bots")} - удаляет всех ботов  
+• {self.get_localized_string("menu_inactive")} - удаляет пользователей, неактивных более N дней
+• {self.get_localized_string("menu_online")} - удаляет пользователей, которые сейчас онлайн
+• {self.get_localized_string("menu_offline")} - удаляет всех, кто сейчас не в сети
+• {self.get_localized_string("menu_raid")} - удаляет новых пользователей (за последние N минут)
+
+Команда {command}
+
+Используйте команду в чате для быстрого удаления:
+
+{command} deleted - {self.get_localized_string("menu_deleted").lower()}
+{command} bots raid - {self.get_localized_string("menu_bots").lower()} {self.get_localized_string('and')} {self.get_localized_string("menu_raid").lower()}  
+{command} all - все основные фильтры
+
+Настройки фильтров:
+
+• Дней неактивности - сколько дней пользователь должен быть неактивен
+• Время для рейда - за какое время считать пользователей новыми
+• Исключения - защита определённых пользователей от удаления
+
+Система исключений:
+
+• Имена пользователей - регулярное выражение для @username
+• ID пользователей - список ID через запятую
+• Отображаемые имена - регулярное выражение для имён
+
+ВАЖНО!
+- Используйте с осторожностью, действия необратимы!
+- Всегда проверяйте права администратора
+- Настройте исключения для защиты важных пользователей
+- Перед массовым удалением сделайте тест на небольшой группе
+
+Советы:
+1. Сначала протестируйте на маленькой группе
+2. Настройте исключения для администраторов и ботов
+3. Используйте подтверждение перед удалением
+4. Проверяйте результаты удаления
+            """))
+        else:
+            title = "User Management - Guide"
+            text = f"""
+Quick management via chat menu (3 dots):
+
+• {self.get_localized_string("menu_deleted")} - deletes deleted accounts
+• {self.get_localized_string("menu_bots")} - deletes all bots  
+• {self.get_localized_string("menu_inactive")} - deletes users inactive for more than N days
+• {self.get_localized_string("menu_online")} - deletes users who are currently online
+• {self.get_localized_string("menu_offline")} - deletes all who are currently offline
+• {self.get_localized_string("menu_raid")} - deletes new users (joined in last N minutes)
+
+Command {command}
+
+Use command in chat for quick deletion:
+
+{command} deleted - {self.get_localized_string("menu_deleted").lower()}
+{command} bots raid - {self.get_localized_string("menu_bots").lower()} {self.get_localized_string('and')} {self.get_localized_string("menu_raid").lower()}  
+{command} all - all main filters
+
+Filter settings:
+
+• Inactivity days - how many days user should be inactive
+• Raid time - for what time consider users as new
+• Exclusions - protect certain users from deletion
+
+Exclusion system:
+
+• Usernames - regular expression for @username
+• User IDs - list of IDs separated by commas
+• Display names - regular expression for names
+
+IMPORTANT!
+- Use with caution, actions are irreversible!
+- Always check administrator rights
+- Set up exclusions to protect important users
+- Test on a small group before mass deletion
+
+Tips:
+1. First test on a small group
+2. Set up exclusions for administrators and bots
+3. Use confirmation before deletion
+4. Check deletion results
+            """
+        
+        fragment = get_last_fragment()
+        ctx = fragment.getContext() if fragment else ApplicationLoader.applicationContext
+        
+        builder = AlertDialogBuilder(ctx, AlertDialogBuilder.ALERT_TYPE_MESSAGE)
+        builder.set_title(title)
+        builder.set_message(text.strip())
+        builder.set_positive_button("OK", lambda d, w: None)
+        builder.set_cancelable(True)
+        builder.show()
+
+    def log(self, message: str):
+        """Logging with the plugin prefix."""
+        print(f"[UserManager] {message}")

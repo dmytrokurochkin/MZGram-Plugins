@@ -1,3 +1,16 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 import html
 import fcntl
 import hashlib
@@ -25,7 +38,7 @@ from java import jclass
 
 __id__ = "open_street_map"
 __name__ = "OpenStreetMap"
-__description__ = "Добавление OpenStreetMap вместо Google. Fork Яндекс Карты"
+__description__ = "Adds OpenStreetMap instead of Google"
 __author__ = "@etodsk, @Knyaz_vsey_Tmy & ChatGPT"
 __version__ = "1.0-mz1"
 __icon__ = "rebornexterayamap/0"
@@ -50,40 +63,40 @@ ECCENTRICITY = 0.08181919084262149
 
 UI_TEXT = {
     "plugin_name": "OpenStreetMap",
-    "plugin_description": "Добавление OpenStreetMap вместо Google.",
-    "api_key": "Ключ API",
-    "map_header": "Карта",
-    "enabled": "Заменять карты",
-    "theme": "Тема карты",
-    "theme_system": "Как в системе",
-    "theme_light": "Светлая",
-    "theme_dark": "Тёмная",
-    "scale_value": "Масштаб · {value}%",
-    "scale_accessibility": "Масштаб карты {value} процентов",
-    "preview_missing_key": "Вставь ключ API, чтобы увидеть карту.",
-    "preview_loading": "Карта загружается…",
-    "preview_native": "Штатная палитра Яндекса",
-    "preview_fallback": "Резервная схема: штатная ночная палитра недоступна",
-    "preview_dimmed": "Нештатное затемнение резервной схемы",
-    "copy": "Копировать",
-    "clear": "Очистить",
-    "close": "Закрыть",
-    "run_probe": "Проверить",
-    "copy_journal": "Скопировать журнал",
-    "clear_journal": "Очистить журнал",
-    "copy_probe": "Скопировать проверку API 3",
-    "clear_probe": "Очистить проверку API 3",
-    "journal_title": "Журнал Яндекс Карт · {version}",
-    "probe_title": "Проверка API 3",
-    "empty_journal": "Записей пока нет.",
-    "empty_probe": "Нажми «Проверить», чтобы узнать, доступен ли API 3 с твоим ключом.",
-    "probe_running": "Проверяем… Отчёт появится здесь.",
-    "journal_cleared": "Журнал очищен пользователем",
-    "probe_cleared": "Отчёт проверки API 3 очищен пользователем",
-    "probe_hint": "Проверка доступа к API 3 и 2.1. Карта не загружается.",
-    "renderer_error": "Не удалось отрисовать карту. Закрой её и открой снова.",
-    "map_error": "Не удалось загрузить Яндекс Карты. Проверь ключ, HTTPS-адрес и подключение к интернету, затем открой карту снова.",
-    "location_button": "Моё местоположение"
+    "plugin_description": _mz_t("Додавання OpenStreetMap замість Google.", "Adds OpenStreetMap instead of Google.", "Добавление OpenStreetMap вместо Google."),
+    "api_key": _mz_t("Ключ API", "API key", "Ключ API"),
+    "map_header": _mz_t("Карта", "Map", "Карта"),
+    "enabled": _mz_t("Замінювати карти", "Replace maps", "Заменять карты"),
+    "theme": _mz_t("Тема карти", "Map theme", "Тема карты"),
+    "theme_system": _mz_t("Як у системі", "Follow system", "Как в системе"),
+    "theme_light": _mz_t("Світла", "Light", "Светлая"),
+    "theme_dark": _mz_t("Темна", "Dark", "Тёмная"),
+    "scale_value": _mz_t("Масштаб · {value}%", "Scale · {value}%", "Масштаб · {value}%"),
+    "scale_accessibility": _mz_t("Масштаб карти {value} відсотків", "Map scale {value} percent", "Масштаб карты {value} процентов"),
+    "preview_missing_key": _mz_t("Встав ключ API, щоб побачити карту.", "Paste an API key to see the map.", "Вставь ключ API, чтобы увидеть карту."),
+    "preview_loading": _mz_t("Карта завантажується…", "Map is loading…", "Карта загружается…"),
+    "preview_native": _mz_t("Штатна палітра карти", "Standard map palette", "Штатная палитра карты"),
+    "preview_fallback": _mz_t("Резервна схема: штатна нічна палітра недоступна", "Fallback scheme: the standard night palette is unavailable", "Резервная схема: штатная ночная палитра недоступна"),
+    "preview_dimmed": _mz_t("Нестандартне затемнення резервної схеми", "Non-standard dimming of the fallback scheme", "Нештатное затемнение резервной схемы"),
+    "copy": _mz_t("Копіювати", "Copy", "Копировать"),
+    "clear": _mz_t("Очистити", "Clear", "Очистить"),
+    "close": _mz_t("Закрити", "Close", "Закрыть"),
+    "run_probe": _mz_t("Перевірити", "Check", "Проверить"),
+    "copy_journal": _mz_t("Скопіювати журнал", "Copy log", "Скопировать журнал"),
+    "clear_journal": _mz_t("Очистити журнал", "Clear log", "Очистить журнал"),
+    "copy_probe": _mz_t("Скопіювати перевірку API 3", "Copy API 3 check", "Скопировать проверку API 3"),
+    "clear_probe": _mz_t("Очистити перевірку API 3", "Clear API 3 check", "Очистить проверку API 3"),
+    "journal_title": _mz_t("Журнал карти · {version}", "Map log · {version}", "Журнал карты · {version}"),
+    "probe_title": _mz_t("Перевірка API 3", "API 3 check", "Проверка API 3"),
+    "empty_journal": _mz_t("Записів поки немає.", "No entries yet.", "Записей пока нет."),
+    "empty_probe": _mz_t("Натисни «Перевірити», щоб дізнатися, чи доступний API 3 з твоїм ключем.", "Tap «Check» to find out if API 3 is available with your key.", "Нажми «Проверить», чтобы узнать, доступен ли API 3 с твоим ключом."),
+    "probe_running": _mz_t("Перевіряємо… Звіт з'явиться тут.", "Checking… The report will appear here.", "Проверяем… Отчёт появится здесь."),
+    "journal_cleared": _mz_t("Журнал очищено користувачем", "Log cleared by user", "Журнал очищен пользователем"),
+    "probe_cleared": _mz_t("Звіт перевірки API 3 очищено користувачем", "API 3 check report cleared by user", "Отчёт проверки API 3 очищен пользователем"),
+    "probe_hint": _mz_t("Перевірка доступу до API 3 і 2.1. Карта не завантажується.", "Checks access to API 3 and 2.1. The map is not loaded.", "Проверка доступа к API 3 и 2.1. Карта не загружается."),
+    "renderer_error": _mz_t("Не вдалося відобразити карту. Закрий її і відкрий знову.", "Couldn't render the map. Close it and open it again.", "Не удалось отрисовать карту. Закрой её и открой снова."),
+    "map_error": _mz_t("Не вдалося завантажити карту. Перевір ключ, HTTPS-адресу та підключення до інтернету, потім відкрий карту знову.", "Couldn't load the map. Check the key, the HTTPS address and the internet connection, then open the map again.", "Не удалось загрузить карту. Проверь ключ, HTTPS-адрес и подключение к интернету, затем открой карту снова."),
+    "location_button": _mz_t("Моє місцезнаходження", "My location", "Моё местоположение")
 }
 
 
@@ -511,22 +524,22 @@ def localhost_probe_variants(origin, api3, api2):
 def response_hint(status, mime, body):
     text = body.lower()
     if "referer" in text or "referrer" in text:
-        return "Ответ упоминает Referer: проверь разрешённый домен и срок применения настроек (15 минут)."
+        return _mz_t("Відповідь згадує Referer: перевір дозволений домен і строк застосування налаштувань (15 хвилин).", "The response mentions Referer: check the allowed domain and the settings application period (15 minutes).", "Ответ упоминает Referer: проверь разрешённый домен и срок применения настроек (15 минут).")
     if re.search(r"invalid[ _-]*(?:api[ _-]*key|apikey)|(?:api[ _-]*key|apikey).{0,30}(?:invalid|not valid)", text):
-        return "Сервер сообщает Invalid API key. Это не доказывает платное ограничение: проверь продукт ключа, активацию и обязательный HTTP Referer."
+        return _mz_t("Сервер повідомляє Invalid API key. Це не доводить платного обмеження: перевір продукт ключа, активацію та обов'язковий HTTP Referer.", "The server reports Invalid API key. This does not prove a paid restriction: check the key's product, activation and the required HTTP Referer.", "Сервер сообщает Invalid API key. Это не доказывает платное ограничение: проверь продукт ключа, активацию и обязательный HTTP Referer.")
     if status == 429 or "quota" in text or "limit exceeded" in text:
-        return "Ответ указывает на частоту/квоту запросов. Проверь использование ключа в кабинете Яндекса."
+        return _mz_t("Відповідь вказує на частоту або квоту запитів. Перевір використання ключа в кабінеті постачальника карт.", "The response points to request rate/quota. Check the key usage in the map provider's console.", "Ответ указывает на частоту/квоту запросов. Проверь использование ключа в кабинете поставщика карт.")
     if status == 402:
-        return "HTTP 402: сервер требует проверить состояние лицензии/тарифа. Причину уточняет текст ответа."
+        return _mz_t("HTTP 402: сервер вимагає перевірити стан ліцензії або тарифу. Причину уточнює текст відповіді.", "HTTP 402: the server requires checking the license/plan status. The response text specifies the reason.", "HTTP 402: сервер требует проверить состояние лицензии/тарифа. Причину уточняет текст ответа.")
     if 300 <= status < 400:
-        return "Получен редирект. Проверка не следует ему; его обработку в карте выполняет WebView."
+        return _mz_t("Отримано редирект. Перевірка не йде за ним; обробку в карті виконує WebView.", "A redirect was received. The check does not follow it; the map's WebView handles it.", "Получен редирект. Проверка не следует ему; его обработку в карте выполняет WebView.")
     if status >= 500:
-        return "Ошибка сервера или промежуточного шлюза; это не подтверждает проблему тарифа."
+        return _mz_t("Помилка сервера або проміжного шлюзу; це не підтверджує проблему з тарифом.", "Server or gateway error; this does not confirm a plan problem.", "Ошибка сервера или промежуточного шлюза; это не подтверждает проблему тарифа.")
     if status in (401, 403):
-        return "Сервер отказал в доступе. По одному HTTP-коду нельзя различить ключ, домен, ограничение по IP или состояние доступа."
+        return _mz_t("Сервер відмовив у доступі. За одним HTTP-кодом не можна розрізнити ключ, домен, обмеження за IP або стан доступу.", "The server denied access. One HTTP code cannot tell apart the key, domain, IP restriction or access state.", "Сервер отказал в доступе. По одному HTTP-коду нельзя различить ключ, домен, ограничение по IP или состояние доступа.")
     if status == 200 and mime in JS_MIME_TYPES:
-        return "Стартовый скрипт доступен. Готовность ymaps3 и загрузка тайлов этим ещё не проверены."
-    return "Вместо ожидаемого JavaScript получен другой ответ; смотри HTTP-код, Content-Type и текст сервера."
+        return _mz_t("Стартовий скрипт доступний. Готовність ymaps3 і завантаження тайлів цим ще не перевірено.", "The starter script is available. The ymaps3 readiness and tile loading are not checked by this yet.", "Стартовый скрипт доступен. Готовность ymaps3 и загрузка тайлов этим ещё не проверены.")
+    return _mz_t("Замість очікуваного JavaScript отримано іншу відповідь; дивись HTTP-код, Content-Type і текст сервера.", "A different response was received instead of the expected JavaScript; see the HTTP code, Content-Type and server text.", "Вместо ожидаемого JavaScript получен другой ответ; смотри HTTP-код, Content-Type и текст сервера.")
 
 
 
@@ -1268,13 +1281,13 @@ class MapTouchListener(Base):
                 touch_label = f"map={python_state(owner, 'trace_id', '?')!s} MotionEvent={action!s} moves={python_state(owner, 'gesture_moves', 0)!s}"
                 if action == 2:
                     owner.gesture_move_logged = True
-                owner.plugin.checkpoint(touch_label + ": вход; dispatch_interceptor=" + str(owner.dispatch_interceptor is not None) + "; intercept=" + str(owner.intercept_interceptor is not None))
+                owner.plugin.checkpoint(touch_label + _mz_t(": вхід; dispatch_interceptor=", ": input; dispatch_interceptor=", ": вход; dispatch_interceptor=") + str(owner.dispatch_interceptor is not None) + "; intercept=" + str(owner.intercept_interceptor is not None))
             if owner.dispatch_interceptor is not None:
                 result = bool(owner.dispatch_interceptor.onInterceptTouchEvent(event, owner.dispatch_call.java))
             else:
                 result = owner.forward_touch(event)
             if checkpoint:
-                owner.plugin.checkpoint(touch_label + ": обработано; native_result=" + str(owner.touch_result))
+                owner.plugin.checkpoint(touch_label + _mz_t(": оброблено; native_result=", ": processed; native_result=", ": обработано; native_result=") + str(owner.touch_result))
             return True if owner.touch_result is not None else bool(result)
         except Exception as exc:
             owner.plugin.report("Touch callback", exc)
@@ -1634,7 +1647,7 @@ class YandexMapView(Base):
             if loader_failure and loader_failure[0] == self.bridge_prefix:
                 message += "\n" + loader_failure[1]
             map_log(self, f'API 3 failed; ready={self.ready!s}; falling back to API 2.1; ' + message)
-            self.plugin.report("Схема API 3: переход на API 2.1; map=" + str(python_state(self, "trace_id", "?")), RuntimeError(message))
+            self.plugin.report(_mz_t("Схема API 3: перехід на API 2.1; map=", "API 3 scheme: switching to API 2.1; map=", "Схема API 3: переход на API 2.1; map=") + str(python_state(self, "trace_id", "?")), RuntimeError(message))
             self.scheme_fallback = True
             self.switch_engine(2)
             return
@@ -1660,14 +1673,14 @@ class YandexMapView(Base):
                 self.command("padding", {"value": [x / self.density for x in self.map.padding]})
             map_log(self, f"Web display: css_width={width!s}; physical_width={physical!s}; DPR={data.get('dpr')!s}; visual_scale={data.get('scale')!s}; effective_density={self.density!s}")
         elif event == "error":
-            self.fail("Яндекс не загрузился. " + str(data.get("detail", ""))[:3000])
+            self.fail(_mz_t("Карта не завантажилася. ", "The map failed to load. ", "Карта не загрузилась. ") + str(data.get("detail", ""))[:3000])
         elif event == "ready" and not self.ready and not self.failed:
             if python_state(self, "engine", 2) == 3:
                 self.map.eccentricity = ECCENTRICITY if data.get("ellipsoid") else 0.0
             self.ready = True
             map_log(self, f'Bridge ready: received; queued={len(self.pending)!s}; markers={len(self.map.markers)!s}; circles={len(self.map.circles)!s}; ellipsoid={bool(self.map.eccentricity)!s}')
             preview_caption(self)
-            self.plugin.checkpoint("Карта готова; JS API " + str(python_state(self, "engine", 2)))
+            self.plugin.checkpoint(_mz_t("Карта готова; JS API ", "Map is ready; JS API ", "Карта готова; JS API ") + str(python_state(self, "engine", 2)))
             consumers, self.consumers = self.consumers, []
             pending, self.pending = self.pending, []
             compact = compact_commands(pending)
@@ -2135,21 +2148,21 @@ class AyuYandexMapsPlugin(BasePlugin):
         journal = getattr(self, "journal", None)
         if journal is not None:
             try:
-                history = journal.text() + ("\n\nРезерв в памяти:\n" + getattr(self, "history_memory", "") if getattr(self, "history_memory", "") else "")
+                history = journal.text() + (_mz_t("\n\nРезерв у пам'яті:\n", "\n\nMemory fallback:\n", "\n\nРезерв в памяти:\n") + getattr(self, "history_memory", "") if getattr(self, "history_memory", "") else "")
             except Exception as exc:
                 self.storage_warning("Read persistent journal", exc)
         history = history or getattr(self, "last_error", "") or ui_text("empty_journal")
-        header = ui_text("plugin_name") + " " + __version__ + "\nСовместимая схема: " + str(bool(self.get_setting("compatible_scheme", False)))
-        header += f"\nМасштаб карты: {scale_percent(self.get_setting('map_scale', 100))!s}%"
-        header += "\nСессия: " + str(getattr(self, "session_id", "not loaded"))
-        header += "\nХранилище: " + ("файл приложения; запись и fsync в фоновом потоке" if journal is not None else "резерв настроек")
+        header = ui_text("plugin_name") + " " + __version__ + _mz_t("\nСумісна схема: ", "\nCompatible scheme: ", "\nСовместимая схема: ") + str(bool(self.get_setting("compatible_scheme", False)))
+        header += _mz_t(f"\nМасштаб карти: {scale_percent(self.get_setting('map_scale', 100))!s}%", f"\nMap scale: {scale_percent(self.get_setting('map_scale', 100))!s}%", f"\nМасштаб карты: {scale_percent(self.get_setting('map_scale', 100))!s}%")
+        header += _mz_t("\nСесія: ", "\nSession: ", "\nСессия: ") + str(getattr(self, "session_id", "not loaded"))
+        header += _mz_t("\nСховище: ", "\nStorage: ", "\nХранилище: ") + (_mz_t("файл застосунку; запис і fsync у фоновому потоці", "app file; write and fsync in a background thread", "файл приложения; запись и fsync в фоновом потоке") if journal is not None else _mz_t("резерв налаштувань", "settings fallback", "резерв настроек"))
         if isinstance(journal, QueuedJournal):
-            header += f'\nОчередь журнала: {journal.queue.qsize()!s}; пропущено: {journal.dropped!s}; максимальная запись: {journal.max_write_ms!s} ms'
+            header += _mz_t(f'\nЧерга журналу: {journal.queue.qsize()!s}; пропущено: {journal.dropped!s}; максимальний запис: {journal.max_write_ms!s} ms', f'\nLog queue: {journal.queue.qsize()!s}; skipped: {journal.dropped!s}; max write: {journal.max_write_ms!s} ms', f'\nОчередь журнала: {journal.queue.qsize()!s}; пропущено: {journal.dropped!s}; максимальная запись: {journal.max_write_ms!s} ms')
         issue = getattr(self, "journal_issue", "")
         if issue:
-            header += "\nОшибка сохранения журнала: " + issue
+            header += _mz_t("\nПомилка збереження журналу: ", "\nLog save error: ", "\nОшибка сохранения журнала: ") + issue
         failure = journal.failure_text if isinstance(journal, QueuedJournal) else (getattr(self, "failure_memory", "") or self.get_setting("last_failure", ""))
-        return self.redact(header + ("\n\nПоследняя ошибка (сохранена отдельно):\n" + failure if failure else "") + "\n\nИстория:\n" + history)
+        return self.redact(header + (_mz_t("\n\nОстання помилка (збережена окремо):\n", "\n\nLast error (saved separately):\n", "\n\nПоследняя ошибка (сохранена отдельно):\n") + failure if failure else "") + _mz_t("\n\nІсторія:\n", "\n\nHistory:\n", "\n\nИстория:\n") + history)
 
     def copy_diagnostics(self, *_):
         def copy():
@@ -2241,48 +2254,48 @@ class AyuYandexMapsPlugin(BasePlugin):
             trace = lambda value: self.remember(sanitize(value), critical=True)
             try:
                 origin = origin_url(raw_origin)
-                report = ui_text("plugin_name") + " " + __version__ + " — проверка " + timestamp()
+                report = ui_text("plugin_name") + " " + __version__ + _mz_t(": перевірка ", ": check ", " — проверка ") + timestamp()
                 report += "\nReferer: " + referer_diagnostic(origin)
-                report += f'\nКлюч: присутствует={bool(key)!s}; длина={len(key)!s}; значение скрыто'
-                report += "\nКлюч: " + key_diagnostic(key)
+                report += _mz_t(f'\nКлюч: присутній={bool(key)!s}; довжина={len(key)!s}; значення приховано', f'\nKey: present={bool(key)!s}; length={len(key)!s}; value hidden', f'\nКлюч: присутствует={bool(key)!s}; длина={len(key)!s}; значение скрыто')
+                report += _mz_t("\nКлюч: ", "\nKey: ", "\nКлюч: ") + key_diagnostic(key)
                 report += "\nUA: " + ("cached WebView" if agent else "HTTP client default")
-                report += "\nПроверка использует снимок настроек и не загружает карту/тайлы."
-                report += "\nclient_header_matches — чтение настроек клиента до соединения, не подтверждение получения заголовка сервером."
+                report += _mz_t("\nПеревірка використовує знімок налаштувань і не завантажує карту та тайли.", "\nThe check uses a settings snapshot and does not load the map or tiles.", "\nПроверка использует снимок настроек и не загружает карту/тайлы.")
+                report += _mz_t("\nclient_header_matches: читання налаштувань клієнта до з'єднання, не підтвердження отримання заголовка сервером.", "\nclient_header_matches: reading client settings before the connection, not a confirmation that the server received the header.", "\nclient_header_matches — чтение настроек клиента до соединения, не подтверждение получения заголовка сервером.")
                 if not key:
-                    report += "\nНет ключа: сетевые запросы не выполнялись."
+                    report += _mz_t("\nКлюча немає: мережеві запити не виконувались.", "\nNo key: no network requests were made.", "\nНет ключа: сетевые запросы не выполнялись.")
                 else:
                     outcomes = [api_probe_request(key, origin, engine, agent, sanitize, trace) for engine in (3, 2)]
                     report += "\n\n" + "\n\n".join(item["detail"] for item in outcomes)
                     if outcomes[0]["js"]:
-                        report += "\n\nAPI 3 отдаёт JavaScript через HTTPS. Если карта всё ещё не запускается, проверяй в журнале этап ymaps3.ready и ошибки следующих ресурсов WebView."
+                        report += _mz_t("\n\nAPI 3 віддає JavaScript через HTTPS. Якщо карта досі не запускається, перевір у журналі етап ymaps3.ready і помилки наступних ресурсів WebView.", "\n\nAPI 3 serves JavaScript over HTTPS. If the map still doesn't start, check the ymaps3.ready stage and the errors of the following WebView resources in the log.", "\n\nAPI 3 отдаёт JavaScript через HTTPS. Если карта всё ещё не запускается, проверяй в журнале этап ymaps3.ready и ошибки следующих ресурсов WebView.")
                     elif outcomes[1]["js"]:
-                        report += "\n\nAPI 2.1 отдаёт JavaScript, API 3 — нет. Это различие доступа/ответов двух версий; само по себе оно не доказывает платное ограничение."
+                        report += _mz_t("\n\nAPI 2.1 віддає JavaScript, API 3 ні. Це різниця доступу та відповідей двох версій; сама по собі вона не доводить платного обмеження.", "\n\nAPI 2.1 serves JavaScript, API 3 does not. This is a difference in access/responses between the two versions; by itself it does not prove a paid restriction.", "\n\nAPI 2.1 отдаёт JavaScript, API 3 — нет. Это различие доступа/ответов двух версий; само по себе оно не доказывает платное ограничение.")
                     else:
-                        report += "\n\nОба загрузчика не подтвердили доступный JavaScript. Смотри код/тело отказа или стадию транспортной ошибки."
+                        report += _mz_t("\n\nОбидва завантажувачі не підтвердили доступний JavaScript. Дивись код і текст відмови або етап транспортної помилки.", "\n\nBoth loaders did not confirm available JavaScript. See the refusal code/body or the transport error stage.", "\n\nОба загрузчика не подтвердили доступный JavaScript. Смотри код/тело отказа или стадию транспортной ошибки.")
                     variants = localhost_probe_variants(origin, outcomes[0], outcomes[1])
                     if variants:
-                        report += "\n\nСравнение форматов Referer localhost. Все запросы идут к Яндексу по HTTPS; меняется только заголовок. Настройки карты не меняются."
+                        report += _mz_t("\n\nПорівняння форматів Referer localhost. Усі запити йдуть до сервера карт через HTTPS; змінюється лише заголовок. Налаштування карти не змінюються.", "\n\nComparing localhost Referer formats. All requests go to the map server over HTTPS; only the header changes. Map settings are not changed.", "\n\nСравнение форматов Referer localhost. Все запросы идут к серверу карт по HTTPS; меняется только заголовок. Настройки карты не меняются.")
                         successful, statuses = [], []
                         for variant in variants:
                             trace("API 3 Referer comparison: begin; " + referer_diagnostic(variant))
                             result = api_probe_request(key, variant, 3, agent, sanitize, trace)
-                            report += "\n\nВариант Referer: " + referer_diagnostic(variant) + "\n" + result["detail"]
+                            report += _mz_t("\n\nВаріант Referer: ", "\n\nReferer variant: ", "\n\nВариант Referer: ") + referer_diagnostic(variant) + "\n" + result["detail"]
                             statuses.append(result.get("status"))
                             if result["js"]:
                                 successful.append(referer_diagnostic(variant))
                         if successful:
-                            report += "\n\nРезультат зависит от формата Referer. JavaScript доступен с: " + " | ".join(successful)
-                            report += "\nЭто диагностический результат: формат страницы карты не переключён автоматически, рендеринг не проверен."
+                            report += _mz_t("\n\nРезультат залежить від формату Referer. JavaScript доступний з: ", "\n\nThe result depends on the Referer format. JavaScript is available with: ", "\n\nРезультат зависит от формата Referer. JavaScript доступен с: ") + " | ".join(successful)
+                            report += _mz_t("\nЦе діагностичний результат: формат сторінки карти не перемикається автоматично, рендеринг не перевірено.", "\nThis is a diagnostic result: the map page format is not switched automatically, rendering is not checked.", "\nЭто диагностический результат: формат страницы карты не переключён автоматически, рендеринг не проверен.")
                         elif all(status == 403 for status in statuses):
-                            report += "\n\nВсе проверенные форматы localhost возвращают 403. Смена схемы/порта Referer не устранила отказ."
-                            report += "\nСверь ключ повторным копированием из кабинета в плагин; если после применения ограничений отказ сохраняется, передай этот отчёт поддержке Яндекса для проверки доступа ключа к API 3."
+                            report += _mz_t("\n\nУсі перевірені формати localhost повертають 403. Зміна схеми або порту Referer не усунула відмову.", "\n\nAll checked localhost formats return 403. Changing the Referer scheme/port did not fix the refusal.", "\n\nВсе проверенные форматы localhost возвращают 403. Смена схемы/порта Referer не устранила отказ.")
+                            report += _mz_t("\nПеревір ключ, ще раз скопіювавши його з кабінету в плагін; якщо після застосування обмежень відмова зберігається, передай цей звіт підтримці постачальника карт для перевірки доступу ключа.", "\nRe-check the key by copying it again from the console into the plugin; if the refusal persists after applying restrictions, send this report to the map provider's support to check the key's access.", "\nСверь ключ повторным копированием из кабинета в плагин; если после применения ограничений отказ сохраняется, передай этот отчёт поддержке поставщика карт для проверки доступа ключа.")
                         else:
-                            report += "\n\nДополнительные варианты не подтвердили доступный JavaScript; смотри их HTTP-коды и транспортные ошибки."
+                            report += _mz_t("\n\nДодаткові варіанти не підтвердили доступний JavaScript; дивись їх HTTP-коди та транспортні помилки.", "\n\nAdditional variants did not confirm available JavaScript; see their HTTP codes and transport errors.", "\n\nДополнительные варианты не подтвердили доступный JavaScript; смотри их HTTP-коды и транспортные ошибки.")
                 if generation == getattr(self, "api_probe_generation", 0):
                     self.remember(sanitize(report), critical=True, probe=True)
             except Exception as exc:
                 if generation == getattr(self, "api_probe_generation", 0):
-                    self.remember(sanitize("Проверка API 3 не завершилась:\n" + str(exc)), critical=True, probe=True)
+                    self.remember(sanitize(_mz_t("Перевірка API 3 не завершилась:\n", "API 3 check did not finish:\n", "Проверка API 3 не завершилась:\n") + str(exc)), critical=True, probe=True)
             finally:
                 self.api_probe_busy = False
                 def show():
@@ -2294,7 +2307,7 @@ class AyuYandexMapsPlugin(BasePlugin):
             self.api_probe_worker.start()
         except Exception as exc:
             self.api_probe_busy = False
-            self.remember("Не удалось запустить проверку API 3:\n" + str(exc), critical=True, probe=True)
+            self.remember(_mz_t("Не вдалося запустити перевірку API 3:\n", "Couldn't start the API 3 check:\n", "Не удалось запустить проверку API 3:\n") + str(exc), critical=True, probe=True)
             self.show_api3_probe()
         return True
 
