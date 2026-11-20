@@ -1,0 +1,2435 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
+import math
+import os
+import random
+import threading
+import time
+import urllib.request
+
+from typing import Any, List, Optional
+
+from base_plugin import BasePlugin, MethodHook, HookResult
+from hook_utils import find_class
+from android_utils import run_on_ui_thread, log
+from file_utils import get_files_dir, ensure_dir_exists
+from ui.settings import Divider, Header, Input, Selector, Switch, Text
+from ui.bulletin import BulletinHelper
+from client_utils import get_last_fragment
+
+__id__ = "boykisser_meow"
+__name__ = "Boykisser Corner"
+__description__ = "Meowing boykisser in the corner of the screen"
+__author__ = "@duckerer <--- Boykisser"
+__version__ = "1.4.2-mz1"
+__icon__ = "animated_boykisser_by_fStikBot/12"
+__app_version__ = ">=12.5.1"
+__category__ = ["fun", "appearance"]
+__sdk_version__ = ">=1.4.3.3"
+
+DEFAULT_GIF_URL = "https://i.redd.it/7xkox81t79zg1.gif"
+DEFAULT_SOUND_URL = "https://www.myinstants.com/media/sounds/boykisser-meow.mp3"
+# Sound that loops on top of the normal meow while
+# petting is going on, see _play_purr/_stop_purr.
+PURR_SOUND_URL = "https://www.myinstants.com/media/sounds/cat-purr.mp3"
+DEFAULT_SIZE_DP = 140
+ANIM_DURATION_MS = 1250
+SOUND_DURATION_MS = 1300
+SOUND_START_OFFSET_MS = 150  # skip ~0.15s of silence at the start of the file
+BULLETIN_DELAY_MS = 650  # delay before showing the notification ("Meow..!"/"Purr..!")
+
+# Petting: a gif that plays on top of the boykisser when it is
+# stroked left and right (see DragTouchListener/_on_boykisser_pet).
+PET_GIF_URL = (
+    "https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUycDQ5dzQybzgwajJzZXFiODlwNnU0"
+    "c2g4eDN5dGNhc3Jkb2pwaW81MCZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/FywOYzrcOVjtY1ORy4/200.gif"
+)
+PET_GIF_FILENAME = "pet.gif"
+PET_VERTICAL_OFFSET_DP = 28  # how far the petting gif is raised above the boykisser
+
+# The main boykisser gif that replaces the classic one WHILE
+# petting (see _show_pet_main_gif/_hide_pet_main_gif). The hand gif
+# (PET_GIF_URL above) is left alone and stays
+# a separate overlay on top.
+PET_MAIN_GIF_URL = "https://media.tenor.com/XwKTh4Y1AokAAAAi/boykisser-peeking-wagging-tail.gif"
+PET_MAIN_GIF_FILENAME = "pet_main_v2.gif"
+
+# Gifs that occasionally play on top of the normal classic gif
+# on their own, without user input, see _idle_gif_tick.
+IDLE_RANDOM_GIF_URLS = [
+    "https://media.tenor.com/8V0uzaJVSI0AAAAi/boykisser-boy-kisser.gif",
+    "https://media.tenor.com/VT4nIkWoVXYAAAAj/boykisser-dance.gif",
+    "https://media.tenor.com/_BB99jVRXS0AAAAj/furry-boy-kisser.gif",
+]
+IDLE_RANDOM_GIF_FILENAME_TEMPLATE = "idle_random_{index}.gif"
+IDLE_RANDOM_GIF_DURATION_MS = 3000  # how long the random gif plays before going back to the classic one
+
+# Random interval (ms) between "just because" triggers: the gif and the meow
+# are scheduled independently, each with its own random spread.
+# Instead of free "from/to" input the user picks one of the
+# fixed speed presets (see _create_idle_settings/
+# _get_idle_interval_ms). Each preset is a (min, max) pair in seconds.
+IDLE_SPEED_PRESET_LABELS = [
+    _mz_t("Дуже швидко", "Very fast", "Очень быстро"),
+    _mz_t("Швидко", "Fast", "Быстро"),
+    _mz_t("Нормально", "Normal", "Нормально"),
+    _mz_t("Довго", "Slow", "Долго"),
+    _mz_t("Дуже довго", "Very slow", "Очень долго"),
+]
+
+IDLE_GIF_INTERVAL_PRESETS_SEC = [
+    (10, 20),      # Very fast
+    (20, 35),      # Fast
+    (30, 60),      # Normal
+    (90, 150),     # Slow
+    (300, 600),    # Very slow
+]
+
+IDLE_MEOW_INTERVAL_PRESETS_SEC = [
+    (20, 35),      # Very fast
+    (40, 60),      # Fast
+    (60, 90),      # Normal
+    (150, 240),    # Slow
+    (400, 600),    # Very slow
+]
+
+# Default preset index is "Normal", the same behavior that was
+# hardcoded in the original defaults before presets existed.
+IDLE_SPEED_PRESET_DEFAULT_INDEX = 2
+
+# Sleep: if the user does nothing with the boykisser for a long time (no tap,
+# petting or dragging), it falls asleep: it is replaced with SLEEP_GIF_URL and
+# stays like that until any touch wakes it up (see _register_interaction/
+# _fall_asleep/_wake_up). The idle time before sleep uses the same
+# set of speed presets (IDLE_SPEED_PRESET_LABELS), but with its own
+# durations: here it means "after how long", not "how often".
+SLEEP_GIF_URL = "https://media.tenor.com/K_0AB4MA93kAAAAj/boykisser-blanket.gif"
+SLEEP_GIF_FILENAME = "sleep.gif"
+
+# How often we check whether it is time to sleep (see _schedule_sleep_check).
+# It does not need to be accurate to the second: once per 10s is plenty and
+# does not run extra code every frame.
+SLEEP_CHECK_INTERVAL_MS = 10 * 1000
+
+SLEEP_TIMEOUT_PRESETS_SEC = [
+    30,      # Very fast
+    90,      # Fast
+    300,     # Normal (5 minutes)
+    900,     # Slow (15 minutes)
+    1800,    # Very slow (30 minutes)
+]
+
+# The "pet" gesture is recognized as several finger reversals left and right
+# in a row (unlike a normal one-way drag).
+PET_DIRECTION_CHANGES_THRESHOLD = 3
+PET_MIN_STEP_DP = 8       # minimum X step between move events, to ignore finger jitter
+PET_MAX_VERTICAL_DRIFT_DP = 40  # how far the finger may wander in Y while the gesture still counts as petting
+
+# Throwing the boykisser with inertia: if the finger was moving faster than the
+# threshold when released (at the end of a drag), the boykisser does not
+# stop in place but keeps flying in that direction and
+# slowly slows down, bouncing off the screen edges until it stops.
+# Finger speed is computed by hand from the raw coordinates of
+# ACTION_MOVE events (see DragTouchListener), not via VelocityTracker: the
+# view itself moves with the finger during the drag, so event coordinates
+# RELATIVE to the view barely change and would give a speed of ~0;
+# we need screen coordinates (getRawX/getRawY).
+THROW_MIN_VELOCITY_DP = 300       # dp/s: below this threshold the release counts as just "put down"
+THROW_MAX_VELOCITY_DP = 6000      # dp/s: cap on the initial throw speed (so it does not fly away instantly)
+THROW_VELOCITY_SMOOTHING = 0.35   # smoothing of the instantaneous finger speed between neighboring move events
+                                  # (was 0.5, lowered so finger jitter "jerks" the
+                                  # final throw speed less and the flight is smoother)
+THROW_RETENTION_PER_SEC = 0.5     # share of speed left after 1 second of flight (deceleration)
+                                  # (was 0.35, increased: it slows down more gently, the boykisser
+                                  # rolls on by inertia longer instead of abruptly "sticking")
+THROW_BOUNCE_DAMPING = 0.6        # share of speed kept when bouncing off a screen edge
+                                  # (was 0.55, a bit livelier bounce to match the smoother deceleration)
+THROW_FRAME_MS = 12               # frame period of the throw animation loop (~83 fps, was 16ms/60 fps:
+                                  # more frequent frames = smoother (less "jerky") flight animation)
+THROW_STOP_VELOCITY_DP = 40       # dp/s: at this speed or lower the flight counts as finished
+
+# "Jelly" bounce: on hitting a screen edge the image briefly
+# squashes along the impact axis and bulges slightly in the perpendicular one,
+# then wobbles back and forth several times, fading out like jelly
+# (see _trigger_jelly_bounce/_run_jelly_frame). A purely visual effect,
+# it does not affect the flight physics (vx/vy).
+JELLY_BOUNCE_MAX_SQUASH = 0.28     # maximum squash amplitude (share of the size)
+JELLY_BOUNCE_DURATION_MS = 320     # how long the damped oscillation lasts
+JELLY_BOUNCE_FREQUENCY_HZ = 7.0    # oscillation frequency
+JELLY_BOUNCE_DAMPING_RATE = 9.0    # damping rate of the amplitude (higher = fades faster)
+JELLY_BOUNCE_FRAME_MS = 12         # frame period of the jelly animation
+
+# Image size limits (dp), so an absurdly large/small size
+# cannot be set and break the chat interface.
+MIN_SIZE_DP = 40
+MAX_SIZE_DP = 400
+
+# Opacity limits (%), 100 = fully opaque.
+MIN_ALPHA_PERCENT = 10
+MAX_ALPHA_PERCENT = 100
+DEFAULT_ALPHA_PERCENT = 100
+
+# Minimum playback duration of half a sound (for very
+# short files), so the sound is not cut off instantly.
+MIN_MEOW_HALF_MS = 200
+
+PLUGIN_DATA_DIRNAME = "boykisser_meow_data"
+GIF_FILENAME = "boykisser.gif"
+SOUND_FILENAME = "meow.mp3"
+PURR_SOUND_FILENAME = "purr.mp3"
+
+# ------------------------------------------------------------------------ #
+# Several boykissers (v1.4.2): instead of one global set of
+# self._overlay_view/self._drawable/..., the plugin can now keep
+# several independent "cats" on screen, each a separate
+# _BoykisserInstance with its own view, gif, sound, throw/jelly
+# physics, sleep and "just because" timers. Only the behavior settings
+# (tap/petting/sometimes/sleep/drag/
+# reaction to messages) stay shared, while SIZE,
+# OPACITY and POSITION are separate for each boykisser (see create_settings/
+# _create_appearance_settings).
+#
+# The number of active cats is stored as ONE number, BOYKISSER_COUNT_KEY
+# (how many first indexes of BOYKISSER_LABELS are enabled), instead of
+# a separate toggle for each. In the settings it looks like
+# "Add Boykisser" / "Remove boykisser" buttons at the bottom of the list (see
+# _create_appearance_settings/_on_add_boykisser_click/
+# _on_remove_boykisser_click): a new cat is added/removed one at a time
+# from the end, not by ticking an arbitrary checkbox.
+# ------------------------------------------------------------------------ #
+MAX_BOYKISSERS = 5
+BOYKISSER_LABELS = [f"Boykisser {i + 1}" for i in range(MAX_BOYKISSERS)]
+BOYKISSER_COUNT_KEY = "boykisser_count"
+DEFAULT_BOYKISSER_COUNT = 1
+
+# Unique tags on overlay views. They are needed so that on (re)connect we can
+# find and remove ANY boykisser view already hanging in the tree, even if
+# it was added by another instance of this class (for example an old one
+# "orphaned" after a plugin reload/update) that has no
+# working reference in self._instances. Relying only on the Python
+# references of the current instance is not enough: that is the main cause
+# of the "2+ boykissers" bug in the original (single) version of the plugin, see
+# _purge_stale_overlays. Each instance adds its own suffix to the base tag
+# (see _instance_suffix), so tags like
+# "boykisser_meow_overlay_main_3" unambiguously belong to Boykisser no. 3.
+OVERLAY_VIEW_TAG = "boykisser_meow_overlay_main"
+PET_OVERLAY_VIEW_TAG = "boykisser_meow_overlay_pet"
+
+
+def _data_dir() -> str:
+    # We use Telegram's shared files directory, not the plugin folder,
+    # so the gif/sound are not lost when the .plugin file is reinstalled.
+    d = os.path.join(get_files_dir(), PLUGIN_DATA_DIRNAME)
+    ensure_dir_exists(d)
+    return d
+
+
+def _instance_suffix(index: int) -> str:
+    """Suffix for settings keys/tags of a specific boykisser. The first
+    (index=0) has no suffix, which keeps backward compatibility with old
+    settings (width_dp/height_dp/alpha_percent/pos_*_dp)
+    saved by plugin versions from before several cats existed."""
+    return "" if index == 0 else f"_{index + 1}"
+
+
+class _BoykisserInstance:
+    """All mutable state of ONE boykisser on screen: its view,
+    current drawable, sound, animation/petting/sleep flags and throw/jelly tokens.
+    Before, all this was fields self._... of the plugin itself (the only
+    boykisser on screen); now the plugin keeps a list of such objects,
+    one per enabled cat (see self._instances)."""
+
+    def __init__(self, index: int):
+        self.index = index
+        self.suffix = _instance_suffix(index)
+
+        self.overlay_view = None
+        self.drawable = None
+        self.gif_path = None
+
+        self.pet_view = None
+        self.pet_drawable = None
+        self.pet_gif_path = None
+        self.is_petting = False
+        self.pet_session_id = 0
+        # True while the boykisser's main gif is replaced with PET_MAIN_GIF_URL.
+        self.pet_main_active = False
+
+        # While True the animation/sound are still playing and repeated taps are
+        # ignored (see _on_boykisser_tap).
+        self.is_animating = False
+
+        # "Just because" gif (see _idle_gif_tick).
+        self.is_idle_playing = False
+        self.idle_drawable = None
+        self.idle_gif_token = 0
+
+        # Throw with inertia (see _start_throw/_run_throw_frame).
+        self.is_throwing = False
+        self.throw_token = 0
+        # "Jelly" bounce (see _trigger_jelly_bounce/_run_jelly_frame).
+        self.jelly_token = 0
+
+        # Sleep (see _fall_asleep/_wake_up).
+        self.is_sleeping = False
+        self.last_interaction_ms = 0
+
+        # Sound: each boykisser has its own MediaPlayer, so one
+        # cat's meow does not cut off another's meow/purr.
+        self.media_player = None
+        self.purr_media_player = None
+        self.is_purring = False
+
+
+class BoykisserMeowPlugin(BasePlugin):
+
+    def __init__(self):
+        super().__init__()
+        self._activity_hook = None
+        # Flag to stop the chain of delayed "sometimes"/sleep timers
+        # after the plugin is unloaded, see _schedule_idle_gif/_schedule_idle_meow/
+        # _schedule_sleep_check (each instance additionally checks
+        # that it is still present in self._instances).
+        self._destroyed = False
+        # True while the app is really on screen (after onResume/onCreate,
+        # until the next onPause). While False, random "just because"
+        # triggers (gif/meow) do not start and make no sound, even
+        # if their timer fired at that moment, see _on_activity_paused,
+        # _idle_gif_tick, _idle_meow_tick.
+        self._is_foreground = True
+        # List of active boykissers, one _BoykisserInstance for
+        # each cat currently shown on screen (see _attach_overlay).
+        self._instances: List[_BoykisserInstance] = []
+
+    # ------------------------------------------------------------------ #
+    # Plugin lifecycle
+    # ------------------------------------------------------------------ #
+
+    def on_plugin_load(self):
+        self.log("Boykisser Corner: loading plugin")
+        self._destroyed = False
+        # Download the gif/sound in the background so the UI thread is not blocked
+        threading.Thread(target=self._prepare_assets, daemon=True).start()
+        self._install_activity_hook()
+        # Hook for outgoing messages, needed to react to one's own
+        # trigger words (see on_send_message_hook/_check_trigger_words).
+        self.add_on_send_message_hook()
+        # Try to attach the overlay right away without waiting for onCreate/onResume;
+        # this is needed if the plugin is enabled in an already open app.
+        # Scheduling of the "sometimes" gif/meow and the sleep check starts for
+        # each boykisser separately, right after its view is created, see
+        # _attach_overlay.
+        self._try_attach_to_current_activity()
+
+    def _try_attach_to_current_activity(self):
+        try:
+            fragment = get_last_fragment()
+            if fragment is None:
+                return
+            activity = fragment.getParentActivity()
+            if activity is None:
+                return
+            self._is_foreground = True
+            run_on_ui_thread(lambda: self._attach_overlay(activity))
+        except Exception as e:
+            self.log(f"Boykisser Corner: failed to get the current activity: {e}")
+
+    def _on_activity_paused(self):
+        """Called when the app leaves the foreground (minimized, screen off, another
+        app opened on top). Immediately stops a playing sound and the random
+        "just because" gif for EACH boykisser. Without this the MediaPlayer would keep playing
+        sound even when the user does not see or touch the app (that
+        was the sound bug while minimized)."""
+        self._is_foreground = False
+        for instance in list(self._instances):
+            self._interrupt_idle_gif(instance)
+            self._stop_throw(instance)
+            if instance.media_player is not None:
+                mp = instance.media_player
+                instance.media_player = None
+                try:
+                    if mp.isPlaying():
+                        mp.stop()
+                    mp.release()
+                except Exception:
+                    pass
+        # Purring while petting does not need to be stopped separately: the gesture
+        # itself cannot physically continue in a minimized app, the finger
+        # is no longer on the screen, and ACTION_UP/ACTION_CANCEL stop it
+        # the normal way (_hide_pet_overlay_now -> _stop_purr).
+
+    def on_plugin_unload(self):
+        self._destroyed = True
+        for instance in list(self._instances):
+            instance.is_animating = False
+            self._stop_throw(instance)
+        self._remove_overlay_view()
+        if self._activity_hook:
+            try:
+                for unhook_obj in self._activity_hook:
+                    self.unhook_method(unhook_obj)
+            except Exception as e:
+                self.log(f"Boykisser Corner: failed to remove hook: {e}")
+            self._activity_hook = None
+
+    # ------------------------------------------------------------------ #
+    # Settings
+    # ------------------------------------------------------------------ #
+
+    def create_settings(self) -> List[Any]:
+        return [
+            Header(text="Boykisser Corner"),
+            Switch(
+                key="enabled",
+                text=_mz_t("Показувати boykisser", "Show boykisser", "Показывать boykisser"),
+                default=True,
+                on_change=self._on_enabled_change,
+            ),
+            Text(
+                text=_mz_t("Вигляд", "Appearance", "Внешний вид"),
+                subtext=_mz_t("Скільки котів, розмір і прозорість кожного", "How many cats, size and opacity of each", "Сколько котов, размер и прозрачность каждого"),
+                icon="msg_photo_settings",
+                create_sub_fragment=self._create_appearance_settings,
+            ),
+            Text(
+                text=_mz_t("Дотик", "Tap", "Тап"),
+                subtext=_mz_t("Анімація, звук, сповіщення після дотику", "Animation, sound, notification on tap", "Анимация, звук, уведомление по тапу"),
+                icon="msg_reactions",
+                create_sub_fragment=self._create_tap_settings,
+            ),
+            Text(
+                text=_mz_t("Гладження", "Petting", "Глажка"),
+                subtext=_mz_t("Свайп по верхній частині та сповіщення", "Swipe on the top part and notification", "Свайп по верхней части и уведомление"),
+                icon="msg_fave",
+                create_sub_fragment=self._create_petting_settings,
+            ),
+            Text(
+                text=_mz_t("Інколи", "Sometimes", "Иногда"),
+                subtext=_mz_t("Випадкові гіфки та нявкання без причини", "Random gifs and meows for no reason", "Случайные гифки и мяу без причины"),
+                icon="msg_reactions",
+                create_sub_fragment=self._create_idle_settings,
+            ),
+            Text(
+                text=_mz_t("Сон", "Sleep", "Сон"),
+                subtext=_mz_t("Засинає, якщо його довго не чіпати", "Falls asleep if left alone for a long time", "Засыпает, если долго не трогать"),
+                icon="msg_mute",
+                create_sub_fragment=self._create_sleep_settings,
+            ),
+            Text(
+                text=_mz_t("Перетягування", "Dragging", "Перетаскивание"),
+                subtext=_mz_t("Перетягування та інерція кидка", "Dragging and throw inertia", "Перетаскивание и инерция броска"),
+                icon="msg_photo_settings",
+                create_sub_fragment=self._create_movement_settings,
+            ),
+            Text(
+                text=_mz_t("Реакція на повідомлення", "Reaction to messages", "Реакция на сообщения"),
+                subtext=_mz_t("Нявкати на слова-тригери у відкритому чаті", "Meow on trigger words in the open chat", "Мяукать на триггер-слова в открытом чате"),
+                icon="msg_reactions",
+                create_sub_fragment=self._create_message_reaction_settings,
+            ),
+        ]
+
+    def _create_message_reaction_settings(self) -> List[Any]:
+        return [
+            Header(text=_mz_t("Реакція на повідомлення", "Reaction to messages", "Реакция на сообщения")),
+            Switch(
+                key="message_reaction_enabled",
+                text=_mz_t("Увімкнути реакцію на повідомлення", "Enable reaction to messages", "Включить реакцию на сообщения"),
+                default=False,
+            ),
+            Switch(
+                key="react_own_messages",
+                text=_mz_t("Реагувати й на свої повідомлення", "React to your own messages too", "Реагировать и на свои сообщения"),
+                default=True,
+            ),
+            Input(
+                key="trigger_words",
+                text=_mz_t("Слова-тригери (через кому)", "Trigger words (comma separated)", "Триггер-слова (через запятую)"),
+                default="кот, мяу, boykisser",
+                subtext=_mz_t("Слова, на які boykisser нявкне", "Words that make the boykisser meow", "Слова, при появлении которых boykisser мяукнёт"),
+                icon="msg_photo_settings",
+            ),
+        ]
+
+    def _create_movement_settings(self) -> List[Any]:
+        return [
+            Header(text=_mz_t("Перетягування", "Dragging", "Перетаскивание")),
+            Switch(
+                key="dragging_enabled",
+                text=_mz_t("Перетягування", "Dragging", "Перетаскивание"),
+                default=True,
+            ),
+            Switch(
+                key="throw_enabled",
+                text=_mz_t("Інерція", "Inertia", "Инерция"),
+                default=True,
+            ),
+            Switch(
+                key="jelly_bounce_enabled",
+                text=_mz_t("Желейний відскок", "Jelly bounce", "Желейный отскок"),
+                default=True,
+            ),
+        ]
+
+    def _create_appearance_settings(self) -> List[Any]:
+        """Appearance settings for EACH boykisser separately.
+        How many cats are enabled is defined by a single number
+        (see _get_boykisser_count), not by a separate toggle for each:
+        at the bottom of the list there are "Add Boykisser" / "Remove
+        boykisser" buttons that add/remove a cat from the end."""
+        count = self._get_boykisser_count()
+        items: List[Any] = [
+            Header(text=_mz_t("Вигляд", "Appearance", "Внешний вид")),
+            Text(
+                text="Налаштуй розмір і прозорість кожного boykisser-а "
+                     "окремо. Кнопки внизу додають або прибирають котів.",
+                subtext="",
+                icon="msg_info",
+            ),
+        ]
+        for index in range(count):
+            suffix = _instance_suffix(index)
+            items.append(Header(text=BOYKISSER_LABELS[index]))
+            items.append(
+                Input(
+                    key=f"width_dp{suffix}",
+                    text=_mz_t("Ширина (dp)", "Width (dp)", "Ширина (dp)"),
+                    default=str(DEFAULT_SIZE_DP),
+                    subtext=_mz_t(f"Від {MIN_SIZE_DP} до {MAX_SIZE_DP} dp", f"From {MIN_SIZE_DP} to {MAX_SIZE_DP} dp", f"От {MIN_SIZE_DP} до {MAX_SIZE_DP} dp"),
+                    icon="msg_photo_settings",
+                    on_change=self._make_appearance_handler("width", index),
+                )
+            )
+            items.append(
+                Input(
+                    key=f"height_dp{suffix}",
+                    text=_mz_t("Висота (dp)", "Height (dp)", "Высота (dp)"),
+                    default=str(DEFAULT_SIZE_DP),
+                    subtext=_mz_t(f"Від {MIN_SIZE_DP} до {MAX_SIZE_DP} dp", f"From {MIN_SIZE_DP} to {MAX_SIZE_DP} dp", f"От {MIN_SIZE_DP} до {MAX_SIZE_DP} dp"),
+                    icon="msg_photo_settings",
+                    on_change=self._make_appearance_handler("height", index),
+                )
+            )
+            items.append(
+                Input(
+                    key=f"alpha_percent{suffix}",
+                    text=_mz_t("Прозорість (%)", "Opacity (%)", "Прозрачность (%)"),
+                    default=str(DEFAULT_ALPHA_PERCENT),
+                    subtext=_mz_t(f"Від {MIN_ALPHA_PERCENT} до {MAX_ALPHA_PERCENT}%, 100 непрозоро", f"From {MIN_ALPHA_PERCENT} to {MAX_ALPHA_PERCENT}%, 100 is opaque", f"От {MIN_ALPHA_PERCENT} до {MAX_ALPHA_PERCENT}%, 100 — непрозрачно"),
+                    icon="msg_photo_settings",
+                    on_change=self._make_appearance_handler("alpha", index),
+                )
+            )
+
+        items.append(Divider())
+        if count < MAX_BOYKISSERS:
+            items.append(
+                Text(
+                    text=_mz_t("Додати Бойкіссера", "Add Boykisser", "Добавить Бойкиссера"),
+                    subtext=_mz_t(f"Зараз: {count} з {MAX_BOYKISSERS}", f"Now: {count} of {MAX_BOYKISSERS}", f"Сейчас: {count} из {MAX_BOYKISSERS}"),
+                    icon="msg_add",
+                    accent=True,
+                    on_click=self._on_add_boykisser_click,
+                )
+            )
+        if count > 1:
+            items.append(
+                Text(
+                    text=_mz_t("Прибрати бойкіссера", "Remove boykisser", "Убрать бойкиссера"),
+                    subtext=_mz_t(f"Прибере {BOYKISSER_LABELS[count - 1]}", f"Will remove {BOYKISSER_LABELS[count - 1]}", f"Уберёт {BOYKISSER_LABELS[count - 1]}"),
+                    icon="msg_delete",
+                    red=True,
+                    on_click=self._on_remove_boykisser_click,
+                )
+            )
+        return items
+
+    def _get_boykisser_count(self) -> int:
+        return self._get_clamped_int_setting(
+            BOYKISSER_COUNT_KEY, DEFAULT_BOYKISSER_COUNT, 1, MAX_BOYKISSERS
+        )
+
+    def _on_add_boykisser_click(self, view=None):
+        """The "Add Boykisser" button: enables the next cat
+        in order and immediately rebuilds the settings page so that its own
+        size/opacity fields appear for it."""
+        count = self._get_boykisser_count()
+        if count >= MAX_BOYKISSERS:
+            return
+        new_count = count + 1
+        self.set_setting(BOYKISSER_COUNT_KEY, str(new_count), reload_settings=True)
+        self._try_attach_to_current_activity()
+        run_on_ui_thread(
+            lambda: BulletinHelper.show_success(
+                _mz_t(f"{BOYKISSER_LABELS[new_count - 1]} додано", f"{BOYKISSER_LABELS[new_count - 1]} added", f"{BOYKISSER_LABELS[new_count - 1]} добавлен"), get_last_fragment()
+            )
+        )
+
+    def _on_remove_boykisser_click(self, view=None):
+        """The "Remove boykisser" button: disables the last cat
+        in order (not an arbitrary one) and rebuilds the settings page."""
+        count = self._get_boykisser_count()
+        if count <= 1:
+            return
+        removed_label = BOYKISSER_LABELS[count - 1]
+        new_count = count - 1
+        self.set_setting(BOYKISSER_COUNT_KEY, str(new_count), reload_settings=True)
+        self._try_attach_to_current_activity()
+        run_on_ui_thread(
+            lambda: BulletinHelper.show_success(_mz_t(f"{removed_label} прибрано", f"{removed_label} removed", f"{removed_label} убран"), get_last_fragment())
+        )
+
+    def _create_tap_settings(self) -> List[Any]:
+        return [
+            Header(text=_mz_t("Дотик", "Tap", "Тап")),
+            Switch(
+                key="tap_enabled",
+                text=_mz_t("Реакція на дотик (анімація, звук і сповіщення)", "Reaction to tap (animation, sound and notification)", "Реакция по тапу (анимация + звук + уведомление)"),
+                default=True,
+            ),
+            Switch(
+                key="tap_notification_enabled",
+                text=_mz_t("Сповіщення після дотику (лише якщо ввімкнено \"Реакцію на дотик\")", "Notification on tap (only if \"Reaction to tap\" is on)", "Уведомление по тапу (только если включена \"Реакция по тапу\")"),
+                default=True,
+            ),
+        ]
+
+    def _create_petting_settings(self) -> List[Any]:
+        return [
+            Header(text=_mz_t("Гладження", "Petting", "Глажка")),
+            Switch(
+                key="petting_enabled",
+                text=_mz_t("Гладити свайпом по верхній частині", "Pet by swiping the top part", "Гладить свайпом по верхней части"),
+                default=True,
+            ),
+            Switch(
+                key="pet_notification_enabled",
+                text=_mz_t("Сповіщення під час гладження", "Notification while petting", "Уведомление при глажке"),
+                default=True,
+            ),
+        ]
+
+    def _create_idle_settings(self) -> List[Any]:
+        return [
+            Header(text=_mz_t("Інколи", "Sometimes", "Иногда")),
+            Switch(
+                key="idle_gif_enabled",
+                text=_mz_t("Інколи показувати випадкову гіфку", "Sometimes play a random gif", "Изредка проигрывать случайную гифку"),
+                default=True,
+            ),
+            Selector(
+                key="idle_gif_preset",
+                text=_mz_t("Гіфка: частота", "Gif: frequency", "Гифка: частота"),
+                default=IDLE_SPEED_PRESET_DEFAULT_INDEX,
+                items=IDLE_SPEED_PRESET_LABELS,
+                icon="msg_photo_settings",
+            ),
+            Switch(
+                key="idle_meow_enabled",
+                text=_mz_t("Інколи нявкати просто так", "Sometimes meow for no reason", "Изредка мяукать просто так"),
+                default=True,
+            ),
+            Selector(
+                key="idle_meow_preset",
+                text=_mz_t("Нявкання: частота", "Meow: frequency", "Мяу: частота"),
+                default=IDLE_SPEED_PRESET_DEFAULT_INDEX,
+                items=IDLE_SPEED_PRESET_LABELS,
+                icon="msg_photo_settings",
+            ),
+        ]
+
+    def _create_sleep_settings(self) -> List[Any]:
+        return [
+            Header(text=_mz_t("Сон", "Sleep", "Сон")),
+            Switch(
+                key="sleep_enabled",
+                text=_mz_t("Засинати, коли нічого не робиш", "Fall asleep when idle", "Засыпать при бездействии"),
+                default=True,
+            ),
+            Selector(
+                key="sleep_timeout_preset",
+                text=_mz_t("Через який час", "After how long", "Через какое время"),
+                default=IDLE_SPEED_PRESET_DEFAULT_INDEX,
+                items=IDLE_SPEED_PRESET_LABELS,
+                icon="msg_mute",
+            ),
+        ]
+
+    # ------------------------------------------------------------------ #
+    # Live reactions to settings changes (without restarting the app)
+    # ------------------------------------------------------------------ #
+
+    def _on_enabled_change(self, new_value: bool):
+        if new_value:
+            self._try_attach_to_current_activity()
+        else:
+            self._remove_overlay_view()
+
+    def _make_appearance_handler(self, dimension: str, index: int):
+        """dimension is "width"/"height"/"alpha". Returns an on_change for the
+        Input of a specific boykisser that applies the change immediately, without
+        waiting for the next app restart (see
+        _apply_live_appearance_for_index)."""
+
+        def handler(new_value: str):
+            kwargs = {f"{dimension}_str": new_value}
+            self._apply_live_appearance_for_index(index, **kwargs)
+
+        return handler
+
+    def _apply_live_appearance_for_index(
+        self, index: int, width_str=None, height_str=None, alpha_str=None
+    ):
+        """Applies width/height/opacity to the already shown view
+        of a specific boykisser immediately, without waiting for the next
+        app restart."""
+        instance = self._get_instance(index)
+        if instance is None or instance.overlay_view is None:
+            return
+        suffix = instance.suffix
+        view = instance.overlay_view
+        try:
+            if width_str is not None:
+                width_dp = self._clamp_str_int(width_str, DEFAULT_SIZE_DP, MIN_SIZE_DP, MAX_SIZE_DP)
+            else:
+                width_dp = self._get_clamped_int_setting(
+                    f"width_dp{suffix}", DEFAULT_SIZE_DP, MIN_SIZE_DP, MAX_SIZE_DP
+                )
+
+            if height_str is not None:
+                height_dp = self._clamp_str_int(height_str, DEFAULT_SIZE_DP, MIN_SIZE_DP, MAX_SIZE_DP)
+            else:
+                height_dp = self._get_clamped_int_setting(
+                    f"height_dp{suffix}", DEFAULT_SIZE_DP, MIN_SIZE_DP, MAX_SIZE_DP
+                )
+
+            if alpha_str is not None:
+                alpha_percent = self._clamp_str_int(
+                    alpha_str, DEFAULT_ALPHA_PERCENT, MIN_ALPHA_PERCENT, MAX_ALPHA_PERCENT
+                )
+            else:
+                alpha_percent = self._get_clamped_int_setting(
+                    f"alpha_percent{suffix}", DEFAULT_ALPHA_PERCENT, MIN_ALPHA_PERCENT, MAX_ALPHA_PERCENT
+                )
+
+            density = view.getResources().getDisplayMetrics().density
+            params = view.getLayoutParams()
+            params.width = int(width_dp * density)
+            params.height = int(height_dp * density)
+
+            pet_view = instance.pet_view
+            pet_params = pet_view.getLayoutParams() if pet_view is not None else None
+            if pet_params is not None:
+                pet_params.width = params.width
+                pet_params.height = params.height
+
+            def _apply():
+                view.setLayoutParams(params)
+                view.setAlpha(alpha_percent / 100.0)
+                if pet_view is not None:
+                    pet_view.setLayoutParams(pet_params)
+                    pet_view.setAlpha(alpha_percent / 100.0)
+
+            run_on_ui_thread(_apply)
+        except Exception as e:
+            self.log(f"Boykisser Corner: failed to apply appearance live: {e}")
+
+    # ------------------------------------------------------------------ #
+    # Helpers for safely reading settings with limits
+    # ------------------------------------------------------------------ #
+
+    @staticmethod
+    def _clamp_str_int(raw: str, default: int, lo: int, hi: int) -> int:
+        try:
+            value = int(float(raw))
+        except (TypeError, ValueError):
+            value = default
+        return max(lo, min(hi, value))
+
+    def _get_clamped_int_setting(self, key: str, default: int, lo: int, hi: int) -> int:
+        raw = self.get_setting(key, str(default))
+        try:
+            value = int(float(raw))
+        except (TypeError, ValueError):
+            value = default
+        return max(lo, min(hi, value))
+
+    # ------------------------------------------------------------------ #
+    # Managing the list of instances
+    # ------------------------------------------------------------------ #
+
+    def _get_instance(self, index: int) -> Optional[_BoykisserInstance]:
+        for instance in self._instances:
+            if instance.index == index:
+                return instance
+        return None
+
+    def _is_instance_enabled(self, index: int) -> bool:
+        """index=0 is the first cat, controlled by the shared "enabled" toggle
+        (already checked in _attach_overlay before this method is called).
+        index>=1 is enabled while it is within the current number of cats
+        (see _get_boykisser_count/_on_add_boykisser_click/
+        _on_remove_boykisser_click). Cats are added/removed one at a
+        time from the end, not by an arbitrary checkbox."""
+        if index == 0:
+            return True
+        return index < self._get_boykisser_count()
+
+    def _enabled_indices(self) -> List[int]:
+        return [i for i in range(MAX_BOYKISSERS) if self._is_instance_enabled(i)]
+
+    @staticmethod
+    def _default_pos_right_dp(index: int) -> int:
+        return 16
+
+    @staticmethod
+    def _default_pos_bottom_dp(index: int) -> int:
+        # Each next cat appears above the previous one by default,
+        # so new boykissers do not spawn on top of each other. After the
+        # first drag, each position is saved independently
+        # (see pos_right_dp{suffix}/pos_bottom_dp{suffix}).
+        return 16 + index * 160
+
+    # ------------------------------------------------------------------ #
+    # Loading resources
+    # ------------------------------------------------------------------ #
+
+    def _prepare_assets(self):
+        gif_url = DEFAULT_GIF_URL
+        sound_url = DEFAULT_SOUND_URL
+        purr_sound_url = PURR_SOUND_URL
+        pet_gif_url = PET_GIF_URL
+        pet_main_gif_url = PET_MAIN_GIF_URL
+
+        gif_path = os.path.join(_data_dir(), GIF_FILENAME)
+        sound_path = os.path.join(_data_dir(), SOUND_FILENAME)
+        purr_sound_path = os.path.join(_data_dir(), PURR_SOUND_FILENAME)
+        pet_gif_path = os.path.join(_data_dir(), PET_GIF_FILENAME)
+        pet_main_gif_path = os.path.join(_data_dir(), PET_MAIN_GIF_FILENAME)
+
+        if gif_url and not os.path.exists(gif_path):
+            try:
+                self._download(gif_url, gif_path)
+                self.log("Boykisser Corner: gif downloaded")
+            except Exception as e:
+                self.log(f"Boykisser Corner: failed to download gif: {e}")
+
+        if sound_url and not os.path.exists(sound_path):
+            try:
+                self._download(sound_url, sound_path)
+                self.log("Boykisser Corner: sound downloaded")
+            except Exception as e:
+                self.log(f"Boykisser Corner: failed to download sound: {e}")
+
+        if purr_sound_url and not os.path.exists(purr_sound_path):
+            try:
+                self._download(purr_sound_url, purr_sound_path)
+                self.log("Boykisser Corner: purr sound downloaded")
+            except Exception as e:
+                self.log(f"Boykisser Corner: failed to download purr sound: {e}")
+
+        if pet_gif_url and not os.path.exists(pet_gif_path):
+            try:
+                self._download(pet_gif_url, pet_gif_path)
+                self.log("Boykisser Corner: petting gif downloaded")
+            except Exception as e:
+                self.log(f"Boykisser Corner: failed to download petting gif: {e}")
+
+        if pet_main_gif_url and not os.path.exists(pet_main_gif_path):
+            try:
+                self._download(pet_main_gif_url, pet_main_gif_path)
+                self.log("Boykisser Corner: boykisser gif for petting downloaded")
+            except Exception as e:
+                self.log(f"Boykisser Corner: failed to download boykisser gif for petting: {e}")
+
+        for index, idle_gif_url in enumerate(IDLE_RANDOM_GIF_URLS):
+            idle_gif_path = os.path.join(
+                _data_dir(), IDLE_RANDOM_GIF_FILENAME_TEMPLATE.format(index=index)
+            )
+            if idle_gif_url and not os.path.exists(idle_gif_path):
+                try:
+                    self._download(idle_gif_url, idle_gif_path)
+                    self.log(f"Boykisser Corner: random gif #{index} downloaded")
+                except Exception as e:
+                    self.log(f"Boykisser Corner: failed to download random gif #{index}: {e}")
+
+        sleep_gif_path = os.path.join(_data_dir(), SLEEP_GIF_FILENAME)
+        if SLEEP_GIF_URL and not os.path.exists(sleep_gif_path):
+            try:
+                self._download(SLEEP_GIF_URL, sleep_gif_path)
+                self.log("Boykisser Corner: sleep gif downloaded")
+            except Exception as e:
+                self.log(f"Boykisser Corner: failed to download sleep gif: {e}")
+
+    @staticmethod
+    def _now_ms() -> int:
+        return int(time.time() * 1000)
+
+    @staticmethod
+    def _download(url: str, dest_path: str):
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            data = resp.read()
+        with open(dest_path, "wb") as f:
+            f.write(data)
+
+    # ------------------------------------------------------------------ #
+    # Hook on LaunchActivity to get the app window
+    # ------------------------------------------------------------------ #
+
+    def _install_activity_hook(self):
+        LaunchActivityClass = find_class("org.telegram.ui.LaunchActivity")
+        if not LaunchActivityClass:
+            self.log("Boykisser Corner: LaunchActivity class not found")
+            return
+
+        plugin = self
+
+        class ActivityReadyHook(MethodHook):
+            def after_hooked_method(self, param):
+                activity = param.thisObject
+                # onCreate/onResume mean the activity is visible to the user again,
+                # so we lift the block on background sounds/gifs
+                # (see _on_activity_paused and its checks in _idle_gif_tick/
+                # _idle_meow_tick).
+                plugin._is_foreground = True
+                run_on_ui_thread(lambda: plugin._attach_overlay(activity))
+
+        class ActivityPausedHook(MethodHook):
+            def after_hooked_method(self, param):
+                run_on_ui_thread(plugin._on_activity_paused)
+
+        self._activity_hook = []
+        # onCreate fires on a full (re)start of the app.
+        # onResume additionally fires every time the activity comes to the
+        # foreground, which means the process does not have to be killed manually if the
+        # plugin was enabled while the app was already running.
+        for method_name in ("onCreate", "onResume"):
+            try:
+                unhooks = self.hook_all_methods(
+                    LaunchActivityClass, method_name, ActivityReadyHook()
+                )
+                if unhooks:
+                    self._activity_hook.extend(unhooks)
+                    self.log(f"Boykisser Corner: hooked {method_name}")
+                else:
+                    self.log(f"Boykisser Corner: failed to hook {method_name}")
+            except Exception as e:
+                self.log(f"Boykisser Corner: hook error in {method_name}: {e}")
+
+        # onPause fires when the app leaves the foreground
+        # (minimized, screen off, another app opened on top).
+        # We use it to interrupt/silence background "just because"
+        # triggers, see _on_activity_paused.
+        try:
+            unhooks = self.hook_all_methods(
+                LaunchActivityClass, "onPause", ActivityPausedHook()
+            )
+            if unhooks:
+                self._activity_hook.extend(unhooks)
+                self.log("Boykisser Corner: hooked onPause")
+            else:
+                self.log("Boykisser Corner: failed to hook onPause")
+        except Exception as e:
+            self.log(f"Boykisser Corner: onPause hook error: {e}")
+
+        self._install_new_message_hook()
+
+    # ------------------------------------------------------------------ #
+    # Hook on really new incoming messages (NotificationsController)
+    # ------------------------------------------------------------------ #
+
+    def _install_new_message_hook(self):
+        NotificationsControllerClass = find_class("org.telegram.messenger.NotificationsController")
+        if not NotificationsControllerClass:
+            self.log("Boykisser Corner: NotificationsController class not found")
+            return
+
+        plugin = self
+
+        class NewMessagesHook(MethodHook):
+            def after_hooked_method(self, param):
+                try:
+                    if not plugin.get_setting("message_reaction_enabled", False):
+                        return
+                    messages = param.args[0] if param.args else None
+                    if messages is None:
+                        return
+                    # React only to messages from the chat that is open on screen
+                    # right now, otherwise the boykisser would meow
+                    # on trigger words in ANY chat/channel, even while the
+                    # user is in a completely different conversation or in the
+                    # chat list. If there is no open chat at all
+                    # (chat list, settings, etc.), there is nothing to compare with,
+                    # so we skip all messages of this batch.
+                    current_dialog_id = plugin._get_current_open_dialog_id()
+                    if current_dialog_id is None:
+                        return
+                    size = messages.size()
+                    for i in range(size):
+                        msg_obj = messages.get(i)
+                        msg_dialog_id = plugin._get_message_dialog_id(msg_obj)
+                        if msg_dialog_id is None or msg_dialog_id != current_dialog_id:
+                            continue
+                        text = getattr(msg_obj, "messageText", None)
+                        if not text:
+                            owner = getattr(msg_obj, "messageOwner", None)
+                            text = getattr(owner, "message", None) if owner is not None else None
+                        if text:
+                            plugin._check_trigger_words(str(text))
+                except Exception as e:
+                    plugin.log(f"Boykisser Corner: new messages hook error: {e}")
+
+        try:
+            unhooks = self.hook_all_methods(
+                NotificationsControllerClass, "processNewMessages", NewMessagesHook()
+            )
+            if unhooks:
+                self._activity_hook.extend(unhooks)
+                self.log("Boykisser Corner: hooked NotificationsController.processNewMessages")
+            else:
+                self.log("Boykisser Corner: failed to hook processNewMessages")
+        except Exception as e:
+            self.log(f"Boykisser Corner: processNewMessages hook error: {e}")
+
+    # ------------------------------------------------------------------ #
+    # Detecting the currently open chat (for the "only here" reaction)
+    # ------------------------------------------------------------------ #
+
+    def _get_current_open_dialog_id(self):
+        """Returns the dialog_id of the chat that is open on screen right now
+        (ChatActivity), or None if no chat is open (chat list,
+        settings, a call, etc.). Used so that the reaction to
+        trigger words does not fire on messages from other chats,
+        see NewMessagesHook."""
+        try:
+            fragment = get_last_fragment()
+            if fragment is None:
+                return None
+            if fragment.getClass().getSimpleName() != "ChatActivity":
+                return None
+            return fragment.getDialogId()
+        except Exception as e:
+            self.log(f"Boykisser Corner: failed to get the current chat id: {e}")
+            return None
+
+    def _get_message_dialog_id(self, msg_obj):
+        """Gets the dialog_id from a MessageObject: first we try the normal
+        getter, and if it is missing (or fails) we read the dialog_id field directly
+        from messageOwner (TLRPC.Message)."""
+        try:
+            get_dialog_id = getattr(msg_obj, "getDialogId", None)
+            if callable(get_dialog_id):
+                return get_dialog_id()
+        except Exception:
+            pass
+        try:
+            owner = getattr(msg_obj, "messageOwner", None)
+            if owner is not None:
+                return getattr(owner, "dialog_id", None)
+        except Exception:
+            pass
+        return None
+
+    # ------------------------------------------------------------------ #
+    # Reaction to trigger words in messages
+    # ------------------------------------------------------------------ #
+
+    def on_send_message_hook(self, account: int, params: Any) -> HookResult:
+        try:
+            if self.get_setting("message_reaction_enabled", False) and self.get_setting("react_own_messages", True):
+                text = getattr(params, "message", None)
+                if isinstance(text, str) and text:
+                    self._check_trigger_words(text)
+        except Exception as e:
+            self.log(f"Boykisser Corner: error in the outgoing messages handler: {e}")
+        return HookResult()
+
+    def _check_trigger_words(self, text: str):
+        raw_words = self.get_setting("trigger_words", "кот, мяу, boykisser")
+        trigger_list = [w.strip().lower() for w in raw_words.split(",") if w.strip()]
+        if not trigger_list:
+            return
+        text_lower = text.lower()
+        for word in trigger_list:
+            if word in text_lower:
+                self._on_trigger_word()
+                break
+
+    def _on_trigger_word(self):
+        # A reaction to a trigger word works like a normal tap (sound + animation
+        # of the classic gif + notification). It fires for EACH
+        # boykisser currently shown, separately; if a particular cat
+        # is busy (petting/animation/sleep), we just skip that one and
+        # leave the others alone.
+        for instance in list(self._instances):
+            if self._destroyed:
+                return
+            if instance.is_petting or instance.pet_main_active or instance.is_sleeping:
+                continue
+            self._interrupt_idle_gif(instance)
+            if instance.is_animating:
+                continue
+            instance.is_animating = True
+
+            run_on_ui_thread(
+                lambda: BulletinHelper.show_success("Meow!", get_last_fragment()),
+                BULLETIN_DELAY_MS,
+            )
+
+            meow_ms = self._play_meow(instance)
+            self._play_animation(instance)
+            busy_ms = max(ANIM_DURATION_MS, meow_ms or 0)
+            run_on_ui_thread(lambda inst=instance: self._clear_busy(inst), busy_ms)
+
+    # ------------------------------------------------------------------ #
+    # Overlaying the view on top of the interface
+    # ------------------------------------------------------------------ #
+
+    def _attach_overlay(self, activity):
+        if not self.get_setting("enabled", True):
+            self._remove_overlay_view()
+            return
+
+        desired_indices = self._enabled_indices()
+        currently_attached = [
+            instance.index
+            for instance in self._instances
+            if instance.overlay_view is not None and instance.overlay_view.getParent() is not None
+        ]
+        if desired_indices and currently_attached == desired_indices:
+            # Exactly the cats that should be shown already are, so we do not
+            # recreate them (the same optimization as in the original
+            # single-cat version).
+            return
+
+        gif_path = os.path.join(_data_dir(), GIF_FILENAME)
+        if not os.path.exists(gif_path):
+            # The gif has not been downloaded yet, try again later
+            run_on_ui_thread(lambda: self._attach_overlay(activity), 1500)
+            return
+
+        try:
+            from android.view import ViewGroup
+            from java import cast
+
+            window = activity.getWindow()
+            decor = window.getDecorView()
+            root = cast(ViewGroup, decor)
+        except Exception as e:
+            self.log(f"Boykisser Corner: failed to get the app window: {e}")
+            return
+
+        self._remove_overlay_view()
+        self._purge_stale_overlays(root)
+
+        density = activity.getResources().getDisplayMetrics().density
+
+        for index in desired_indices:
+            instance = _BoykisserInstance(index)
+            self._create_instance_views(instance, activity, root, gif_path, density)
+            if instance.overlay_view is None:
+                # Could not create a view for this cat, so we do not add
+                # it to the list and do not start timers for it.
+                continue
+            self._instances.append(instance)
+            instance.last_interaction_ms = self._now_ms()
+            self._schedule_idle_gif(instance)
+            self._schedule_idle_meow(instance)
+            self._schedule_sleep_check(instance)
+
+        self.log(f"Boykisser Corner: views added: {len(self._instances)}")
+
+    def _create_instance_views(self, instance: "_BoykisserInstance", activity, root, gif_path: str, density: float):
+        """Creates and adds to the tree the views of ONE boykisser (the classic one
+        + the petting gif) and attaches a DragTouchListener to them. It is the analog of the body of
+        the original _attach_overlay, but parameterized by a specific instance,
+        so that the same can be repeated independently for each
+        enabled cat."""
+        try:
+            from android.view import Gravity, ViewGroup, View, MotionEvent
+            from android.widget import FrameLayout, ImageView
+            from android.graphics import ImageDecoder
+            from java.io import File as JFile
+            from java import cast, dynamic_proxy
+
+            suffix = instance.suffix
+
+            image_view = ImageView(activity)
+            # ImageView defaults to FIT_CENTER, which keeps the gif's
+            # aspect ratio inside the container, so separate
+            # width/height settings visually did not work independently
+            # (the image always scaled by the smaller side). FIT_XY
+            # stretches the content strictly to the given width/height.
+            image_view.setScaleType(ImageView.ScaleType.FIT_XY)
+
+            source = ImageDecoder.createSource(JFile(gif_path))
+            drawable = ImageDecoder.decodeDrawable(source)
+            image_view.setImageDrawable(drawable)
+            instance.drawable = drawable
+            instance.gif_path = gif_path
+            # The gif does not play on its own: it stays as a still image,
+            # and the animation starts only on tap (see _on_boykisser_tap).
+
+            width_dp = self._get_clamped_int_setting(
+                f"width_dp{suffix}", DEFAULT_SIZE_DP, MIN_SIZE_DP, MAX_SIZE_DP
+            )
+            height_dp = self._get_clamped_int_setting(
+                f"height_dp{suffix}", DEFAULT_SIZE_DP, MIN_SIZE_DP, MAX_SIZE_DP
+            )
+            alpha_percent = self._get_clamped_int_setting(
+                f"alpha_percent{suffix}", DEFAULT_ALPHA_PERCENT, MIN_ALPHA_PERCENT, MAX_ALPHA_PERCENT
+            )
+
+            width_px = int(width_dp * density)
+            height_px = int(height_dp * density)
+
+            default_right = self._default_pos_right_dp(instance.index)
+            default_bottom = self._default_pos_bottom_dp(instance.index)
+            right_margin_px = int(
+                float(self.get_setting(f"pos_right_dp{suffix}", default_right)) * density
+            )
+            bottom_margin_px = int(
+                float(self.get_setting(f"pos_bottom_dp{suffix}", default_bottom)) * density
+            )
+
+            params = FrameLayout.LayoutParams(width_px, height_px)
+            params.gravity = Gravity.BOTTOM | Gravity.RIGHT
+            params.rightMargin = right_margin_px
+            params.bottomMargin = bottom_margin_px
+            image_view.setLayoutParams(params)
+            image_view.setAlpha(alpha_percent / 100.0)
+            image_view.setClickable(True)
+            image_view.setTag(f"{OVERLAY_VIEW_TAG}{suffix}")
+
+            plugin = self
+            drag_slop_px = int(10 * density)
+            pet_min_step_px = int(PET_MIN_STEP_DP * density)
+            pet_max_vertical_drift_px = int(PET_MAX_VERTICAL_DRIFT_DP * density)
+            pet_vertical_offset_px = int(PET_VERTICAL_OFFSET_DP * density)
+
+            class DragTouchListener(dynamic_proxy(View.OnTouchListener)):
+                def __init__(self):
+                    super().__init__()
+                    self.start_x = 0.0
+                    self.start_y = 0.0
+                    self.start_right = 0
+                    self.start_bottom = 0
+                    self.dragging = False
+                    # The touch zone is determined once in ACTION_DOWN by
+                    # local Y coordinate inside the view: the top half of the
+                    # image is "pet", the bottom half is "drag"/
+                    # "tap to meow".
+                    self.top_zone = False
+                    # Tracking the "pet" gesture in the top zone: we count the
+                    # finger reversals left and right (see _on_boykisser_pet).
+                    # A simple tap without reversals in the top zone is a normal
+                    # tap (meow), just like in the bottom zone.
+                    self.pet_last_x = 0.0
+                    self.pet_last_direction = 0
+                    self.pet_direction_changes = 0
+                    self.pet_triggered = False
+                    # Manual calculation of the finger speed in the screen
+                    # coordinate system (for the throw with inertia after ACTION_UP), see the
+                    # comment at THROW_MIN_VELOCITY_DP: VelocityTracker
+                    # does not fit here, because the view follows the finger and
+                    # the local event coordinates barely change.
+                    self.vel_last_time = 0
+                    self.vel_last_x = 0.0
+                    self.vel_last_y = 0.0
+                    self.vel_x = 0.0
+                    self.vel_y = 0.0
+
+                def onTouch(self, v, event):
+                    action = event.getAction()
+
+                    if action == MotionEvent.ACTION_DOWN:
+                        # Any touch (tap, petting or dragging)
+                        # starts with ACTION_DOWN, so this is the single entry
+                        # point to reset the idle timer and
+                        # wake the boykisser up if it was asleep (see
+                        # _register_interaction).
+                        plugin._register_interaction(instance)
+                        self.start_x = event.getRawX()
+                        self.start_y = event.getRawY()
+                        self.start_right = params.rightMargin
+                        self.start_bottom = params.bottomMargin
+                        self.dragging = False
+                        # event.getY() is a coordinate in the view's own coordinate
+                        # system (0 = top of the image), not the screen's, so it does not
+                        # depend on the boykisser's current position on the screen.
+                        local_y = event.getY()
+                        # If petting is off in the settings, the whole view
+                        # behaves as before (no top zone): tap/drag
+                        # work everywhere, the swipe gesture is not recognized.
+                        petting_enabled = plugin.get_setting("petting_enabled", True)
+                        self.top_zone = petting_enabled and local_y < (params.height / 2.0)
+
+                        self.pet_last_x = event.getRawX()
+                        self.pet_last_direction = 0
+                        self.pet_direction_changes = 0
+                        self.pet_triggered = False
+
+                        # We grab the boykisser again: if it was still flying by inertia
+                        # from the previous throw,
+                        # we stop the flight and start counting the speed
+                        # from zero.
+                        plugin._stop_throw(instance)
+                        self.vel_last_time = event.getEventTime()
+                        self.vel_last_x = event.getRawX()
+                        self.vel_last_y = event.getRawY()
+                        self.vel_x = 0.0
+                        self.vel_y = 0.0
+                        return True
+
+                    if action == MotionEvent.ACTION_MOVE:
+                        if self.top_zone:
+                            # Top zone: dragging does not work here,
+                            # only the "pet" gesture, several finger reversals
+                            # left and right in a row. A normal tap without
+                            # reversals is handled in ACTION_UP as a meow.
+                            # pet_triggered does NOT block repeated
+                            # triggers here: the finger keeps petting, and
+                            # the gif must restart on every new
+                            # set of reversals; the flag is used only in
+                            # ACTION_UP, so that this same gesture is not also counted
+                            # as a normal tap.
+
+                            vertical_drift = abs(event.getRawY() - self.start_y)
+                            if vertical_drift > pet_max_vertical_drift_px:
+                                # Wanders too much in Y, which does not look like
+                                # petting, so the reversal is not counted.
+                                return True
+
+                            step_dx = event.getRawX() - self.pet_last_x
+                            if abs(step_dx) >= pet_min_step_px:
+                                direction = 1 if step_dx > 0 else -1
+                                if self.pet_last_direction != 0 and direction != self.pet_last_direction:
+                                    self.pet_direction_changes += 1
+                                self.pet_last_direction = direction
+                                self.pet_last_x = event.getRawX()
+
+                                if self.pet_direction_changes >= PET_DIRECTION_CHANGES_THRESHOLD:
+                                    self.pet_triggered = True
+                                    # Reset the reversal counter so that
+                                    # the next batch of reversals (while the
+                                    # finger keeps petting) can reach the threshold again
+                                    # and restart the gif.
+                                    self.pet_direction_changes = 0
+                                    plugin._on_boykisser_pet(instance, v)
+                            return True
+
+                        now = event.getEventTime()
+                        dt_ms = now - self.vel_last_time
+                        if dt_ms > 0:
+                            raw_x = event.getRawX()
+                            raw_y = event.getRawY()
+                            dt_s = dt_ms / 1000.0
+                            inst_vx = (raw_x - self.vel_last_x) / dt_s
+                            inst_vy = (raw_y - self.vel_last_y) / dt_s
+                            # Exponential smoothing, otherwise finger jitter
+                            # between two move events would give
+                            # random speed spikes.
+                            s = THROW_VELOCITY_SMOOTHING
+                            self.vel_x = self.vel_x * (1 - s) + inst_vx * s
+                            self.vel_y = self.vel_y * (1 - s) + inst_vy * s
+                            self.vel_last_time = now
+                            self.vel_last_x = raw_x
+                            self.vel_last_y = raw_y
+
+                        dx = event.getRawX() - self.start_x
+                        dy = event.getRawY() - self.start_y
+
+                        if (
+                            plugin.get_setting("dragging_enabled", True)
+                            and not self.dragging
+                            and (abs(dx) > drag_slop_px or abs(dy) > drag_slop_px)
+                        ):
+                            self.dragging = True
+
+                        if self.dragging:
+                            new_right = int(self.start_right - dx)
+                            new_bottom = int(self.start_bottom - dy)
+
+                            max_right = max(0, root.getWidth() - v.getWidth())
+                            max_bottom = max(0, root.getHeight() - v.getHeight())
+
+                            new_right = min(max(new_right, 0), max_right)
+                            new_bottom = min(max(new_bottom, 0), max_bottom)
+
+                            params.rightMargin = new_right
+                            params.bottomMargin = new_bottom
+                            image_view.setLayoutParams(params)
+
+                            pet_view = instance.pet_view
+                            if pet_view is not None:
+                                pet_view_params = pet_view.getLayoutParams()
+                                pet_view_params.rightMargin = new_right
+                                pet_view_params.bottomMargin = new_bottom + pet_vertical_offset_px
+                                pet_view.setLayoutParams(pet_view_params)
+                        return True
+
+                    if action in (MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL):
+                        if self.top_zone:
+                            if self.pet_triggered:
+                                # Finger released (or gesture cancelled):
+                                # hide the petting gif immediately, without waiting for
+                                # its own timer.
+                                plugin._hide_pet_overlay_now(instance)
+                            elif action == MotionEvent.ACTION_UP:
+                                # There was no left-right swipe, so a normal tap
+                                # in the top zone works as a tap (meow),
+                                # the same as in the bottom zone.
+                                plugin._on_boykisser_tap(instance, v)
+                        elif self.dragging:
+                            plugin.set_setting(f"pos_right_dp{suffix}", params.rightMargin / density)
+                            plugin.set_setting(f"pos_bottom_dp{suffix}", params.bottomMargin / density)
+                            speed_dp = (self.vel_x * self.vel_x + self.vel_y * self.vel_y) ** 0.5 / density
+                            if (
+                                action == MotionEvent.ACTION_UP
+                                and plugin.get_setting("throw_enabled", True)
+                                and speed_dp >= THROW_MIN_VELOCITY_DP
+                            ):
+                                # Thrown fast enough (and inertia
+                                # is on in the settings): it keeps flying on its own
+                                # and slows down gradually.
+                                plugin._start_throw(instance, self.vel_x, self.vel_y, density)
+                        else:
+                            plugin._on_boykisser_tap(instance, v)
+                        return True
+
+                    return False
+
+            # A separate view for the petting gif: drawn on top of the
+            # boykisser and hidden by default (see _show_pet_overlay).
+            pet_gif_path = os.path.join(_data_dir(), PET_GIF_FILENAME)
+            instance.pet_gif_path = pet_gif_path
+
+            pet_view = ImageView(activity)
+            pet_view.setScaleType(ImageView.ScaleType.FIT_XY)
+            pet_params = FrameLayout.LayoutParams(width_px, height_px)
+            pet_params.gravity = Gravity.BOTTOM | Gravity.RIGHT
+            pet_params.rightMargin = right_margin_px
+            pet_params.bottomMargin = bottom_margin_px + pet_vertical_offset_px
+            pet_view.setLayoutParams(pet_params)
+            pet_view.setAlpha(alpha_percent / 100.0)
+            # The hand gif is a decorative layer on top of the boykisser: it has the same
+            # width/height/margins as the main view (see above), so
+            # it physically cannot stick out beyond the cat. It is not clickable/
+            # focusable, to avoid ripple and system focus, but the same
+            # gesture handler as on the boykisser is attached to it,
+            # so the "pet" swipe keeps working even when the finger
+            # ends up on top of the hand gif itself, not under it.
+            pet_view.setClickable(False)
+            pet_view.setLongClickable(False)
+            pet_view.setFocusable(False)
+            pet_view.setVisibility(View.GONE)
+            pet_view.setTag(f"{PET_OVERLAY_VIEW_TAG}{suffix}")
+
+            touch_listener = DragTouchListener()
+            image_view.setOnTouchListener(touch_listener)
+            pet_view.setOnTouchListener(touch_listener)
+
+            root.addView(image_view)
+            root.addView(pet_view)  # added after image_view, so it is drawn on top of it
+            instance.overlay_view = image_view
+            instance.pet_view = pet_view
+        except Exception as e:
+            self.log(f"Boykisser Corner: failed to add the view (Boykisser {instance.index + 1}): {e}")
+
+    def _purge_stale_overlays(self, root):
+        """Removes from the tree ANY boykisser overlay views that are already hanging there.
+        It finds them by tag (OVERLAY_VIEW_TAG/PET_OVERLAY_VIEW_TAG + the index
+        suffix), not by the internal Python references self._instances.
+
+        This is a separate defense against the main source of the "2+
+        boykissers spawn" bug: if for some reason (plugin reload/update,
+        hot reload, a race of the onCreate/onResume hooks, etc.) a new
+        instance of this class is created, its __init__ has an empty
+        self._instances list. It knows nothing about the views that the old
+        instance really added to decor, and those views just stay hanging
+        in the interface as "orphans". self._remove_overlay_view() does not
+        find such views, because they are not stored in the state of the current
+        instance at all. So before adding new views we explicitly scan
+        the direct children of root and remove everything marked with our tags
+        (with any suffix), whoever added it.
+        """
+        try:
+            for i in range(root.getChildCount() - 1, -1, -1):
+                child = root.getChildAt(i)
+                tag = child.getTag()
+                if tag is None:
+                    continue
+                tag_str = str(tag)
+                if tag_str.startswith(OVERLAY_VIEW_TAG) or tag_str.startswith(PET_OVERLAY_VIEW_TAG):
+                    root.removeViewAt(i)
+        except Exception as e:
+            self.log(f"Boykisser Corner: failed to clean up old views: {e}")
+
+    def _remove_overlay_view(self):
+        """Removes the views of ALL boykissers from the hierarchy and releases their
+        sound players.
+
+        IMPORTANT (the main cause of the "2 boykissers" bug in the original version):
+        this method is called not only from the UI thread (for example from
+        _attach_overlay) but also from on_plugin_unload, and as the logs show,
+        the exteragram engine (PythonPluginsEngine.setPluginEnabled) can call it
+        from a background DispatchQueue thread rather than the UI thread. A direct
+        call to ViewGroup.removeView() then failed with "Only the
+        original thread that created a view hierarchy can touch its views".
+        removeView did not get executed, the old view stayed
+        hanging in the tree (with the tag, but "orphaned"), and after the next
+        plugin reload one more was added next to it.
+        _purge_stale_overlays cleans such "orphans" up by tag, but
+        relying only on it as the single line of defense
+        is wrong: it is better not to let removeView itself fail at all.
+
+        So here the python references (self._instances and the fields of each
+        instance) are reset immediately and synchronously, regardless of the calling
+        thread, while the real access to the views (getParent()/removeView())
+        is always executed on the UI thread via run_on_ui_thread, wherever
+        this method is called from.
+        """
+        instances = self._instances
+        self._instances = []
+        if not instances:
+            return
+
+        views_to_remove = []
+        for instance in instances:
+            if instance.pet_view is not None:
+                views_to_remove.append(instance.pet_view)
+            if instance.overlay_view is not None:
+                views_to_remove.append(instance.overlay_view)
+
+            instance.pet_view = None
+            instance.pet_drawable = None
+            instance.pet_gif_path = None
+            instance.is_petting = False
+
+            instance.overlay_view = None
+            instance.drawable = None
+            instance.gif_path = None
+            instance.pet_main_active = False
+            instance.is_sleeping = False
+
+            if instance.media_player is not None:
+                try:
+                    instance.media_player.release()
+                except Exception:
+                    pass
+                instance.media_player = None
+
+            if instance.purr_media_player is not None:
+                try:
+                    instance.purr_media_player.release()
+                except Exception:
+                    pass
+                instance.purr_media_player = None
+                instance.is_purring = False
+
+        if not views_to_remove:
+            return
+
+        def _detach():
+            from android.view import ViewGroup
+            from java import cast
+
+            for view in views_to_remove:
+                try:
+                    parent = view.getParent()
+                    if parent is not None:
+                        cast(ViewGroup, parent).removeView(view)
+                except Exception as e:
+                    self.log(f"Boykisser Corner: error while removing views: {e}")
+
+        run_on_ui_thread(_detach)
+
+    # ------------------------------------------------------------------ #
+    # Throw with inertia: released after a fast drag,
+    # the boykisser keeps flying on its own and slows down, bouncing off the screen edges.
+    # ------------------------------------------------------------------ #
+
+    def _stop_throw(self, instance: "_BoykisserInstance"):
+        """Stops the current flight (if one is going) by invalidating the token:
+        the _run_throw_frame frame already scheduled via run_on_ui_thread
+        will see the token mismatch and quietly finish without touching anything."""
+        instance.throw_token += 1
+        instance.is_throwing = False
+        self._stop_jelly_bounce(instance)
+
+    def _start_throw(self, instance: "_BoykisserInstance", vx_px_s: float, vy_px_s: float, density: float):
+        """Starts the throw. vx_px_s/vy_px_s is the finger speed at the moment of
+        release, in pixels/s, in the screen coordinate system (the same sign
+        as getRawX/getRawY used during the drag)."""
+        view = instance.overlay_view
+        if view is None:
+            return
+        try:
+            from android.view import ViewGroup
+            from java import cast
+
+            root = cast(ViewGroup, view.getParent())
+        except Exception:
+            root = None
+        if root is None:
+            return
+
+        max_speed = THROW_MAX_VELOCITY_DP * density
+        speed = (vx_px_s * vx_px_s + vy_px_s * vy_px_s) ** 0.5
+        if speed > max_speed and speed > 0:
+            scale = max_speed / speed
+            vx_px_s *= scale
+            vy_px_s *= scale
+
+        instance.throw_token += 1
+        token = instance.throw_token
+        instance.is_throwing = True
+        params = view.getLayoutParams()
+        self._run_throw_frame(instance, token, view, params, root, vx_px_s, vy_px_s, density)
+
+    def _run_throw_frame(self, instance: "_BoykisserInstance", token, view, params, root, vx, vy, density):
+        if self._destroyed or token != instance.throw_token:
+            return
+        if view.getParent() is None:
+            instance.is_throwing = False
+            return
+
+        dt = THROW_FRAME_MS / 1000.0
+
+        new_right = params.rightMargin - vx * dt
+        new_bottom = params.bottomMargin - vy * dt
+
+        max_right = max(0, root.getWidth() - view.getWidth())
+        max_bottom = max(0, root.getHeight() - view.getHeight())
+
+        bounced_x = False
+        bounced_y = False
+
+        if new_right < 0:
+            new_right = 0
+            vx = -vx * THROW_BOUNCE_DAMPING
+            bounced_x = True
+        elif new_right > max_right:
+            new_right = max_right
+            vx = -vx * THROW_BOUNCE_DAMPING
+            bounced_x = True
+
+        if new_bottom < 0:
+            new_bottom = 0
+            vy = -vy * THROW_BOUNCE_DAMPING
+            bounced_y = True
+        elif new_bottom > max_bottom:
+            new_bottom = max_bottom
+            vy = -vy * THROW_BOUNCE_DAMPING
+            bounced_y = True
+
+        params.rightMargin = int(new_right)
+        params.bottomMargin = int(new_bottom)
+
+        try:
+            view.setLayoutParams(params)
+            pet_view = instance.pet_view
+            if pet_view is not None:
+                pet_params = pet_view.getLayoutParams()
+                pet_params.rightMargin = params.rightMargin
+                pet_params.bottomMargin = params.bottomMargin + int(PET_VERTICAL_OFFSET_DP * density)
+                pet_view.setLayoutParams(pet_params)
+        except Exception as e:
+            self.log(f"Boykisser Corner: throw frame error: {e}")
+            instance.is_throwing = False
+            return
+
+        if (bounced_x or bounced_y) and self.get_setting("jelly_bounce_enabled", True):
+            axis = "both" if (bounced_x and bounced_y) else ("x" if bounced_x else "y")
+            self._trigger_jelly_bounce(instance, view, axis)
+
+        # Exponential deceleration: THROW_RETENTION_PER_SEC is the share of
+        # speed left after 1 second, scaled to the duration of
+        # one frame.
+        friction_factor = THROW_RETENTION_PER_SEC ** dt
+        vx *= friction_factor
+        vy *= friction_factor
+
+        stop_speed = THROW_STOP_VELOCITY_DP * density
+        if (vx * vx + vy * vy) ** 0.5 <= stop_speed:
+            instance.is_throwing = False
+            self.set_setting(f"pos_right_dp{instance.suffix}", params.rightMargin / density)
+            self.set_setting(f"pos_bottom_dp{instance.suffix}", params.bottomMargin / density)
+            return
+
+        run_on_ui_thread(
+            lambda: self._run_throw_frame(instance, token, view, params, root, vx, vy, density),
+            THROW_FRAME_MS,
+        )
+
+    # ------------------------------------------------------------------ #
+    # "Jelly" bounce: a purely visual squash/bulge of the view at
+    # the moment of hitting a screen edge and several quick damped wobbles
+    # afterwards, so the image "shakes" like jelly. It does not affect the flight physics (vx/vy in
+    # _run_throw_frame), only the scaleX/scaleY of the view.
+    # ------------------------------------------------------------------ #
+
+    def _trigger_jelly_bounce(self, instance: "_BoykisserInstance", view, axis: str):
+        """Starts (or restarts, if the bounce happened again
+        while the wobble had not faded yet) the jelly wobble. axis is "x",
+        "y" or "both", depending on which axis the bounce happened on
+        in this _run_throw_frame frame."""
+        instance.jelly_token += 1
+        token = instance.jelly_token
+        self._run_jelly_frame(instance, token, view, axis, 0.0)
+
+    def _run_jelly_frame(self, instance: "_BoykisserInstance", token, view, axis: str, elapsed_ms: float):
+        if self._destroyed or token != instance.jelly_token:
+            return
+        if view.getParent() is None:
+            return
+
+        if elapsed_ms >= JELLY_BOUNCE_DURATION_MS:
+            # The wobble is over, so we return the view to its normal
+            # size exactly (not relying on the damping having
+            # converged close enough to zero).
+            try:
+                view.setScaleX(1.0)
+                view.setScaleY(1.0)
+            except Exception:
+                pass
+            return
+
+        t_s = elapsed_ms / 1000.0
+        decay = math.exp(-JELLY_BOUNCE_DAMPING_RATE * t_s)
+        wobble = math.cos(2 * math.pi * JELLY_BOUNCE_FREQUENCY_HZ * t_s)
+        squash = JELLY_BOUNCE_MAX_SQUASH * decay * wobble
+
+        if axis == "x":
+            scale_x = 1.0 - squash
+            scale_y = 1.0 + squash
+        elif axis == "y":
+            scale_x = 1.0 + squash
+            scale_y = 1.0 - squash
+        else:
+            # Bounce off two edges at once (a screen corner): we squash
+            # evenly on both axes, without "stretching" in the other one.
+            scale_x = 1.0 - squash
+            scale_y = 1.0 - squash
+
+        try:
+            view.setScaleX(scale_x)
+            view.setScaleY(scale_y)
+        except Exception as e:
+            self.log(f"Boykisser Corner: jelly bounce error: {e}")
+            return
+
+        run_on_ui_thread(
+            lambda: self._run_jelly_frame(instance, token, view, axis, elapsed_ms + JELLY_BOUNCE_FRAME_MS),
+            JELLY_BOUNCE_FRAME_MS,
+        )
+
+    def _stop_jelly_bounce(self, instance: "_BoykisserInstance"):
+        """Immediately stops the jelly wobble (if one is going) and
+        returns the view to its normal size. Called when the
+        boykisser is grabbed with a finger in the middle of a bounce (see _stop_throw)."""
+        instance.jelly_token += 1
+        view = instance.overlay_view
+        if view is None:
+            return
+        try:
+            view.setScaleX(1.0)
+            view.setScaleY(1.0)
+        except Exception:
+            pass
+
+    # ------------------------------------------------------------------ #
+    # Tap -> meow + a small animation
+    # ------------------------------------------------------------------ #
+
+    def _on_boykisser_tap(self, instance: "_BoykisserInstance", view, from_petting=False):
+        # If a random "just because" gif is playing on its own right now,
+        # we interrupt it immediately. Before, the random gif playback
+        # was marked with the same is_animating flag as the
+        # reaction to a tap/petting, so a tap/petting during it was simply
+        # silently ignored. Now these are two different states: a tap/petting is
+        # always handled as usual, even if a random gif
+        # was playing at that moment (see _interrupt_idle_gif).
+        self._interrupt_idle_gif(instance)
+        if instance.is_animating:
+            # The animation/sound are already going, so we just ignore the tap and do not
+            # replay anything or break the state (a fix for freezes on
+            # fast repeated taps).
+            return
+        instance.is_animating = True
+
+        if from_petting:
+            # The petting reaction is its own, independent of the "Reaction
+            # to tap" toggle: it has a separate notification toggle
+            # (pet_notification_enabled). The meow is NOT played during petting;
+            # the looped purr is already running instead (see
+            # _play_purr in _on_boykisser_pet).
+            reaction_allowed = True
+            notification_allowed = self.get_setting("pet_notification_enabled", True)
+        else:
+            # Normal tap: the master toggle "tap_enabled" turns off the animation,
+            # sound and notification all at once. tap_notification_enabled
+            # controls only the notification (and only while tap_enabled
+            # is on) and does not affect the sound.
+            reaction_allowed = self.get_setting("tap_enabled", True)
+            notification_allowed = reaction_allowed and self.get_setting("tap_notification_enabled", True)
+
+        if notification_allowed:
+            # During petting the boykisser purrs rather than meows, so the notification
+            # text must match (see from_petting above).
+            bulletin_text = "Purr..!" if from_petting else "Meow..!"
+            run_on_ui_thread(
+                lambda: BulletinHelper.show_success(bulletin_text, get_last_fragment()),
+                BULLETIN_DELAY_MS,
+            )
+
+        meow_ms = 0
+        anim_ms = 0
+        if reaction_allowed:
+            if from_petting:
+                # While petting, the sound is already provided by the looped purr
+                # (_play_purr), and the boykisser image is replaced and
+                # looped via _show_pet_main_gif, so we do not start the normal
+                # meow and the classic gif's "tap" animation on top of them,
+                # otherwise _stop_animation() after ANIM_DURATION_MS would reset the
+                # view back to the classic one right in the middle of petting.
+                pass
+            else:
+                meow_ms = self._play_meow(instance)
+                self._play_animation(instance)
+                anim_ms = ANIM_DURATION_MS
+
+        busy_ms = max(anim_ms, meow_ms or 0)
+        run_on_ui_thread(lambda: self._clear_busy(instance), busy_ms)
+
+    def _clear_busy(self, instance: "_BoykisserInstance"):
+        instance.is_animating = False
+
+    # ------------------------------------------------------------------ #
+    # Petting -> a gif on top of the boykisser + it meows and animates itself
+    # ------------------------------------------------------------------ #
+
+    def _on_boykisser_pet(self, instance: "_BoykisserInstance", view):
+        # See the comment in _on_boykisser_tap: we interrupt the random gif
+        # immediately, before _show_pet_main_gif/_show_pet_overlay start
+        # change the drawables, to avoid a race between a stale
+        # deferred _stop_idle_gif and the fresh petting state.
+        self._interrupt_idle_gif(instance)
+        self._show_pet_overlay(instance)
+        # We replace the MAIN boykisser gif with the "being petted" version;
+        # the hand gif (see _show_pet_overlay above) is left alone,
+        # it is a separate layer. The return to the classic one is in _hide_pet_main_gif,
+        # called when the finger is released (see _hide_pet_overlay_now).
+        self._show_pet_main_gif(instance)
+        # Purring loops while the finger is petting and stops
+        # on release (see _hide_pet_overlay_now/_stop_purr).
+        self._play_purr(instance)
+        # Petting works like a normal tap (the shared lock against
+        # overlapping animations), but with its own separate meow toggle,
+        # see from_petting in _on_boykisser_tap.
+        self._on_boykisser_tap(instance, view, from_petting=True)
+
+    def _show_pet_overlay(self, instance: "_BoykisserInstance"):
+        if instance.is_petting:
+            # The gif is already shown and looping, so we do not recreate
+            # it on every repeated finger "reversal" (before, this caused a
+            # noticeable "jump"/teleport to the first frame). It plays
+            # for as long as the petting continues and is hidden
+            # only when the finger is released (see _hide_pet_overlay_now).
+            return
+        pet_view = instance.pet_view
+        gif_path = instance.pet_gif_path
+        if pet_view is None or not gif_path or not os.path.exists(gif_path):
+            return
+        instance.pet_session_id += 1
+        instance.is_petting = True
+        try:
+            from android.graphics import ImageDecoder
+            from android.graphics.drawable import AnimatedImageDrawable
+            from android.view import View
+            from java.io import File as JFile
+
+            source = ImageDecoder.createSource(JFile(gif_path))
+            drawable = ImageDecoder.decodeDrawable(source)
+            if isinstance(drawable, AnimatedImageDrawable):
+                # We loop it fully: while the finger keeps petting,
+                # the gif plays in full and repeats again and again,
+                # instead of being cut off by a timer.
+                drawable.setRepeatCount(AnimatedImageDrawable.REPEAT_INFINITE)
+            pet_view.setImageDrawable(drawable)
+            pet_view.setVisibility(View.VISIBLE)
+            drawable.start()
+            instance.pet_drawable = drawable
+        except Exception as e:
+            self.log(f"Boykisser Corner: failed to show the petting gif: {e}")
+            instance.is_petting = False
+
+    def _hide_pet_overlay_now(self, instance: "_BoykisserInstance"):
+        """Hides the petting gif immediately, when the finger is released."""
+        instance.pet_session_id += 1
+        self._hide_pet_overlay(instance, instance.pet_session_id)
+        self._hide_pet_main_gif(instance)
+        self._stop_purr(instance)
+
+    def _show_pet_main_gif(self, instance: "_BoykisserInstance"):
+        """Replaces the main boykisser gif with PET_MAIN_GIF_URL and
+        loops it while the petting continues. Does not touch the hand gif."""
+        if instance.pet_main_active:
+            # Already shown and looping, so we do not recreate it on
+            # every new trigger, to avoid a "jump" to the first frame
+            # (the same logic as in _show_pet_overlay for the hand gif).
+            return
+        view = instance.overlay_view
+        gif_path = os.path.join(_data_dir(), PET_MAIN_GIF_FILENAME)
+        if view is None or not os.path.exists(gif_path):
+            return
+        try:
+            from android.graphics import ImageDecoder
+            from android.graphics.drawable import AnimatedImageDrawable
+            from java.io import File as JFile
+
+            source = ImageDecoder.createSource(JFile(gif_path))
+            drawable = ImageDecoder.decodeDrawable(source)
+            if isinstance(drawable, AnimatedImageDrawable):
+                drawable.setRepeatCount(AnimatedImageDrawable.REPEAT_INFINITE)
+            view.setImageDrawable(drawable)
+            drawable.start()
+            instance.drawable = drawable
+            instance.pet_main_active = True
+        except Exception as e:
+            self.log(f"Boykisser Corner: failed to show the boykisser gif for petting: {e}")
+
+    def _hide_pet_main_gif(self, instance: "_BoykisserInstance"):
+        """Returns the classic boykisser gif, when the
+        finger is released (or if petting was turned off/the overlay was removed)."""
+        if not instance.pet_main_active:
+            return
+        instance.pet_main_active = False
+        if instance.drawable is not None:
+            try:
+                instance.drawable.stop()
+            except Exception:
+                pass
+        # We rebuild the classic drawable from the first frame, the same
+        # technique as in _reset_drawable_to_first_frame after a normal
+        # tap, so we do not inherit a random frame of the petting gif.
+        self._reset_drawable_to_first_frame(instance)
+
+    def _hide_pet_overlay(self, instance: "_BoykisserInstance", session_id):
+        if session_id != instance.pet_session_id:
+            return
+        pet_view = instance.pet_view
+        try:
+            if pet_view is not None:
+                from android.view import View
+                pet_view.setVisibility(View.GONE)
+            if instance.pet_drawable is not None:
+                try:
+                    instance.pet_drawable.stop()
+                except Exception:
+                    pass
+                instance.pet_drawable = None
+        except Exception as e:
+            self.log(f"Boykisser Corner: failed to hide the petting gif: {e}")
+        finally:
+            instance.is_petting = False
+
+    def _play_animation(self, instance: "_BoykisserInstance"):
+        drawable = instance.drawable
+        if drawable is None:
+            return
+        try:
+            drawable.start()  # AnimatedImageDrawable.start()
+            run_on_ui_thread(lambda: self._stop_animation(instance, drawable), ANIM_DURATION_MS)
+        except Exception as e:
+            self.log(f"Boykisser Corner: failed to start the animation: {e}")
+
+    def _stop_animation(self, instance: "_BoykisserInstance", drawable):
+        try:
+            drawable.stop()  # AnimatedImageDrawable.stop()
+        except Exception:
+            pass
+        # Bug: stop() stops the gif on whatever frame it happened to be on
+        # at the moment of stopping (not the first one), and
+        # AnimatedImageDrawable has no public API to rewind it to the
+        # start, so the boykisser sometimes "froze" with an open mouth
+        # until the next tap. We fix this by recreating the drawable from the gif
+        # file: a new instance is always drawn from the first frame and
+        # stays stopped (we do not call start()),
+        # so the gif is just "rewound" to the start and
+        # waits for the next tap without playing by itself.
+        self._reset_drawable_to_first_frame(instance)
+
+    def _reset_drawable_to_first_frame(self, instance: "_BoykisserInstance"):
+        view = instance.overlay_view
+        gif_path = instance.gif_path
+        if view is None or not gif_path or not os.path.exists(gif_path):
+            return
+        try:
+            from android.graphics import ImageDecoder
+            from java.io import File as JFile
+
+            source = ImageDecoder.createSource(JFile(gif_path))
+            fresh_drawable = ImageDecoder.decodeDrawable(source)
+            view.setImageDrawable(fresh_drawable)
+            instance.drawable = fresh_drawable
+        except Exception as e:
+            self.log(f"Boykisser Corner: failed to reset the gif to the first frame: {e}")
+
+    # ------------------------------------------------------------------ #
+    # "Sometimes" -> a random gif on its own, without user input
+    # ------------------------------------------------------------------ #
+
+    def _get_idle_interval_ms(self, preset_key, presets_sec):
+        """Reads the speed preset chosen by the user from the settings
+        (an index into presets_sec), clamps it to the valid range of the preset
+        list and returns (min, max) in milliseconds. On an invalid
+        value (not a number, etc.) it falls back to the default preset."""
+        try:
+            preset_index = int(
+                str(self.get_setting(preset_key, IDLE_SPEED_PRESET_DEFAULT_INDEX)).strip()
+            )
+        except (TypeError, ValueError):
+            preset_index = IDLE_SPEED_PRESET_DEFAULT_INDEX
+
+        preset_index = max(0, min(preset_index, len(presets_sec) - 1))
+        min_sec, max_sec = presets_sec[preset_index]
+        return min_sec * 1000, max_sec * 1000
+
+    def _schedule_idle_gif(self, instance: "_BoykisserInstance"):
+        if self._destroyed or instance not in self._instances:
+            return
+        min_ms, max_ms = self._get_idle_interval_ms(
+            "idle_gif_preset", IDLE_GIF_INTERVAL_PRESETS_SEC,
+        )
+        delay_ms = random.randint(min_ms, max_ms)
+        run_on_ui_thread(lambda: self._idle_gif_tick(instance), delay_ms)
+
+    def _idle_gif_tick(self, instance: "_BoykisserInstance"):
+        if self._destroyed or instance not in self._instances:
+            return
+        try:
+            if (
+                self.get_setting("enabled", True)
+                and self.get_setting("idle_gif_enabled", True)
+                and self._is_foreground
+                and instance.overlay_view is not None
+                and not instance.is_petting
+                and not instance.pet_main_active
+                and not instance.is_animating
+                and not instance.is_idle_playing
+                and not instance.is_sleeping
+            ):
+                self._play_random_idle_gif(instance)
+        finally:
+            # We schedule the next trigger in any case, even if
+            # this one fired in vain (plugin off, petting in progress, etc.).
+            self._schedule_idle_gif(instance)
+
+    def _play_random_idle_gif(self, instance: "_BoykisserInstance"):
+        view = instance.overlay_view
+        if view is None:
+            return
+        index = random.randrange(len(IDLE_RANDOM_GIF_URLS))
+        gif_path = os.path.join(_data_dir(), IDLE_RANDOM_GIF_FILENAME_TEMPLATE.format(index=index))
+        if not os.path.exists(gif_path):
+            return
+        instance.is_idle_playing = True
+        instance.idle_gif_token += 1
+        token = instance.idle_gif_token
+        try:
+            from android.graphics import ImageDecoder
+            from java.io import File as JFile
+
+            source = ImageDecoder.createSource(JFile(gif_path))
+            drawable = ImageDecoder.decodeDrawable(source)
+            view.setImageDrawable(drawable)
+            drawable.start()
+            instance.drawable = drawable
+            # Stored separately from instance.drawable: if a tap/petting happens
+            # before its own timer, instance.drawable is replaced
+            # with something else, and the deferred _stop_idle_gif below must
+            # touch exactly THIS drawable (or not touch anything at all if the
+            # token is already stale, see _interrupt_idle_gif).
+            instance.idle_drawable = drawable
+            # Before, _play_meow() was called here unconditionally, so the gif
+            # always dragged a sound along. This contradicted the original idea
+            # (see the comment at IDLE_RANDOM_GIF_MIN/MAX_INTERVAL_MS above):
+            # the gif and the "just because" meow must be INDEPENDENT events,
+            # each with its own random interval (_schedule_idle_gif /
+            # _schedule_idle_meow). Removed so the sound does not start
+            # every time together with a random gif.
+            run_on_ui_thread(lambda: self._stop_idle_gif(instance, token), IDLE_RANDOM_GIF_DURATION_MS)
+        except Exception as e:
+            self.log(f"Boykisser Corner: failed to play the random gif: {e}")
+            instance.is_idle_playing = False
+
+    def _stop_idle_gif(self, instance: "_BoykisserInstance", token):
+        if token != instance.idle_gif_token:
+            # Stale: this showing was already interrupted by a tap/petting
+            # (_interrupt_idle_gif) or replaced by a new showing, so the state
+            # already belongs to someone else and must not be touched.
+            return
+        instance.is_idle_playing = False
+        drawable = instance.idle_drawable
+        instance.idle_drawable = None
+        try:
+            if drawable is not None:
+                drawable.stop()
+        except Exception:
+            pass
+        if instance.pet_main_active:
+            # Just in case: if petting managed to start without going
+            # through _interrupt_idle_gif, we do not touch the current main view.
+            return
+        self._reset_drawable_to_first_frame(instance)
+
+    def _interrupt_idle_gif(self, instance: "_BoykisserInstance"):
+        """Interrupts the random "just because" gif if it is playing at that
+        moment. Called from _on_boykisser_tap/_on_boykisser_pet, so that a real tap
+        or petting gesture of the user is handled as usual,
+        without waiting for the random gif to finish."""
+        if not instance.is_idle_playing:
+            return
+        instance.is_idle_playing = False
+        # We invalidate the token: the deferred _stop_idle_gif of this showing
+        # will now recognize itself as stale and touch nothing, even
+        # if by then instance.drawable already points to something
+        # started by a tap or petting on top.
+        instance.idle_gif_token += 1
+        drawable = instance.idle_drawable
+        instance.idle_drawable = None
+        if drawable is not None:
+            try:
+                drawable.stop()
+            except Exception:
+                pass
+        if not instance.pet_main_active:
+            # We return the classic gif to the first frame: next either
+            # a normal tap starts the animation on it (_play_animation), or
+            # petting immediately replaces it with PET_MAIN_GIF (_show_pet_main_gif).
+            self._reset_drawable_to_first_frame(instance)
+
+    # ------------------------------------------------------------------ #
+    # "Sometimes" -> a meow for no reason, without a tap and without a gif
+    # ------------------------------------------------------------------ #
+
+    def _schedule_idle_meow(self, instance: "_BoykisserInstance"):
+        if self._destroyed or instance not in self._instances:
+            return
+        min_ms, max_ms = self._get_idle_interval_ms(
+            "idle_meow_preset", IDLE_MEOW_INTERVAL_PRESETS_SEC,
+        )
+        delay_ms = random.randint(min_ms, max_ms)
+        run_on_ui_thread(lambda: self._idle_meow_tick(instance), delay_ms)
+
+    def _idle_meow_tick(self, instance: "_BoykisserInstance"):
+        if self._destroyed or instance not in self._instances:
+            return
+        try:
+            if (
+                self.get_setting("enabled", True)
+                and self.get_setting("idle_meow_enabled", True)
+                and self._is_foreground
+                and instance.overlay_view is not None
+                and not instance.is_petting
+                and not instance.pet_main_active
+                and not instance.is_animating
+                and not instance.is_idle_playing
+                and not instance.is_sleeping
+            ):
+                # A "just because" meow must come with the same animation
+                # (open mouth, etc.) as a normal tap; before,
+                # only the sound played here without a picture. We set is_animating
+                # ourselves, as _on_boykisser_tap does, so that during
+                # this time neither a random gif nor another
+                # meow/tap trigger can cut in on top.
+                instance.is_animating = True
+                busy_ms = ANIM_DURATION_MS
+                try:
+                    meow_ms = self._play_meow(instance)
+                    self._play_animation(instance)
+                    busy_ms = max(ANIM_DURATION_MS, meow_ms or 0)
+                finally:
+                    # We guarantee that the busy flag is cleared even if something
+                    # inside unexpectedly fails, otherwise it could get stuck
+                    # forever and block all further triggers
+                    # (both the meow and the random gif, see _idle_gif_tick).
+                    run_on_ui_thread(lambda: self._clear_busy(instance), busy_ms)
+            else:
+                self.log(
+                    "Boykisser Corner: skipping random meow: "
+                    f"boykisser={instance.index + 1}, "
+                    f"enabled={self.get_setting('enabled', True)}, "
+                    f"idle_meow_enabled={self.get_setting('idle_meow_enabled', True)}, "
+                    f"foreground={self._is_foreground}, "
+                    f"overlay={instance.overlay_view is not None}, "
+                    f"petting={instance.is_petting}, pet_main={instance.pet_main_active}, "
+                    f"animating={instance.is_animating}, idle_gif={instance.is_idle_playing}"
+                )
+        finally:
+            self._schedule_idle_meow(instance)
+
+    # ------------------------------------------------------------------ #
+    # Sleep -> falls asleep after long inactivity, wakes up on touch
+    # ------------------------------------------------------------------ #
+
+    def _get_sleep_timeout_ms(self) -> int:
+        """Reads the idle-time preset chosen by the user before
+        falling asleep, clamps the index to the valid range and converts to ms.
+        On an invalid value it falls back to the default preset,
+        the same scheme as in _get_idle_interval_ms."""
+        try:
+            preset_index = int(
+                str(
+                    self.get_setting("sleep_timeout_preset", IDLE_SPEED_PRESET_DEFAULT_INDEX)
+                ).strip()
+            )
+        except (TypeError, ValueError):
+            preset_index = IDLE_SPEED_PRESET_DEFAULT_INDEX
+
+        preset_index = max(0, min(preset_index, len(SLEEP_TIMEOUT_PRESETS_SEC) - 1))
+        return SLEEP_TIMEOUT_PRESETS_SEC[preset_index] * 1000
+
+    def _register_interaction(self, instance: "_BoykisserInstance"):
+        """Called on any touch of the boykisser (see ACTION_DOWN in
+        DragTouchListener.onTouch). It resets the idle timer and, if
+        it was asleep at that moment, wakes it up. A single entry point for a tap,
+        petting and dragging, since all of them start with ACTION_DOWN
+        on the same view."""
+        instance.last_interaction_ms = self._now_ms()
+        if instance.is_sleeping:
+            self._wake_up(instance)
+
+    def _schedule_sleep_check(self, instance: "_BoykisserInstance"):
+        if self._destroyed or instance not in self._instances:
+            return
+        run_on_ui_thread(lambda: self._sleep_check_tick(instance), SLEEP_CHECK_INTERVAL_MS)
+
+    def _sleep_check_tick(self, instance: "_BoykisserInstance"):
+        if self._destroyed or instance not in self._instances:
+            return
+        try:
+            if (
+                self.get_setting("enabled", True)
+                and self.get_setting("sleep_enabled", True)
+                and self._is_foreground
+                and instance.overlay_view is not None
+                and not instance.is_sleeping
+                and not instance.is_petting
+                and not instance.pet_main_active
+                and not instance.is_animating
+                and not instance.is_idle_playing
+                and not instance.is_throwing
+            ):
+                timeout_ms = self._get_sleep_timeout_ms()
+                if self._now_ms() - instance.last_interaction_ms >= timeout_ms:
+                    self._fall_asleep(instance)
+        finally:
+            # We schedule the next check in any case, exactly like
+            # _schedule_idle_gif/_meow reschedule themselves after
+            # each trigger.
+            self._schedule_sleep_check(instance)
+
+    def _fall_asleep(self, instance: "_BoykisserInstance"):
+        """Replaces the main gif with the sleeping one (SLEEP_GIF_URL) and loops
+        it, the same trick as in _show_pet_main_gif for the petting gif."""
+        if instance.is_sleeping:
+            return
+        view = instance.overlay_view
+        gif_path = os.path.join(_data_dir(), SLEEP_GIF_FILENAME)
+        if view is None or not os.path.exists(gif_path):
+            return
+        try:
+            from android.graphics import ImageDecoder
+            from android.graphics.drawable import AnimatedImageDrawable
+            from java.io import File as JFile
+
+            source = ImageDecoder.createSource(JFile(gif_path))
+            drawable = ImageDecoder.decodeDrawable(source)
+            view.setImageDrawable(drawable)
+            if isinstance(drawable, AnimatedImageDrawable):
+                drawable.setRepeatCount(AnimatedImageDrawable.REPEAT_INFINITE)
+                drawable.start()
+            else:
+                # The sleep gif file was recognized as a still image (not an
+                # AnimatedImageDrawable): it has no .start(), but that is not
+                # a reason to crash, we just show it as a still image.
+                self.log(
+                    "Boykisser Corner: sleep gif is not animated "
+                    f"({type(drawable).__name__}), showing it as a still image"
+                )
+            instance.drawable = drawable
+            instance.is_sleeping = True
+        except Exception as e:
+            self.log(f"Boykisser Corner: failed to show the sleep gif: {e}")
+
+    def _wake_up(self, instance: "_BoykisserInstance"):
+        """Returns the classic gif, called from
+        _register_interaction on any touch of a sleeping boykisser."""
+        if not instance.is_sleeping:
+            return
+        instance.is_sleeping = False
+        if instance.drawable is not None:
+            try:
+                instance.drawable.stop()
+            except Exception:
+                pass
+        self._reset_drawable_to_first_frame(instance)
+
+    def _is_media_playing(self) -> bool:
+        """True if some Telegram media is really playing right now
+        (voice/round video/music). Then we must not play the meow: it
+        would get in the way and overlap the sound. We use the standard
+        MediaController singleton: it has the playing MessageObject
+        (getPlayingMessageObject) and a pause flag (isMessagePaused);
+        "playing" means the object exists AND it is not paused."""
+        try:
+            MediaControllerClass = find_class("org.telegram.messenger.MediaController")
+            if not MediaControllerClass:
+                return False
+            media_controller = MediaControllerClass.getInstance()
+            if media_controller is None:
+                return False
+            playing_obj = media_controller.getPlayingMessageObject()
+            if playing_obj is None:
+                return False
+            return not media_controller.isMessagePaused()
+        except Exception as e:
+            self.log(f"Boykisser Corner: failed to check the media player state: {e}")
+            return False
+
+    def _play_meow(self, instance: "_BoykisserInstance"):
+        """Plays the meow for a specific boykisser. With random
+        probability either the first or the second half of the
+        sound file plays, for variety. Returns the approximate
+        playback duration in ms (or None on error), so the
+        calling code can correctly clear the busy flag."""
+        if self._is_media_playing():
+            # A voice message/round video/music is playing now, so we do not cut in with
+            # our meow. We do not touch the busy flag here: the calling code
+            # knows what to do if meow_ms == None (see _on_trigger_word,
+            # _idle_meow_tick, _on_boykisser_tap).
+            self.log("Boykisser Corner: skipping meow, media is playing right now")
+            return None
+        sound_path = os.path.join(_data_dir(), SOUND_FILENAME)
+        if not os.path.exists(sound_path):
+            self.log("Boykisser Corner: no sound file: add a link in the settings "
+                      f"or put {SOUND_FILENAME} into the plugin folder")
+            return None
+
+        try:
+            from android.media import MediaPlayer
+
+            if instance.media_player is not None:
+                try:
+                    instance.media_player.release()
+                except Exception:
+                    pass
+                instance.media_player = None
+
+            mp = MediaPlayer()
+            mp.setDataSource(sound_path)
+            mp.prepare()
+
+            start_pos = SOUND_START_OFFSET_MS
+            play_ms = SOUND_DURATION_MS
+
+            try:
+                duration_ms = mp.getDuration()
+            except Exception:
+                duration_ms = 0
+
+            if duration_ms and duration_ms > 0:
+                half_ms = duration_ms // 2
+                play_second_half = random.random() < 0.5
+                if play_second_half:
+                    start_pos = half_ms
+                    play_ms = max(duration_ms - half_ms, MIN_MEOW_HALF_MS)
+                else:
+                    start_pos = SOUND_START_OFFSET_MS
+                    play_ms = max(half_ms - SOUND_START_OFFSET_MS, MIN_MEOW_HALF_MS)
+
+            try:
+                mp.seekTo(start_pos)
+            except Exception:
+                pass  # if the file is shorter than the offset, just play from the start
+
+            mp.start()
+            instance.media_player = mp
+            run_on_ui_thread(lambda: self._stop_meow(instance, mp), play_ms)
+            return play_ms
+        except Exception as e:
+            self.log(f"Boykisser Corner: failed to play the sound: {e}")
+            return None
+
+    def _play_purr(self, instance: "_BoykisserInstance"):
+        """Starts a looped purr for the whole time of petting. While the
+        purr is already playing we do not start it again (the same principle as
+        in _show_pet_overlay/_show_pet_main_gif: the gesture continues, the sound must
+        not jerk/restart on every new trigger)."""
+        if instance.is_purring:
+            return
+        purr_path = os.path.join(_data_dir(), PURR_SOUND_FILENAME)
+        if not os.path.exists(purr_path):
+            self.log("Boykisser Corner: no purr sound file: it has not been downloaded yet "
+                      f"or put {PURR_SOUND_FILENAME} into the plugin folder")
+            return
+
+        try:
+            from android.media import MediaPlayer
+
+            if instance.purr_media_player is not None:
+                try:
+                    instance.purr_media_player.release()
+                except Exception:
+                    pass
+                instance.purr_media_player = None
+
+            mp = MediaPlayer()
+            mp.setDataSource(purr_path)
+            mp.setLooping(True)
+            mp.prepare()
+            mp.start()
+            instance.purr_media_player = mp
+            instance.is_purring = True
+        except Exception as e:
+            self.log(f"Boykisser Corner: failed to play the purr: {e}")
+
+    def _stop_purr(self, instance: "_BoykisserInstance"):
+        """Stops the purr when the finger is released."""
+        if not instance.is_purring:
+            return
+        instance.is_purring = False
+        mp = instance.purr_media_player
+        instance.purr_media_player = None
+        if mp is None:
+            return
+        try:
+            if mp.isPlaying():
+                mp.stop()
+            mp.release()
+        except Exception:
+            pass
+
+    def _stop_meow(self, instance: "_BoykisserInstance", mp):
+        try:
+            if mp.isPlaying():
+                mp.stop()
+            mp.release()
+        except Exception:
+            pass
+        if instance.media_player is mp:
+            instance.media_player = None

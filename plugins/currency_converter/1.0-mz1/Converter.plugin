@@ -1,6 +1,19 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 __id__ = "currency_converter"
 __name__ = "Currency Converter"
-__description__ = "Конвертирует фиатные и криптовалюты с актуальными курсами\n\nИспользование: .conv <из> to <в> <сумма>\n\nПримеры:\n• .conv usd to rub 100\n• .conv btc to usd 1\n• .conv eth to rub 5\n\nПоддержка фиата и 20 криптовалют (BTC, ETH, USDT, BNB, SOL, XRP, USDC, ADA, DOGE, TRX, TON, LINK, MATIC, DOT, DAI, LTC, SHIB, BCH, AVAX, UNI)"
+__description__ = "Converts fiat and crypto currencies at current rates\n\nUsage: .conv <from> to <to> <amount>\n\nExamples:\n• .conv usd to rub 100\n• .conv btc to usd 1\n• .conv eth to rub 5\n\nSupports fiat and 20 cryptocurrencies (BTC, ETH, USDT, BNB, SOL, XRP, USDC, ADA, DOGE, TRX, TON, LINK, MATIC, DOT, DAI, LTC, SHIB, BCH, AVAX, UNI)"
 __author__ = "@oxd5f & @explugin"
 __version__ = "1.0-mz1"
 __icon__ = "pyDevSticker/1"
@@ -31,15 +44,15 @@ class Locales:
 	}
 	
 	ru = {
-		"error_format": "❌ Формат: {cmd} <из> to <в> <сумма>\nПример: {cmd} usd to rub 100",
-		"error_network": "❌ Ошибка сети. Проверьте подключение.",
-		"error_currency": "❌ Валюта не найдена: {}",
-		"error_api": "❌ Ошибка API. Попробуйте позже.",
-		"converting": "🔄 Конвертирую...",
-		"conversion": "💱 Конвертация",
-		"result": "💵 Результат",
-		"exchange_rate": "📊 Курс обмена",
-		"rate": "Курс"
+		"error_format": _mz_t("❌ Формат: {cmd} <з> to <в> <сума>\nПриклад: {cmd} usd to rub 100", "❌ Format: {cmd} <from> to <to> <amount>\nExample: {cmd} usd to rub 100", "❌ Формат: {cmd} <из> to <в> <сумма>\nПример: {cmd} usd to rub 100"),
+		"error_network": _mz_t("❌ Помилка мережі. Перевірте з'єднання.", "❌ Network error. Check your connection.", "❌ Ошибка сети. Проверьте подключение."),
+		"error_currency": _mz_t("❌ Валюту не знайдено: {}", "❌ Currency not found: {}", "❌ Валюта не найдена: {}"),
+		"error_api": _mz_t("❌ Помилка API. Спробуйте пізніше.", "❌ API error. Try again later.", "❌ Ошибка API. Попробуйте позже."),
+		"converting": _mz_t("🔄 Конвертую...", "🔄 Converting...", "🔄 Конвертирую..."),
+		"conversion": _mz_t("💱 Конвертація", "💱 Conversion", "💱 Конвертация"),
+		"result": _mz_t("💵 Результат", "💵 Result", "💵 Результат"),
+		"exchange_rate": _mz_t("📊 Курс обміну", "📊 Exchange rate", "📊 Курс обмена"),
+		"rate": _mz_t("Курс", "Rate", "Курс")
 	}
 	
 	de = {
@@ -56,7 +69,7 @@ class Locales:
 
 def localise(key: str, cmd=None, *args) -> str:
     lang = Locale.getDefault().getLanguage()
-    locale_dict = getattr(Locales, lang, Locales.en)
+    locale_dict = getattr(Locales, "ru" if lang == "uk" else lang, Locales.en)
     text = locale_dict.get(key, key)
     if cmd:
         text = text.replace('{cmd}', cmd)
@@ -199,70 +212,70 @@ class CurrencyConverter(BasePlugin):
 
 	def create_settings(self):
 		settings_list = [
-			Header(text="Настройки конвертера"),
+			Header(text=_mz_t("Налаштування конвертера", "Converter settings", "Настройки конвертера")),
 			Input(
 				key="command",
-				text="Команда конвертации",
+				text=_mz_t("Команда конвертації", "Conversion command", "Команда конвертации"),
 				default=self.get_setting("command", ".conv"),
 				icon="msg_edit"
 			),
 			Switch(
 				key="show_emoji",
-				text="Показывать эмодзи",
+				text=_mz_t("Показувати емодзі", "Show emoji", "Показывать эмодзи"),
 				default=self.get_setting("show_emoji", True),
 				icon="msg_emoji_smiles"
 			),
 			Switch(
 				key="compact_format",
-				text="Компактный формат",
+				text=_mz_t("Компактний формат", "Compact format", "Компактный формат"),
 				default=self.get_setting("compact_format", False),
 				icon="msg_media"
 			),
 			Switch(
 				key="generate_image",
-				text="Генерировать картинку",
+				text=_mz_t("Створювати картинку", "Generate image", "Генерировать картинку"),
 				default=self.get_setting("generate_image", False),
 				icon="msg_photo_settings"
 			),
 			Divider(),
-			Header(text="Настройки реквизитов"),
+			Header(text=_mz_t("Налаштування реквізитів", "Payment details settings", "Настройки реквизитов")),
 			Input(
 				key="pay_command",
-				text="Команда реквизитов",
+				text=_mz_t("Команда реквізитів", "Payment details command", "Команда реквизитов"),
 				default=self.get_setting("pay_command", ".pay"),
 				icon="msg_edit"
 			),
 			Input(
 				key="payment_username",
-				text="Ваш никнейм",
+				text=_mz_t("Ваш нікнейм", "Your nickname", "Ваш никнейм"),
 				default="",
-				subtext="Отображается в заголовке",
+				subtext=_mz_t("Відображається в заголовку", "Shown in the header", "Отображается в заголовке"),
 				icon="msg_contacts"
 			),
 			Switch(
 				key="show_payment_username",
-				text="Показывать никнейм",
+				text=_mz_t("Показувати нікнейм", "Show nickname", "Показывать никнейм"),
 				default=True,
 				icon="msg_info"
 			),
 			Divider(),
-			Header(text="Платежные реквизиты")
+			Header(text=_mz_t("Платіжні реквізити", "Payment details", "Платежные реквизиты"))
 		]
 
 		for key, label in PAYMENT_METHODS:
 			settings_list.extend([
 				Input(key=f"pay_{key}", text=label, default="", icon="msg_pin_code"),
-				Switch(key=f"show_pay_{key}", text=f"Показывать {label}", default=True, icon="msg_visibility"),
+				Switch(key=f"show_pay_{key}", text=_mz_t(f"Показувати {label}", f"Show {label}", f"Показывать {label}"), default=True, icon="msg_visibility"),
 				Divider()
 			])
 
-		settings_list.append(Header(text="Дополнительные реквизиты"))
+		settings_list.append(Header(text=_mz_t("Додаткові реквізити", "Additional details", "Дополнительные реквизиты")))
 
 		for i in range(1, MAX_PAYMENT_FIELDS + 1):
 			settings_list.extend([
-				Input(key=f"pay_custom_name_{i}", text=f"Название {i}", default="", icon="msg_edit"),
-				Input(key=f"pay_custom_value_{i}", text=f"Значение {i}", default="", icon="msg_pin_code"),
-				Switch(key=f"show_pay_custom_{i}", text=f"Показывать поле {i}", default=True, icon="msg_visibility"),
+				Input(key=f"pay_custom_name_{i}", text=_mz_t(f"Назва {i}", f"Name {i}", f"Название {i}"), default="", icon="msg_edit"),
+				Input(key=f"pay_custom_value_{i}", text=_mz_t(f"Значення {i}", f"Value {i}", f"Значение {i}"), default="", icon="msg_pin_code"),
+				Switch(key=f"show_pay_custom_{i}", text=_mz_t(f"Показувати поле {i}", f"Show field {i}", f"Показывать поле {i}"), default=True, icon="msg_visibility"),
 				Divider()
 			])
 
@@ -283,7 +296,7 @@ class CurrencyConverter(BasePlugin):
 		username = self.get_setting("payment_username", "")
 		
 		if show_username and username and not self._validate_username(username):
-			params.message = "❌ Некорректный никнейм. Используйте только латиницу, цифры и нижнее подчеркивание (3-32 символа)"
+			params.message = _mz_t("❌ Некоректний нікнейм. Використовуйте лише латиницю, цифри та нижнє підкреслення (3-32 символи)", "❌ Invalid nickname. Use only Latin letters, digits and underscores (3-32 characters)", "❌ Некорректный никнейм. Используйте только латиницу, цифры и нижнее подчеркивание (3-32 символа)")
 			if hasattr(params, 'entities') and params.entities:
 				params.entities.clear()
 			return HookResult(strategy=HookStrategy.MODIFY, params=params)
@@ -299,7 +312,7 @@ class CurrencyConverter(BasePlugin):
 				all_values.append(self.get_setting(f"pay_custom_value_{i}", ""))
 		
 		if any(value and not self._validate_no_cyrillic(value) for value in all_values):
-			params.message = "❌ В реквизитах обнаружены кириллические символы. Используйте только латиницу."
+			params.message = _mz_t("❌ У реквізитах знайдено кириличні символи. Використовуйте лише латиницю.", "❌ Cyrillic characters found in the details. Use only Latin letters.", "❌ В реквизитах обнаружены кириллические символы. Используйте только латиницу.")
 			if hasattr(params, 'entities') and params.entities:
 				params.entities.clear()
 			return HookResult(strategy=HookStrategy.MODIFY, params=params)
@@ -324,7 +337,7 @@ class CurrencyConverter(BasePlugin):
 				message_parts.append(f"{custom_name}: `{custom_value}`")
 
 		if not any(part.strip() for part in message_parts if part):
-			params.message = "❌ Реквизиты не настроены. Заполните их в настройках плагина."
+			params.message = _mz_t("❌ Реквізити не налаштовано. Заповніть їх у налаштуваннях плагіна.", "❌ Payment details aren't set up. Fill them in the plugin settings.", "❌ Реквизиты не настроены. Заполните их в настройках плагина.")
 			return HookResult(strategy=HookStrategy.MODIFY, params=params)
 		
 		final_text = "\n".join(message_parts)
