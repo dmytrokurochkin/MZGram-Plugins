@@ -1,0 +1,661 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
+# pizdec
+
+from typing import Any, List, Dict, Optional, Tuple
+import time
+import json
+import re
+import calendar
+from datetime import datetime, timedelta
+
+from base_plugin import BasePlugin, HookResult, HookStrategy, MenuItemData, MenuItemType
+from android_utils import log, run_on_ui_thread
+from client_utils import send_message, run_on_queue, get_user_config, get_last_fragment
+from ui.bulletin import BulletinHelper
+from ui.settings import Header, Input, Divider, Switch, Selector, Text
+from ui.alert import AlertDialogBuilder
+
+DEFAULT_PREFIX = ".cal"
+DEFAULT_ENABLE_REMINDERS = True
+DEFAULT_REMIND_TO_SELF = True
+DEFAULT_TIME_STR = "09:00"
+DEFAULT_WEEK_START = 0
+DEFAULT_BULLETINS = True
+DEFAULT_MENU_ON_PREFIX = True
+DEFAULT_MENU_CHAT = True
+DEFAULT_MENU_DRAWER = False
+DEFAULT_CONFIRM_AS_BULLETIN = True
+
+__id__ = "nanoCL"
+__name__ = "nanoCL"
+__description__ = "calendar with reminders (.cal)"
+__author__ = "@nanoPrograms"
+__version__ = "1.0.0-mz1"
+__icon__ = "nanoCL/1"
+__min_version__ = "12.1.1"
+__category__ = ["tools"]
+
+Event = Dict[str, Any]
+
+class CalendarPlugin(BasePlugin):
+    def on_plugin_load(self):
+        self.add_on_send_message_hook()
+        if self.get_setting("next_id", None) is None:
+            self.set_setting("next_id", 1)
+        if self.get_setting("events_json", None) is None:
+            self._save_events([])
+        self._register_menu_items()
+        self._ui_state = {"year": datetime.now().year, "month": datetime.now().month}
+        log("CalendarPlugin loaded with menu support")
+
+    def create_settings(self):
+        def on_prefix_change(new_value: str):
+            if new_value and not new_value.startswith("."):
+                self.set_setting("prefix", "." + new_value.strip())
+
+        def on_toggle_chat_menu(val: bool):
+            self.set_setting("menu_chat", val)
+            try:
+                self._register_menu_items()
+                BulletinHelper.show_success(_mz_t("Меню чату оновлено", "Chat menu updated", "Меню чата обновлено"))
+            except Exception as e:
+                log(f"Menu chat toggle error: {e}")
+
+        def on_toggle_drawer_menu(val: bool):
+            self.set_setting("menu_drawer", val)
+            try:
+                self._register_menu_items()
+                BulletinHelper.show_success(_mz_t("Бічне меню оновлено", "Side menu updated", "Боковое меню обновлено"))
+            except Exception as e:
+                log(f"Menu drawer toggle error: {e}")
+
+        return [
+            Header(text=_mz_t("Основні налаштування", "Main settings", "Основные настройки")),
+            Input(
+                key="prefix",
+                text=_mz_t("Префікс команди", "Command prefix", "Префикс команды"),
+                default=self.get_setting("prefix", DEFAULT_PREFIX),
+                subtext=_mz_t("Наприклад: .cal", "For example: .cal", "Например: .cal"),
+                icon="msg_mention",
+                on_change=on_prefix_change
+            ),
+            Switch(
+                key="menu_on_prefix",
+                text=_mz_t("Вікно за командою (.cal)", "Window by command (.cal)", "Окно по команде (.cal)"),
+                default=self.get_setting("menu_on_prefix", DEFAULT_MENU_ON_PREFIX),
+                subtext=_mz_t("Якщо введено лише .cal, відкрити меню", "If only .cal is typed, open the menu", "При вводе только .cal открыть меню"),
+                icon="msg_menu"
+            ),
+            Switch(
+                key="menu_chat",
+                text=_mz_t("Пункт «Календар» у меню чату", "Calendar item in the chat menu", "Пункт «Календарь» в меню чата"),
+                default=self.get_setting("menu_chat", DEFAULT_MENU_CHAT),
+                subtext=_mz_t("Три крапки → Плагіни → Календар", "Three dots → Plugins → Calendar", "Три точки → Plugins → Календарь"),
+                icon="msg_calendar",
+                on_change=on_toggle_chat_menu
+            ),
+            Switch(
+                key="menu_drawer",
+                text=_mz_t("Пункт «Календар» у бічному меню", "Calendar item in the side menu", "Пункт «Календарь» в боковом меню"),
+                default=self.get_setting("menu_drawer", DEFAULT_MENU_DRAWER),
+                subtext=_mz_t("Бічне меню (гамбургер)", "Side menu (hamburger)", "Боковое меню (гамбургер)"),
+                icon="msg_list",
+                on_change=on_toggle_drawer_menu
+            ),
+            Switch(
+                key="enable_reminders",
+                text=_mz_t("Автоналаштування нагадувань", "Automatic reminder setup", "Автонастройка напоминаний"),
+                default=self.get_setting("enable_reminders", DEFAULT_ENABLE_REMINDERS),
+                subtext=_mz_t("Під час додавання створювати заплановане повідомлення", "When adding, create a scheduled message", "При добавлении создавать запланированное сообщение"),
+                icon="msg_reminders"
+            ),
+            Switch(
+                key="remind_to_self",
+                text=_mz_t("Надсилати нагадування до Збереженого", "Send reminders to Saved Messages", "Слать напоминания в Избранное"),
+                default=self.get_setting("remind_to_self", DEFAULT_REMIND_TO_SELF),
+                subtext=_mz_t("Інакше в поточний чат", "Otherwise to the current chat", "Иначе — в текущий чат"),
+                icon="msg_saved"
+            ),
+            Input(
+                key="default_time",
+                text=_mz_t("Типовий час (HH:MM)", "Default time (HH:MM)", "Время по умолчанию (HH:MM)"),
+                default=self.get_setting("default_time", DEFAULT_TIME_STR),
+                icon="msg_time"
+            ),
+            Selector(
+                key="week_start",
+                text=_mz_t("Початок тижня", "Week start", "Начало недели"),
+                default=self.get_setting("week_start", 0),
+                items=[_mz_t("Пн", "Mon", "Пн"), _mz_t("Нд", "Sun", "Вс")],
+                icon="msg_calendar"
+            ),
+            Switch(
+                key="bulletins",
+                text=_mz_t("Спливаючі підказки", "Pop-up hints", "Всплывающие подсказки"),
+                default=self.get_setting("bulletins", DEFAULT_BULLETINS),
+                icon="msg_info"
+            ),
+            Switch(
+                key="confirm_as_bulletin",
+                text=_mz_t("Підтвердження як міні-вікно", "Confirmations as a mini window", "Подтверждения как мини-окно"),
+                default=self.get_setting("confirm_as_bulletin", DEFAULT_CONFIRM_AS_BULLETIN),
+                subtext=_mz_t("Внизу, з кнопкою OK", "At the bottom, with an OK button", "Внизу, с кнопкой OK"),
+                icon="msg_info"
+            ),
+            Divider(text=_mz_t("Довідка", "Help", "Справка")),
+            Text(
+                text=_mz_t("Команди: .cal help | add YYYY-MM-DD [HH:MM] Текст | list [N] | del ID | month [YYYY-MM] | next | clear", "Commands: .cal help | add YYYY-MM-DD [HH:MM] Text | list [N] | del ID | month [YYYY-MM] | next | clear", "Команды: .cal help | add YYYY-MM-DD [HH:MM] Текст | list [N] | del ID | month [YYYY-MM] | next | clear"),
+                icon="msg_list"
+            )
+        ]
+
+    def _register_menu_items(self):
+        try:
+            if self.get_setting("menu_chat", DEFAULT_MENU_CHAT):
+                self.add_menu_item(MenuItemData(
+                    menu_type=MenuItemType.CHAT_ACTION_MENU,
+                    text=_mz_t("Календар", "Calendar", "Календарь"),
+                    icon="msg_calendar",
+                    on_click=lambda ctx: self._open_root_menu(ctx.get("dialog_id"))
+                ))
+            if self.get_setting("menu_drawer", DEFAULT_MENU_DRAWER):
+                self.add_menu_item(MenuItemData(
+                    menu_type=MenuItemType.DRAWER_MENU,
+                    text=_mz_t("Календар", "Calendar", "Календарь"),
+                    icon="msg_calendar",
+                    on_click=lambda ctx: self._open_root_menu(None)
+                ))
+        except Exception as e:
+            log(f"Register menu items error: {e}")
+
+    def on_send_message_hook(self, account: int, params: Any) -> HookResult:
+        msg = params.message if isinstance(params.message, str) else ""
+        prefix = self.get_setting("prefix", DEFAULT_PREFIX)
+        if not msg.startswith(prefix):
+            return HookResult()
+
+        only_prefix = msg.strip() == prefix
+        if only_prefix and self.get_setting("menu_on_prefix", DEFAULT_MENU_ON_PREFIX):
+            peer = getattr(params, "peer", None)
+            run_on_queue(lambda: self._open_root_menu(peer))
+            return HookResult(strategy=HookStrategy.CANCEL)
+
+        run_on_queue(lambda: self._process_command_async(msg, params.peer))
+        return HookResult(strategy=HookStrategy.CANCEL)
+
+    def _process_command_async(self, msg: str, current_peer: Any):
+        prefix = self.get_setting("prefix", DEFAULT_PREFIX)
+        args = msg[len(prefix):].strip().split()
+        if not args:
+            self._reply_or_bulletin(_mz_t("Відкрийте меню або скористайтеся .cal help", "Open the menu or use .cal help", "Откройте меню или используйте .cal help"), kind="info")
+            return
+
+        cmd = args[0].lower()
+        rest = msg[len(prefix):].strip()[len(cmd):].strip()
+
+        try:
+            if cmd == "help":
+                self._reply(current_peer, self._help_text())
+
+            elif cmd == "add":
+                event, warn = self._cmd_add(rest, current_peer)
+                text = _mz_t("Подію створено\n", "Event created\n", "Событие создано\n") + self._format_single_event(event)
+                if warn:
+                    text += f"\n{warn}"
+                self._reply_or_bulletin(text, kind="success", force_bulletin=True)
+
+            elif cmd == "list":
+                count = self._parse_int(args[1]) if len(args) > 1 else 5
+                events = self._get_upcoming(count)
+                self._reply(current_peer, self._format_events_list(events))
+
+            elif cmd == "del":
+                if len(args) < 2:
+                    self._reply_or_bulletin(_mz_t("Вкажіть ID: .cal del ID", "Specify the ID: .cal del ID", "Укажите ID: .cal del ID"), kind="info")
+                    return
+                eid = self._parse_int(args[1])
+                ok = self._delete_event(eid)
+                if ok:
+                    self._reply_or_bulletin(_mz_t("Подію видалено", "Event deleted", "Событие удалено"), kind="delete", force_bulletin=True)
+                else:
+                    self._reply_or_bulletin(_mz_t("Подію не знайдено", "Event not found", "Событие не найдено"), kind="info", force_bulletin=True)
+
+            elif cmd == "clear":
+                self._save_events([])
+                self._reply_or_bulletin(_mz_t("Усі події очищено", "All events cleared", "Все события очищены"), kind="delete", force_bulletin=True)
+
+            elif cmd == "month":
+                year, month = self._parse_year_month(rest)
+                self._reply(current_peer, self._render_month(year, month))
+
+            elif cmd == "next":
+                ev = self._next_event()
+                self._reply(current_peer, self._format_single_event(ev) if ev else _mz_t("Найближчих подій немає", "No upcoming events", "Ближайших событий нет"))
+
+            else:
+                self._reply_or_bulletin(_mz_t("Невідома команда. .cal help", "Unknown command. .cal help", "Неизвестная команда. .cal help"), kind="info", force_bulletin=True)
+        except Exception as e:
+            log(f"Calendar error: {e}")
+            self._reply_or_bulletin(_mz_t(f"Помилка: {e}", f"Error: {e}", f"Ошибка: {e}"), kind="info", force_bulletin=True)
+
+    def _open_root_menu(self, current_peer: Any):
+        def show():
+            fragment = get_last_fragment()
+            if not fragment or not fragment.getParentActivity():
+                BulletinHelper.show_error(_mz_t("Немає активного вікна для показу меню", "No active window to show the menu", "Нет активного окна для показа меню"))
+                return
+
+            activity = fragment.getParentActivity()
+            builder = AlertDialogBuilder(activity)
+            builder.set_title(_mz_t("Календар", "Calendar", "Календарь"))
+            items = [_mz_t("Календар місяця", "Month calendar", "Календарь месяца"), _mz_t("Додати подію", "Add event", "Добавить событие"), _mz_t("Список найближчих", "Upcoming list", "Список ближайших"), _mz_t("Найближча подія", "Next event", "Ближайшее событие"), _mz_t("Довідка", "Help", "Справка")]
+            def on_click(bld: AlertDialogBuilder, which: int):
+                if which == 0:
+                    nowy, nowm = self._ui_state.get("year", datetime.now().year), self._ui_state.get("month", datetime.now().month)
+                    self._show_month_dialog(nowy, nowm)
+                elif which == 1:
+                    self._show_add_dialog(current_peer)
+                elif which == 2:
+                    self._show_list_dialog()
+                elif which == 3:
+                    self._show_next_dialog()
+                elif which == 4:
+                    self._show_help_dialog()
+                bld.dismiss()
+            builder.set_items(items, on_click)
+            builder.set_negative_button(_mz_t("Закрити", "Close", "Закрыть"), lambda b, w: b.dismiss())
+            builder.show()
+        run_on_ui_thread(show)
+
+    def _show_month_dialog(self, year: int, month: int):
+        self._ui_state["year"], self._ui_state["month"] = year, month
+        def show():
+            fragment = get_last_fragment()
+            if not fragment or not fragment.getParentActivity():
+                BulletinHelper.show_error(_mz_t("Не вдалося відкрити календар", "Couldn't open the calendar", "Не удалось открыть календарь"))
+                return
+            activity = fragment.getParentActivity()
+            builder = AlertDialogBuilder(activity)
+            builder.set_title(_mz_t("Календар місяця", "Month calendar", "Календарь месяца"))
+            builder.set_message(self._render_month(year, month))
+
+            def go_prev(bld: AlertDialogBuilder, which: int):
+                y, m = self._shift_month(year, month, -1)
+                bld.dismiss()
+                self._show_month_dialog(y, m)
+
+            def go_next(bld: AlertDialogBuilder, which: int):
+                y, m = self._shift_month(year, month, +1)
+                bld.dismiss()
+                self._show_month_dialog(y, m)
+
+            def go_today(bld: AlertDialogBuilder, which: int):
+                today = datetime.today()
+                bld.dismiss()
+                self._show_month_dialog(today.year, today.month)
+
+            builder.set_negative_button(_mz_t("◀ Попер.", "◀ Prev", "◀ Пред"), go_prev)
+            builder.set_neutral_button(_mz_t("Сьогодні", "Today", "Сегодня"), go_today)
+            builder.set_positive_button(_mz_t("Наст. ▶", "Next ▶", "След ▶"), go_next)
+            builder.show()
+        run_on_ui_thread(show)
+
+    def _show_add_dialog(self, current_peer: Any):
+        from android.widget import LinearLayout, EditText, TextView
+        from android.view import ViewGroup
+        from org.telegram.messenger import AndroidUtilities
+
+        def show():
+            fragment = get_last_fragment()
+            if not fragment or not fragment.getParentActivity():
+                BulletinHelper.show_error(_mz_t("Не вдалося відкрити форму", "Couldn't open the form", "Не удалось открыть форму"))
+                return
+            activity = fragment.getParentActivity()
+
+            ll = LinearLayout(activity)
+            ll.setOrientation(1)
+            pad = AndroidUtilities.dp(16)
+            ll.setPadding(pad, pad, pad, pad)
+
+            def add_field(label: str, hint: str, default_val: str = "") -> EditText:
+                tv = TextView(activity)
+                tv.setText(label)
+                tv.setTextSize(16)
+                ll.addView(tv, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+                et = EditText(activity)
+                et.setHint(hint)
+                if default_val:
+                    et.setText(default_val)
+                ll.addView(et, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+                return et
+
+            today = datetime.today()
+            date_et = add_field(_mz_t("Дата (YYYY-MM-DD)", "Date (YYYY-MM-DD)", "Дата (YYYY-MM-DD)"), _mz_t("Напр.: 2025-10-25", "For example: 2025-10-25", "Напр.: 2025-10-25"), today.strftime("%Y-%m-%d"))
+            time_et = add_field(_mz_t("Час (HH:MM)", "Time (HH:MM)", "Время (HH:MM)"), _mz_t("Напр.: 09:00", "For example: 09:00", "Напр.: 09:00"), self.get_setting("default_time", DEFAULT_TIME_STR))
+            title_et = add_field(_mz_t("Текст події", "Event text", "Текст события"), _mz_t("Наприклад: Зустріч з командою", "For example: Meeting with the team", "Например: Встреча с командой"), "")
+
+            builder = AlertDialogBuilder(activity)
+            builder.set_title(_mz_t("Додати подію", "Add event", "Добавить событие"))
+            builder.set_view(ll)
+
+            def on_ok(bld: AlertDialogBuilder, which: int):
+                try:
+                    date_str = date_et.getText().toString().strip()
+                    time_str = time_et.getText().toString().strip() or self.get_setting("default_time", DEFAULT_TIME_STR)
+                    title = title_et.getText().toString().strip()
+                    if not title:
+                        raise ValueError(_mz_t("Вкажіть текст події", "Enter the event text", "Укажите текст события"))
+                    dt = self._parse_datetime(date_str, time_str)
+                    event = self._add_event(dt, title)
+                    warn = None
+                    if self.get_setting("enable_reminders", DEFAULT_ENABLE_REMINDERS):
+                        scheduled = self._schedule_reminder(dt, title, current_peer or self._get_self_peer())
+                        if not scheduled:
+                            warn = _mz_t("Нагадування не заплановано (час минув або сталася помилка).", "Reminder not scheduled (the time has passed or an error occurred).", "Напоминание не запланировано (прошедшее время или ошибка).")
+                    text = _mz_t("Подію створено\n", "Event created\n", "Событие создано\n") + self._format_single_event(event)
+                    if warn:
+                        text += f"\n{warn}"
+                    self._reply_or_bulletin(text, kind="success", force_bulletin=True)
+                except Exception as e:
+                    BulletinHelper.show_error(_mz_t(f"Помилка: {e}", f"Error: {e}", f"Ошибка: {e}"))
+                finally:
+                    bld.dismiss()
+
+            builder.set_positive_button(_mz_t("Створити", "Create", "Создать"), on_ok)
+            builder.set_negative_button(_mz_t("Скасувати", "Cancel", "Отмена"), lambda b, w: b.dismiss())
+            builder.show()
+
+        run_on_ui_thread(show)
+
+    def _show_list_dialog(self):
+        def show():
+            fragment = get_last_fragment()
+            if not fragment or not fragment.getParentActivity():
+                BulletinHelper.show_error(_mz_t("Не вдалося показати список", "Couldn't show the list", "Не удалось показать список"))
+                return
+            activity = fragment.getParentActivity()
+            events = self._get_upcoming(10)
+            builder = AlertDialogBuilder(activity)
+            builder.set_title(_mz_t("Найближчі події", "Upcoming events", "Ближайшие события"))
+            builder.set_message(self._format_events_list(events))
+            builder.set_negative_button(_mz_t("Закрити", "Close", "Закрыть"), lambda b, w: b.dismiss())
+            builder.show()
+        run_on_ui_thread(show)
+
+    def _show_next_dialog(self):
+        def show():
+            fragment = get_last_fragment()
+            if not fragment or not fragment.getParentActivity():
+                BulletinHelper.show_error(_mz_t("Не вдалося показати подію", "Couldn't show the event", "Не удалось показать событие"))
+                return
+            activity = fragment.getParentActivity()
+            ev = self._next_event()
+            builder = AlertDialogBuilder(activity)
+            builder.set_title(_mz_t("Найближча подія", "Next event", "Ближайшее событие"))
+            builder.set_message(self._format_single_event(ev) if ev else _mz_t("Найближчих подій немає", "No upcoming events", "Ближайших событий нет"))
+            builder.set_negative_button(_mz_t("Закрити", "Close", "Закрыть"), lambda b, w: b.dismiss())
+            builder.show()
+        run_on_ui_thread(show)
+
+    def _show_help_dialog(self):
+        def show():
+            fragment = get_last_fragment()
+            if not fragment or not fragment.getParentActivity():
+                BulletinHelper.show_error(_mz_t("Не вдалося показати довідку", "Couldn't show help", "Не удалось показать справку"))
+                return
+            activity = fragment.getParentActivity()
+            builder = AlertDialogBuilder(activity)
+            builder.set_title(_mz_t("Довідка", "Help", "Справка"))
+            builder.set_message(self._help_text())
+            builder.set_negative_button(_mz_t("Закрити", "Close", "Закрыть"), lambda b, w: b.dismiss())
+            builder.show()
+        run_on_ui_thread(show)
+
+    def _load_events(self) -> List[Event]:
+        raw = self.get_setting("events_json", "[]")
+        try:
+            return json.loads(raw)
+        except Exception:
+            return []
+
+    def _save_events(self, events: List[Event]):
+        self.set_setting("events_json", json.dumps(events, ensure_ascii=False))
+
+    def _next_id(self) -> int:
+        nid = int(self.get_setting("next_id", 1))
+        self.set_setting("next_id", nid + 1)
+        return nid
+
+    def _add_event(self, dt: datetime, title: str) -> Event:
+        events = self._load_events()
+        ev = {
+            "id": self._next_id(),
+            "ts": int(dt.timestamp()),
+            "title": title,
+            "created_at": int(time.time())
+        }
+        events.append(ev)
+        events.sort(key=lambda e: e["ts"])
+        self._save_events(events)
+        return ev
+
+    def _delete_event(self, eid: int) -> bool:
+        events = self._load_events()
+        new_events = [e for e in events if int(e.get("id")) != eid]
+        if len(new_events) == len(events):
+            return False
+        self._save_events(new_events)
+        return True
+
+    def _get_upcoming(self, n: int) -> List[Event]:
+        now_ts = int(time.time())
+        events = [e for e in self._load_events() if int(e.get("ts", 0)) >= now_ts]
+        events.sort(key=lambda e: e["ts"])
+        return events[:max(1, n)]
+
+    def _next_event(self) -> Optional[Event]:
+        ups = self._get_upcoming(1)
+        return ups[0] if ups else None
+
+    def _get_self_peer(self) -> Optional[int]:
+        try:
+            uc = get_user_config()
+            if hasattr(uc, "getClientUserId"):
+                return int(uc.getClientUserId())
+            user = uc.getCurrentUser()
+            return int(user.id) if user else None
+        except Exception as e:
+            log(f"Self peer error: {e}")
+            return None
+
+    def _schedule_reminder(self, dt: datetime, title: str, current_peer: Any) -> bool:
+        try:
+            ts = int(dt.timestamp())
+            if ts <= int(time.time()) + 5:
+                return False
+            remind_to_self = self.get_setting("remind_to_self", DEFAULT_REMIND_TO_SELF)
+            peer = self._get_self_peer() if remind_to_self else current_peer
+            if peer is None:
+                return False
+            params = {
+                "peer": peer,
+                "message": _mz_t(f"🔔 Нагадування: {title}\nЧас: {dt.strftime('%Y-%m-%d %H:%M')}", f"🔔 Reminder: {title}\nTime: {dt.strftime('%Y-%m-%d %H:%M')}", f"🔔 Напоминание: {title}\nВремя: {dt.strftime('%Y-%m-%d %H:%M')}"),
+                "scheduleDate": ts
+            }
+            send_message(params)
+            self._reply_or_bulletin(_mz_t("Нагадування заплановано", "Reminder scheduled", "Напоминание запланировано"), kind="success", force_bulletin=True)
+            return True
+        except Exception as e:
+            log(f"Schedule error: {e}")
+            self._reply_or_bulletin(_mz_t("Не вдалося запланувати нагадування", "Couldn't schedule the reminder", "Не удалось запланировать напоминание"), kind="info", force_bulletin=True)
+            return False
+
+    def _format_single_event(self, e: Event) -> str:
+        if not e:
+            return _mz_t("Подію не знайдено", "Event not found", "Событие не найдено")
+        dt = datetime.fromtimestamp(int(e["ts"]))
+        return f"#{e['id']} • {dt.strftime('%Y-%m-%d %H:%M')} • {e['title']}"
+
+    def _format_events_list(self, events: List[Event]) -> str:
+        if not events:
+            return _mz_t("Найближчих подій немає", "No upcoming events", "Нет ближайших событий")
+        lines = [_mz_t("Найближчі події:", "Upcoming events:", "Ближайшие события:")]
+        for e in events:
+            lines.append(self._format_single_event(e))
+        return "\n".join(lines)
+
+    def _render_month(self, year: int, month: int) -> str:
+        firstweekday = 0 if self.get_setting("week_start", 0) == 0 else 6
+        cal = calendar.Calendar(firstweekday=firstweekday)
+        weeks = cal.monthdayscalendar(year, month)
+        header = f"{year}-{str(month).zfill(2)}"
+        days_ru = [_mz_t("Пн", "Mon", "Пн"),_mz_t("Вт", "Tue", "Вт"),_mz_t("Ср", "Wed", "Ср"),_mz_t("Чт", "Thu", "Чт"),_mz_t("Пт", "Fri", "Пт"),_mz_t("Сб", "Sat", "Сб"),_mz_t("Нд", "Sun", "Вс")] if firstweekday == 0 else [_mz_t("Нд", "Sun", "Вс"),_mz_t("Пн", "Mon", "Пн"),_mz_t("Вт", "Tue", "Вт"),_mz_t("Ср", "Wed", "Ср"),_mz_t("Чт", "Thu", "Чт"),_mz_t("Пт", "Fri", "Пт"),_mz_t("Сб", "Sat", "Сб")]
+        lines = [header, " ".join(f"{d:>2}" for d in days_ru)]
+        today = datetime.today()
+        for w in weeks:
+            row = []
+            for d in w:
+                if d == 0:
+                    row.append("  ")
+                else:
+                    mark = f"{d:02}"
+                    if today.year == year and today.month == month and today.day == d:
+                        mark = f"[{mark}]"
+                    row.append(mark)
+            lines.append(" ".join(f"{c:>2}" for c in row))
+        return "\n".join(lines)
+
+    def _parse_int(self, s: str) -> int:
+        try:
+            return int(s)
+        except Exception:
+            return 0
+
+    def _parse_year_month(self, s: str) -> Tuple[int, int]:
+        s = s.strip()
+        if re.match(r"^\d{4}-\d{2}$", s):
+            y, m = s.split("-")
+            return int(y), int(m)
+        now = datetime.now()
+        return now.year, now.month
+
+    def _parse_datetime(self, date_str: str, time_str: str) -> datetime:
+        if not re.match(r"^\d{4}-\d{2}-\d{2}$", date_str):
+            raise ValueError(_mz_t("Дата має бути у форматі YYYY-MM-DD", "Date must be in YYYY-MM-DD format", "Дата должна быть в формате YYYY-MM-DD"))
+        if not re.match(r"^\d{2}:\d{2}$", time_str):
+            raise ValueError(_mz_t("Час має бути у форматі HH:MM", "Time must be in HH:MM format", "Время должно быть в формате HH:MM"))
+        y, m, d = [int(x) for x in date_str.split("-")]
+        hh, mm = [int(x) for x in time_str.split(":")]
+        return datetime(year=y, month=m, day=d, hour=hh, minute=mm)
+
+    def _shift_month(self, year: int, month: int, delta: int) -> Tuple[int, int]:
+        m0 = (month - 1) + delta
+        y = year + m0 // 12
+        m = (m0 % 12) + 1
+        return y, m
+
+    def _reply(self, peer: Any, text: str):
+        if not peer:
+            return
+        params = { "peer": peer, "message": text }
+        send_message(params)
+
+    def _reply_or_bulletin(self, text: str, kind: str = "info", force_bulletin: bool = False):
+        try:
+            use_bulletin = self.get_setting("confirm_as_bulletin", DEFAULT_CONFIRM_AS_BULLETIN) or force_bulletin
+            if not use_bulletin:
+                peer = None
+                frag = get_last_fragment()
+                if frag and hasattr(frag, "getDialogId"):
+                    peer = frag.getDialogId()
+                if peer:
+                    self._reply(peer, text)
+                else:
+                    BulletinHelper.show_info(text)
+                return
+
+            from org.telegram.messenger import R as R_tg
+            icon_map = {
+                "success": getattr(R_tg.raw, "success", getattr(R_tg.raw, "check", R_tg.raw.info)),
+                "delete": getattr(R_tg.raw, "delete", R_tg.raw.info),
+                "info": R_tg.raw.info
+            }
+            icon_id = icon_map.get(kind, R_tg.raw.info)
+
+            def _noop():
+                return
+
+            BulletinHelper.show_with_button(
+                text,
+                icon_id,
+                "OK",
+                _noop
+            )
+        except Exception as e:
+            log(f"Bulletin fallback: {e}")
+            BulletinHelper.show_info(text)
+
+    def _help_text(self) -> str:
+        prefix = self.get_setting("prefix", DEFAULT_PREFIX)
+        return _mz_t(
+            "Календар: офлайн-події та нагадування\n"
+            f"{prefix}: відкрити вікно календаря (якщо увімкнено)\n"
+            f"{prefix} add YYYY-MM-DD [HH:MM] Текст: додати\n"
+            f"{prefix} list [N]: список найближчих\n"
+            f"{prefix} del ID: видалити\n"
+            f"{prefix} month [YYYY-MM]: календар місяця\n"
+            f"{prefix} next: найближча подія\n"
+            f"{prefix} clear: видалити все",
+            "Calendar: offline events and reminders\n"
+            f"{prefix}: open the calendar window (if enabled)\n"
+            f"{prefix} add YYYY-MM-DD [HH:MM] Text: add\n"
+            f"{prefix} list [N]: list upcoming\n"
+            f"{prefix} del ID: delete\n"
+            f"{prefix} month [YYYY-MM]: month calendar\n"
+            f"{prefix} next: next event\n"
+            f"{prefix} clear: delete all",
+            (
+                "Календарь — офлайн события и напоминания\n"
+                f"{prefix} — открыть окно календаря (если включено)\n"
+                f"{prefix} add YYYY-MM-DD [HH:MM] Текст — добавить\n"
+                f"{prefix} list [N] — список ближайших\n"
+                f"{prefix} del ID — удалить\n"
+                f"{prefix} month [YYYY-MM] — календарь месяца\n"
+                f"{prefix} next — ближайшее событие\n"
+                f"{prefix} clear — удалить все"
+            ),
+        )
+
+    def _cmd_add(self, rest: str, current_peer: Any) -> Tuple[Event, Optional[str]]:
+        parts = rest.split()
+        if not parts:
+            raise ValueError(_mz_t("Формат: .cal add YYYY-MM-DD [HH:MM] Текст", "Format: .cal add YYYY-MM-DD [HH:MM] Text", "Формат: .cal add YYYY-MM-DD [HH:MM] Текст"))
+        date_str = parts[0]
+        time_str = self.get_setting("default_time", DEFAULT_TIME_STR)
+        title_start_idx = 1
+        if len(parts) > 1 and re.match(r"^\d{2}:\d{2}$", parts[1]):
+            time_str = parts[1]
+            title_start_idx = 2
+        title = " ".join(parts[title_start_idx:]).strip()
+        if not title:
+            raise ValueError(_mz_t("Вкажіть текст події", "Enter the event text", "Укажите текст события"))
+        dt = self._parse_datetime(date_str, time_str)
+        event = self._add_event(dt, title)
+        warn = None
+        if self.get_setting("enable_reminders", DEFAULT_ENABLE_REMINDERS):
+            scheduled = self._schedule_reminder(dt, title, current_peer)
+            if not scheduled:
+                warn = _mz_t("Нагадування не заплановано (час минув або сталася помилка).", "Reminder not scheduled (the time has passed or an error occurred).", "Напоминание не запланировано (прошедшее время или ошибка).")
+        return event, warn

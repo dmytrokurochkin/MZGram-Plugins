@@ -1,3 +1,16 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 import requests
 from java.util import Locale
 from org.telegram.ui.ActionBar import AlertDialog
@@ -72,31 +85,31 @@ LANG = {
         "wind": "• Vento: {wind_speed} m/s ({wind_dir})\n",
     },
     "ru": {
-        "settings_header": "Настройки погоды",
-        "api_key": "Ключ API",
-        "api_key_sub": "Получите ключ на https://openweathermap.org/api",
-        "default_city": "Город по умолчанию",
-        "default_city_sub": "Город, если не указан в команде",
-        "units": "Единица температуры",
-        "units_items": ["Цельсий", "Фаренгейт", "Кельвин"],
-        "show_humidity": "Показывать влажность",
-        "show_humidity_sub": "Показывать влажность воздуха",
-        "show_wind": "Показывать ветер",
-        "show_wind_sub": "Показывать скорость ветра",
-        "usage": "Команда: .wt [город]",
-        "fetching": "Получение погоды...",
-        "usage_full": "Использование: .wt [город]\nПример: .wt Москва",
-        "no_api_key": "Укажите ключ OpenWeatherMap в настройках плагина.",
-        "no_city": "Укажите город или задайте город по умолчанию в настройках.",
-        "invalid_key": "Неверный или отсутствующий API ключ.",
-        "city_not_found": "Город '{city}' не найден.",
-        "error_fetch": "Ошибка получения погоды: {err}",
-        "error_format": "Ошибка форматирования информации о погоде.",
-        "weather_in": "🌤️ Погода в {name}, {country}:\n",
+        "settings_header": _mz_t("Налаштування погоди", "Weather settings", "Настройки погоды"),
+        "api_key": _mz_t("Ключ API", "API key", "Ключ API"),
+        "api_key_sub": _mz_t("Отримайте ключ на https://openweathermap.org/api", "Get a key at https://openweathermap.org/api", "Получите ключ на https://openweathermap.org/api"),
+        "default_city": _mz_t("Типове місто", "Default city", "Город по умолчанию"),
+        "default_city_sub": _mz_t("Місто, якщо його не вказано в команді", "City used when none is given in the command", "Город, если не указан в команде"),
+        "units": _mz_t("Одиниця температури", "Temperature unit", "Единица температуры"),
+        "units_items": [_mz_t("Цельсій", "Celsius", "Цельсий"), _mz_t("Фаренгейт", "Fahrenheit", "Фаренгейт"), _mz_t("Кельвін", "Kelvin", "Кельвин")],
+        "show_humidity": _mz_t("Показувати вологість", "Show humidity", "Показывать влажность"),
+        "show_humidity_sub": _mz_t("Показувати вологість повітря", "Show air humidity", "Показывать влажность воздуха"),
+        "show_wind": _mz_t("Показувати вітер", "Show wind", "Показывать ветер"),
+        "show_wind_sub": _mz_t("Показувати швидкість вітру", "Show wind speed", "Показывать скорость ветра"),
+        "usage": _mz_t("Команда: .wt [місто]", "Command: .wt [city]", "Команда: .wt [город]"),
+        "fetching": _mz_t("Отримую погоду...", "Getting the weather...", "Получение погоды..."),
+        "usage_full": _mz_t("Використання: .wt [місто]\nПриклад: .wt Київ", "Usage: .wt [city]\nExample: .wt London", "Использование: .wt [город]\nПример: .wt Москва"),
+        "no_api_key": _mz_t("Вкажіть ключ OpenWeatherMap у налаштуваннях плагіна.", "Enter the OpenWeatherMap key in the plugin settings.", "Укажите ключ OpenWeatherMap в настройках плагина."),
+        "no_city": _mz_t("Вкажіть місто або задайте типове місто в налаштуваннях.", "Enter a city or set a default city in the settings.", "Укажите город или задайте город по умолчанию в настройках."),
+        "invalid_key": _mz_t("Неправильний або відсутній API-ключ.", "Invalid or missing API key.", "Неверный или отсутствующий API ключ."),
+        "city_not_found": _mz_t("Місто '{city}' не знайдено.", "City '{city}' not found.", "Город '{city}' не найден."),
+        "error_fetch": _mz_t("Помилка отримання погоди: {err}", "Couldn't get the weather: {err}", "Ошибка получения погоды: {err}"),
+        "error_format": _mz_t("Помилка форматування даних про погоду.", "Error formatting the weather data.", "Ошибка форматирования информации о погоде."),
+        "weather_in": _mz_t("🌤️ Погода в {name}, {country}:\n", "🌤️ Weather in {name}, {country}:\n", "🌤️ Погода в {name}, {country}:\n"),
         "desc": "• {desc}\n",
-        "temp": "• Температура: {temp}{unit} (Ощущается как: {feels}{unit})\n",
-        "humidity": "• Влажность: {humidity}%\n",
-        "wind": "• Ветер: {wind_speed} м/с ({wind_dir})\n",
+        "temp": _mz_t("• Температура: {temp}{unit} (відчувається як: {feels}{unit})\n", "• Temperature: {temp}{unit} (feels like: {feels}{unit})\n", "• Температура: {temp}{unit} (Ощущается как: {feels}{unit})\n"),
+        "humidity": _mz_t("• Вологість: {humidity}%\n", "• Humidity: {humidity}%\n", "• Влажность: {humidity}%\n"),
+        "wind": _mz_t("• Вітер: {wind_speed} м/с ({wind_dir})\n", "• Wind: {wind_speed} m/s ({wind_dir})\n", "• Ветер: {wind_speed} м/с ({wind_dir})\n"),
     }
 }
 
@@ -104,7 +117,7 @@ def _get_lang():
     lang = Locale.getDefault().getLanguage().lower()
     if lang.startswith("pt"):
         return "pt"
-    if lang.startswith("ru"):
+    if lang.startswith(("ru", "uk")):
         return "ru"
     return "en"
 
@@ -260,7 +273,8 @@ class WeatherPlugin(BasePlugin):
                     send_message({"peer": getattr(params, "peer", None), "message": _tr("no_city")})
                     return
                 units, temp_unit = self._get_units_param()
-                data, error = self._fetch_weather(city, api_key, units, _get_lang())
+                api_lang = "ua" if Locale.getDefault().getLanguage().lower().startswith("uk") else _get_lang()
+                data, error = self._fetch_weather(city, api_key, units, api_lang)
                 if error:
                     self._dismiss_dialog()
                     send_message({"peer": getattr(params, "peer", None), "message": error})

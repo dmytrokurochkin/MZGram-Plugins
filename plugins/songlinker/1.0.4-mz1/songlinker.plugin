@@ -1,3 +1,16 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 # bugs and suggestions: t.me/thrzxd
 
 import html
@@ -93,32 +106,32 @@ STRINGS = {
         ),
     },
     "ru": {
-        "settings_header": "Внешний вид",
-        "swap_order_title": "Поменять название и автора",
-        "display_platform_name_title": "Отображать название платформы",
-        "always_lowercase_title": "Всегда в нижнем регистре",
-        "separator_title": "Разделитель",
-        "separator_sub": "Символ между названием и автором.",
-        "link_preview_header": "Превью ссылок",
-        "force_small_preview": "Принудительно уменьшать превью",
-        "force_small_preview_sub": "Всегда уменьшать превью для ссылок.",
-        "small_preview_exceptions_hint": "Исключенные домены (опционально)",
-        "small_preview_exceptions_divider_hint": "Эти домены сохранят превью как есть. Каждое новое исключение должно быть через запятую.",
-        "additional_header": "Дополнительно",
-        "apply_to_media_platforms": "Применять к платформам с медиа контентом",
-        "apply_to_media_platforms_sub": "Извлекать название и автора, где возможно.",
-        "twitter_post_text_title": "Текст постов из X (Twitter)",
-        "twitter_post_text_sub": "Извлекать текст поста вместо имени автора.",
-        "fetch_metadata_title": "Получать метаданные самостоятельно",
-        "fetch_metadata_sub": "Запрашивать информацию у Telegram, когда превью недоступно (файлы, медиа).",
-        "info_header": "Информация",
-        "about_title": "Возможности и ограничения",
+        "settings_header": _mz_t("Зовнішній вигляд", "Appearance", "Внешний вид"),
+        "swap_order_title": _mz_t("Поміняти місцями назву й автора", "Swap title and author", "Поменять название и автора"),
+        "display_platform_name_title": _mz_t("Показувати назву платформи", "Display platform name", "Отображать название платформы"),
+        "always_lowercase_title": _mz_t("Завжди малими літерами", "Always in lowercase", "Всегда в нижнем регистре"),
+        "separator_title": _mz_t("Роздільник", "Separator", "Разделитель"),
+        "separator_sub": _mz_t("Символ між назвою та автором.", "Symbol between the title and the author.", "Символ между названием и автором."),
+        "link_preview_header": _mz_t("Попередній перегляд посилань", "Link previews", "Превью ссылок"),
+        "force_small_preview": _mz_t("Примусово зменшувати прев'ю", "Force small previews", "Принудительно уменьшать превью"),
+        "force_small_preview_sub": _mz_t("Завжди зменшувати попередній перегляд для посилань.", "Always make link previews smaller.", "Всегда уменьшать превью для ссылок."),
+        "small_preview_exceptions_hint": _mz_t("Виключені домени (необов'язково)", "Excluded domains (optional)", "Исключенные домены (опционально)"),
+        "small_preview_exceptions_divider_hint": _mz_t("Ці домени залишать попередній перегляд як є. Кожен новий виняток через кому.", "These domains keep the preview as is. Separate each new exception with a comma.", "Эти домены сохранят превью как есть. Каждое новое исключение должно быть через запятую."),
+        "additional_header": _mz_t("Додатково", "Advanced", "Дополнительно"),
+        "apply_to_media_platforms": _mz_t("Застосовувати до платформ з медіавмістом", "Apply to platforms with media content", "Применять к платформам с медиа контентом"),
+        "apply_to_media_platforms_sub": _mz_t("Витягувати назву й автора, де це можливо.", "Extract the title and author where possible.", "Извлекать название и автора, где возможно."),
+        "twitter_post_text_title": _mz_t("Текст дописів з X (Twitter)", "Post text from X (Twitter)", "Текст постов из X (Twitter)"),
+        "twitter_post_text_sub": _mz_t("Витягувати текст допису замість імені автора.", "Extract the post text instead of the author name.", "Извлекать текст поста вместо имени автора."),
+        "fetch_metadata_title": _mz_t("Отримувати метадані самостійно", "Fetch metadata on its own", "Получать метаданные самостоятельно"),
+        "fetch_metadata_sub": _mz_t("Запитувати інформацію в Telegram, коли попередній перегляд недоступний (файли, медіа).", "Ask Telegram for the information when the preview is unavailable (files, media).", "Запрашивать информацию у Telegram, когда превью недоступно (файлы, медиа)."),
+        "info_header": _mz_t("Інформація", "Information", "Информация"),
+        "about_title": _mz_t("Можливості та обмеження", "Features and limitations", "Возможности и ограничения"),
         "about_dialog_message": (
-            "Плагин преобразует ссылки с музыкальных сервисов в гиперссылку с названием и автором.\n\n"
+            _mz_t("Плагін перетворює посилання з музичних сервісів на гіперпосилання з назвою та автором.\n\nПідтримувані платформи: Spotify, Apple Music, Tidal, YouTube Music, SoundCloud, Deezer та song.link.\n\nПлагін також працює з посиланнями з Twitter, Pixiv, Danbooru, Zerochan, Unsplash та DeviantArt, якщо увімкнено відповідне налаштування.\n\nЗверніть увагу, що перед надсиланням повідомлення має завантажитися попередній перегляд посилання, інакше плагін не спрацює.\nНа деяких платформах неможливо чітко відокремити назву від імені автора в попередньому перегляді, тому використовується заголовок із попереднього перегляду.\n", "The plugin turns links from music services into hyperlinks with the title and the author.\n\nSupported platforms: Spotify, Apple Music, Tidal, YouTube Music, SoundCloud, Deezer and song.link.\n\nThe plugin also works with links from Twitter, Pixiv, Danbooru, Zerochan, Unsplash and DeviantArt, if the appropriate setting is enabled.\n\nPlease note that the link preview must load before sending the message; otherwise, the plugin will not work.\nOn some platforms, it is impossible to explicitly separate the title from the author name in the preview, so title from preview is used.\n", ("Плагин преобразует ссылки с музыкальных сервисов в гиперссылку с названием и автором.\n\n"
             "Поддерживаемые платформы: Spotify, Apple Music, Tidal, YouTube Music, SoundCloud, Deezer и song.link.\n\n"
             "Плагин также работает с ссылками из Twitter, Pixiv, Danbooru, Zerochan, Unsplash и DeviantArt, если включена соответствующая настройка.\n\n"
             "Имейте ввиду, что требуется загрузка превью ссылки перед отправкой сообщения, иначе плагин не сработает.\n"
-            "У некоторых платформ невозможно явно отделить название от имени автора в превью, поэтому используется тайтл с превью.\n"
+            "У некоторых платформ невозможно явно отделить название от имени автора в превью, поэтому используется тайтл с превью.\n"))
         ),
     },
 }
@@ -131,7 +144,7 @@ def get_language() -> str:
 
 def get_string(key: str, **kwargs: Any) -> str:
     lang = get_language()
-    lang_dict = STRINGS.get(lang, STRINGS["en"])
+    lang_dict = STRINGS.get("ru" if lang == "uk" else lang, STRINGS["en"])
     text = lang_dict.get(key, STRINGS["en"].get(key, key))
     if kwargs:
         try:
@@ -522,11 +535,11 @@ class SongLinkerPlugin(BasePlugin):
 
     def format_divider_hint(self, separator: str, swap_order: bool = False, display_platform_name: bool = False, always_lowercase: bool = False) -> str:
         lang = get_language()
-        if lang == "ru":
-            prefix = "Пример: "
-            title = "Название"
-            author = "Автор"
-            platform = "Платформа"
+        if lang in ("ru", "uk"):
+            prefix = _mz_t("Приклад: ", "Example: ", "Пример: ")
+            title = _mz_t("Назва", "Title", "Название")
+            author = _mz_t("Автор", "Author", "Автор")
+            platform = _mz_t("Платформа", "Platform", "Платформа")
         else:
             prefix = "Example: "
             title = "Title"
@@ -604,8 +617,8 @@ class SongLinkerPlugin(BasePlugin):
                 return title, authors
 
             case "music.apple.com/ru/album/" | "music.apple.com/ru/song/":
-                # "Альбом «Album Name - Single» (Author) в Apple Music"
-                # "Песня «Track Name» (Author 1, Author 2, ...) в Apple Music"
+                # Album «Album Name - Single» (Author) on Apple Music
+                # Song «Track Name» (Author 1, Author 2, ...) on Apple Music
 
                 title_matches = re.findall(r'«([^»]*)»', url_title)           # extract all from '«»'
                 authors_matches = re.findall(r'»\s*\(([^)]*)\)', url_title)   # extract all from '()'
@@ -638,7 +651,7 @@ class SongLinkerPlugin(BasePlugin):
                 return clean_title
 
             case "music.apple.com/us/playlist/" | "music.apple.com/ru/playlist/":
-                # ru: Плейлист «Playlist Name» в Apple Music
+                # Playlist «Playlist Name» on Apple Music
                 # en: PLaylist Name on Apple Music
                 match = re.findall(r'«([^»]*)»', url_title) 
                 if match:
