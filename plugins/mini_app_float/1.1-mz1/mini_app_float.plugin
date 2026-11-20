@@ -1,0 +1,2386 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
+from base_plugin import BasePlugin, MethodHook
+from android_utils import OnClickListener, run_on_ui_thread
+from client_utils import get_last_fragment
+from hook_utils import find_class, get_private_field
+from ui.settings import Header, Switch, Divider, Text
+from ui.alert import AlertDialogBuilder
+from java import dynamic_proxy
+from java.lang import Thread
+from android.view import View, Gravity, MotionEvent, WindowManager
+from android.widget import FrameLayout, LinearLayout, TextView
+from android.graphics.drawable import GradientDrawable, ColorDrawable
+from android.graphics import Color, Typeface
+from android.animation import ValueAnimator
+
+from org.telegram.messenger import AndroidUtilities
+
+__id__ = "mini_app_float"
+__name__ = "Mini App Float"
+__description__ = "Minimizes mini apps and browser sites into a floating window"
+__author__ = "@PLOXOI_RRO & @TimPlugins"
+__version__ = "1.1-mz1"
+__min_version__ = "12.10.6"
+__icon__ = "NewsEmoji/53"
+__category__ = ["tools", "appearance"]
+
+SHEET_CLASSES = [
+    "org.telegram.ui.bots.BotWebViewSheet",
+    "org.telegram.ui.bots.BotWebViewAttachedSheet",
+    "org.telegram.ui.Components.BotWebViewSheet",
+    "org.telegram.ui.web.BotWebViewSheet",
+]
+BLUE = "#2F7BFF"
+DARK = "#1C1C1E"
+START_FRAC = 0.4     # initial window width relative to the screen width
+EXPAND_FRAC = 0.60  # window covers this share of the screen -> auto-expand
+COLLAPSE_FRAC = 0.05  # window covers this share of the screen -> mini circle
+MARGIN_DP = 6
+# Sites: the floating window lives in its OWN window (a sub-window of the Activity), not inside the Activity view tree.
+# Then the system moves the ready surface and the activity window is not redrawn
+# - a trail of copies is impossible. If something is wrong on some device, set False
+# (the old behavior returns: the window inside the Activity).
+SITE_OWN_WINDOW = True
+# Sites: after minimizing, the activity window could keep a stale picture of the page.
+# We hide and show the activity window for a split second: the system recreates its
+# surface and redraws it. If not needed (or it flickers), set False.
+STALE_FIX = False
+# Sites: the chat under the floating window. Telegram does not draw the chat while it thinks the site sheet is open
+# (ActionBarLayout.sheetFragment). While the window floats, we temporarily detach the sheet and restore it on close.
+SITE_FIX = True
+# Sticker above the plugin name in settings: sticker set and the sticker index in it (0 is the first)
+STICKER_SET = "NewsEmoji"
+STICKER_INDEX = 53
+
+
+# ---------------- utilities ----------------
+def _activity():
+    try:
+        frag = get_last_fragment()
+        if frag is not None:
+            act = frag.getParentActivity()
+            if act is not None:
+                return act
+    except Exception:
+        pass
+    try:
+        return find_class("org.telegram.ui.LaunchActivity").instance
+    except Exception:
+        return None
+
+
+def _field(obj, *names):
+    for n in names:
+        try:
+            v = get_private_field(obj, n)
+            if v is not None:
+                return v
+        except Exception:
+            pass
+        try:
+            c = obj.getClass()
+            while c is not None:
+                try:
+                    f = c.getDeclaredField(n)
+                    f.setAccessible(True)
+                    v = f.get(obj)
+                    if v is not None:
+                        return v
+                except Exception:
+                    pass
+                c = c.getSuperclass()
+        except Exception:
+            pass
+    return None
+
+
+def _sheet_root(sheet):
+    try:
+        w = sheet.getWindow()
+        if w is not None:
+            return w.getDecorView()
+    except Exception:
+        pass
+    return _field(sheet, "windowView")
+
+
+def _cname(v):
+    try:
+        n = str(v.getClass().getSimpleName())
+        return n if n else str(v.getClass().getName()).split(".")[-1]
+    except Exception:
+        return "?"
+
+
+def _sheet_roots(sheet):
+    """All root views of the sheet that must be hidden/shown (the sheet itself plus its Dialog, if any)."""
+    roots = []
+    r = _sheet_root(sheet)
+    if r is not None:
+        roots.append(r)
+    try:
+        dlg = _field(sheet, "dialog")
+        if dlg is not None:
+            w = dlg.getWindow()
+            if w is not None:
+                d = w.getDecorView()
+                if d is not None:
+                    roots.append(d)
+    except Exception:
+        pass
+    return roots
+
+
+_WEBVIEW_BAD = ("Factory", "Client", "Chrome", "Provider", "Renderer", "Settings", "History")
+
+
+def _is_webview_view(v):
+    try:
+        n = str(v.getClass().getName())
+    except Exception:
+        return False
+    if any(b in n for b in _WEBVIEW_BAD):
+        return False
+    return "WebView" in n or "MyWeb" in n
+
+
+def _find_webview(v):
+    """Searches the view tree for the first web view (WebView / web view container)."""
+    if v is None:
+        return None
+    try:
+        if _is_webview_view(v):
+            return v
+    except Exception:
+        pass
+    try:
+        for i in range(v.getChildCount()):
+            r = _find_webview(v.getChildAt(i))
+            if r is not None:
+                return r
+    except Exception:
+        pass
+    return None
+
+
+def _find_page_view(v, depth=0):
+    """The first nested view with getUrl()+getTitle() is the page WebView."""
+    if v is None or depth > 14:
+        return None
+    try:
+        if hasattr(v, "getUrl") and hasattr(v, "getTitle"):
+            return v
+    except Exception:
+        pass
+    try:
+        n = int(v.getChildCount())
+    except Exception:
+        return None
+    for i in range(n):
+        try:
+            r = _find_page_view(v.getChildAt(i), depth + 1)
+        except Exception:
+            r = None
+        if r is not None:
+            return r
+    return None
+
+
+def _round_bg(color, radius_px, stroke_px=0, stroke_color=0):
+    d = GradientDrawable()
+    d.setColor(color)
+    d.setCornerRadius(float(radius_px))
+    if stroke_px:
+        d.setStroke(int(stroke_px), stroke_color)
+    return d
+
+
+class _Click(dynamic_proxy(View.OnClickListener)):
+    def __init__(self, fn):
+        super().__init__()
+        self.fn = fn
+
+    def onClick(self, v):
+        try:
+            self.fn()
+        except Exception:
+            pass
+
+
+class _Touch(dynamic_proxy(View.OnTouchListener)):
+    def __init__(self, fn):
+        super().__init__()
+        self.fn = fn
+
+    def onTouch(self, v, e):
+        try:
+            return bool(self.fn(v, e))
+        except Exception:
+            return False
+
+
+
+class _LayoutCb(dynamic_proxy(View.OnLayoutChangeListener)):
+    def __init__(self, fn):
+        super().__init__()
+        self.fn = fn
+
+    def onLayoutChange(self, v, l, t, r, b, ol, ot, orr, ob):
+        try:
+            self.fn(l, t, r, b, ol, ot, orr, ob)
+        except Exception:
+            pass
+
+
+class _AnimUpd(dynamic_proxy(ValueAnimator.AnimatorUpdateListener)):
+    def __init__(self, fn):
+        super().__init__()
+        self.fn = fn
+
+    def onAnimationUpdate(self, anim):
+        try:
+            self.fn(float(anim.getAnimatedValue()))
+        except Exception:
+            pass
+
+
+# ---------------- floating window ----------------
+class FloatingWindow:
+    """A live mini app in a reduced window.
+
+    Handle strips on the top and bottom (they do not cover the mini app UI):
+      both strips: drag anywhere, tap opens the panel (frame, X)
+      the size is changed by corner zones on the bottom strip (left and right)
+    The window moves freely over the whole screen and survives switching between chats.
+    Stretched to ~60% of the screen area: auto-expands to the normal view.
+    Reduced to ~5%: auto-minimizes to a mini circle with the bot avatar
+    (a tap on the circle brings the window back).
+    """
+
+    def __init__(self, plugin, sheet):
+        self.plugin = plugin
+        self.sheet = sheet
+        self.container = None
+        self.orig_parent = None
+        self.orig_index = 0
+        self.orig_lp = None
+        self.root = None
+        self.content = None
+        self.icon = None
+        self.host = None
+        self.active = False
+        self.iconified = False
+        self.scale = 0.5
+        self.lw = 0
+        self.lh = 0
+        self.bar = 0
+        self.isz = 0
+        self.min_scale = 0.2
+        self.max_scale = 1.0
+        self.collapse_scale = 0.25
+        self.expand_scale = 0.9
+        self.overlay = []
+        self.overlay_on = False
+        self.token = 0
+        self.dp_ = 1.0
+        self.sw0 = 0
+        self.sh0 = 0
+        self.hstate = {}
+        self.gstate = {}
+        self.istate = {}
+        self.px = 0.0   # window position on screen (we store it ourselves: the window can be separate)
+        self.py = 0.0
+        self.own_window = False
+        self.wm = None
+        self.focusable = False
+        self.ix = 0.0   # mini circle position (it can also live in its own window)
+        self.iy = 0.0
+        self.icon_win = False
+        self.icon_added = False
+        self._scale_pending = False
+        self.panel = None        # rounded panel inside the wrapper window (only the separate site window)
+        self.gesture = False     # a resize gesture is in progress: the window is temporarily "big", only the panel moves
+        self._anim_seq = 0       # settle animation token: a new touch/gesture cancels a running animation (see _animate_to)
+        self._layer2 = None
+        self._saved_fields = []
+        self.is_site = False  # True: the site WebView from ArticleViewer$Sheet is moved into the window
+
+    def dp(self, x):
+        return int(x * self.dp_ + 0.5)
+
+    # ----- sizes -----
+    def _dims(self):
+        sw = int(self.host.getWidth()) or self.sw0
+        sh = int(self.host.getHeight()) or self.sh0
+        return sw, sh
+
+    def _w(self):
+        return int(self.lw * self.scale)
+
+    def _h(self):
+        return int(self.lh * self.scale) + 2 * self.bar
+
+    def _clamp_scale(self, s):
+        return max(self.min_scale, min(self.max_scale, s))
+
+    def _apply_scale_to_content(self):
+        try:
+            self.content.setScaleX(self.scale)
+            self.content.setScaleY(self.scale)
+        except Exception:
+            pass
+
+    def _apply_scale(self, s, flush=True):
+        self.scale = s
+        nw, nh = self._w(), self._h()
+        if self.own_window and self.panel is not None:
+            # panel inside the window: we always change its size (cheap, only the layout inside the app)
+            try:
+                plp = self.panel.getLayoutParams()
+                if plp is not None and (plp.width != nw or plp.height != nh):
+                    plp.width = nw
+                    plp.height = nh
+                    self.panel.setLayoutParams(plp)
+            except Exception:
+                pass
+            if self.gesture:
+                # during the gesture the window is already enlarged "with a margin" and does not change its own size,
+                # only the position moves (see _set_pos). We apply the scale right away,
+                # and do not touch the window layoutParams at all.
+                self._apply_scale_to_content()
+                return
+        lp = self.root.getLayoutParams()
+        if lp is None:
+            self._apply_scale_to_content()
+            return
+        if lp.width == nw and lp.height == nh:
+            # the size did not change by a single pixel: do not touch the layout or the window at all:
+            # extra setLayoutParams/updateViewLayout on every frame caused the jitter.
+            # We always update the content scale: it is cheap, applied on the GPU
+            self._apply_scale_to_content()
+            return
+        lp.width = nw
+        lp.height = nh
+        if self.own_window:
+            # the window changes size asynchronously (via WindowManager). We apply the content scale in the same
+            # frame in which the window got its new size (see _LayoutCb), otherwise the content and the window drift apart
+            self._scale_pending = True
+            if flush:
+                self._wm_update(lp)
+        else:
+            self._apply_scale_to_content()
+            self.root.setLayoutParams(lp)
+
+    def _gesture_begin(self):
+        """Start of a resize gesture: the window is enlarged ONCE "with a margin" for the whole gesture, but NOT MOVED.
+        The window position already equals the panel position (the panel sits in the window corner, no offset), so:
+          - changing ONLY THE SIZE is invisible: the old picture stays in place,
+            and a transparent area is added around it;
+          - moving the window during the gesture (by the left corner) is applied instantly and exactly.
+        Before, the window expanded to the full screen with a move to (0,0), and the panel inside
+        was shifted "manually" on the next frame: the system applies the position instantly,
+        but the picture one frame later, so the window "flew" to the corner and came back.
+        Now the window position does not change at the start/end of the gesture at all."""
+        if not self.own_window or self.gesture or self.panel is None:
+            return
+        lp = self.root.getLayoutParams()
+        if lp is None:
+            return
+        sw, sh = self._dims()
+        self.gesture = True
+        self._anim_seq += 1  # the gesture overrides any running settle animation: now only the finger is in control
+        try:
+            self.panel.setLayerType(View.LAYER_TYPE_NONE, None)
+        except Exception:
+            pass
+        # we do NOT touch lp.x/lp.y: the window stays in place, the panel is exactly in the same place on screen.
+        # Only the "margin" grows to the right and down (beyond the screen edge is fine, there is FLAG_LAYOUT_NO_LIMITS):
+        # during the gesture the panel grows and moves inside the window without changing the window size.
+        lp.width = sw
+        lp.height = sh
+        self._wm_update(lp)
+
+    def _gesture_end(self):
+        if not self.gesture:
+            return
+        self.gesture = False
+        if not self.active:
+            # the window was already closed/expanded during the gesture: WindowManager must not be touched
+            return
+        lp = self.root.getLayoutParams()
+        if lp is None or self.panel is None:
+            return
+        w, h = self._w(), self._h()
+        # again only the size: we trim the transparent "margin" to the panel size.
+        # We do not touch the position: the old picture in the window corner stays on its pixels.
+        lp.width = w
+        lp.height = h
+        self._wm_update(lp)
+        try:
+            # rounded corners are restored when the size stops changing
+            self.panel.setLayerType(View.LAYER_TYPE_HARDWARE, None)
+        except Exception:
+            pass
+
+    # ----- the site's own window -----
+    def _on_root_layout(self, l=0, t=0, r=0, b=0, ol=0, ot=0, orr=0, ob=0):
+        if self._scale_pending:
+            self._scale_pending = False
+            self._apply_scale_to_content()
+
+    def _wm_update(self, lp):
+        try:
+            self.wm.updateViewLayout(self.root, lp)
+        except Exception:
+            pass
+
+    def _set_pos(self, x, y):
+        self.px = float(x)
+        self.py = float(y)
+        if self.own_window:
+            # window position = panel position (the panel sits in the window corner, offset 0,0).
+            # Changing the position does not recreate the surface and is applied instantly: the window
+            # can be moved on every frame, as smoothly as a normal window moved with a mouse/finger.
+            lp = self.root.getLayoutParams()
+            if lp is not None:
+                nx = int(self.px)
+                ny = int(self.py)
+                if lp.x == nx and lp.y == ny:
+                    # the position did not change by a single pixel: we do not poke WindowManager at all:
+                    # an extra updateViewLayout on every frame only loads the compositor.
+                    # (dragging by the right corner does not move the window at all: before, there was an idle call
+                    # on every frame, and the settle after dragging ran idle for 200 ms,
+                    # hurting smoothness at the moment when the finger is already dragging the corner)
+                    return
+                lp.x = nx
+                lp.y = ny
+                self._wm_update(lp)
+        else:
+            self.root.setX(self.px)
+            self.root.setY(self.py)
+
+    def _front(self):
+        if not self.own_window:
+            self.root.bringToFront()
+
+    def _set_root_visible(self, visible):
+        if self.own_window:
+            lp = self.root.getLayoutParams()
+            if lp is not None:
+                nt = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                lp.flags = (lp.flags & ~nt) if visible else (lp.flags | nt)
+                self.root.setVisibility(View.VISIBLE if visible else View.GONE)
+                self._wm_update(lp)
+                return
+        self.root.setVisibility(View.VISIBLE if visible else View.GONE)
+
+    def _set_focusable(self, on):
+        # the window is not focusable, so it does not take the keyboard and the back button from the chat;
+        # we enable focus when the site content is tapped (input fields) and remove it on a tap outside
+        if not self.own_window or self.focusable == on:
+            return
+        lp = self.root.getLayoutParams()
+        if lp is None:
+            return
+        nf = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+        lp.flags = (lp.flags & ~nf) if on else (lp.flags | nf)
+        self.focusable = on
+        self._wm_update(lp)
+
+    # ----- mini circle: also a separate window (otherwise a trail of copies stays in the activity window) -----
+    def _icon_window_add(self, x, y):
+        if self.icon_added:
+            return True
+        try:
+            LP = WindowManager.LayoutParams
+            lp = LP()
+            lp.type = LP.TYPE_APPLICATION_PANEL
+            lp.flags = (LP.FLAG_NOT_FOCUSABLE | LP.FLAG_NOT_TOUCH_MODAL
+                        | LP.FLAG_LAYOUT_IN_SCREEN | LP.FLAG_LAYOUT_NO_LIMITS)
+            lp.format = -3
+            lp.gravity = Gravity.TOP | Gravity.START
+            lp.width = self.isz
+            lp.height = self.isz
+            lp.x = int(x)
+            lp.y = int(y)
+            self.wm.addView(self.icon, lp)
+            self.icon_added = True
+            return True
+        except Exception:
+            return False
+
+    def _icon_window_remove(self):
+        if self.icon_added:
+            try:
+                self.wm.removeViewImmediate(self.icon)
+            except Exception:
+                pass
+            self.icon_added = False
+
+    def _icon_set_pos(self, x, y):
+        self.ix = float(x)
+        self.iy = float(y)
+        if self.icon_win and self.icon_added:
+            lp = self.icon.getLayoutParams()
+            if lp is not None:
+                lp.x = int(self.ix)
+                lp.y = int(self.iy)
+                self._wm_update_view(self.icon, lp)
+        else:
+            self.icon.setX(self.ix)
+            self.icon.setY(self.iy)
+
+    def _wm_update_view(self, v, lp):
+        try:
+            self.wm.updateViewLayout(v, lp)
+        except Exception:
+            pass
+
+    def _icon_animate_x(self, tx):
+        x0 = self.ix
+        if self.icon_win:
+            def step(f):
+                if self.icon_added:
+                    self._icon_set_pos(x0 + (tx - x0) * f, self.iy)
+            va = ValueAnimator.ofFloat(0.0, 1.0)
+            va.setDuration(160)
+            va.addUpdateListener(_AnimUpd(step))
+            va.start()
+        else:
+            self.ix = float(tx)
+            self.icon.animate().x(tx).setDuration(160).start()
+
+    def _on_root_touch(self, v, e):
+        if e.getActionMasked() == MotionEvent.ACTION_OUTSIDE:
+            self._set_focusable(False)
+        return False
+
+    def _on_web_touch(self, v, e):
+        if e.getActionMasked() == MotionEvent.ACTION_DOWN:
+            self._set_focusable(True)
+        return False
+
+    def _add_own_window(self, act, x, y):
+        wrapped = False
+        try:
+            # wrapper window (transparent) + a rounded panel inside
+            panel = self.root
+            shell = FrameLayout(act)
+            shell.addView(panel, FrameLayout.LayoutParams(self._w(), self._h()))
+            self.panel = panel
+            self.root = shell
+            wrapped = True
+            LP = WindowManager.LayoutParams
+            lp = LP()
+            lp.type = LP.TYPE_APPLICATION_PANEL
+            lp.flags = (LP.FLAG_NOT_FOCUSABLE | LP.FLAG_NOT_TOUCH_MODAL | LP.FLAG_WATCH_OUTSIDE_TOUCH
+                        | LP.FLAG_LAYOUT_IN_SCREEN | LP.FLAG_LAYOUT_NO_LIMITS)
+            lp.format = -3  # TRANSLUCENT: rounded corners
+            lp.gravity = Gravity.TOP | Gravity.START
+            lp.width = self._w()
+            lp.height = self._h()
+            lp.x = int(x)
+            lp.y = int(y)
+            lp.softInputMode = 48  # SOFT_INPUT_ADJUST_NOTHING
+            self.wm = act.getWindowManager()
+            self.focusable = False
+            self.root.setOnTouchListener(_Touch(self._on_root_touch))
+            try:
+                self.root.addOnLayoutChangeListener(_LayoutCb(self._on_root_layout))
+            except Exception:
+                pass
+            # rounded corners: we clip the content to the background outline and draw the window through a hardware layer,
+            # otherwise the WebView (GL) goes beyond the rounded corners
+            try:
+                self.panel.setClipToOutline(True)
+                self.panel.setLayerType(View.LAYER_TYPE_HARDWARE, None)
+            except Exception:
+                pass
+            self.wm.addView(self.root, lp)
+            try:
+                self.container.setOnTouchListener(_Touch(self._on_web_touch))
+            except Exception:
+                pass
+            return True
+        except Exception:
+            if wrapped:
+                try:
+                    self.root.removeView(self.panel)
+                except Exception:
+                    pass
+                self.root = self.panel
+                self.panel = None
+            return False
+
+    def _clamp_xy(self, x, y):
+        # the window lives strictly inside the screen: free movement, no pushing past the edges
+        sw, sh = self._dims()
+        w = self._w()
+        h = self._h()
+        return max(0.0, min(x, float(sw - w))), max(0.0, min(y, float(sh - h)))
+
+    def _title(self):
+        try:
+            wv = self.container.getWebView()
+            t = wv.getTitle() if wv is not None else None
+            if t:
+                return str(t)
+        except Exception:
+            pass
+        try:
+            t = self.container.getTitle()
+            if t:
+                return str(t)
+        except Exception:
+            pass
+        try:
+            # site: the whole sheet view; we look for a nested WebView and take the title or the address
+            pv = _find_page_view(self.container)
+            if pv is not None:
+                t = pv.getTitle()
+                if t:
+                    return str(t)
+                u = pv.getUrl()
+                if u:
+                    host = str(u).split("//")[-1].split("/")[0]
+                    if host.startswith("www."):
+                        host = host[4:]
+                    if host:
+                        return host
+        except Exception:
+            pass
+        return "Mini App"
+
+    def _side_from_x(self):
+        sw, _ = self._dims()
+        return "left" if self.px + self._w() / 2.0 < sw / 2.0 else "right"
+
+    # ----- mini app bot (for the avatar on the mini circle) -----
+    def _bot_user(self):
+        if self.container is not None:
+            # 1) public methods of the web view container
+            for getter in ("getBotUser", "getUser"):
+                try:
+                    u = getattr(self.container, getter)()
+                    if u is not None:
+                        return u
+                except Exception:
+                    pass
+            # 2) private field of the container (in Telegram this is TLRPC.User botUser)
+            u = _field(self.container, "botUser", "bot_user", "user")
+            if u is not None:
+                return u
+        # 3) sheet fields
+        u = _field(self.sheet, "botUser", "bot_user", "user")
+        if u is not None:
+            return u
+        # 4) sheet methods
+        for getter in ("getBotUser", "getUser"):
+            try:
+                u = getattr(self.sheet, getter)()
+                if u is not None:
+                    return u
+            except Exception:
+                pass
+        return None
+
+    def _make_icon(self, act):
+        """Mini circle: the mini app bot avatar; if unavailable, a letter."""
+        dp = self.dp
+        icon = None
+        try:
+            user = self._bot_user()
+            if user is not None:
+                from org.telegram.ui.Components import BackupImageView, AvatarDrawable
+                from org.telegram.messenger import UserConfig
+                wrap = FrameLayout(act)
+                wrap.setBackground(_round_bg(Color.parseColor("#2C2C2E"), self.isz // 2))
+                wrap.setPadding(dp(2), dp(2), dp(2), dp(2))
+                try:
+                    wrap.setElevation(float(dp(10)))
+                except Exception:
+                    pass
+                avatar = BackupImageView(act)
+                avatar.setRoundRadius((self.isz - 2 * dp(2)) // 2)
+                placeholder = AvatarDrawable()
+                try:
+                    placeholder.setInfo(UserConfig.selectedAccount, user)
+                except Exception:
+                    placeholder.setInfo(user)
+                avatar.setForUserOrChat(user, placeholder)
+                wrap.addView(avatar, FrameLayout.LayoutParams(-1, -1))
+                icon = wrap
+        except Exception:
+            pass
+        if icon is None:
+            letter = (self._title().strip()[:1] or "M").upper()
+            icon = TextView(act)
+            icon.setText(letter)
+            icon.setTextColor(Color.WHITE)
+            icon.setTextSize(20.0)
+            icon.setGravity(Gravity.CENTER)
+            icon.setBackground(_round_bg(Color.parseColor("#2C2C2E"), self.isz // 2))
+            try:
+                icon.setElevation(float(dp(10)))
+            except Exception:
+                pass
+        icon.setOnTouchListener(_Touch(self._on_icon_touch))
+        self.icon = icon
+
+    # ----- web content of the sheet -----
+    def _content_view(self):
+        """The view that lives in the floating window.
+
+        Mini apps: the webViewContainer field of BotWebViewSheet.
+        Sites (ArticleViewer$Sheet): there is no webViewContainer field, so we look for
+        any View field with a web view in the class name, then through the window view tree.
+        """
+        try:
+            sname = str(self.sheet.getClass().getName())
+        except Exception:
+            sname = ""
+        if "BotWebViewSheet" not in sname:
+            # Site in the Telegram browser (ArticleViewer$Sheet): we move only the page WebView into the window
+            # and hide the sheet itself, the same as for mini apps. Moving the whole windowView
+            # gave a "double": the sheet did not disappear, and the window left a trail when dragged.
+            wv = None
+            try:
+                wv = self.sheet.getWindowView()
+            except Exception:
+                wv = None
+            if wv is None:
+                wv = _field(self.sheet, "windowView")
+            pv = _find_page_view(wv) if wv is not None else None
+            if pv is not None:
+                self.is_site = True
+                return pv
+        c = _field(self.sheet, "webViewContainer")
+        if c is not None:
+            return c
+        try:
+            cl = self.sheet.getClass()
+            while cl is not None:
+                for f in list(cl.getDeclaredFields()):
+                    try:
+                        f.setAccessible(True)
+                        v = f.get(self.sheet)
+                    except Exception:
+                        continue
+                    if v is None:
+                        continue
+                    try:
+                        if hasattr(v, "getParent") and hasattr(v, "getWidth") and _is_webview_view(v):
+                            return v
+                    except Exception:
+                        continue
+                cl = cl.getSuperclass()
+        except Exception:
+            pass
+        return _find_webview(_sheet_root(self.sheet))
+
+    # ----- minimize -----
+    def minimize(self):
+        if id(self.sheet) in self.plugin.windows:
+            return
+        act = _activity()
+        if act is None:
+            return
+        container = self._content_view()
+        if container is None:
+            return
+        self.container = container
+        self.own_window = bool(self.is_site and SITE_OWN_WINDOW)
+        self.orig_parent = container.getParent()
+        if self.orig_parent is None:
+            return
+        self.orig_index = self.orig_parent.indexOfChild(container)
+        self.orig_lp = container.getLayoutParams()
+        if self.is_site:
+            # the sheet could have been dragged by a gesture: we reset the offset until it is hidden
+            for r in _sheet_roots(self.sheet):
+                try:
+                    r.setTranslationX(0.0)
+                    r.setTranslationY(0.0)
+                    r.setAlpha(1.0)
+                except Exception:
+                    pass
+
+        dm = act.getResources().getDisplayMetrics()
+        self.dp_ = dm.density
+        dp = self.dp
+
+        self.host = act.getWindow().getDecorView().findViewById(16908290)
+        if self.host is None:
+            return
+        self.sw0 = int(dm.widthPixels)
+        self.sh0 = int(dm.heightPixels)
+        sw, sh = self._dims()
+
+        self.bar = dp(24)
+        self.isz = dp(52)
+        self.lw = int(container.getWidth() or sw)
+        self.lh = int(container.getHeight() or int(sh * 0.8))
+
+        # thresholds for auto-expand (~60% of the screen area) and auto-minimize (~5%)
+        body = self.lw * float(self.lh)
+        screen = sw * float(sh)
+        if body > 0 and screen > 0:
+            self.collapse_scale = (COLLAPSE_FRAC * screen / body) ** 0.5
+            self.expand_scale = (EXPAND_FRAC * screen / body) ** 0.5
+        else:
+            self.collapse_scale = 0.25
+            self.expand_scale = 0.9
+        fit = min(sw / float(self.lw), (sh * 0.92 - 2 * self.bar) / float(self.lh))
+        self.min_scale = max(0.05, self.collapse_scale)
+        self.max_scale = max(self.min_scale + 0.01, min(fit, self.expand_scale))
+        self.scale = self._clamp_scale(START_FRAC * sw / float(self.lw))
+
+        root = FrameLayout(act)
+        root.setBackground(_round_bg(Color.parseColor(DARK), dp(14)))
+        if not self.is_site:
+            root.setClipToOutline(True)
+            try:
+                root.setElevation(float(dp(14)))
+            except Exception:
+                pass
+        self.root = root
+
+        # mini app content: full logical size, scaled
+        content = FrameLayout(act)
+        content.setPivotX(0.0)
+        content.setPivotY(0.0)
+        clp = FrameLayout.LayoutParams(self.lw, self.lh)
+        clp.topMargin = self.bar
+        root.addView(content, clp)
+        self.content = content
+
+        self.orig_parent.removeView(container)
+        content.addView(container, FrameLayout.LayoutParams(-1, -1))
+        self.old_layer = None
+        if self.is_site:
+            try:
+                self.old_layer = int(container.getLayerType())
+                container.setLayerType(View.LAYER_TYPE_NONE, None)
+            except Exception:
+                pass
+
+        # top strip: drag + X
+        top = FrameLayout(act)
+        top.setBackgroundColor(Color.parseColor(DARK))
+        tpill = View(act)
+        tpill.setBackground(_round_bg(Color.parseColor("#B3FFFFFF"), dp(2)))
+        top.addView(tpill, FrameLayout.LayoutParams(dp(40), dp(4), Gravity.CENTER))
+        root.addView(top, FrameLayout.LayoutParams(-1, self.bar, Gravity.TOP))
+        top.setOnTouchListener(_Touch(self._on_handle_touch))
+
+        close = TextView(act)
+        close.setText("✕")
+        close.setTextColor(Color.WHITE)
+        close.setTextSize(10.0)
+        close.setGravity(Gravity.CENTER)
+        close.setBackground(_round_bg(Color.parseColor("#55FFFFFF"), dp(9)))
+        xlp = FrameLayout.LayoutParams(dp(18), dp(18), Gravity.END | Gravity.CENTER_VERTICAL)
+        xlp.rightMargin = dp(5)
+        top.addView(close, xlp)
+        close.setOnClickListener(_Click(self.close))
+
+        # bottom strip: also drag; the size is changed by the left/right corner zones
+        bottom = FrameLayout(act)
+        bottom.setBackgroundColor(Color.parseColor(DARK))
+        bpill = View(act)
+        bpill.setBackground(_round_bg(Color.parseColor("#B3FFFFFF"), dp(2)))
+        bottom.addView(bpill, FrameLayout.LayoutParams(dp(40), dp(4), Gravity.CENTER))
+        root.addView(bottom, FrameLayout.LayoutParams(-1, self.bar, Gravity.BOTTOM))
+        bottom.setOnTouchListener(_Touch(self._on_handle_touch))
+
+        # invisible resize zones: drag the bottom left/right corner
+        zl = View(act)
+        bottom.addView(zl, FrameLayout.LayoutParams(dp(32), -1, Gravity.START | Gravity.CENTER_VERTICAL))
+        zl.setOnTouchListener(_Touch(self._resize_touch("left")))
+        zr = View(act)
+        bottom.addView(zr, FrameLayout.LayoutParams(dp(32), -1, Gravity.END | Gravity.CENTER_VERTICAL))
+        zr.setOnTouchListener(_Touch(self._resize_touch("right")))
+
+        # blue frame (visible while the panel is open)
+        border = View(act)
+        border.setBackground(_round_bg(0, dp(14), dp(2), Color.parseColor(BLUE)))
+        border.setClickable(False)
+        root.addView(border, FrameLayout.LayoutParams(-1, -1))
+        self.overlay = [border, close]
+
+        # mini circle with the bot avatar
+        self._make_icon(act)
+
+        self._apply_scale(self.scale)
+        n = len(self.plugin.windows)
+        x0 = float(max(0, sw - self._w() - dp(MARGIN_DP) - n * dp(16)))
+        y0 = float(dp(100) + n * dp(16))
+        self.px = x0
+        self.py = y0
+        if not (self.own_window and self._add_own_window(act, x0, y0)):
+            self.own_window = False
+            self.host.addView(root, FrameLayout.LayoutParams(self._w(), self._h()))
+            root.setX(x0)
+            root.setY(y0)
+        if not self.own_window:
+            self.host.addView(self.icon, FrameLayout.LayoutParams(self.isz, self.isz))
+            self.icon.setVisibility(View.GONE)
+
+        for r in _sheet_roots(self.sheet):
+            try:
+                r.setVisibility(View.GONE)
+            except Exception:
+                pass
+        if self.is_site:
+            self._hide_site_leftovers(True)
+            for d in (0, 50, 200, 600):
+                run_on_ui_thread(self._repaint, d)
+            run_on_ui_thread(self._allow_draw_content, 40)
+            if SITE_FIX:
+                # sheet "healing" steps (see _exp): the chat under the window starts to be drawn
+                for d, n in ((120, 1), (350, 2), (600, 3)):
+                    run_on_ui_thread(lambda nn=n: self._exp(nn), d)
+            if STALE_FIX:
+                run_on_ui_thread(self._refresh_surface, 350)
+
+        self.active = True
+        self.plugin.windows[id(self.sheet)] = self
+        self._show_overlay(True)
+        self._schedule_hide(2500)
+
+    # ----- animation -----
+    def _animate_to(self, x1, y1, s1, dur=200):
+        x0 = self.px
+        y0 = self.py
+        s0 = self.scale
+        self._anim_seq += 1
+        my = self._anim_seq
+
+        def step(f):
+            # the animation lives until it is cancelled (touching a corner/strip, a resize gesture,
+            # minimizing). Otherwise the 200 ms settle fights the finger for the window position,
+            # and the panel twitches sideways a little while stretching
+            if not self.active or my != self._anim_seq or self.gesture:
+                return
+            self._apply_scale(s0 + (s1 - s0) * f, False)
+            self._set_pos(x0 + (x1 - x0) * f, y0 + (y1 - y0) * f)
+
+        if self.own_window and abs(s1 - s0) > 0.001:
+            self._gesture_begin()
+
+            def gend():
+                # we finish the "temporary big window" only if the animation was not interrupted by a gesture
+                if my == self._anim_seq:
+                    self._gesture_end()
+
+            run_on_ui_thread(gend, dur + 80)
+        va = ValueAnimator.ofFloat(0.0, 1.0)
+        va.setDuration(dur)
+        va.addUpdateListener(_AnimUpd(step))
+        va.start()
+
+    # ----- control panel -----
+    def _show_overlay(self, show):
+        for v in self.overlay:
+            v.setVisibility(View.VISIBLE if show else View.GONE)
+        self.overlay_on = show
+
+    def _schedule_hide(self, delay):
+        self.token += 1
+        t = self.token
+
+        def hide():
+            if self.active and self.token == t:
+                self._show_overlay(False)
+
+        run_on_ui_thread(hide, delay)
+
+    def _hold_overlay(self):
+        self.token += 1
+
+    # ----- strips: free movement -----
+    def _on_handle_touch(self, v, e):
+        a = e.getActionMasked()
+        st = self.hstate
+        if a == MotionEvent.ACTION_DOWN:
+            self._front()
+            self._anim_seq += 1  # the finger grabbed the strip: we cancel the running position settle
+            st["dx"] = self.px - e.getRawX()
+            st["dy"] = self.py - e.getRawY()
+            st["rx"] = e.getRawX()
+            st["ry"] = e.getRawY()
+            st["moved"] = False
+            st["n"] = 0
+            return True
+        if a == MotionEvent.ACTION_MOVE:
+            if not st.get("moved") and abs(e.getRawX() - st["rx"]) + abs(e.getRawY() - st["ry"]) > self.dp(6):
+                st["moved"] = True
+            if st.get("moved"):
+                st["n"] = st.get("n", 0) + 1
+                # the window moves anywhere: we just do not let it go off the screen
+                x, y = self._clamp_xy(e.getRawX() + st["dx"], e.getRawY() + st["dy"])
+                self._set_pos(x, y)
+                if not self.own_window:
+                    if self.is_site:
+                        self._repaint()
+                    else:
+                        try:
+                            self.host.invalidate()
+                        except Exception:
+                            pass
+                self._show_overlay(True)
+                self._hold_overlay()
+            return True
+        if a in (MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL):
+            if st.get("moved"):
+                self._finish_drag()
+            elif self.overlay_on:
+                self._show_overlay(False)
+            else:
+                self._show_overlay(True)
+                self._schedule_hide(3500)
+            return True
+        return False
+
+    def _finish_drag(self):
+        x, y = self._clamp_xy(self.px, self.py)
+        self._animate_to(x, y, self.scale)
+
+    # ----- mini circle -----
+    def _iconify(self, side):
+        self._gesture_end()
+        self._anim_seq += 1  # minimizing: the running position settle is no longer needed
+        sw, sh = self._dims()
+        isz = self.isz
+        y = self.py + self._h() / 2.0 - isz / 2.0
+        y = max(0.0, min(y, float(sh - isz)))
+        self.iconified = True
+        self._set_root_visible(False)
+        x = float(self.dp(4)) if side == "left" else float(sw - isz - self.dp(4))
+        if self.own_window and self.wm is not None:
+            self.icon_win = self._icon_window_add(x, y)
+        if self.icon_win:
+            self.icon.setVisibility(View.VISIBLE)
+            self._icon_set_pos(x, y)
+        else:
+            self._icon_set_pos(x, y)
+            self.icon.setVisibility(View.VISIBLE)
+            self.icon.bringToFront()
+        run_on_ui_thread(self._allow_draw_content, 60)
+
+    def _on_icon_touch(self, v, e):
+        a = e.getActionMasked()
+        st = self.istate
+        sw, sh = self._dims()
+        isz = self.isz
+        if a == MotionEvent.ACTION_DOWN:
+            if not self.icon_win:
+                self.icon.bringToFront()
+            st["dx"] = self.ix - e.getRawX()
+            st["dy"] = self.iy - e.getRawY()
+            st["rx"] = e.getRawX()
+            st["ry"] = e.getRawY()
+            st["moved"] = False
+            return True
+        if a == MotionEvent.ACTION_MOVE:
+            if not st.get("moved") and abs(e.getRawX() - st["rx"]) + abs(e.getRawY() - st["ry"]) > self.dp(6):
+                st["moved"] = True
+            if st.get("moved"):
+                self._icon_set_pos(max(0.0, min(e.getRawX() + st["dx"], float(sw - isz))),
+                                   max(0.0, min(e.getRawY() + st["dy"], float(sh - isz))))
+            return True
+        if a in (MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL):
+            if st.get("moved"):
+                left = self.ix + isz / 2.0 < sw / 2.0
+                tx = float(self.dp(4)) if left else float(sw - isz - self.dp(4))
+                self._icon_animate_x(tx)
+                run_on_ui_thread(self._allow_draw_content, 60)
+            else:
+                self._expand_from_icon()
+            return True
+        return False
+
+    def _expand_from_icon(self):
+        sw, sh = self._dims()
+        isz = self.isz
+        w = self._w()
+        h = self._h()
+        margin = self.dp(MARGIN_DP)
+        left = self.ix + isz / 2.0 < sw / 2.0
+        x = float(margin) if left else float(sw - w - margin)
+        y = self.iy + isz / 2.0 - h / 2.0
+        self.iconified = False
+        self.icon.setVisibility(View.GONE)
+        self._icon_window_remove()
+        self._set_root_visible(True)
+        self._front()
+        x, y = self._clamp_xy(x, y)
+        self._set_pos(x, y)
+        self._show_overlay(True)
+        self._schedule_hide(2500)
+
+    def _invalidate_deep(self, v, state, depth=0):
+        """Invalidate every view of the subtree: a plain decor.invalidate() does not make the children
+        rewrite their display lists, and the area under the hidden sheet can keep a stale picture."""
+        if v is None or depth > 40 or state[0] > 6000:
+            return
+        state[0] += 1
+        try:
+            v.invalidate()
+        except Exception:
+            pass
+        try:
+            n = int(v.getChildCount())
+        except Exception:
+            return
+        for i in range(n):
+            try:
+                self._invalidate_deep(v.getChildAt(i), state, depth + 1)
+            except Exception:
+                pass
+
+    def _allow_draw_content(self):
+        return  # disabled: it changes private Telegram flags under the sheet
+
+    def _find_field(self, obj, name):
+        c = obj.getClass()
+        while c is not None:
+            try:
+                f = c.getDeclaredField(name)
+                f.setAccessible(True)
+                return f
+            except Exception:
+                c = c.getSuperclass()
+        return None
+
+    def _find_by_class(self, root, name, depth=0):
+        if root is None or depth > 10:
+            return None
+        try:
+            if _cname(root) == name:
+                return root
+            n = int(root.getChildCount())
+        except Exception:
+            return None
+        for i in range(n):
+            try:
+                r = self._find_by_class(root.getChildAt(i), name, depth + 1)
+                if r is not None:
+                    return r
+            except Exception:
+                pass
+        return None
+
+    def _restore_saved_fields(self):
+        """Return to Telegram everything we temporarily replaced (called before closing/expanding)."""
+        try:
+            for obj, f, old, label in list(self._saved_fields):
+                try:
+                    if isinstance(old, bool):
+                        f.setBoolean(obj, old)
+                    else:
+                        f.set(obj, old)
+                except Exception:
+                    pass
+            self._saved_fields = []
+        except Exception:
+            pass
+        try:
+            if self._layer2 is not None:
+                self._layer2.setVisibility(View.VISIBLE)
+                self._layer2 = None
+        except Exception:
+            pass
+
+    def _exp(self, n):
+        """"Healing" steps after minimizing a site; they stay applied until closing/expanding."""
+        if not self.active:
+            return
+        try:
+            d = _activity().getWindow().getDecorView()
+            ab = self._find_by_class(d, "ActionBarLayout")
+            if ab is None:
+                return
+            chat_c = None
+            layer2 = None
+            for i in range(int(ab.getChildCount())):
+                ch = ab.getChildAt(i)
+                if _cname(ch) != "LayoutContainer":
+                    continue
+                for j in range(int(ch.getChildCount())):
+                    cn = _cname(ch.getChildAt(j))
+                    if cn == "ChatActivityFragmentView":
+                        chat_c = ch
+                    elif cn == "WindowView":
+                        layer2 = ch
+            if n == 1:
+                f = self._find_field(ab, "openingAnimation")
+                if f is not None:
+                    old = bool(f.getBoolean(ab))
+                    self._saved_fields.append((ab, f, old, "openingAnimation"))
+                    f.setBoolean(ab, False)
+                if layer2 is not None:
+                    layer2.setVisibility(View.GONE)
+                    self._layer2 = layer2
+                ab.invalidate()
+            elif n == 2:
+                f = self._find_field(ab, "sheetFragment")
+                if f is not None:
+                    old = f.get(ab)
+                    self._saved_fields.append((ab, f, old, "sheetFragment"))
+                    f.set(ab, None)
+                    ab.invalidate()
+                    if chat_c is not None:
+                        chat_c.invalidate()
+            elif n == 3:
+                ab.requestLayout()
+                if chat_c is not None:
+                    chat_c.requestLayout()
+                    chat_c.invalidate()
+            d.invalidate()
+        except Exception:
+            pass
+
+    def _refresh_surface(self):
+        """Recreate the activity window surface (heals the "stuck" picture of the hidden sheet)."""
+        try:
+            d = _activity().getWindow().getDecorView()
+        except Exception:
+            return
+        try:
+            d.setVisibility(View.INVISIBLE)
+        except Exception:
+            return
+
+        def back():
+            try:
+                d.setVisibility(View.VISIBLE)
+            except Exception:
+                pass
+        run_on_ui_thread(back, 90)
+        run_on_ui_thread(back, 400)
+
+    def _repaint(self, deep=False):
+        """Site: after hiding the sheet, we make the activity window redraw completely."""
+        if deep:
+            self._allow_draw_content()
+        try:
+            act = _activity()
+            d = act.getWindow().getDecorView()
+            d.invalidate()
+            d.requestLayout()
+            if deep:
+                st = [0]
+                self._invalidate_deep(d, st)
+        except Exception:
+            pass
+        if deep:
+            try:
+                fr = get_last_fragment()
+                fv = fr.getFragmentView() if fr is not None else None
+                if fv is not None:
+                    fv.invalidate()
+                    fv.requestLayout()
+            except Exception:
+                pass
+        try:
+            self.host.invalidate()
+        except Exception:
+            pass
+
+    def _siblings(self):
+        out = []
+        try:
+            for r in _sheet_roots(self.sheet):
+                par = r.getParent()
+                if par is None:
+                    continue
+                for i in range(int(par.getChildCount())):
+                    c = par.getChildAt(i)
+                    if c is not r and c is not self.root:
+                        out.append(c)
+        except Exception:
+            pass
+        return out
+
+    def _hide_site_leftovers(self, hide):
+        self.hidden_sibs = []
+        self._hide_site_leftovers2(hide)
+
+    def _find_tabs_overlay(self):
+        try:
+            top = self.host.getChildAt(0)
+            for i in range(int(top.getChildCount())):
+                c = top.getChildAt(i)
+                if "BottomSheetTabsOverlay" in str(c.getClass().getName()):
+                    return c
+        except Exception:
+            pass
+        return None
+
+    def _hide_tabs_overlay(self, hide):
+        """BottomSheetTabsOverlay draws a snapshot of the sheet when "minimizing to a tab"; we cancel
+        dismiss(true), and the overlay stays with a frozen picture of the site over the chat."""
+        try:
+            if hide:
+                ov = self._find_tabs_overlay()
+                self.tabs_overlay = ov
+                if ov is None:
+                    return
+                self.tabs_overlay_vis = int(ov.getVisibility())
+                ov.setVisibility(View.INVISIBLE)
+                ov.invalidate()
+            else:
+                ov = getattr(self, "tabs_overlay", None)
+                if ov is not None:
+                    ov.setVisibility(getattr(self, "tabs_overlay_vis", 0))
+                    ov.invalidate()
+                    self.tabs_overlay = None
+        except Exception:
+            pass
+
+    def _hide_site_leftovers2(self, hide):
+        self._hide_tabs_overlay(hide)
+        """After the WebView is moved out, the site keeps a PageLayout/sheet that draw a "double"."""
+        try:
+            p = self.orig_parent
+            if p is not None:
+                p.setVisibility(View.INVISIBLE if hide else View.VISIBLE)
+        except Exception:
+            pass
+        try:
+            wv = self.sheet.getWindowView()
+            if wv is not None:
+                wv.setVisibility(View.GONE if hide else View.VISIBLE)
+                wv.setAlpha(0.0 if hide else 1.0)
+        except Exception:
+            pass
+
+    def _force_close_site(self):
+        """The site sheet may remain after dismiss(false): we close it in every available way."""
+        try:
+            av = find_class("org.telegram.ui.ArticleViewer")
+            inst = None
+            for gn in ("getInstance", "getInstance"):
+                try:
+                    inst = av.getInstance()
+                    break
+                except Exception:
+                    inst = None
+            if inst is not None:
+                for args in ((False, True), (True, True)):
+                    try:
+                        inst.close(*args)
+                        break
+                    except Exception:
+                        continue
+        except Exception:
+            pass
+        for name, args in (("release", ()),):
+            try:
+                getattr(self.sheet, name)(*args)
+            except Exception:
+                continue
+        for r in _sheet_roots(self.sheet):
+            try:
+                r.setVisibility(View.GONE)
+            except Exception:
+                pass
+
+    def hide_sheet(self):
+        """We do not let the sheet "pop up" (the bar at the bottom) when switching between chats."""
+        if not self.active:
+            return
+        try:
+            for r in _sheet_roots(self.sheet):
+                r.setVisibility(View.GONE)
+        except Exception:
+            pass
+        try:
+            if self.iconified:
+                self.icon.setVisibility(View.VISIBLE)
+                if not self.icon_win:
+                    self.icon.bringToFront()
+            else:
+                self._front()
+        except Exception:
+            pass
+
+    # ----- size: corner zones on the bottom strip (left and right) -----
+    def _resize_touch(self, side):
+        def fn(v, e):
+            a = e.getActionMasked()
+            st = self.gstate
+            if a == MotionEvent.ACTION_DOWN:
+                self._front()
+                self._anim_seq += 1  # the finger grabbed the corner: we cancel the running position settle
+                # we do NOT expand the window right away: before, this was done on every press,
+                # and a simple tap on the corner made the window "blink" at full screen. We expand lazily,
+                # only when the finger really started moving (the first ACTION_MOVE)
+                st["sx"] = e.getRawX()
+                st["sy"] = e.getRawY()
+                st["s0"] = self.scale
+                st["begun"] = False
+                st["n"] = 0
+                st["fm"] = False       # whether the first MOVE has happened (the stretch is counted from it)
+                st["lx"] = e.getRawX() # finger point on the previous event: we accumulate the traveled path
+                st["ly"] = e.getRawY()
+                st["acc"] = 0.0       # path traveled by the finger (for the gesture "ramp-up")
+                # we fix the opposite edge: the left corner pulls left, the right one pulls right
+                if side == "left":
+                    st["ax"] = self.px + self._w()
+                else:
+                    st["ax"] = self.px
+                self._hold_overlay()
+                return True
+            if a == MotionEvent.ACTION_MOVE:
+                if not self.active or self.iconified:
+                    return True
+                st["n"] = st.get("n", 0) + 1
+                if not st.get("fm"):
+                    # the first MOVE often carries the whole accumulated path from the press at once
+                    # (Android batches events), and the panel would jump halfway on it
+                    # of the finger instantly. We do not jump: the stretch is counted from it.
+                    st["fm"] = True
+                    st["sx"] = e.getRawX()
+                    st["sy"] = e.getRawY()
+                st["acc"] += abs(e.getRawX() - st["lx"]) + abs(e.getRawY() - st["ly"])
+                st["lx"] = e.getRawX()
+                st["ly"] = e.getRawY()
+                dx = (st["sx"] - e.getRawX()) if side == "left" else (e.getRawX() - st["sx"])
+                grow = (dx + (e.getRawY() - st["sy"])) / 2.0
+                raw = (st["s0"] * self.lw + grow) / float(self.lw)
+                # gesture "ramp-up": over the first ~14dp of path the scale grows smoothly, from zero to
+                # one. The panel slides out of rest without a jerk, and in the same time
+                # the window manages to enlarge "with a margin" (_gesture_begin) before the first real
+                # growth: before, the first growth frame was drawn into the old small window.
+                ramp = min(1.0, st["acc"] / max(1.0, float(self.dp(14))))
+                raw = st["s0"] + (raw - st["s0"]) * ramp
+                if raw >= self.expand_scale:
+                    # ~60% of the screen: auto-expand to the normal view
+                    self.restore()
+                    return True
+                if raw <= self.collapse_scale:
+                    # ~5% of the screen: auto-minimize to a mini circle
+                    self._iconify(self._side_from_x())
+                    return True
+                if not st.get("begun"):
+                    if st["acc"] <= self.dp(4):
+                        # the finger moved less than 4dp: micro-tremor, the gesture has not started:
+                        # we do not expand the window and do not touch the panel
+                        return True
+                    # the gesture is real: only now we expand the window to the full screen
+                    st["begun"] = True
+                    self._gesture_begin()
+                self._apply_scale(self._clamp_scale(raw), False)
+                if side == "left":
+                    x = st["ax"] - self._w()
+                else:
+                    x = st["ax"]
+                x, y = self._clamp_xy(x, self.py)
+                self._set_pos(x, y)
+                return True
+            if a in (MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL):
+                if st.get("begun"):
+                    self._gesture_end()
+                if self.active and not self.iconified:
+                    self._schedule_hide(2500)
+                return True
+            return False
+        return fn
+
+    # ----- restore / close -----
+    def _detach(self):
+        self.token += 1
+        self._restore_saved_fields()
+        try:
+            if self.container is not None:
+                p = self.container.getParent()
+                if p is not None:
+                    p.removeView(self.container)
+        except Exception:
+            pass
+        try:
+            if self.root is not None:
+                if self.own_window:
+                    self.wm.removeViewImmediate(self.root)
+                elif self.host is not None:
+                    self.host.removeView(self.root)
+        except Exception:
+            pass
+        try:
+            if self.icon_added:
+                self._icon_window_remove()
+            elif self.host is not None and self.icon is not None:
+                self.host.removeView(self.icon)
+        except Exception:
+            pass
+        try:
+            if self.own_window and self.container is not None:
+                self.container.setOnTouchListener(None)
+        except Exception:
+            pass
+        self.plugin.windows.pop(id(self.sheet), None)
+        self.active = False
+
+    def restore(self):
+        if not self.active:
+            return
+        self._detach()
+        try:
+            if self.orig_lp is not None:
+                self.orig_parent.addView(self.container, self.orig_index, self.orig_lp)
+            else:
+                self.orig_parent.addView(self.container, self.orig_index)
+        except Exception:
+            pass
+        if self.is_site:
+            self._hide_site_leftovers(False)
+            try:
+                if getattr(self, "old_layer", None) is not None:
+                    self.container.setLayerType(self.old_layer, None)
+            except Exception:
+                pass
+        for r in _sheet_roots(self.sheet):
+            try:
+                r.setVisibility(View.VISIBLE)
+            except Exception:
+                pass
+
+    def _dismiss_sheet(self):
+        # sheets have different signatures: dismiss() / dismiss(boolean) / dismiss(boolean, Runnable)
+        for args in ((False,), (), (False, None)):
+            try:
+                self.sheet.dismiss(*args)
+                return
+            except Exception:
+                continue
+
+    def close(self):
+        if not self.active:
+            return
+        site = self.is_site
+        self.restore()
+        self._dismiss_sheet()
+        if site:
+            run_on_ui_thread(self._force_close_site, 120)
+
+
+# ---------------- hooks ----------------
+_SKIP_FRAMES = (
+    "java.lang.Thread", "dalvik.system", "PyObject", "PyMethodHook", "HookCallbackDispatcher",
+    "XposedBridge", "LSPHooker", "com.chaquo", "java.lang.reflect", "$Proxy",
+)
+
+
+def _stack_info():
+    """Returns (class.method of the caller, whether ActionBarMenu is in the stack)."""
+    caller = ""
+    caller_cls = ""
+    caller_m = ""
+    menu = False
+    st = Thread.currentThread().getStackTrace()
+    for i in range(len(st)):
+        e = st[i]
+        cn = str(e.getClassName())
+        mn = str(e.getMethodName())
+        if "ActionBarMenu" in cn:
+            menu = True
+        if caller:
+            continue
+        if any(s in cn for s in _SKIP_FRAMES):
+            continue
+        caller_cls, caller_m = cn, mn
+        caller = cn.split(".")[-1] + "." + mn
+    return caller, caller_cls, caller_m, menu
+
+
+class DismissHook(MethodHook):
+    """dismiss() of the sheet.
+
+    1) If it was called by the native "minimize down" arrow button (a header menu item)
+       or by the site minimize button in the built-in browser (dismiss(true) -
+       minimizing to a tab pill), we cancel the closing and minimize into a floating window.
+       Sites in the Telegram browser open in the same BotWebViewSheet,
+       so the floating window works for them exactly the same.
+    2) If the window is already floating, ANY dismiss (including LaunchActivity.dismissAllWeb when
+       switching to another chat) is blocked: otherwise the sheet "pops up" as a bar from the bottom
+       and kills the mini app/site behind the floating window.
+    We do not touch the left cross (onCheckDismissByUser) and the swipe while the window is not active.
+    """
+
+    def __init__(self, plugin, name, intercept, tabs=False):
+        super().__init__()
+        self.plugin = plugin
+        self.name = name
+        self.intercept = intercept
+        self.tabs = tabs  # dismiss(boolean) is the browser "minimize to a tab" path
+
+    def before_hooked_method(self, param):
+        try:
+            _, ccls, cm, menu = _stack_info()
+            sheet = param.thisObject
+            win = getattr(self.plugin, "windows", {}).get(id(sheet))
+            if win is not None and win.active:
+                # the window is floating: the sheet is forbidden to close and to show
+                first = None
+                try:
+                    a0 = param.args[0] if (param.args and len(param.args) > 0) else None
+                    if isinstance(a0, bool):
+                        first = a0
+                except Exception:
+                    first = None
+                # the site's own buttons inside the window are ArticleViewer lambdas (user actions)
+                user_ui = ccls == "org.telegram.ui.ArticleViewer" and cm.startswith("lambda$")
+                if cm in ("onCloseRequested", "onClose") or (user_ui and first is False):
+                    # the mini app asks to close itself or "close" is pressed in the window: we really close it
+                    if win.is_site:
+                        # for a site, a single dismiss is not enough: the sheet stays visible. We block this call and
+                        # close by the full path (return the WebView -> dismiss -> ArticleViewer.close -> release)
+                        try:
+                            param.setResult(None)
+                        except Exception:
+                            win.restore()
+                            return
+                        run_on_ui_thread(win.close, 10)
+                        return
+                    win.restore()
+                    return
+                if user_ui and first is True:
+                    # the site's own "minimize" button inside the window: we minimize the window into a mini circle
+                    try:
+                        param.setResult(None)
+                    except Exception:
+                        return
+                    run_on_ui_thread(lambda w=win: w._iconify(w._side_from_x()), 30)
+                    return
+                try:
+                    param.setResult(None)
+                except Exception:
+                    return
+                run_on_ui_thread(lambda w=win: w.hide_sheet(), 60)
+                return
+            take = False
+            if (
+                self.intercept
+                and self.plugin.get_setting("enabled", True)
+                and id(sheet) not in self.plugin.windows
+            ):
+                if menu and "BotWebViewSheet$" in ccls and cm == "onItemClick":
+                    # the "minimize down" arrow in the mini app header
+                    take = True
+                elif self.tabs and param.args and len(param.args) > 0:
+                    # site in the browser: dismiss(true) means the user minimizes the tab
+                    try:
+                        # dismiss() itself calls dismiss(true): this is not "minimize", we skip it
+                        take = bool(param.args[0]) and not (cm == "dismiss" and "Sheet" in ccls)
+                    except Exception:
+                        take = False
+            if not take:
+                return
+            try:
+                param.setResult(None)
+            except Exception:
+                return
+            run_on_ui_thread(lambda s=sheet: FloatingWindow(self.plugin, s).minimize(), 30)
+        except Exception:
+            pass
+
+
+class MiniAppFloatPlugin(BasePlugin):
+    def on_plugin_load(self):
+        self.windows = {}
+        self._hook_refs = []
+        for name in SHEET_CLASSES:
+            try:
+                cls = find_class(name)
+            except Exception:
+                cls = None
+            if cls is None:
+                continue
+            short = name.split(".")[-1]
+            try:
+                for m in list(cls.getClass().getDeclaredMethods()):
+                    mn = str(m.getName())
+                    if mn == "dismiss":
+                        tabs = False
+                        try:
+                            pt = list(m.getParameterTypes())
+                            tabs = bool(pt) and "boolean" in str(pt[0])
+                        except Exception:
+                            tabs = False
+                        self._hook_refs.append(self.hook_method(
+                            m, DismissHook(self, short + ".dismiss", True, tabs)))
+                    elif mn == "onCheckDismissByUser":
+                        self._hook_refs.append(self.hook_method(
+                            m, DismissHook(self, short + ".onCheckDismissByUser", False)))
+            except Exception:
+                pass
+        # sites in the browser and the "to a tab pill" path
+        try:
+            self._install_site_hooks()
+        except Exception:
+            pass
+        # first launch: suggest a restart so the hooks are applied for sure
+        try:
+            if not self.get_setting("restart_sheet_first_install_done", False):
+                run_on_ui_thread(lambda: self._show_restart_sheet(), 1800)
+        except Exception:
+            pass
+
+    def _install_site_hooks(self):
+        # a site in the Telegram browser is ArticleViewer$Sheet, not BotWebViewSheet
+        for cn in ("org.telegram.ui.ArticleViewer$Sheet",):
+            try:
+                cls = find_class(cn)
+            except Exception:
+                cls = None
+            if cls is None:
+                continue
+            try:
+                for m in list(cls.getClass().getDeclaredMethods()):
+                    if str(m.getName()) != "dismiss":
+                        continue
+                    tabs = False
+                    try:
+                        pt = list(m.getParameterTypes())
+                        tabs = bool(pt) and "boolean" in str(pt[0])
+                    except Exception:
+                        tabs = False
+                    self._hook_refs.append(self.hook_method(
+                        m, DismissHook(self, "ArticleViewer$Sheet.dismiss", True, tabs)))
+            except Exception:
+                pass
+
+    def on_plugin_unload(self):
+        # we remove the hooks, otherwise after updating the plugin "on the fly"
+        # the old hooks of the previous version stay hanging
+        for ref in list(getattr(self, "_hook_refs", [])):
+            try:
+                self.unhook_method(ref)
+            except Exception:
+                pass
+        self._hook_refs = []
+        for w in list(getattr(self, "windows", {}).values()):
+            try:
+                w.restore()
+            except Exception:
+                pass
+        self.windows = {}
+
+    # ---------- UI elements ----------
+
+    def _theme_col(self, name, fallback):
+        try:
+            from org.telegram.ui.ActionBar import Theme
+            return Theme.getColor(getattr(Theme, name))
+        except Exception:
+            return fallback
+
+    def _ui_context(self):
+        try:
+            frag = get_last_fragment()
+            ctx = frag.getContext() if frag else None
+            if ctx is not None:
+                return ctx
+        except Exception:
+            pass
+        from org.telegram.messenger import ApplicationLoader
+        return ApplicationLoader.applicationContext
+
+    def _label(self, ctx, text, color, size, medium=False):
+        tv = TextView(ctx)
+        tv.setText(text)
+        tv.setTextColor(color)
+        tv.setTextSize(2, float(size))
+        if medium:
+            try:
+                tv.setTypeface(AndroidUtilities.getTypeface("fonts/rmedium.ttf"))
+            except Exception:
+                tv.setTypeface(Typeface.DEFAULT_BOLD)
+        return tv
+
+    def _header_sticker(self, ctx):
+        """A sticker from the STICKER_SET set above the plugin name."""
+        holder = FrameLayout(ctx)
+        try:
+            from org.telegram.ui.Components import BackupImageView
+            image = BackupImageView(ctx)
+            holder.addView(image, FrameLayout.LayoutParams(-1, -1))
+            self._load_header_sticker(image, holder)
+        except Exception:
+            holder.setVisibility(View.GONE)
+        return holder
+
+    def _show_header_sticker(self, image, doc):
+        try:
+            from org.telegram.messenger import ImageLocation
+            mime = str(doc.mime_type) if doc.mime_type else ""
+            flt = "100_100_pcache" if "video" in mime else "100_100"
+            image.setImage(ImageLocation.getForDocument(doc), flt, ColorDrawable(0), doc)
+            try:
+                image.getImageReceiver().setAutoRepeat(1)
+            except Exception:
+                pass
+        except Exception:
+            pass
+
+    def _load_header_sticker(self, image, holder):
+        doc = getattr(self, "_sticker_doc", None)
+        if doc is not None:
+            self._show_header_sticker(image, doc)
+            return
+        try:
+            from org.telegram.tgnet import TLRPC
+            from client_utils import send_request
+            req = TLRPC.TL_messages_getStickerSet()
+            inp = TLRPC.TL_inputStickerSetShortName()
+            inp.short_name = STICKER_SET
+            req.stickerset = inp
+            req.hash = 0
+
+            def done(response, error):
+                try:
+                    docs = response.documents if (response is not None and not error) else None
+                    if docs is None or docs.size() == 0:
+                        run_on_ui_thread(lambda: holder.setVisibility(View.GONE))
+                        return
+                    idx = max(0, min(STICKER_INDEX, docs.size() - 1))
+                    d = docs.get(idx)
+                    self._sticker_doc = d
+                    run_on_ui_thread(lambda: self._show_header_sticker(image, d))
+                except Exception:
+                    pass
+            send_request(req, done)
+        except Exception:
+            holder.setVisibility(View.GONE)
+
+    def _header_item(self):
+        try:
+            from ui.settings import Custom
+            ctx = self._ui_context()
+            layout = LinearLayout(ctx)
+            layout.setOrientation(1)
+            layout.setGravity(Gravity.CENTER)
+            layout.setPadding(AndroidUtilities.dp(16), AndroidUtilities.dp(24),
+                              AndroidUtilities.dp(16), AndroidUtilities.dp(16))
+            try:
+                # sticker above the plugin name
+                layout.addView(self._header_sticker(ctx),
+                               LinearLayout.LayoutParams(AndroidUtilities.dp(100), AndroidUtilities.dp(100)))
+            except Exception:
+                pass
+            for text, key, fb, size, top, bold in (
+                    ("Mini App Float v" + __version__, "key_windowBackgroundWhiteBlackText", -16777216, 20.0, 12, True),
+                    (_mz_t("Міні-застосунки та сайти в плаваючому вікні.", "Mini apps and sites in a floating window.", "Мини-аппы и сайты в плавающем окне."),
+                     "key_windowBackgroundWhiteGrayText2", -7829368, 13.5, 4, False)):
+                view = self._label(ctx, text, self._theme_col(key, fb), size, bold)
+                view.setGravity(Gravity.CENTER)
+                view.setPadding(0, AndroidUtilities.dp(top), 0, 0)
+                layout.addView(view)
+            try:
+                from org.telegram.ui.Components import UItem
+                item = UItem.asCustom(layout)
+                item.transparent = True
+                return Custom(item=item)
+            except Exception:
+                return Custom(view=layout)
+        except Exception:
+            return Header(text="Mini App Float")
+
+    # ---------- "Support" (a window like in Plugin Editor) ----------
+
+    _SUPPORT_USER = "PLOXOI_RRO"
+    _SUPPORT_URL = "https://t.me/PLOXOI_RRO"
+
+    def _show_support(self):
+        def show():
+            ctx = _activity()
+            if ctx is None:
+                return
+            try:
+                from org.telegram.ui.ActionBar import BottomSheet
+                root, image, button = self._support_view(ctx)
+                builder = BottomSheet.Builder(ctx)
+                builder.setCustomView(root)
+                sheet = builder.show()
+
+                def go(view):
+                    try:
+                        sheet.dismiss()
+                    except Exception:
+                        pass
+                    self._open_support_chat(ctx)
+                button.setOnClickListener(OnClickListener(go))
+                self._load_support_avatar(image)
+            except Exception:
+                pass
+        run_on_ui_thread(show)
+
+    def _open_support_chat(self, ctx):
+        try:
+            from org.telegram.messenger.browser import Browser
+            Browser.openUrl(ctx, self._SUPPORT_URL)
+        except Exception:
+            pass
+
+    def _support_view(self, ctx):
+        from org.telegram.ui.Components import BackupImageView
+        text_color = self._theme_col("key_dialogTextBlack", -16777216)
+        hint_color = self._theme_col("key_dialogTextGray2", -7829368)
+        root = LinearLayout(ctx)
+        root.setOrientation(1)
+        root.setPadding(AndroidUtilities.dp(24), AndroidUtilities.dp(20),
+                        AndroidUtilities.dp(24), AndroidUtilities.dp(20))
+
+        def add(view, top=0, width=-1, height=-2, gravity=None):
+            lp = LinearLayout.LayoutParams(width, height)
+            lp.topMargin = AndroidUtilities.dp(top)
+            if gravity is not None:
+                lp.gravity = gravity
+            root.addView(view, lp)
+
+        image = BackupImageView(ctx)
+        image.setRoundRadius(AndroidUtilities.dp(48))
+        placeholder = GradientDrawable()
+        placeholder.setShape(1)
+        placeholder.setColor(self._theme_col("key_dialogBackgroundGray", 0x14808080))
+        image.setBackground(placeholder)
+        add(image, 0, AndroidUtilities.dp(96), AndroidUtilities.dp(96), Gravity.CENTER_HORIZONTAL)
+
+        title = self._label(ctx, _mz_t("Підтримати автора", "Support the author", "Поддержать автора"), text_color, 22.0, True)
+        title.setGravity(Gravity.CENTER)
+        add(title, 16)
+        subtitle = self._label(
+            ctx, _mz_t("Дякую, що користуєтесь моїми плагінами. Якщо вони вам корисні, дайте знати.", "Thank you for using my plugins. If you find them useful, let me know.", "Спасибо, что пользуетесь моими плагинами. Если они вам полезны, дайте знать."),
+            hint_color, 15.0)
+        subtitle.setGravity(Gravity.CENTER)
+        subtitle.setLineSpacing(0.0, 1.15)
+        add(subtitle, 8)
+
+        points = (("msg_stats", _mz_t("Ваша підтримка допомагає мені робити плагіни кращими та складнішими", "Your support helps me make better and more complex plugins", "Ваша поддержка помогает мне делать плагины лучше и сложнее")),
+                  ("msg_gift_premium", _mz_t("Будь-яка допомога важлива, від подарунка до доброго слова", "Any help matters, from a gift to a kind word", "Любая помощь важна, от подарка до доброго слова")),
+                  ("msg_info", _mz_t("Якщо виникли проблеми або хочете щось покращити, пишіть у приватні повідомлення, завжди відповім", "If you have problems or want to improve something, message me privately, I always reply", "Если возникли проблемы или хотите что-то улучшить — пишите в ЛС, всегда отвечу")))
+        for index, (icon, text) in enumerate(points):
+            row = LinearLayout(ctx)
+            icon_lp = LinearLayout.LayoutParams(AndroidUtilities.dp(26), AndroidUtilities.dp(26))
+            icon_lp.setMargins(AndroidUtilities.dp(9), 0, AndroidUtilities.dp(9), 0)
+            row.addView(self._icon_view(ctx, icon, text_color), icon_lp)
+            body = self._label(ctx, text, text_color, 15.5)
+            body.setLineSpacing(0.0, 1.15)
+            body.setPadding(AndroidUtilities.dp(8), 0, 0, 0)
+            row.addView(body, LinearLayout.LayoutParams(0, -2, 1.0))
+            add(row, 16 if index else 22)
+
+        color = self._theme_col("key_featuredStickers_addButton", -11037236)
+        pressed = self._theme_col("key_featuredStickers_addButtonPressed", color)
+        button = self._label(ctx, _mz_t("Написати в приватні", "Message me", "Написать в ЛС"),
+                             self._theme_col("key_featuredStickers_buttonText", -1), 16.0, True)
+        button.setGravity(Gravity.CENTER)
+        button.setClickable(True)
+        try:
+            from org.telegram.ui.ActionBar import Theme
+            button.setBackground(Theme.createSimpleSelectorRoundRectDrawable(
+                AndroidUtilities.dp(14), color, pressed))
+        except Exception:
+            shape = GradientDrawable()
+            shape.setColor(color)
+            shape.setCornerRadius(float(AndroidUtilities.dp(14)))
+            button.setBackground(shape)
+        add(button, 28, -1, AndroidUtilities.dp(52))
+        return root, image, button
+
+    def _icon_view(self, ctx, name, color):
+        from android.graphics import PorterDuff, PorterDuffColorFilter
+        from android.widget import ImageView
+        view = ImageView(ctx)
+        try:
+            res = ctx.getResources()
+            rid = res.getIdentifier(name, "drawable", ctx.getPackageName())
+            if rid:
+                drawable = res.getDrawable(rid).mutate()
+                drawable.setColorFilter(PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN))
+                view.setImageDrawable(drawable)
+        except Exception:
+            pass
+        return view
+
+    def _load_support_avatar(self, image):
+        # The author's avatar from Telegram; if not found, a gray circle.
+        try:
+            from org.telegram.messenger import MessagesController, UserConfig
+            from org.telegram.tgnet import TLRPC
+            from client_utils import send_request
+
+            account = UserConfig.selectedAccount
+            controller = MessagesController.getInstance(account)
+
+            def show(obj):
+                def display():
+                    try:
+                        from org.telegram.ui.Components import AvatarDrawable
+                        drawable = AvatarDrawable()
+                        drawable.setInfo(account, obj)
+                        image.setForUserOrChat(obj, drawable)
+                    except Exception:
+                        pass
+                run_on_ui_thread(display)
+
+            obj = controller.getUserOrChat(self._SUPPORT_USER)
+            if obj is not None:
+                show(obj)
+                return
+            request = TLRPC.TL_contacts_resolveUsername()
+            request.username = self._SUPPORT_USER
+
+            def resolved(response, error):
+                try:
+                    if error or response is None:
+                        return
+                    if response.users.size() > 0:
+                        controller.putUsers(response.users, False)
+                        show(response.users.get(0))
+                    elif response.chats.size() > 0:
+                        controller.putChats(response.chats, False)
+                        show(response.chats.get(0))
+                except Exception:
+                    pass
+            send_request(request, resolved)
+        except Exception:
+            pass
+
+    # ----- instructions -----
+    _INSTRUCTION = "\n".join((
+        _mz_t("1. Натисніть стрілку вниз (або проведіть пальцем вниз) у шапці міні-застосунку, і він згорнеться у плаваюче вікно. Сайт у вбудованому браузері згортається так само: кнопкою згортання вкладки. Хрестик закриває як зазвичай.", "1. Tap the down arrow (or swipe down) in the mini app header and it minimizes into a floating window. A site in the built-in browser minimizes the same way, with the tab minimize button. The cross closes as usual.", "1. Нажмите стрелку вниз (или используйте свайп вниз) в шапке мини-аппа — он свернётся в плавающее окно. Сайт во встроенном браузере сворачивается так же — кнопкой сворачивания вкладки. Крестик закрывает как обычно."),
+        _mz_t("2. Верхня або нижня смужка: перетягніть вікно в будь-яке місце екрана. Дотик до смужки відкриває панель (✕ закриває вікно).", "2. Top or bottom strip: drag the window anywhere on the screen. Tapping the strip opens the panel (✕ closes the window).", "2. Верхняя или нижняя полоска — перетащите окно в любое место экрана. Тап по полоске — панель (✕ — закрыть окно)."),
+        _mz_t("3. Розмір: потягніть за нижній кут вікна (ліворуч або праворуч): вниз і вбік вікно збільшується, вгору і до центру зменшується.", "3. Size: drag the bottom corner of the window (left or right): down and outward makes the window bigger, up and toward the center makes it smaller.", "3. Размер: потяните за нижний угол окна (слева или справа) — вниз и в сторону окно растёт, вверх и к центру — уменьшается."),
+        _mz_t("4. Розтягнули приблизно до 80% екрана, і вікно автоматично розгорнеться у звичайний вигляд.", "4. Stretch it to about 80% of the screen and the window automatically expands to the normal view.", "4. Растянули примерно до 80% экрана — окно автоматически развернётся в обычный вид."),
+        _mz_t("5. Зменшили приблизно до 5% екрана, і вікно автоматично згорнеться в міні-коло: у міні-застосунку це аватарка бота, у сайту це літера назви.", "5. Shrink it to about 5% of the screen and the window automatically collapses into a mini circle: the bot avatar for a mini app, the first letter of the title for a site.", "5. Уменьшили примерно до 5% экрана — окно автоматически свернётся в мини-круг: у мини-аппа — аватарка бота, у сайта — буква названия."),
+        _mz_t("6. Дотик до міні-кола повертає вікно. Коло можна перетягувати.", "6. Tapping the mini circle brings the window back. The circle can be dragged.", "6. Тап по мини-кругу возвращает окно. Круг можно перетаскивать."),
+        _mz_t("7. Якщо сайт не згортається, увімкніть «Браузер Telegram», дозвольте «Поверх інших застосунків» і перезапустіть застосунок.", "7. If a site does not minimize, turn on \"Telegram browser\", allow \"Display over other apps\" and restart the app.", "7. Если сайт не сворачивается — включите «Браузер Telegram», разрешите «Поверх приложений» и перезапустите приложение."),
+    ))
+
+    def show_instruction(self, view=None):
+        def run():
+            try:
+                act = _activity()
+                if act is None:
+                    return
+                b = AlertDialogBuilder(act)
+                b.set_title(_mz_t("Як користуватися", "How to use", "Как пользоваться"))
+                b.set_message(self._INSTRUCTION)
+                b.set_positive_button(_mz_t("Зрозуміло", "Got it", "Понятно"), lambda bld, w: bld.dismiss())
+                b.show()
+            except Exception:
+                pass
+
+        run_on_ui_thread(run)
+
+    # ----- quick buttons to settings -----
+    def _open_overlay_permission(self, view=None):
+        """System screen "Display over other apps" for Telegram."""
+        def run():
+            try:
+                from android.content import Intent
+                from android.net import Uri
+                from android.provider import Settings as AndroidSettings
+                act = _activity()
+                ctx = act if act is not None else self._ui_context()
+                i = Intent(AndroidSettings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                           Uri.parse("package:" + str(ctx.getPackageName())))
+                i.addFlags(0x10000000)  # FLAG_ACTIVITY_NEW_TASK
+                ctx.startActivity(i)
+            except Exception:
+                pass
+        run_on_ui_thread(run)
+
+    def _open_browser_settings(self, view=None):
+        """The "Telegram browser" row: turns on opening links inside Telegram.
+
+        First we try to open the browser settings screen (it differs between clients:
+        WebBrowserSettings in recent official ones, ChatSettings in old ones).
+        If the build has no such screen (for example in exteraGram 13.x both classes are missing),
+        we manage the setting directly: the SharedConfig.inappBrowser flag, by which
+        Telegram decides whether to open links in the built-in browser."""
+        def run():
+            try:
+                frag = get_last_fragment()
+                page = None
+                if frag is not None:
+                    from org.telegram.messenger import UserConfig
+                    for cn in ("org.telegram.ui.web.WebBrowserSettings",
+                               "org.telegram.ui.ChatSettings"):
+                        try:
+                            cls = find_class(cn)
+                        except Exception:
+                            cls = None
+                        if cls is None:
+                            continue
+                        # the screens have different constructors: we try them all in turn
+                        for ctor in ((None,), (), (UserConfig.selectedAccount,)):
+                            try:
+                                page = cls(*ctor)
+                                break
+                            except Exception:
+                                page = None
+                        if page is not None:
+                            break
+                    if page is not None:
+                        try:
+                            if frag.presentFragment(page):
+                                return
+                        except Exception:
+                            pass
+                # there is no settings screen in this build: we turn the setting on directly
+                self._browser_flag_dialog()
+            except Exception:
+                self.show_instruction()
+        run_on_ui_thread(run)
+
+    def _browser_flag(self):
+        """True/False: opening links in the built-in Telegram browser; None: the flag is unavailable."""
+        try:
+            from org.telegram.messenger import SharedConfig
+            return bool(SharedConfig.inappBrowser)
+        except Exception:
+            return None
+
+    def _browser_flag_set(self, on):
+        """True: the built-in browser setting was changed successfully."""
+        try:
+            from org.telegram.messenger import SharedConfig
+            try:
+                # recent builds: SharedConfig has a setter that saves the value itself
+                SharedConfig.setInappBrowser(on)
+                return True
+            except Exception:
+                pass
+            try:
+                # builds without a setter: we write the field directly and ask to save the config
+                SharedConfig.inappBrowser = on
+                try:
+                    SharedConfig.saveConfig()
+                except Exception:
+                    pass
+                return True
+            except Exception:
+                return False
+        except Exception:
+            return False
+
+    def _browser_flag_dialog(self):
+        """No browser settings screen: we show the state of the setting and turn it on with one tap."""
+        def run():
+            try:
+                act = _activity()
+                if act is None:
+                    self.show_instruction()
+                    return
+                cur = self._browser_flag()
+                b = AlertDialogBuilder(act)
+                b.set_title(_mz_t("Браузер Telegram", "Telegram browser", "Браузер Telegram"))
+                if cur is None:
+                    b.set_message(_mz_t("У цій збірці немає екрана налаштувань браузера, і плагін не може увімкнути його автоматично. Відкрийте налаштування клієнта й увімкніть відкриття посилань усередині Telegram (пункт «Браузер» або «Вбудований браузер»).", "This build has no browser settings screen, and the plugin cannot turn it on automatically. Open the client settings and turn on opening links inside Telegram (the \"Browser\" or \"Built-in browser\" item).", ("В этой сборке нет экрана настроек браузера, и плагин не может "
+                                  "включить его автоматически. Откройте настройки клиента и включите "
+                                  "открытие ссылок внутри Telegram (пункт «Браузер» или «Встроенный браузер»).")))
+                    b.set_positive_button(_mz_t("Зрозуміло", "Got it", "Понятно"), lambda bld, w: bld.dismiss())
+                elif cur:
+                    b.set_message(_mz_t("Відкриття посилань у Telegram уже увімкнено: сайти з чату відкриваються у вбудованому браузері та згортаються у плаваюче вікно.", "Opening links in Telegram is already on: sites from the chat open in the built-in browser and minimize into a floating window.", ("Открытие ссылок в Telegram уже включено: сайты из чата открываются "
+                                  "во встроенном браузере и сворачиваются в плавающее окно.")))
+                    b.set_positive_button(_mz_t("Зрозуміло", "Got it", "Понятно"), lambda bld, w: bld.dismiss())
+                else:
+                    b.set_message(_mz_t("Відкриття посилань у Telegram вимкнено: сайти з чату відкриваються у зовнішньому браузері, і плагін не може їх згорнути. Увімкнути?", "Opening links in Telegram is off: sites from the chat open in an external browser, and the plugin cannot minimize them. Turn it on?", ("Открытие ссылок в Telegram выключено — сайты из чата открываются "
+                                  "во внешнем браузере, и плагин не может их свернуть. Включить?")))
+
+                    def enable(bld, w):
+                        try:
+                            bld.dismiss()
+                        except Exception:
+                            pass
+                        self._browser_flag_done(self._browser_flag_set(True))
+
+                    b.set_positive_button(_mz_t("Увімкнути", "Turn on", "Включить"), enable)
+                    b.set_negative_button(_mz_t("Скасувати", "Cancel", "Отмена"), lambda bld, w: bld.dismiss())
+                b.show()
+            except Exception:
+                self.show_instruction()
+        run_on_ui_thread(run)
+
+    def _browser_flag_done(self, ok):
+        """Result of turning the setting on with one tap."""
+        def run():
+            try:
+                act = _activity()
+                if act is None:
+                    return
+                b = AlertDialogBuilder(act)
+                b.set_title(_mz_t("Браузер Telegram", "Telegram browser", "Браузер Telegram"))
+                if ok:
+                    b.set_message(_mz_t("Готово: посилання тепер відкриваються в Telegram. Якщо сайти все ще відкриваються у зовнішньому браузері, перезапустіть застосунок.", "Done: links now open in Telegram. If sites still open in an external browser, restart the app.", ("Готово: ссылки теперь открываются в Telegram. Если сайты всё ещё "
+                                  "открываются во внешнем браузере — перезапустите приложение.")))
+                else:
+                    b.set_message(_mz_t("Не вдалося увімкнути налаштування автоматично. Відкрийте налаштування клієнта й увімкніть відкриття посилань усередині Telegram вручну.", "Couldn't turn the setting on automatically. Open the client settings and turn on opening links inside Telegram manually.", ("Не удалось включить настройку автоматически. Откройте настройки "
+                                  "клиента и включите открытие ссылок внутри Telegram вручную.")))
+                b.set_positive_button(_mz_t("Зрозуміло", "Got it", "Понятно"), lambda bld, w: bld.dismiss())
+                b.show()
+            except Exception:
+                pass
+        run_on_ui_thread(run)
+
+    # ----- app restart (as in plugin_editor) -----
+    def _show_restart_sheet(self, attempt=0):
+        def show():
+            act = _activity()
+            if act is None:
+                if attempt < 60:
+                    run_on_ui_thread(lambda: self._show_restart_sheet(attempt + 1), 500)
+                return
+            try:
+                if act.isFinishing() or act.isDestroyed():
+                    if attempt < 60:
+                        run_on_ui_thread(lambda: self._show_restart_sheet(attempt + 1), 500)
+                    return
+            except Exception:
+                pass
+            try:
+                from org.telegram.ui.ActionBar import BottomSheet
+                root, button = self._restart_view(act)
+                builder = BottomSheet.Builder(act)
+                builder.setCustomView(root)
+                sheet = builder.show()
+                button.setOnClickListener(OnClickListener(
+                    lambda v: (sheet.dismiss(), self._restart_application())))
+                try:
+                    self.set_setting("restart_sheet_first_install_done", True)
+                except Exception:
+                    pass
+            except Exception:
+                if attempt < 60:
+                    run_on_ui_thread(lambda: self._show_restart_sheet(attempt + 1), 500)
+        run_on_ui_thread(show)
+
+    def _restart_view(self, act):
+        def color(name, fallback):
+            return self._theme_col(name, fallback)
+
+        root = LinearLayout(act)
+        root.setOrientation(1)
+        root.setPadding(AndroidUtilities.dp(24), AndroidUtilities.dp(20),
+                        AndroidUtilities.dp(24), AndroidUtilities.dp(20))
+
+        def add(view, top=0, height=-2):
+            lp = LinearLayout.LayoutParams(-1, height)
+            lp.topMargin = AndroidUtilities.dp(top)
+            root.addView(view, lp)
+
+        title = self._label(act, _mz_t("Перезапустити Telegram?", "Restart Telegram?", "Перезапустить Telegram?"),
+                            color("key_dialogTextBlack", -16777216), 22.0, True)
+        title.setGravity(Gravity.CENTER)
+        add(title)
+        subtitle = self._label(
+            act, _mz_t("Плагін установлено. Перезапустіть застосунок, щоб згортання міні-застосунків і сайтів запрацювало повністю.", "The plugin is installed. Restart the app so minimizing of mini apps and sites works fully.", "Плагин установлен. Перезапустите приложение, чтобы сворачивание мини-аппов и сайтов заработало полностью."),
+            color("key_dialogTextGray2", -7829368), 15.0)
+        subtitle.setGravity(Gravity.CENTER)
+        subtitle.setLineSpacing(0.0, 1.15)
+        add(subtitle, 8)
+
+        btn_color = color("key_featuredStickers_addButton", -11037236)
+        btn_pressed = color("key_featuredStickers_addButtonPressed", btn_color)
+        button = self._label(act, _mz_t("Перезапустити", "Restart", "Перезапустить"),
+                             color("key_featuredStickers_buttonText", -1), 16.0, True)
+        button.setGravity(Gravity.CENTER)
+        button.setClickable(True)
+        try:
+            from org.telegram.ui.ActionBar import Theme
+            button.setBackground(Theme.createSimpleSelectorRoundRectDrawable(
+                AndroidUtilities.dp(14), btn_color, btn_pressed))
+        except Exception:
+            shape = GradientDrawable()
+            shape.setColor(btn_color)
+            shape.setCornerRadius(float(AndroidUtilities.dp(14)))
+            button.setBackground(shape)
+        add(button, 28, AndroidUtilities.dp(52))
+        return root, button
+
+    def _restart_application(self):
+        try:
+            from android.os import Process
+            act = _activity()
+            if act is None:
+                return
+            try:
+                if act.isFinishing() or act.isDestroyed():
+                    return
+            except Exception:
+                pass
+            intent = act.getPackageManager().getLaunchIntentForPackage(act.getPackageName())
+            if intent is None:
+                return
+            intent.addFlags(0x10000000 | 0x00008000)
+            act.startActivity(intent)
+            Process.killProcess(Process.myPid())
+        except Exception:
+            pass
+
+    def _restart_prompt(self, view=None):
+        def run():
+            try:
+                act = _activity()
+                if act is None:
+                    return
+                b = AlertDialogBuilder(act)
+                b.set_title(_mz_t("Перезапустити Telegram?", "Restart Telegram?", "Перезапустить Telegram?"))
+                b.set_message(_mz_t("Плаваючі вікна буде закрито, плагін завантажиться заново з чистими хуками.", "Floating windows will be closed, the plugin will load again with clean hooks.", "Плавающие окна будут закрыты, плагин загрузится заново с чистыми хуками."))
+                b.set_positive_button(_mz_t("Перезапустити", "Restart", "Перезапустить"), lambda bld, w: (bld.dismiss(), self._restart_application()))
+                b.set_negative_button(_mz_t("Скасувати", "Cancel", "Отмена"), lambda bld, w: bld.dismiss())
+                b.show()
+            except Exception:
+                pass
+        run_on_ui_thread(run)
+
+    # ----- settings -----
+    def create_settings(self):
+        return [
+            self._header_item(),
+            Switch(
+                key="enabled",
+                text=_mz_t("Увімкнути плаваючий режим", "Turn on floating mode", "Включить плавающий режим"),
+                default=True,
+                subtext=_mz_t("Стрілка вниз у шапці міні-застосунку та кнопка згортання вкладки в браузері згортають їх у плаваюче вікно. Хрестик працює як раніше.", "The down arrow in the mini app header and the tab minimize button in the browser minimize them into a floating window. The cross works as before.", "Стрелка вниз в шапке мини-аппа и кнопка сворачивания вкладки в браузере сворачивают их в плавающее окно. Крестик работает как раньше."),
+            ),
+            Header(text=_mz_t("Інструкція", "Instructions", "Инструкция")),
+            Text(
+                text=_mz_t("Як користуватися", "How to use", "Как пользоваться"),
+                icon="msg_info",
+                subtext=_mz_t("Докладна інструкція щодо плаваючого вікна", "Detailed instructions for the floating window", "Подробная инструкция по плавающему окну"),
+                on_click=self.show_instruction,
+            ),
+            Header(text=_mz_t("Увімкніть функції нижче для коректної роботи плагіна", "Turn on the features below for the plugin to work properly", "Включите функции ниже для нормальной работы плагина")),
+            Text(
+                text=_mz_t("Поверх застосунків", "Display over apps", "Поверх приложений"),
+                icon="msg_permissions",
+                subtext=_mz_t("Увімкніть цей дозвіл для коректної роботи плагіна: відкриється екран системи", "Turn on this permission for the plugin to work properly: the system screen will open", "Включите это разрешение для нормальной работы плагина — откроется экран системы"),
+                on_click=self._open_overlay_permission,
+            ),
+            Text(
+                text=_mz_t("Браузер Telegram", "Telegram browser", "Браузер Telegram"),
+                icon="msg_openin",
+                subtext=_mz_t("Увімкніть відкриття посилань у Telegram для коректної роботи плагіна", "Turn on opening links in Telegram for the plugin to work properly", "Включите открытие ссылок в Telegram для нормальной работы плагина"),
+                on_click=self._open_browser_settings,
+            ),
+            Divider(text=_mz_t("Працює для міні-застосунків і сайтів у вбудованому браузері.", "Works for mini apps and sites in the built-in browser.", "Работает для мини-аппов и сайтов во встроенном браузере.")),
+            Text(text=_mz_t("Підтримка", "Support", "Поддержка"), icon="msg_gift_premium", accent=True,
+                 on_click=lambda view=None: self._show_support()),
+        ]

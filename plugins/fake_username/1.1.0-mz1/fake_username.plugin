@@ -1,0 +1,313 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
+ 
+# -*- coding: utf-8 -*-
+__id__ = "fake_username"
+__name__ = "Fake Username"
+__description__ = "Visually changes your username only on your screen (profile and side menu)"
+__author__ = "@MKC_KOCMOC"
+__version__ = "1.1.0-mz1"
+__icon__ = "msg_edit"
+__min_version__ = "12.2.10"
+__category__ = ["appearance"]
+
+from base_plugin import BasePlugin, MethodHook
+from hook_utils import find_class, get_private_field
+from android_utils import log, OnClickListener
+from ui.bulletin import BulletinHelper
+from ui.alert import AlertDialogBuilder
+from ui.settings import Header, Text
+
+from org.telegram.messenger import UserConfig, AndroidUtilities
+from org.telegram.ui import LaunchActivity
+from android.widget import EditText, LinearLayout, TextView
+from android.text import InputType
+
+
+# ------------------------------------------------------------------
+# Hook 1: ProfileActivity, the username line in the profile
+# ------------------------------------------------------------------
+class UsernameBindViewHook(MethodHook):
+    def __init__(self, plugin):
+        self.plugin = plugin
+
+    def after_hooked_method(self, param):
+        try:
+            fake = self.plugin.get_setting("fake_username", "")
+            if not fake:
+                return
+
+            account = UserConfig.selectedAccount
+            my_id = UserConfig.getInstance(account).getClientUserId()
+
+            list_adapter = param.thisObject
+            holder = param.args[0]
+            position = param.args[1]
+
+            this_class = list_adapter.getClass()
+            outer_field = this_class.getDeclaredField("this$0")
+            outer_field.setAccessible(True)
+            profile_activity = outer_field.get(list_adapter)
+
+            if not profile_activity:
+                return
+
+            user_id = int(get_private_field(profile_activity, "userId"))
+            if user_id != my_id:
+                return
+
+            username_row = int(get_private_field(profile_activity, "usernameRow"))
+            if int(position) != username_row:
+                return
+
+            view = holder.itemView
+            try:
+                view.setTextAndValue(f"@{fake}", _mz_t("ім'я користувача", "username", "имя пользователя"), True)
+            except Exception:
+                self._replace_in_view(view, fake)
+
+        except Exception as e:
+            log(f"[FakeUsername] profile hook error: {e}")
+
+    def _replace_in_view(self, view, fake):
+        try:
+            from android.widget import TextView as TV
+            from android.view import ViewGroup
+            if isinstance(view, TV):
+                text = str(view.getText())
+                if text.startswith("@") and len(text) > 1:
+                    view.setText(f"@{fake}")
+                    return True
+            if isinstance(view, ViewGroup):
+                for i in range(view.getChildCount()):
+                    if self._replace_in_view(view.getChildAt(i), fake):
+                        return True
+        except Exception as e:
+            log(f"[FakeUsername] _replace_in_view error: {e}")
+        return False
+
+
+# ------------------------------------------------------------------
+# Hook 2: DrawerProfileCell.setUserInfo, the side menu header
+# ------------------------------------------------------------------
+class DrawerProfileCellHook(MethodHook):
+    def __init__(self, plugin):
+        self.plugin = plugin
+
+    def after_hooked_method(self, param):
+        try:
+            fake = self.plugin.get_setting("fake_username", "")
+            if not fake:
+                return
+
+            cell = param.thisObject
+
+            # nameTextView, the user name (TextView)
+            # phoneTextView, the username/@username (TextView)
+            # Find them through get_private_field
+            for field_name in ["phoneTextView", "subtitleView", "usernameView"]:
+                try:
+                    tv = get_private_field(cell, field_name)
+                    if tv is not None:
+                        text = str(tv.getText())
+                        if text.startswith("@") and len(text) > 1:
+                            tv.setText(f"@{fake}")
+                            log(f"[FakeUsername] drawer {field_name} ✓ → @{fake}")
+                            return
+                except Exception:
+                    continue
+
+            # Fallback, go through all child TextViews
+            self._replace_in_view(cell, fake)
+
+        except Exception as e:
+            log(f"[FakeUsername] drawer hook error: {e}")
+
+    def _replace_in_view(self, view, fake):
+        try:
+            from android.widget import TextView as TV
+            from android.view import ViewGroup
+            if isinstance(view, TV):
+                text = str(view.getText())
+                if text.startswith("@") and len(text) > 1:
+                    view.setText(f"@{fake}")
+                    log(f"[FakeUsername] drawer TextView ✓ → @{fake}")
+                    return True
+            if isinstance(view, ViewGroup):
+                for i in range(view.getChildCount()):
+                    if self._replace_in_view(view.getChildAt(i), fake):
+                        return True
+        except Exception as e:
+            log(f"[FakeUsername] drawer _replace error: {e}")
+        return False
+
+
+# ------------------------------------------------------------------
+# Plugin
+# ------------------------------------------------------------------
+class FakeUsernamePlugin(BasePlugin):
+
+    def __init__(self):
+        self.hook_profile_ref = None
+        self.hook_drawer_ref = None
+
+    def on_plugin_load(self):
+        self._setup_profile_hook()
+        self._setup_drawer_hook()
+
+    def on_plugin_unload(self):
+        for ref_name in ("hook_profile_ref", "hook_drawer_ref"):
+            try:
+                ref = getattr(self, ref_name, None)
+                if ref:
+                    self.unhook_method(ref)
+            except Exception as e:
+                log(f"[FakeUsername] unload error: {e}")
+
+    # ------------------------------------------------------------------
+    # Profile hook
+    # ------------------------------------------------------------------
+    def _setup_profile_hook(self):
+        try:
+            ListAdapterClass = find_class("org.telegram.ui.ProfileActivity$ListAdapter")
+            if not ListAdapterClass:
+                log("[FakeUsername] ProfileActivity$ListAdapter not found")
+                return
+
+            RecyclerViewHolder = find_class("androidx.recyclerview.widget.RecyclerView$ViewHolder")
+            from java.lang import Integer
+
+            bind_method = ListAdapterClass.getClass().getDeclaredMethod(
+                "onBindViewHolder",
+                RecyclerViewHolder,
+                Integer.TYPE
+            )
+            bind_method.setAccessible(True)
+            self.hook_profile_ref = self.hook_method(bind_method, UsernameBindViewHook(self))
+            log("[FakeUsername] ✓ profile hook")
+
+        except Exception as e:
+            log(f"[FakeUsername] profile setup error: {e}")
+
+    # ------------------------------------------------------------------
+    # Side menu hook
+    # ------------------------------------------------------------------
+    def _setup_drawer_hook(self):
+        try:
+            DrawerProfileCell = find_class("org.telegram.ui.Cells.DrawerProfileCell")
+            if not DrawerProfileCell:
+                log("[FakeUsername] DrawerProfileCell not found")
+                return
+
+            # Find the setUserInfo or onDraw method
+            methods = DrawerProfileCell.getClass().getDeclaredMethods()
+            target_method = None
+            for i in range(len(methods)):
+                m = methods[i]
+                name = str(m.getName())
+                if name in ("setUserInfo", "setUser", "bind", "onDraw"):
+                    target_method = m
+                    # Prefer setUserInfo
+                    if name == "setUserInfo":
+                        break
+
+            if not target_method:
+                log("[FakeUsername] DrawerProfileCell method not found")
+                return
+
+            target_method.setAccessible(True)
+            self.hook_drawer_ref = self.hook_method(target_method, DrawerProfileCellHook(self))
+            log(f"[FakeUsername] ✓ drawer hook: {target_method.getName()}")
+
+        except Exception as e:
+            log(f"[FakeUsername] drawer setup error: {e}")
+
+    # ------------------------------------------------------------------
+    # Settings
+    # ------------------------------------------------------------------
+    def create_settings(self):
+        try:
+            current = self.get_setting("fake_username", "")
+            display = f'"@{current}"' if current else _mz_t("не задано", "not set", "не задан")
+            return [
+                Header(text=_mz_t("Візуальний юзернейм", "Visual username", "Визуальный юзернейм")),
+                Text(
+                    text=_mz_t(f"Поточний псевдонім: {display}", f"Current alias: {display}", f"Текущий псевдоним: {display}"),
+                    icon="msg_edit",
+                    on_click=lambda *args: self._show_edit_dialog(),
+                ),
+                Text(
+                    text=_mz_t("Скинути псевдонім", "Reset alias", "Сбросить псевдоним"),
+                    icon="msg_delete",
+                    on_click=lambda *args: self._reset(),
+                ),
+                Header(text=_mz_t("Важливо", "Note", "Важно")),
+                Text(
+                    text=_mz_t("Зміна видна лише вам. Справжній юзернейм не змінюється.", "The change is visible only to you. Your real username does not change.", "Изменение видно только вам. Реальный юзернейм не меняется."),
+                    icon="msg_info",
+                ),
+            ]
+        except Exception as e:
+            log(f"[FakeUsername] settings error: {e}")
+            return [Header(text=_mz_t(f"Помилка: {e}", f"Error: {e}", f"Ошибка: {e}"))]
+
+    def _show_edit_dialog(self):
+        act = LaunchActivity.instance
+        if not act:
+            return
+
+        current = self.get_setting("fake_username", "")
+
+        container = LinearLayout(act)
+        container.setOrientation(LinearLayout.VERTICAL)
+        container.setPadding(
+            AndroidUtilities.dp(20), AndroidUtilities.dp(8),
+            AndroidUtilities.dp(20), AndroidUtilities.dp(8),
+        )
+
+        hint = TextView(act)
+        hint.setText(_mz_t("Введіть бажаний юзернейм (без @).\nПісля збереження перевідкрийте бокове меню.", "Enter the username you want (without @).\nAfter saving, reopen the side menu.", "Введите желаемый юзернейм (без @).\nПосле сохранения переоткройте боковое меню."))
+        hint.setTextSize(13.0)
+        hint.setPadding(0, 0, 0, AndroidUtilities.dp(8))
+        container.addView(hint)
+
+        edit = EditText(act)
+        edit.setInputType(InputType.TYPE_CLASS_TEXT)
+        edit.setHint(_mz_t("наприклад: durov", "for example: durov", "например: durov"))
+        edit.setText(current)
+        edit.setSelectAllOnFocus(True)
+        container.addView(edit)
+
+        def on_save(b, w):
+            try:
+                val = str(edit.getText()).strip().replace("@", "")
+                self.set_setting("fake_username", val)
+                if val:
+                    BulletinHelper.show_success(_mz_t(f"Псевдонім: @{val}\nПеревідкрийте меню та профіль", f"Alias: @{val}\nReopen the menu and the profile", f"Псевдоним: @{val}\nПереоткройте меню и профиль"))
+                else:
+                    BulletinHelper.show_info(_mz_t("Псевдонім скинуто", "Alias reset", "Псевдоним сброшен"))
+            except Exception as ex:
+                BulletinHelper.show_error(_mz_t(f"Помилка: {ex}", f"Error: {ex}", f"Ошибка: {ex}"))
+            b.dismiss()
+
+        builder = AlertDialogBuilder(act)
+        builder.set_title(_mz_t("Змінити юзернейм", "Change username", "Изменить юзернейм"))
+        builder.set_view(container)
+        builder.set_positive_button(_mz_t("Зберегти", "Save", "Сохранить"), on_save)
+        builder.set_negative_button(_mz_t("Скасувати", "Cancel", "Отмена"), lambda b, w: b.dismiss())
+        builder.show()
+
+    def _reset(self):
+        self.set_setting("fake_username", "")
+        BulletinHelper.show_info(_mz_t("Псевдонім скинуто", "Alias reset", "Псевдоним сброшен"))
