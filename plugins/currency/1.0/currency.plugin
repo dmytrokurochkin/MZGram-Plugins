@@ -1,3 +1,16 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 import requests
 from ui.settings import Header, Input, Divider
 from base_plugin import BasePlugin, HookResult, HookStrategy
@@ -38,11 +51,11 @@ FLAGS = {
 class CurrencyConverter(BasePlugin):
     def create_settings(self):
         lang = Locale.getDefault().getLanguage()
-        if lang.startswith("ru"):
-            header_text = "Настройки конвертера валют"
-            input_text = "Валюта по умолчанию"
-            input_subtext = "Введите код валюты по умолчанию (например, USD, EUR, RUB)"
-            divider_text = "Использование: .cr [сумма] [код валюты]"
+        if lang.startswith(("ru", "uk")):
+            header_text = _mz_t("Налаштування конвертера валют", "Currency Converter Settings", "Настройки конвертера валют")
+            input_text = _mz_t("Валюта типово", "Default currency", "Валюта по умолчанию")
+            input_subtext = _mz_t("Введіть код валюти типово (наприклад, USD, EUR, RUB)", "Enter the default currency code (for example, USD, EUR, RUB)", "Введите код валюты по умолчанию (например, USD, EUR, RUB)")
+            divider_text = _mz_t("Використання: .cr [сума] [код валюти]", "Usage: .cr [amount] [currency code]", "Использование: .cr [сумма] [код валюты]")
         elif lang.startswith("pt"):
             header_text = "Configurações do Conversor de Moedas"
             input_text = "Moeda padrão"
@@ -183,8 +196,8 @@ class CurrencyConverter(BasePlugin):
 
     def _usage_message(self):
         lang = Locale.getDefault().getLanguage()
-        if lang.startswith("ru"):
-            return "Использование: .cr [сумма] [код валюты]"
+        if lang.startswith(("ru", "uk")):
+            return _mz_t("Використання: .cr [сума] [код валюти]", "Usage: .cr [amount] [currency code]", "Использование: .cr [сумма] [код валюты]")
         elif lang.startswith("pt"):
             return "Uso: .cr [quantia] [código da moeda]"
         else:
@@ -192,8 +205,8 @@ class CurrencyConverter(BasePlugin):
 
     def _unsupported_currency_message(self, currency):
         lang = Locale.getDefault().getLanguage()
-        if lang.startswith("ru"):
-            return f"Ошибка: код валюты '{currency}' не поддерживается."
+        if lang.startswith(("ru", "uk")):
+            return _mz_t(f"Помилка: код валюти '{currency}' не підтримується.", f"Error: Unsupported currency code '{currency}'.", f"Ошибка: код валюты '{currency}' не поддерживается.")
         elif lang.startswith("pt"):
             return f"Erro: código de moeda '{currency}' não suportado."
         else:
@@ -201,8 +214,8 @@ class CurrencyConverter(BasePlugin):
 
     def _fetch_error_message(self, currency):
         lang = Locale.getDefault().getLanguage()
-        if lang.startswith("ru"):
-            return f"Ошибка: не удалось получить курсы валют для {currency}."
+        if lang.startswith(("ru", "uk")):
+            return _mz_t(f"Помилка: не вдалося отримати курси валют для {currency}.", f"Error: couldn't get exchange rates for {currency}.", f"Ошибка: не удалось получить курсы валют для {currency}.")
         elif lang.startswith("pt"):
             return f"Erro: não foi possível obter taxas de câmbio para {currency}."
         else:
@@ -210,8 +223,8 @@ class CurrencyConverter(BasePlugin):
 
     def _no_rates_message(self, currency):
         lang = Locale.getDefault().getLanguage()
-        if lang.startswith("ru"):
-            return f"Ошибка: нет доступных курсов валют для {currency}."
+        if lang.startswith(("ru", "uk")):
+            return _mz_t(f"Помилка: немає доступних курсів валют для {currency}.", f"Error: no exchange rates available for {currency}.", f"Ошибка: нет доступных курсов валют для {currency}.")
         elif lang.startswith("pt"):
             return f"Erro: não há taxas de câmbio disponíveis para {currency}."
         else:
@@ -219,8 +232,8 @@ class CurrencyConverter(BasePlugin):
 
     def _invalid_amount_message(self):
         lang = Locale.getDefault().getLanguage()
-        if lang.startswith("ru"):
-            return "Ошибка: неверная сумма. Пожалуйста, введите корректное число."
+        if lang.startswith(("ru", "uk")):
+            return _mz_t("Помилка: невірна сума. Будь ласка, введіть коректне число.", "Error: invalid amount. Please enter a valid number.", "Ошибка: неверная сумма. Пожалуйста, введите корректное число.")
         elif lang.startswith("pt"):
             return "Erro: quantia inválida. Por favor, forneça um número válido."
         else:
@@ -228,8 +241,8 @@ class CurrencyConverter(BasePlugin):
 
     def _unexpected_error_message(self):
         lang = Locale.getDefault().getLanguage()
-        if lang.startswith("ru"):
-            return "Ошибка: произошла непредвиденная ошибка. Пожалуйста, попробуйте позже."
+        if lang.startswith(("ru", "uk")):
+            return _mz_t("Помилка: сталася неочікувана помилка. Будь ласка, спробуйте пізніше.", "Error: an unexpected error occurred. Please try again later.", "Ошибка: произошла непредвиденная ошибка. Пожалуйста, попробуйте позже.")
         elif lang.startswith("pt"):
             return "Erro: ocorreu um erro inesperado. Por favor, tente novamente mais tarde."
         else:
@@ -237,8 +250,8 @@ class CurrencyConverter(BasePlugin):
 
     def _conversions_label(self):
         lang = Locale.getDefault().getLanguage()
-        if lang.startswith("ru"):
-            return "Конвертации:"
+        if lang.startswith(("ru", "uk")):
+            return _mz_t("Конвертації:", "Conversions:", "Конвертации:")
         elif lang.startswith("pt"):
             return "Conversões:"
         else:

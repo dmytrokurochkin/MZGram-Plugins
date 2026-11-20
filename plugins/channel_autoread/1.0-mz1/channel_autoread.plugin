@@ -1,0 +1,270 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
+__id__ = "channel_autoread"
+__name__ = "Channel Post Auto-Read"
+__description__ = "In channel discussions, automatically marks posts from the channel itself as read and removes their notification. Comments from real people are not touched."
+__version__ = "1.0-mz1"
+__author__ = "@van1lLove (idea: @zhka_h)"
+__min_version__ = "11.12.0"
+__category__ = ["chats"]
+
+import json
+
+from base_plugin import BasePlugin, MenuItemData, MenuItemType, MethodHook, HookResult
+from client_utils import get_last_fragment, get_messages_controller
+from android_utils import run_on_ui_thread
+from ui.bulletin import BulletinHelper
+from ui.settings import Header, Switch, Divider, Text
+
+from java.util import ArrayList
+from java.util.concurrent import CountDownLatch
+from java.lang import Boolean
+
+from org.telegram.messenger import NotificationsController
+
+jbool = Boolean.TYPE
+
+
+# A channel post in a discussion arrives through processNewMessages BEFORE the push is shown,
+# so we remove it from the list to keep the notification from popping up (as in mute plugins).
+class ProcessNewMessagesHook(MethodHook):
+    def __init__(self, plugin):
+        self.plugin = plugin
+
+    def before_hooked_method(self, param):
+        try:
+            if not self.plugin.get_setting("enabled", True):
+                return
+            messages = param.args[0]
+            if messages is None:
+                return
+            suppress = self.plugin.get_setting("suppress_notification", True)
+            for i in range(messages.size() - 1, -1, -1):
+                msg = messages.get(i)
+                try:
+                    owner = msg.messageOwner
+                    dialog_id = int(msg.getDialogId())
+                    msg_id = int(msg.getId())
+                except Exception:
+                    continue
+                if self.plugin.is_channel_post(dialog_id, owner):
+                    if suppress:
+                        messages.remove(i)
+                    run_on_ui_thread(lambda d=dialog_id, m=msg_id: self.plugin.mark_read(d, m))
+        except Exception as e:
+            self.plugin.log(f"[ChannelAutoRead] notify hook: {e}")
+
+
+class ChannelAutoReadPlugin(BasePlugin):
+    MENU_ITEM_ID = "channel_autoread_toggle"
+
+    def on_plugin_load(self):
+        self._load_chats()
+        self.hook_notify = None
+        for update in ("TL_updateNewMessage", "TL_updateNewChannelMessage",
+                       "TL_updates", "TL_updatesCombined"):
+            self.add_hook(update)
+        try:
+            method = NotificationsController.getClass().getDeclaredMethod(
+                "processNewMessages", ArrayList, jbool, jbool, CountDownLatch)
+            self.hook_notify = self.hook_method(method, ProcessNewMessagesHook(self))
+        except Exception as e:
+            self.log(f"[ChannelAutoRead] hook processNewMessages: {e}")
+        self._refresh_menu()
+
+    def on_plugin_unload(self):
+        if self.hook_notify:
+            try:
+                self.unhook_method(self.hook_notify)
+            except Exception:
+                pass
+            self.hook_notify = None
+
+    # ---- list of selected chats -----------------------------------------
+
+    def _load_chats(self):
+        try:
+            self._chats = set(int(x) for x in json.loads(self.get_setting("chat_ids", "[]")))
+        except Exception:
+            self._chats = set()
+
+    def _save_chats(self):
+        self.set_setting("chat_ids", json.dumps(list(self._chats)), reload_settings=True)
+
+    def _chat_enabled(self, dialog_id):
+        return self.get_setting("all_discussions", False) or int(dialog_id) in self._chats
+
+    # ---- item in the chat menu --------------------------------------------
+
+    def _refresh_menu(self):
+        try:
+            self.remove_menu_item(self.MENU_ITEM_ID)
+        except Exception:
+            pass
+        self.add_menu_item(MenuItemData(
+            menu_type=MenuItemType.CHAT_ACTION_MENU,
+            text=_mz_t("Авто-читання постів каналу", "Auto-read channel posts", "Авто-чтение постов канала"),
+            on_click=self._on_toggle_click,
+            icon="msg_markread",
+            item_id=self.MENU_ITEM_ID,
+        ))
+
+    def _dialog_id_from_context(self, context):
+        for key in ("dialog_id", "dialogId", "chatId", "chat_id"):
+            try:
+                val = context.get(key)
+                if val is not None:
+                    return int(val)
+            except Exception:
+                pass
+        chat = context.get("chat")
+        if chat is not None:
+            return -int(chat.id)
+        fragment = get_last_fragment()
+        if fragment and hasattr(fragment, "getDialogId"):
+            return int(fragment.getDialogId())
+        return 0
+
+    def _on_toggle_click(self, context):
+        did = self._dialog_id_from_context(context)
+        if did == 0:
+            BulletinHelper.show_error(_mz_t("Не вдалося визначити чат", "Couldn't identify the chat", "Не удалось определить чат"))
+            return
+        if did in self._chats:
+            self._chats.discard(did)
+            BulletinHelper.show_info(_mz_t("❌ Авто-читання постів каналу вимкнено для цього чату", "❌ Auto-read of channel posts is off for this chat", "❌ Авто-чтение постов канала отключено для этого чата"))
+        else:
+            self._chats.add(did)
+            BulletinHelper.show_info(_mz_t("✅ Авто-читання постів каналу увімкнено для цього чату", "✅ Auto-read of channel posts is on for this chat", "✅ Авто-чтение постов канала включено для этого чата"))
+        self._save_chats()
+
+    # ---- detecting a channel post ---------------------------------------
+
+    def _peer_to_dialog_id(self, peer):
+        if peer is None:
+            return 0
+        if getattr(peer, "channel_id", 0):
+            return -peer.channel_id
+        if getattr(peer, "chat_id", 0):
+            return -peer.chat_id
+        if getattr(peer, "user_id", 0):
+            return peer.user_id
+        return 0
+
+    def _is_megagroup(self, dialog_id):
+        if int(dialog_id) >= 0:
+            return False
+        chat = get_messages_controller().getChat(-int(dialog_id))
+        return bool(chat and getattr(chat, "megagroup", False))
+
+    def is_channel_post(self, dialog_id, message):
+        # A real auto-forward of a post into the discussion: the sender is the channel, and it
+        # is also the source of the forward. This filters out comments from people (from_id =
+        # a user), forwards of a post by a person (from_id = a user),
+        # comments sent on behalf of the channel without a forward, and anonymous admins.
+        try:
+            if not self._chat_enabled(dialog_id) or not self._is_megagroup(dialog_id):
+                return False
+            from_id = getattr(message, "from_id", None)
+            from_channel = int(getattr(from_id, "channel_id", 0) or 0)
+            if from_channel <= 0 or -from_channel == int(dialog_id):
+                return False
+            fwd = getattr(message, "fwd_from", None)
+            fwd_from = getattr(fwd, "from_id", None) if fwd is not None else None
+            return int(getattr(fwd_from, "channel_id", 0) or 0) == from_channel
+        except Exception:
+            return False
+
+    # ---- receiving new messages ------------------------------------------
+
+    def _handle_message(self, message):
+        dialog_id = self._peer_to_dialog_id(getattr(message, "peer_id", None))
+        if dialog_id and self.is_channel_post(dialog_id, message):
+            msg_id = getattr(message, "id", 0)
+            run_on_ui_thread(lambda: self.mark_read(dialog_id, msg_id))
+
+    def on_update_hook(self, update_name, account, update):
+        try:
+            if self.get_setting("enabled", True) and update_name in (
+                    "TL_updateNewMessage", "TL_updateNewChannelMessage"):
+                message = getattr(update, "message", None)
+                if message is not None:
+                    self._handle_message(message)
+        except Exception as e:
+            self.log(f"[ChannelAutoRead] on_update_hook: {e}")
+        return HookResult()
+
+    def on_updates_hook(self, container_name, account, updates):
+        try:
+            if not self.get_setting("enabled", True) or not hasattr(updates, "updates"):
+                return HookResult()
+            upd_list = updates.updates
+            for i in range(upd_list.size()):
+                upd = upd_list.get(i)
+                if "NewMessage" in type(upd).__name__:
+                    message = getattr(upd, "message", None)
+                    if message is not None:
+                        self._handle_message(message)
+        except Exception as e:
+            self.log(f"[ChannelAutoRead] on_updates_hook: {e}")
+        return HookResult()
+
+    def mark_read(self, dialog_id, max_id):
+        # markDialogAsRead marks it as read locally (resets the counter)
+        # and on the server, in one call.
+        try:
+            get_messages_controller().markDialogAsRead(
+                int(dialog_id), int(max_id), 0, 0, False, 0, 0, True, 0)
+        except Exception as e:
+            self.log(f"[ChannelAutoRead] mark_read: {e}")
+
+    # ---- settings -------------------------------------------------------
+
+    def _chat_title(self, dialog_id):
+        chat = get_messages_controller().getChat(-int(dialog_id))
+        return str(getattr(chat, "title", "") or dialog_id) if chat else str(dialog_id)
+
+    def create_settings(self):
+        # draw the list straight from memory (self._chats is always up to date,
+        # get_setting could return a stale cache)
+        if not hasattr(self, "_chats"):
+            self._load_chats()
+        entries = [
+            Header(text="Channel Post Auto-Read"),
+            Switch(key="enabled", text=_mz_t("Увімкнено", "Enabled", "Включено"), default=True),
+            Switch(key="suppress_notification", text=_mz_t("Прибирати сповіщення", "Remove notification", "Убирать уведомление"), default=True),
+            Switch(key="all_discussions", text=_mz_t("У всіх обговореннях", "In all discussions", "Во всех обсуждениях"),
+                   subtext=_mz_t("Діяти у всіх обговореннях. Якщо вимкнено, лише в чатах, доданих через меню чату (⋮ → «Авто-читання постів каналу»).", "Act in all discussions. If off, only in chats added through the chat menu (⋮ → «Auto-read channel posts»).", ("Действовать во всех обсуждениях. Если выключено — только в чатах, "
+                           "добавленных через меню чата (⋮ → «Авто-чтение постов канала»).")),
+                   default=False),
+        ]
+        if not self.get_setting("all_discussions", False):
+            entries.append(Divider())
+            entries.append(Header(text=_mz_t("Вибрані чати", "Selected chats", "Выбранные чаты")))
+            if not self._chats:
+                entries.append(Text(text=_mz_t("Немає доданих чатів", "No chats added", "Нет добавленных чатов"),
+                                    subtext=_mz_t("Додайте чат через меню ⋮ всередині обговорення", "Add a chat through the ⋮ menu inside the discussion", "Добавь чат через ⋮ меню внутри обсуждения")))
+            else:
+                def remover(did):
+                    def on_click(view):
+                        self._chats.discard(int(did))
+                        self._save_chats()
+                        BulletinHelper.show_info(_mz_t("❌ Чат видалено (оновіть налаштування)", "❌ Chat removed (refresh the settings)", "❌ Чат удалён (обнови настройки)"))
+                    return on_click
+
+                for did in sorted(self._chats):
+                    entries.append(Text(text=self._chat_title(did),
+                                        subtext=_mz_t("Натисніть, щоб прибрати зі списку", "Tap to remove from the list", "Нажми, чтобы убрать из списка"),
+                                        icon="msg_delete", red=True, on_click=remover(did)))
+        return entries
