@@ -1,3 +1,16 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 import random
 from ui.settings import Header, Divider, Selector
 from base_plugin import BasePlugin, HookResult, HookStrategy
@@ -34,14 +47,14 @@ LANGS = {
         "error": "Erro ao transformar texto: "
     },
     "ru": {
-        "transform_modes": ["Эмодзи", "Азбука Морзе", "Бинарный", "Пузырьковый текст", "Вверх ногами", "Вапорвейв"],
-        "emoji_categories": ["Счастливый", "Грустный", "Любовь", "Животные", "Еда", "Активности", "Смешанный"],
-        "usage": "Использование: .rp [ваше сообщение]",
-        "settings_header": "Настройки преобразователя текста",
-        "category_key": "Категория эмодзи (для режима эмодзи)",
-        "mode_key": "Режим преобразования",
-        "no_text": "Пожалуйста, введите текст после команды .rp",
-        "error": "Ошибка преобразования текста: "
+        "transform_modes": [_mz_t("Емодзі", "Emoji", "Эмодзи"), _mz_t("Азбука Морзе", "Morse Code", "Азбука Морзе"), _mz_t("Двійковий", "Binary", "Бинарный"), _mz_t("Текст із бульбашками", "Bubble Text", "Пузырьковый текст"), _mz_t("Догори ногами", "Upside Down", "Вверх ногами"), _mz_t("Вапорвейв", "Vaporwave", "Вапорвейв")],
+        "emoji_categories": [_mz_t("Щасливий", "Happy", "Счастливый"), _mz_t("Сумний", "Sad", "Грустный"), _mz_t("Кохання", "Love", "Любовь"), _mz_t("Тварини", "Animals", "Животные"), _mz_t("Їжа", "Food", "Еда"), _mz_t("Активності", "Activities", "Активности"), _mz_t("Змішаний", "Mixed", "Смешанный")],
+        "usage": _mz_t("Використання: .rp [ваше повідомлення]", "Usage: .rp [your message]", "Использование: .rp [ваше сообщение]"),
+        "settings_header": _mz_t("Налаштування перетворювача тексту", "Text converter settings", "Настройки преобразователя текста"),
+        "category_key": _mz_t("Категорія емодзі (для режиму емодзі)", "Emoji category (for emoji mode)", "Категория эмодзи (для режима эмодзи)"),
+        "mode_key": _mz_t("Режим перетворення", "Conversion mode", "Режим преобразования"),
+        "no_text": _mz_t("Будь ласка, введіть текст після команди .rp", "Please enter text after the .rp command", "Пожалуйста, введите текст после команды .rp"),
+        "error": _mz_t("Помилка перетворення тексту: ", "Text conversion error: ", "Ошибка преобразования текста: ")
     }
 }
 
@@ -169,7 +182,7 @@ class TextTransformerPlugin(BasePlugin):
         lang = Locale.getDefault().getLanguage().lower()
         if lang.startswith("pt"):
             return "pt-br"
-        if lang.startswith("ru"):
+        if lang.startswith(("ru", "uk")):
             return "ru"
         return "en"
 
