@@ -1,10 +1,20 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 __id__ = "link_guard"
 __name__ = "Link Guard"
 __description__ = (
-    "Проверяет ссылки перед переходом: показывает настоящий домен, ловит фишинг "
-    "и подмену символов, вычищает трекеры.\n\n"
-    "Checks links before you open them: reveals the real domain, catches phishing "
-    "and look-alike characters, strips trackers."
+    "Checks links before you open them: reveals the real domain, catches phishing and look-alike characters, strips trackers."
 )
 __author__ = "@Robobloxi"
 __version__ = "1.7.0-mz1"
@@ -135,177 +145,177 @@ except ImportError:
 
 STRINGS = {
     "ru": {
-        "hdr_checks": "Проверка ссылок",
-        "sw_check": "Проверять перед открытием",
-        "sw_check_sub": "Разбирает адрес до перехода и предупреждает о подозрительном",
-        "sel_mode": "Показывать",
-        "mode_suspicious": "При подозрении",
-        "mode_always": "Всегда",
-        "sw_expand": "Разворачивать короткие ссылки",
-        "sw_expand_sub": "Делает сетевой запрос, чтобы узнать конечный адрес",
-        "hdr_tracker": "Антитрекер",
-        "sw_clean_open": "Чистить метки при переходе",
-        "sw_clean_open_sub": "Убирает utm_*, fbclid, gclid и прочие хвосты",
-        "sw_clean_out": "Чистить метки в моих сообщениях",
-        "sw_clean_out_sub": "Ссылки уходят собеседнику без следов вашей рекламной кампании",
-        "sw_aggr": "Агрессивная чистка",
-        "sw_aggr_sub": "Дополнительно режет ref, si, spm, from — редкие ссылки могут перестать работать",
-        "hdr_exceptions": "Исключения",
-        "in_whitelist": "Новый домен",
-        "in_whitelist_sub": "Затем нажмите «Добавить»",
-        "btn_add": "Добавить",
-        "hold_to_delete": "Зажмите, чтобы удалить",
-        "empty_list": "Список пуст",
-        "empty_list_sub": "Проверяются все домены",
-        "del_title": "Убрать из исключений?",
-        "del_body": "%s снова будет проверяться перед открытием.",
-        "btn_delete": "Удалить",
-        "toast_added": "%s добавлен в исключения",
-        "toast_removed": "%s снова проверяется",
-        "toast_bad_domain": "Не похоже на домен",
-        "tags_title": "Что такое метки",
-        "read_more": "Нажмите, чтобы прочитать",
-        "tags_note": "utm_source, fbclid и подобные хвосты сообщают рекламным сетям, откуда вы "
-                     "пришли и кто дал вам ссылку. Без них адрес работает так же.",
-        "toast_cleaned": "Убрано меток слежения: %s",
-        "hdr_stats": "Статистика",
-        "stats_line": "Вырезано меток: %s",
-        "stats_sub": "Предупреждений: %s",
-        "stats_hint": "Нажмите на строку со счётчиками, чтобы обнулить их.",
-        "stats_detail": "Предупреждений: %s · нажмите, чтобы сбросить счётчики",
-        "stats_done": "Счётчики сброшены",
-        "hdr_updates": "Обновления",
-        "sw_updates": "Проверять обновления",
-        "sw_updates_sub": "Раз в шесть часов сверяет версию с репозиторием на GitHub",
-        "btn_check_now": "Проверить сейчас",
-        "version_line": "Версия %s",
-        "privacy_title": "Как это работает",
-        "privacy_note": "Ссылки разбираются на устройстве, какие адреса вы открываете, "
+        "hdr_checks": _mz_t("Перевірка посилань", "Link checks", "Проверка ссылок"),
+        "sw_check": _mz_t("Перевіряти перед відкриттям", "Check before opening", "Проверять перед открытием"),
+        "sw_check_sub": _mz_t("Аналізує адресу перед переходом і попереджає про підозріле", "Inspects the address before you follow it and warns about anything odd", "Разбирает адрес до перехода и предупреждает о подозрительном"),
+        "sel_mode": _mz_t("Показувати", "Show", "Показывать"),
+        "mode_suspicious": _mz_t("Якщо підозріло", "If suspicious", "При подозрении"),
+        "mode_always": _mz_t("Завжди", "Always", "Всегда"),
+        "sw_expand": _mz_t("Розгортати короткі посилання", "Expand short links", "Разворачивать короткие ссылки"),
+        "sw_expand_sub": _mz_t("Робить мережевий запит, щоб дізнатися кінцеву адресу", "Makes a network request to reveal the final address", "Делает сетевой запрос, чтобы узнать конечный адрес"),
+        "hdr_tracker": _mz_t("Антитрекер", "Anti-tracker", "Антитрекер"),
+        "sw_clean_open": _mz_t("Чистити мітки під час переходу", "Strip tracking on open", "Чистить метки при переходе"),
+        "sw_clean_open_sub": _mz_t("Прибирає utm_*, fbclid, gclid та інші хвости", "Removes utm_*, fbclid, gclid and similar tails", "Убирает utm_*, fbclid, gclid и прочие хвосты"),
+        "sw_clean_out": _mz_t("Чистити мітки у моїх повідомленнях", "Strip tracking in my messages", "Чистить метки в моих сообщениях"),
+        "sw_clean_out_sub": _mz_t("Посилання, які ви надсилаєте, йдуть без слідів вашої рекламної кампанії", "Links you send go out without campaign tags", "Ссылки уходят собеседнику без следов вашей рекламной кампании"),
+        "sw_aggr": _mz_t("Агресивне чищення", "Aggressive cleaning", "Агрессивная чистка"),
+        "sw_aggr_sub": _mz_t("Додатково прибирає ref, si, spm, from: рідкісні посилання можуть перестати працювати", "Also strips ref, si, spm, from — a few sites may break", "Дополнительно режет ref, si, spm, from — редкие ссылки могут перестать работать"),
+        "hdr_exceptions": _mz_t("Винятки", "Exceptions", "Исключения"),
+        "in_whitelist": _mz_t("Новий домен", "New domain", "Новый домен"),
+        "in_whitelist_sub": _mz_t("Потім натисніть «Додати»", "Then tap “Add”", "Затем нажмите «Добавить»"),
+        "btn_add": _mz_t("Додати", "Add", "Добавить"),
+        "hold_to_delete": _mz_t("Утримуйте, щоб видалити", "Long-press to remove", "Зажмите, чтобы удалить"),
+        "empty_list": _mz_t("Список порожній", "The list is empty", "Список пуст"),
+        "empty_list_sub": _mz_t("Перевіряються всі домени", "Every domain is checked", "Проверяются все домены"),
+        "del_title": _mz_t("Прибрати з винятків?", "Remove from exceptions?", "Убрать из исключений?"),
+        "del_body": _mz_t("%s знову перевірятиметься перед відкриттям.", "%s will be checked before opening again.", "%s снова будет проверяться перед открытием."),
+        "btn_delete": _mz_t("Видалити", "Remove", "Удалить"),
+        "toast_added": _mz_t("%s додано до винятків", "%s added to exceptions", "%s добавлен в исключения"),
+        "toast_removed": _mz_t("%s знову перевіряється", "%s is checked again", "%s снова проверяется"),
+        "toast_bad_domain": _mz_t("Не схоже на домен", "That does not look like a domain", "Не похоже на домен"),
+        "tags_title": _mz_t("Що таке мітки", "What tracking tags are", "Что такое метки"),
+        "read_more": _mz_t("Натисніть, щоб прочитати", "Tap to read", "Нажмите, чтобы прочитать"),
+        "tags_note": _mz_t("utm_source, fbclid та подібні хвости повідомляють рекламним мережам, звідки ви прийшли і хто дав вам посилання. Без них адреса працює так само.", "utm_source, fbclid and similar tails tell ad networks where you came from and who gave you the link. The address works the same without them.", ("utm_source, fbclid и подобные хвосты сообщают рекламным сетям, откуда вы "
+                     "пришли и кто дал вам ссылку. Без них адрес работает так же.")),
+        "toast_cleaned": _mz_t("Прибрано міток відстеження: %s", "Tracking tags removed: %s", "Убрано меток слежения: %s"),
+        "hdr_stats": _mz_t("Статистика", "Statistics", "Статистика"),
+        "stats_line": _mz_t("Прибрано міток: %s", "Tags removed: %s", "Вырезано меток: %s"),
+        "stats_sub": _mz_t("Попереджень: %s", "Warnings: %s", "Предупреждений: %s"),
+        "stats_hint": _mz_t("Натисніть на рядок лічильників, щоб їх скинути.", "Tap the counters row to reset them.", "Нажмите на строку со счётчиками, чтобы обнулить их."),
+        "stats_detail": _mz_t("Попереджень: %s · натисніть, щоб скинути лічильники", "Warnings: %s · tap to reset the counters", "Предупреждений: %s · нажмите, чтобы сбросить счётчики"),
+        "stats_done": _mz_t("Лічильники скинуто", "Counters reset", "Счётчики сброшены"),
+        "hdr_updates": _mz_t("Оновлення", "Updates", "Обновления"),
+        "sw_updates": _mz_t("Перевіряти оновлення", "Check for updates", "Проверять обновления"),
+        "sw_updates_sub": _mz_t("Раз на шість годин звіряє версію з репозиторієм на GitHub", "Compares the version with the GitHub repository every six hours", "Раз в шесть часов сверяет версию с репозиторием на GitHub"),
+        "btn_check_now": _mz_t("Перевірити зараз", "Check now", "Проверить сейчас"),
+        "version_line": _mz_t("Версія %s", "Version %s", "Версия %s"),
+        "privacy_title": _mz_t("Як це працює", "How it works", "Как это работает"),
+        "privacy_note": _mz_t("Посилання аналізуються на пристрої, і ніхто не дізнається, які адреси ви відкриваєте. Плагін виходить у мережу в чотирьох випадках, і кожен вмикається окремим перемикачем: щоб розгорнути коротке посилання, перевірити оновлення, завантажити базу шахрайських сайтів і, лише якщо ви це увімкнете, дізнатися у rdap.org, скільки років домену.", "Links are analysed on your device, and nobody learns which addresses you open. The plugin goes online in four cases, each with its own switch: to expand a short link, to check for updates, to download the scam site database and — only if you turn it on — to ask rdap.org how old a domain is.", ("Ссылки разбираются на устройстве, какие адреса вы открываете, "
                         "никуда не сообщается. В сеть плагин выходит в четырёх случаях, "
                         "и каждый выключается тумблером: чтобы развернуть короткую ссылку, "
                         "проверить обновления, скачать базу мошеннических сайтов и — только "
-                        "если включите — узнать возраст домена на rdap.org.",
-        "menu_check": "Проверить ссылки",
-        "menu_copy": "Копировать без трекеров",
-        "title_danger": "⛔ Опасная ссылка",
-        "title_suspicious": "⚠️ Подозрительная ссылка",
-        "title_info": "🔗 Разбор ссылки",
-        "btn_open": "Открыть",
-        "btn_cancel": "Отмена",
-        "btn_trust": "Доверять",
-        "lbl_domain": "Домен: %s",
-        "lbl_leads": "Ведёт на: %s",
-        "lbl_removed": "Убрано меток: %s (%s)",
-        "checked_n": "Ссылок проверено: %s",
-        "btn_ok": "Понятно",
-        "toast_no_links": "Ссылок в сообщении нет",
-        "toast_trusted": "%s больше не проверяется · убрать в Исключениях",
-        "trust_title": "Больше не проверять домен?",
-        "trust_body": "%s перестанет проверяться совсем. Убрать его можно в Настройках → Исключения.",
-        "btn_trust_yes": "Не проверять",
-        "toast_copied": "Не удалось открыть, ссылка скопирована",
-        "toast_no_dialog": "Разбор недоступен в этой сборке",
-        "toast_blocked": "Link Guard: ссылка выглядит опасной, переход отменён",
-        "toast_checking": "Проверяю обновления…",
-        "toast_upd_failed": "Не удалось проверить обновления",
-        "upd_none": "Обновлений нет · установлена %s",
-        "upd_ahead": "У вас сборка новее опубликованной: %s (в каталоге %s)",
-        "upd_whats_new": "Что нового:",
-        "upd_client_old": "Новая версия требует клиент %s или новее — обновите приложение",
-        "btn_repo": "Исходный код на GitHub",
-        "btn_repo_sub": "Открыть код, сообщить об ошибке",
-        "btn_repo_detail": "Посмотреть, как плагин устроен, и сообщить о проблеме",
-        "btn_chat": "Чат плагина в Telegram",
-        "btn_chat_sub": "Новости, вопросы, предложения",
-        "btn_chat_detail": "Новости, вопросы и предложения — нажмите, чтобы вступить",
-        "upd_install": "Перейти на новую версию",
-        "upd_downloading": "Скачиваю обновление…",
-        "upd_ready": "Подтвердите установку — плагин заменит себя новой версией",
-        "upd_dl_failed": "Не удалось скачать файл, ссылка скопирована",
-        "upd_dl_why": "Не удалось скачать: %s",
-        "toast_upd_available": "Link Guard: доступна версия %s",
-        "upd_title": "Доступна версия %s",
-        "upd_body": "Установлена %s.\n\n%s\n\n%s",
-        "btn_later": "Позже",
-        "f_unparsable": "Адрес не разбирается — вероятно, специально исковеркан",
-        "f_scheme": "Схема «%s» — это не переход на сайт, а выполнение кода или открытие файла",
-        "f_nodomain": "В адресе нет домена",
-        "f_userinfo": "Перед символом @ можно написать любой текст — настоящий домен здесь %s",
-        "f_punycode": "Домен записан в punycode и выглядит как «%s»",
-        "f_mixed": "В домене смешаны разные алфавиты (%s) — типичная маскировка",
-        "f_lookalike": "Домен визуально копирует %s подменёнными символами",
-        "f_typo": "Домен отличается от %s всего на %s %s",
-        "f_subdomain": "«%s» стоит в поддомене, а сам сайт — %s",
-        "f_anchor": "В сообщении ссылка подписана как %s, а ведёт на %s",
-        "f_ip": "Вместо домена IP-адрес",
-        "f_ip_local": "Адрес в локальной сети",
-        "lbl_age": "Возраст домена: %s",
-        "age_today": "меньше суток",
-        "unit_day": "день|дня|дней",
-        "unit_week": "неделя|недели|недель",
-        "unit_month": "месяц|месяца|месяцев",
-        "unit_year": "год|года|лет",
-        "unit_char": "символ|символа|символов",
-        "f_badport": "После двоеточия стоит не номер порта — адрес сломан или замаскирован",
-        "f_port": "Нестандартный порт %s",
-        "f_blocklist": "Сайт числится в списках мошеннических",
-        "f_blocklist_parent": "Домен %s числится в списках мошеннических",
-        "f_tld": "Доменная зона .%s часто используется для одноразовых мошеннических сайтов",
-        "f_tld_worst": "Зона .%s — одна из самых неблагополучных: мошеннических сайтов в ней в десятки раз больше, чем известных",
-        "f_brand_extra": "В имени домена стоит «%s», но сайт этому сервису не принадлежит",
-        "f_fresh_10": "Домен зарегистрирован меньше десяти дней назад, а в имени — название известного сервиса",
-        "f_fresh_30": "Домен зарегистрирован меньше месяца назад, а в имени — название известного сервиса",
-        "f_deep": "Очень длинная цепочка поддоменов",
-        "f_long": "Неестественно длинный домен",
-        "f_bait": "В адресе слова-приманки: %s",
-        "f_exec": "Ссылка ведёт на файл %s — это установка программы, а не сайт",
-        "f_short": "Сокращённая ссылка — настоящий адрес скрыт",
-        "f_hops": "Редиректов по пути: %s",
-        "f_age_new": "Домену всего %s — свежая регистрация",
-        "f_age_young": "Домен зарегистрирован %s назад",
-        "src_stranger": "Ссылка из чужого чата или канала",
-        "src_trusted": "Ссылка от вашего контакта",
-        "sw_age": "Узнавать возраст домена",
-        "sw_age_sub": "Для подозрительных ссылок спрашивает дату регистрации у rdap.org — домен уходит на сторонний сервис",
-        "db_title": "База мошеннических сайтов",
-        "sw_database": "Проверять по базе",
-        "sw_database_sub": "Обновляется сама по ночам. Проверка идёт на устройстве, адреса никуда не отправляются",
-        "db_refresh": "Обновить базу",
-        "db_updated": "База обновлена: %s",
-        "db_failed": "База не обновилась",
-        "db_off": "База выключена в настройках",
+                        "если включите — узнать возраст домена на rdap.org.")),
+        "menu_check": _mz_t("Перевірити посилання", "Check links", "Проверить ссылки"),
+        "menu_copy": _mz_t("Копіювати без трекерів", "Copy without trackers", "Копировать без трекеров"),
+        "title_danger": _mz_t("⛔ Небезпечне посилання", "⛔ Dangerous link", "⛔ Опасная ссылка"),
+        "title_suspicious": _mz_t("⚠️ Підозріле посилання", "⚠️ Suspicious link", "⚠️ Подозрительная ссылка"),
+        "title_info": _mz_t("🔗 Розбір посилання", "🔗 Link breakdown", "🔗 Разбор ссылки"),
+        "btn_open": _mz_t("Відкрити", "Open", "Открыть"),
+        "btn_cancel": _mz_t("Скасувати", "Cancel", "Отмена"),
+        "btn_trust": _mz_t("Довіряти", "Trust", "Доверять"),
+        "lbl_domain": _mz_t("Домен: %s", "Domain: %s", "Домен: %s"),
+        "lbl_leads": _mz_t("Веде на: %s", "Leads to: %s", "Ведёт на: %s"),
+        "lbl_removed": _mz_t("Прибрано міток: %s (%s)", "Tags removed: %s (%s)", "Убрано меток: %s (%s)"),
+        "checked_n": _mz_t("Посилань перевірено: %s", "Links checked: %s", "Ссылок проверено: %s"),
+        "btn_ok": _mz_t("Зрозуміло", "Got it", "Понятно"),
+        "toast_no_links": _mz_t("У повідомленні немає посилань", "No links in this message", "Ссылок в сообщении нет"),
+        "toast_trusted": _mz_t("%s більше не перевіряється · прибрати у Винятках", "%s is no longer checked · remove it in Exceptions", "%s больше не проверяется · убрать в Исключениях"),
+        "trust_title": _mz_t("Більше не перевіряти домен?", "Stop checking this domain?", "Больше не проверять домен?"),
+        "trust_body": _mz_t("%s перестане перевірятися повністю. Прибрати його можна в Налаштуваннях → Винятки.", "%s will not be checked at all. You can remove it in Settings → Exceptions.", "%s перестанет проверяться совсем. Убрать его можно в Настройках → Исключения."),
+        "btn_trust_yes": _mz_t("Не перевіряти", "Stop checking", "Не проверять"),
+        "toast_copied": _mz_t("Не вдалося відкрити, посилання скопійовано", "Could not open the link, so it was copied", "Не удалось открыть, ссылка скопирована"),
+        "toast_no_dialog": _mz_t("Розбір недоступний у цій збірці", "Breakdown is unavailable in this build", "Разбор недоступен в этой сборке"),
+        "toast_blocked": _mz_t("Link Guard: посилання виглядає небезпечним, перехід скасовано", "Link Guard: the link looks dangerous, opening cancelled", "Link Guard: ссылка выглядит опасной, переход отменён"),
+        "toast_checking": _mz_t("Перевіряю оновлення…", "Checking for updates…", "Проверяю обновления…"),
+        "toast_upd_failed": _mz_t("Не вдалося перевірити оновлення", "Could not check for updates", "Не удалось проверить обновления"),
+        "upd_none": _mz_t("Оновлень немає · встановлено %s", "No updates · you have %s", "Обновлений нет · установлена %s"),
+        "upd_ahead": _mz_t("У вас збірка новіша за опубліковану: %s (у каталозі %s)", "Your build is newer than the published one: %s (catalog has %s)", "У вас сборка новее опубликованной: %s (в каталоге %s)"),
+        "upd_whats_new": _mz_t("Що нового:", "What is new:", "Что нового:"),
+        "upd_client_old": _mz_t("Нова версія потребує клієнта %s або новішого, оновіть застосунок", "The new version needs client %s or newer — update the app", "Новая версия требует клиент %s или новее — обновите приложение"),
+        "btn_repo": _mz_t("Вихідний код на GitHub", "Source code on GitHub", "Исходный код на GitHub"),
+        "btn_repo_sub": _mz_t("Переглянути код, повідомити про помилку", "Browse the code, report a bug", "Открыть код, сообщить об ошибке"),
+        "btn_repo_detail": _mz_t("Подивитися, як влаштований плагін, і повідомити про проблему", "See how the plugin works and report a problem", "Посмотреть, как плагин устроен, и сообщить о проблеме"),
+        "btn_chat": _mz_t("Чат плагіна в Telegram", "Plugin chat on Telegram", "Чат плагина в Telegram"),
+        "btn_chat_sub": _mz_t("Новини, питання, пропозиції", "News, questions and ideas", "Новости, вопросы, предложения"),
+        "btn_chat_detail": _mz_t("Новини, питання та пропозиції: натисніть, щоб приєднатися", "News, questions and ideas — tap to join", "Новости, вопросы и предложения — нажмите, чтобы вступить"),
+        "upd_install": _mz_t("Перейти на нову версію", "Get the new version", "Перейти на новую версию"),
+        "upd_downloading": _mz_t("Завантажую оновлення…", "Downloading the update…", "Скачиваю обновление…"),
+        "upd_ready": _mz_t("Підтвердьте встановлення: плагін замінить себе новою версією", "Confirm the install — the plugin will replace itself", "Подтвердите установку — плагин заменит себя новой версией"),
+        "upd_dl_failed": _mz_t("Не вдалося завантажити файл, посилання скопійовано", "Could not download the file, the link was copied", "Не удалось скачать файл, ссылка скопирована"),
+        "upd_dl_why": _mz_t("Не вдалося завантажити: %s", "Download failed: %s", "Не удалось скачать: %s"),
+        "toast_upd_available": _mz_t("Link Guard: доступна версія %s", "Link Guard: version %s is available", "Link Guard: доступна версия %s"),
+        "upd_title": _mz_t("Доступна версія %s", "Version %s is available", "Доступна версия %s"),
+        "upd_body": _mz_t("Встановлено %s.\n\n%s\n\n%s", "You have %s.\n\n%s\n\n%s", "Установлена %s.\n\n%s\n\n%s"),
+        "btn_later": _mz_t("Пізніше", "Later", "Позже"),
+        "f_unparsable": _mz_t("Адресу не вдається розібрати, імовірно, її навмисно спотворено", "The address cannot be parsed — most likely mangled on purpose", "Адрес не разбирается — вероятно, специально исковеркан"),
+        "f_scheme": _mz_t("Схема «%s» не відкриває сайт, вона виконує код або відкриває файл", "The “%s” scheme does not open a site — it runs code or opens a file", "Схема «%s» — это не переход на сайт, а выполнение кода или открытие файла"),
+        "f_nodomain": _mz_t("В адресі немає домену", "The address has no domain", "В адресе нет домена"),
+        "f_userinfo": _mz_t("Перед символом @ можна написати будь-що, справжній домен тут: %s", "Anything can be written before the @ sign — the real domain here is %s", "Перед символом @ можно написать любой текст — настоящий домен здесь %s"),
+        "f_punycode": _mz_t("Домен записано в punycode, і насправді він читається як «%s»", "The domain is punycode and actually reads as “%s”", "Домен записан в punycode и выглядит как «%s»"),
+        "f_mixed": _mz_t("У домені змішано різні алфавіти (%s), типове маскування", "The domain mixes alphabets (%s) — a classic disguise", "В домене смешаны разные алфавиты (%s) — типичная маскировка"),
+        "f_lookalike": _mz_t("Домен візуально копіює %s за допомогою підмінених символів", "The domain imitates %s using look-alike characters", "Домен визуально копирует %s подменёнными символами"),
+        "f_typo": _mz_t("Домен відрізняється від %s лише на %s %s", "The domain differs from %s by just %s %s", "Домен отличается от %s всего на %s %s"),
+        "f_subdomain": _mz_t("«%s» стоїть у піддомені, а сам сайт — %s", "“%s” sits in a subdomain while the site itself is %s", "«%s» стоит в поддомене, а сам сайт — %s"),
+        "f_anchor": _mz_t("У повідомленні посилання підписано як %s, а веде на %s", "The message labels this link as %s, but it leads to %s", "В сообщении ссылка подписана как %s, а ведёт на %s"),
+        "f_ip": _mz_t("Замість домену IP-адреса", "An IP address instead of a domain", "Вместо домена IP-адрес"),
+        "f_ip_local": _mz_t("Адреса в локальній мережі", "An address on your local network", "Адрес в локальной сети"),
+        "lbl_age": _mz_t("Вік домену: %s", "Domain age: %s", "Возраст домена: %s"),
+        "age_today": _mz_t("менше доби", "a few hours", "меньше суток"),
+        "unit_day": _mz_t("день|дні|днів", "day|days|days", "день|дня|дней"),
+        "unit_week": _mz_t("тиждень|тижні|тижнів", "week|weeks|weeks", "неделя|недели|недель"),
+        "unit_month": _mz_t("місяць|місяці|місяців", "month|months|months", "месяц|месяца|месяцев"),
+        "unit_year": _mz_t("рік|роки|років", "year|years|years", "год|года|лет"),
+        "unit_char": _mz_t("символ|символи|символів", "character|characters|characters", "символ|символа|символов"),
+        "f_badport": _mz_t("Після двокрапки стоїть не номер порту, адреса зламана або замаскована", "What follows the colon is not a port number — the address is broken or disguised", "После двоеточия стоит не номер порта — адрес сломан или замаскирован"),
+        "f_port": _mz_t("Нестандартний порт %s", "Non-standard port %s", "Нестандартный порт %s"),
+        "f_blocklist": _mz_t("Сайт є в списках шахрайських", "The site is listed in scam databases", "Сайт числится в списках мошеннических"),
+        "f_blocklist_parent": _mz_t("Домен %s є в списках шахрайських", "The domain %s is listed in scam databases", "Домен %s числится в списках мошеннических"),
+        "f_tld": _mz_t("Доменна зона .%s часто використовується для одноразових шахрайських сайтів", "The .%s zone is often used for throwaway scam sites", "Доменная зона .%s часто используется для одноразовых мошеннических сайтов"),
+        "f_tld_worst": _mz_t("Зона .%s одна з найгірших: шахрайських сайтів у ній у десятки разів більше, ніж відомих", "The .%s zone is one of the worst: it holds far more scam sites than known ones", "Зона .%s — одна из самых неблагополучных: мошеннических сайтов в ней в десятки раз больше, чем известных"),
+        "f_brand_extra": _mz_t("У назві домену є «%s», але сайт цьому сервісу не належить", "The domain name carries “%s”, but the site does not belong to that service", "В имени домена стоит «%s», но сайт этому сервису не принадлежит"),
+        "f_fresh_10": _mz_t("Домен зареєстровано менше десяти днів тому, а в назві є назва відомого сервісу", "The domain was registered less than ten days ago and carries a well-known name", "Домен зарегистрирован меньше десяти дней назад, а в имени — название известного сервиса"),
+        "f_fresh_30": _mz_t("Домен зареєстровано менше місяця тому, а в назві є назва відомого сервісу", "The domain was registered less than a month ago and carries a well-known name", "Домен зарегистрирован меньше месяца назад, а в имени — название известного сервиса"),
+        "f_deep": _mz_t("Дуже довгий ланцюжок піддоменів", "A very long chain of subdomains", "Очень длинная цепочка поддоменов"),
+        "f_long": _mz_t("Незвично довга назва домену", "Unnaturally long domain", "Неестественно длинный домен"),
+        "f_bait": _mz_t("В адресі слова-приманки: %s", "Bait words in the address: %s", "В адресе слова-приманки: %s"),
+        "f_exec": _mz_t("Посилання веде на файл %s, це встановлення програми, а не сайт", "The link points to a %s file — that installs software, it is not a website", "Ссылка ведёт на файл %s — это установка программы, а не сайт"),
+        "f_short": _mz_t("Скорочене посилання, справжню адресу приховано", "Shortened link — the real address is hidden", "Сокращённая ссылка — настоящий адрес скрыт"),
+        "f_hops": _mz_t("Редиректів дорогою: %s", "Redirects along the way: %s", "Редиректов по пути: %s"),
+        "f_age_new": _mz_t("Домену всього %s, свіжа реєстрація", "The domain is only %s old", "Домену всего %s — свежая регистрация"),
+        "f_age_young": _mz_t("Домен зареєстровано %s тому", "The domain was registered %s ago", "Домен зарегистрирован %s назад"),
+        "src_stranger": _mz_t("Посилання з чужого чату або каналу", "The link comes from a stranger or a channel", "Ссылка из чужого чата или канала"),
+        "src_trusted": _mz_t("Посилання від вашого контакту", "The link comes from one of your contacts", "Ссылка от вашего контакта"),
+        "sw_age": _mz_t("Дізнаватися вік домену", "Look up domain age", "Узнавать возраст домена"),
+        "sw_age_sub": _mz_t("Для підозрілих посилань запитує дату реєстрації у rdap.org: домен іде до стороннього сервісу", "Asks rdap.org for the registration date of suspicious domains — the domain leaves your device", "Для подозрительных ссылок спрашивает дату регистрации у rdap.org — домен уходит на сторонний сервис"),
+        "db_title": _mz_t("База шахрайських сайтів", "Scam site database", "База мошеннических сайтов"),
+        "sw_database": _mz_t("Перевіряти за базою", "Check against the database", "Проверять по базе"),
+        "sw_database_sub": _mz_t("Оновлюється сама вночі. Перевірка йде на пристрої, адреси нікуди не надсилаються", "Updates itself overnight. Lookups happen on the device, no address is sent anywhere", "Обновляется сама по ночам. Проверка идёт на устройстве, адреса никуда не отправляются"),
+        "db_refresh": _mz_t("Оновити базу", "Update database", "Обновить базу"),
+        "db_updated": _mz_t("Базу оновлено: %s", "Database updated: %s", "База обновлена: %s"),
+        "db_failed": _mz_t("Базу не вдалося оновити", "The database was not updated", "База не обновилась"),
+        "db_off": _mz_t("Базу вимкнено в налаштуваннях", "The database is switched off in settings", "База выключена в настройках"),
         "db_status": "%s · %s",
-        "db_status_full": "В базе %s, обновлена %s",
-        "db_status_loading": "Загружаю базу…",
-        "db_today": "сегодня",
-        "db_ago": "%s назад",
-        "unit_entry": "запись|записи|записей",
-        "db_status_none": "База ещё не скачана",
-        "dl_not_ours": "файл не похож на Link Guard",
-        "dl_partial": "файл записан не полностью",
-        "dl_no_folder": "нет доступной папки",
-        "dl_unknown": "неизвестно",
-        "hdr_language": "Язык",
-        "sel_language": "Язык интерфейса",
-        "lang_auto": "Как в Telegram",
-        "db_status_off": "База выключена",
-        "hdr_diag": "Диагностика",
-        "sw_debug": "Подробный журнал",
-        "sw_debug_sub": "Записывает, что плагин делает с каждой ссылкой",
-        "log_show": "Показать журнал",
-        "log_show_sub": "Долгое нажатие — очистить",
-        "log_title": "Журнал Link Guard",
-        "log_head": "Link Guard %s, записей в журнале: %s",
-        "log_empty": "Журнал пуст. Включите подробный журнал и откройте пару ссылок",
-        "log_cut": "(показан только конец)",
-        "log_copy": "Скопировать",
-        "log_copied": "Журнал скопирован",
-        "log_cleared": "Журнал очищен",
-        "scripts_LATIN": "латиница",
-        "scripts_CYRILLIC": "кириллица",
-        "scripts_GREEK": "греческий",
-        "scripts_ARMENIAN": "армянский",
-        "scripts_HEBREW": "иврит",
+        "db_status_full": _mz_t("У базі %s, оновлено %s", "%s in the database, updated %s", "В базе %s, обновлена %s"),
+        "db_status_loading": _mz_t("Завантажую базу…", "Loading the database…", "Загружаю базу…"),
+        "db_today": _mz_t("сьогодні", "today", "сегодня"),
+        "db_ago": _mz_t("%s тому", "%s ago", "%s назад"),
+        "unit_entry": _mz_t("запис|записи|записів", "entry|entries|entries", "запись|записи|записей"),
+        "db_status_none": _mz_t("Базу ще не завантажено", "Not downloaded yet", "База ещё не скачана"),
+        "dl_not_ours": _mz_t("файл не схожий на Link Guard", "the file is not Link Guard", "файл не похож на Link Guard"),
+        "dl_partial": _mz_t("файл записано не повністю", "the file was saved only partly", "файл записан не полностью"),
+        "dl_no_folder": _mz_t("немає доступної папки", "no writable folder", "нет доступной папки"),
+        "dl_unknown": _mz_t("невідомо", "unknown reason", "неизвестно"),
+        "hdr_language": _mz_t("Мова", "Language", "Язык"),
+        "sel_language": _mz_t("Мова інтерфейсу", "Interface language", "Язык интерфейса"),
+        "lang_auto": _mz_t("Як у Telegram", "As in Telegram", "Как в Telegram"),
+        "db_status_off": _mz_t("База вимкнена", "The database is off", "База выключена"),
+        "hdr_diag": _mz_t("Діагностика", "Diagnostics", "Диагностика"),
+        "sw_debug": _mz_t("Докладний журнал", "Verbose log", "Подробный журнал"),
+        "sw_debug_sub": _mz_t("Записує, що плагін робить з кожним посиланням", "Records what the plugin does with every link", "Записывает, что плагин делает с каждой ссылкой"),
+        "log_show": _mz_t("Показати журнал", "Show the log", "Показать журнал"),
+        "log_show_sub": _mz_t("Довге натискання: очистити", "Long press to clear", "Долгое нажатие — очистить"),
+        "log_title": _mz_t("Журнал Link Guard", "Link Guard log", "Журнал Link Guard"),
+        "log_head": _mz_t("Link Guard %s, рядків у журналі: %s", "Link Guard %s, log lines: %s", "Link Guard %s, записей в журнале: %s"),
+        "log_empty": _mz_t("Журнал порожній. Увімкніть докладний журнал і відкрийте кілька посилань", "The log is empty. Turn on the verbose log and open a few links", "Журнал пуст. Включите подробный журнал и откройте пару ссылок"),
+        "log_cut": _mz_t("(показано лише кінець)", "(only the tail is shown)", "(показан только конец)"),
+        "log_copy": _mz_t("Копіювати", "Copy", "Скопировать"),
+        "log_copied": _mz_t("Журнал скопійовано", "Log copied", "Журнал скопирован"),
+        "log_cleared": _mz_t("Журнал очищено", "Log cleared", "Журнал очищен"),
+        "scripts_LATIN": _mz_t("латиниця", "Latin", "латиница"),
+        "scripts_CYRILLIC": _mz_t("кирилиця", "Cyrillic", "кириллица"),
+        "scripts_GREEK": _mz_t("грецька", "Greek", "греческий"),
+        "scripts_ARMENIAN": _mz_t("вірменська", "Armenian", "армянский"),
+        "scripts_HEBREW": _mz_t("іврит", "Hebrew", "иврит"),
     },
     "en": {
         "hdr_checks": "Link checks",
@@ -518,7 +528,7 @@ def pick_language(choice):
     code = app_language()
     if not code:
         return None
-    return "ru" if code.startswith("ru") else "en"
+    return "ru" if code.startswith(("ru", "uk")) else "en"
 
 
 def apply_language(choice):
@@ -1388,21 +1398,21 @@ class DomainDatabase:
 
     def __init__(self, blob):
         if not blob.startswith(DB_MAGIC):
-            raise ValueError("чужой файл")
+            raise ValueError("not a Link Guard file")
         version, self.built_day, count = struct.unpack(">BIB", blob[4:DB_HEADER])
         if version != DB_FORMAT:
-            raise ValueError("версия формата %d" % version)
+            raise ValueError("format version %d" % version)
         self.sections = {}
         offset = DB_HEADER
         for _ in range(count):
             tag = blob[offset:offset + 4].decode("ascii")
             length = struct.unpack(">I", blob[offset + 4:offset + 8])[0]
             if offset + 8 + length > len(blob):
-                raise ValueError("раздел %s выходит за границы файла" % tag)
+                raise ValueError("section %s is outside the file" % tag)
             self.sections[tag] = blob[offset + 8:offset + 8 + length]
             offset += 8 + length
         if "MALW" not in self.sections:
-            raise ValueError("нет раздела с доменами")
+            raise ValueError("no domain section")
         for tag in DB_HASH_SECTIONS:
             if tag in self.sections:
                 self._check_hashes(tag)
@@ -1422,16 +1432,16 @@ class DomainDatabase:
     def _check_hashes(self, tag):
         raw = self.sections[tag]
         if len(raw) < 11:
-            raise ValueError("раздел %s короче заголовка" % tag)
+            raise ValueError("section %s is shorter than its header" % tag)
         bits, count, block, index_count = struct.unpack(">BIHI", raw[:11])
         if not 8 <= bits <= 64:
-            raise ValueError("раздел %s: разрядность %d" % (tag, bits))
+            raise ValueError("section %s: width %d" % (tag, bits))
         if count and not block:
-            raise ValueError("раздел %s: пустой размер блока" % tag)
+            raise ValueError("section %s: empty block size" % tag)
         if 11 + index_count * DB_INDEX_ENTRY > len(raw):
-            raise ValueError("раздел %s: указатель не помещается" % tag)
+            raise ValueError("section %s: pointer does not fit" % tag)
         if count and not index_count:
-            raise ValueError("раздел %s: записи без указателя" % tag)
+            raise ValueError("section %s: entries without a pointer" % tag)
 
     def _lines(self, tag):
         raw = self.sections.get(tag)
@@ -1730,7 +1740,7 @@ class LinkGuardPlugin(BasePlugin):
         if HAS_MENU:
             self._step("menu", self._register_menu)
         else:
-            log("LinkGuard: меню сообщений недоступно в этом SDK")
+            log("LinkGuard: message menu is not available in this SDK")
         self._maybe_check_updates()
         log("LinkGuard %s loaded, lang=%s" % (__version__, LANG))
 
@@ -1870,7 +1880,7 @@ class LinkGuardPlugin(BasePlugin):
             try:
                 return [Custom(view=cell, on_click=lambda *args: handler())]
             except Exception as e:
-                self._debug("settings: своя строка не собралась: %s" % e)
+                self._debug("settings: custom row failed to build: %s" % e)
         rows = [Text(text=title, subtext=short, on_click=handler)]
         if caption:
             rows.append(Divider(text=caption))
@@ -1889,7 +1899,7 @@ class LinkGuardPlugin(BasePlugin):
             cell.setTextAndValue(title, detail, bool(divider))
             return cell
         except Exception as e:
-            self._debug("settings: ячейка с переносом недоступна: %s" % e)
+            self._debug("settings: wrapped cell is not available: %s" % e)
             return None
 
     def _diagnostic_rows(self):
@@ -2029,7 +2039,7 @@ class LinkGuardPlugin(BasePlugin):
             return True
         except Exception as e:
             log("LinkGuard: load step %s failed: %s" % (name, e))
-            self._debug("load: %s упал — %s" % (name, e))
+            self._debug("load: %s failed: %s" % (name, e))
             return False
 
     def _database_enabled(self):
@@ -2048,9 +2058,9 @@ class LinkGuardPlugin(BasePlugin):
                     os.remove(stale)
                     swept += 1
             except Exception as e:
-                self._debug("db: забытая копия не удалена: %s" % e)
+                self._debug("db: stale copy was not deleted: %s" % e)
         if swept:
-            self._debug("db: убрано забытых копий: %d" % swept)
+            self._debug("db: removed stale copies: %d" % swept)
         return swept
 
     def _moment(self, key):
@@ -2082,7 +2092,7 @@ class LinkGuardPlugin(BasePlugin):
             return
         self._db_ticked = now
         due = self._due_for_refresh(active_database())
-        self._debug("db: пора проверять — %s" % ("да" if due else "нет"))
+        self._debug("db: time to check: %s" % ("yes" if due else "no"))
         if due:
             self._run_background(lambda: self._refresh_database(manual=False))
 
@@ -2095,14 +2105,14 @@ class LinkGuardPlugin(BasePlugin):
         database = read_database(path)
         if database is not None:
             install_database(database)
-            self._debug("db: с диска, %d записей, возраст %d дн." % (
+            self._debug("db: from disk, %d entries, age %d days" % (
                 database.total, database.age_days))
         elif path and os.path.exists(path):
             try:
                 os.remove(path)
-                self._debug("db: испорченный файл удалён")
+                self._debug("db: damaged file deleted")
             except Exception as e:
-                self._debug("db: испорченный файл не удалён: %s" % e)
+                self._debug("db: damaged file was not deleted: %s" % e)
         if self._due_for_refresh(database):
             self._run_background(lambda: self._refresh_database(manual=False))
 
@@ -2114,11 +2124,11 @@ class LinkGuardPlugin(BasePlugin):
             self.set_setting("db_checked_at", time.time())
             known = str(self.get_setting("db_built", "") or "")
             if not manual and stamp == known and active_database() is not None:
-                self._debug("db: на сервере та же сборка (%s), не качаем" % stamp)
+                self._debug("db: server has the same build (%s), not downloading" % stamp)
                 return
-            self._debug("db: на сервере сборка %s, у нас %s" % (stamp, known or "нет"))
+            self._debug("db: server build is %s, ours is %s" % (stamp, known or "none"))
         elif not manual and active_database() is not None:
-            self._debug("db: описание сборки не пришло, база есть — вслепую не качаем")
+            self._debug("db: build info did not arrive, database exists, not downloading blindly")
             return
         content = fetch_database(DB_NAME)
         self.set_setting("db_attempt_at", time.time())
@@ -2131,7 +2141,7 @@ class LinkGuardPlugin(BasePlugin):
             database = DomainDatabase(content)
         except Exception as e:
             self.set_setting("db_failures", self._failures() + 1)
-            self._debug("db: файл не разобран: %s" % e)
+            self._debug("db: file could not be parsed: %s" % e)
             if manual:
                 run_on_ui_thread(lambda: self._toast(phrase("db_failed")))
             return
@@ -2148,7 +2158,7 @@ class LinkGuardPlugin(BasePlugin):
                     handle.write(content)
                 os.replace(partial, path)
             except Exception as e:
-                self._debug("db: не сохранилась: %s" % e)
+                self._debug("db: was not saved: %s" % e)
                 try:
                     if os.path.exists(partial):
                         os.remove(partial)
@@ -2158,7 +2168,7 @@ class LinkGuardPlugin(BasePlugin):
         self.set_setting("db_checked_at", time.time())
         if stamp:
             self.set_setting("db_built", stamp)
-        self._debug("db: из сети, %d записей, сборка %s" % (total, stamp or "?"))
+        self._debug("db: from network, %d entries, build %s" % (total, stamp or "?"))
         run_on_ui_thread(lambda: self._after_refresh(total, manual))
 
     def _after_refresh(self, total, manual):
@@ -2167,7 +2177,7 @@ class LinkGuardPlugin(BasePlugin):
         try:
             self.set_setting("db_entries", total, reload_settings=True)
         except Exception as e:
-            self._debug("db: экран не перерисовался: %s" % e)
+            self._debug("db: screen did not redraw: %s" % e)
             self.set_setting("db_entries", total)
 
     def _on_refresh_database_click(self, *args):
@@ -2198,7 +2208,7 @@ class LinkGuardPlugin(BasePlugin):
             install_database(database)
             if getattr(self, "_cache", None) is not None:
                 self._cache.clear()
-            self._debug("db: снова включена, взята копия с диска")
+            self._debug("db: enabled again, using the copy from disk")
             if self._due_for_refresh(database):
                 self._refresh_database(manual=False)
         finally:
@@ -2266,7 +2276,7 @@ class LinkGuardPlugin(BasePlugin):
         remote = str(info.get("version", ""))
         needed = str(info.get("min_app_version", "") or "")
         if client_too_old(needed):
-            self._debug("update: %s требует клиент %s, а стоит %s"
+            self._debug("update: %s needs client %s, but %s is installed"
                         % (remote, needed, client_version()))
             if manual:
                 run_on_ui_thread(lambda: self._toast(
@@ -2354,7 +2364,7 @@ class LinkGuardPlugin(BasePlugin):
                 reason = "HTTP %s" % resp.status_code
             elif not self._looks_like_our_plugin(resp.content):
                 reason = phrase("dl_not_ours")
-                self._debug("update: скачанное не похоже на плагин, установка отменена")
+                self._debug("update: download does not look like a plugin, install cancelled")
             else:
                 path, reason = self._store_plugin_file(resp.content, remote)
         except Exception as e:
@@ -2373,13 +2383,13 @@ class LinkGuardPlugin(BasePlugin):
                 if value:
                     found.append(value)
             except Exception as e:
-                self._debug("update: каталог недоступен: %s" % e)
+                self._debug("update: folder is not available: %s" % e)
         try:
             loader = find_class("org.telegram.messenger.ApplicationLoader")
             if loader is not None:
                 found.append(str(loader.applicationContext.getCacheDir().getAbsolutePath()))
         except Exception as e:
-            self._debug("update: кэш приложения недоступен: %s" % e)
+            self._debug("update: app cache is not available: %s" % e)
         try:
             import tempfile
             found.append(tempfile.gettempdir())
@@ -2406,12 +2416,12 @@ class LinkGuardPlugin(BasePlugin):
                 with open(path, "wb") as handle:
                     handle.write(content)
                 if os.path.exists(path) and os.path.getsize(path) == len(content):
-                    self._debug("update: файл сохранён в %s" % path)
+                    self._debug("update: file saved to %s" % path)
                     return path, ""
                 problems.append(phrase("dl_partial"))
             except Exception as e:
                 problems.append(str(e))
-                self._debug("update: запись в %s не удалась: %s" % (path, e))
+                self._debug("update: write to %s failed: %s" % (path, e))
         return None, "; ".join(problems[:2]) or phrase("dl_no_folder")
 
     def _finish_download(self, path, reason, link, remote):
@@ -2428,7 +2438,7 @@ class LinkGuardPlugin(BasePlugin):
 
     def _launch_install(self, path):
         if PluginsController is None:
-            self._debug("update: PluginsController недоступен")
+            self._debug("update: PluginsController is not available")
             return False
         fragment = get_last_fragment()
         if fragment is None:
@@ -2436,10 +2446,10 @@ class LinkGuardPlugin(BasePlugin):
         try:
             if JavaFile is not None:
                 if PluginsController.getPluginEngine(JavaFile(path)) is None:
-                    self._debug("update: движок не опознал файл")
+                    self._debug("update: engine did not recognise the file")
                     return False
             PluginsController.getInstance().showInstallDialog(fragment, path, True)
-            self._debug("update: открыт диалог установки")
+            self._debug("update: install dialog opened")
             return True
         except Exception as e:
             log("LinkGuard: install dialog failed: %s" % e)
@@ -2451,7 +2461,7 @@ class LinkGuardPlugin(BasePlugin):
 
     def _install_open_url_hook(self):
         if OpenUrlHook is None:
-            log("LinkGuard: хуки недоступны в этом SDK, работает только чистка исходящих")
+            log("LinkGuard: hooks are not available in this SDK, only outgoing cleaning works")
             return
         try:
             handler = OpenUrlHook()
@@ -2475,7 +2485,7 @@ class LinkGuardPlugin(BasePlugin):
             except Exception as e:
                 log("LinkGuard: cannot hook %s: %s" % (class_name, e))
         if not self._hooks:
-            log("LinkGuard: openUrl не найден, проверка при переходе отключена")
+            log("LinkGuard: openUrl not found, check on open is disabled")
 
     UPDATE_NAMES = ("TL_updateNewMessage", "TL_updateNewChannelMessage",
                     "TL_updateShortMessage", "TL_updateShortChatMessage",
@@ -2489,7 +2499,7 @@ class LinkGuardPlugin(BasePlugin):
                 registered += 1
             except Exception as e:
                 log("LinkGuard: hook %s failed: %s" % (name, e))
-        self._debug("updates: подписок %d из %d" % (registered, len(self.UPDATE_NAMES)))
+        self._debug("updates: subscriptions %d of %d" % (registered, len(self.UPDATE_NAMES)))
 
     def on_update_hook(self, update_name, account, update):
         self._debug("update: %s" % update_name)
@@ -2509,10 +2519,10 @@ class LinkGuardPlugin(BasePlugin):
                 if len(names) < 6:
                     names.append(type(item).__name__)
                 self._consume_update(item)
-            self._debug("updates: %s, внутри %d: %s"
-                        % (container_name, total, ", ".join(names) or "пусто"))
+            self._debug("updates: %s, inside %d: %s"
+                        % (container_name, total, ", ".join(names) or "empty"))
         except Exception as e:
-            self._debug("updates: разбор не удался — %s" % e)
+            self._debug("updates: parsing failed: %s" % e)
         return HookResult()
 
     def _consume_update(self, update):
@@ -2526,7 +2536,7 @@ class LinkGuardPlugin(BasePlugin):
                 self._index_anchors(text, getattr(payload, "entities", None))
                 self._index_source(payload, text)
         except Exception as e:
-            self._debug("update: разбор не удался — %s" % e)
+            self._debug("update: parsing failed: %s" % e)
 
     @staticmethod
     def _message_source(message):
@@ -2715,7 +2725,7 @@ class LinkGuardPlugin(BasePlugin):
 
         self._debug("open %s risk=%s source=%s age=%s dialog=%s arg=%s"
                     % (url, verdict.risk, verdict.source,
-                       "да" if wants_age else ("выкл" if not ask_age else "нет"),
+                       "yes" if wants_age else ("off" if not ask_age else "no"),
                        needs_dialog, type(param.args[index]).__name__))
 
         if not needs_dialog:
@@ -2727,7 +2737,7 @@ class LinkGuardPlugin(BasePlugin):
                     if removed:
                         run_on_ui_thread(lambda: self._toast(phrase("toast_cleaned", removed)))
                 else:
-                    self._debug("не удалось подставить очищенный адрес")
+                    self._debug("could not substitute the cleaned address")
             return
 
         param.setResult(None)
@@ -2781,20 +2791,20 @@ class LinkGuardPlugin(BasePlugin):
             if now - hit[0] < age:
                 return hit[1]
         if not DOMAIN_RE.fullmatch(domain or ""):
-            self._debug("rdap: %s — не доменное имя, пропускаю" % domain)
+            self._debug("rdap: %s is not a domain name, skipping" % domain)
             return None
-        self._debug("rdap: спрашиваю %s" % domain)
+        self._debug("rdap: asking about %s" % domain)
         days = domain_age_days(domain)
         if days is None or days < 0:
             if len(cache) >= AGE_CACHE_MAX:
                 cache.clear()
             cache[domain] = (now, None)
-            self._debug("rdap: %s — ответа нет" % domain)
+            self._debug("rdap: no answer for %s" % domain)
             return None
         if len(cache) >= AGE_CACHE_MAX:
             cache.clear()
         cache[domain] = (now, days)
-        self._debug("rdap: %s -> %s дней" % (domain, days))
+        self._debug("rdap: %s -> %s days" % (domain, days))
         return days
 
     def _finish_expanded(self, verdict, method, args, index):
@@ -3038,14 +3048,14 @@ class LinkGuardPlugin(BasePlugin):
                 if activity is not None:
                     return activity
         except Exception as e:
-            self._debug("link: экран недоступен: %s" % e)
+            self._debug("link: screen is not available: %s" % e)
         if find_class is None:
             return None
         try:
             loader = find_class("org.telegram.messenger.ApplicationLoader")
             return loader.applicationContext if loader is not None else None
         except Exception as e:
-            self._debug("link: контекст приложения недоступен: %s" % e)
+            self._debug("link: app context is not available: %s" % e)
             return None
 
     def _open_link(self, url):
@@ -3054,10 +3064,10 @@ class LinkGuardPlugin(BasePlugin):
             bypass[url] = time.monotonic()
         context = self._own_context()
         if self._open_with_browser(context, url):
-            self._debug("link: открыл через Browser")
+            self._debug("link: opened via Browser")
             return True
         if self._open_with_intent(context, url):
-            self._debug("link: открыл через Intent")
+            self._debug("link: opened via Intent")
             return True
         if bypass is not None:
             bypass.pop(url, None)
