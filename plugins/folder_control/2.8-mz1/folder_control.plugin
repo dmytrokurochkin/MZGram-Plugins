@@ -169,9 +169,9 @@ class FolderControlPlugin(BasePlugin):
                     return LocaleController.getString(R.string.FilterAllChats)
                 except Exception:
                     return _mz_t("Усі чати", "All chats", "Все чаты")
-            return f.name if f.name else _mz_t(f"Папка {f.id}", f"Folder {f.id}", f"Папка {f.id}")
+            return f.name if f.name else _mz_t(f"Тека {f.id}", f"Folder {f.id}", f"Папка {f.id}")
         except Exception:
-            return f.name if f.name else _mz_t(f"Папка {f.id}", f"Folder {f.id}", f"Папка {f.id}")
+            return f.name if f.name else _mz_t(f"Тека {f.id}", f"Folder {f.id}", f"Папка {f.id}")
 
     def _open_folder_settings(self, view):
         try:
@@ -217,13 +217,13 @@ class FolderControlPlugin(BasePlugin):
 
         items.append(Header(text=_mz_t("Керування", "Management", "Управление")))
         items.append(Text(
-            text=_mz_t("Налаштувати папки", "Configure folders", "Настроить папки"),
+            text=_mz_t("Налаштувати теки", "Configure folders", "Настроить папки"),
             icon="msg_folders",
             on_click=self._open_folder_settings,
         ))
         items.append(Divider())
 
-        items.append(Header(text=_mz_t("Папки", "Folders", "Папки")))
+        items.append(Header(text=_mz_t("Теки", "Folders", "Папки")))
 
         filters = self._get_all_filters()
         hidden_ids = self.get_setting("hidden_folder_ids", [])

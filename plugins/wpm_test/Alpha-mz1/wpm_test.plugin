@@ -1358,7 +1358,7 @@ class WpmTestPlugin(BasePlugin):
                 key="no_accuracy",
                 text=_mz_t("Без точності (No Accuracy)", "No accuracy", "Без точности (No Accuracy)"),
                 default=False,
-                subtext=_mz_t("Показувати лише слів/хв, точність не рахується", "Show WPM only, accuracy not counted", "Показывать только ВПМ, точность не считается"),
+                subtext=_mz_t("Показувати лише слів/хв, точність не враховується", "Show WPM only, accuracy not counted", "Показывать только ВПМ, точность не считается"),
                 icon="msg_stats",
                 on_change=self._on_no_accuracy_change
             ),
@@ -1366,7 +1366,7 @@ class WpmTestPlugin(BasePlugin):
                 key="no_wpm",
                 text=_mz_t("Без слів/хв (No WPM)", "No WPM", "Без ВПМ (No WPM)"),
                 default=False,
-                subtext=_mz_t("Показувати лише точність, швидкість не рахується", "Show accuracy only, speed not counted", "Показывать только точность, скорость не считается"),
+                subtext=_mz_t("Показувати лише точність, швидкість не враховується", "Show accuracy only, speed not counted", "Показывать только точность, скорость не считается"),
                 icon="msg_stats",
                 on_change=self._on_no_wpm_change
             ),

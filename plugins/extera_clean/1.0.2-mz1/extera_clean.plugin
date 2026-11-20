@@ -1819,7 +1819,7 @@ class ExteraClean(BasePlugin):
         names = [str(x).strip() for x in (item.get("folder_names") or []) if str(x).strip()]
         if not names:
             return ""
-        return _mz_t("Папки: ", "Folders: ", "Папки: ") + ", ".join(names)
+        return _mz_t("Теки: ", "Folders: ", "Папки: ") + ", ".join(names)
 
     def _selector_subtitle(self, item, footer_text=None):
         parts = [str(footer_text or self._dtype_label(item.get("type", "")))]

@@ -280,7 +280,7 @@ class AllChatsLoaderPlugin(BasePlugin):
         if success:
             self._show_alert(
                 _mz_t("Синхронізацію завершено", "Sync complete", "Синхронизация завершена"),
-                _mz_t("{}\n\nДля коректного відображення чатів, папок і лічильників непрочитаних рекомендуємо вручну перезапустити ExteraGram.", "{}\n\nFor chats, folders and unread counters to display correctly, we recommend restarting ExteraGram manually.", ("{}\n\nДля корректного отображения чатов, папок и счётчиков "
+                _mz_t("{}\n\nДля коректного відображення чатів, тек і лічильників непрочитаних рекомендуємо вручну перезапустити ExteraGram.", "{}\n\nFor chats, folders and unread counters to display correctly, we recommend restarting ExteraGram manually.", ("{}\n\nДля корректного отображения чатов, папок и счётчиков "
                 "непрочитанных рекомендуется перезапустить ExteraGram вручную.")).format(status),
             )
         else:
@@ -294,7 +294,7 @@ class AllChatsLoaderPlugin(BasePlugin):
             return
         dialog = AlertDialogBuilder(fragment.getParentActivity())
         dialog.set_title(_mz_t("Термінова синхронізація", "Emergency sync", "Экстренная синхронизация"))
-        dialog.set_message(_mz_t("Це повторно запитає список діалогів. Локальна БД, папки, файли й повідомлення не видаляються.", "This will request the dialog list again. The local database, folders, files and messages are not deleted.", "Это повторно запросит список диалогов. Локальная БД, папки, файлы и сообщения не удаляются."))
+        dialog.set_message(_mz_t("Це повторно запитає список діалогів. Локальна БД, теки, файли й повідомлення не видаляються.", "This will request the dialog list again. The local database, folders, files and messages are not deleted.", "Это повторно запросит список диалогов. Локальная БД, папки, файлы и сообщения не удаляются."))
         dialog.set_positive_button(_mz_t("Продовжити", "Continue", "Продолжить"), lambda box, which: (box.dismiss(), self._start_click()))
         dialog.set_negative_button(_mz_t("Скасувати", "Cancel", "Отмена"), lambda box, which: box.dismiss())
         dialog.show()

@@ -186,7 +186,7 @@ class MotionBlurPlugin(BasePlugin):
         s.append(Switch(key="enable_swipe", text=_mz_t("Свайпи", "Swipes", "Свайпы"), default=True,
                          subtext=_mz_t("Медіапереглядач, вкладки.", "Media viewer, tabs.", "Медиа-просмотрщик, вкладки."), on_change=self._handler("enable_swipe")))
         s.append(Switch(key="enable_main_swipe", text=_mz_t("Свайп у головному меню", "Swipe in the main menu", "Свайп в главном меню"), default=True,
-                         subtext=_mz_t("Свайп між папками на головному екрані.", "Swipe between folders on the main screen.", "Свайп между папками на главном экране."), on_change=self._handler("enable_main_swipe")))
+                         subtext=_mz_t("Свайп між теками на головному екрані.", "Swipe between folders on the main screen.", "Свайп между папками на главном экране."), on_change=self._handler("enable_main_swipe")))
         s.append(Switch(key="enable_menu", text=_mz_t("Меню", "Menu", "Меню"), default=True,
                          subtext=_mz_t("Спливаючі меню.", "Pop-up menus.", "Всплывающие меню."), on_change=self._handler("enable_menu")))
         return s

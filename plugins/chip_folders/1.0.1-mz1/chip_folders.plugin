@@ -601,7 +601,7 @@ class ChipFoldersPlugin(BasePlugin):
 
         rows.append(Divider(text=t(
             "Подсказка: попасть в эти настройки можно зажав основную папку",
-            "Tip: long-press the main folder to open these settings", "Підказка: потрапити в ці налаштування можна, утримуючи основну папку",
+            "Tip: long-press the main folder to open these settings", "Підказка: потрапити в ці налаштування можна, утримуючи основну теку",
         )))
 
         return [row for row in rows if row is not None]

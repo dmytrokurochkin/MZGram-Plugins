@@ -157,7 +157,7 @@ STRINGS = {
         "tab_opens": _mz_t("Відкриття", "Opens", "Заходы"), "cal_tip": _mz_t("{0}, повідомлень: {1}", "{0}, messages: {1}", "{0}, сообщений: {1}"), "cal_tip_opens": _mz_t("{0}, відкриттів: {1}", "{0}, opens: {1}", "{0}, заходов: {1}"),
         "kpi_opens": _mz_t("відкриттів", "opens", "заходов"), "kpi_time": _mz_t("у застосунку", "in the app", "в приложении"), "kpi_avg": _mz_t("в середньому", "on average", "в среднем"),
         "sec_opens": _mz_t("Відкриття за часом", "Opens over time", "Заходы по времени"), "sec_opens_heat": _mz_t("Коли ти заходиш", "When you open the app", "Когда ты заходишь"),
-        "opens_since": _mz_t("Рахується з {0}", "Counted since {0}", "Считается с {0}"), "opens_none": _mz_t("За цей період відкриттів немає", "No opens in this period", "За этот период заходов нет"),
+        "opens_since": _mz_t("Відлік з {0}", "Counted since {0}", "Считается с {0}"), "opens_none": _mz_t("За цей період відкриттів немає", "No opens in this period", "За этот период заходов нет"),
         "dur_h": _mz_t("{0} год {1} хв", "{0} h {1} min", "{0} ч {1} мин"), "dur_m": _mz_t("{0} хв", "{0} min", "{0} мин"), "dur_s": _mz_t("{0} с", "{0} s", "{0} с"),
         "set_entries": _mz_t("Де показувати статистику", "Where to show statistics", "Где показывать статистику"), "set_drawer": _mz_t("Бічне меню", "Side menu", "Боковое меню"),
         "set_header": _mz_t("Кнопка у шапці списку чатів", "Button in the chat list header", "Кнопка в шапке списка чатов"), "set_chat": _mz_t("Меню чату ⋮ → Плагіни", "Chat menu ⋮ → Plugins", "Меню чата ⋮ → Плагины"),

@@ -182,7 +182,7 @@ class PillTabsPlugin(BasePlugin):
                 key="hide_title",
                 text=_mz_t("Приховати заголовок", "Hide header", "Скрыть заголовок"),
                 default=True,
-                subtext=_mz_t("Приховати заголовок (Telegram/ExteraGram/ваше ім'я/назву папки) на головному екрані, щоб звільнити місце для Pill Stack", "Hide the header (Telegram/ExteraGram/your name/folder name) on the main screen to make room for Pill Stack", "Скрыть заголовок (Telegram/ExteraGram/ваше имя/название папки) на главном экране, чтобы для Pill Stack было место"),
+                subtext=_mz_t("Приховати заголовок (Telegram/ExteraGram/ваше ім'я/назву теки) на головному екрані, щоб звільнити місце для Pill Stack", "Hide the header (Telegram/ExteraGram/your name/folder name) on the main screen to make room for Pill Stack", "Скрыть заголовок (Telegram/ExteraGram/ваше имя/название папки) на главном экране, чтобы для Pill Stack было место"),
                 on_change=self._on_bool_changed,
             ),
             Divider(),
