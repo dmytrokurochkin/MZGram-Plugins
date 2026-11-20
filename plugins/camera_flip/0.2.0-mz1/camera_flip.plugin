@@ -1,0 +1,189 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
+__id__ = "camera_flip"
+__name__ = "Camera Flip"
+__description__ = "Switches the camera in a video message (circle) by swipe or double tap"
+__author__ = "@its240hz"
+__version__ = "0.2.0-mz1"
+__app_version__ = ">=12.10.6"
+__category__ = ["media"]
+__sdk_version__ = ">=1.4.3.3"
+
+import time
+from base_plugin import BasePlugin, MethodHook
+from ui.settings import Header, Selector, Switch
+from android_utils import run_on_ui_thread
+from org.telegram.messenger import ApplicationLoader
+
+VIEW_CLASS = "org.telegram.ui.Components.InstantCameraView"
+# Of these methods, the ones declared in the class are the ones we intercept
+TOUCH_METHODS = ("onInterceptTouchEvent", "onTouchEvent", "dispatchTouchEvent")
+
+SWIPE_DP = 60        # minimum swipe length
+TAP_SLOP_DP = 12     # allowed finger shift for a tap
+TAP_MAX_MS = 250     # maximum tap duration
+DOUBLE_TAP_MS = 350  # window between two taps
+COOLDOWN_SEC = 0.8   # protection against repeated triggers
+
+ACTION_DOWN = 0
+ACTION_UP = 1
+ACTION_MOVE = 2
+ACTION_CANCEL = 3
+
+# trigger: 0 = swipe up/down, 1 = only up, 2 = only down, 3 = double tap
+
+
+class TouchHook(MethodHook):
+    def __init__(self, plugin):
+        self.plugin = plugin
+
+    def before_hooked_method(self, param):
+        try:
+            self.plugin.handle_touch(param.thisObject, param.args[0])
+        except Exception as e:
+            self.plugin.log(f"touch error: {e}")
+
+
+class CameraFlipPlugin(BasePlugin):
+    def on_plugin_load(self):
+        self._last_key = None
+        self._last_flip = 0.0
+        self._x0 = None
+        self._y0 = None
+        self._t0 = 0
+        self._fired = False
+        self._last_tap = 0
+        try:
+            loader = ApplicationLoader.applicationContext.getClassLoader()
+            cls = loader.loadClass(VIEW_CLASS)
+            hook = TouchHook(self)
+            hooked = []
+            for m in cls.getDeclaredMethods():
+                if m.getName() in TOUCH_METHODS and len(m.getParameterTypes()) == 1:
+                    self.hook_method(m, hook)
+                    hooked.append(m.getName())
+            if hooked:
+                self.log("hooked: " + ", ".join(hooked))
+            else:
+                self.log("no touch methods found in " + VIEW_CLASS)
+        except Exception as e:
+            self.log(f"load failed: {e}")
+
+    def handle_touch(self, view, ev):
+        action = ev.getActionMasked()
+        # the same event can pass through several intercepted methods
+        key = (ev.getEventTime(), action)
+        if key == self._last_key:
+            return
+        self._last_key = key
+
+        if action == ACTION_CANCEL or ev.getPointerCount() > 1:
+            self._x0 = None  # multitouch (pinch zoom) is ignored
+            return
+
+        mode = int(self.get_setting("trigger", 0))
+        density = view.getResources().getDisplayMetrics().density
+
+        if action == ACTION_DOWN:
+            self._x0 = ev.getX()
+            self._y0 = ev.getY()
+            self._t0 = ev.getEventTime()
+            self._fired = False
+            return
+
+        if self._x0 is None:
+            return
+
+        dx = ev.getX() - self._x0
+        dy = ev.getY() - self._y0
+
+        if action == ACTION_MOVE:
+            if mode == 3 or self._fired:
+                return
+            if abs(dy) > SWIPE_DP * density and abs(dy) > 1.5 * abs(dx):
+                if mode == 0 or (mode == 1 and dy < 0) or (mode == 2 and dy > 0):
+                    self._fired = True
+                    self.flip(view)
+        elif action == ACTION_UP:
+            if mode == 3:
+                t = ev.getEventTime()
+                is_tap = (
+                    abs(dx) < TAP_SLOP_DP * density
+                    and abs(dy) < TAP_SLOP_DP * density
+                    and t - self._t0 < TAP_MAX_MS
+                )
+                if is_tap:
+                    if t - self._last_tap < DOUBLE_TAP_MS:
+                        self._last_tap = 0
+                        self.flip(view)
+                    else:
+                        self._last_tap = t
+            self._x0 = None
+
+    def flip(self, view):
+        now = time.time()
+        if now - self._last_flip < COOLDOWN_SEC:
+            return
+        self._last_flip = now
+        haptic = bool(self.get_setting("haptic", True))
+
+        def _do():
+            try:
+                cls = view.getClass()
+                btn = None
+                while cls is not None and btn is None:
+                    try:
+                        f = cls.getDeclaredField("switchCameraButton")
+                        f.setAccessible(True)
+                        btn = f.get(view)
+                    except Exception:
+                        cls = cls.getSuperclass()
+                if btn is not None:
+                    # full path, as when pressing the button: readiness checks + flip animation
+                    btn.performClick()
+                else:
+                    m = view.getClass().getDeclaredMethod("switchCamera")
+                    m.setAccessible(True)
+                    m.invoke(view)
+                if haptic:
+                    view.performHapticFeedback(3)
+            except Exception as e:
+                self.log(f"flip failed: {e}")
+
+        run_on_ui_thread(_do)
+
+    def create_settings(self):
+        return [
+            Header(text=_mz_t("Жест", "Gesture", "Жест")),
+            Selector(
+                key="trigger",
+                text=_mz_t("Як перемикати камеру", "How to switch the camera", "Как переключать камеру"),
+                default=int(self.get_setting("trigger", 0)),
+                items=[
+                    _mz_t("Свайп вгору або вниз", "Swipe up or down", "Свайп вверх или вниз"),
+                    _mz_t("Свайп вгору", "Swipe up", "Свайп вверх"),
+                    _mz_t("Свайп вниз", "Swipe down", "Свайп вниз"),
+                    _mz_t("Подвійне натискання", "Double tap", "Двойной тап"),
+                ],
+                icon="msg_retry",
+                on_change=lambda val: self.set_setting("trigger", int(val)),
+            ),
+            Switch(
+                key="haptic",
+                text=_mz_t("Вібрація", "Vibration", "Вибрация"),
+                subtext=_mz_t("Короткий відгук під час перемикання", "Short feedback when switching", "Короткий отклик при переключении"),
+                default=bool(self.get_setting("haptic", True)),
+                on_change=lambda val: self.set_setting("haptic", bool(val)),
+            ),
+        ]

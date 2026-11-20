@@ -1,0 +1,119 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
+from typing import Any, List
+from base_plugin import BasePlugin, HookResult, HookStrategy
+from android_utils import log, run_on_ui_thread
+from ui.alert import AlertDialogBuilder
+from ui.bulletin import BulletinHelper
+from client_utils import send_request, get_last_fragment
+
+__id__ = "confirm_unpin_all"
+__name__ = "Confirm Unpin All"
+__description__ = "Shows a confirmation dialog after unpinning all messages (right when the notification with the cancel button disappears). @bobrplugins"
+__author__ = "@bober41"
+__version__ = "1.1-mz1"
+__icon__ = "bobrplugins/16"
+__app_version__ = ">=12.5.1"
+__category__ = ["chats"]
+__sdk_version__ = ">=1.4.3.3"
+
+UNPIN_REQUESTS = (
+    "TL_messages_unpinAllMessages",
+    "TL_channels_unpinAllMessages",
+)
+
+
+class ConfirmUnpinPlugin(BasePlugin):
+    def on_plugin_load(self):
+        for req in UNPIN_REQUESTS:
+            self.add_hook(req)
+        self._pending_request = None
+        self._skip_next = False
+        log("ConfirmUnpinPlugin loaded")
+
+    def on_plugin_unload(self):
+        self._pending_request = None
+        self._skip_next = False
+        log("ConfirmUnpinPlugin unloaded")
+
+    def pre_request_hook(self, request_name: str, account: int, request: Any) -> HookResult:
+        # let everything through except unpinning
+        if request_name not in UNPIN_REQUESTS:
+            return HookResult()
+
+        # if we re-send the confirmed request ourselves, let it through
+        if self._skip_next:
+            self._skip_next = False
+            return HookResult()
+
+        # save the request and show the dialog on the UI thread
+        self._pending_request = request
+        run_on_ui_thread(self._show_confirm_dialog)
+
+        # cancel the current request, we will send it ourselves if the user agrees
+        return HookResult(strategy=HookStrategy.CANCEL)
+
+    def _show_confirm_dialog(self):
+        try:
+            fragment = get_last_fragment()
+            if not fragment:
+                self._proceed()
+                return
+
+            activity = fragment.getParentActivity()
+            if not activity:
+                self._proceed()
+                return
+
+            builder = AlertDialogBuilder(activity)
+            builder.set_title(_mz_t("Відкріпити всі повідомлення?", "Unpin all messages?", "Открепить все сообщения?"))
+            builder.set_message(_mz_t("Ви точно хочете відкріпити всі повідомлення?", "Are you sure you want to unpin all messages?", "Вы точно хотите открепить все сообщения?"))
+
+            def on_yes(bld, which):
+                bld.dismiss()
+                self._proceed()
+
+            def on_no(bld, which):
+                bld.dismiss()
+                self._pending_request = None
+                BulletinHelper.show_info(_mz_t("Відкріплення скасовано", "Unpinning cancelled", "Открепление отменено"))
+
+            builder.set_positive_button(_mz_t("Відкріпити", "Unpin", "Открепить"), on_yes)
+            builder.set_negative_button(_mz_t("Скасувати", "Cancel", "Отмена"), on_no)
+            builder.show()
+        except Exception as e:
+            log("Dialog error: " + str(e))
+            self._proceed()
+
+    def _proceed(self):
+        """Sends the saved request, letting the hook through once."""
+        if self._pending_request:
+            request = self._pending_request
+            self._pending_request = None
+            self._skip_next = True
+            try:
+                send_request(request, lambda resp, err: None)
+            except Exception as e:
+                log("Send request error: " + str(e))
+                self._skip_next = False
+
+    def create_settings(self) -> List[Any]:
+        from ui.settings import Header, Text
+        return [
+            Header(text="Confirm Unpin All"),
+            Text(
+                text=_mz_t("Плагін активний", "Plugin is active", "Плагин активен"),
+                subtext=_mz_t("Перехоплює запит відкріплення на рівні API, працює з будь-якою кнопкою", "Intercepts the unpin request at the API level, works with any button", "Перехватывает запрос открепления на уровне API — работает с любой кнопкой"),
+            ),
+        ]
