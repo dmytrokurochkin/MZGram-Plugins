@@ -1,0 +1,706 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
+from base_plugin import BasePlugin, MenuItemData, MenuItemType
+from ui.alert import AlertDialogBuilder
+from client_utils import get_last_fragment
+from android_utils import run_on_ui_thread, log
+from hook_utils import find_class
+from java import dynamic_proxy
+
+LinearLayout = find_class("android.widget.LinearLayout")
+TextView = find_class("android.widget.TextView")
+Button = find_class("android.widget.Button")
+ScrollView = find_class("android.widget.ScrollView")
+Theme = find_class("org.telegram.ui.ActionBar.Theme")
+AndroidUtilities = find_class("org.telegram.messenger.AndroidUtilities")
+Gravity = find_class("android.view.Gravity")
+Typeface = find_class("android.graphics.Typeface")
+
+from android.view import View, ViewGroup
+from android.widget import FrameLayout, ImageView
+from android.os import Handler, Looper
+from android.graphics import Bitmap, Canvas, ColorMatrix, ColorMatrixColorFilter, Paint
+
+__id__ = "mikoto_nikki"
+__name__ = "Mikoto's Diary"
+__description__ = "Adaptation of a 2013 visual novel inside exteraGram"
+__author__ = "@KangelPlugins & @TomokoPlugins"
+__version__ = "Release-mz1"
+__min_version__ = "11.12.0"
+__icon__ = "yunochkaaaaaaa/78"
+__category__ = ["fun"]
+
+DEFAULT_SHOW_IN_CHAT_ACTION = True
+DEFAULT_SHOW_IN_DRAWER = True
+
+class VisualNovelDemoPlugin(BasePlugin):
+    def __init__(self):
+        super().__init__()
+        self._sessions = {} 
+        self._dbg = False
+        self._active_overlay = None
+        self._anim_handler = None
+        self._black_overlay = None
+
+    def on_plugin_load(self):
+        self._update_menu_items()
+        self._dlog("loaded")
+
+    def on_plugin_unload(self):
+        self._dlog("unloaded")
+        try:
+            for s in list(self._sessions.values()):
+                try:
+                    dlg = s.get("dialog")
+                    if dlg:
+                        self._safe_dismiss_dialog(dlg)
+                except Exception:
+                    pass
+            self._sessions.clear()
+        except Exception:
+            pass
+        try:
+            if self._active_overlay is not None:
+                overlay = self._active_overlay
+                self._active_overlay = None
+                run_on_ui_thread(lambda: self._safe_remove_overlay(overlay))
+            if getattr(self, "_black_overlay", None) is not None:
+                ov = self._black_overlay
+                self._black_overlay = None
+                run_on_ui_thread(lambda: self._safe_remove_overlay(ov))
+        except Exception:
+            pass
+
+    def _dlog(self, msg: str):
+        try:
+            if getattr(self, "_dbg", False):
+                log(f"[VN] {msg}")
+        except Exception:
+            pass
+
+
+    def _update_menu_items(self):
+        try:
+            for i in getattr(self, "_menu_item_ids", []):
+                try:
+                    self.remove_menu_item(i)
+                except Exception:
+                    pass
+        except Exception:
+            pass
+        self._menu_item_ids = []
+        self._menu_item_ids.append(self.add_menu_item(MenuItemData(menu_type=MenuItemType.CHAT_ACTION_MENU, text=_mz_t("Щоденник Микото", "Mikoto's Diary", "Дневник Микото"), icon="msg_groups_hw_remix", on_click=self._open_demo)))
+        self._menu_item_ids.append(self.add_menu_item(MenuItemData(menu_type=MenuItemType.DRAWER_MENU, text=_mz_t("Щоденник Микото", "Mikoto's Diary", "Дневник Микото"), icon="msg_groups_hw_remix", on_click=self._open_demo)))
+
+    def _open_demo(self, context: dict):
+        chat_id = context.get("dialog_id")
+        fragment = get_last_fragment()
+        activity = fragment and fragment.getParentActivity()
+        if not activity:
+            return
+        self._dlog(f"open_vn chat={chat_id}")
+
+        builder = AlertDialogBuilder(activity)
+        builder.set_title(_mz_t("Щоденник Микото", "Mikoto's Diary", "Дневник Микото"))
+
+        main = LinearLayout(activity)
+        main.setOrientation(LinearLayout.VERTICAL)
+        pad = AndroidUtilities.dp(16)
+        main.setPadding(pad, pad, pad, pad)
+
+        text_view = TextView(activity)
+        text_view.setTextSize(16)
+        text_view.setTextColor(Theme.getColor(Theme.key_dialogTextBlack))
+        text_view.setTypeface(None, Typeface.BOLD)
+        text_view.setPadding(0, 0, 0, AndroidUtilities.dp(12))
+
+        choices = LinearLayout(activity)
+        choices.setOrientation(LinearLayout.VERTICAL)
+        choices.setPadding(0, AndroidUtilities.dp(6), 0, 0)
+
+        def make_btn(label, cb):
+            btn = Button(activity)
+            btn.setText(label)
+            btn.setAllCaps(False)
+            btn.setPadding(AndroidUtilities.dp(8), AndroidUtilities.dp(8), AndroidUtilities.dp(8), AndroidUtilities.dp(8))
+            btn.setTextColor(Theme.getColor(Theme.key_dialogTextBlack))
+            btn.setBackgroundColor(Theme.getColor(Theme.key_chat_attachPhotoBackground))
+            # OnClickListener via dynamic proxy
+            OnClickListenerInterface = find_class("android.view.View$OnClickListener")
+            class _L(dynamic_proxy(OnClickListenerInterface)):
+                def __init__(self, fn):
+                    super().__init__()
+                    self.fn = fn
+                def onClick(self, v):
+                    try:
+                        self.fn()
+                    except Exception as e:
+                        log(f"[VN] click error: {e}")
+            btn.setOnClickListener(_L(cb))
+            return btn
+
+        main.addView(text_view)
+        main.addView(choices)
+        builder.set_view(main)
+        dialog = builder.show()
+
+        self._sessions[chat_id] = {
+            "dialog": dialog,
+            "text": text_view,
+            "choices": choices,
+            "state": "prologue1",
+            "flags": {"happy": False, "flash": False},
+            "di_idx": 0
+        }
+        self._render_state(chat_id)
+
+    def _render_state(self, chat_id):
+        s = self._sessions.get(chat_id)
+        if not s:
+            return
+        tv = s["text"]
+        ch = s["choices"]
+        try:
+            ch.removeAllViews()
+        except Exception:
+            pass
+        st = s["state"]
+        flags = s.get("flags", {})
+        self._dlog(f"render state={st}")
+
+        def add_choice(label, handler):
+            btn = Button(ch.getContext())
+            btn.setText(label)
+            btn.setAllCaps(False)
+            btn.setPadding(AndroidUtilities.dp(8), AndroidUtilities.dp(8), AndroidUtilities.dp(8), AndroidUtilities.dp(8))
+            btn.setTextColor(Theme.getColor(Theme.key_dialogTextBlack))
+            btn.setBackgroundColor(Theme.getColor(Theme.key_chat_attachPhotoBackground))
+            OnClickListenerInterface = find_class("android.view.View$OnClickListener")
+            class _L(dynamic_proxy(OnClickListenerInterface)):
+                def __init__(self, fn):
+                    super().__init__()
+                    self.fn = fn
+                def onClick(self, v):
+                    try:
+                        self.fn()
+                    except Exception as e:
+                        log(f"[VN Demo] click error: {e}")
+            btn.setOnClickListener(_L(handler))
+            params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            params.setMargins(0, AndroidUtilities.dp(6), 0, 0)
+            btn.setLayoutParams(params)
+            ch.addView(btn)
+
+        if st == "prologue1":
+            tv.setText(_mz_t("Пролог.\n\nМатаро набирається сміливості й дивиться Микото в очі. Що сказати?\n\n", "Prologue.\n\nMataro works up the courage and looks Mikoto in the eyes. What do you say?\n\n", "Пролог.\n\nМатаро набирается смелости и смотрит Микото в глаза. Что сказать?\n\n"))
+            add_choice(_mz_t("Я люблю тебе всім серцем!", "I love you with all my heart!", "Я люблю тебя всем сердцем!"), lambda: self._set_state(chat_id, "prologue2"))
+            add_choice(_mz_t("…Я давно хотів це сказати…", "…I've wanted to say this for a long time…", "…Я давно хотел это сказать…"), lambda: self._set_state(chat_id, "prologue2"))
+        elif st == "prologue2":
+            tv.setText(_mz_t("Микото м'яко усміхається.\n\nВона: «Добре…»\n\nТи відповідаєш?\n", "Mikoto smiles gently.\n\nShe says: “Okay…”\n\nDo you answer?\n", "Микото мягко улыбается.\n\nОна: «Хорошо…»\n\nТы отвечаешь?\n"))
+            add_choice(_mz_t("Будь ласка, будь добра й до мене.", "Please, be kind to me too.", "Пожалуйста, будь добра ко мне тоже."), lambda: (self._on_window_glitch(chat_id), self._set_state(chat_id, "prologue3")))
+        elif st == "prologue3":
+            tv.setText(_mz_t("І ще одна думка вголос: чого ти насправді хочеш?\n", "And one more thought out loud: what do you really want?\n", "И ещё одна мысль вслух — что ты по‑настоящему хочешь?\n"))
+            add_choice(_mz_t("Я хочу зробити Микото щасливою.", "I want to make Mikoto happy.", "Я хочу сделать Микото счастливой."), lambda: (flags.__setitem__("happy", True), self._set_state(chat_id, "entry")))
+            add_choice(_mz_t("Я хочу бути з Микото назавжди.", "I want to be with Mikoto forever.", "Я хочу быть с Микото навсегда."), lambda: (flags.__setitem__("happy", False), self._set_state(chat_id, "entry")))
+        elif st == "entry":
+            tv.setText(_mz_t("Біля дому Микото. Вона запрошує всередину.\n\nЩо відповісти по дорозі?\n", "At Mikoto's house. She invites you inside.\n\nWhat do you say on the way in?\n", "У дома Микото. Она приглашает внутрь.\n\nЧто ответить по пути?\n"))
+            add_choice(_mz_t("Вибач за вторгнення.", "Sorry for barging in.", "Прошу прощения за вторжение."), lambda: self._set_state(chat_id, "entry_reply1"))
+            add_choice(_mz_t("Мені тут подобається.", "I like it here.", "Мне нравится здесь."), lambda: self._set_state(chat_id, "entry_reply2"))
+            add_choice(_mz_t("Як пізно можна залишитися?", "How late can I stay?", "Как поздно можно остаться?"), lambda: self._set_state(chat_id, "entry_reply3"))
+            add_choice(_mz_t("Що будеш готувати?", "What are you going to cook?", "Что будешь готовить?"), lambda: self._set_state(chat_id, "entry_reply4"))
+        elif st == "entry_reply1":
+            tv.setText(_mz_t("Ти: «Вибач за вторгнення.»\n\nМикото: «Дурненький, я рада, що ти прийшов.»\nЇї голос спокійний, майже шепіт.", "You: “Sorry for barging in.”\n\nMikoto: “Silly, I'm glad you came.”\nHer voice is calm, almost a whisper.", "Ты: «Прошу прощения за вторжение.»\n\nМикото: «Глупыш, я рада, что ты пришёл.»\nЕё голос спокойный, почти шёпот.") )
+            add_choice(_mz_t("Далі", "Next", "Дальше"), lambda: self._set_state(chat_id, "kitchen_opt"))
+        elif st == "entry_reply2":
+            tv.setText(_mz_t("Ти: «Мені тут подобається.»\n\nМикото: «Справді? Я старалася підтримувати затишок… для особливих гостей.»", "You: “I like it here.”\n\nMikoto: “Really? I've tried to keep it cozy… for special guests.”", "Ты: «Мне нравится здесь.»\n\nМикото: «Правда? Я старалась поддерживать уют… для особенных гостей.»") )
+            add_choice(_mz_t("Далі", "Next", "Дальше"), lambda: self._set_state(chat_id, "kitchen_opt"))
+        elif st == "entry_reply3":
+            tv.setText(_mz_t("Ти: «Як пізно можна залишитися?»\n\nМикото: «Не поспішаю. Можеш залишитися… скільки захочеш.»\nПогляд застрягає на зачиненій шафі.", "You: “How late can I stay?”\n\nMikoto: “I'm not rushing you. You can stay… as long as you like.”\nYour gaze gets stuck on the closed closet.", "Ты: «Как поздно можно остаться?»\n\nМикото: «Не тороплю. Можешь остаться… сколько захочешь.»\nВзгляд залипает на закрытом шкафу.") )
+            # Light foreshadowing: a short glitch
+            self._on_window_glitch(chat_id)
+            add_choice(_mz_t("Далі", "Next", "Дальше"), lambda: self._set_state(chat_id, "kitchen_opt"))
+        elif st == "entry_reply4":
+            tv.setText(_mz_t("Ти: «Що будеш готувати?»\n\nМикото: «Омлет з рисом… І мускатний чай. Думаю, тобі сподобається.»", "You: “What are you going to cook?”\n\nMikoto: “Rice omelet… And nutmeg tea. I think you'll like it.”", "Ты: «Что будешь готовить?»\n\nМикото: «Омлет с рисом… И мускатный чай. Думаю, тебе понравится.»") )
+            add_choice(_mz_t("Далі", "Next", "Дальше"), lambda: self._set_state(chat_id, "kitchen_opt"))
+        elif st == "kitchen_opt":
+            tv.setText(_mz_t("Кухня. Микото ставить чайник і зазирає в холодильник.\n", "Kitchen. Mikoto puts the kettle on and peeks into the fridge.\n", "Кухня. Микото ставит чайник и заглядывает в холодильник.\n"))
+            add_choice(_mz_t("Поговорити про чай", "Talk about tea", "Поговорить о чае"), lambda: self._set_state(chat_id, "kitchen_tea"))
+            add_choice(_mz_t("Поговорити про їжу", "Talk about food", "Поговорить о еде"), lambda: self._set_state(chat_id, "kitchen_food"))
+            add_choice(_mz_t("Піти оглянути дім", "Go explore the house", "Пойти исследовать дом"), lambda: self._set_state(chat_id, "diaries_intro"))
+        elif st == "kitchen_tea":
+            tv.setText(_mz_t("Ти: «Чорний? Персиковий? Що любиш?»\nМикото: «Для гостей у мене завжди є персиковий. Але… сьогодні, може, мускатний?»\n", "You: “Black? Peach? What do you like?”\nMikoto: “I always keep peach for guests. But… maybe nutmeg today?”\n", "Ты: «Чёрный? Персиковый? Что любишь?»\nМикото: «Для гостей у меня всегда есть персиковый. Но… сегодня, может, мускатный?»\n"))
+            add_choice(_mz_t("Кивнути", "Nod", "Кивнуть"), lambda: self._set_state(chat_id, "kitchen_opt"))
+        elif st == "kitchen_food":
+            tv.setText(_mz_t("Ти: «Чим пригостиш?»\nМикото: «Омлет з рисом, моя коронна страва. Кажуть, смачно… Тому я стараюся ще більше.»\n", "You: “What will you treat me to?”\nMikoto: “Rice omelet is my specialty. They say it's tasty… So I try even harder.”\n", "Ты: «Чем угостишь?»\nМикото: «Омлет с рисом — моя коронка. Говорят, вкусно… Тогда я стараюсь ещё сильнее.»\n"))
+            add_choice(_mz_t("Усміхнутися", "Smile", "Улыбнуться"), lambda: self._set_state(chat_id, "kitchen_opt"))
+        elif st == "diaries_intro":
+            tv.setText(_mz_t("Ти виходиш у коридор. На підлозі клаптик паперу.\n«…Щоденник?»\n\nЗбери уривки, щоб зрозуміти, що відбувається.\n", "You step into the hallway. A scrap of paper lies on the floor.\n“…A diary?”\n\nCollect the fragments to figure out what's going on.\n", "Ты выходишь в коридор. На полу — клочок бумаги.\n«…Дневник?»\n\nСобери обрывки, чтобы понять, что происходит.\n"))
+            add_choice(_mz_t("Почати читати уривки", "Start reading the fragments", "Начать читать обрывки"), lambda: (s.__setitem__("di_idx", 1), self._on_window_glitch(chat_id), self._set_state(chat_id, "diary_show")))
+        elif st == "diary_show":
+            idx = int(s.get("di_idx", 1))
+            scraps = self._get_diary_scraps_ru()
+            total = len(scraps)
+            idx = max(1, min(idx, total))
+            title, lines = scraps[idx-1]
+            tv.setText(f"{title}\n\n" + "\n".join(lines))
+            if idx < total:
+                add_choice(_mz_t("Далі", "Next", "Далее"), lambda: (s.__setitem__("di_idx", idx+1), self._set_state(chat_id, "diary_show")))
+            else:
+                add_choice(_mz_t("Далі", "Next", "Дальше"), lambda: self._set_state(chat_id, "pre_closet"))
+        elif st == "pre_closet":
+            tv.setText(_mz_t("У комірці замкнено. Здається, десь має бути ліхтарик…\n\nВзяти його, перш ніж іти?\n", "The storage room is locked. There should be a flashlight somewhere…\n\nTake it before you go?\n", "В кладовке заперто. Кажется, где‑то должен быть фонарик…\n\nВзять его перед тем, как идти?\n"))
+            add_choice(_mz_t("Узяти ліхтарик", "Take the flashlight", "Взять фонарик"), lambda: (flags.__setitem__("flash", True), self._set_state(chat_id, "closet")))
+            add_choice(_mz_t("Іти до шафи", "Go to the closet", "Идти к шкафу"), lambda: self._set_state(chat_id, "closet"))
+        elif st == "closet":
+            tv.setText(_mz_t("Замок піддається. Усередині темрява й важкий запах. Кілька тіл…\n\nМикото, пошепки: «Я замкнула батьків… вони називали мене чудовиськом. Потім Юкимару. Я думала, він зрозуміє…»\nВона: «Ти втечеш, як він?»\n", "The lock gives way. Inside is darkness and a heavy smell. Several bodies…\n\nMikoto, whispering: “I locked my parents in… they called me a monster. Then Yukimaru. I thought he would understand…”\nShe says: “Will you run away, like he did?”\n", "Замок поддаётся. Внутри — мрак и тяжёлый запах. Несколько тел…\n\nМикото, шёпотом: «Я заперла родителей… они называли меня чудовищем. Потом — Юкимару. Я думала, он поймёт…»\nОна: «Ты убежишь, как он?»\n"))
+            if not flags.get("g_closet", False):
+                flags.__setitem__("g_closet", True)
+                self._on_window_glitch(chat_id)
+            if not flags.get("flash", False):
+                add_choice(_mz_t("Зайти без ліхтарика", "Go in without the flashlight", "Зайти без фонарика"), lambda: self._set_state(chat_id, "bad_noflash"))
+            add_choice(_mz_t("Утекти", "Run away", "Убежать"), lambda: self._set_state(chat_id, "bad_run"))
+            add_choice(_mz_t("Залишитися з Микото", "Stay with Mikoto", "Остаться с Микото"), lambda: self._set_state(chat_id, "bad_stay"))
+            add_choice(_mz_t("Обійняти Микото", "Hug Mikoto", "Обнять Микото"), lambda: self._set_state(chat_id, "true_end"))
+        elif st == "bad_noflash":
+            tv.setText(_mz_t("Темрява. Удар ззаду.\n\nМикото: «У темряві треба дивитися по сторонах…»\n«Я тебе вб'ю.»\n\nПоганий кінець: Без ліхтарика.", "Darkness. A blow from behind.\n\nMikoto: “In the dark, you have to look around…”\n“I'll kill you.”\n\nBad ending: Without the flashlight.", "Темнота. Удар сзади.\n\nМикото: «В тьме надо смотреть по сторонам…»\n«Я убью тебя.»\n\nПлохая концовка: Без фонарика."))
+            self._schedule(3000, self._exit_app)
+        elif st == "bad_run":
+            tv.setText(_mz_t("Ти кидаєшся бігти. За спиною швидкі кроки.\n\nТемрява згущується. Результат визначено.\n\nПоганий кінець: Ззаду.", "You bolt. Quick footsteps behind you.\n\nThe darkness thickens. The outcome is decided.\n\nBad ending: Behind you.", "Ты бросаешься бежать. За спиной — быстрые шаги.\n\nМрак сгущается. Исход предрешён.\n\nПлохая концовка: Сзади."))
+            self._schedule(3000, self._exit_app)
+        elif st == "bad_stay":
+            tv.setText(_mz_t("Ти: «Я залишуся.»\n\nМикото: «Тоді я буду готувати для тебе багато-багато…»\nКлацання замка. Усередині тиша.\n\nПоганий кінець: Чого ти хотів.", "You: “I'll stay.”\n\nMikoto: “Then I'll cook for you a lot, a lot…”\nThe lock clicks. Inside, silence.\n\nBad ending: What you wanted.", "Ты: «Я останусь.»\n\nМикото: «Тогда я буду готовить для тебя много‑много…»\nЩелчок замка. Внутри — тишина.\n\nПлохая концовка: Чего ты хотел."))
+            def _start_fade_and_exit():
+                run_on_ui_thread(lambda: self._blackout_fade(2200, on_done=self._exit_app))
+            self._schedule(3500, _start_fade_and_exit)
+            try:
+                dlg = s.get("dialog")
+                if dlg:
+                    self._safe_dismiss_dialog(dlg)
+            except Exception:
+                pass
+        elif st == "true_end":
+            extra = _mz_t(" Я хочу, щоб ти була щасливою.", " I want you to be happy.", " Я хочу, чтобы ты была счастлива.") if flags.get("happy", False) else ""
+            tv.setText(_mz_t("Ти обіймаєш її, попри все.\n\nМикото: «Пробач… за все.»\nМинають місяці. Ви ліпите сніговика. Вона стає спокійнішою.\n", "You hug her, no matter what.\n\nMikoto: “Forgive me… for everything.”\nMonths pass. You build a snowman together. She becomes calmer.\n", "Ты обнимаешь её, несмотря ни на что.\n\nМикото: «Прости… за всё.»\nПроходят месяцы. Вы лепите снеговика. Она становится спокойнее.\n") + extra + _mz_t("\n\nІстинний кінець.", "\n\nTrue ending.", "\n\nИстинная концовка."))
+            add_choice(_mz_t("Зіграти знову", "Play again", "Сыграть снова"), lambda: self._reset_and_restart(chat_id))
+    
+        else:
+            tv.setText(_mz_t("(Невідомий стан)", "(Unknown state)", "(Неизвестное состояние)"))
+            add_choice(_mz_t("На початок", "Back to start", "В начало"), lambda: self._set_state(chat_id, "start"))
+
+    def _reset_and_restart(self, chat_id):
+        s = self._sessions.get(chat_id)
+        if not s:
+            return
+        s["flags"] = {"happy": False, "flash": False}
+        s["di_idx"] = 0
+        self._set_state(chat_id, "prologue1")
+
+    def _get_diary_scraps_ru(self):
+        return [
+            (_mz_t("Уривок щоденника #1", "Diary fragment #1", "Обрывок дневника #1"), [
+                _mz_t("Сьогодні в школі був тест.", "Today there was a test at school.", "Сегодня в школе был тест."),
+                _mz_t("Звісно, я впоралася так само добре, як і з усіма іншими!", "Of course, I did just as well as with all the others!", "Конечно, я справилась так же хорошо, как и со всеми остальными!"),
+                _mz_t("Я геній, немає завдання, якого я не розв'яжу!", "I'm a genius, there's no problem I can't solve!", "Я гений — нет задачи, которую я не решу!"),
+                _mz_t("«Підійди до входу».", "“Come to the entrance.”", "— «Подойди к входу».")
+            ]),
+            (_mz_t("Уривок щоденника #2", "Diary fragment #2", "Обрывок дневника #2"), [
+                _mz_t("Готування, навчання, гарний одяг…", "Cooking, studying, dressing nicely…", "Готовка, учёба, красиво одеваться…"),
+                _mz_t("Микото обожнювала все це і займалася цим при кожній нагоді!", "Mikoto adored all of it and did it at every chance!", "Микото обожала всё это и занималась при каждом удобном случае!"),
+                _mz_t("Але-але-але! Гаманець… *плаче*", "But but but! My wallet… *cries*", "Но‑но‑но! Кошелёк… *плачет*"),
+                _mz_t("Грошей ніколи не вистачало. Раз кишенькових не давали, довелося підробляти.", "There was never enough money. Since they didn't give me an allowance, I had to take side jobs.", "Денег никогда не хватало. Раз карманных не давали — пришлось подрабатывать."),
+                _mz_t("Важко… Цікаво, чи прийде хтось і врятує мене?", "It's hard… I wonder if someone will come and save me?", "Тяжело… Интересно, кто‑нибудь придёт и спасёт меня?"),
+                _mz_t("Чого я хочу просто зараз?.. Хм…", "What do I want right now?.. Hmm…", "Что я хочу прямо сейчас?.. Хм…"),
+                _mz_t("Одяг, сумку, довідник, зошит і ручки, кулінарну книгу… забагато всього!", "Clothes, a bag, a reference book, a notebook and pens, a cookbook… so much stuff!", "Одежду, сумку, справочник, тетрадь и ручки, кулинарную книгу… слишком много всего!"),
+                _mz_t("«Любиш чорний чай?»", "“Do you like black tea?”", "— «Любишь чёрный чай?»")
+            ]),
+            (_mz_t("Уривок щоденника #3", "Diary fragment #3", "Обрывок дневника #3"), [
+                _mz_t("Знову в мене закохалися!", "Someone fell in love with me again!", "Опять в меня влюбились!"),
+                _mz_t("Важко бути такою популярною!", "It's hard being this popular!", "Сложно быть такой популярной!"),
+                _mz_t("Але… він серйозно? А раптом це просто «зустрічатися для галочки». Чи взагалі він мені пасує?..", "But… is he serious? What if it's just “dating for show”? Does he even suit me?..", "Но… он всерьёз? А вдруг это просто «встречаться ради галочки». Подходит ли он мне вообще?.."),
+                _mz_t("А-а-а! Хочу справжніх почуттів!", "Aaah! I want real feelings!", "А‑а‑а! Хочу настоящих чувств!"),
+                _mz_t("Я… я не зможу зустрічатися, якщо не закохаюся по-справжньому.", "I… I can't date anyone unless I really fall in love.", "Я… я не смогу встречаться, если не влюблюсь по‑настоящему."),
+                _mz_t("Я не дозволю гратися зі мною першому-ліпшому! Хм!", "I won't let just anyone play with me! Hmph!", "Я не позволю играть со мной первому встречному! Хм!"),
+                _mz_t("«Залишишся на ніч?»", "“Are you staying overnight?”", "— «Остаёшься с ночёвкой?»")
+            ]),
+            (_mz_t("Уривок щоденника #4", "Diary fragment #4", "Обрывок дневника #4"), [
+                _mz_t("Думаю… Як було б чудово: щасливе життя…", "I think… how wonderful it would be, a happy life…", "Думаю… Как было бы здорово — счастливая жизнь…"),
+                _mz_t("Коханий чоловік, гарна робота, найщасливіша родина! А з дітьми я б гралася цілими днями.", "A beloved husband, a good job, the happiest family! And I'd play with the kids all day long.", "Любимый человек, хорошая работа, самая счастливая семья! А с детьми я бы играла целыми днями."),
+                _mz_t("Кожен день, мов свято!", "Every day is like a holiday!", "Каждый день — как праздник!"),
+                _mz_t("А ввечері: у ліжко до чудового чоловіка!", "And in the evening, into bed with my wonderful husband!", "А вечером — в постель к чудесному мужу!"),
+                _mz_t("…Ні, не в «тому» сенсі!", "…No, not in that way!", "…Нет, не в «том» смысле!"),
+                _mz_t("«Це для гостей».", "“This is for guests.”", "— «Это для гостей».")
+            ]),
+            (_mz_t("Уривок щоденника #5", "Diary fragment #5", "Обрывок дневника #5"), [
+                _mz_t("О-о-о! Сьогодні чудові новини!", "Oh! Today there's great news!", "О‑о‑о! Сегодня отличные новости!"),
+                _mz_t("Є один хлопець, який мені подобався. Його звуть Юкимару.", "There's a guy I liked. His name is Yukimaru.", "Есть один парень, который мне нравился. Его зовут Юкимару."),
+                _mz_t("І вгадайте що? Він зізнався мені! Муфуфу. Мені зізналися!", "And guess what? He confessed to me! Mufufu. I was confessed to!", "И угадайте? Он признался мне! Муфуфу. Мне признались!"),
+                _mz_t("Тому в мене просто чудовий настрій.", "So I'm simply in a wonderful mood.", "Поэтому у меня просто чудесное настроение."),
+                _mz_t("Хлопців, які кажуть, що я їм подобаюся, багато…", "Lots of guys say they like me…", "Парней, которые говорят, что нравлюсь, много…"),
+                _mz_t("Але це ніколи не ті, від кого я справді хотіла б почути зізнання. Прикро.", "But they're never the ones I'd really want to hear it from. It's annoying.", "Но это никогда не те, от кого я действительно хотела бы услышать признание. Обидно."),
+                _mz_t("Я вирішила дати цьому захопленню шанс розцвісти.", "I decided to give this crush a chance to blossom.", "Я решила дать этому увлечению шанс расцвести."),
+                _mz_t("Тільки от… чи зрозуміє мене Юкимару?", "The only question… will Yukimaru understand me?", "Вот только… поймёт ли меня Юкимару?"),
+                _mz_t("«Холодний погляд».", "“Cold stare.”", "— «Холодный взгляд».")
+            ]),
+            (_mz_t("Уривок щоденника #6", "Diary fragment #6", "Обрывок дневника #6"), [
+                _mz_t("Мене ніхто не розуміє.", "Nobody understands me.", "Никто меня не понимает."),
+                _mz_t("Ні тато, ні мама, ні друзі. Жодна людина мене не розуміє.", "Not Dad, not Mom, not my friends. Not a single person understands me.", "Ни папа, ни мама, ни друзья. Ни один человек не понимает меня."),
+                _mz_t("«Вчитися».", "“Study.”", "— «Учиться».")
+            ]),
+            (_mz_t("Уривок щоденника #7", "Diary fragment #7", "Обрывок дневника #7"), [
+                _mz_t("Знаєте, я справді стараюся. Дуже.", "You know, I really do try. A lot.", "Знаете, я правда стараюсь. Очень."),
+                _mz_t("Навіщо? Щоб порадувати маму й тата. …Так я сама собі кажу.", "Why? To make Mom and Dad happy. …That's what I tell myself.", "Зачем? Чтобы порадовать маму и папу. …Так я себе говорю."),
+                _mz_t("Я…", "I…", "Я…"),
+                _mz_t("Не знаю, навіщо я так стараюся.", "I don't know why I try so hard.", "Не знаю, зачем я так стараюсь."),
+                _mz_t("Я ж не особливо розумна.", "I'm not especially smart, you know.", "Я ведь не особо умная."),
+                _mz_t("І все одно вчуся, вчуся, вчуся. Мене змушують, але в цьому немає сенсу.", "And still I study, study, study. They make me, but there's no point to it.", "И всё равно — учусь, учусь, учусь. Меня заставляют, но в этом нет смысла."),
+                _mz_t("Тихо! ТИХО! ТИХО!! АААААААААААААААААААААА…", "Quiet! QUIET! QUIET!! AAAAAAAAAAAAAAAAAAAAAA…", "Тихо! ТИХО! ТИХО!! АААААААААААААААААААААА…"),
+                _mz_t("«Розіб'єш, заплатиш».", "“Break it, you pay for it.”", "— «Разобьёшь — заплатишь».")
+            ]),
+            (_mz_t("Уривок щоденника #8", "Diary fragment #8", "Обрывок дневника #8"), [
+                _mz_t("Знаєте…", "You know…", "Знаете…"),
+                _mz_t("Я люблю готувати!", "I love cooking!", "Я люблю готовить!"),
+                _mz_t("Омлет з рисом, моя спеціальність. Будь-кого підкорю одним шматочком!", "Rice omelet is my specialty. I'll win over anyone with one bite!", "Омлет с рисом — моя специальность. Любого покорю одним кусочком!"),
+                _mz_t("…Жартую!", "…Just kidding!", "…Шучу!"),
+                _mz_t("Але правда: усі кажуть, що смачно! І тоді хочеться готувати ще більше.", "But really: everyone says it's tasty! And then you want to cook even more.", "Но правда: все говорят, что вкусно! И тогда хочется готовить ещё больше."),
+                _mz_t("Колись я відкрию свій заклад.", "Someday I'll open my own place.", "Когда‑нибудь я открою своё заведение."),
+                _mz_t("Не знаю коли, але колись… Я стану супер-кухарем, і всі будуть заздрити!", "I don't know when, but one day… I'll become a super chef, and everyone will envy me!", "Не знаю когда, но однажды… Я стану супер‑поваром, и все будут завидовать!"),
+                _mz_t("«Вечірнє пальто».", "“An evening coat.”", "— «Вечернее пальто».")
+            ]),
+            (_mz_t("Уривок щоденника #9", "Diary fragment #9", "Обрывок дневника #9"), [
+                _mz_t("Мене звуть Такашікі Микото. Я учениця старшої школи. Вічна сімнадцятирічна!", "My name is Takashiki Mikoto. I'm a high school student. Forever seventeen!", "Меня зовут Такашики Микото. Я ученица старшей школы. Вечная семнадцатилетняя!"),
+                _mz_t("Моя сильна сторона: готування. Звісно, я в кулінарному гуртку! У тенісний теж записана, але майже не ходжу.", "My strong point is cooking. Of course, I'm in the cooking club! I'm signed up for tennis too, but I hardly go.", "Моя сильная сторона — готовка. Я, конечно, в кулинарном клубе! В теннисный тоже записана, но почти не хожу."),
+                _mz_t("Чомусь мене називають популярною… невже я справді така чарівна?", "For some reason people call me popular… am I really that charming?", "Почему‑то меня называют популярной… неужели я и правда такая обаятельная?"),
+                _mz_t("Я в цьому погано розбираюся, та й спеціально подобатися втомлює.", "I don't know much about that, and trying to be liked on purpose is exhausting.", "Я в этом плохо разбираюсь, да и специально нравиться — утомительно."),
+                _mz_t("Зате уроків не прогулюю! І вчуся як треба! Контрольні завжди на першому місці.", "But I don't skip classes! And I study properly! Tests always come first.", "Зато уроки не прогуливаю! И учусь как нужно! Тесты — всегда на первом месте."),
+                _mz_t("Коли я найкраща, мама з татом щасливі.", "When I'm the best, Mom and Dad are happy.", "Когда я лучшая — мама с папой счастливы."),
+                _mz_t("А коли ні…", "And when I'm not…", "А когда нет…"),
+                _mz_t("«Викинути?»", "“Throw it away?”", "— «Выбросить?»")
+            ]),
+            (_mz_t("Уривок щоденника #10", "Diary fragment #10", "Обрывок дневника #10"), [
+                _mz_t("Гей-гей-гей!", "Hey, hey, hey!", "Эй‑эй‑эй!"),
+                _mz_t("Відтоді чомусь стало веселіше.", "Since that day, it's become somehow more fun.", "С того самого дня стало как‑то веселее."),
+                _mz_t("Я вже не розумію, що каже мама.", "I no longer understand what Mom is saying.", "Я уже не понимаю, что говорит мама."),
+                _mz_t("І тато теж.", "Dad too.", "И папа — тоже."),
+                _mz_t("Так смішно-смішно-смішно. Мені смішно.", "So funny-funny-funny. I find it funny.", "Так смешно‑смешно‑смешно. Мне смешно."),
+                _mz_t("Тієї миті я подумала: «Тепер тихо». Може, мені більше нічого не зроблять?", "At that moment I thought: “Now it's quiet.” Maybe they won't do anything to me anymore?", "В тот момент я подумала: «Теперь тихо». Может, больше ничего мне не сделают?"),
+                _mz_t("Наче камінь з душі. Здається, тепер мені все під силу!", "As if a stone fell off my heart. Now it seems I can handle anything!", "Как будто камень с души. Кажется, теперь мне всё по плечу!"),
+                _mz_t("«Вийди в сад».", "“Go out to the garden.”", "— «Выйди в сад».")
+            ]),
+            (_mz_t("Уривок щоденника #11", "Diary fragment #11", "Обрывок дневника #11"), [
+                _mz_t("Все одно мене ніхто-ні-хто не зрозуміє.", "Still, no one at all will understand me.", "Всё равно меня никто‑ни‑ко‑го не поймёт."),
+                _mz_t("Я…", "I…", "Я…"),
+                _mz_t("вчу-вчу-вчу-вчу ЗАВЖДИ, і, здається, я трохи з глузду з'їхала.", "study-study-study-study ALWAYS, and it seems I've gone a little bit mad.", "учу‑учу‑учу‑учу ВСЕГДА, и, кажется, я чуть‑чуть сошла с ума."),
+                _mz_t("щ о  я  р о б л ю", "w h a t  a m  I  d o i n g", "ч то я д е л а ю"),
+                "« »",
+                _mz_t("«М О Я  Ф І Г У Р А».", "“M Y  S H A P E.”", "— «М О Я Ф И Г У Р А».")
+            ]),
+            (_mz_t("Уривок щоденника #12", "Diary fragment #12", "Обрывок дневника #12"), [
+                _mz_t("Сьогодні я запросила Юкимару, особливого гостя. Приготувала йому найкращу страву. Сказав, смачно! Я була така рада.", "Today I invited Yukimaru, a special guest. I cooked him my best dish. He said it was delicious! I was so happy.", "Сегодня я пригласила Юкимару — особенный гость. Приготовила ему лучшее блюдо. Сказал, вкусно! Я была так рада."),
+                _mz_t("Я, звісно, думала й про персиковий чай, але Юкимару здавався… іншим. Тому я зробила мускатний.", "Of course I thought about peach tea too, but Yukimaru seemed… different. So I made nutmeg tea.", "Я думала и про персиковый чай, конечно, но Юкимару казался… другим. Так что я сделала мускатный."),
+                _mz_t("Він весь час питав, що в мене в шафі. Це дратувало.", "He kept asking what's in my closet. It annoyed me.", "Он всё спрашивал, что у меня в шкафу. Это злило."),
+                _mz_t("Мені було страшно, але він не відставав! Який огидний!", "I was scared, but he wouldn't leave me alone! How awful!", "Мне было страшно, но он не отставал! Какой противный!"),
+                _mz_t("Я думала, він зрозуміє… Тож… просто залишила його саме.", "I thought he'd understand… So… I just left him alone.", "Я думала, он поймёт… Так что… просто оставила его одного."),
+                _mz_t("Юкимару більше немає.", "Yukimaru is gone.", "Юкимару больше нет."),
+                _mz_t("«Дивні ліки».", "“Strange medicine.”", "— «Странное лекарство».")
+            ])
+        ]
+
+    def _set_state(self, chat_id, new_state):
+        s = self._sessions.get(chat_id)
+        if not s:
+            return
+        s["state"] = new_state
+        self._render_state(chat_id)
+
+    def _on_window_glitch(self, chat_id):
+        s = self._sessions.get(chat_id)
+        duration, intensity = self._glitch_params_for(s)
+        self._dlog(f"glitch requested d={duration} i={intensity}")
+        run_on_ui_thread(lambda: self._play_glitch(duration, intensity))
+
+    def _schedule(self, delay_ms: int, fn):
+        try:
+            handler = Handler(Looper.getMainLooper())
+            RunnableIntf = dynamic_proxy(find_class("java.lang.Runnable"))
+            class _R(RunnableIntf):
+                def __init__(self, f):
+                    super().__init__(); self.f = f
+                def run(self):
+                    try: self.f()
+                    except Exception as e: log(f"[VN] schedule err: {e}")
+            handler.postDelayed(_R(fn), int(delay_ms))
+        except Exception as e:
+            log(f"[VN] schedule setup err: {e}")
+
+    def _exit_app(self):
+        try:
+            fragment = get_last_fragment()
+            activity = fragment.getParentActivity() if fragment else None
+            if activity is None:
+                return
+            # Trying to close the app cleanly
+            try:
+                activity.finishAndRemoveTask()
+                return
+            except Exception:
+                pass
+            try:
+                activity.finishAffinity()
+                return
+            except Exception:
+                pass
+            try:
+                activity.moveTaskToBack(True)
+                return
+            except Exception:
+                pass
+        except Exception as e:
+            log(f"[VN] exit app err: {e}")
+
+    def _blackout(self):
+        try:
+            if self._black_overlay is not None:
+                return
+            fragment = get_last_fragment()
+            activity = fragment.getParentActivity() if fragment else None
+            if activity is None:
+                return
+            window = activity.getWindow()
+            decor = window.getDecorView()
+            ov = FrameLayout(activity)
+            ov.setLayoutParams(ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+            ov.setClickable(True)
+            # Black background
+            from android.graphics import Color
+            ov.setBackgroundColor(Color.parseColor("#FF000000"))
+            if isinstance(decor, ViewGroup):
+                decor.addView(ov)
+                self._black_overlay = ov
+        except Exception as e:
+            log(f"[VN] blackout err: {e}")
+
+    def _blackout_fade(self, duration_ms: int = 1500, on_done=None):
+        try:
+            fragment = get_last_fragment()
+            activity = fragment.getParentActivity() if fragment else None
+            if activity is None:
+                return
+            window = activity.getWindow()
+            decor = window.getDecorView()
+            if self._black_overlay is None:
+                ov = FrameLayout(activity)
+                ov.setLayoutParams(ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+                ov.setClickable(True)
+                from android.graphics import Color
+                ov.setBackgroundColor(Color.parseColor("#FF000000"))
+                ov.setAlpha(0.0)
+                if isinstance(decor, ViewGroup):
+                    decor.addView(ov)
+                    self._black_overlay = ov
+                else:
+                    return
+            ov = self._black_overlay
+            start_ts = self._now_ms()
+            handler = Handler(Looper.getMainLooper())
+            RunnableIntf = dynamic_proxy(find_class("java.lang.Runnable"))
+            class _Step(RunnableIntf):
+                def __init__(self, fn):
+                    super().__init__(); self.fn = fn
+                def run(self):
+                    try: self.fn()
+                    except Exception as e: log(f"[VN] fade err: {e}")
+            def step():
+                if ov is None:
+                    return
+                elapsed = self._now_ms() - start_ts
+                if elapsed >= int(duration_ms):
+                    ov.setAlpha(1.0)
+                    try:
+                        if callable(on_done):
+                            on_done()
+                    finally:
+                        return
+                # 60 FPS step
+                prog = max(0.0, min(1.0, float(elapsed) / float(max(1, int(duration_ms)))))
+                ov.setAlpha(prog)
+                handler.postDelayed(_Step(step), 16)
+            handler.postDelayed(_Step(step), 0)
+        except Exception as e:
+            log(f"[VN] blackout_fade err: {e}")
+
+    def _safe_dismiss_dialog(self, dlg):
+        try:
+            if dlg is None:
+                return
+            def _do():
+                try:
+                    # Checking that the dialog is still attached to the window
+                    is_showing = False
+                    try:
+                        is_showing = dlg.isShowing()
+                    except Exception:
+                        pass
+                    if not is_showing:
+                        return
+                    try:
+                        win = dlg.getWindow()
+                    except Exception:
+                        win = None
+                    if win is None:
+                        return
+                    dlg.dismiss()
+                except Exception as e:
+                    log(f"[VN] dlg dismiss err: {e}")
+            run_on_ui_thread(_do)
+        except Exception:
+            pass
+
+    def _glitch_params_for(self, session):
+        try:
+            st = (session or {}).get("state", "")
+            duration, intensity = 500, 14
+            if st == "prologue2":
+                duration, intensity = 350, 8
+            elif st == "diaries_intro":
+                duration, intensity = 520, 15
+            elif st == "diary_show":
+                idx = int((session or {}).get("di_idx", 1))
+                idx = max(1, min(idx, 12))
+                duration = 520 + idx * 45
+                intensity = min(26, 12 + idx)
+            elif st == "pre_closet":
+                duration, intensity = 850, 22
+            elif st == "closet":
+                duration, intensity = 1100, 28
+            return int(duration), int(intensity)
+        except Exception:
+            return 500, 14
+
+    def _play_glitch(self, duration_ms: int, intensity_px: int):
+        try:
+            if self._active_overlay is not None:
+                return
+            fragment = get_last_fragment()
+            activity = fragment.getParentActivity() if fragment else None
+            if activity is None:
+                return
+            window = activity.getWindow()
+            decor = window.getDecorView()
+            root_view = decor.getRootView()
+            width = root_view.getWidth()
+            height = root_view.getHeight()
+            if width <= 0 or height <= 0:
+                return
+            bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            Canvas(bmp).drawColor(0x00000000)
+            c = Canvas(bmp)
+            root_view.draw(c)
+            paint_r, paint_g, paint_b = Paint(), Paint(), Paint()
+            cm_r = ColorMatrix([1,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,1,0])
+            cm_g = ColorMatrix([0,0,0,0,0, 0,1,0,0,0, 0,0,0,0,0, 0,0,0,1,0])
+            cm_b = ColorMatrix([0,0,0,0,0, 0,0,0,0,0, 0,0,1,0,0, 0,0,0,1,0])
+            paint_r.setColorFilter(ColorMatrixColorFilter(cm_r))
+            paint_g.setColorFilter(ColorMatrixColorFilter(cm_g))
+            paint_b.setColorFilter(ColorMatrixColorFilter(cm_b))
+            bmp_r = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            bmp_g = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            bmp_b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            Canvas(bmp_r).drawBitmap(bmp, 0, 0, paint_r)
+            Canvas(bmp_g).drawBitmap(bmp, 0, 0, paint_g)
+            Canvas(bmp_b).drawBitmap(bmp, 0, 0, paint_b)
+            overlay = FrameLayout(activity)
+            overlay.setLayoutParams(ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+            overlay.setClickable(True)
+            iv_r, iv_g, iv_b = ImageView(activity), ImageView(activity), ImageView(activity)
+            iv_r.setImageBitmap(bmp_r)
+            iv_g.setImageBitmap(bmp_g)
+            iv_b.setImageBitmap(bmp_b)
+            for iv in (iv_b, iv_g, iv_r):
+                iv.setLayoutParams(ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+                overlay.addView(iv)
+            if isinstance(decor, ViewGroup):
+                decor.addView(overlay)
+            else:
+                return
+            self._active_overlay = overlay
+            handler = Handler(Looper.getMainLooper())
+            RunnableIntf = dynamic_proxy(find_class("java.lang.Runnable"))
+            import random
+            start_ts = self._now_ms()
+            class _Step(RunnableIntf):
+                def __init__(self, fn):
+                    super().__init__()
+                    self.fn = fn
+                def run(self):
+                    try: self.fn()
+                    except Exception as e: log(f"[VN] step err: {e}")
+            def step():
+                if self._active_overlay is None:
+                    return
+                elapsed = self._now_ms() - start_ts
+                if elapsed >= duration_ms:
+                    self._finish_overlay(overlay, [bmp, bmp_r, bmp_g, bmp_b])
+                    return
+                m = max(1, int(intensity_px))
+                for iv in (iv_r, iv_g, iv_b):
+                    iv.setTranslationX(float(random.randint(-m, m)))
+                    iv.setTranslationY(float(random.randint(-m, m)))
+                if random.random() < 0.3:
+                    try:
+                        overlay.removeAllViews();
+                        for iv in random.sample([iv_r, iv_g, iv_b], 3): overlay.addView(iv)
+                    except Exception: pass
+                handler.postDelayed(_Step(step), random.randint(14, 28))
+            handler.postDelayed(_Step(step), 0)
+        except Exception as e:
+            log(f"[VN] glitch play error: {e}")
+            try:
+                if self._active_overlay is not None:
+                    self._finish_overlay(self._active_overlay, [])
+            except Exception:
+                pass
+
+    def _finish_overlay(self, overlay: FrameLayout, bitmaps):
+        try:
+            self._active_overlay = None
+            if self._anim_handler is not None:
+                try:
+                    self._anim_handler.removeCallbacksAndMessages(None)
+                except Exception:
+                    pass
+                self._anim_handler = None
+            self._safe_remove_overlay(overlay)
+        finally:
+            for b in bitmaps:
+                try:
+                    if isinstance(b, Bitmap) and not b.isRecycled():
+                        b.recycle()
+                except Exception:
+                    pass
+
+    def _safe_remove_overlay(self, overlay: FrameLayout):
+        try:
+            parent = overlay.getParent()
+            if isinstance(parent, ViewGroup):
+                parent.removeView(overlay)
+        except Exception:
+            pass
+
+    def _now_ms(self) -> int:
+        try:
+            from java.lang import System as JavaSystem
+            return int(JavaSystem.currentTimeMillis())
+        except Exception:
+            import time
+            return int(time.time() * 1000)

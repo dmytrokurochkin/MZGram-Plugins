@@ -1,3 +1,16 @@
+# MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
+def _mz_t(uk, en, ru=None):
+    try:
+        from java.util import Locale as _MzLocale
+        lang = str(_MzLocale.getDefault().getLanguage())
+    except Exception:
+        lang = "en"
+    if lang == "uk":
+        return uk
+    if lang == "ru" and ru is not None:
+        return ru
+    return en
+
 import requests
 import os
 import uuid
@@ -60,20 +73,20 @@ class QRGeneratorPlugin(BasePlugin):
             caption_label = "Adicionar Legenda"
             caption_sub = "Inclui o texto codificado como legenda"
             usage = "Uso: .qr [texto ou URL]"
-        elif lang.startswith("ru"):
-            header = "Настройки QR-кода"
-            size_label = "Размер QR-кода"
-            size_items = ["Маленький (256x256)", "Средний (384x384)", "Большой (512x512)", "Очень большой (768x768)"]
-            ecc_label = "Уровень коррекции ошибок"
-            ecc_items = ["Низкий (L)", "Средний (M)", "Квартиль (Q)", "Высокий (H)"]
-            format_label = "Формат"
+        elif lang.startswith(("ru", "uk")):
+            header = _mz_t("Налаштування QR-коду", "QR code settings", "Настройки QR-кода")
+            size_label = _mz_t("Розмір QR-коду", "QR code size", "Размер QR-кода")
+            size_items = [_mz_t("Малий (256x256)", "Small (256x256)", "Маленький (256x256)"), _mz_t("Середній (384x384)", "Medium (384x384)", "Средний (384x384)"), _mz_t("Великий (512x512)", "Large (512x512)", "Большой (512x512)"), _mz_t("Дуже великий (768x768)", "Extra large (768x768)", "Очень большой (768x768)")]
+            ecc_label = _mz_t("Рівень корекції помилок", "Error correction level", "Уровень коррекции ошибок")
+            ecc_items = [_mz_t("Низький (L)", "Low (L)", "Низкий (L)"), _mz_t("Середній (M)", "Medium (M)", "Средний (M)"), _mz_t("Квартиль (Q)", "Quartile (Q)", "Квартиль (Q)"), _mz_t("Високий (H)", "High (H)", "Высокий (H)")]
+            format_label = _mz_t("Формат", "Format", "Формат")
             format_items = ["PNG", "GIF", "JPEG", "JPG"]
-            margin_label = "Добавить отступ"
-            margin_sub = "Добавить белую рамку вокруг QR-кода"
-            msg_header = "Параметры сообщения"
-            caption_label = "Добавить подпись"
-            caption_sub = "Включить закодированный текст как подпись"
-            usage = "Использование: .qr [текст или URL]"
+            margin_label = _mz_t("Додати відступ", "Add margin", "Добавить отступ")
+            margin_sub = _mz_t("Додати білу рамку навколо QR-коду", "Add a white border around the QR code", "Добавить белую рамку вокруг QR-кода")
+            msg_header = _mz_t("Параметри повідомлення", "Message options", "Параметры сообщения")
+            caption_label = _mz_t("Додати підпис", "Add caption", "Добавить подпись")
+            caption_sub = _mz_t("Увімкнути закодований текст як підпис", "Use the encoded text as a caption", "Включить закодированный текст как подпись")
+            usage = _mz_t("Використання: .qr [текст або URL]", "Usage: .qr [text or URL]", "Использование: .qr [текст или URL]")
         else:
             header = "QR Code Settings"
             size_label = "QR Code Size"
