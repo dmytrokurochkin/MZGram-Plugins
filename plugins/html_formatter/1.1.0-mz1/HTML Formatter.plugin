@@ -45,8 +45,7 @@ class HTMLFormatterPlugin(BasePlugin):
             Divider(),
             Divider(text=_mz_t("[ ! ] • Теги можна закривати через </>", "[ ! ] • Tags can be closed with </>", "[ ! ] • Теги можно закрывать через </>")),
             Divider(),
-            Divider(text=_mz_t("~ Приклади:\n<b><i>текст</></>\n<a href='https://t.me/fr1zeeDev'>Посилання на профіль</>\n<quote><b>цитата</></>", "~ Examples:\n<b><i>text</></>\n<a href='https://t.me/fr1zeeDev'>Link to profile</>\n<quote><b>quote</></>", "~ Примеры:\n<b><i>текст</></>\n<a href='https://t.me/fr1zeeDev'>Ссылка на профиль</>\n<quote><b>цитата</></>")),
-            Divider(text=_mz_t("[ © ] • Творець: @fr1zeeDev [telegram]", "[ © ] • Creator: @fr1zeeDev [telegram]", "[ © ] • Создатель: @fr1zeeDev [telegram]")),
+            Divider(text=_mz_t("~ Приклади:\n<b><i>текст</></>\n<a href='https://telegram.org'>Посилання на профіль</>\n<quote><b>цитата</></>", "~ Examples:\n<b><i>text</></>\n<a href='https://telegram.org'>Link to profile</>\n<quote><b>quote</></>", "~ Примеры:\n<b><i>текст</></>\n<a href='https://telegram.org'>Ссылка на профиль</>\n<quote><b>цитата</></>")),
         ]
         return settings_list
 

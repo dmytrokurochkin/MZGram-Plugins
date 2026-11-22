@@ -1,41 +1,6 @@
-"""
-
-                      #       .#####-    #   
-         +####.       #      -#######-   #   
-        #######+      #      #########   #   
-       +########.     #      #########   #   
-       #########-     #      +#######.   #   
-       .########.     #       +#####.    #   
-        .######-      #                  #   
-           --         #  ##-##-.         #   
-    +#+###+-          # -#.##########    #   
-    #-##########..    # -#.#########-### #   
-    #-#########+###-  # -#.#########-### #   
-    #-#########+###+  #.-+.#########-### #   
-    #-#########+###+    .--+##+-++++.+## #   
-    #-#########+###+                .+++##   
-    #-#########+###+                         
-    #-#########+###+                         
-    #-#########+###+                         
-    #-#########+###+                         
-    #-#########+###+                         
-    #-#########+###+                         
-      ####. -##+###+                         
-      ####. .###-++                          
-      ####. .####.                           
-      ####. .####.                           
-
---> well.. it helped with what it could ;3 <--
-
-``  plugin made by: @ka1plugins
-``  thanks to this cutie: @dekma0091
-``  note: copying it whole is not allowed! changing it is allowed after asking the author of this plugin^`^
-
-"""
-
 __id__ = "higal"
 __name__ = "Hide Gallery"
-__description__ = "Blurs the whole gallery\n\nThanks for the optimization: @dekma0091"
+__description__ = "Blurs the whole gallery."
 __author__ = "MZGram"
 __version__ = "1.2-mz1"
 __app_version__ = ">=12.10.6"

@@ -3274,7 +3274,7 @@ class HookInspectorPlugin(BasePlugin):
         attrs = self._current_attrs
         ti    = self._current_theme_info
         lines = [
-            "Hook Inspector v11  |  @rei_plugins",
+            "Hook Inspector v11",
             "=" * 40,
             f"Class: {chain[0] if chain else '?'}",
         ]
@@ -3497,23 +3497,7 @@ class HookInspectorPlugin(BasePlugin):
                 text=f"Theme keys: {n_th_cls} classes  |  {n_th_tot} keys",
                 icon="msg_theme",
             ),
-            Divider(),
-            Header(text="About"),
-            Text(
-                text="Channel: @rei_plugins",
-                icon="msg_channel",
-                accent=True,
-                on_click=lambda v: self._open_tg("rei_plugins"),
-                link_alias="channel_link",
-            ),
-            Text(
-                text="Author: @lyzos",
-                icon="msg_contact",
-                accent=True,
-                on_click=lambda v: self._open_tg("lyzos"),
-                link_alias="author_link",
-            ),
-            Divider(text=f"Hook Inspector v12.0.0  |  {n_hook_cls} classes  |  @rei_plugins"),
+            Divider(text=f"Hook Inspector v12.0.0  |  {n_hook_cls} classes"),
         ]
 
 

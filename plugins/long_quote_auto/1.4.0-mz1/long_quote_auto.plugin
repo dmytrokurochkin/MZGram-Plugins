@@ -104,5 +104,4 @@ class LongQuoteAutoPlugin(BasePlugin):
                 default=True,
                 subtext=_mz_t("Не згортати повідомлення, що починаються з '.'", "Don't collapse messages that start with '.'", "Не сворачивать сообщения, начинающиеся с '.'"),
             ),
-            Header(text=_mz_t("Автор: @KUNSESHBOY", "Author: @KUNSESHBOY", "Автор: @KUNSESHBOY")),
         ]

@@ -195,11 +195,11 @@ class LocaleController:
     strings = {
         "en": {
             "ReachTextNotInstalled": "Reach Text is not installed.\nYou can install it by clicking on the button below.",
-            "UnsupportedVersion": "Your version of the ReachText plugin does not support this feature. Please update it from the official Telegram channel @PESSDES_Plugins."
+            "UnsupportedVersion": "Your version of the ReachText plugin does not support this feature. Please update it."
         },
         "ru": {
             "ReachTextNotInstalled": "Reach Text не установлен.\nВы можете установить его, нажав на кнопку ниже.",
-            "UnsupportedVersion": "Ваша версия плагина ReachText не поддерживает эту функцию. Обновите ее из официального телеграм канала @PESSDES_Plugins"
+            "UnsupportedVersion": "Ваша версия плагина ReachText не поддерживает эту функцию. Обновите ее."
         },
         "de": {
             "ReachTextNotInstalled": "Reach Text ist nicht installiert.\nSie können es installieren, indem Sie auf die Schaltfläche unten klicken.",
@@ -231,7 +231,7 @@ class LocaleController:
         },
         "uk": {
             "ReachTextNotInstalled": "Reach Text не встановлено.\nВи можете встановити його, натиснувши кнопку нижче.",
-            "UnsupportedVersion": "Ваша версія плагіна ReachText не підтримує цю функцію. Оновіть її з офіційного телеграм-каналу @PESSDES_Plugins."
+            "UnsupportedVersion": "Ваша версія плагіна ReachText не підтримує цю функцію. Оновіть її."
         },
         "pl": {
             "ReachTextNotInstalled": "Reach Text nie jest zainstalowany.\nMożesz go zainstalować, klikając przycisk poniżej.",

@@ -96,7 +96,6 @@ class InfoPlugin(BasePlugin):
             Input(key="activity", text=s["activity"], default="", icon="menu_premium_clock"),
             Input(key="about", text=s["about"], default="", icon="msg_folders_requests"),
             Input(key="addy", text=s["addy"], default="", icon="msg_media", subtext=s["addy_sub"]),
-            Divider(text=s["thanks"])
         ]
 
     def on_send_message_hook(self, account, params):

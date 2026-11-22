@@ -75,14 +75,14 @@ class LocaleController:
             "FetchingLyrics": "Fetching Lyrics...",
             "LyricsNotFound": "Lyrics not found",
             "LyricsControllerNotLoaded": "An error occurred while loading an additional module. Press '%s' to try again.",
-            "UnsupportedVersion": "Your version of the ReachText plugin does not support this feature. Please update it from the official Telegram channel @PESSDES_Plugins."
+            "UnsupportedVersion": "Your version of the ReachText plugin does not support this feature. Please update it."
         },
         "ru": {
             "ShowLyrics": "Показать текст",
             "FetchingLyrics": "Получаю текст...",
             "LyricsNotFound": "Текст не найден",
             "LyricsControllerNotLoaded": "Произошла ошибка во время загрузки дополнительного модуля. Нажмите '%s', чтобы попробовать снова.",
-            "UnsupportedVersion": "Ваша версия плагина ReachText не поддерживает эту функцию. Обновите ее из официального телеграм канала @PESSDES_Plugins"
+            "UnsupportedVersion": "Ваша версия плагина ReachText не поддерживает эту функцию. Обновите ее."
         },
         "de": {
             "ShowLyrics": "Songtext anzeigen",
@@ -138,7 +138,7 @@ class LocaleController:
             "FetchingLyrics": "Отримання тексту...",
             "LyricsNotFound": "Текст не знайдено",
             "LyricsControllerNotLoaded": "Сталася помилка під час завантаження додаткового модуля. Натисніть '%s', щоб спробувати знову.",
-            "UnsupportedVersion": "Ваша версія плагіна ReachText не підтримує цю функцію. Оновіть її з офіційного телеграм-каналу @PESSDES_Plugins."
+            "UnsupportedVersion": "Ваша версія плагіна ReachText не підтримує цю функцію. Оновіть її."
         },
         "pl": {
             "ShowLyrics": "Pokaż tekst",

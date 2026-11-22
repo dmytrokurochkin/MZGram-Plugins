@@ -1,10 +1,3 @@
-"""
-    before modify this plugin, please contact me.
-    find bug or want to suggest? let me know: @thrzxd
-
-    if you want to completely remove this plugin, first go to plugin settings, 
-    clear all pinned messages and then clear the local database.
-"""
 # MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
 def _mz_t(uk, en, ru=None):
     try:

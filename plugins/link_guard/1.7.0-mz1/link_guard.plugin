@@ -1353,7 +1353,7 @@ def analyze(url, aggressive=False, whitelist=(), anchor=None):
 
 
 REPO_URL = "https://github.com/L0lopop/Link-Guard"
-CHAT_URL = "https://t.me/kringplugins"
+CHAT_URL = ""
 UPDATE_URL = "https://raw.githubusercontent.com/L0lopop/Link-Guard/main/update.json"
 UPDATE_INTERVAL = 6 * 60 * 60
 
@@ -1858,9 +1858,6 @@ class LinkGuardPlugin(BasePlugin):
         ] + self._detail_row(
             phrase("btn_repo"), phrase("btn_repo_detail"), phrase("btn_repo_sub"),
             self._on_repo_click, divider=True,
-        ) + self._detail_row(
-            phrase("btn_chat"), phrase("btn_chat_detail"), phrase("btn_chat_sub"),
-            self._on_chat_click,
         ) + [
 
             Header(text=phrase("hdr_language")),
@@ -3075,10 +3072,10 @@ class LinkGuardPlugin(BasePlugin):
         return False
 
     def _on_repo_click(self, *args):
-        self._open_link(REPO_URL)
+        pass
 
     def _on_chat_click(self, *args):
-        self._open_link(CHAT_URL)
+        pass
 
 
     def _reopen(self, method, args, index, url):

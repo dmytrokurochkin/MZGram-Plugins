@@ -11,11 +11,10 @@ def _mz_t(uk, en, ru=None):
         return ru
     return en
 
-# KillEx for exteraGram
+# KillEx for MZGram
 # Local hard-block/hide profiles by Telegram user ID and remembered usernames.
 
 # MIT LICENCE
-# Copyright © 2026 @contact_developer_bot
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 # The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 # THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
@@ -612,7 +611,7 @@ class MessageCellHook(MethodHook):
 
 
 class KillExSudokuGame:
-    """Adapted gameplay core from the standalone Sudoku.plugin (thx @systematary, @rxvxnxnt)
+    """Adapted gameplay core from the standalone Sudoku.plugin 
 
     KillEx uses only the easy 9×9 mode in the unban flow, but keeps the useful
     mechanics: selected-cell state, wrong-cell feedback, hints, clear button and

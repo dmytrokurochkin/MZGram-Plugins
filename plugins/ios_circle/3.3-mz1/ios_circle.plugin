@@ -13,8 +13,6 @@ def _mz_t(uk, en, ru=None):
     return en
 
 
-""" made by @exoseo | @HzzzPlugins """
-
 """ DEX_B64 - 2.42.29 """
 
 import os
@@ -711,41 +709,10 @@ class IosCirclePlugin(BasePlugin):
         return ctx
 
     def _open_tg_link(self, username):
-        try:
-            context = ApplicationLoader.applicationContext
-            intent = Intent(Intent.ACTION_VIEW, Uri.parse("tg://resolve?domain=" + username))
-            intent.setPackage(context.getPackageName())
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(intent)
-        except Exception:
-            pass
+        pass
 
     def _show_welcome_dialog(self):
-        try:
-            current_fragment = get_last_fragment()
-            if not current_fragment:
-                return
-            activity = current_fragment.getParentActivity()
-            if not activity:
-                return
-            builder = AlertDialogBuilder(activity)
-            builder.set_title(__name__)
-            builder.set_message(_mz_t("Здається, там ще більше крутих плагінів", "There are even more cool plugins there", "Кажется там еще больше крутых плагинов"))
-
-            def on_hide(bld, which):
-                self.set_setting("welcome_shown", True)
-                bld.dismiss()
-
-            def on_channel(bld, which):
-                self.set_setting("welcome_shown", True)
-                self._open_tg_link("HzzzPlugins")
-                bld.dismiss()
-
-            builder.set_positive_button(_mz_t("👀 Переглянути канал і більше не показувати", "👀 View the channel and don't show again", "👀 Посмотреть канал и больше не показывать"), on_channel)
-            builder.set_negative_button(_mz_t("Приховати", "Hide", "Скрыть"), on_hide)
-            builder.show()
-        except Exception:
-            pass
+        pass
 
     def _on_reload_dex(self, view=None):
         self._mixer_class = None
@@ -864,15 +831,7 @@ class IosCirclePlugin(BasePlugin):
         if preview is not None:
             items.append(preview)
             items.append(Divider())
-        items.extend([
-            Text(text=_mz_t("Зробив: @exoseo", "Made by: @exoseo", "Сделал: @exoseo"), on_click=lambda v: self._open_tg_link("exoseo")),
-            Text(text=_mz_t("Канал: @HzzzPlugins", "Channel: @HzzzPlugins", "Канал: @HzzzPlugins"), on_click=lambda v: self._open_tg_link("HzzzPlugins")),
-            Text(
-                    text=_mz_t("Знайде всі таємниці: @xucxbot", "Finds all the secrets: @xucxbot", "Найдет все тайны: @xucxbot"),
-                    accent=True,
-                    on_click=lambda v: self._open_tg_link("xucxbot")
-                ),
-        ])
+
         return items
 
     def _on_mix_setting(self, index):

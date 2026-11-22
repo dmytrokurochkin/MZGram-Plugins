@@ -321,7 +321,7 @@ class Md3LoaderPlugin(BasePlugin):
             Switch(key="track", text=_mz_t("Показувати трек", "Show track", "Показывать трек"), default=True,
                    subtext=_mz_t("Напівпрозора доріжка решти частини", "Semi-transparent track for the remaining part", "Полупрозрачная дорожка оставшейся части"),
                    on_change=self._setter("track")),
-            Divider(text="by @jettaxp & @jettax_plugins"),
+            Divider(),
         ]
 
 

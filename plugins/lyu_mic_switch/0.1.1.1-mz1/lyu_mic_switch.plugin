@@ -510,8 +510,8 @@ class Click(dynamic_proxy(jclass("android.view.View$OnClickListener"))):
 
 # ----- Plugin ---------------------------------------------------------------------------
 
-LYU_GROUP_URL = "https://t.me/LyuPlugins"
-LYU_AUTHOR_URL = "https://t.me/lyuto_bor"
+LYU_GROUP_URL = ""
+LYU_AUTHOR_URL = ""
 
 
 def open_lyu_url(view, url):
@@ -826,9 +826,7 @@ class MicSwitchPlugin(BasePlugin):
         items += [Header(text=self.tr("switching")), Custom(factory=self.settings_factory.instance.java),
                   Switch(key="level", text=self.tr("level"), default=True,
                          subtext=self.tr("level_hint"), on_change=self.settings_changed),
-                  Divider(text=self.tr("hint")),
-                  Text(text="LyuPlugins", subtext=self.tr("group"), icon="msg_channel", on_click=open_lyu_group),
-                  Text(text=self.tr("author"), subtext=self.tr("title") + " · " + __version__, icon="msg_openprofile", on_click=open_lyu_author)]
+                  Divider(text=self.tr("hint"))]
         return items
 
     def settings_changed(self, *args):
