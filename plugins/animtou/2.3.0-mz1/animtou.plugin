@@ -488,28 +488,4 @@ class animtouPlugin(BasePlugin):
         if dose_bar is not None:
             items.append(dose_bar)
 
-        items += [
-            Divider(),
-            Header(text=_mz_t("Титри", "Credits", "Титры")),
-            Text(
-                text=_mz_t("Бастардські плагіни", "Bastard plugins", "Бастардские плагины"),
-                subtext=_mz_t("Мій канал", "My channel", "Мой канал"),
-                icon="msg_channel",
-                on_click=self._open_channel
-            ),
-            Text(
-                text="zwyPlugins",
-                subtext=_mz_t("Дякую за допомогу", "Thanks for the help", "Спасибо за помощь"),
-                icon="msg_channel",
-                on_click=self._open_channel2
-            ),
-            Text(
-                text="Миша-ня!",
-                subtext=_mz_t("Автор ідеї", "Idea author", "Автор идеи"),
-                icon="msg_channel",
-                on_click=self._open_idea_author
-            ),
-            Divider(text=_mz_t(f"animtou v{__version__} // ОП: @jaxbastard", f"animtou v{__version__} // DM: @jaxbastard", f"animtou v{__version__} // ЛС: @jaxbastard")),
-        ]
-
         return items

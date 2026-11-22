@@ -1202,8 +1202,8 @@
       "version": "2.3.0-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/animtou/2.3.0-mz1/animtou.plugin",
-      "sha256": "a658b2541e7f3ae4271875c04c1f2f103896bbce45030b94b10ef5124a04c444",
-      "size": 18011,
+      "sha256": "f30704ce3ad962ae1c9b9391361027b655b9a99697c9b0360ffbc9d84afce102",
+      "size": 16860,
       "description": "Adds a nice animation on every touch",
       "description_i18n": {
         "en": "Adds a nice animation on every touch",
