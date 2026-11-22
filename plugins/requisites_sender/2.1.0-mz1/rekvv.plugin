@@ -200,10 +200,7 @@ class RekvPlugin(BasePlugin):
             if show_custom and custom_name and custom_value:
                 message_parts.append(f"{custom_name}: `{custom_value}`")
 
-        if not self.get_setting("disable_ad", False):
-            if message_parts:
-                 message_parts.append("")
-            message_parts.append("rekv plugin by @linescall")
+
 
         if not any(part.strip() for part in message_parts if part):
             params.message = _mz_t("Реквізити не налаштовано. Заповніть їх у налаштуваннях плагіна.", "Requisites are not set up. Fill them in the plugin settings.", "Реквизиты не настроены. Заполните их в настройках плагина.")

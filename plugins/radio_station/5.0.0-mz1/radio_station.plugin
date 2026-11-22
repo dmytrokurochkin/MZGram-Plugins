@@ -41,7 +41,7 @@ __category__ = ["media"]
 __sdk_version__ = ">=1.4.5.1"
 
 # Built-in stations, grouped by interface language. Only one group is active
-# at a time, chosen by the detected exteraGram interface language. Custom
+# at a time, chosen by the detected MZGram interface language. Custom
 # stations added by the user are always shown in addition to the active group.
 # MZGram: the Russian station group is replaced by Ukrainian stations
 STATIONS_UK: Tuple[Tuple[str, str], ...] = (
@@ -168,7 +168,7 @@ STRINGS: Dict[str, Dict[str, str]] = {
         "about_dev_name": _mz_t("Розробник", "Developer", "Разработчик"),
         "about_channel": _mz_t("Канал розробника", "Developer's channel", "Канал разработчика"),
         "about_plugin_header": _mz_t("Про плагін", "About the plugin", "О плагине"),
-        "about_plugin_text": _mz_t("Фонове інтернет-радіо для exteraGram. Відтворення через MediaPlayer (prepareAsync), команди перехоплюються локально й не йдуть у чат. Власні станції перевіряються справжнім SSL-рукостисканням перед збереженням.", "Background internet radio for exteraGram. Playback through MediaPlayer (prepareAsync); commands are intercepted locally and don't go to the chat. Your own stations are checked with a real SSL handshake before saving.", "Фоновое интернет-радио для exteraGram. Воспроизведение через MediaPlayer (prepareAsync), команды перехватываются локально и не уходят в чат. Свои станции проверяются реальным SSL-рукопожатием перед сохранением."),
+        "about_plugin_text": _mz_t("Фонове інтернет-радіо для MZGram. Відтворення через MediaPlayer (prepareAsync), команди перехоплюються локально й не йдуть у чат. Власні станції перевіряються справжнім SSL-рукостисканням перед збереженням.", "Background internet radio for MZGram. Playback through MediaPlayer (prepareAsync); commands are intercepted locally and don't go to the chat. Your own stations are checked with a real SSL handshake before saving.", "Фоновое интернет-радио для MZGram. Воспроизведение через MediaPlayer (prepareAsync), команды перехватываются локально и не уходят в чат. Свои станции проверяются реальным SSL-рукопожатием перед сохранением."),
         "about_count": _mz_t("Вбудованих станцій: {builtin} · власних: {custom}", "Built-in stations: {builtin} · your own: {custom}", "Встроенных станций: {builtin} · своих: {custom}"),
         "about_versions": "SDK ≥ 1.4.5.1  ·  App ≥ 12.5.1",
 
@@ -308,7 +308,7 @@ STRINGS: Dict[str, Dict[str, str]] = {
         "about_dev_name": "Developer",
         "about_channel": "Developer channel",
         "about_plugin_header": "About the plugin",
-        "about_plugin_text": "Background internet radio for exteraGram. Playback via MediaPlayer (prepareAsync), commands are intercepted locally and never sent to the chat. Custom stations are verified with a real SSL handshake before saving.",
+        "about_plugin_text": "Background internet radio for MZGram. Playback via MediaPlayer (prepareAsync), commands are intercepted locally and never sent to the chat. Custom stations are verified with a real SSL handshake before saving.",
         "about_count": "Built-in stations: {builtin} · custom: {custom}",
         "about_versions": "SDK ≥ 1.4.5.1  ·  App ≥ 12.5.1",
 
@@ -832,10 +832,6 @@ class RadioStationPlugin(BasePlugin):
 
         if page_id == PAGE_ABOUT:
             return [
-                Header(text=t("about_dev_header")),
-                Divider(text="Radio Station v%s" % __version__),
-                Text(text=t("about_dev_name"), subtext="@RapFurBitches", icon="msg_contact"),
-                Text(text=t("about_channel"), subtext="@ccsFM", icon="msg_channel"),
                 Header(text=t("about_plugin_header")),
                 Divider(text=t("about_plugin_text")),
                 Divider(

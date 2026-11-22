@@ -765,13 +765,7 @@ class SendAsRoundVideoPlugin(BasePlugin):
             self.log(f"[send_as_round_video] trigger_send_without_sound critical error: {e}\n{traceback.format_exc()}")
 
     def _open_tg_channel(self, view):
-        try:
-            Intent = find_class("android.content.Intent")
-            Uri = find_class("android.net.Uri")
-            intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/anivdev"))
-            view.getContext().startActivity(intent)
-        except Exception as e:
-            self.log(f"Failed to open TG channel: {e}")
+        pass
 
     def create_settings(self) -> list:
         from ui.settings import Header, Text
@@ -782,10 +776,5 @@ class SendAsRoundVideoPlugin(BasePlugin):
                 subtext="Allows sending any video from gallery/editor as a round video note message (video message) by long-pressing the send button.",
                 icon="msg_info",
             ),
-            Text(
-                text="Developer's TG Channel",
-                subtext="anivdev.t.me (Click to open)",
-                icon="msg_share",
-                on_click=self._open_tg_channel,
-            ),
+
         ]

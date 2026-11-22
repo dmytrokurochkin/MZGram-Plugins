@@ -65,7 +65,7 @@ class Locales:
         "UPDATE_FAILED": _mz_t("Оновлення не вдалося, перегляньте логи.", "The update failed, see the logs.", "Обновление не удалось, смотрите логи."),
         "INSTALLED": _mz_t("Успішно встановлено! Перезапустіть застосунок.", "Successfully installed! Please restart the app.", "Успешно установлено! Перезапустите приложение."),
         "LIB_DESCRIPTION": _mz_t("Для роботи плагіна потрібно встановити [нативну бібліотеку](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c).", "To use the plugin, you need to install the [native library](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c).", "Для работы плагина необходимо установить [нативную библиотеку](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c)."),
-        "CHANNEL_NOTE": _mz_t("Стежити за оновленнями бібліотеки можна в каналі [Docta Share](https://t.me/doctashare).", "Follow library updates in the [Docta Share](https://t.me/doctashare) channel.", "Следить за обновлениями библиотеки можно в канале [Docta Share](https://t.me/doctashare)."),
+        "CHANNEL_NOTE": "",
     }
     en = {
         "SETTINGS_TITLE": "Native Library",
@@ -95,7 +95,7 @@ class Locales:
         "UPDATE_FAILED": "The update failed, see the logs.",
         "INSTALLED": "Successfully installed! Please restart the app.",
         "LIB_DESCRIPTION": "To use the plugin, you need to install the [native library](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c).",
-        "CHANNEL_NOTE": "Follow library updates in the [Docta Share](https://t.me/doctashare) channel.",
+        "CHANNEL_NOTE": "",
     }
     default = en
 

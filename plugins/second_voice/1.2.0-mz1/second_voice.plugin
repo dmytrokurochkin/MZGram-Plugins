@@ -529,7 +529,6 @@ class VoiceTimerPlugin(BasePlugin):
                 icon="msg_sort",
             ),
             Divider(),
-            Text(text=_mz_t("Автори: @buligaEplugins, @incLu_01", "Authors: @buligaEplugins, @incLu_01", "Авторы: @buligaEplugins, @incLu_01"), icon="msg_info"),
         ]
 
     def _schedule_final_refresh(self, cell):

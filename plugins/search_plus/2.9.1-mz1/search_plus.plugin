@@ -180,9 +180,9 @@ _EN = {
 "Фильтр ▾": "Filter ▾",
 "Язык": "Language",
 "Авто": "Auto",
-"Язык плагина. «Авто» — по надписям exteraGram": "Plugin language. Auto follows exteraGram's interface text",
+"Язык плагина. «Авто» — по надписям MZGram": "Plugin language. Auto follows MZGram's interface text",
 "Язык применён. Переоткройте настройки": "Language applied. Reopen settings",
-"{name} не поддерживает {client}. Нужен exteraGram {need} или новее.": "{name} does not support {client}. exteraGram {need} or newer is required.",
+"{name} не поддерживает {client}. Нужен MZGram {need} или новее.": "{name} does not support {client}. MZGram {need} or newer is required.",
 "{name} {version} работает с версии {need}, а у вас {have}. Обновите приложение, пока плагин не активен.": "{name} {version} needs version {need} or newer, but you have {have}. Update the app; the plugin stays inactive until then.",
 }
 
@@ -271,7 +271,7 @@ def _client_version():
 def _client_problem():
     pkg, ver = _client_version()
     if pkg in BLOCKED_CLIENTS:
-        return _t(_mz_t("{name} не підтримує {client}. Потрібен exteraGram {need} або новіший.", "{name} does not support {client}. exteraGram {need} or newer is required.", "{name} не поддерживает {client}. Нужен exteraGram {need} или новее.")).format(name=__name__, client=BLOCKED_CLIENTS[pkg], need=__min_version__)
+        return _t(_mz_t("{name} не підтримує {client}. Потрібен MZGram {need} або новіший.", "{name} does not support {client}. MZGram {need} or newer is required.", "{name} не поддерживает {client}. Нужен MZGram {need} или новее.")).format(name=__name__, client=BLOCKED_CLIENTS[pkg], need=__min_version__)
     have = _version_tuple(ver)
     need = _version_tuple(__min_version__)
     if have is None or need is None or have >= need:

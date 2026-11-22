@@ -565,17 +565,13 @@ class SearchBarControlPlugin(BasePlugin):
                 icon="msg_link",
                 on_click=self._open_telegraph("https://telegra.ph/Dokumentaciya-k-plaginu-Search-Bar-Control-06-28"),
             ),
-            Text(
-                text=L("Author Channel", "Канал автора", "Канал автора"),
-                icon="msg_channel",
-                on_click=self._open_internal("https://t.me/MaxExteraPlugins"),
-            ),
+
             Divider(),
             Header(text=L("Search Bar", "Строка поиска", "Рядок пошуку")),
             Text(
                 text=L("Hide Search Bar", "Скрыть строку поиска", "Приховати рядок пошуку"),
                 icon="msg_customize",
-                subtext=L("Open exteraGram settings", "Открыть настройки exteraGram", "Відкрити налаштування exteraGram"),
+                subtext=L("Open MZGram settings", "Открыть настройки MZGram", "Відкрити налаштування MZGram"),
                 on_click=self._open_internal("https://t.me/exteraSettings?s=hideDialogsSearchBar"),
             ),
             Selector(
@@ -601,7 +597,7 @@ class SearchBarControlPlugin(BasePlugin):
             Text(
                 text=L("Hide Stories", "Скрыть истории", "Приховати історії"),
                 icon="msg_customize",
-                subtext=L("Open exteraGram settings", "Открыть настройки exteraGram", "Відкрити налаштування exteraGram"),
+                subtext=L("Open MZGram settings", "Открыть настройки MZGram", "Відкрити налаштування MZGram"),
                 on_click=self._open_internal("https://t.me/exteraSettings?s=hideStories"),
             ),
             Switch(

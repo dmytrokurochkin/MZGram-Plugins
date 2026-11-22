@@ -7,7 +7,7 @@ from java import jint, jfloat
 
 __id__ = "reworked_camera_enhancer"
 __name__ = "Round Enchancer"
-__description__ = "Round videos camera enhancer. Wide Angle support(if exists), quality presets, HEVC. Original by @dekma0091 • Improved by @exterawhy"
+__description__ = "Round videos camera enhancer. Wide Angle support(if exists), quality presets, HEVC."
 __author__ = "MZGram"
 __version__ = "2.0-mz1"
 __min_version__ = "12.5.1"
