@@ -40,7 +40,7 @@ except NameError: StellaFPSMonitor=None
 
 __id__ = "stella"
 __name__ = "Stella"
-__description__ = "3D anime girl Stella right in Telegram\nFor those who don't have a girlfriend: now you do/nSupported by @knice_tech"
+__description__ = "3D anime girl Stella right in Telegram\nFor those who don't have a girlfriend: now you do"
 __author__ = "MZGram"
 __version__ = "3.0.0-mz1"
 __min_version__ = "11.12.0"
@@ -122,7 +122,7 @@ def _base_anim_url():
     import urllib.parse as _up
     return MOTIONS_REPO + "/" + _up.quote(ANIM_BASE)
 
-MATURE_CATALOG_URL = "https://t.me/tribute/app?startapp=sXPd"
+MATURE_CATALOG_URL = ""
 EXPR_EMOJI = {
     'happy':'','sad':'','angry':'','surprised':'','relaxed':'',
     'neutral':'','blink':'','aa':'','ih':'','ou':'','ee':'',
@@ -2675,65 +2675,8 @@ class WaifuPlugin(BasePlugin):
         return HookResult()
 
     def _show_welcome_dialog(self):
-        """
-        Shown once after the plugin is installed.
-        The link and the "Subscribe" button are clickable, but following them is
-        entirely up to the user. There is no automatic
-        channel subscription here.
-        """
-        try:
-            f = get_last_fragment()
-            act = f.getParentActivity() if f else None
-            if not act:
-                run_on_ui_thread(self._show_welcome_dialog, 1500)
-                return
-
-            from android.widget import TextView, LinearLayout
-            from android.graphics import Color
-            from android.view import Gravity
-
-            channel_url = "https://t.me/knice_tech"
-
-            full_text = (_mz_t('Розроблено за підтримки проєкту «Голосовий помічник для ПК: Stella». Посилання на канал доступне за кнопкою «Підписатися» нижче.', 'Developed with the support of the project "Voice assistant for PC: Stella". The channel link is available via the "Subscribe" button below.', ('Разработано при поддержке проекта "Голосовой помощник для ПК — Stella". '
-                         'Ссылка на канал доступна по кнопке "Подписаться" ниже.')))
-
-            tv = TextView(act)
-            tv.setText(full_text)
-            tv.setTextSize(0, AndroidUtilities.dp(17.0))
-            try:
-                tv.setTextColor(Color.parseColor("#FFFFFF"))
-                tv.setLineSpacing(AndroidUtilities.dp(5.0), 1.05)
-                tv.setGravity(Gravity.CENTER_HORIZONTAL)
-            except Exception: pass
-            pad_h = AndroidUtilities.dp(28.0)
-            pad_v = AndroidUtilities.dp(20.0)
-            tv.setPadding(pad_h, pad_v, pad_h, pad_v)
-
-            wrapper = LinearLayout(act)
-            wrapper.setOrientation(LinearLayout.VERTICAL)
-            wrapper.addView(tv)
-
-            builder = AlertDialogBuilder(act)
-            builder.set_title(_mz_t("Ласкаво просимо до Stella ", "Welcome to Stella ", "Добро пожаловать в Stella "))
-            builder.set_view(wrapper)
-            builder.set_cancelable(True)
-
-            def _on_subscribe(b, w):
-                b.dismiss()
-                self.ss("welcome_shown", True)
-                self._open_url(channel_url)
-
-            builder.set_positive_button(_mz_t("Зрозуміло", "Got it", "Понятно"), lambda b, w: b.dismiss())
-            builder.set_neutral_button(_mz_t("Підписатися", "Subscribe", "Подписаться"), _on_subscribe)
-            builder.set_on_dismiss_listener(lambda b: (
-                self.ss("welcome_shown", True),
-                run_on_ui_thread(self._show_age_gate_dialog, 400),
-            ))
-            builder.show()
-        except Exception as e:
-            self._log("welcome_dialog: " + str(e) + "\n" + traceback.format_exc())
-            self.ss("welcome_shown", True)
-            run_on_ui_thread(self._show_age_gate_dialog, 400)
+        self.ss("welcome_shown", True)
+        run_on_ui_thread(self._show_age_gate_dialog, 400)
 
     def _show_age_gate_dialog(self):
         """
@@ -2829,7 +2772,7 @@ class WaifuPlugin(BasePlugin):
             from android.graphics import Color
             from android.view import Gravity
 
-            buy_url = "https://t.me/tribute/app?startapp=sXPd"
+            buy_url = ""
 
             full_text = (_mz_t('У налаштуваннях плагіна є вкладка «Додатковий вміст (18+)»: платний доступ до розширеного каталогу моделей із регулярними якісними оновленнями. Оформити можна за кнопкою «Купити» нижче.', 'The plugin settings have an "Extra content (18+)" tab: paid access to an extended model catalog with regular quality updates. You can subscribe with the "Buy" button below.', ('В настройках плагина есть вкладка «Доп. контент (18+)» — '
                         'платный доступ к расширенному каталогу моделей с регулярными '
@@ -3857,12 +3800,6 @@ class WaifuPlugin(BasePlugin):
                      subtext=_mz_t("Кількість дотиків, танців, сесій і відкриті досягнення", "Number of touches, dances, sessions and unlocked achievements", "Количество касаний, танцев, сессий и открытые достижения")),
                 Divider(),
 
-                Header(text=_mz_t("Розробники та підтримка", "Developers and support", "Разработчики и поддержка")),
-                Text(text="@lyzos",icon="msg_openprofile",accent=True,
-                     on_click=lambda v: self._open_tg("lyzos")),
-                Text(text="@rei_plugins",icon="msg_openprofile",accent=True,
-                     on_click=lambda v: self._open_tg("rei_plugins")),
-                Text(text=_mz_t("Канал підтримки", "Support channel", "Канал поддержки"),icon="msg_channel",accent=True,
-                     on_click=lambda v: self._open_url("https://t.me/knice_tech")),
+
             ]
         return top+mid+bot

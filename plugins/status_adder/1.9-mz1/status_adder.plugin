@@ -921,13 +921,7 @@ class EmojiNamePlugin(BasePlugin):
                 on_click=self._open_url("https://telegra.ph/Dokumentaciya-k-plaginu-Status-Adder-06-23"),
             )
         )
-        items.append(
-            Text(
-                text=_mz_t("Канал автора", "Author's channel", "Канал автора"),
-                icon="msg_channel",
-                on_click=self._open_url("https://t.me/MaxExteraPlugins"),
-            )
-        )
+
         items.append(Divider())
 
         items.append(Header(text=_mz_t("Стандартне ім'я", "Default name", "Стандартное имя")))

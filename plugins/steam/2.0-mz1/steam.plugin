@@ -1,23 +1,3 @@
-'''⠀⠀⠀
-If you are going to copy this, at least credit the source :)
-In our case: @KangelPlugins & @MGEPlugins
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⣠⣴⣯⣫⡇⣀⠖⡶⠊⠁⠀⠀⠈⠒⢤⡀⠀⣴⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠊⢐⠃⡇⡎⣿⡗⠀⠈⠀⠒⢘⠀⢱⠐⡇⠐⠉⢲⣿⣇⣩⢖⠢⡀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡆⠀⡍⢸⢀⢰⣿⢇⠔⠀⡄⠀⠈⠄⠔⢉⣐⠲⡀⢀⣿⣷⠀⠘⢓⠈⠂⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⣇⡇⡘⣾⡿⠁⠀⠀⠀⠀⠀⠀⠀⠸⡋⢷⠓⡏⢼⣿⠀⡀⢇⠀⢸⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠆⠀⣿⢠⢡⠝⠀⠀⢀⣾⡄⠀⠀⠀⠀⠀⠛⠋⣉⡙⠛⢻⠀⢤⣞⠀⡸⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡀⣇⢆⣾⡏⠀⢠⣼⣀⣵⣄⢀⠀⡄⢠⠀⢠⣏⢸⠚⡞⢹⡸⢁⠴⠁⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⣵⣿⡍⢳⢶⢯⡟⢉⡛⠣⠀⠁⠉⠉⢉⣉⡿⠾⢻⡣⠾⡇⠁⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⢿⢋⡀⠚⣊⠞⡥⠸⢀⠈⠁⠀⠀⠀⠀⠙⠛⠋⡇⣠⣸⣀⢀⡀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⡠⠚⠁⡇⠀⠈⢆⢀⠤⡋⠉⡇⢹⢟⠁⠀⢠⣠⡀⠀⠀⣠⠞⡇⢀⣧⠛⢯⣷⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⡠⠊⠀⠀⠀⠘⢄⣠⡥⢏⠀⢱⠀⠙⣜⣆⣹⣄⡈⠛⣁⠴⠚⠁⢸⠁⡞⠰⠀⠀⠙⢿⣄⡀⠀⠀⠀⠀
-⠀⠀⠀⡠⠊⠀⠀⠀⠀⠀⠀⣠⡇⠀⢸⠀⢸⠀⢀⣨⢯⠿⠛⠉⠉⢧⣀⡀⣀⣞⡼⢑⠂⠀⠀⠀⠀⠙⣽⢲⡄⠀⠀
-⠀⢀⠜⠁⠀⠀⠀⠀⠠⣒⠝⠋⠀⣠⣾⠤⠜⠚⠉⠀⠹⡄⠀⠀⠀⠀⣧⠉⠙⢦⢤⡀⢆⠀⠀⠀⠀⠀⠀⠹⣾⣗⡄
-⠀⡜⠀⠀⠀⠀⣀⣴⡾⠁⢀⠲⠉⠉⢇⠀⠀⠀⠀⠀⠀⢧⠀⠲⠀⢠⠃⠀⠀⢀⡈⠨⢻⢆⡀⠀⠀⠀⠀⠀⠘⡿⢸
-⠜⠀⠀⠀⠐⠾⡩⠙⠣⡀⠐⠀⠂⠀⠀⠱⣄⠀⠠⠀⠀⠘⡄⠀⢀⢸⠀⠀⠰⡻⣌⠖⠁⠀⠑⢄⠀⠀⠀⢀⡤⠃⡞
-⢆⡠⠠⠀⠀⠀⠀⠀⠀⠈⢂⡀⠀⠀⠀⣄⠈⠳⣄⠉⠂⡀⢱⠀⠀⡸⢀⣾⣗⡞⠁⠀⠀⠐⠁⠈⠳⣀⡴⠋⢀⡞⠀
-⣠⠞⣓⠶⠒⠂⠬⣍⣂⣠⢤⠤⠁⠄⢐⡏⠀⢠⠒⠓⠢⡀⠢⢁⢀⡯⢈⠽⠍⠁⢄⠀⠸⠁⠀⠠⠀⠉⡳⣴⠯⣀⠀
-'''
 # MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
 def _mz_t(uk, en, ru=None):
     try:
@@ -1709,16 +1689,7 @@ class SteamPlugin(BasePlugin):
                 on_click=lambda _: self._handle_show_faq_alert_click(None),
                 link_alias="custom_font_faq"
             ),
-            Divider(),
-            Header(text=_mz_t("Відображення на картці", "Display on card", "Отображение на карточке") if is_ui_ru() else "Card Display"),
-            Switch(
-                key="show_card_authors",
-                text=_mz_t("Підпис авторів у футері", "Author credit in footer", "Подпись авторов в футере") if is_ui_ru() else "Author credits in footer",
-                default=True,
-                subtext=_mz_t("Додає рядок 'by @KangelPlugins & @MGEPlugins' внизу картки", "Adds the line 'by @KangelPlugins & @MGEPlugins' at the bottom of the card", "Добавляет строку 'by @KangelPlugins & @MGEPlugins' внизу карточки") if is_ui_ru() else "Adds 'by @KangelPlugins & @MGEPlugins' at the bottom",
-                icon="mentionbutton",
-                link_alias="show_card_authors"
-            ),
+
             Selector(
                 key="icon_style",
                 text=_mz_t("Стиль іконок у тексті", "Icon style in text", "Стиль иконок в тексте") if is_ui_ru() else "Icon style in text",
@@ -2090,22 +2061,7 @@ class SteamPlugin(BasePlugin):
                 icon="msg_openprofile",
                 link_alias="feature_stream"
             ),
-            Divider(),
-            Header(text=_mz_t("Автори", "Authors", "Авторы") if is_ui_ru() else "Authors"),
-            Text(
-                text="@KangelPlugins",
-                subtext=_mz_t("Основний розробник плагіна", "Main plugin developer", "Основной разработчик плагина") if is_ui_ru() else "Lead plugin developer",
-                icon="msg_channel",
-                on_click=lambda _: self._open_telegram_channel("KangelPlugins"),
-                link_alias="author_kangel"
-            ),
-            Text(
-                text="@MGEPlugins",
-                subtext=_mz_t("Співавтор і розробник", "Co-author and developer", "Соавтор и разработчик") if is_ui_ru() else "Co-author and developer",
-                icon="msg_channel",
-                on_click=lambda _: self._open_telegram_channel("MGEPlugins"),
-                link_alias="author_mge"
-            ),
+
         ]
 
     def _show_cmd_help(self, cmd: str, desc: str):
@@ -3405,7 +3361,7 @@ class SteamPlugin(BasePlugin):
 
             draw.line([(60, 1025), (1020, 1025)], fill=(38, 59, 80), width=1)
             draw.text((60, 1045), "Steam Plugin", font=font_footer, fill=(102, 192, 244))
-            draw.text((740, 1045), "by @KangelPlugins & @MGEPlugins", font=font_footer, fill=(143, 152, 160))
+            
 
             card_rgb = card.convert("RGB")
             if not self._temp_dir:
@@ -4132,8 +4088,6 @@ class SteamPlugin(BasePlugin):
 
         draw.line([(60, 990), (1020, 990)], fill=(38, 59, 80), width=1)
         draw.text((60, 1010), "Steam Plugin", font=font_footer, fill=(102, 192, 244))
-        if self.get_setting("show_card_authors", True):
-            draw.text((740, 1010), "by @KangelPlugins & @MGEPlugins", font=font_footer, fill=(143, 152, 160))
 
         card_rgb = card.convert("RGB")
         temp_photo_path = File(self._temp_dir, f"now_steam_{uuid.uuid4().hex[:8]}.jpg").getAbsolutePath()

@@ -462,7 +462,7 @@ def _build_silent_notification(ctx):
         from android.app import Notification
         builder = Notification.Builder(ctx, FSERVICE_CHANNEL_ID)
         builder.setSmallIcon(ctx.getApplicationInfo().icon)
-        builder.setContentTitle("Foreground service by @doctashare")
+        builder.setContentTitle("Foreground service")
         builder.setOngoing(True)
         builder.setPriority(-2)  # Notification.PRIORITY_MIN
         builder.setSound(None)
@@ -634,7 +634,7 @@ def _ayugram_build_notification(ctx):
         from android.app import PendingIntent
         from android.content import Intent
 
-        text = "Foreground service by @doctashare"
+        text = "Foreground service"
         sdk = Build.VERSION.SDK_INT
         flags = 67108864 if sdk >= 34 else 33554432
 
@@ -1328,7 +1328,7 @@ class BackgroundKeepAlivePlugin(BasePlugin):
             act = fragment.getParentActivity()
             if not act:
                 return
-            Browser.openUrl(act, Uri.parse("https://t.me/ayuSettings?s=keepAliveService"), True, True, True, None, None, False, False, False)
+            Browser.openUrl(act, Uri.parse("https://t.me/exteraSettings?s=keepAliveService"), True, True, True, None, None, False, False, False)
         except Exception as e:
             self.log(f"ayugram open settings error: {e}")
 

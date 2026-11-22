@@ -32,7 +32,7 @@ from ui.settings import Header, Input, Switch, Text
 
 __id__ = "termux_bridge"
 __name__ = "Termux Bridge"
-__description__ = "Runs scripts over exteragram using Termux. To use it, download the plugin with the command from the settings. Supports AI models, Java components and Python. Tested by the author on 12.9.0"
+__description__ = "Runs scripts over MZGram using Termux. To use it, download the plugin with the command from the settings. Supports AI models, Java components and Python."
 __author__ = "MZGram"
 __version__ = "1.0.0-mz1"
 __min_version__ = "12.9.0"

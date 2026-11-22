@@ -1,21 +1,3 @@
-"""
-
-
-                         ░         ▒           
-                        █░▒░     ▓▒ █          
-                      ██   █▓  ██   █          
-                   ▒▓██▒▒██████████▓█          
-                 ▓███████████████████          
-                ▓████████████████████          
-         ░░░░░░ ▓█████████████████████         
-        ████████████████    ████    ██         
-        ███    ███████████████████████         
-                    ▒███████████████           
-                                              
-                                                         
-by @ka1jus/@ModeelX
-Before copying or modifying the code, notify @ka1jus
-"""
 # MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
 def _mz_t(uk, en, ru=None):
     try:
