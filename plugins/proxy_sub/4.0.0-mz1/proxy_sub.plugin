@@ -657,62 +657,6 @@ class ProxyManagerPlugin(BasePlugin):
 
     def send_logs(self, manual):
         return
-    def _disabled_send_logs(self, manual):
-        if not self.send_lock.acquire(False):
-            if manual:
-                self.notify(_mz_t("Надсилання логів вже триває", "Log sending is already in progress", "Отправка логов уже идёт"))
-            return
-        watcher = None
-        center = None
-        path = None
-        try:
-            content = STORE.read()
-            if not content.strip():
-                if manual:
-                    self.notify(_mz_t("Логів немає", "No logs", "Логов нет"))
-                return
-            peer = self.resolve_forum_peer()
-            suffix = hashlib.sha1(f"{content}{time.time()}".encode("utf-8")).hexdigest()[:7]
-            file_name = f"{__id__}_{suffix}.log"
-            path = os.path.join(get_cache_dir(), file_name)
-            with open(path, "w", encoding="utf-8") as f:
-                f.write(content)
-
-            center = get_notification_center(UserConfig.selectedAccount)
-            watcher = make_log_watcher(peer, file_name)
-            if not run_on_ui_sync(lambda: (
-                center.addObserver(watcher, NotificationCenter.messageReceivedByServer),
-                center.addObserver(watcher, NotificationCenter.messageSendError),
-            )):
-                raise RuntimeError(_mz_t("не вдалося підписатися на події повідомлень", "couldn't subscribe to message events", "не удалось подписаться на события сообщений"))
-
-            self.send_document_to_topic(peer, path)
-            if not watcher.event.wait(SEND_TIMEOUT):
-                raise RuntimeError(_mz_t("тайм-аут: Telegram не підтвердив надсилання файлу", "timeout: Telegram didn't confirm the file was sent", "таймаут: Telegram не подтвердил отправку файла"))
-            if not watcher.ok:
-                raise RuntimeError(watcher.error or _mz_t("невідома помилка надсилання", "unknown sending error", "неизвестная ошибка отправки"))
-
-            STORE.consume(content)
-            if manual:
-                self.notify(_mz_t("Логи надіслано, локальний файл очищено", "Logs sent, local file cleared", "Логи отправлены, локальный файл очищен"), "success")
-        except Exception as e:
-            log(f"[PS] send_logs error: {e}")
-            self.notify(_mz_t(f"Логи не надіслано: {e}. Файл збережено", f"Logs not sent: {e}. File saved", f"Логи не отправлены: {e}. Файл сохранён"), "error")
-        finally:
-            if watcher is not None:
-                watcher.armed = False
-                if center is not None:
-                    run_on_ui_thread(lambda: (
-                        center.removeObserver(watcher, NotificationCenter.messageReceivedByServer),
-                        center.removeObserver(watcher, NotificationCenter.messageSendError),
-                    ))
-            if path:
-                try:
-                    os.remove(path)
-                except Exception:
-                    pass
-            self.send_lock.release()
-
     def notify(self, text, kind="info"):
         try:
             if kind == "error":

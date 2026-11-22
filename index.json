@@ -4859,8 +4859,8 @@
       "version": "1.0.1r-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/gift_search/1.0.1r-mz1/gift_search.plugin",
-      "sha256": "a041142bc1cfd0b2f88d8489ad409d6b4edf5d6760b049ba1282b11046f72961",
-      "size": 510601,
+      "sha256": "e6c4acb5bc2db8464d2d6514597285af5c8d01eb7cbfdb5c60a3f752f709d2a3",
+      "size": 376955,
       "description": "Search for gifts in one click - adds a separate \"Gifts\" tab directly to the Telegram global search",
       "description_i18n": {
         "en": "Search for gifts in one click - adds a separate \"Gifts\" tab directly to the Telegram global search",
@@ -6859,8 +6859,8 @@
       "version": "1.1-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/mini_app_float/1.1-mz1/mini_app_float.plugin",
-      "sha256": "8e789133601750c3dfd2807054fe11a4e6725fb377c86142c0c4ff8222b7802d",
-      "size": 104883,
+      "sha256": "b4fb484a70d92fef6667c49a0b72b843ec459865d4c9d6668e9d9d74d8254ec8",
+      "size": 96721,
       "description": "Minimizes mini-apps and websites from the browser into a floating window",
       "description_i18n": {
         "en": "Minimizes mini-apps and websites from the browser into a floating window",
@@ -8690,8 +8690,8 @@
       "version": "4.0.0-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/proxy_sub/4.0.0-mz1/proxy_sub.plugin",
-      "sha256": "fa394e228a68efd1268522558b3ffe82d75462264ef235792bcd0511a48c1058",
-      "size": 53217,
+      "sha256": "dc1e0f4f442384e18a8d674119fa31c05bd99cfa7d2675223b3b695b09187564",
+      "size": 49918,
       "description": "Loads MTProto and WebProxy proxy lists from a remote source and adds them to the client. Features: • Filtering by protocols and countries with counters • Exporting proxies (MTProto, WebProxy, SOCKS) to Favorites by message or file • Recording plugin error logs and automatically sending them to the akresLogs forum every hour (optional)",
       "description_i18n": {
         "en": "Loads MTProto and WebProxy proxy lists from a remote source and adds them to the client. Features: • Filtering by protocols and countries with counters • Exporting proxies (MTProto, WebProxy, SOCKS) to Favorites by message or file • Recording plugin error logs and automatically sending them to the akresLogs forum every hour (optional)",
