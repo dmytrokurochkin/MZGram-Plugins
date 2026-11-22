@@ -118,12 +118,6 @@ class AutoScrollPlugin(BasePlugin):
                 icon="msg_help",
                 on_click=lambda v: self._open_url("https://telegra.ph/Dokumentaciya-k-plaginu-Auto-Scroll-06-24"),
             ),
-            Text(
-                text=_mz_t("Канал автора", "Author's channel", "Канал автора"),
-                subtext="@MaxExteraPlugins",
-                icon="msg_channel",
-                on_click=lambda v: self._open_url("https://t.me/MaxExteraPlugins"),
-            ),
         ]
 
     def on_plugin_unload(self):

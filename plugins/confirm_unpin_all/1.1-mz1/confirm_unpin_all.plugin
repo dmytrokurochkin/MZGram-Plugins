@@ -20,7 +20,7 @@ from client_utils import send_request, get_last_fragment
 
 __id__ = "confirm_unpin_all"
 __name__ = "Confirm Unpin All"
-__description__ = "Shows a confirmation dialog after unpinning all messages (right when the notification with the cancel button disappears). @bobrplugins"
+__description__ = "Shows a confirmation dialog after unpinning all messages (right when the notification with the cancel button disappears)."
 __author__ = "MZGram"
 __version__ = "1.1-mz1"
 __app_version__ = ">=12.5.1"

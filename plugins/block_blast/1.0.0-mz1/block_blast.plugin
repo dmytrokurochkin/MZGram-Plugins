@@ -1,6 +1,6 @@
 __id__ = "block_blast"
 __name__ = "Block Blast"
-__description__ = "Block Blast in exteragram! Creator's channel: @devavaika. The idea comes from Tetris game: @SaturnFake"
+__description__ = "Block Blast puzzle mini-game with custom grid sizes and score tracking."
 __author__ = "MZGram"
 __min_version__ = "12.5.1"
 __version__ = "1.0.0-mz1"
@@ -99,7 +99,6 @@ def t(key, **kwargs):
         "reset_high_score": "\u0421\u0431\u0440\u043e\u0441\u0438\u0442\u044c \u0440\u0435\u043a\u043e\u0440\u0434",
         "reset_confirm": "\u0412\u044b \u0443\u0432\u0435\u0440\u0435\u043d\u044b?",
         "reset_success": "\u0420\u0435\u043a\u043e\u0440\u0434 \u0441\u0431\u0440\u043e\u0448\u0435\u043d!",
-        "credit": "\u0418\u0434\u0435\u044f: Tetris game @SaturnFake",
     }
     en = {
         "score": "Score: {score}",
@@ -123,7 +122,6 @@ def t(key, **kwargs):
         "reset_high_score": "Reset High Score",
         "reset_confirm": "Are you sure?",
         "reset_success": "High score reset!",
-        "credit": "Idea: Tetris game @SaturnFake",
     }
     uk = {
         "score": "Рахунок: {score}",
@@ -147,7 +145,6 @@ def t(key, **kwargs):
         "reset_high_score": "Скинути рекорд",
         "reset_confirm": "Ви впевнені?",
         "reset_success": "Рекорд скинуто!",
-        "credit": "Ідея: Tetris game @SaturnFake",
     }
     d = uk if lang.startswith("uk") else ru if lang.startswith("ru") else en
     val = d.get(key, key)
@@ -481,7 +478,6 @@ class BlockBlastPlugin(BasePlugin):
             red=True,
             on_click=self.reset_high_score
         ))
-        items.append(Divider(text=t("credit")))
         items.append(Divider(text=t("command_help")))
         return items
 

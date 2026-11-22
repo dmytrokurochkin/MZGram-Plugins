@@ -601,7 +601,7 @@ class random_games_plugin(BasePlugin):
 
     def _dox(self, args):
         target = args.strip() or _mz_t("анонім", "anonymous", "аноним")
-        names = [_mz_t("невідомий акаунт", "unidentified account", "неопознанный аккаунт"),_mz_t("довбойоб", "dumbass", "долбаёб"),"олег владимирович",_mz_t("позаземний об'єкт", "extraterrestrial object", "внеземной объект"),"барбоскин",_mz_t("жирний", "fatty", "жирный"),_mz_t("розробник exteragram", "exteragram developer", "разработчик экстеры"),"павел дуров"]
+        names = [_mz_t("невідомий акаунт", "unidentified account", "неопознанный аккаунт"),_mz_t("довбойоб", "dumbass", "долбаёб"),"олег владимирович",_mz_t("позаземний об'єкт", "extraterrestrial object", "внеземной объект"),"барбоскин",_mz_t("жирний", "fatty", "жирный"),_mz_t("розробник MZGram", "MZGram developer", "разработчик MZGram"),"павел дуров"]
         phones = ["+8800555535",_mz_t("+666 (сам диявол!)", "+666 (the devil himself!)", "+666 (сам дьявол!)"),"+00000000000","+77777777777",_mz_t("жирнопузик", "pot belly", "жиропузик")]
         ips = ["382727282щвлалвб",_mz_t("несвідомо", "unconsciously", "неосознанно"),"404.not.found","ip.of.your.mom","0.0.0.0"]
         addresses = [_mz_t("десь", "somewhere", "где-то"),_mz_t("бляха, хз, вибач", "damn, idk, sorry", "бля хз сорри"),"folk valley",_mz_t("Мурине", "Murino", "мурино"),_mz_t("живе на смітнику", "lives in a dumpster", "в мусорке живёт")]

@@ -44,7 +44,6 @@ except Exception:  # pragma: no cover
     get_last_fragment = None
     get_messages_controller = None
 
-AUTHOR_URL = "https://t.me/lerowplug"
 PICKER_URL = "https://htmlcolorcodes.com/color-picker/"
 
 COLORS = [
@@ -332,9 +331,6 @@ class ChatColorsPlugin(BasePlugin):
         self._refresh_ui()
         self._notify(_mz_t("Усі кольори скинуто", "All colors reset", "Все цвета сброшены"))
 
-    def _open_author(self, view: Any = None):
-        self._open_url(view, AUTHOR_URL)
-
     def _open_picker_site(self, view: Any = None):
         self._open_url(view, PICKER_URL)
 
@@ -377,7 +373,5 @@ class ChatColorsPlugin(BasePlugin):
         else:
             items.append(row(Text, text=_mz_t("Поки що немає жодного чату", "No chats yet", "Пока ни одного чата"), icon="msg_info",
                              subtext=_mz_t("Відкрийте чат, натисніть на три крапки й оберіть «Колір чату»", "Open a chat, tap the three dots and choose «Chat color»", "Открой чат, нажми на три точки и выбери «Цвет чата»")))
-        items.append(Header(text=_mz_t("Автор", "Author", "Автор")))
-        items.append(row(Text, text=_mz_t("Канал автора", "Author's channel", "Канал автора"), icon="msg_channel",
-                         subtext="@lerowplug", on_click=self._open_author))
+
         return [i for i in items if i is not None]

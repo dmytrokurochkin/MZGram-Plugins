@@ -1,24 +1,3 @@
-"""
-card_reading: Card fortune telling (27 cards)
-Author:  @lyzos
-Channel: @rei_plugins
-
-NO CactusLib: plain base_plugin.BasePlugin, because CactusLib has not worked for a long time.
-
-A fully self-contained file: the spread HTML is built into the plugin,
-no separate files need to be placed next to it.
-
-Opens the fortune window (Material Design 3 HTML: shuffle + 3D flip) as a floating
-window over the current screen: a rounded card in the centre with a dimmed
-background around it and a separate close button:
-  • the "Fortune" button in the chat menu (three dots at the top)
-  • the text command .гадать in any chat (the message ".гадать" itself is not sent)
-
-Note: the card pictures are still loaded from raw.githubusercontent.com
-(IMAGE_BASE inside the HTML). This is loading of images over the network and has
-no relation to separate files of the plugin. If GitHub is unavailable, the pictures will not load,
-but the spread itself (shuffle, flip, card texts) still opens and works.
-"""
 # MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
 def _mz_t(uk, en, ru=None):
     try:
@@ -684,10 +663,7 @@ class CardReadingPlugin(BasePlugin):
     # Settings
     # ------------------------------------------------------------------
     def create_settings(self):
-        return [
-            Text(text=_mz_t("Автор: @lyzos", "Author: @lyzos", "Автор: @lyzos"), icon="msg_info"),
-            Text(text=_mz_t("Канал: @rei_plugins", "Channel: @rei_plugins", "Канал: @rei_plugins"), icon="msg_info"),
-        ]
+        return []
 
     # ------------------------------------------------------------------
     # "Fortune" button in the chat menu

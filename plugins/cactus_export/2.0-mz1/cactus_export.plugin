@@ -46,7 +46,7 @@ except ImportError:
 
 __id__ = "cactus_export"
 __name__ = "Cactus Export"
-__description__ = "Made an (almost) exact clone of the plugin export/import from cactuslib, only for new exteraGram versions. Everyone I ripped off is marked in the authors ✅. AFTER INSTALLING BE SURE TO RESTART EXTERAGRAM☝️☝️☝️"
+__description__ = "Export and import installed plugins and their settings."
 __author__ = "MZGram"
 __version__ = "2.0-mz1"
 __min_version__ = "11.12.1"
