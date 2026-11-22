@@ -256,8 +256,6 @@ class DinoRunnerPlugin(BasePlugin):
         settings_list.append(Header(text=_mz_t("Інформація", "Information", "Информация")))
         settings_list.append(Text(text=_mz_t("Про версію 1.0", "About version 1.0", "О версии 1.0"), icon="msg_info", on_click=self._show_version_dialog))
         settings_list.append(Text(text="FAQ", icon="msg_help_14", on_click=self._show_faq_dialog))
-        settings_list.append(Text(text="artem plugins", icon="msg_channel", accent=True, on_click=lambda view: run_on_ui_thread(
-            lambda: get_messages_controller().openByUserName("ArtemPlugins", get_last_fragment(), 1))))
         settings_list.append(Text(text=_mz_t("Скинути рекорд", "Reset record", "Сбросить рекорд"), icon="msg_delete", red=True, on_click=self._reset_highscore))
         return settings_list
 

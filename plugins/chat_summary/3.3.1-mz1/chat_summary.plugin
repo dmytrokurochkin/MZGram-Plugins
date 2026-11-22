@@ -57,7 +57,6 @@ __requirements__ = "requests"
 PROVIDER_OPENAI, PROVIDER_ANTHROPIC, PROVIDER_GEMINI, PROVIDER_OLLAMA, PROVIDER_CUSTOM = range(5)
 PROVIDERS = ["OpenAI", "Anthropic / Claude", "Google Gemini", "Ollama", _mz_t("Власний API", "Custom API", "Свой API")]
 PROVIDER_KEYS = ["openai", "anthropic", "gemini", "ollama", "custom"]
-DEVELOPER_USERNAME = "aaxnet"
 PROVIDER_PORTALS = ["https://platform.openai.com/api-keys", "https://console.anthropic.com/settings/keys", "https://aistudio.google.com/apikey", "https://ollama.com/download", None]
 FAQ_ITEMS = [
     (_mz_t("Не вдається підключитися", "Can't connect", "Не удаётся подключиться"), _mz_t("Перевірте сервіс, ключ саме цього провайдера та ID моделі. Відкрийте «Модель» і завантажте список. Помилка 401: авторизація; 403: права, проєкт або регіон; 404: модель або адреса; 429: ліміт або квота. Перевірка підключення робить короткий запит без переписки і може тарифікуватися.", "Check the service, the key for this exact provider and the model ID. Open \"Model\" and load the list. Error 401: authorization; 403: permissions, project or region; 404: model or address; 429: limit or quota. The connection test sends a short request without any chat text and may be billed.", "Проверьте сервис, ключ именно этого провайдера и ID модели. Откройте «Модель» и загрузите список. Ошибка 401 — авторизация; 403 — права, проект или регион; 404 — модель или адрес; 429 — лимит или квота. Проверка подключения делает короткий запрос без переписки и может тарифицироваться.")),
@@ -2183,10 +2182,9 @@ class ChatSummaryPlugin(BasePlugin):
             ]:
                 ui_add(root, ui_step(activity, number, title, description, palette), bottom=2)
             ui_add(root, ui_text(activity, _mz_t("Відкриття цього екрана нічого не надсилає в AI. Запит може тарифікуватися; псевдоніми не очищають особисті дані всередині тексту.", "Opening this screen sends nothing to the AI. The request may be billed; aliases don't clean personal data inside the text.", "Открытие этого экрана ничего не отправляет в AI. Запрос может тарифицироваться; псевдонимы не очищают личные данные внутри текста."), 12, palette["muted"]), top=10, bottom=12)
-            ui_add(root, ui_action(activity, _mz_t("Потрібна допомога?", "Need help?", "Нужна помощь?"), _mz_t("Розробник @aaxnet на зв'язку", "Developer @aaxnet is available", "Разработчик @aaxnet — на связи"), palette, self._show_support, "?"))
             builder.set_view(ui_dialog_scroll(activity, root, 480, 0.60))
         except Exception:
-            builder.set_message(_mz_t("Головне з довгої переписки.\n\n1. Виберіть AI-сервіс і додайте ключ.\n2. У чаті: ⋮ → Підсумок чату → кількість повідомлень.\n3. Перевірте отримувача й підтвердьте надсилання.\n\nЗапит може тарифікуватися. Псевдоніми не видаляють особисті дані всередині тексту. Розробник: @aaxnet.", "The key points of a long conversation.\n\n1. Choose an AI service and add a key.\n2. In a chat: ⋮ → Chat summary → number of messages.\n3. Check the recipient and confirm sending.\n\nThe request may be billed. Aliases don't remove personal data inside the text. Developer: @aaxnet.", "Главное из длинной переписки.\n\n1. Выберите AI-сервис и добавьте ключ.\n2. В чате: ⋮ → Саммари чата → количество сообщений.\n3. Проверьте получателя и подтвердите отправку.\n\nЗапрос может тарифицироваться. Псевдонимы не удаляют личные данные внутри текста. Разработчик: @aaxnet."))
+            builder.set_message(_mz_t("Головне з довгої переписки.\n\n1. Виберіть AI-сервіс і додайте ключ.\n2. У чаті: ⋮ → Підсумок чату → кількість повідомлень.\n3. Перевірте отримувача й підтвердьте надсилання.\n\nЗапит може тарифікуватися. Псевдоніми не видаляють особисті дані всередині тексту.", "The key points of a long conversation.\n\n1. Choose an AI service and add a key.\n2. In a chat: ⋮ → Chat summary → number of messages.\n3. Check the recipient and confirm sending.\n\nThe request may be billed. Aliases don't remove personal data inside the text.", "Главное из длинной переписки.\n\n1. Выберите AI-сервис и добавьте ключ.\n2. В чате: ⋮ → Саммари чата → количество сообщений.\n3. Проверьте получателя и подтвердите отправку.\n\nЗапрос может тарифицироваться. Псевдонимы не удаляют личные данные внутри текста."))
 
         def seen():
             if getattr(self, "_loaded", False):
@@ -2230,60 +2228,6 @@ class ChatSummaryPlugin(BasePlugin):
                     result.append(row)
         return result
 
-    def _show_support(self):
-        activity = self._compat_activity()
-        if activity is None:
-            return
-        builder = AlertDialogBuilder(activity)
-        builder.set_title(_mz_t("На зв'язку", "Get in touch", "На связи"))
-        try:
-            palette = ui_palette()
-            root = ui_stack(activity, (22, 4, 22, 8))
-            card = ui_stack(activity, 18)
-            ui_background(card, palette["tint"], 22, palette["accent_border"])
-            heading = ui_stack(activity, horizontal=True)
-            avatar = ui_text(activity, "a", 30, ui_contrast(palette["accent"]), True)
-            avatar.setGravity(17)
-            ui_background(avatar, palette["accent"], 16)
-            ui_add(heading, avatar, 49, 49, right=12)
-            labels = ui_stack(activity)
-            ui_add(labels, ui_text(activity, "aaxnet", 26, palette["text"], True))
-            ui_add(labels, ui_text(activity, _mz_t("Розробник Chat Summary", "Chat Summary developer", "Разработчик Chat Summary"), 13, palette["accent"]), top=5)
-            ui_add(heading, labels, 0, -2, weight=1)
-            ui_add(card, heading)
-            ui_add(card, ui_text(activity, _mz_t("Ідея, питання чи помилка? Напишіть в особистий діалог. Повідомлення автоматично не надсилається.", "An idea, a question or a bug? Write in a private chat. No message is sent automatically.", "Идея, вопрос или ошибка? Напишите в личный диалог — без отправки сообщения автоматически."), 14, palette["muted"]), top=12)
-            ui_add(root, card, bottom=14)
-            ui_add(root, ui_action(activity, _mz_t("Написати @aaxnet", "Write to @aaxnet", "Написать @aaxnet"), _mz_t("Відкрити діалог у Telegram", "Open the chat in Telegram", "Открыть диалог в Telegram"), palette, self._open_developer_chat), bottom=8)
-            ui_add(root, ui_action(activity, _mz_t("Скопіювати діагностику", "Copy diagnostics", "Скопировать диагностику"), _mz_t("Без ключів, адрес і переписки", "No keys, addresses or conversations", "Без ключей, адресов и переписки"), palette, self._copy_debug_with_notice, "≡"), bottom=8)
-            ui_add(root, ui_action(activity, _mz_t("Переглянути журнал", "View log", "Посмотреть журнал"), _mz_t("Останні 60 безпечних подій", "The last 60 safe events", "Последние 60 безопасных событий"), palette, self._show_diagnostics, "≡"), bottom=8)
-            ui_add(root, ui_action(activity, _mz_t("Часті запитання", "FAQ", "Частые вопросы"), _mz_t("Підключення, оплата, скасування й Ollama", "Connection, payment, cancel and Ollama", "Подключение, оплата, отмена и Ollama"), palette, self._show_faq, "?"))
-            ui_add(root, ui_text(activity, _mz_t("Не надсилайте API-ключ. Для помилки досить тексту помилки, версії клієнта та безпечної діагностики.", "Don't send your API key. For a bug, the error text, the client version and the safe diagnostics are enough.", "Не присылайте API-ключ. Для ошибки достаточно текста ошибки, версии клиента и безопасной диагностики."), 12, palette["muted"]), top=14)
-            builder.set_view(ui_dialog_scroll(activity, root, 440, 0.57))
-        except Exception:
-            builder.set_message(_mz_t("Розробник: @aaxnet\n\nПо кнопці «Написати» відкриється особистий діалог. Автоматично нічого не надсилається.\n\nНе надсилайте API-ключ або особисту переписку. Використовуйте безпечну діагностику.", "Developer: @aaxnet\n\nThe \"Write\" button opens a private chat. Nothing is sent automatically.\n\nDon't send your API key or private conversations. Use the safe diagnostics.", "Разработчик: @aaxnet\n\nПо кнопке «Написать» откроется личный диалог. Автоматически ничего не отправляется.\n\nНе присылайте API-ключ или личную переписку. Используйте безопасную диагностику."))
-        builder.set_positive_button(_mz_t("Написати", "Write", "Написать"), lambda b, w: (b.dismiss(), self._open_developer_chat()))
-        builder.set_negative_button(_mz_t("Закрити", "Close", "Закрыть"), lambda b, w: b.dismiss())
-        self._show_picker(builder)
-
-    def _open_developer_chat(self):
-        fragment = get_last_fragment()
-        activity = fragment.getParentActivity() if fragment is not None else None
-        if not activity_alive(activity):
-            BulletinHelper.show_info(_mz_t("Відкрийте екран Telegram і спробуйте ще раз.", "Open a Telegram screen and try again.", "Откройте экран Telegram и попробуйте ещё раз."))
-            return
-        dismiss_dialog(getattr(self, "_picker", None))
-        try:
-            try:
-                account = int(fragment.getCurrentAccount())
-            except (AttributeError, TypeError):
-                account = int(get_selected_account())
-            # type=1 opens a chat, type=0 would open a profile. Never send any message.
-            get_messages_controller(account=account).openByUserName(DEVELOPER_USERNAME, fragment, 1)
-            self._event("contact_open")
-        except Exception:
-            self._event("contact_fallback", "warning")
-            self._open_external_url("https://t.me/" + DEVELOPER_USERNAME)
-
     def _open_external_url(self, url):
         try:
             parts = urlsplit(url)
@@ -2308,7 +2252,7 @@ class ChatSummaryPlugin(BasePlugin):
             self._event("link_open")
         except Exception:
             self._event("link_failed", "warning")
-            BulletinHelper.show_error(_mz_t("Не вдалося відкрити посилання. Контакт розробника: @aaxnet.", "Couldn't open the link. Developer contact: @aaxnet.", "Не удалось открыть ссылку. Контакт разработчика: @aaxnet."))
+            BulletinHelper.show_error(_mz_t("Не вдалося відкрити посилання.", "Couldn't open the link.", "Не удалось открыть ссылку."))
 
     def _open_provider_portal(self, provider=None):
         provider = index_value(self.get_setting("provider", 0) if provider is None else provider, len(PROVIDERS))
@@ -2367,7 +2311,7 @@ class ChatSummaryPlugin(BasePlugin):
             actual_sdk = str(_sdk_version.__version__)
         except Exception:
             actual_sdk = _mz_t("не визначено", "not set", "не определён")
-        text = "Chat Summary " + __version__ + _mz_t("\nРозробник: @", "\nDeveloper: @", "\nРазработчик: @") + DEVELOPER_USERNAME
+        text = "Chat Summary " + __version__
         text += _mz_t("\n\nВаш SDK: ", "\n\nYour SDK: ", "\n\nВаш SDK: ") + actual_sdk + _mz_t("\nМінімум: SDK 1.4.3.3, застосунок ", "\nMinimum: SDK 1.4.3.3, app ", "\nМинимум: SDK 1.4.3.3, приложение ") + __min_version__ + "."
         text += _mz_t("\n\nПідсумок чату або теми через OpenAI, Claude, Gemini, Ollama і власний API. Результат автоматично не публікується.", "\n\nSummary of a chat or topic via OpenAI, Claude, Gemini, Ollama and a custom API. The result isn't published automatically.", "\n\nСаммари чата или темы через OpenAI, Claude, Gemini, Ollama и свой API. Результат не публикуется автоматически.")
         text += _mz_t("\n\nКлюч зберігається звичайним механізмом налаштувань SDK, не в зашифрованому сховищі. До п'яти результатів і локальні імена зберігаються лише в пам'яті, окремо для кожного облікового запису.", "\n\nThe key is stored by the regular SDK settings mechanism, not in an encrypted vault. Up to five results and local names are kept in memory only, separately for each account.", "\n\nКлюч хранится обычным механизмом настроек SDK, не в шифрованном сейфе. До пяти результатов и локальные имена хранятся только в памяти отдельно по аккаунтам.")
@@ -2815,7 +2759,7 @@ class ChatSummaryPlugin(BasePlugin):
                 Divider(text=_mz_t("Великий контекст потребує більше пам'яті. Модель і сервер мають його підтримувати.", "A large context needs more memory. The model and the server must support it.", "Большой контекст требует больше памяти. Модель и сервер должны его поддерживать.")),
             ]
         items += [Header(text=_mz_t("Інформація", "Information", "Информация")),
-            Text(text="Chat Summary " + __version__, subtext=_mz_t("Першоавтор @aaxnet · SDK ≥1.4.3.3", "Original author @aaxnet · SDK ≥1.4.3.3", "Исходный автор @aaxnet · SDK ≥1.4.3.3"), icon=native_icon("msg_info")),
+            Text(text="Chat Summary " + __version__, subtext="SDK ≥1.4.3.3", icon=native_icon("msg_info")),
         ]
         return items
 
@@ -2842,12 +2786,11 @@ class ChatSummaryPlugin(BasePlugin):
             Text(text=_mz_t("Як почати", "Getting started", "Как начать"), subtext=_mz_t("Привітання та три прості кроки", "A welcome and three simple steps", "Приветствие и три простых шага"), icon=native_icon("msg_info"), on_click=lambda view: self._show_welcome()),
             Text(text=_mz_t("Де взяти API-ключ", "Where to get an API key", "Где получить API-ключ"), subtext=_mz_t("Відкрити сторінку вибраного сервісу", "Open the selected service's page", "Открыть страницу выбранного сервиса"), icon=native_icon("msg_link"), on_click=lambda view: self._open_provider_portal()),
             Text(text=_mz_t("Часті запитання", "FAQ", "Частые вопросы"), subtext=_mz_t("Підключення, оплата, скасування й Ollama", "Connection, payment, cancel and Ollama", "Подключение, оплата, отмена и Ollama"), icon=native_icon("msg_info"), on_click=lambda view: self._show_faq()),
-            Text(text=_mz_t("Підтримка розробника", "Developer support", "Поддержка разработчика"), subtext=_mz_t("@aaxnet · написати, поставити запитання, запропонувати ідею", "@aaxnet · write, ask a question, suggest an idea", "@aaxnet · написать, задать вопрос, предложить идею"), icon=native_icon("msg_message"), accent=True, on_click=lambda view: self._show_support()),
             Divider(), Header(text=_mz_t("Дані та діагностика", "Data and diagnostics", "Данные и диагностика")),
             self._settings_link(_mz_t("Приватність і оплата", "Privacy and payment", "Приватность и оплата"), _mz_t("Що надсилається і як працює скасування", "What is sent and how cancel works", "Что отправляется и как работает отмена"), "msg_secret", self._privacy_settings),
             Text(text=_mz_t("Діагностика та події", "Diagnostics and events", "Диагностика и события"), subtext=_mz_t("Переглянути журнал або скопіювати безпечний звіт", "View the log or copy a safe report", "Посмотреть журнал или скопировать безопасный отчёт"), icon=native_icon("msg_settings"), on_click=lambda view: self._show_diagnostics()),
             Text(text=_mz_t("Історія підсумків", "Summary history", "История саммари"), subtext=_mz_t("Останні п'ять результатів цього облікового запису", "The last five results of this account", "Последние пять результатов этого аккаунта"), icon=native_icon("msg_recent"), on_click=lambda view: self._show_history()),
-            Text(text=_mz_t("Про плагін", "About the plugin", "О плагине"), subtext="Chat Summary " + __version__ + _mz_t(" · розробник aaxnet", " · developer aaxnet", " · разработчик aaxnet"), icon=native_icon("msg_info"), on_click=lambda view: self._show_about()),
+            Text(text=_mz_t("Про плагін", "About the plugin", "О плагине"), subtext="Chat Summary " + __version__, icon=native_icon("msg_info"), on_click=lambda view: self._show_about()),
             Divider(text=_mz_t("Секретні чати, голосові, OCR і спеціальні режими історії не підтримуються. Медіа без підписів пропускаються.", "Secret chats, voice messages, OCR and special history modes aren't supported. Media without captions is skipped.", "Секретные чаты, голосовые, OCR и специальные режимы истории не поддерживаются. Медиа без подписей пропускаются.")),
         ]
         if self.get_setting("model_migration_notice", False):
@@ -2893,8 +2836,7 @@ class ChatSummaryPlugin(BasePlugin):
         items += [
             self._settings_link(_mz_t("Додатково", "Advanced", "Дополнительно"), _mz_t("Довжина відповіді, очікування та формат API", "Reply length, waiting and API format", "Длина ответа, ожидание и формат API"), "msg_settings", self._advanced_settings),
             self._settings_link(_mz_t("Допомога", "Help", "Помощь"), _mz_t("FAQ, підтримка та безпечна діагностика", "FAQ, support and safe diagnostics", "FAQ, поддержка и безопасная диагностика"), "msg_info", self._help_settings),
-            Text(text=_mz_t("Зв'язатися з розробником", "Contact the developer", "Связаться с разработчиком"), subtext=_mz_t("@aaxnet · відкрити особистий діалог", "@aaxnet · open a private chat", "@aaxnet · открыть личный диалог"), icon=native_icon("msg_message"), accent=True, on_click=lambda view: self._open_developer_chat()),
-            Divider(text=_mz_t("У потрібному чаті: ⋮ → Підсумок чату\n\nРозробник: aaxnet", "In the chat you need: ⋮ → Chat summary\n\nDeveloper: aaxnet", "В нужном чате: ⋮ → Саммари чата\n\nРазработчик: aaxnet")),
+            Divider(text=_mz_t("У потрібному чаті: ⋮ → Підсумок чату", "In the chat you need: ⋮ → Chat summary", "В нужном чате: ⋮ → Саммари чата")),
         ]
         self._note_icon_fallbacks()
         return items

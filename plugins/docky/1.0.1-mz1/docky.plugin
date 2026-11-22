@@ -44,34 +44,24 @@ CORE = "https://coreupdates.meyankut.workers.dev"
 DOCKY_HEADER_IMAGE_URL_DARK = f"{CORE}/docky_black.png"
 DOCKY_HEADER_IMAGE_URL_LIGHT = f"{CORE}/docky_light.png"
 SUPPORT_ICON_URL = f"{CORE}/support.png"
-SPONSOR_ICON_URL = f"{CORE}/sponsor.png"
-SPONSOR_BANNER_URL = f"{CORE}/sponsorbanner.png"
 TOP_ICON_URL_DARK = f"{CORE}/dotted_white.png"
 TOP_ICON_URL_LIGHT = f"{CORE}/dotted_black.png"
 EXTENDED_ICON_URL_DARK = f"{CORE}/extended_white.png"
 EXTENDED_ICON_URL_LIGHT = f"{CORE}/extended_dark.png"
 NAV_UP_ICON_URL = f"{CORE}/up.png"
 NAV_DOWN_ICON_URL = f"{CORE}/down.png"
-ABOUT_AVATAR_URL = ""
-SUPPORTERS_URL = f"{CORE}/vanguard_supporters.json"
-GITHUB_SPONSOR_URL = ""
 _CACHE_DIR = os.path.expanduser("~/.docky_cache")
 os.makedirs(_CACHE_DIR, exist_ok=True)
 HEADER_CACHE_REV = "v1"
 HEADER_IMAGE_CACHE_FILE_DARK = os.path.join(_CACHE_DIR, "docky_header_dark_{0}.png".format(HEADER_CACHE_REV))
 HEADER_IMAGE_CACHE_FILE_LIGHT = os.path.join(_CACHE_DIR, "docky_header_light_{0}.png".format(HEADER_CACHE_REV))
 SUPPORT_ICON_CACHE_FILE = os.path.join(_CACHE_DIR, "docky_support.png")
-SPONSOR_ICON_CACHE_FILE = os.path.join(_CACHE_DIR, "docky_sponsor.png")
-SPONSOR_BANNER_CACHE_FILE = os.path.join(_CACHE_DIR, "docky_sponsorbanner.png")
-SUPPORTERS_CACHE_FILE = os.path.join(_CACHE_DIR, "docky_supporters.json")
-SUPPORTERS_PLUGIN_FILE = "vanguard_supporters.json"
 TOP_ICON_CACHE_FILE_DARK = os.path.join(_CACHE_DIR, "docky_top_icon_dark.png")
 TOP_ICON_CACHE_FILE_LIGHT = os.path.join(_CACHE_DIR, "docky_top_icon_light.png")
 EXTENDED_ICON_CACHE_FILE_DARK = os.path.join(_CACHE_DIR, "docky_extended_icon_dark.png")
 EXTENDED_ICON_CACHE_FILE_LIGHT = os.path.join(_CACHE_DIR, "docky_extended_icon_light.png")
 NAV_UP_ICON_CACHE_FILE = os.path.join(_CACHE_DIR, "docky_nav_up.png")
 NAV_DOWN_ICON_CACHE_FILE = os.path.join(_CACHE_DIR, "docky_nav_down.png")
-ABOUT_AVATAR_CACHE_FILE = os.path.join(_CACHE_DIR, "docky_about_avatar.jpg")
 DOCKY_META_CACHE_FILE = os.path.join(_CACHE_DIR, "docky_meta_cache.json")
 META_CACHE_SAVE_INTERVAL = 30
 PLUGIN_LANG_OPTIONS = [("System", "system"), ("English", "en"), ("Russian", "ru"), ("Portuguese", "pt")]
@@ -83,7 +73,7 @@ GEEKSTATS_INGEST_TOKEN = ""
 
 __id__ = "docky"
 __name__ = "Docky"
-__description__ = "A dock for favorite chats inside conversations, allowing quick access and preview without leaving the current chat.\n\n• Powered by [Dotted Plugins](https://t.me/exteraDevPlugins)"
+__description__ = "A dock for favorite chats inside conversations, allowing quick access and preview without leaving the current chat."
 __author__ = "MZGram"
 __version__ = "1.0.1-mz1"
 __min_version__ = "12.2.10"
@@ -157,14 +147,8 @@ STRINGS = {
         "settings_nav_bg_done": "Control background updated",
         "settings_nav_button_color_done": "Button color updated",
         "settings_nav_colors_reset_done": "Mini panel colors reset",
-        "supporters_title": "Supporters",
-        "supporters_thanks": "Thanks to everyone who supports or will support the developer on GitHub Sponsors and Telegram.",
-        "supporters_empty": "No supporters to show yet.",
-        "supporters_github_button": "GitHub Sponsor",
         "about_desc": "Thanks for using Docky\n\nDocky keeps your favorite chats close so you can quickly jump between conversations without leaving the current one.",
         "about_button": "Say hello",
-        "welcome_dotted_button": "Dotted Chat",
-        "welcome_dotted_desc": "Join the Dotted community if you need help.",
         "preview_open_chat": "Open chat",
         "preview_close": "Close preview",
         "peek_preview_go_chat": "Quick Reply",
@@ -262,14 +246,8 @@ STRINGS = {
         "settings_nav_bg_done": "Fundo dos controles atualizado",
         "settings_nav_button_color_done": "Cor do botão atualizada",
         "settings_nav_colors_reset_done": "Cores do mini painel redefinidas",
-        "supporters_title": "Apoiadores",
-        "supporters_thanks": "Obrigado a todos que apoiam ou irão apoiar o desenvolvedor no GitHub Sponsors e no Telegram.",
-        "supporters_empty": "Nenhum apoiador para mostrar ainda.",
-        "supporters_github_button": "GitHub Sponsor",
         "about_desc": "Obrigado por usar o Docky\n\nDocky mantém seus chats favoritos por perto para você alternar rapidamente entre conversas sem sair do chat atual.",
         "about_button": "Diga olá",
-        "welcome_dotted_button": "Dotted Chat",
-        "welcome_dotted_desc": "Entre na comunidade do Dotted se precisar de ajuda.",
         "preview_open_chat": "Abrir chat",
         "preview_close": "Fechar pré-visualização",
         "peek_preview_go_chat": "Resposta rápida",
@@ -368,14 +346,8 @@ STRINGS = {
         "settings_nav_bg_done": _mz_t("Фон елементів керування оновлено", "Controls background updated", "Фон элементов управления обновлён"),
         "settings_nav_button_color_done": _mz_t("Колір кнопок оновлено", "Button color updated", "Цвет кнопок обновлён"),
         "settings_nav_colors_reset_done": _mz_t("Кольори міні-панелі скинуто", "Mini panel colors reset", "Цвета мини-панели сброшены"),
-        "supporters_title": _mz_t("Підтримка", "Support", "Поддержка"),
-        "supporters_thanks": _mz_t("Дякуємо всім, хто підтримує або буде підтримувати розробника на GitHub Sponsors і в Telegram.", "Thanks to everyone who supports the developer or will support them on GitHub Sponsors and in Telegram.", "Спасибо всем, кто поддерживает или будет поддерживать разработчика на GitHub Sponsors и в Telegram."),
-        "supporters_empty": _mz_t("Поки що немає тих, хто підтримує.", "No supporters yet.", "Пока нет поддерживающих."),
-        "supporters_github_button": "GitHub Sponsor",
         "about_desc": _mz_t("Дякуємо, що користуєтеся Docky\n\nDocky тримає ваші обрані чати поруч і дозволяє швидко перемикатися між розмовами, не полишаючи поточний чат.", "Thanks for using Docky\n\nDocky keeps your favorite chats close and lets you switch between conversations quickly without leaving the current chat.", "Спасибо, что используете Docky\n\nDocky держит ваши избранные чаты рядом и позволяет быстро переключаться между разговорами, не покидая текущий чат."),
         "about_button": _mz_t("Написати", "Write", "Написать"),
-        "welcome_dotted_button": "Dotted Chat",
-        "welcome_dotted_desc": _mz_t("Приєднуйтесь до спільноти Dotted, якщо потрібна допомога.", "Join the Dotted community if you need help.", "Присоединяйтесь к сообществу Dotted, если вам нужна помощь."),
         "preview_open_chat": _mz_t("Відкрити чат", "Open chat", "Открыть чат"),
         "preview_close": _mz_t("Закрити попередній перегляд", "Close preview", "Закрыть предпросмотр"),
         "peek_preview_go_chat": _mz_t("Швидка відповідь", "Quick reply", "Быстрый ответ"),
@@ -582,11 +554,6 @@ class exteraFyPlugin(BasePlugin):
         self._assets_last_sync_ts = 0
         self._assets_syncing = False
         self._settings_activity_ref = None
-        self._supporters_open_pending = False
-        self._supporters_refreshing = False
-        self._supporters_view_ref = None
-        self._supporters_grid_ref = None
-        self._supporters_anim_refs = []
         self._lang_code_cache = None
         self._docky_text_color_cache = None
         self._dialogs_widget_view = None
@@ -638,12 +605,6 @@ class exteraFyPlugin(BasePlugin):
                 create_sub_fragment=self._create_panel_subfragment,
                 link_alias="docky_panel_subfragment",
             ),
-            Divider(),
-            Text(
-                text=self._tr("settings_about"),
-                icon="msg2_reactions2",
-                on_click=self._on_about_click,
-            ),
         ]
 
     def on_plugin_load(self):
@@ -669,13 +630,6 @@ class exteraFyPlugin(BasePlugin):
         self._dlog("plugin load hooks={0}".format(len(self._refs)))
         if False:
             run_on_ui_thread(lambda: BulletinHelper.show_success(self._tr("plugin_loaded")))
-        try:
-            if not bool(self.get_setting("docky_welcome_shown_v1", False)):
-                self.set_setting("docky_welcome_shown_v1", True)
-                AndroidUtilities.runOnUIThread(lambda: self._show_about_sheet(None), 700)
-                self._dlog("first install welcome scheduled")
-        except Exception as e:
-            self._dlog("first install welcome fail: {0}".format(e))
 
     def on_plugin_unload(self):
         for r in list(self._refs):
@@ -1288,13 +1242,10 @@ class exteraFyPlugin(BasePlugin):
                         ("{0}?v={1}".format(DOCKY_HEADER_IMAGE_URL_DARK, bust), HEADER_IMAGE_CACHE_FILE_DARK),
                         ("{0}?v={1}".format(DOCKY_HEADER_IMAGE_URL_LIGHT, bust), HEADER_IMAGE_CACHE_FILE_LIGHT),
                         ("{0}?v={1}".format(SUPPORT_ICON_URL, bust), SUPPORT_ICON_CACHE_FILE),
-                        ("{0}?v={1}".format(SPONSOR_ICON_URL, bust), SPONSOR_ICON_CACHE_FILE),
-                        ("{0}?v={1}".format(SPONSOR_BANNER_URL, bust), SPONSOR_BANNER_CACHE_FILE),
                         ("{0}?v={1}".format(TOP_ICON_URL_DARK, bust), TOP_ICON_CACHE_FILE_DARK),
                         ("{0}?v={1}".format(TOP_ICON_URL_LIGHT, bust), TOP_ICON_CACHE_FILE_LIGHT),
                         ("{0}?v={1}".format(EXTENDED_ICON_URL_DARK, bust), EXTENDED_ICON_CACHE_FILE_DARK),
                         ("{0}?v={1}".format(EXTENDED_ICON_URL_LIGHT, bust), EXTENDED_ICON_CACHE_FILE_LIGHT),
-                        ("{0}?v={1}".format(ABOUT_AVATAR_URL, bust), ABOUT_AVATAR_CACHE_FILE),
                     ]
                     for url, path in targets:
                         try:
@@ -1349,449 +1300,8 @@ class exteraFyPlugin(BasePlugin):
             pass
         return "User"
 
-    def _open_dotted_chat(self, *args, **kwargs):
-        pass
-
-    def _open_extera_channel(self, *args, **kwargs):
-        pass
-
-    def _open_docky_docs(self, *args, **kwargs):
-        pass
-
-    def _open_github_sponsors(self, *args, **kwargs):
-        pass
-
-    def _open_username(self, username):
-        try:
-            if not self._action_debounce_ok("open_supporter_username", 250):
-                return
-            uname = str(username or "").strip().lstrip("@")
-            if not uname:
-                return
-            get_messages_controller().openByUserName(uname, get_last_fragment(), 1)
-        except Exception:
-            try:
-                self.open_url("https://t.me/{0}".format(str(username or "").strip().lstrip("@")))
-            except Exception:
-                pass
-
-    def _open_supporters_subfragment(self):
-        try:
-            if not self._action_debounce_ok("open_supporters_subfragment", 500):
-                return
-            self._ensure_settings_header_assets()
-            self._refresh_supporters_async()
-            fragment = get_last_fragment()
-            controller = PluginsController.getInstance()
-            plugin = controller.plugins.get(self.id) if controller else None
-            if not plugin or fragment is None:
-                return
-            self._supporters_open_pending = True
-            fragment.presentFragment(PluginSettingsActivity(plugin))
-        except Exception as e:
-            self._dlog("open supporters subfragment fail: {0}".format(e))
-
     def _read_json_file(self, path):
         return self._read_json_disk(path, None)
-
-    def _supporters_payload(self):
-        try:
-            candidates = [
-                SUPPORTERS_CACHE_FILE,
-                os.path.join(os.getcwd(), SUPPORTERS_PLUGIN_FILE),
-                os.path.join(os.path.dirname(os.path.abspath(__file__)), SUPPORTERS_PLUGIN_FILE),
-            ]
-            seen = set()
-            for p in candidates:
-                try:
-                    if not p or p in seen or not os.path.isfile(p):
-                        continue
-                    seen.add(p)
-                except Exception:
-                    continue
-                data = self._read_json_file(p)
-                if isinstance(data, (dict, list)):
-                    return data
-        except Exception:
-            pass
-        return {"supporters": []}
-
-    def _supporters_list(self):
-        try:
-            data = self._supporters_payload()
-            arr = []
-            if isinstance(data, list):
-                arr = data
-            elif isinstance(data, dict):
-                for key in ("supporters", "items", "data"):
-                    if isinstance(data.get(key), list):
-                        arr = data.get(key, [])
-                        break
-            out = []
-            for it in arr:
-                if not isinstance(it, dict):
-                    continue
-                name = str(it.get("name", "") or "").strip()
-                username = str(it.get("username", "") or "").strip()
-                avatar = str(it.get("avatar", "") or "").strip()
-                if not name and not username and not avatar:
-                    continue
-                out.append({"name": name, "username": username, "avatar": avatar})
-            return out
-        except Exception:
-            return []
-
-    def _refresh_supporters_async(self, on_done=None):
-        try:
-            if bool(self._supporters_refreshing):
-                return
-            self._supporters_refreshing = True
-
-            def _finish():
-                try:
-                    self._supporters_refreshing = False
-                except Exception:
-                    pass
-                try:
-                    if callable(on_done):
-                        run_on_ui_thread(on_done)
-                except Exception:
-                    pass
-                try:
-                    self._refresh_supporters_subfragment_view()
-                except Exception:
-                    pass
-
-            def _worker():
-                try:
-                    os.makedirs(_CACHE_DIR, exist_ok=True)
-                    _code, raw = self._http_request(
-                        "{0}?v={1}".format(SUPPORTERS_URL, str(int(time.time() / 60))),
-                        headers={"Cache-Control": "no-cache", "Pragma": "no-cache"},
-                        timeout=8,
-                        decode="utf-8-sig",
-                    )
-                    data = json.loads(str(raw or ""))
-                    if isinstance(data, (dict, list)):
-                        with open(SUPPORTERS_CACHE_FILE, "w", encoding="utf-8") as f:
-                            json.dump(data, f, ensure_ascii=False, indent=2)
-                except Exception as e:
-                    self._dlog("supporters refresh fail: {0}".format(e))
-                finally:
-                    _finish()
-
-            try:
-                self._fetch_async(_worker, on_done=None, label="supporters_refresh")
-            except Exception:
-                self._supporters_refreshing = False
-        except Exception:
-            self._supporters_refreshing = False
-
-    def _create_supporters_subfragment(self, *args, **kwargs):
-        pass
-
-    def _start_supporter_card_anim(self, view, idx):
-        try:
-            from android.animation import ValueAnimator
-            dist = float(AndroidUtilities.dp(4))
-            anim = ValueAnimator.ofFloat(0.0, 1.0)
-            anim.setDuration(int(1900 + (idx % 3) * 180 + (idx // 3) * 60))
-            anim.setRepeatCount(-1)
-            anim.setRepeatMode(ValueAnimator.REVERSE)
-            try:
-                anim.setStartDelay(int((idx % 3) * 110))
-            except Exception:
-                pass
-
-            class _Upd(dynamic_proxy(ValueAnimator.AnimatorUpdateListener)):
-                def onAnimationUpdate(self_obj, va):
-                    try:
-                        t = float(va.getAnimatedValue() or 0.0)
-                        view.setTranslationY(float((0.5 - t) * dist))
-                    except Exception:
-                        pass
-
-            anim.addUpdateListener(_Upd())
-            anim.start()
-            self._supporters_anim_refs.append(anim)
-        except Exception:
-            pass
-
-    def _render_supporters_grid(self, ctx, grid):
-        try:
-            from android.widget import LinearLayout, TextView
-            from android.view import Gravity, View
-            from android.util import TypedValue
-            if grid is None:
-                return
-            try:
-                grid.removeAllViews()
-            except Exception:
-                pass
-            self._supporters_anim_refs = []
-            items = self._supporters_list()
-            if not items:
-                empty = TextView(ctx)
-                empty.setText(self._tr("supporters_empty"))
-                empty.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14)
-                empty.setGravity(Gravity.CENTER)
-                try:
-                    empty.setTextColor(int(Theme.getColor(Theme.key_windowBackgroundWhiteGrayText)))
-                except Exception:
-                    pass
-                lp_empty = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                lp_empty.topMargin = AndroidUtilities.dp(18)
-                grid.addView(empty, lp_empty)
-                return
-
-            try:
-                c_name = int(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText))
-            except Exception:
-                c_name = 0xFFFFFFFF
-            try:
-                c_user = int(Theme.getColor(Theme.key_windowBackgroundWhiteGrayText))
-            except Exception:
-                c_user = 0xB3FFFFFF
-
-            for start in range(0, len(items), 3):
-                row = LinearLayout(ctx)
-                row.setOrientation(LinearLayout.HORIZONTAL)
-                row.setGravity(Gravity.TOP)
-                lp_row = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                lp_row.topMargin = AndroidUtilities.dp(12 if start > 0 else 4)
-                grid.addView(row, lp_row)
-
-                chunk = items[start:start + 3]
-                for rel_idx in range(3):
-                    cell = LinearLayout(ctx)
-                    cell.setOrientation(LinearLayout.VERTICAL)
-                    cell.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL)
-                    cell.setPadding(AndroidUtilities.dp(6), AndroidUtilities.dp(4), AndroidUtilities.dp(6), AndroidUtilities.dp(6))
-                    lp_cell = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0)
-                    if rel_idx < 2:
-                        lp_cell.rightMargin = AndroidUtilities.dp(2)
-                    row.addView(cell, lp_cell)
-                    if rel_idx >= len(chunk):
-                        cell.setVisibility(View.INVISIBLE)
-                        continue
-
-                    item = chunk[rel_idx]
-                    avatar = BackupImageView(ctx)
-                    avatar.setRoundRadius(AndroidUtilities.dp(18))
-                    try:
-                        avatar.setAspectFit(False)
-                    except Exception:
-                        pass
-                    try:
-                        url = str(item.get("avatar", "") or "").strip()
-                        if url:
-                            avatar.setImage(url, "120_120", None)
-                        else:
-                            avatar.setImageDrawable(AvatarDrawable())
-                    except Exception:
-                        try:
-                            avatar.setImageDrawable(AvatarDrawable())
-                        except Exception:
-                            pass
-                    cell.addView(avatar, LinearLayout.LayoutParams(AndroidUtilities.dp(72), AndroidUtilities.dp(72)))
-
-                    name = TextView(ctx)
-                    name.setText(str(item.get("name", "") or "").strip() or "Supporter")
-                    name.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14)
-                    try:
-                        name.setTextColor(c_name)
-                    except Exception:
-                        pass
-                    name.setGravity(Gravity.CENTER)
-                    name.setSingleLine(True)
-                    try:
-                        name.setEllipsize(jclass("android.text.TextUtils$TruncateAt").END)
-                    except Exception:
-                        pass
-                    lp_name = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                    lp_name.topMargin = AndroidUtilities.dp(8)
-                    cell.addView(name, lp_name)
-
-                    user = TextView(ctx)
-                    user.setText(str(item.get("username", "") or "").strip())
-                    user.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12)
-                    user.setGravity(Gravity.CENTER)
-                    user.setSingleLine(True)
-                    try:
-                        user.setEllipsize(jclass("android.text.TextUtils$TruncateAt").END)
-                    except Exception:
-                        pass
-                    try:
-                        user.setTextColor(c_user)
-                        user.setAlpha(0.82)
-                    except Exception:
-                        pass
-                    lp_user = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                    lp_user.topMargin = AndroidUtilities.dp(2)
-                    cell.addView(user, lp_user)
-
-                    uname = str(item.get("username", "") or "").strip()
-                    if uname:
-                        cell.setClickable(True)
-                        cell.setFocusable(True)
-                        cell.setOnClickListener(self._click_listener(lambda _v=None, u=uname: self._open_username(u), key="supporter_card_open", min_interval_ms=250))
-                    self._start_supporter_card_anim(cell, start + rel_idx)
-        except Exception as e:
-            self._dlog("render supporters grid fail: {0}".format(e))
-
-    def _build_supporters_subfragment_view(self, ctx):
-        try:
-            from android.widget import LinearLayout, TextView, ImageView
-            from android.view import Gravity
-            from android.util import TypedValue
-            from android.graphics.drawable import GradientDrawable
-            from android.graphics import BitmapFactory
-            root = LinearLayout(ctx)
-            root.setOrientation(LinearLayout.VERTICAL)
-            root.setPadding(AndroidUtilities.dp(14), AndroidUtilities.dp(12), AndroidUtilities.dp(14), AndroidUtilities.dp(18))
-            root.setBackgroundColor(0x00000000)
-
-            banner = ImageView(ctx)
-            try:
-                banner.setScaleType(ImageView.ScaleType.CENTER_CROP)
-            except Exception:
-                pass
-            try:
-                bg = GradientDrawable()
-                bg.setCornerRadius(float(AndroidUtilities.dp(18)))
-                bg.setColor(0x00000000)
-                banner.setBackground(bg)
-                banner.setClipToOutline(True)
-            except Exception:
-                pass
-            try:
-                if os.path.exists(SPONSOR_BANNER_CACHE_FILE):
-                    bmp = BitmapFactory.decodeFile(SPONSOR_BANNER_CACHE_FILE)
-                    if bmp is not None:
-                        banner.setImageBitmap(bmp)
-            except Exception:
-                pass
-            root.addView(banner, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, AndroidUtilities.dp(124)))
-
-            divider_row = LinearLayout(ctx)
-            divider_row.setOrientation(LinearLayout.HORIZONTAL)
-            divider_row.setGravity(Gravity.CENTER_VERTICAL)
-            lp_div = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            lp_div.topMargin = AndroidUtilities.dp(14)
-            root.addView(divider_row, lp_div)
-
-            try:
-                base_line = int(Theme.getColor(Theme.key_windowBackgroundWhiteGrayText))
-                line_color = int((base_line & 0x00FFFFFF) | (0x66 << 24))
-                text_color = int(Theme.getColor(Theme.key_windowBackgroundWhiteGrayText))
-            except Exception:
-                line_color = 0x66FFFFFF
-                text_color = 0xB3FFFFFF
-            line_l = ImageView(ctx)
-            line_l.setBackgroundColor(line_color)
-            divider_row.addView(line_l, LinearLayout.LayoutParams(0, AndroidUtilities.dp(1), 1.0))
-            thanks = TextView(ctx)
-            thanks.setText(self._tr("supporters_thanks"))
-            thanks.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13)
-            thanks.setGravity(Gravity.CENTER)
-            try:
-                thanks.setTextColor(text_color)
-                thanks.setAlpha(0.88)
-            except Exception:
-                pass
-            lp_thanks = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            lp_thanks.leftMargin = AndroidUtilities.dp(10)
-            lp_thanks.rightMargin = AndroidUtilities.dp(10)
-            divider_row.addView(thanks, lp_thanks)
-            line_r = ImageView(ctx)
-            line_r.setBackgroundColor(line_color)
-            divider_row.addView(line_r, LinearLayout.LayoutParams(0, AndroidUtilities.dp(1), 1.0))
-
-            sponsor_wrap = LinearLayout(ctx)
-            sponsor_wrap.setOrientation(LinearLayout.HORIZONTAL)
-            sponsor_wrap.setGravity(Gravity.CENTER_HORIZONTAL)
-            lp_sw = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            lp_sw.topMargin = AndroidUtilities.dp(14)
-            root.addView(sponsor_wrap, lp_sw)
-            sponsor_btn = TextView(ctx)
-            sponsor_btn.setText(self._tr("supporters_github_button"))
-            sponsor_btn.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14)
-            sponsor_btn.setGravity(Gravity.CENTER)
-            sponsor_btn.setPadding(AndroidUtilities.dp(16), AndroidUtilities.dp(10), AndroidUtilities.dp(16), AndroidUtilities.dp(10))
-            try:
-                c_primary = int(Theme.getColor(Theme.key_featuredStickers_addButton))
-                c_primary_text = int(Theme.getColor(Theme.key_featuredStickers_buttonText))
-            except Exception:
-                c_primary = 0xFF4E9BFF
-                c_primary_text = 0xFFFFFFFF
-            try:
-                bg_btn = GradientDrawable()
-                bg_btn.setCornerRadius(float(AndroidUtilities.dp(14)))
-                bg_btn.setColor(c_primary)
-                sponsor_btn.setBackground(bg_btn)
-                sponsor_btn.setTextColor(c_primary_text)
-            except Exception:
-                pass
-            sponsor_btn.setClickable(True)
-            sponsor_btn.setFocusable(True)
-            sponsor_btn.setOnClickListener(self._click_listener(lambda _v=None: self._open_github_sponsors(), key="github_sponsors_button", min_interval_ms=400))
-            sponsor_wrap.addView(sponsor_btn)
-
-            grid = LinearLayout(ctx)
-            grid.setOrientation(LinearLayout.VERTICAL)
-            lp_grid = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            lp_grid.topMargin = AndroidUtilities.dp(14)
-            root.addView(grid, lp_grid)
-            self._supporters_view_ref = root
-            self._supporters_grid_ref = grid
-            self._render_supporters_grid(ctx, grid)
-            return root
-        except Exception as e:
-            self._dlog("build supporters subfragment fail: {0}".format(e))
-            return None
-
-    def _refresh_supporters_subfragment_view(self):
-        try:
-            grid = getattr(self, "_supporters_grid_ref", None)
-            root = getattr(self, "_supporters_view_ref", None)
-            if grid is None or root is None:
-                return
-            ctx = root.getContext() if hasattr(root, "getContext") else None
-            if ctx is None:
-                return
-            run_on_ui_thread(lambda: self._render_supporters_grid(ctx, grid))
-        except Exception:
-            pass
-
-    def _inject_supporters_subfragment(self, activity, items):
-        try:
-            ctx = activity.getContext() if hasattr(activity, "getContext") else None
-            if ctx is None:
-                return
-            UItem = find_class("org.telegram.ui.Components.UItem")
-            if UItem is None:
-                return
-            try:
-                items.clear()
-            except Exception:
-                pass
-            self._ensure_settings_header_assets()
-            view = self._build_supporters_subfragment_view(ctx)
-            if view is None:
-                return
-            it = UItem.asCustom(view)
-            try:
-                it.object2 = "__docky_supporters_subfragment__"
-            except Exception:
-                pass
-            try:
-                it.setTransparent(True)
-            except Exception:
-                pass
-            items.add(it)
-            self._refresh_supporters_async()
-        except Exception as e:
-            self._dlog("inject supporters subfragment fail: {0}".format(e))
 
     def _build_settings_header_view(self, ctx):
         try:
@@ -1843,103 +1353,6 @@ class exteraFyPlugin(BasePlugin):
             except Exception:
                 pass
 
-            class _OpenExtera(dynamic_proxy(View.OnClickListener)):
-                def onClick(self_obj, v):
-                    self._open_extera_channel()
-
-            
-            lp_top = FrameLayout.LayoutParams(AndroidUtilities.dp(24), AndroidUtilities.dp(24), Gravity.TOP | Gravity.END)
-            lp_top.topMargin = AndroidUtilities.dp(10)
-            lp_top.rightMargin = AndroidUtilities.dp(10)
-            hero.addView(top_icon, lp_top)
-
-            sponsor_icon = ImageView(ctx)
-            try:
-                sponsor_icon.setScaleType(ImageView.ScaleType.CENTER_INSIDE)
-                if os.path.exists(SPONSOR_ICON_CACHE_FILE):
-                    bmp_s = BitmapFactory.decodeFile(SPONSOR_ICON_CACHE_FILE)
-                    if bmp_s:
-                        sponsor_icon.setImageBitmap(bmp_s)
-            except Exception:
-                pass
-
-            class _OpenSupporters(dynamic_proxy(View.OnClickListener)):
-                def onClick(self_obj, v):
-                    self._open_supporters_subfragment()
-
-            sponsor_icon.setOnClickListener(_OpenSupporters())
-            lp_sponsor = FrameLayout.LayoutParams(AndroidUtilities.dp(24), AndroidUtilities.dp(24), Gravity.TOP | Gravity.END)
-            lp_sponsor.topMargin = AndroidUtilities.dp(10)
-            lp_sponsor.rightMargin = AndroidUtilities.dp(44)
-            hero.addView(sponsor_icon, lp_sponsor)
-
-            row = LinearLayout(ctx)
-            row.setOrientation(LinearLayout.HORIZONTAL)
-            row.setGravity(Gravity.CENTER_VERTICAL)
-            row.setPadding(AndroidUtilities.dp(12), AndroidUtilities.dp(10), AndroidUtilities.dp(12), AndroidUtilities.dp(10))
-            row_bg = GradientDrawable()
-            row_bg.setCornerRadius(float(AndroidUtilities.dp(18)))
-            row_bg.setColor(Color.WHITE if is_dark else Color.BLACK)
-            row.setBackground(row_bg)
-
-            btn = LinearLayout(ctx)
-            btn.setOrientation(LinearLayout.HORIZONTAL)
-            btn.setGravity(Gravity.CENTER_VERTICAL)
-            btn_bg = GradientDrawable()
-            btn_bg.setCornerRadius(float(AndroidUtilities.dp(12)))
-            btn_bg.setColor(Color.parseColor("#ff1734"))
-            btn.setBackground(btn_bg)
-            btn.setPadding(AndroidUtilities.dp(12), AndroidUtilities.dp(10), AndroidUtilities.dp(12), AndroidUtilities.dp(10))
-
-            btn_icon = ImageView(ctx)
-            btn_icon.setScaleType(ImageView.ScaleType.CENTER_INSIDE)
-            try:
-                if os.path.exists(SUPPORT_ICON_CACHE_FILE):
-                    bmp_i = BitmapFactory.decodeFile(SUPPORT_ICON_CACHE_FILE)
-                    if bmp_i:
-                        btn_icon.setImageBitmap(bmp_i)
-            except Exception:
-                pass
-            btn_icon.setColorFilter(Color.WHITE)
-            btn.addView(btn_icon, LinearLayout.LayoutParams(AndroidUtilities.dp(22), AndroidUtilities.dp(22)))
-
-            btn_text = TextView(ctx)
-            btn_text.setText(self._tr("welcome_dotted_button"))
-            btn_text.setTextSize(16)
-            btn_text.setTextColor(Color.WHITE)
-            lp_btn_text = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            lp_btn_text.leftMargin = AndroidUtilities.dp(8)
-            btn.addView(btn_text, lp_btn_text)
-
-            info = TextView(ctx)
-            info.setText(self._tr("welcome_dotted_desc"))
-            info.setTextSize(14)
-            info.setTextColor(Color.BLACK if is_dark else Color.WHITE)
-            info.setMaxLines(2)
-            lp_info = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0)
-            lp_info.leftMargin = AndroidUtilities.dp(12)
-            lp_info.gravity = Gravity.CENTER_VERTICAL
-
-            class _OpenDottedChat(dynamic_proxy(View.OnClickListener)):
-                def onClick(self_obj, v):
-                    self._open_dotted_chat()
-
-            class _OpenDocs(dynamic_proxy(View.OnClickListener)):
-                def onClick(self_obj, v):
-                    self._open_docky_docs()
-
-            
-            
-            
-            
-            row.addView(btn, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT))
-            row.addView(info, lp_info)
-
-            lp_row = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM | Gravity.START)
-            lp_row.leftMargin = AndroidUtilities.dp(12)
-            lp_row.rightMargin = AndroidUtilities.dp(12)
-            lp_row.bottomMargin = AndroidUtilities.dp(8)
-            hero.addView(row, lp_row)
 
             card.addView(hero, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, AndroidUtilities.dp(228)))
             outer.addView(card, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
@@ -1974,10 +1387,6 @@ class exteraFyPlugin(BasePlugin):
             if not self._is_our_settings_activity(activity):
                 return
             self._settings_activity_ref = activity
-            if bool(getattr(self, "_supporters_open_pending", False)):
-                self._supporters_open_pending = False
-                self._inject_supporters_subfragment(activity, items)
-                return
             try:
                 self._inject_panel_nav_mode_slide(activity, items)
             except Exception as e:
@@ -2175,160 +1584,6 @@ class exteraFyPlugin(BasePlugin):
             self._dlog("settings header hook ok")
         except Exception as e:
             self._dlog("settings header hook fail: {0}".format(e))
-
-    def _show_about_sheet(self, ctx_override=None):
-        try:
-            from java import dynamic_proxy
-            from android.widget import LinearLayout, TextView, ImageView
-            from android.view import Gravity, View, ViewOutlineProvider
-            from android.graphics import BitmapFactory
-            from android.graphics.drawable import GradientDrawable
-            from org.telegram.ui.ActionBar import Theme, BottomSheet
-            frag = get_last_fragment()
-            ctx = frag.getParentActivity() if frag and frag.getParentActivity() else ctx_override
-            if ctx is None:
-                return
-            self._ensure_settings_header_assets()
-            self._dismiss_keyboard_focus(ctx)
-            sheet = BottomSheet(ctx, True)
-            outer = LinearLayout(ctx)
-            outer.setOrientation(LinearLayout.VERTICAL)
-            outer.setPadding(AndroidUtilities.dp(12), AndroidUtilities.dp(8), AndroidUtilities.dp(12), AndroidUtilities.dp(12))
-            root = LinearLayout(ctx)
-            root.setOrientation(LinearLayout.VERTICAL)
-            root.setPadding(AndroidUtilities.dp(12), AndroidUtilities.dp(12), AndroidUtilities.dp(12), AndroidUtilities.dp(12))
-            try:
-                root_bg = GradientDrawable()
-                root_bg.setCornerRadius(float(AndroidUtilities.dp(14)))
-                root_bg.setColor(int(Theme.getColor(Theme.key_dialogBackground)))
-                root.setBackground(root_bg)
-            except Exception:
-                pass
-
-            row = LinearLayout(ctx)
-            row.setOrientation(LinearLayout.HORIZONTAL)
-            row.setGravity(Gravity.CENTER_VERTICAL)
-            row.setPadding(AndroidUtilities.dp(8), AndroidUtilities.dp(8), AndroidUtilities.dp(8), AndroidUtilities.dp(8))
-            avatar = ImageView(ctx)
-            try:
-                avatar.setScaleType(ImageView.ScaleType.CENTER_CROP)
-                av_bg = GradientDrawable()
-                av_bg.setCornerRadius(float(AndroidUtilities.dp(14)))
-                av_bg.setColor(0x00000000)
-                avatar.setBackground(av_bg)
-                avatar.setClipToOutline(True)
-                avatar.setOutlineProvider(ViewOutlineProvider.BACKGROUND)
-                if os.path.exists(ABOUT_AVATAR_CACHE_FILE):
-                    bmp = BitmapFactory.decodeFile(ABOUT_AVATAR_CACHE_FILE)
-                    if bmp:
-                        avatar.setImageBitmap(bmp)
-                avatar.setCameraDistance(float(AndroidUtilities.dp(800)))
-                avatar.setAlpha(0.0)
-                avatar.setTranslationY(float(AndroidUtilities.dp(26)))
-                avatar.setRotationY(-120.0)
-            except Exception:
-                pass
-            row.addView(avatar, LinearLayout.LayoutParams(AndroidUtilities.dp(72), AndroidUtilities.dp(72)))
-
-            desc = TextView(ctx)
-            desc.setText(self._tr("about_desc"))
-            desc.setTextSize(15)
-            try:
-                desc.setTextColor(int(Theme.getColor(Theme.key_windowBackgroundWhiteGrayText)))
-            except Exception:
-                pass
-            lp_desc = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0)
-            lp_desc.leftMargin = AndroidUtilities.dp(10)
-            row.addView(desc, lp_desc)
-            root.addView(row, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
-
-            btn = TextView(ctx)
-            btn.setText(self._tr("about_button"))
-            btn.setGravity(Gravity.CENTER)
-            btn.setTextSize(16)
-            try:
-                btn.setTextColor(int(Theme.getColor(Theme.key_featuredStickers_buttonText)))
-                btn_bg = GradientDrawable()
-                btn_bg.setCornerRadius(float(AndroidUtilities.dp(12)))
-                btn_bg.setColor(int(Theme.getColor(Theme.key_featuredStickers_addButton)))
-                btn.setBackground(btn_bg)
-                btn.setPadding(AndroidUtilities.dp(12), AndroidUtilities.dp(10), AndroidUtilities.dp(12), AndroidUtilities.dp(10))
-            except Exception:
-                pass
-
-            extended_btn = ImageView(ctx)
-            try:
-                extended_btn.setScaleType(ImageView.ScaleType.CENTER_INSIDE)
-                is_dark = bool(Theme.isCurrentThemeDark())
-                icon_path = EXTENDED_ICON_CACHE_FILE_DARK if is_dark else EXTENDED_ICON_CACHE_FILE_LIGHT
-                if os.path.exists(icon_path):
-                    bmp = BitmapFactory.decodeFile(icon_path)
-                    if bmp:
-                        extended_btn.setImageBitmap(bmp)
-                extended_btn.setPadding(AndroidUtilities.dp(4), AndroidUtilities.dp(4), AndroidUtilities.dp(4), AndroidUtilities.dp(4))
-            except Exception:
-                pass
-
-            class _AboutOpen(dynamic_proxy(View.OnClickListener)):
-                def onClick(self_obj, v):
-                    try:
-                        get_messages_controller().openByUserName("AGeekApple", get_last_fragment(), 1)
-                    except Exception:
-                        try:
-                            self.open_url("https://t.me/AGeekApple")
-                        except Exception:
-                            pass
-                    try:
-                        sheet.dismiss()
-                    except Exception:
-                        pass
-
-            
-
-            class _ExtendedOpen(dynamic_proxy(View.OnClickListener)):
-                def onClick(self_obj, v):
-                    try:
-                        self.open_url("tg://resolve?domain=ApplesBio&post=4")
-                    except Exception:
-                        try:
-                            get_messages_controller().openByUserName("ApplesBio", get_last_fragment(), 1)
-                        except Exception:
-                            try:
-                                self.open_url("https://t.me/ApplesBio/4")
-                            except Exception:
-                                pass
-
-            
-            actions = LinearLayout(ctx)
-            actions.setOrientation(LinearLayout.HORIZONTAL)
-            actions.setGravity(Gravity.END | Gravity.CENTER_VERTICAL)
-            lp_actions = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            lp_actions.topMargin = AndroidUtilities.dp(10)
-            lp_ext = LinearLayout.LayoutParams(AndroidUtilities.dp(36), AndroidUtilities.dp(36))
-            lp_ext.rightMargin = AndroidUtilities.dp(8)
-            actions.addView(extended_btn, lp_ext)
-            actions.addView(btn, LinearLayout.LayoutParams(AndroidUtilities.dp(140), LinearLayout.LayoutParams.WRAP_CONTENT))
-            root.addView(actions, lp_actions)
-            outer.addView(root, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
-            sheet.setCustomView(outer)
-            sheet.show()
-            try:
-                avatar.post(lambda: avatar.animate().translationY(0.0).alpha(1.0).rotationY(0.0).setDuration(620).start())
-            except Exception:
-                try:
-                    avatar.animate().translationY(0.0).alpha(1.0).rotationY(0.0).setDuration(620).start()
-                except Exception:
-                    pass
-        except Exception as e:
-            self._dlog("about sheet fail: {0}".format(e))
-
-    def _on_about_click(self, _view=None):
-        try:
-            if not self._action_debounce_ok("show_about_sheet", 500):
-                return
-            run_on_ui_thread(lambda: self._show_about_sheet(None))
-        except Exception:
-            self._show_about_sheet(None)
 
     def _dlog(self, msg):
         try:

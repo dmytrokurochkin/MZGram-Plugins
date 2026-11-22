@@ -2696,15 +2696,6 @@ class HookInspectorPlugin(BasePlugin):
                 except Exception: pass
                 body.addView(no, LL.LayoutParams(-1, -2))
 
-            body.addView(mk_sep(top=10))
-            attr = TV(ctx)
-            attr.setText("@rei_plugins  |  @lyzos")
-            attr.setTextColor(_s32(0xFF2A3A4A))
-            attr.setTextSize(1, 9.5)
-            attr.setGravity(1)
-            lp_a = LL.LayoutParams(-1, -2)
-            lp_a.topMargin = dp(4); lp_a.bottomMargin = dp(4)
-            body.addView(attr, lp_a)
 
         except Exception as e:
             log(f"{TAG} _fill_inspector: {e}\n{traceback.format_exc()}")
@@ -3299,7 +3290,6 @@ class HookInspectorPlugin(BasePlugin):
                 lines.append(f"  // {sec}")
                 for k in keys:
                     lines.append(f'  Theme.getColor("{k}")')
-        lines.append("\n@rei_plugins | @lyzos")
         return "\n".join(lines)
 
     def _destroy_all(self):

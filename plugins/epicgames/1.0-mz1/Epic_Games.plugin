@@ -46,7 +46,7 @@ import base64
 __id__ = "epicgames"
 __name__ = "Epic Games"
 __version__ = "1.0-mz1"
-__description__ = "🎮 Shows current game on Epic Games\n\n📋 Commands:\n• [.nowepic/.enp] — current game\n• [.elibrary] — games library\n• [.eflibrary] — full library\n\n🎨 Design - @reNightly, @qmrrchh THANKS"
+__description__ = "🎮 Shows current game on Epic Games\n\n📋 Commands:\n• [.nowepic/.enp] — current game\n• [.elibrary] — games library\n• [.eflibrary] — full library"
 __author__ = "MZGram"
 __min_version__ = "11.12.0"
 __load__ = True
@@ -85,8 +85,6 @@ class Locales:
         "card_text_format": "Card text format",
         "card_text_format_subtext": "Use {nick} and {game}",
         "card_font_family": "Card font",
-        "settings_show_card_authors": "Show authors credit on card",
-        "settings_show_card_authors_subtext": "Adds 'Plugin by @KangelPlugins & @MGEPlugins' footer",
         "settings_icon_style": "Icon style",
         "settings_icon_style_items": ["Standard", "Fortnite Style"],
         "custom_font_link": "Custom font link",
@@ -182,8 +180,6 @@ class Locales:
         "card_text_format": _mz_t("Формат тексту картки", "Card text format", "Формат текста карточки"),
         "card_text_format_subtext": _mz_t("Використовуйте {nick} і {game}", "Use {nick} and {game}", "Используйте {nick} и {game}"),
         "card_font_family": _mz_t("Шрифт картки", "Card font", "Шрифт карточки"),
-        "settings_show_card_authors": _mz_t("Показувати підпис авторів на картці", "Show the authors' credit on the card", "Показывать подпись авторов на карточке"),
-        "settings_show_card_authors_subtext": _mz_t("Додає футер 'Plugin by @KangelPlugins & @MGEPlugins'", "Adds the footer 'Plugin by @KangelPlugins & @MGEPlugins'", "Добавляет футер 'Plugin by @KangelPlugins & @MGEPlugins'"),
         "settings_icon_style": _mz_t("Стиль іконок", "Icon style", "Стиль иконок"),
         "settings_icon_style_items": [_mz_t("Звичайні", "Regular", "Обычные"), "Fortnite Style"],
         "custom_font_link": _mz_t("Посилання на власний шрифт", "Custom font link", "Ссылка на кастомный шрифт"),

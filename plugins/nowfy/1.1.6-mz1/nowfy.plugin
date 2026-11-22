@@ -26,7 +26,7 @@ from nowfy.plugin import exteraFyPlugin as _NowfyImpl
 
 __id__ = "nowfy"
 __name__ = "Nowfy"
-__description__ = "Nowfy brings dynamic music cards, visual themes, and seamless integration with multiple music services to enhance the Now Playing experience in chat.\n\n• Powered by [Dotted Plugins](https://t.me/exteraDevPlugins)"
+__description__ = "Nowfy brings dynamic music cards, visual themes, and seamless integration with multiple music services to enhance the Now Playing experience in chat."
 __author__ = "MZGram"
 __version__ = "1.1.6-mz1"
 __min_version__ = "12.2.10"
