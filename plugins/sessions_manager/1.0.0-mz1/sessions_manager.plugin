@@ -51,10 +51,16 @@ SESSION_ICONS = [
     ("Telegram Web",     "Web"),
 ]
 
-STORAGE_FILE = (
-    "/data/user/0/com.exteragram.messenger"
-    "/files/plugins/session_dup_storage.json"
-)
+def _storage_file():
+    try:
+        from org.telegram.messenger import ApplicationLoader
+        base = str(ApplicationLoader.applicationContext.getFilesDir().getAbsolutePath())
+    except Exception:
+        base = "/data/user/0/org.mzgram.messenger/files"
+    return os.path.join(base, "plugins", "session_dup_storage.json")
+
+
+STORAGE_FILE = _storage_file()
 
 
 def _load_sessions():

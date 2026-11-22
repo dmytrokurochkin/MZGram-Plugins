@@ -6638,11 +6638,7 @@ class ProfileHeaderImagePlugin(BasePlugin):
             ctx = ApplicationLoader.applicationContext
             intent = Intent(Intent.ACTION_VIEW, Uri.parse(f"https://t.me/{username}"))
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            for pkg in (
-                "org.telegram.messenger",
-                "com.exteragram.messenger",
-                "com.radolyn.ayugram",
-            ):
+            for pkg in (str(ctx.getPackageName()),):
                 try:
                     intent.setPackage(pkg)
                     ctx.startActivity(intent)

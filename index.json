@@ -126,8 +126,8 @@
       "version": "3.0.1-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/Combined_Custom_Banner/3.0.1-mz1/Combined_Custom_Banner.plugin",
-      "sha256": "2bbb66862fd33ca6043c86955a6ba2a6d79d316a5c5e83179957cf025532f736",
-      "size": 389180,
+      "sha256": "c7e7f094ba4d6a94c497894608d58e6a0b5525f7b6e6aa6a33bc5d86b72736b0",
+      "size": 389068,
       "description": "Features of the plugin: transparent folders, custom chat and profile banners, enhanced views of channels in profiles using a banner from the channel avatar, blurring, darkening and transparency effects for banners in chats.",
       "description_i18n": {
         "en": "Features of the plugin: transparent folders, custom chat and profile banners, enhanced views of channels in profiles using a banner from the channel avatar, blurring, darkening and transparency effects for banners in chats.",
@@ -7151,8 +7151,8 @@
       "version": "2.3-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/music_stats_v2/2.3-mz1/music_stats_v2.plugin",
-      "sha256": "8daf8689c0138af1461e4711fd2a6631f452e83c9842b967614537d34046c81c",
-      "size": 49390,
+      "sha256": "053de6fc312bdd4bec083253fff708418d151488551536243dbbe9f29f955639",
+      "size": 49607,
       "description": "Detailed music statistics: time tracking, top tracks and artists. Customizable daily goal.",
       "description_i18n": {
         "en": "Detailed music statistics: time tracking, top tracks and artists. Customizable daily goal.",
@@ -10020,8 +10020,8 @@
       "version": "1.0.0-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/sessions_manager/1.0.0-mz1/sessions_manager.plugin",
-      "sha256": "c782634c4316902e74b04e25b20a5654591a37aab8dcfab04382e40613134074",
-      "size": 69783,
+      "sha256": "2870770c7ce43b3e4194795ad43a7be00a10bb65a320f01efb76c3fbccf395ac",
+      "size": 70035,
       "description": "Advanced management of active Telegram sessions.",
       "description_i18n": {
         "en": "Advanced management of active Telegram sessions.",
@@ -11172,8 +11172,8 @@
       "version": "1.0.0-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/termux_bridge/1.0.0-mz1/termux_bridge.plugin",
-      "sha256": "d03e20aa793fa123e8551f5a82220bec7eca3759a196f3c5caf6999562a372ea",
-      "size": 93049,
+      "sha256": "aac70adc766e0cd04f7fc074619f541f38bd2213c43f15226c668904d4865e51",
+      "size": 92996,
       "description": "Running scripts on top of MZGram using termux. To use, download the plugin using the command from the settings.",
       "description_i18n": {
         "en": "Running scripts on top of MZGram using termux. To use, download the plugin using the command from the settings.",

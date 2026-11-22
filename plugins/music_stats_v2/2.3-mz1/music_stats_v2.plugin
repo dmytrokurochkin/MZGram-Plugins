@@ -89,7 +89,11 @@ class MusicStatsPlugin(BasePlugin):
         except: 
             self.current_account = 0
         
-        self.CACHE_DIR = "/storage/emulated/0/Android/data/com.exteragram.messenger/files/exteraGram/exteraGram Documents"
+        try:
+            from org.telegram.messenger import FileLoader as _FileLoader
+            self.CACHE_DIR = str(_FileLoader.getDirectory(_FileLoader.MEDIA_DIR_DOCUMENT).getAbsolutePath())
+        except Exception:
+            self.CACHE_DIR = "/storage/emulated/0/Android/data/org.mzgram.messenger/files/Telegram/Telegram Documents"
         
         self.LANGS = {
             "ru": {

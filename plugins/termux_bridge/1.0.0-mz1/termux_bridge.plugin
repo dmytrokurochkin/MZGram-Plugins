@@ -62,7 +62,7 @@ DEFAULTS = {
 AI_URL = "https://api.groq.com/openai/v1/chat/completions"
 AI_MODEL = "openai/gpt-oss-120b"
 
-AI_DOCS = r"""You are the built-in assistant of "Termux Bridge", a plugin for exteraGram (Telegram client for Android). The user types requests into a Termux shell called "tgb". You write short Python 3 scripts that run in Termux and draw their output, buttons and panels on top of the Telegram screen.
+AI_DOCS = r"""You are the built-in assistant of "Termux Bridge", a plugin for MZGram (Telegram client for Android). The user types requests into a Termux shell called "tgb". You write short Python 3 scripts that run in Termux and draw their output, buttons and panels on top of the Telegram screen.
 
 ENVIRONMENT
 - Code runs in Termux: Python 3, Android, no root, standard library only unless the user installed more.
@@ -207,7 +207,7 @@ HOST = "127.0.0.1"
 PORT = @@PORT@@
 TOKEN = "@@TOKEN@@"
 VER = "1.0"
-PKG = os.environ.get("TGB_PKG", "com.exteragram.messenger")
+PKG = os.environ.get("TGB_PKG", "org.mzgram.messenger")
 SID = os.urandom(6).hex()
 
 R = "\033[0m"
@@ -319,12 +319,12 @@ def quiet(cmd):
 def launch_extera():
     if port_open():
         return True
-    print(MUT + "◌ starting Telegram in background…" + R)
+    print(MUT + "◌ starting MZGram in background…" + R)
     started = quiet("am start --user 0 -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -p " + PKG)
     if not started:
         started = quiet("monkey -p " + PKG + " -c android.intent.category.LAUNCHER 1")
     if not started:
-        print(ERR + "✖ failed to launch " + PKG + R + MUT + "  (open Telegram manually)" + R)
+        print(ERR + "✖ failed to launch " + PKG + R + MUT + "  (open MZGram manually)" + R)
         return False
     for _ in range(60):
         if port_open():
@@ -335,7 +335,7 @@ def launch_extera():
         return False
     time.sleep(1.0)
     quiet("am start --user 0 -n com.termux/com.termux.app.TermuxActivity")
-    print(OK + "✔ Telegram started" + R)
+    print(OK + "✔ MZGram started" + R)
     return True
 
 
@@ -787,7 +787,7 @@ def show_help(b, rest):
         ("tgrun <file.py>", "file inside Telegram (exec)"),
         ("pos <position>", "top · bottom · center …"),
         ("docs", "documentation (api, ui, java, ai)"),
-        ("start", "launch Telegram app in background"),
+        ("start", "launch MZGram in background"),
         ("clear", "clear overlay"),
         ("status", "diagnostics"),
         ("exit", "exit"),
@@ -808,7 +808,7 @@ def show_help(b, rest):
 def offline():
     box([
         ERR + B + "✖ Plugin not responding" + R,
-        MUT + "1. Open Telegram (MZGram)" + R,
+        MUT + "1. Open MZGram" + R,
         MUT + "2. Settings → Plugins → Termux Bridge" + R,
         MUT + "3. Enable plugin and 'Server enabled'" + R,
     ], ERR)
@@ -837,7 +837,7 @@ def cmd_status(b, rest):
     ai_ok = bool(r.get("ai"))
     box([
         row(True, "plugin %s · port %s" % (r.get("version"), r.get("port"))),
-        row(bool(r.get("screen")), "Telegram screen", "" if r.get("screen") else "open Telegram"),
+        row(bool(r.get("screen")), "Telegram screen", "" if r.get("screen") else "open MZGram"),
         row(True if r.get("exec") else None, "exec and Java", "enabled" if r.get("exec") else "disabled"),
         row(ai_ok if not ai_ok or r.get("ai_key") else None, "AI",
             "not configured" if not ai_ok else ("" if r.get("ai_key") else "key not set")),
@@ -847,7 +847,7 @@ def cmd_status(b, rest):
 
 def cmd_start(b, rest):
     if port_open():
-        print(OK + "✔ Telegram already running" + R)
+        print(OK + "✔ MZGram already running" + R)
     else:
         launch_extera()
 
@@ -1569,7 +1569,7 @@ class Plugin(BasePlugin):
         fragment = get_last_fragment()
         activity = fragment.getParentActivity() if fragment else None
         if activity is None:
-            raise UIError(_mz_t("немає активного вікна Telegram: відкрий exteraGram", "no active Telegram window: open exteraGram", "нет активного окна Telegram: открой exteraGram"))
+            raise UIError(_mz_t("немає активного вікна MZGram: відкрий MZGram", "no active MZGram window: open MZGram", "нет активного окна MZGram: открой MZGram"))
         return activity
 
     def _color(self, value, default):
