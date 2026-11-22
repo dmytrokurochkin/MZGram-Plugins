@@ -5000,8 +5000,8 @@
       "version": "1.0.4-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/googlethat/1.0.4-mz1/googlethat.plugin",
-      "sha256": "3d75f87433d46c2badd62d5dca8deb8861c1839d179828b058343704c9923f2d",
-      "size": 4998,
+      "sha256": "f8aaff11eb4ea0e70a08dbf6ea61fdb508059d46d973666a874baf956ac400df",
+      "size": 5000,
       "description": "Creates a web search link. Usage: .gt [query]. Needs the MZGram Lib plugin.",
       "description_i18n": {
         "en": "Creates a web search link. Usage: .gt [query]. Needs the MZGram Lib plugin.",
