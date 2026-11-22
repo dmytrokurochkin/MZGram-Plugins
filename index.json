@@ -10915,8 +10915,8 @@
       "version": "3.0.0-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/stella/3.0.0-mz1/stella.plugin",
-      "sha256": "3d9890691e84b8dd6dfab3c5f415f1193d3648cfa56680d89fe38518303892ce",
-      "size": 195222,
+      "sha256": "fefc90f2738c1e38d8136fa80439930651d6bd523bf4c6cd892a04872d44afbb",
+      "size": 194946,
       "description": "Stella, a 3D anime girl, right in Telegram",
       "description_i18n": {
         "en": "Stella, a 3D anime girl, right in Telegram",

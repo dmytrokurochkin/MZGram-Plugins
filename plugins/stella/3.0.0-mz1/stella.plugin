@@ -3624,9 +3624,7 @@ class WaifuPlugin(BasePlugin):
                 Header(text=_mz_t("Ласкаво просимо", "Welcome", "Добро пожаловать")),
                 Text(text=_mz_t("Відкрити довідку", "Open help", "Открыть справку"),icon="msg_info",accent=True,
                      on_click=self._show_help_dialog,
-                     subtext=_mz_t("Жести, усі вкладки й функції повністю всередині, без обрізання тексту", "Developed with the support of the project \"Voice assistant for PC: Stella\". Gestures, all tabs and features are fully inside, with no text cut off", ("Разработано при поддержке проекта «Голосовой помощник "
-                             "для ПК — Stella». Жесты, все вкладки и функции — полностью "
-                             "внутри, без обрезки текста"))),
+                     subtext=_mz_t("Жести, усі вкладки й функції повністю всередині, без обрізання тексту", "Gestures, all tabs and features are fully inside, with no text cut off", "Жесты, все вкладки и функции полностью внутри, без обрезки текста")),
                 Divider(),
 
                 Header(text=_mz_t("Статистика", "Statistics", "Статистика")),
