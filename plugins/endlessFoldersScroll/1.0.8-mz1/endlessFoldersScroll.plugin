@@ -10,7 +10,7 @@ from java import jclass, jint
 __name__ = "EndlessFoldersScroll"
 __description__ = (
     "Swipe the folders until your fingers rub off!\n\n"
-    "> Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 or greater!"
+    "> Requires **MZGram Lib** v2.0.0 or greater!"
 )
 __version__ = "1.0.8-mz1"
 __id__ = "endlessFoldersScroll"
@@ -48,18 +48,18 @@ except Exception as _e:
 
     l = {
         "en": {
-            "exc_text": "ZwyLib plugin required for this plugin is not found!",
-            "not_sufficient_zwylib": f"{__name__} requires {REQUIRED_ZWYLIB_VERSION}+ version of ZwyLib!",
+            "exc_text": "MZGram Lib plugin required for this plugin is not found!",
+            "not_sufficient_zwylib": f"{__name__} requires {REQUIRED_ZWYLIB_VERSION}+ version of MZGram Lib!",
             "download": "Install",
         },
         "ru": {
-            "exc_text": "Для корректной работы требуется плагин ZwyLib!",
-            "not_sufficient_zwylib": f"Для работы {__name__} требуется {REQUIRED_ZWYLIB_VERSION}+ версия ZwyLib!",
+            "exc_text": "Для корректной работы требуется плагин MZGram Lib!",
+            "not_sufficient_zwylib": f"Для работы {__name__} требуется {REQUIRED_ZWYLIB_VERSION}+ версия MZGram Lib!",
             "download": "Установить",
         },
         "uk": {
-            "exc_text": "Для коректної роботи потрібен плагін ZwyLib!",
-            "not_sufficient_zwylib": f"Для роботи {__name__} потрібна {REQUIRED_ZWYLIB_VERSION}+ версія ZwyLib!",
+            "exc_text": "Для коректної роботи потрібен плагін MZGram Lib!",
+            "not_sufficient_zwylib": f"Для роботи {__name__} потрібна {REQUIRED_ZWYLIB_VERSION}+ версія MZGram Lib!",
             "download": "Встановити",
         },
     }

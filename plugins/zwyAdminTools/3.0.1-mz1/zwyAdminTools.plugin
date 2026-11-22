@@ -37,7 +37,7 @@ __name__ = "AdminTools"
 __description__ = (
     "Makes muting, kicking, banning and more admin things a way easier "
     "(see details in \"Help\" segment in the plugin settings).\n\n"
-    "> Requires **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.0 or greater!"
+    "> Requires **MZGram Lib** 2.0.0 or greater!"
 )
 __id__ = "zwyAdminTools"
 __version__ = "3.0.1-mz1"
@@ -82,18 +82,18 @@ except Exception as _e:
 
     l = {
         "en": {
-            "exc_text": "ZwyLib plugin required for this plugin is not found!",
-            "not_sufficient_zwylib": f"{__name__} requires {REQUIRED_ZWYLIB_VERSION}+ version of ZwyLib!",
+            "exc_text": "MZGram Lib plugin required for this plugin is not found!",
+            "not_sufficient_zwylib": f"{__name__} requires {REQUIRED_ZWYLIB_VERSION}+ version of MZGram Lib!",
             "download": "Install",
         },
         "ru": {
-            "exc_text": "Для корректной работы требуется плагин ZwyLib!",
-            "not_sufficient_zwylib": f"Для работы {__name__} требуется {REQUIRED_ZWYLIB_VERSION}+ версия ZwyLib!",
+            "exc_text": "Для корректной работы требуется плагин MZGram Lib!",
+            "not_sufficient_zwylib": f"Для работы {__name__} требуется {REQUIRED_ZWYLIB_VERSION}+ версия MZGram Lib!",
             "download": "Установить",
         },
         "uk": {
-            "exc_text": "Для коректної роботи потрібен плагін ZwyLib!",
-            "not_sufficient_zwylib": f"Для роботи {__name__} потрібна {REQUIRED_ZWYLIB_VERSION}+ версія ZwyLib!",
+            "exc_text": "Для коректної роботи потрібен плагін MZGram Lib!",
+            "not_sufficient_zwylib": f"Для роботи {__name__} потрібна {REQUIRED_ZWYLIB_VERSION}+ версія MZGram Lib!",
             "download": "Встановити",
         },
     }
@@ -4358,7 +4358,7 @@ class AdminTools(BasePlugin):
         zwylib.add_autoupdater_task(AUTOUPDATE_CHANNEL_ID, AUTOUPDATE_MSG_ID)
         zwylib.locales_controller.subscribe_to_refresh(on_update_locale)
         register_commands()
-        logger.debug("ZwyLib tools used successfully.")
+        logger.debug("MZGram Lib tools used successfully.")
 
         self.add_hook("updateNewMessage", match_substring=True)
         self.add_hook("updateNewChannelMessage", match_substring=True)
