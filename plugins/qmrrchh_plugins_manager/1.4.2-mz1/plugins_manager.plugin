@@ -271,18 +271,6 @@ class LoaderPlugin(BasePlugin):
                 subtext="Shows disabled or enabled plugin state",
                 default=False
             ),
-            Header("Other"),
-            Text(
-                text="Support development",
-                icon="msg_ton",
-                accent=True,
-                on_click=lambda view: self.show_info_alert(
-                    title="Support development",
-                    message="Below you can copy the TON address of the Plugins Manager developers and support the development with your donation.",
-                    neutral_button="Donate",
-                    listener2=lambda dialog, i: copy("UQBVxjueXqAEpALX_b0yr-ytXN26LOTpSBn26b9VRHKrmm5F")
-                )
-            )
         ]
 
 

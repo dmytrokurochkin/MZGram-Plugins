@@ -908,9 +908,8 @@ class RadioStationPlugin(BasePlugin):
                 create_sub_fragment=subpage(PAGE_SERVICE),
             ),
             Text(
-                text=t("main_about"),
-                subtext="@RapFurBitches  ·  @ccsFM",
-                icon="msg_contact",
+                text=t("about_plugin_header"),
+                icon="msg_info",
                 create_sub_fragment=subpage(PAGE_ABOUT),
             ),
             Header(text=t("main_short")),

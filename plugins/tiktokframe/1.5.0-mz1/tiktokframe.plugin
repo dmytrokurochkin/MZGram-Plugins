@@ -44,7 +44,7 @@ import requests, uuid, os, traceback, threading, re
 
 __id__ = "tiktokframe"
 __name__ = "Tiktokframe"
-__description__ = "Turns a message into a TikTok comment and puts it in a gold frame. Command: .f (as a reply to a message). .f2/.f3/.f4, several messages in one frame. The detailed instructions were published at t.me/w3rs_c0mmun17y"
+__description__ = "Turns a message into a TikTok comment and puts it in a gold frame. Command: .f (as a reply to a message). .f2/.f3/.f4, several messages in one frame."
 __usage__ = _mz_t(".f (відповіддю на повідомлення)", ".f (reply to a message)", ".f (ответом на сообщение)")
 __author__ = "MZGram"
 __min_version__ = "12.5.1"
@@ -1277,7 +1277,6 @@ class TikTokFramePlugin(BasePlugin):
                 f"{cmd}(how many messages to collect)\n"
                 f"example {cmd}2, then reply to the messages you want with {cmd}\n\n"
                 f"{cmd}0 - cancel the collection if you changed your mind\n\n"
-                f"Detailed usage instructions at t.me/w3rs_c0mmun17y, for any questions message the channel"
             )
         return (
             _mz_t(f"TikTok Frame v{__version__}\n\nКоманди:\n{cmd} - відповідайте на повідомлення в особистих чатах або групі, і його текст надішлеться картинкою в рамці\n\n{cmd}(1,2,3,4) - щоб зібрати кілька повідомлень в одну рамку, відповідайте на повідомлення командою {cmd}(скільки повідомлень зібрати)\nприклад: {cmd}2, потім зберіть інші повідомлення командою {cmd}, відповідаючи на потрібні\n\n{cmd}0 - скасувати збір повідомлень, якщо передумали", f"TikTok Frame v{__version__}\n\nCommands:\n{cmd} - reply to a message in a private chat or group and its text is sent as a picture in a frame\n\n{cmd}(1,2,3,4) - to put several messages in one frame, reply to a message with {cmd}(how many messages to collect)\nexample: {cmd}2, then collect the other messages with {cmd}, replying to the ones you need\n\n{cmd}0 - cancel collecting messages if you change your mind", (f"TikTok Frame v{__version__}\n\n"

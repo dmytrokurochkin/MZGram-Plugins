@@ -969,11 +969,6 @@ class TempSubPlugin(BasePlugin):
                 icon="msg_help",
                 on_click=me._open_url("https://telegra.ph/Dokumentaciya-k-plaginu-TempSub-06-25"),
             ),
-            Text(
-                text=_mz_t("Наш канал", "Our channel", "Наш канал"),
-                icon="msg_channel",
-                on_click=me._open_url("https://t.me/MaxExteraPlugins"),
-            ),
             Divider(),
             Header(text=_mz_t("Швидке налаштування підписки", "Quick subscription setup", "Быстрая настройка подписки")),
             Input(

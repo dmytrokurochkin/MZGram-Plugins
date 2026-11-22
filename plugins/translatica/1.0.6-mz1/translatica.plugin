@@ -1868,26 +1868,6 @@ class Translatica(BasePlugin):
             "cn": "Translatica 已禁用"
         },
         
-        "support_title": {
-            "en": "Support",
-            "pt": "Suporte",
-            "es": "Soporte",
-            "uk": "Підтримка", "ru": "Поддержка",
-            "cn": "支持"
-        },
-        "support_description": {
-            "pt": "Oi. Sou o Apple, desenvolvedor de plugins e projetos independentes. Se você curtiu, pode apoiar enviando um presente pelo Telegram. É só tocar no meu nome de usuário ou me chamar se quiser ajudar de outra forma. Seu apoio mantém os projetos ativos e novas ideias ganhando vida. Obrigado.",
-            "en": "Hey. I am Apple, a developer of plugins and independent projects. If you like what I do, you can support it by sending a gift on Telegram. Just tap my username or reach out if you’d like to help in another way. Your support keeps the projects alive and new ideas coming. Thank you.",
-            "uk": "Привіт. Я Apple, розробник плагінів і незалежних проєктів. Якщо вам подобається моя робота, ви можете підтримати мене, надіславши подарунок у Telegram. Просто натисніть на мій нік або напишіть мені, якщо хочете допомогти іншим способом. Ваша підтримка допомагає проєктам розвиватися і втілювати нові ідеї. Дякую.", "ru": "Привет. Я Apple, разработчик плагинов и независимых проектов. Если вам нравится моя работа, вы можете поддержать меня, отправив подарок в Telegram. Просто нажмите на мое имя пользователя или напишите мне, если хотите помочь другим способом. Ваша поддержка помогает проектам развиваться и воплощать новые идеи. Спасибо.",
-            "cn": "嘿。我是 Apple，插件和独立项目的开发者。如果你喜欢我所做的，你可以通过在 Telegram 上发送礼物来支持。如果你想以其他方式提供帮助，只需点击我的用户名或联系我。您的支持使项目保持活力并带来新想法。谢谢。"
-        },
-        "support_button": {
-            "en": "Contact the Dev",
-            "pt": "Falar com o Dev",
-            "es": "Contactar al Dev",
-            "uk": "Зв'язатися з розробником", "ru": "Связаться с разработчиком",
-            "cn": "联系开发者"
-        },
         "optional_label": {
             "en": "Advanced Options",
             "pt": "Opções Avançadas",
@@ -6748,12 +6728,6 @@ class Translatica(BasePlugin):
         except Exception:
             pass
 
-    # Suporte Obter a API
-    def _show_support_sheet(self):
-        pass
-
-    def _open_support_user(self, v=None):
-        pass
 
     # Helper de fragmento
     def get_last_fragment_safe(self):

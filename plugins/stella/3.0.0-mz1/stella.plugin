@@ -178,7 +178,7 @@ DEFAULTS = {
 
 S = {
  "ru":{
-  'about':'Stella','author':'@lyzos','channel':'@rei_plugins','logs':_mz_t('Логи', 'Logs', 'Логи'),
+  'about':'Stella','logs':_mz_t('Логи', 'Logs', 'Логи'),
   'tab_model':_mz_t(' Модель', ' Model', ' Модель'),'tab_stella':_mz_t(' Стелла', ' Stella', ' Стелла'),
   'tab_misc':_mz_t(' Інше', ' Other', ' Прочее'),'tab_stats':_mz_t(' Статистика', ' Statistics', ' Статистика'),
   'cam_preset':_mz_t(' Пресет камери', ' Camera preset', ' Пресет камеры'),
@@ -220,7 +220,7 @@ S = {
   's_enable':_mz_t('Звукові реакції', 'Sound reactions', 'Звуковые реакции'),'s_enable_s':_mz_t('Стелла реагує на дотики ', 'Stella reacts to touches ', 'Стелла реагирует на прикосновения '),
   's_sounds':_mz_t('Тека зі звуками', 'Sounds folder', 'Папка со звуками'),'s_volume':_mz_t('Гучність (%)', 'Volume (%)', 'Громкость (%)'),
   's_sherpa_hdr':'Sherpa-ONNX',
-  'reset':_mz_t('Скинути', 'Reset', 'Сбросить'),'footer':'@lyzos',
+  'reset':_mz_t('Скинути', 'Reset', 'Сбросить'),'footer':'',
   'log_t':_mz_t('Логи', 'Logs', 'Логи'),'log_e':_mz_t('(порожньо)', '(empty)', '(пусто)'),'log_copy':_mz_t('Скопіювати', 'Copy', 'Скопировать'),
   'log_clear':_mz_t('Очистити', 'Clear', 'Очистить'),'log_close':_mz_t('Закрити', 'Close', 'Закрыть'),'copied':_mz_t('Скопійовано', 'Copied', 'Скопировано'),
   'load_ok':_mz_t(' Модель завантажено!', ' Model loaded!', ' Модель загружена!'),'perm':_mz_t('Потрібен дозвіл «Поверх інших вікон»', 'The "Display over other apps" permission is required', 'Нужно разрешение «Поверх других окон»'),
@@ -231,7 +231,7 @@ S = {
   's_app_nf':_mz_t('Застосунок не знайдено', 'App not found', 'Приложение не найдено'),'s_chat_nf':_mz_t('Контакт не знайдено', 'Contact not found', 'Контакт не найден'),
  },
  "en":{
-  'about':'Stella','author':'@lyzos','channel':'@rei_plugins','logs':'Logs',
+  'about':'Stella','logs':'Logs',
   'tab_model':' Model','tab_stella':' Stella',
   'tab_misc':' Misc','tab_stats':' Stats',
   'cam_preset':' Camera preset',
@@ -272,7 +272,7 @@ S = {
   's_enable':'Sound reactions','s_enable_s':'Stella reacts to touches ',
   's_sounds':'Sounds folder','s_volume':'Volume (%)',
   's_sherpa_hdr':'Sherpa-ONNX',
-  'reset':'Reset','footer':'@lyzos',
+  'reset':'Reset','footer':'',
   'log_t':'Logs','log_e':'(empty)','log_copy':'Copy',
   'log_clear':'Clear','log_close':'Close','copied':'Copied',
   'load_ok':' Model loaded!','perm':'Need draw-over-apps permission',
@@ -2676,141 +2676,6 @@ class WaifuPlugin(BasePlugin):
 
     def _show_welcome_dialog(self):
         self.ss("welcome_shown", True)
-        run_on_ui_thread(self._show_age_gate_dialog, 400)
-
-    def _show_age_gate_dialog(self):
-        """
-        Age confirmation + consent to the terms of use.
-        Shown once (age_gate_shown flag), right after
-        the welcome window. Relates to a separate paid 18+ product
-        (not to the free model from this plugin).
-        """
-        if bool(self.gs("age_gate_shown")):
-            return
-        try:
-            f = get_last_fragment()
-            act = f.getParentActivity() if f else None
-            if not act:
-                run_on_ui_thread(self._show_age_gate_dialog, 1500)
-                return
-
-            from android.widget import TextView, LinearLayout
-            from android.graphics import Color
-            from android.view import Gravity
-
-            terms_url = "https://t.me/knice_tech"
-
-            full_text = (_mz_t('Окремий платний продукт 18+ проєкту Stella призначений лише для повнолітніх користувачів. Продовжуючи, ви підтверджуєте, що вам виповнилося 18 років, і погоджуєтеся з умовами використання (кнопка «Умови» нижче).', 'The separate paid 18+ product of the Stella project is intended for adult users only. By continuing, you confirm that you are 18 or older and agree to the terms of use (the "Terms" button below).', ('Отдельный платный 18+ продукт проекта Stella предназначен только '
-                        'для совершеннолетних пользователей. Продолжая, вы подтверждаете, '
-                        'что вам исполнилось 18 лет, и соглашаетесь с условиями использования '
-                        '(кнопка "Условия" ниже).')))
-
-            tv = TextView(act)
-            tv.setText(full_text)
-            tv.setTextSize(0, AndroidUtilities.dp(16.0))
-            try:
-                tv.setTextColor(Color.parseColor("#FFFFFF"))
-                tv.setLineSpacing(AndroidUtilities.dp(5.0), 1.05)
-                tv.setGravity(Gravity.CENTER_HORIZONTAL)
-            except Exception: pass
-            pad_h = AndroidUtilities.dp(28.0)
-            pad_v = AndroidUtilities.dp(20.0)
-            tv.setPadding(pad_h, pad_v, pad_h, pad_v)
-
-            wrapper = LinearLayout(act)
-            wrapper.setOrientation(LinearLayout.VERTICAL)
-            wrapper.addView(tv)
-
-            builder = AlertDialogBuilder(act)
-            builder.set_title(_mz_t("Підтвердження віку 18+", "Age confirmation 18+", "Возрастное подтверждение 18+"))
-            builder.set_view(wrapper)
-            builder.set_cancelable(False)
-
-            def _confirm(b, w):
-                b.dismiss()
-                self.ss("age_gate_shown", True)
-                self.ss("age_confirmed", True)
-                self._log("age_gate: confirmed 18+")
-                run_on_ui_thread(self._show_mature_notice_dialog, 400)
-
-            def _decline(b, w):
-                b.dismiss()
-                self.ss("age_gate_shown", True)
-                self.ss("age_confirmed", False)
-                self._log("age_gate: declined (under 18)")
-                try:
-                    BulletinHelper.show_info(_mz_t("Функції 18+ будуть недоступні", "18+ features will be unavailable", "18+ функции будут недоступны"))
-                except Exception: pass
-
-            def _terms(b, w):
-                self._open_url(terms_url)
-
-            builder.set_positive_button(_mz_t("Мені є 18, продовжити", "I'm 18 or older, continue", "Мне есть 18, продолжить"), _confirm)
-            builder.set_negative_button(_mz_t("Мені немає 18", "I'm under 18", "Мне нет 18"), _decline)
-            builder.set_neutral_button(_mz_t("Умови", "Terms", "Условия"), _terms)
-            builder.show()
-        except Exception as e:
-            self._log("age_gate: " + str(e) + "\n" + traceback.format_exc())
-            self.ss("age_gate_shown", True)
-
-    def _show_mature_notice_dialog(self):
-        """
-        Shown once (mature_notice_shown flag), right after
-        the age confirmation. Informs about the "Extra content
-        (18+)" tab in the plugin settings + a button to buy paid access.
-        """
-        if bool(self.gs("mature_notice_shown")):
-            return
-        try:
-            f = get_last_fragment()
-            act = f.getParentActivity() if f else None
-            if not act:
-                run_on_ui_thread(self._show_mature_notice_dialog, 1500)
-                return
-
-            from android.widget import TextView, LinearLayout
-            from android.graphics import Color
-            from android.view import Gravity
-
-            buy_url = ""
-
-            full_text = (_mz_t('У налаштуваннях плагіна є вкладка «Додатковий вміст (18+)»: платний доступ до розширеного каталогу моделей із регулярними якісними оновленнями. Оформити можна за кнопкою «Купити» нижче.', 'The plugin settings have an "Extra content (18+)" tab: paid access to an extended model catalog with regular quality updates. You can subscribe with the "Buy" button below.', ('В настройках плагина есть вкладка «Доп. контент (18+)» — '
-                        'платный доступ к расширенному каталогу моделей с регулярными '
-                        'качественными обновлениями. Оформить можно по кнопке «Купить» ниже.')))
-
-            tv = TextView(act)
-            tv.setText(full_text)
-            tv.setTextSize(0, AndroidUtilities.dp(16.0))
-            try:
-                tv.setTextColor(Color.parseColor("#FFFFFF"))
-                tv.setLineSpacing(AndroidUtilities.dp(5.0), 1.05)
-                tv.setGravity(Gravity.CENTER_HORIZONTAL)
-            except Exception: pass
-            pad_h = AndroidUtilities.dp(28.0)
-            pad_v = AndroidUtilities.dp(20.0)
-            tv.setPadding(pad_h, pad_v, pad_h, pad_v)
-
-            wrapper = LinearLayout(act)
-            wrapper.setOrientation(LinearLayout.VERTICAL)
-            wrapper.addView(tv)
-
-            builder = AlertDialogBuilder(act)
-            builder.set_title(_mz_t("Додатковий вміст 18+", "Extra content 18+", "Дополнительный контент 18+"))
-            builder.set_view(wrapper)
-            builder.set_cancelable(True)
-
-            def _on_buy(b, w):
-                b.dismiss()
-                self.ss("mature_notice_shown", True)
-                self._open_url(buy_url)
-
-            builder.set_positive_button(_mz_t("Зрозуміло", "Got it", "Понятно"), lambda b, w: b.dismiss())
-            builder.set_neutral_button(_mz_t("Купити", "Buy", "Купить"), _on_buy)
-            builder.set_on_dismiss_listener(lambda b: self.ss("mature_notice_shown", True))
-            builder.show()
-        except Exception as e:
-            self._log("mature_notice_dialog: " + str(e) + "\n" + traceback.format_exc())
-            self.ss("mature_notice_shown", True)
 
     def on_plugin_unload(self):
         self._log("=== unloading ===")
@@ -3179,7 +3044,7 @@ class WaifuPlugin(BasePlugin):
                 f=get_last_fragment(); act=f.getParentActivity() if f else None
                 if not act: return
                 text=(
-                    _mz_t('Розроблено за підтримки проєкту «Голосовий помічник для ПК: Stella».\n\n ЖЕСТИ (керування моделлю)\nОдин дотик: Стелла показує випадкову емоцію.\nПотрійний дотик поспіль: запускає випадковий танець.\nДовге натискання: відкриває швидке меню дій (помахати, потанцювати, привітання, кіно-режим, великий план, скидання позиції, розворот на 180° тощо).\nПеретягування одним пальцем: рухає вікно Стелли екраном. Якщо на вкладці «Камера і світло» увімкнено «Поворот одним пальцем», натомість повертає й нахиляє саму модель.\nДва пальці працюють завжди однаково, в будь-якому режимі: зведення/розведення наближає й віддаляє камеру (зум), обертання пальцями повертає модель.\n\n ВКЛАДКА «ОСНОВНЕ»\nПоказати Стеллу: вмикає або повністю ховає 3D-компаньйона.\nЗавантажити / Перезавантажити модель: вибір власного файлу .vrm з телефона та повторне завантаження поточної моделі.\nПеревернути модель на 180°: якщо після завантаження модель стоїть спиною до камери.\nЗавантажити все: однією кнопкою завантажує базову модель, анімації та звуки.\nЗвукові реакції: Стелла озвучує дотики й події короткими звуками.\n\n ВКЛАДКА «ВІКНО»\nПресет розміру / Ширина / Висота: готові розміри вікна або власні значення в dp.\nПрозорість і межі вікна: наскільки прозоре вікно і чи потрібна рамка для зручного захоплення.\nПрилипати до країв / Заблокувати: вікно саме притискається до краю екрана після відпускання або його взагалі не можна рухати.\n\n ВКЛАДКА «ПОВЕДІНКА»\nРеакції на дотик / Фрази Стелли: випадкові емоції під час дотику та періодичні фрази-підказки.\nРеакція на батарею / на час доби: Стелла коментує рівень заряду телефона й вітається вранці/ввечері/вночі.\nШвидкість анімації: наскільки швидко програється idle-анімація.\nФізика під час перенесення вікна / Сила вітру: волосся й елементи одягу гойдаються під час перетягування вікна та від «вітру», легкої постійної анімації.\n\n ВКЛАДКА «КАМЕРА І СВІТЛО»\nПоворот моделі: ручні значення повороту/нахилу та зуму камери, а також вмикання режиму «поворот одним пальцем» (див. жести вище).\nОсвітлення: яскравість і колір основного світла сцени.\nШкіра / Одяг / Волосся: яскравість і HEX-колір для перефарбування матеріалів моделі.\nОбмеження FPS: 60 максимальна плавність, 30/24 економія батареї на слабких телефонах.\n\n ВКЛАДКА «МОДЕЛІ»\nЗавантажити нову модель / Список моделей: усі раніше завантажені .vrm зберігаються тут, торкнись моделі в списку, щоб перемкнутися на неї без повторного завантаження.\nКоманда зміни моделі: власна текстова фраза, після надсилання якої відкриється вибір файлу.\n\n ВКЛАДКА «18+»\nКаталог моделей: зовнішнє посилання на додатковий каталог моделей 18+, доступне лише повнолітнім.\n\n СТАТИСТИКА\nПоказує кількість дотиків, танців, сесій і відкриті досягнення.\n\n РОЗРОБНИКИ ТА ПІДТРИМКА\n@lyzos, @rei_plugins, канал підтримки: посилання доступні на цій самій вкладці нижче.', 'Developed with the support of the project "Voice assistant for PC: Stella".\n\n GESTURES (model control)\nOne tap: Stella shows a random emotion.\nTriple tap in a row: starts a random dance.\nLong press: opens the quick actions menu (wave, dance, greeting, cinematic mode, close up, reset position, flip 180°, etc.).\nOne-finger drag: moves Stella\'s window around the screen. If "One-finger rotate" is on in the "Camera and light" tab, it rotates and tilts the model itself instead.\nTwo fingers always work the same in any mode: pinching in/out moves the camera closer or further (zoom), rotating with the fingers rotates the model.\n\n "MAIN" TAB\nShow Stella: turns the 3D companion on or hides it completely.\nUpload / Reload model: pick your own .vrm file from the phone and reload the current model.\nFlip model 180°: if the model faces away from the camera after loading.\nDownload all: one button downloads the base model, animations and sounds.\nSound reactions: Stella voices touches and events with short sounds.\n\n "WINDOW" TAB\nSize preset / Width / Height: ready window sizes or your own values in dp.\nOpacity and window borders: how transparent the window is and whether a frame is needed for easy grabbing.\nSnap to edges / Lock: the window snaps to the screen edge after release, or can\'t be moved at all.\n\n "BEHAVIOR" TAB\nTap reactions / Stella\'s phrases: random emotions on tap and periodic hint phrases.\nBattery reaction / time of day: Stella comments on the phone\'s charge level and greets you in the morning/evening/night.\nAnimation speed: how fast the idle animation plays.\nPhysics when moving the window / Wind strength: hair and clothes sway when the window is dragged and from the "wind", a light constant animation.\n\n "CAMERA AND LIGHT" TAB\nModel rotation: manual rotation/tilt and camera zoom values, plus turning on the "one-finger rotate" mode (see gestures above).\nLighting: brightness and color of the main scene light.\nSkin / Clothes / Hair: brightness and HEX color for recoloring the model\'s materials.\nFPS limit: 60 is the smoothest, 30/24 saves battery on weak phones.\n\n "MODELS" TAB\nUpload new model / Model list: all previously loaded .vrm files are saved here, tap a model in the list to switch to it without loading again.\nModel change command: your own text phrase, sending it opens the file picker.\n\n "18+" TAB\nModel catalog: an external link to an additional 18+ model catalog, available to adults only.\n\n STATISTICS\nShows the number of touches, dances, sessions and unlocked achievements.\n\n DEVELOPERS AND SUPPORT\n@lyzos, @rei_plugins, support channel: links are available on this same tab below.', ('Разработано при поддержке проекта "Голосовой помощник для ПК — Stella".\n\n'
+                    _mz_t('ЖЕСТИ (керування моделлю)\nОдин дотик: Стелла показує випадкову емоцію.\nПотрійний дотик поспіль: запускає випадковий танець.\nДовге натискання: відкриває швидке меню дій (помахати, потанцювати, привітання, кіно-режим, великий план, скидання позиції, розворот на 180° тощо).\nПеретягування одним пальцем: рухає вікно Стелли екраном. Якщо на вкладці «Камера і світло» увімкнено «Поворот одним пальцем», натомість повертає й нахиляє саму модель.\nДва пальці працюють завжди однаково, в будь-якому режимі: зведення/розведення наближає й віддаляє камеру (зум), обертання пальцями повертає модель.\n\n ВКЛАДКА «ОСНОВНЕ»\nПоказати Стеллу: вмикає або повністю ховає 3D-компаньйона.\nЗавантажити / Перезавантажити модель: вибір власного файлу .vrm з телефона та повторне завантаження поточної моделі.\nПеревернути модель на 180°: якщо після завантаження модель стоїть спиною до камери.\nЗавантажити все: однією кнопкою завантажує базову модель, анімації та звуки.\nЗвукові реакції: Стелла озвучує дотики й події короткими звуками.\n\n ВКЛАДКА «ВІКНО»\nПресет розміру / Ширина / Висота: готові розміри вікна або власні значення в dp.\nПрозорість і межі вікна: наскільки прозоре вікно і чи потрібна рамка для зручного захоплення.\nПрилипати до країв / Заблокувати: вікно саме притискається до краю екрана після відпускання або його взагалі не можна рухати.\n\n ВКЛАДКА «ПОВЕДІНКА»\nРеакції на дотик / Фрази Стелли: випадкові емоції під час дотику та періодичні фрази-підказки.\nРеакція на батарею / на час доби: Стелла коментує рівень заряду телефона й вітається вранці/ввечері/вночі.\nШвидкість анімації: наскільки швидко програється idle-анімація.\nФізика під час перенесення вікна / Сила вітру: волосся й елементи одягу гойдаються під час перетягування вікна та від «вітру», легкої постійної анімації.\n\n ВКЛАДКА «КАМЕРА І СВІТЛО»\nПоворот моделі: ручні значення повороту/нахилу та зуму камери, а також вмикання режиму «поворот одним пальцем» (див. жести вище).\nОсвітлення: яскравість і колір основного світла сцени.\nШкіра / Одяг / Волосся: яскравість і HEX-колір для перефарбування матеріалів моделі.\nОбмеження FPS: 60 максимальна плавність, 30/24 економія батареї на слабких телефонах.\n\n ВКЛАДКА «МОДЕЛІ»\nЗавантажити нову модель / Список моделей: усі раніше завантажені .vrm зберігаються тут, торкнись моделі в списку, щоб перемкнутися на неї без повторного завантаження.\nКоманда зміни моделі: власна текстова фраза, після надсилання якої відкриється вибір файлу.\n\n СТАТИСТИКА\nПоказує кількість дотиків, танців, сесій і відкриті досягнення.', 'GESTURES (model control)\nOne tap: Stella shows a random emotion.\nTriple tap in a row: starts a random dance.\nLong press: opens the quick actions menu (wave, dance, greeting, cinematic mode, close up, reset position, flip 180°, etc.).\nOne-finger drag: moves Stella\'s window around the screen. If "One-finger rotate" is on in the "Camera and light" tab, it rotates and tilts the model itself instead.\nTwo fingers always work the same in any mode: pinching in/out moves the camera closer or further (zoom), rotating with the fingers rotates the model.\n\n "MAIN" TAB\nShow Stella: turns the 3D companion on or hides it completely.\nUpload / Reload model: pick your own .vrm file from the phone and reload the current model.\nFlip model 180°: if the model faces away from the camera after loading.\nDownload all: one button downloads the base model, animations and sounds.\nSound reactions: Stella voices touches and events with short sounds.\n\n "WINDOW" TAB\nSize preset / Width / Height: ready window sizes or your own values in dp.\nOpacity and window borders: how transparent the window is and whether a frame is needed for easy grabbing.\nSnap to edges / Lock: the window snaps to the screen edge after release, or can\'t be moved at all.\n\n "BEHAVIOR" TAB\nTap reactions / Stella\'s phrases: random emotions on tap and periodic hint phrases.\nBattery reaction / time of day: Stella comments on the phone\'s charge level and greets you in the morning/evening/night.\nAnimation speed: how fast the idle animation plays.\nPhysics when moving the window / Wind strength: hair and clothes sway when the window is dragged and from the "wind", a light constant animation.\n\n "CAMERA AND LIGHT" TAB\nModel rotation: manual rotation/tilt and camera zoom values, plus turning on the "one-finger rotate" mode (see gestures above).\nLighting: brightness and color of the main scene light.\nSkin / Clothes / Hair: brightness and HEX color for recoloring the model\'s materials.\nFPS limit: 60 is the smoothest, 30/24 saves battery on weak phones.\n\n "MODELS" TAB\nUpload new model / Model list: all previously loaded .vrm files are saved here, tap a model in the list to switch to it without loading again.\nModel change command: your own text phrase, sending it opens the file picker.\n\n STATISTICS\nShows the number of touches, dances, sessions and unlocked achievements.', (''
 
                     ' ЖЕСТЫ (управление моделью)\n'
                     'Один тап — Стелла показывает случайную эмоцию.\n'
@@ -3237,18 +3102,9 @@ class WaifuPlugin(BasePlugin):
                     'неё без повторной загрузки.\n'
                     'Команда смены модели — своя текстовая фраза, при отправке которой '
                     'откроется выбор файла.\n\n'
-
-                    ' ВКЛАДКА «18+»\n'
-                    'Каталог моделей — внешняя ссылка на дополнительный каталог моделей '
-                    '18+, доступна только совершеннолетним.\n\n'
-
                     ' СТАТИСТИКА\n'
                     'Показывает количество касаний, танцев, сессий и открытые '
-                    'достижения.\n\n'
-
-                    ' РАЗРАБОТЧИКИ И ПОДДЕРЖКА\n'
-                    '@lyzos, @rei_plugins, канал поддержки — ссылки доступны на этой же '
-                    'вкладке ниже.'))
+                    'достижения.'))
                 )
                 bld=AlertDialogBuilder(act)
                 bld.set_title(_mz_t("Довідка Stella", "Stella help", "Справка по Stella"))
@@ -3448,18 +3304,6 @@ class WaifuPlugin(BasePlugin):
         self.ss("wind_strength",iv)
         if self._comp: self._comp._js("if(window.setWindStrength)setWindStrength("+str(iv)+");")
 
-    def _open_mature_catalog(self,view=None):
-        if not bool(self.gs("age_confirmed")):
-            try: BulletinHelper.show_info(_mz_t("Щоб відкрити каталог, потрібно підтвердити вік 18+", "You need to confirm you are 18+ to open the catalog", "Нужно подтвердить возраст 18+, чтобы открыть каталог"))
-            except Exception: pass
-            run_on_ui_thread(self._show_age_gate_dialog, 300)
-            return
-        if not MATURE_CATALOG_URL:
-            try: BulletinHelper.show_info(_mz_t("Посилання на каталог ще не налаштовано", "The catalog link is not set up yet", "Ссылка на каталог ещё не настроена"))
-            except Exception: pass
-            return
-        self._open_url(MATURE_CATALOG_URL)
-
     LIGHT_COLORS = ["#FFFFFF","#FFE4C4","#CFE8FF","#FFD1E8","#D6FFCF"]
     def _on_light_color(self, i):
         try:
@@ -3629,7 +3473,7 @@ class WaifuPlugin(BasePlugin):
         top=[
             Selector(key="settings_tab",text=_mz_t("Вкладка", "Tab", "Вкладка"),default=0,
                      items=[_mz_t("Основне", "Main", "Основное"),_mz_t("Вікно", "Window", "Окно"),_mz_t("Поведінка", "Behavior", "Поведение"),_mz_t("Камера і світло", "Camera and light", "Камера и свет"),
-                            _mz_t("Моделі", "Models", "Модели"),"18+",_mz_t("Довідка", "Help", "Справка")],
+                            _mz_t("Моделі", "Models", "Модели"),_mz_t("Довідка", "Help", "Справка")],
                      icon="msg_settings",
                      on_change=lambda i: self.ss("settings_tab",i,r=True)),
         ]
@@ -3775,21 +3619,12 @@ class WaifuPlugin(BasePlugin):
                       subtext=_mz_t("Надсилання цієї фрази відкриє вибір файлу", "Sending this phrase opens the file picker", "Отправка этой фразы откроет выбор файла"),
                       icon="msg_edit",on_change=self._ci_str("custom_model_cmd")),
             ]
-        elif tab==5:
-            mid=[
-                Header(text=_mz_t("Дод. вміст (18+)", "Extra content (18+)", "Доп. контент (18+)")),
-                Text(text=_mz_t(" Лише 18+", " 18+ only", " Только 18+"),
-                     subtext=_mz_t("Лише для повнолітніх", "For adults only", "Только для совершеннолетних"),
-                     icon="msg_info",red=True),
-                Text(text=_mz_t("Каталог моделей", "Model catalog", "Каталог моделей"),icon="msg_link",accent=True,
-                     on_click=self._open_mature_catalog),
-            ]
         else:
             mid=[
                 Header(text=_mz_t("Ласкаво просимо", "Welcome", "Добро пожаловать")),
                 Text(text=_mz_t("Відкрити довідку", "Open help", "Открыть справку"),icon="msg_info",accent=True,
                      on_click=self._show_help_dialog,
-                     subtext=_mz_t("Розроблено за підтримки проєкту «Голосовий помічник для ПК: Stella». Жести, усі вкладки й функції повністю всередині, без обрізання тексту", "Developed with the support of the project \"Voice assistant for PC: Stella\". Gestures, all tabs and features are fully inside, with no text cut off", ("Разработано при поддержке проекта «Голосовой помощник "
+                     subtext=_mz_t("Жести, усі вкладки й функції повністю всередині, без обрізання тексту", "Developed with the support of the project \"Voice assistant for PC: Stella\". Gestures, all tabs and features are fully inside, with no text cut off", ("Разработано при поддержке проекта «Голосовой помощник "
                              "для ПК — Stella». Жесты, все вкладки и функции — полностью "
                              "внутри, без обрезки текста"))),
                 Divider(),

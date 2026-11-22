@@ -72,7 +72,7 @@ QuantaHut = quantahut
 __id__ = "ui_tweaks"
 __name__ = "UiTweaks"
 __type__ = "plugin"
-__description__ = "Well sometimes you just need to tweak things... (requires [QuantaHut](https://t.me/QuantaPlugins/228))"
+__description__ = "Well sometimes you just need to tweak things... Requires the QuantaHut plugin from the MZGram catalog."
 __version__ = "1.8.5.8-Beta-mz1"
 __author__ = "MZGram"
 __beta__ = "True"
@@ -2284,9 +2284,6 @@ class UiTweaksPlugin(BasePlugin):
             
             
             Header(text=getString("links", "Links")),
-            Text(text=getString("channel", "Channel"), icon="msg_channel_solar", on_click=lambda v: self._open_channel()),
-            Text(text=getString("chats", "Chats"), icon="msg_groups_solar", on_click=lambda v: self._open_group()),
-            Text(text=getString("tips_and_tricks", "Tips and Tricks"), icon="menu_feature_reactions_solar", on_click=lambda v: self._open_tips()),
             Text(text=getString("crowdin", "Crowdin"), icon="msg_translate_solar", on_click=lambda v: self._open_translation()),
         ]
 
@@ -2502,47 +2499,6 @@ class UiTweaksPlugin(BasePlugin):
         from quantahut import restart_app
         restart_app()
     
-    def _copy_ton_address(self):
-        clipboard = get_last_fragment().getParentActivity().getSystemService(Context.CLIPBOARD_SERVICE)
-        clipboard.setPrimaryClip(ClipData.newPlainText("TON Address", "UQAZFPWF06gVehwcXlYDj3AWgx6i0x0VwUZOOUJ0A_gTcshN"))
-        BulletinHelper.show_copied_to_clipboard(getString("ton_address_copied", "TON address copied to clipboard"))
-    
-    def _open_channel(self):
-        try:
-            from client_utils import get_last_fragment
-            from java import jclass
-            fragment = get_last_fragment()
-            if fragment:
-                MessagesController = jclass("org.telegram.messenger.MessagesController")
-                messages_controller = MessagesController.getInstance(0)
-                messages_controller.openByUserName("QuantaPlugins", fragment, 1)
-        except Exception as e:
-            self.log(f"Error opening channel: {e}")
-    
-    def _open_group(self):
-        try:
-            from client_utils import get_last_fragment
-            from java import jclass
-            fragment = get_last_fragment()
-            if fragment:
-                MessagesController = jclass("org.telegram.messenger.MessagesController")
-                messages_controller = MessagesController.getInstance(0)
-                messages_controller.openByUserName("QuantaPlayground", fragment, 1)
-        except Exception as e:
-            self.log(f"Error opening group: {e}")
-    
-    def _open_tips(self):
-        try:
-            from client_utils import get_last_fragment
-            from java import jclass
-            fragment = get_last_fragment()
-            if fragment:
-                MessagesController = jclass("org.telegram.messenger.MessagesController")
-                messages_controller = MessagesController.getInstance(0)
-                messages_controller.openByUserName("QuantaTips", fragment, 1)
-        except Exception as e:
-            self.log(f"Error opening tips: {e}")
-
     def _open_translation(self):
         from android.content import Intent
         from android.net import Uri

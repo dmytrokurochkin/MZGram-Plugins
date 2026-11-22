@@ -1278,20 +1278,20 @@ class TGLinkKitPlugin(BasePlugin):
 
         def preview_card(v=None):
             values = {
-                "name": "QZy Example",
+                "name": "User Example",
                 "type": tr(lang, "user"),
-                "username": "qzy",
-                "at_username": "@qzy",
-                "username_line": "@qzy",
-                "profile": "https://t.me/qzy",
+                "username": "username",
+                "at_username": "@username",
+                "username_line": "@username",
+                "profile": "https://t.me/username",
                 "id": "123456789",
                 "deep": "tg://user?id=123456789",
-                "resolve": "tg://resolve?domain=qzy",
-                "best": "https://t.me/qzy",
-                "qr": "https://t.me/qzy",
-                "qr_target": "https://t.me/qzy",
-                "mention_md": "[QZy Example](tg://user?id=123456789)",
-                "mention_html": '<a href="tg://user?id=123456789">QZy Example</a>',
+                "resolve": "tg://resolve?domain=username",
+                "best": "https://t.me/username",
+                "qr": "https://t.me/username",
+                "qr_target": "https://t.me/username",
+                "mention_md": "[User Example](tg://user?id=123456789)",
+                "mention_html": '<a href="tg://user?id=123456789">User Example</a>',
             }
             copy_to_clipboard(build_card(values, style, template))
             BulletinHelper.show_success(tr(lang, "preview_done"))
