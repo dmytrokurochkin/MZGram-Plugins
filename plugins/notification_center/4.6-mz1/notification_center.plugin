@@ -1786,11 +1786,7 @@ class NotificationCenterPlugin(BasePlugin):
                 icon="msg_link",
                 on_click=self._open_url_internal("https://telegra.ph/Dokumentaciya-k-plaginu-Notification-Center-06-27"),
             ),
-            Text(
-                text=self._t("author_channel"),
-                icon="msg_channel",
-                on_click=self._open_url_internal("https://t.me/MaxExteraPlugins"),
-            ),
+
             Divider(),
             Header(text=self._t("header_nc")),
             Text(

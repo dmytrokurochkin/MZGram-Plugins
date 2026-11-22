@@ -238,7 +238,7 @@ class MuteLsPlugin(BasePlugin):
             Header(text=_mz_t("Діагностика", "Diagnostics", "Диагностика")),
             Text(
                 text=_mz_t("Скопіювати журнал", "Copy log", "Скопировать журнал"),
-                subtext=_mz_t("Надішліть його розробнику, якщо мут не працює", "Send it to the developer if the mute does not work", "Пришлите его разработчику, если мут не работает"),
+                subtext=_mz_t("Надішліть його для діагностики, якщо мут не працює", "Send it for diagnostics if the mute does not work", "Пришлите его для диагностики, если мут не работает"),
                 icon="msg_copy",
                 on_click=lambda view: self._copy_diag(),
             ),

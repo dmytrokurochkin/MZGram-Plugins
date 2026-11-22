@@ -1,6 +1,6 @@
 __id__          = "miniapp_devtools"
 __name__        = "MiniApp DevTools"
-__description__ = "Full Chrome-style DevTools for Telegram Mini Apps.\nNetwork tab with headers, bodies and binary decoder.\nResizable. Stays open across restarts.\n\nBy @xusanboyman200"
+__description__ = "Full Chrome-style DevTools for Telegram Mini Apps.\nNetwork tab with headers, bodies and binary decoder.\nResizable. Stays open across restarts."
 __author__ = "MZGram"
 __version__     = "3.2.0-mz1"
 __min_version__ = "11.12.0"
@@ -390,7 +390,7 @@ class MiniAppDevToolsPlugin(BasePlugin):
         except Exception as e:
             self.log(f"[DevTools] loadUrl hook failed: {e}")
 
-        BulletinHelper.show_info("MiniApp DevTools v3.2 — @xusanboyman200")
+        BulletinHelper.show_info("MiniApp DevTools v3.2")
 
     def on_plugin_unload(self):
         self.log("[DevTools] unloaded")
@@ -399,7 +399,7 @@ class MiniAppDevToolsPlugin(BasePlugin):
         return [
             Header(text="MiniApp DevTools v3.2"),
             Text(
-                text="by @xusanboyman200",
+                text="MiniApp DevTools",
                 subtext="Chrome-style DevTools injected into every Telegram Mini App.",
                 icon="msg_info",
             ),

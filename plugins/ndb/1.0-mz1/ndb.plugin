@@ -1,37 +1,3 @@
-"""
-
-                                                       
-                              +##-.                    
-                              -###.                    
-                             ###+.  -#+                
-                                    .#                 
-                                -+# ##+                
-                          .--   #+-                    
-           #-           +######.  ...                  
-            #-         .######.+#######-               
-             #-         ####+.##########-   +##        
-              #+      ......####+-#######   ##-        
-               ++   -##########.  #######  .##         
-                .-------------    +######. -##         
-        ######################    .####### +##         
-        ###################### .+######### +##         
-        ###+              +############### ##+         
-        ###+            -###############+..##.         
-        ###+           ####### -#############          
-        ###+         .######## .##.       .##          
-        ###+        -####+.### .##.       .##          
-        ###+       #####. .### .##.       .##          
-        ###+      #####   .### .##.       .##          
-        ###+      ###+    .### .##.       .##          
-                                                       
-                                                       
-                                                       
--->  I tried so hard that I overdid it>< <--
-
-``  plugin made by: @kA1rplugins
-``  if copying in full is not allowed! but you can change it, just ask the author of this plugin^`^
-
-"""
 # MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
 def _mz_t(uk, en, ru=None):
     try:

@@ -14,7 +14,7 @@ def _mz_t(uk, en, ru=None):
 __id__ = "music_editor"
 __name__ = "Music Editor"
 __description__ = (
-    "Music editor inside the built-in player: tags, cover, trim, speed and pitch, reverb, bass, EQ, 8D, bitrate. Open the player, then ⋮ and Track editor.\n\nChannel: @goodgamenicetry"
+    "Music editor inside the built-in player: tags, cover, trim, speed and pitch, reverb, bass, EQ, 8D, bitrate. Open the player, then ⋮ and Track editor."
 )
 __author__ = "MZGram"
 __version__ = "1.0.0-mz1"
@@ -635,7 +635,6 @@ class MusicEditorPlugin(BasePlugin):
             Switch(key="player_button", text=_mz_t("Кнопка «Редактор треку» у плеєрі", "Track editor button in the player", "Кнопка «Редактор трека» в плеере"), default=True),
             Divider(text=_mz_t("Відкрийте плеєр музики → «⋮» → «Редактор треку». Без змін звуку mp3/m4a не перекодовуються, змінюються лише теги.", "Open the music player, then ⋮ and Track editor. Without sound changes, mp3/m4a files are not re-encoded, only the tags change.", ("Откройте плеер музыки → «⋮» → «Редактор трека». "
                          "Без изменений звука mp3/m4a не перекодируются — меняются только теги."))),
-            Divider(text=_mz_t("Автор: @ympuxyecoc · Канал: @goodgamenicetry", "Author: @ympuxyecoc · Channel: @goodgamenicetry", "Автор: @ympuxyecoc · Канал: @goodgamenicetry")),
         ]
 
     # ---------------------------------------------------------- button in the player

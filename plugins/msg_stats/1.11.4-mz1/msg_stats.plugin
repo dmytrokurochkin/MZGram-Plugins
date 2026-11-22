@@ -78,8 +78,8 @@ PAGE_PAUSE = 0.05
 TOP_ROWS = 7
 
 RANGES = ["today", "24h", "week", "month", "all"]
-CHANNEL_URL = "https://t.me/metawkaPlugins"
-AUTHOR_URL = "https://t.me/metawka"
+CHANNEL_URL = ""
+AUTHOR_URL = ""
 CHAT_ROWS = 40
 CACHE_DRAWS = 10
 CACHE_REPORTS = 12
@@ -3239,10 +3239,7 @@ class StatsPlugin(BasePlugin):
             add(self._text_view(activity, _t("s_about"), 13, muted), bottom=14)
 
         def link_rows():
-            add(self._setting_row(activity, _t("s_channel"), "@metawkaPlugins",
-                                  lambda: self._open_url(CHANNEL_URL), text, muted, accent), bottom=8)
-            add(self._setting_row(activity, _t("s_author"), "@metawka",
-                                  lambda: self._open_url(AUTHOR_URL), text, muted, accent), bottom=14)
+            pass
 
         def setting_rows():
             loaded = self._history_loaded(account)

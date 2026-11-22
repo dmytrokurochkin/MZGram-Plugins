@@ -79,7 +79,6 @@ class MessageFilterCleanerPlugin(BasePlugin):
                 icon="msg_notifications",
                 on_change=self.refresh_settings
             ),
-            Divider(_mz_t("Розроблено @Toolgool", "Developed by @Toolgool", "Разработано @Toolgool"))
         ]
         return settings
 

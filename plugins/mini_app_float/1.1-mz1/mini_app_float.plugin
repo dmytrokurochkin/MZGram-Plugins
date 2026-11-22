@@ -1901,10 +1901,14 @@ class MiniAppFloatPlugin(BasePlugin):
 
     # ---------- "Support" (a window like in Plugin Editor) ----------
 
-    _SUPPORT_USER = "PLOXOI_RRO"
-    _SUPPORT_URL = "https://t.me/PLOXOI_RRO"
+    _SUPPORT_USER = ""
+    _SUPPORT_URL = ""
 
     def _show_support(self):
+        return
+    def _unused_support(self):
+        return
+    def _unused_support(self):
         def show():
             ctx = _activity()
             if ctx is None:
@@ -2380,6 +2384,5 @@ class MiniAppFloatPlugin(BasePlugin):
                 on_click=self._open_browser_settings,
             ),
             Divider(text=_mz_t("Працює для міні-застосунків і сайтів у вбудованому браузері.", "Works for mini apps and sites in the built-in browser.", "Работает для мини-аппов и сайтов во встроенном браузере.")),
-            Text(text=_mz_t("Підтримка", "Support", "Поддержка"), icon="msg_gift_premium", accent=True,
-                 on_click=lambda view=None: self._show_support()),
+
         ]

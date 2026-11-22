@@ -13,7 +13,7 @@ def _mz_t(uk, en, ru=None):
 
 __id__ = "oneline"
 __name__ = "Oneline"
-__description__ = "Oneline made by @devavaika"
+__description__ = "Connect dots into lines puzzle game."
 __author__ = "MZGram"
 __min_version__ = "12.5.1"
 __version__ = "1.0.0-mz1"
@@ -64,7 +64,7 @@ def t(key, **kwargs):
         "reset_progress": _mz_t("Скинути прогрес", "Reset Progress", "Сбросить прогресс"),
         "reset_confirm": _mz_t("Ви впевнені?", "Are you sure?", "Вы уверены?"),
         "reset_success": _mz_t("Прогрес скинуто!", "Progress reset!", "Прогресс сброшен!"),
-        "credit": "Oneline made by @devavaika",
+        "credit": "",
         "streak": _mz_t("Серія: {n}", "Streak: {n}", "Серия: {n}"),
         "cells_left": _mz_t("Клітинок: {done}/{total}", "Cells: {done}/{total}", "Клеток: {done}/{total}"),
         "congrats": _mz_t("Вітаємо! Усі 500 рівнів пройдено!", "Congratulations! All 500 levels completed!", "Поздравляем! Все 500 уровней пройдены!"),
@@ -90,7 +90,7 @@ def t(key, **kwargs):
         "reset_progress": "Reset Progress",
         "reset_confirm": "Are you sure?",
         "reset_success": "Progress reset!",
-        "credit": "Oneline made by @devavaika",
+        "credit": "",
         "streak": "Streak: {n}",
         "cells_left": "Cells: {done}/{total}",
         "congrats": "Congratulations! All 500 levels completed!",
@@ -407,7 +407,6 @@ class OnelinePlugin(BasePlugin):
             red=True,
             on_click=self.reset_progress
         ))
-        items.append(Divider(text=t("credit")))
         items.append(Divider(text=t("command_help")))
         return items
 

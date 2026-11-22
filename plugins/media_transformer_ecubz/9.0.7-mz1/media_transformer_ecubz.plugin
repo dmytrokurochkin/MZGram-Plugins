@@ -172,20 +172,10 @@ class Plugin(BasePlugin):
         return False
 
     def open_channel(self, view=None):
-        try:
-            Browser.openUrl(
-                ApplicationLoader.applicationContext, "https://t.me/eCubzPlugins"
-            )
-        except Exception:
-            pass
+        pass
 
     def open_donate(self, view=None):
-        try:
-            Browser.openUrl(
-                ApplicationLoader.applicationContext, "https://t.me/eCubzPlugins/29"
-            )
-        except Exception:
-            pass
+        pass
 
     def create_settings(self):
         strings = get_strings()
@@ -255,21 +245,7 @@ class Plugin(BasePlugin):
             ),
             Divider(text=strings["crop_pos_desc"]),
             Divider(),
-            Header(text=strings["support_header"]),
-            Text(
-                text=strings["channel_title"],
-                subtext=strings["channel_desc"],
-                icon="msg_channel",
-                accent=True,
-                on_click=self.open_channel,
-            ),
-            Text(
-                text=strings["donate_title"],
-                subtext=strings["donate_desc"],
-                icon="msg_link",
-                accent=True,
-                on_click=self.open_donate,
-            ),
+
         ]
 
         debug_enabled = self.get_setting("debug_mode_enabled", False)
