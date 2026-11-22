@@ -62,6 +62,43 @@ GENERIC_MEDIA_LABELS = {
     '[медиа]': frozenset(('медиа', 'вложение', 'attachment', 'media')),
 }
 
+# The same labels as the Ukrainian app writes them into the clipboard
+for _key, _uk in {
+    '[фотография]': ('фотографія', 'зображення'),
+    '[гиф]': ('гіф', 'анімація'),
+    '[видео]': ('відео', 'відеозапис'),
+    '[аудио]': ('аудіо', 'аудіофайл', 'музика'),
+    '[голосовое сообщение]': ('голосове повідомлення', 'аудіоповідомлення'),
+    '[видеосообщение]': ('відеоповідомлення', 'кругле відео'),
+    '[геопозиция]': ('геопозиція', 'місцезнаходження', 'розташування'),
+    '[опрос]': ('опитування',),
+    '[стикер]': ('стікер',),
+    '[медиа]': ('медіа', 'вкладення'),
+}.items():
+    GENERIC_MEDIA_LABELS[_key] = GENERIC_MEDIA_LABELS[_key] | frozenset(_uk)
+
+# Keys above are internal; this is how each one reads in the copied text
+MARKER_LABELS = {
+    '[фотография]': ('[фото]', '[photo]'),
+    '[гиф]': ('[GIF]', '[GIF]'),
+    '[видео]': ('[відео]', '[video]'),
+    '[аудио]': ('[аудіо]', '[audio]'),
+    '[голосовое сообщение]': ('[голосове повідомлення]', '[voice message]'),
+    '[видеосообщение]': ('[відеоповідомлення]', '[video message]'),
+    '[документ]': ('[документ]', '[document]'),
+    '[контакт]': ('[контакт]', '[contact]'),
+    '[геопозиция]': ('[геопозиція]', '[location]'),
+    '[опрос]': ('[опитування]', '[poll]'),
+    '[стикер]': ('[стікер]', '[sticker]'),
+    '[медиа]': ('[медіа]', '[media]'),
+    '[трек]': ('[трек]', '[track]'),
+}
+
+
+def _show_marker(marker):
+    labels = MARKER_LABELS.get(marker)
+    return _mz_t(labels[0], labels[1], marker) if labels else marker
+
 class GetMessageContentHook(MethodHook):
 
     def __init__(self, plugin):
@@ -840,7 +877,7 @@ class FormattedCopyPlugin(BasePlugin):
         # Handle sticker documents before music title/author fallbacks. Some
         # client builds expose sticker.webp through generic document helpers.
         if self._is_sticker_message(message):
-            return '[стикер]'
+            return _show_marker('[стикер]')
 
         message_type = self._to_int(self._field(message, 'type'), -1)
         is_round = bool(self._call(message, 'isRoundVideo')) or message_type == 5
@@ -871,7 +908,7 @@ class FormattedCopyPlugin(BasePlugin):
         if music is not None:
             title, performer = music
             track_name = ' - '.join(part for part in (title, performer) if part)
-            track_line = '[трек]' + ((' ' + track_name) if track_name else '')
+            track_line = _show_marker('[трек]') + ((' ' + track_name) if track_name else '')
             # Keep a real caption, but replace generic media placeholders with metadata.
             if body_is_authored_text and body.strip():
                 return body.rstrip() + '\n' + track_line
@@ -884,21 +921,22 @@ class FormattedCopyPlugin(BasePlugin):
             return label + ('\n' + cleaned if cleaned else '')
         if marker and (not body_is_authored_text):
             body = self._strip_generic_media_labels(body, marker)
+        shown = _show_marker(marker)
         if marker == '[фотография]':
             # Put the photo marker first, then the actual caption/text.
             cleaned_body = body.strip()
             if cleaned_body:
-                if cleaned_body.startswith(marker):
+                if cleaned_body.startswith(shown):
                     return cleaned_body
-                cleaned_body = cleaned_body.replace(marker, '').strip()
-                return marker + ('\n' + cleaned_body if cleaned_body else '')
-            return marker
+                cleaned_body = cleaned_body.replace(shown, '').strip()
+                return shown + ('\n' + cleaned_body if cleaned_body else '')
+            return shown
         if marker:
             if body.strip():
-                if marker not in body:
-                    return body.rstrip() + '\n' + marker
+                if shown not in body:
+                    return body.rstrip() + '\n' + shown
                 return body
-            return marker
+            return shown
         if body.strip():
             return body
         if self._field(owner, 'action') is not None:

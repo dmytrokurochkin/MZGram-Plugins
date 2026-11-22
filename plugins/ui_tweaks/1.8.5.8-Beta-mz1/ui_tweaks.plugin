@@ -2283,8 +2283,6 @@ class UiTweaksPlugin(BasePlugin):
             ),
             
             
-            Header(text=getString("links", "Links")),
-            Text(text=getString("crowdin", "Crowdin"), icon="msg_translate_solar", on_click=lambda v: self._open_translation()),
         ]
 
     def _collect_all_settings_with_values(self):
@@ -2498,12 +2496,6 @@ class UiTweaksPlugin(BasePlugin):
     def _restart_after_bulletin(self):
         from quantahut import restart_app
         restart_app()
-    
-    def _open_translation(self):
-        from android.content import Intent
-        from android.net import Uri
-        intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://crowdin.com/project/uitweaks"))
-        get_last_fragment().getParentActivity().startActivity(intent)     
     
     def _open_language(self):
         try:

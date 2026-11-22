@@ -4577,8 +4577,8 @@
       "version": "1.0.1-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/formatted_copy/1.0.1-mz1/formatted_copy.plugin",
-      "sha256": "5c1194dc3544ee9b5ba8b92ae8b7f7ef768f2a0d4da3450aef6a16bd1353121d",
-      "size": 46179,
+      "sha256": "c0a75798f25228b755b070f0a24f5c5700ba11d9b297fa7383f515279feb4267",
+      "size": 48217,
       "description": "Copies messages with their formatting",
       "description_i18n": {
         "en": "Copies messages with their formatting",
@@ -5897,8 +5897,8 @@
       "version": "1.0.0-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/lang_maker/1.0.0-mz1/lang_maker.plugin",
-      "sha256": "35e66a6ce65894f76873e9d6826f94bb779a8cf46792a8c238e48dfde2a6c62a",
-      "size": 31151,
+      "sha256": "01d93618fb711104edbc715fcbde0b898e19126907f5f1d2c5125d3cd40eb9cb",
+      "size": 31365,
       "description": "A Telegram language pack editor: pick a base, edit the lines you need right in the plugin settings and apply the language with one button.",
       "description_i18n": {
         "en": "A Telegram language pack editor: pick a base, edit the lines you need right in the plugin settings and apply the language with one button.",
@@ -9413,8 +9413,8 @@
       "version": "2.1.0-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/requisites_sender/2.1.0-mz1/rekvv.plugin",
-      "sha256": "b2c4783668851d45276c0902a47a32ea33f144430b7342904b0371a1a4f27c67",
-      "size": 10406,
+      "sha256": "bb448b25ebd30b779543d7be5985f93ceaafedc3cd2531b42330f50a54a24280",
+      "size": 10490,
       "description": "Sends the payment details from the settings with.rekv; be sure to check.helprekv",
       "description_i18n": {
         "en": "Sends the payment details from the settings with.rekv; be sure to check.helprekv",
@@ -11450,8 +11450,8 @@
       "version": "1.8.5.8-Beta-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/ui_tweaks/1.8.5.8-Beta-mz1/ui_tweaks.plugin",
-      "sha256": "175ee50d335e325c225a354f2865fb86645b1d2e4d73060d7c169d9bb2909acf",
-      "size": 646395,
+      "sha256": "474f811374c0215da37f624301adfbb6f8c7e9cb669497aec84dae5e027c5232",
+      "size": 645925,
       "description": "Well sometimes you just need to tweak things... (requires QuantaHut)",
       "description_i18n": {
         "en": "Well sometimes you just need to tweak things... (requires QuantaHut)",

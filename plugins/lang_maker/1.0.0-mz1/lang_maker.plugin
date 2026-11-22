@@ -52,10 +52,10 @@ STRINGS_URL = (
 )
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 MODELS_URL = "https://api.groq.com/openai/v1/models"
-DOCS_URL = "https://telegra.ph/Stroki-Telegram--oglavlenie-09-20"
 
 META = ("LanguageName", "LanguageNameInEnglish", "LanguageCode")
 PLURALS = ("_zero", "_one", "_two", "_few", "_many", "_other")
+BASE_CODES = ("", "uk", "ru")  # base_pack index: English, Ukrainian, Russian
 PLACEHOLDERS = re.compile(r"%\d+\$[sdf]|%[sdf]|\*\*|__|\\n")
 
 MAIN_MODULES = (
@@ -71,9 +71,12 @@ AI_LIMIT = 120
 
 class Plugin(BasePlugin):
     _en = None
-    _ru = None
+    _packs = None
 
     def on_plugin_load(self):
+        # base_lang used to be 0 English, 1 Russian; base_pack is 0 English, 1 Ukrainian, 2 Russian
+        if self.get_setting("base_pack", None) is None:
+            self.set_setting("base_pack", 2 if self.get_setting("base_lang", 0) == 1 else 0)
         if not self._read("en.json"):
             run_on_queue(self._download_english)
 
@@ -96,10 +99,19 @@ class Plugin(BasePlugin):
             self._en = self._read("en.json")
         return self._en
 
-    def _russian(self) -> Dict[str, str]:
-        if not self._ru:
-            self._ru = self._read("ru.json")
-        return self._ru
+    def _pack(self, code: str) -> Dict[str, str]:
+        if self._packs is None:
+            self._packs = {}
+        if not self._packs.get(code):
+            self._packs[code] = self._read(code + ".json")
+        return self._packs[code]
+
+    def _base_code(self) -> str:
+        return BASE_CODES[int(self.get_setting("base_pack", 0) or 0) % len(BASE_CODES)]
+
+    def _base_pack(self) -> Dict[str, str]:
+        code = self._base_code()
+        return self._pack(code) if code else {}
 
     def _download_english(self):
         try:
@@ -136,9 +148,10 @@ class Plugin(BasePlugin):
 
     def _base(self) -> Dict[str, str]:
         en = self._english()
-        if self.get_setting("base_lang", 0) == 1 and self._russian():
+        pack = self._base_pack()
+        if pack:
             merged = dict(en)
-            merged.update({k: v for k, v in self._russian().items() if k in en})
+            merged.update({k: v for k, v in pack.items() if k in en})
             return merged
         return en
 
@@ -150,7 +163,7 @@ class Plugin(BasePlugin):
 
     def _edited(self) -> Dict[str, str]:
         prefix = "v%d_" % self._gen()
-        en, ru = self._english(), self._russian()
+        en, base = self._english(), self._base_pack()
         out = {}
         for name, value in self.export_settings().items():
             if not name.startswith(prefix) or not value:
@@ -158,7 +171,7 @@ class Plugin(BasePlugin):
             key = name[len(prefix):]
             if key not in en:
                 continue
-            if value in (self._human(en[key]), self._human(ru.get(key, ""))):
+            if value in (self._human(en[key]), self._human(base.get(key, ""))):
                 continue
             out[key] = value
         return out
@@ -196,8 +209,8 @@ class Plugin(BasePlugin):
                 icon="msg_info", on_change=self._on_code,
             ),
             Selector(
-                key="base_lang", text=_mz_t("Основа мови", "Base language", "Основа языка"), default=0,
-                items=["English", "Русский"], icon="msg_language",
+                key="base_pack", text=_mz_t("Основа мови", "Base language", "Основа языка"), default=0,
+                items=["English", "Українська", "Русский"], icon="msg_language",
                 on_change=self._on_base,
             ),
             Divider(text=_mz_t("Рядки, які ти не змінював, беруться з основи", "Strings you haven't changed come from the base", "Строки, которые ты не менял, берутся из основы")),
@@ -255,11 +268,6 @@ class Plugin(BasePlugin):
             ),
             Divider(),
             Text(text=_mz_t("Як це працює", "How it works", "Как это работает"), icon="msg_help", on_click=lambda v: self._help()),
-            Text(
-                text=_mz_t("Усі рядки Telegram (telegra.ph)", "All Telegram strings (telegra.ph)", "Все строки Telegram (telegra.ph)"), icon="msg_link",
-                on_click=lambda v: (copy_to_clipboard(DOCS_URL),
-                                    BulletinHelper.show_success(_mz_t("Посилання скопійовано", "Link copied", "Ссылка скопирована"))),
-            ),
         ]
         return items
 
@@ -356,11 +364,12 @@ class Plugin(BasePlugin):
             self.set_setting("lang_code", clean, reload_settings=True)
 
     def _on_base(self, index: int):
-        if index == 1 and not self._russian():
-            BulletinHelper.show_info(_mz_t("Завантажую російський пакет…", "Downloading the Russian pack…", "Скачиваю русский пакет…"))
-            self._download_russian()
+        code = BASE_CODES[index % len(BASE_CODES)]
+        if code and not self._pack(code):
+            BulletinHelper.show_info(_mz_t("Завантажую мовний пакет…", "Downloading the language pack…", "Скачиваю языковой пакет…"))
+            self._download_pack(code, index)
         else:
-            self.set_setting("base_lang", index, reload_settings=True)
+            self.set_setting("base_pack", index, reload_settings=True)
 
     def _check(self, key: str, value: str):
         original = self._human(self._base().get(key, ""))
@@ -369,13 +378,13 @@ class Plugin(BasePlugin):
         self.set_setting(self._name(key), original, reload_settings=True)
         BulletinHelper.show_error(_mz_t("Не чіпай %s і ** у тексті, вони потрібні Telegram", "Don't touch %s and ** in the text, Telegram needs them", "Не трогай %s и ** в тексте, они нужны Telegram") % "%1$s")
 
-    def _download_russian(self):
+    def _download_pack(self, code: str, index: int):
         from org.telegram.tgnet import TLRPC
 
         def done(response, error):
             if error or response is None:
-                BulletinHelper.show_error(_mz_t("Російський пакет не завантажився", "Couldn't download the Russian pack", "Русский пакет не скачался"))
-                self.set_setting("base_lang", 0, reload_settings=True)
+                BulletinHelper.show_error(_mz_t("Мовний пакет не завантажився", "Couldn't download the language pack", "Языковой пакет не скачался"))
+                self.set_setting("base_pack", 0, reload_settings=True)
                 return
             pack = {}
             items = response.strings
@@ -389,13 +398,15 @@ class Plugin(BasePlugin):
                     for suffix, form in zip(PLURALS, forms):
                         if form:
                             pack[str(s.key) + suffix] = self._raw(str(form))
-            self._write("ru.json", pack)
-            self._ru = pack
-            BulletinHelper.show_success(_mz_t("Російський пакет: %d рядків", "Russian pack: %d strings", "Русский пакет: %d строк") % len(pack))
-            self.set_setting("base_lang", 1, reload_settings=True)
+            self._write(code + ".json", pack)
+            if self._packs is None:
+                self._packs = {}
+            self._packs[code] = pack
+            BulletinHelper.show_success(_mz_t("Мовний пакет: %d рядків", "Language pack: %d strings", "Языковой пакет: %d строк") % len(pack))
+            self.set_setting("base_pack", index, reload_settings=True)
 
         req = TLRPC.TL_langpack_getLangPack()
-        req.lang_code = "ru"
+        req.lang_code = code
         send_request(req, done)
 
     def _setting(self, name: str) -> str:
@@ -419,10 +430,10 @@ class Plugin(BasePlugin):
 
     def _ask_groq(self, model: str, key: str, style: str, part: Dict[str, str]) -> Dict[str, str]:
         system = (
-            "Ты переделываешь строки интерфейса Telegram под нужный язык или стиль. "
-            "Тебе дают JSON {ключ: текст}. Верни только JSON {ключ: новый текст} с теми же "
-            "ключами. Плейсхолдеры %1$s, %d, ** и __ и последовательность \\n оставляй "
-            "как есть. Без пояснений."
+            "You rewrite Telegram interface strings into the requested language or style. "
+            "You get JSON {key: text}. Return only JSON {key: new text} with the same keys. "
+            "Keep the placeholders %1$s, %d, ** and __ and the \\n sequence exactly as they are. "
+            "No explanations."
         )
         body = {
             "model": model,
@@ -430,7 +441,7 @@ class Plugin(BasePlugin):
             "response_format": {"type": "json_object"},
             "messages": [
                 {"role": "system", "content": system},
-                {"role": "user", "content": "Стиль: %s\n%s" % (style, json.dumps(part, ensure_ascii=False))},
+                {"role": "user", "content": "Style: %s\n%s" % (style, json.dumps(part, ensure_ascii=False))},
             ],
         }
         headers = {"Authorization": "Bearer " + key}
@@ -570,8 +581,8 @@ class Plugin(BasePlugin):
     def _help(self):
         self._dialog(
             _mz_t("Як це працює", "How it works", "Как это работает"),
-            _mz_t("1. Задай назву та код мови.\n2. Вибери основу: English або Русский. Рядки, які ти не змінював, залишаться цією мовою.\n3. Відкрий «Рядки», вибери модуль і натисни на рядок, щоб змінити його. Вставки на кшталт %1$s або ** змінювати не можна.\n4. За бажанням ШІ (Groq) перекладе модуль за тебе.\n5. «Застосувати мову» увімкне її одразу, «Надіслати .xml в Обране» збереже файл.", "1. Set the language name and code.\n2. Pick a base: English or Russian. Strings you haven't changed stay in that language.\n3. Open “Strings”, pick a module and tap a string to change it. Insertions such as %1$s or ** must not be changed.\n4. Optionally, AI (Groq) will translate the module for you.\n5. “Apply language” turns it on at once, “Send .xml to Saved Messages” saves the file.", ("1. Задай название и код языка.\n"
-            "2. Выбери основу: English или Русский. Строки, которые ты не менял, "
+            _mz_t("1. Задай назву та код мови.\n2. Вибери основу: English, Українська або Русский. Рядки, які ти не змінював, залишаться цією мовою.\n3. Відкрий «Рядки», вибери модуль і натисни на рядок, щоб змінити його. Вставки на кшталт %1$s або ** змінювати не можна.\n4. За бажанням ШІ (Groq) перекладе модуль за тебе.\n5. «Застосувати мову» увімкне її одразу, «Надіслати .xml в Обране» збереже файл.", "1. Set the language name and code.\n2. Pick a base: English, Ukrainian or Russian. Strings you haven't changed stay in that language.\n3. Open “Strings”, pick a module and tap a string to change it. Insertions such as %1$s or ** must not be changed.\n4. Optionally, AI (Groq) will translate the module for you.\n5. “Apply language” turns it on at once, “Send .xml to Saved Messages” saves the file.", ("1. Задай название и код языка.\n"
+            "2. Выбери основу: English, Українська или Русский. Строки, которые ты не менял, "
             "останутся на этом языке.\n"
             "3. Открой «Строки», выбери модуль и нажми на строку, чтобы изменить её. "
             "Такие вставки, как %1$s или **, менять нельзя.\n"

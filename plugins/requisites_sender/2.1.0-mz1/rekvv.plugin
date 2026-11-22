@@ -80,7 +80,8 @@ class RekvPlugin(BasePlugin):
         run_on_ui_thread(action)
 
     def _contains_russian(self, text: str) -> bool:
-        return bool(re.search('[а-яА-ЯёЁ]', str(text)))
+        # Letters that Russian has and Ukrainian does not; plain Cyrillic is fine
+        return bool(re.search('[ыЫэЭъЪёЁ]', str(text)))
 
     def _is_valid_username(self, username: str) -> bool:
         if not username:
