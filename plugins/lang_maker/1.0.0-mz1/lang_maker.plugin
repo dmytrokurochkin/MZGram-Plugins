@@ -39,7 +39,7 @@ from ui.settings import Divider, Header, Input, Selector, Text
 __id__ = "lang_maker"
 __name__ = "Lang Maker"
 __description__ = (
-    "Telegram language editor. Pick a base (English or Russian), edit the strings you need right in the plugin settings and apply the language with one button. AI translation (Groq) is optional."
+    "Telegram language editor. Pick a base (English, Ukrainian or Russian), edit the strings you need right in the plugin settings and apply the language with one button. AI translation (Groq) is optional."
 )
 __author__ = "MZGram"
 __version__ = "1.0.0-mz1"

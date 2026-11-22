@@ -5897,8 +5897,8 @@
       "version": "1.0.0-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/lang_maker/1.0.0-mz1/lang_maker.plugin",
-      "sha256": "01d93618fb711104edbc715fcbde0b898e19126907f5f1d2c5125d3cd40eb9cb",
-      "size": 31365,
+      "sha256": "48c3881b8239c964ea5cef13935f7ec6ca550e888833cd18d21992925671d2b3",
+      "size": 31376,
       "description": "A Telegram language pack editor: pick a base, edit the lines you need right in the plugin settings and apply the language with one button.",
       "description_i18n": {
         "en": "A Telegram language pack editor: pick a base, edit the lines you need right in the plugin settings and apply the language with one button.",
