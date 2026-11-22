@@ -18,7 +18,7 @@ from android.media.audiofx import Equalizer as AudioEqualizer, BassBoost, Virtua
 from org.telegram.messenger import MediaController
 from org.telegram.ui.Components import UItem
 
-__name__ = "Equalizer 344"
+__name__ = "Equalizer"
 __description__ = (
     "Equalizer for the music player: 5 bands, presets, bass boost, virtualizer and loudness gain.\n\n> Requires **MZGram Lib** version 2.0.6 or higher!"
 )

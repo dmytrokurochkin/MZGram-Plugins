@@ -3832,12 +3832,12 @@
     },
     {
       "id": "equalizer",
-      "name": "Equalizer 344",
+      "name": "Equalizer",
       "version": "1.0.0-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/equalizer/1.0.0-mz1/equalizer.plugin",
-      "sha256": "bf95fef506a890df4f428426bf9e550791d49c684914d4244540c9ba5d88c71f",
-      "size": 32201,
+      "sha256": "ab4f5fd3aa64f1bc5ce739f4a71d970b80ab96351d2da0d09c77ba26cab3564f",
+      "size": 32197,
       "description": "Equalizer for the music player: five bands, presets, bass boost, virtualizer, and volume boost. Needs the MZGram Lib plugin.",
       "description_i18n": {
         "en": "Equalizer for the music player: five bands, presets, bass boost, virtualizer, and volume boost. Needs the MZGram Lib plugin.",
@@ -3854,8 +3854,8 @@
         "kk": "Музыка ойнатқышына арналған эквалайзер: 5 жолақ, алдын ала орнатулар, бассты күшейту және дыбыс деңгейі. MZGram Lib плагині қажет."
       },
       "name_i18n": {
-        "uk": "Еквалайзер 344",
-        "ru": "Эквалайзер 344"
+        "uk": "Еквалайзер",
+        "ru": "Эквалайзер"
       }
     },
     {
