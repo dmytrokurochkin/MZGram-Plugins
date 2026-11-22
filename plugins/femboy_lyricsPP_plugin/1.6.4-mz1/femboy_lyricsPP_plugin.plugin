@@ -87,7 +87,7 @@ SEARCH_TIMEOUT_MESSAGE = _mz_t("Не вдалося знайти текст. С�
 
 LRCLIB_GET_URL = "https://lrclib.net/api/get"
 LRCLIB_SEARCH_URL = "https://lrclib.net/api/search"
-LRCLIB_USER_AGENT = "ExteraGram-LRCLIB-Lyrics-Editable/1.5 (@Beefba)"
+LRCLIB_USER_AGENT = "MZGram-Lyrics/1.5"
 
 # Colors and default design parameters. Most of them can be changed in the plugin settings.
 COLOR_BG = Color.BLACK

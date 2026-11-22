@@ -74,7 +74,7 @@ FILTER_SPECS = [
 ]
 
 # Authors (shown in the window footer)
-AUTHORS_LINE = "@etopizdesblin & @plugin_ai"
+AUTHORS_LINE = ""
 
 
 class ExteraClean(BasePlugin):
@@ -471,15 +471,7 @@ class ExteraClean(BasePlugin):
         scroll_h = max(self._dp(200), min(self._dp(360), int(screen_h * 0.36)))
         root.addView(scroll, LayoutHelper.createLinear(-1, scroll_h))
 
-        # ── Footer with authors ───────────────────────────────────────────────
-        self._vspace(root, activity, 6)
-        authors_tv = self._make_tv(
-            activity, AUTHORS_LINE, 11,
-            color=self._with_alpha(self._color(Theme.key_windowBackgroundWhiteGrayText2, Color.GRAY), 0x80))
-        authors_tv.setGravity(Gravity.CENTER_HORIZONTAL)
-        authors_lp = _lp(-1, -2)
-        authors_lp.bottomMargin = self._dp(10)
-        root.addView(authors_tv, authors_lp)
+
 
         self._install_touch_policy(sheet, scroll, handle)
         self._install_lazy_list_loading(scroll)

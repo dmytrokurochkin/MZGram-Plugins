@@ -37,7 +37,7 @@ from ui.settings import Custom, Header, Selector, Switch, Text
 
 __id__ = "expressive_tab"
 __name__ = "Expressive Tab"
-__description__ = "Replaces the Exteragram bottom navigation with a Floating Toolbar in Material 3 Expressive style. RESTART EXTERAGRAM AFTER INSTALLING!"
+__description__ = "Replaces the bottom navigation with a Floating Toolbar in Material 3 Expressive style. RESTART MZGRAM AFTER INSTALLING!"
 __author__ = "MZGram"
 __version__ = "1.2-mz1"
 __min_version__ = "12.5.1"
@@ -473,11 +473,6 @@ class ExpressiveTabPlugin(BasePlugin):
         root.addView(fab_slider, fab_slider_params)
         return root
 
-    def open_author_channel(self, view):
-        fragment = get_last_fragment()
-        context = fragment.getParentActivity() if fragment else ApplicationLoader.applicationContext
-        Browser.openUrl(context, "https://t.me/Plus_Plugins")
-
     def create_sections_settings_view(self):
         self.apply_localization()
         fragment = get_last_fragment()
@@ -577,13 +572,7 @@ class ExpressiveTabPlugin(BasePlugin):
                 icon="filled_fab_compose_32",
                 on_change=self.on_fab_action_change,
             ),
-            Text(
-                text="@Plus_Plugins",
-                subtext=self.tr("open_channel"),
-                icon="msg_channel",
-                accent=True,
-                on_click=self.open_author_channel,
-            ),
+
         ])
         return items
 

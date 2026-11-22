@@ -700,13 +700,6 @@ class EpicPlugin(BasePlugin):
                 icon="msg_info",
                 on_click=self._handle_show_faq_alert_click
             ),
-            Switch(
-                key="show_card_authors",
-                text=localise("settings_show_card_authors"),
-                default=True,
-                subtext=localise("settings_show_card_authors_subtext"),
-                icon="msg_info"
-            ),
             Divider(),
             Header(text=localise("settings_auto_update_header")),
             Switch(
@@ -1338,7 +1331,7 @@ class EpicPlugin(BasePlugin):
 
         card_text_format = self.get_setting("card_text_format", _mz_t("{nick} грає в {game}", "{nick} plays {game}", "{nick} играет в {game}"))
         main_text = card_text_format.replace("{nick}", nickname).replace("{game}", game_name)
-        footer_text = "Plugin by @KangelPlugins & @MGEPlugins" if self.get_setting("show_card_authors", True) else None
+        footer_text = None
         
         def wrap_lines(text, font, max_width):
             words = text.split()

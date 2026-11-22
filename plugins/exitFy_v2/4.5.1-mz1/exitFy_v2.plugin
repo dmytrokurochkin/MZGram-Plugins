@@ -902,7 +902,6 @@ class ExitFyPlugin(BasePlugin):
                 on_click=self._open_dashboard,
             ),
             Text(text=_t("open_dashboard_hint"), icon="msg_info"),
-            Text(text="@exteraPluginsSup", icon="msg_link"),
         ]
 
     def _register_menu(self):

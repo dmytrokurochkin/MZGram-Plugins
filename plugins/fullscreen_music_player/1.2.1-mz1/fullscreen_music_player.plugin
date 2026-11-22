@@ -1,9 +1,3 @@
-"""
-Author - @hoprik
-Design - @canickk
-Idea with dex and hooks - @PESSDES_Plugins
-Player sources - https://github.com/hoprik/Extera-Plugins/tree/fullscreen_dex
-"""
 # MZGram: Ukrainian for the Ukrainian app language, the original Russian for Russian, English for everyone else
 def _mz_t(uk, en, ru=None):
     try:

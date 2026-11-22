@@ -1,4 +1,4 @@
-"""Plugin for exteraGram / AyuGram: scheduled sending of Telegram gifts.
+"""Plugin for MZGram: scheduled sending of Telegram gifts.
 
 You pick a gift from the catalog, a recipient (@username, ID or "me"), a date and time, and the plugin
 sends the gift at the chosen moment (Stars are charged at the moment of sending).

@@ -86,12 +86,7 @@ class Plugin(BasePlugin):
                 icon="msg_palette",
                 create_sub_fragment=self._make_interface_settings,
             ),
-            Header(text=_mz_t("Про плагін", "About the plugin", "О плагине")),
-            Text(
-                text=_mz_t("Канал розробника", "Developer channel", "Канал разработчика"),
-                icon="msg_channel",
-                on_click=lambda v: run_on_ui_thread(self._show_channel_sheet),
-            ),
+
         ]
         return items
 
@@ -123,18 +118,8 @@ class Plugin(BasePlugin):
         v = self._make_view("createInterface")
         return [Custom(view=v)] if v is not None else []
 
-    def _show_channel_sheet(self):
-        try:
-            frag = get_last_fragment()
-            act = frag.getParentActivity()
-            self.channel_sheet = BottomSheet(act, True)
-            self.channel_sheet.setBackgroundColor(0)
-            self.channel_sheet.setApplyBottomPadding(False)
-            self.channel_sheet.setApplyTopPadding(False)
-            self.channel_sheet.setCustomView(self._draw_channel_ui(act))
-            self.channel_sheet.show()
-        except Exception:
-            pass
+    def _show_channel_sheet(self, *args, **kwargs):
+        pass
 
     def _draw_channel_ui(self, ctx):
         dp = AndroidUtilities.dp
@@ -203,14 +188,8 @@ class Plugin(BasePlugin):
 
         return root
 
-    def _go_channel(self):
-        try:
-            if self.channel_sheet:
-                self.channel_sheet.dismiss()
-            act = get_last_fragment().getParentActivity()
-            Browser.openUrl(act, "https://t.me/uipurple")
-        except Exception:
-            pass
+    def _go_channel(self, *args, **kwargs):
+        pass
 
     def _make_button(self, ctx, text, accent):
         dp = AndroidUtilities.dp
