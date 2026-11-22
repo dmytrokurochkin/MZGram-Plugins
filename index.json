@@ -73,16 +73,16 @@
       "description_i18n": {
         "en": "Replaces falling snow with emoji.",
         "uk": "Замінює сніжинки на емоджі.",
-        "ru": "Замена снега на смайлы.",
-        "pl": "Zastępowanie śniegu emoji.",
-        "es": "Reemplazar la nieve con emoji.",
-        "de": "Schnee durch Emoji ersetzen.",
-        "fr": "Remplacer la neige par des emoji.",
-        "pt-BR": "Substituindo neve por emoji.",
-        "tr": "Kar yerine emoji koyuldu.",
-        "ar": "استبدال الثلج بالرموز التعبيرية.",
-        "be": "Замена снегу эмодзі.",
-        "kk": "Қарды эмодзиге ауыстыру."
+        "ru": "Заменяет падающий снег на эмодзи.",
+        "pl": "Zastępuje spadający śnieg emoji.",
+        "es": "Reemplaza la nieve que cae con emoji.",
+        "de": "Ersetzt fallenden Schnee durch Emoji.",
+        "fr": "Remplace la neige qui tombe par des emoji.",
+        "pt-BR": "Substitui a neve caindo por emojis.",
+        "tr": "Düşen karı emojilerle değiştirir.",
+        "ar": "يستبدل الثلج المتساقط بالرموز التعبيرية.",
+        "be": "Замяняе падаючы снег на эмодзі.",
+        "kk": "Жауып тұрған қарды эмодзимен ауыстырады."
       },
       "permissions": [
         "network",
@@ -101,16 +101,16 @@
       "description_i18n": {
         "en": "Turns text into a \"barcode\" of characters like |lIl|IlIl|IlI 😭🙏",
         "uk": "Перетворює текст на «штрихкод» із символів |lIl|IlIl|IlI 😭🙏",
-        "ru": "|лИл|ИлИл|ИлИ|лИл|ИлИл|ИлИ 😭🙏🙏",
-        "pl": "|lIl|IllIl|IllI|lIl|IllIl|IllI 😭🙏🙏",
-        "es": "|lIl|IlIl|IlI|lIl|IlIl|IlI 😭🙏🙏",
-        "de": "|lIl|IlIl|IlI|lIl|IlIl|IlI 😭🙏🙏",
-        "fr": "|lIl|IlIl|IlI|lIl|IlIl|IlI 😭🙏🙏",
-        "pt-BR": "|lIl|IlIl|IlI|lIl|IlIl|IlI 😭🙏🙏",
-        "tr": "|lIl|IllIl|Illi|llIl|IllIl|Illi 😭🙏🙏",
-        "ar": "|lIl|إلي|إلي|إلي|إلي|إلي 😭🙏🙏",
-        "be": "|Іль|Іль|Іль|Іл|Іл|Іл 😭🙏🙏",
-        "kk": "|lIl|IlIl|IlI|lIl|IlIl|IlI 😭🙏🙏"
+        "ru": "Превращает текст в «штрихкод» из символов наподобие |lIl|IlIl|IlI 😭🙏",
+        "pl": "Zamienia tekst w „kod kreskowy” ze znaków takich jak |lIl|IlIl|IlI 😭🙏",
+        "es": "Convierte texto en un «código de barras» con caracteres como |lIl|IlIl|IlI 😭🙏",
+        "de": "Verwandelt Text in einen „Barcode” aus Zeichen wie |lIl|IlIl|IlI 😭🙏",
+        "fr": "Transforme le texte en un « code-barres » composé de caractères comme |lIl|IlIl|IlI 😭🙏",
+        "pt-BR": "Transforma texto em um «código de barras» de caracteres como |lIl|IlIl|IlI 😭🙏",
+        "tr": "Metni |lIl|IlIl|IlI gibi karakterlerden oluşan bir «barkoda» dönüştürür 😭🙏",
+        "ar": "يحول النص إلى «رمز شريطي» من أحرف مثل |lIl|IlIl|IlI 😭🙏",
+        "be": "Ператварае тэкст у «штрыхкод» з сімвалаў накшталт |lIl|IlIl|IlI 😭🙏",
+        "kk": "Мәтінді |lIl|IlIl|IlI сияқты таңбалардан тұратын «штрих-кодқа» айналдырады 😭🙏"
       },
       "permissions": [
         "messages.send"
@@ -157,20 +157,20 @@
       "file": "plugins/Crypter/2.0-mz1/Crypter.plugin",
       "sha256": "2d0f6e66641e62a734a8fb40f8b24562b14cd03ca1c9e19c89b4f119abc1944f",
       "size": 24096,
-      "description": "A simple text encoder with a password. Example:.cip [password] [text]",
+      "description": "A simple text encoder with a password. Example: .cip [password] [text]",
       "description_i18n": {
-        "en": "A simple text encoder with a password. Example:.cip [password] [text]",
-        "uk": "Простий шифратор тексту з паролем. Приклад:.cip [пароль] [текст]",
-        "ru": "Простой текстовый кодер с паролем. Пример:.cip [пароль] [текст]",
-        "pl": "Prosty koder tekstu z hasłem. Przykład:.cip [hasło] [tekst]",
-        "es": "Un codificador de texto simple con contraseña. Ejemplo:.cip [contraseña] [texto]",
-        "de": "Ein einfacher Text-Encoder mit Passwort. Beispiel:.cip [Passwort] [Text]",
-        "fr": "Un simple encodeur de texte avec un mot de passe. Exemple :.cip [mot de passe] [texte]",
-        "pt-BR": "Um codificador de texto simples com senha. Exemplo:.cip [senha] [texto]",
-        "tr": "Şifreli basit bir metin kodlayıcı. Örnek:.cip [şifre] [metin]",
-        "ar": "برنامج تشفير نص بسيط بكلمة مرور. مثال:.cip [كلمة المرور] [نص]",
-        "be": "Просты кадавальнік тэксту з паролем. Прыклад:.cip [пароль] [тэкст]",
-        "kk": "Құпия сөзбен қарапайым мәтіндік кодтаушы. Мысал:.cip [құпия сөз] [мәтін]"
+        "en": "A simple text encoder with a password. Example: .cip [password] [text]",
+        "uk": "Простий шифратор тексту з паролем. Приклад: .cip [пароль] [текст]",
+        "ru": "Простой текстовый кодер с паролем. Пример: .cip [пароль] [текст]",
+        "pl": "Prosty koder tekstu z hasłem. Przykład: .cip [hasło] [tekst]",
+        "es": "Un codificador de texto simple con contraseña. Ejemplo: .cip [contraseña] [texto]",
+        "de": "Ein einfacher Text-Encoder mit Passwort. Beispiel: .cip [Passwort] [Text]",
+        "fr": "Un simple encodeur de texte avec un mot de passe. Exemple : .cip [mot de passe] [texte]",
+        "pt-BR": "Um codificador de texto simples com senha. Exemplo: .cip [senha] [texto]",
+        "tr": "Şifreli basit bir metin kodlayıcı. Örnek: .cip [şifre] [metin]",
+        "ar": "برنامج تشفير نص بسيط بكلمة مرور. مثال: .cip [كلمة المرور] [نص]",
+        "be": "Просты кадавальнік тэксту з паролем. Прыклад: .cip [пароль] [тэкст]",
+        "kk": "Құпия сөзбен қарапайым мәтіндік кодтаушы. Мысал: .cip [құпия сөз] [мәтін]"
       },
       "permissions": [
         "messages.send"
@@ -529,16 +529,16 @@
       "description_i18n": {
         "en": "Deletes all your messages in a chat, group or topic. Logic and texts live in a dex core checked by SHA-256.",
         "uk": "Видаляє всі ваші повідомлення в чаті, групі чи темі. Логіка й тексти лежать у dex-ядрі, перевіреному за SHA-256.",
-        "ru": "RU: Удаляет все ваши сообщения в чате, группе или теме. Логика и тексты в ядре dex, проверенном SHA-256.",
-        "pl": "PL: Usuwa wszystkie wiadomości z czatu, grupy lub tematu. Logika i teksty w rdzeniu dex zweryfikowanym za pomocą SHA-256.",
-        "es": "ES: Borra todos tus mensajes en un chat, grupo o tema. Lógica y textos en un núcleo dex verificado SHA-256.",
-        "de": "DE: Löscht alle Ihre Nachrichten in einem Chat, einer Gruppe oder einem Thema. Logik und Texte in einem SHA-256-verifizierten Dex-Kern.",
-        "fr": "FR: Efface tous vos messages dans une discussion, un groupe ou un sujet. Logique et textes dans un noyau dex vérifié SHA-256.",
-        "pt-BR": "PT: Apaga todas as suas mensagens em um chat, grupo ou tópico. Lógica e textos em um núcleo dex verificado SHA-256.",
-        "tr": "TR: Bir sohbet, grup veya konudaki tüm mesajlarınızı siler. SHA-256 onaylı dex çekirdeğindeki mantık ve metinler.",
-        "ar": "AR: يمسح جميع رسائلك في الدردشة أو المجموعة أو الموضوع. المنطق والنصوص في SHA-256 تم التحقق منها.",
-        "be": "EN: выдаляе ўсе вашы паведамленні ў чаце, групе або тэме. Логіка і тэксты ў ядры dex, правераным SHA-256.",
-        "kk": "KK: чаттағы, топтағы немесе тақырыптағы барлық хабарларды жояды. SHA-256 тексерілген декс ядросындағы логика және мәтіндер."
+        "ru": "Удаляет все ваши сообщения в чате, группе или теме. Логика и тексты в ядре dex, проверенном SHA-256.",
+        "pl": "Usuwa wszystkie wiadomości z czatu, grupy lub tematu. Logika i teksty w rdzeniu dex zweryfikowanym za pomocą SHA-256.",
+        "es": "Borra todos tus mensajes en un chat, grupo o tema. Lógica y textos en un núcleo dex verificado SHA-256.",
+        "de": "Löscht alle Ihre Nachrichten in einem Chat, einer Gruppe oder einem Thema. Logik und Texte in einem SHA-256-verifizierten Dex-Kern.",
+        "fr": "Efface tous vos messages dans une discussion, un groupe ou un sujet. Logique et textes dans un noyau dex vérifié SHA-256.",
+        "pt-BR": "Apaga todas as suas mensagens em um chat, grupo ou tópico. Lógica e textos em um núcleo dex verificado SHA-256.",
+        "tr": "Bir sohbet, grup veya konudaki tüm mesajlarınızı siler. SHA-256 onaylı dex çekirdeğindeki mantık ve metinler.",
+        "ar": "يمسح جميع رسائلك في الدردشة أو المجموعة أو الموضوع. المنطق والنصوص في SHA-256 تم التحقق منها.",
+        "be": "Выдаляе ўсе вашы паведамленні ў чаце, групе або тэме. Логіка і тэксты ў ядры dex, правераным SHA-256.",
+        "kk": "Чаттағы, топтағы немесе тақырыптағы барлық хабарларды жояды. SHA-256 тексерілген декс ядросындағы логика және мәтіндер."
       },
       "permissions": [
         "messages.read",
@@ -556,7 +556,7 @@
       "description": "A close and restart button in the right corner of the main screen and in the side menu.",
       "description_i18n": {
         "en": "A close and restart button in the right corner of the main screen and in the side menu.",
-        "uk": "Кнопка закриття й перезапуску в правому куті головного екрана і в бічному меню,.",
+        "uk": "Кнопка закриття й перезапуску в правому куті головного екрана і в бічному меню.",
         "ru": "Кнопка закрытия/перезапуска в правом углу главного экрана и в боковом меню. Копирует функционал кнопки перезагрузки.",
         "pl": "Przycisk Zamknij/Uruchom ponownie w prawym rogu ekranu głównego oraz w menu bocznym. Kopiuje funkcjonalność przycisku ponownego uruchomienia.",
         "es": "Botón cerrar/reiniciar en la esquina derecha de la pantalla principal y en el menú lateral. Copia la funcionalidad del botón de reinicio.",
@@ -566,7 +566,7 @@
         "tr": "Ana ekranın sağ köşesinde ve yan menüde bulunan Kapat/yeniden başlat düğmesi. Yeniden başlatma düğmesinin işlevselliğini.",
         "ar": "زر الإغلاق/إعادة التشغيل في الزاوية اليمنى من الشاشة الرئيسية وفي القائمة الجانبية. ينسخ وظيفة زر إعادة التشغيل.",
         "be": "Кнопка закрыцця/перазапуску ў правым куце галоўнага экрана і ў бакавым меню. Капіруе функцыянальнасць кнопкі перазагрузкі.",
-        "kk": "Негізгі экранның оң жақ бұрышындағы және бүйірлік мәзірдегі Жабу/қайта іске қосу түймесі.."
+        "kk": "Негізгі экранның оң жақ бұрышындағы және бүйірлік мәзірдегі Жабу/қайта іске қосу түймесі."
       },
       "permissions": [
         "intents",
@@ -771,20 +771,20 @@
       "file": "plugins/TheLooker/1.0-mz1/TheLooker.plugin",
       "sha256": "14a463e5c9c2e4ff7b7f7deb746703d6207d2224d986ea0f6ad8bbaa85b8b955",
       "size": 34950,
-      "description": "Shows which chat the other person is in right now",
+      "description": "Shows which chat the other user is currently in.",
       "description_i18n": {
-        "en": "Shows which chat the other person is in right now",
-        "uk": "Показує, в якому чаті зараз співрозмовник",
-        "ru": "Плагин для слежки за тем, в каком чате находится собеседник",
-        "pl": "Wtyczka do podglądania, na jakim czacie znajduje się rozmówca",
-        "es": "Complemento para espiar en qué chat se encuentra el interlocutor",
-        "de": "Plugin zum Ausspionieren des Chats, in dem sich der Gesprächspartner befindet",
-        "fr": "Plugin pour espionner le chat dans lequel se trouve l'interlocuteur",
-        "pt-BR": "Plugin para espionar em que chat o interlocutor está",
-        "tr": "Muhatabın hangi sohbette olduğunu gözetlemek için eklenti",
-        "ar": "البرنامج المساعد للتجسس على الدردشة التي يجريها المحاور",
-        "be": "Убудова для падглядвання за тым, у якім чаце знаходзіцца суразмоўца",
-        "kk": "Әңгімелесушінің чатта тыңшылық жасауға арналған плагин"
+        "en": "Shows which chat the other user is currently in.",
+        "uk": "Показує, в якому чаті зараз перебуває співрозмовник.",
+        "ru": "Показывает, в каком чате сейчас находится собеседник.",
+        "pl": "Pokazuje, na jakim czacie znajduje się obecnie rozmówca.",
+        "es": "Muestra en qué chat se encuentra la otra persona en este momento.",
+        "de": "Zeigt an, in welchem Chat sich die andere Person gerade befindet.",
+        "fr": "Montre dans quel chat se trouve actuellement l'autre personne.",
+        "pt-BR": "Mostra em qual bate-papo a outra pessoa está no momento.",
+        "tr": "Diğer kişinin şu anda hangi sohbette olduğunu gösterir.",
+        "ar": "يظهر الدردشة التي يتواجد فيها الشخص الآخر حاليًا.",
+        "be": "Паказвае, у якім чаце зараз знаходзіцца суразмоўца.",
+        "kk": "Сұхбаттасушының дәл қазір қай чатта екенін көрсетеді."
       },
       "permissions": [
         "files",
