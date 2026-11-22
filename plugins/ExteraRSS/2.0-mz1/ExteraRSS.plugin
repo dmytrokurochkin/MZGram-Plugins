@@ -1852,6 +1852,7 @@ class Plugin(BasePlugin):
         run_on_ui_thread(lambda: self._close_image_screen(animated=False))
         run_on_ui_thread(lambda: self._close_mini_overlay(animated=False))
         run_on_ui_thread(self._remove_pencil_hook_view_trigger)
+        run_on_ui_thread(lambda: self._sync_back_callback())
 
     # ---------- bg worker ----------
     def _bg_worker(self):
@@ -2080,6 +2081,62 @@ class Plugin(BasePlugin):
             except Exception: pass
             setattr(self, store_attr, listener)
         except Exception: pass
+        # Android 13+: the screen leaving the window may mean no feed screen is open any more.
+        try:
+            plugin = self
+            class _BackDetachListener(dynamic_proxy(View.OnAttachStateChangeListener)):
+                def onViewAttachedToWindow(self, v): pass
+                def onViewDetachedFromWindow(self, v):
+                    try: run_on_ui_thread(lambda: plugin._sync_back_callback())
+                    except Exception: pass
+            overlay.addOnAttachStateChangeListener(_BackDetachListener())
+        except Exception: pass
+        self._sync_back_callback(overlay)
+
+    def _sync_back_callback(self, view=None):
+        # On Android 13 and newer the app uses predictive back: the Back key never reaches the
+        # screens' OnKeyListener, so Back went to the chat under the feed. While a feed screen is
+        # open (and not minimized) a callback on the activity's back dispatcher closes it instead.
+        try:
+            from android.os import Build
+            if int(Build.VERSION.SDK_INT) < 33: return
+            from java import jclass
+            want = (not bool(getattr(self, "_back_tracking_paused", False))) and any(
+                getattr(self, a, None) is not None
+                for a in ("_overlay", "_add_overlay", "_cat_overlay", "_src_overlay", "_post_overlay", "_img_overlay"))
+            cb = getattr(self, "_back_cb", None)
+            if want and cb is None:
+                disp = None
+                if view is not None:
+                    try: disp = view.findOnBackInvokedDispatcher()
+                    except Exception: disp = None
+                if disp is None:
+                    frag = get_last_fragment()
+                    act = frag.getParentActivity() if frag else None
+                    if act is None: return
+                    disp = act.getOnBackInvokedDispatcher()
+                cls = getattr(self, "_back_cb_cls", None)
+                if cls is None:
+                    class _BackCallback(dynamic_proxy(jclass("android.window.OnBackInvokedCallback"))):
+                        def __init__(self, fn):
+                            super().__init__()
+                            self._fn = fn
+                        def onBackInvoked(self):
+                            try: self._fn()
+                            except Exception: pass
+                    cls = _BackCallback
+                    self._back_cb_cls = cls
+                cb = cls(lambda: self._handle_back_action())
+                disp.registerOnBackInvokedCallback(jclass("android.window.OnBackInvokedDispatcher").PRIORITY_OVERLAY, cb)
+                self._back_cb = cb
+                self._back_cb_disp = disp
+            elif not want and cb is not None:
+                try: self._back_cb_disp.unregisterOnBackInvokedCallback(cb)
+                except Exception: pass
+                self._back_cb = None
+                self._back_cb_disp = None
+        except Exception as e:
+            log(f"ExteraRSS back callback: {e}")
 
     def _handle_back_action(self) -> bool:
         try:
@@ -4560,6 +4617,7 @@ class Plugin(BasePlugin):
     def _restore_from_mini(self):
         self._back_tracking_paused = False
         self._set_main_overlays_visibility(True)
+        self._sync_back_callback()
         try:
             for ov in (self._overlay, self._add_overlay, self._cat_overlay, self._src_overlay, self._post_overlay, self._img_overlay):
                 if ov is None: continue
@@ -4581,6 +4639,7 @@ class Plugin(BasePlugin):
 
         self._set_main_overlays_visibility(False)
         self._back_tracking_paused = True
+        self._sync_back_callback()
 
         mini = FrameLayout(activity)
         mini.setClickable(True); mini.setFocusable(True)

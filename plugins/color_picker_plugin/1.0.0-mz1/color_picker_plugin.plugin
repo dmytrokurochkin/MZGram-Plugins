@@ -189,8 +189,16 @@ class ColorPickerPlugin(BasePlugin):
         hp.topMargin = AndroidUtilities.statusBarHeight + dp(16)
         root.addView(hint, hp)
 
+        back = {}
+
         def close():
             self.overlay = None
+            if back:
+                try:
+                    back["disp"].unregisterOnBackInvokedCallback(back["cb"])
+                except Exception:
+                    pass
+                back.clear()
             decor.removeView(root)
             img.setImageBitmap(None)
             bmp.recycle()
@@ -233,4 +241,22 @@ class ColorPickerPlugin(BasePlugin):
         root.setFocusableInTouchMode(True)
         decor.addView(root, mp)
         root.requestFocus()  # otherwise 'Back' closes the chat and the overlay stays
+        # On Android 13 and newer the app uses predictive back: the Back key never reaches
+        # OnKeyListener, so Back closed the chat and the overlay stayed. Listen on the back
+        # dispatcher there until the overlay closes.
+        try:
+            if jclass("android.os.Build$VERSION").SDK_INT >= 33:
+                class _Back(dynamic_proxy(jclass("android.window.OnBackInvokedCallback"))):
+                    def onBackInvoked(self):
+                        try:
+                            close()
+                        except Exception:
+                            pass
+                disp = root.findOnBackInvokedDispatcher() or decor.findOnBackInvokedDispatcher()
+                cb = _Back()
+                disp.registerOnBackInvokedCallback(jclass("android.window.OnBackInvokedDispatcher").PRIORITY_OVERLAY, cb)
+                back["disp"] = disp
+                back["cb"] = cb
+        except Exception as e:
+            log(f"color picker back callback: {e}")
         self.overlay = close

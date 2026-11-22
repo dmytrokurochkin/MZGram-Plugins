@@ -4369,6 +4369,16 @@ class EditorPanel:
         kp = make_proxy("android.content.DialogInterface$OnKeyListener", {"onKey": on_key}, bools=("onKey",))
         d.setOnKeyListener(kp)
         self.refs.append(kp)
+        # On Android 13 and newer the app uses predictive back: the Back key never reaches
+        # OnKeyListener, and this dialog is not cancelable, so Back did nothing at all.
+        try:
+            if int(J("android.os.Build$VERSION").SDK_INT) >= 33:
+                bp = make_proxy("android.window.OnBackInvokedCallback", {"onBackInvoked": lambda: self.back()})
+                d.getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
+                    J("android.window.OnBackInvokedDispatcher").PRIORITY_OVERLAY, bp)
+                self.refs.append(bp)
+        except Exception:
+            log_exc("back callback")
         self.dialog = d
         w = d.getWindow()
         w.setBackgroundDrawable(J("android.graphics.drawable.ColorDrawable")(0))

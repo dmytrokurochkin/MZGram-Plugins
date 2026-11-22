@@ -243,6 +243,38 @@ class FlappyBirdUltimate(BasePlugin):
                     
                     dialog.setOnKeyListener(KeyListener(self.classes["Toast"], act, self.strings["exit_toast"], self.classes["System"]))
 
+                    # On Android 13 and newer the app uses predictive back, so the Back key never
+                    # reaches OnKeyListener and the game closed on the first press. The same
+                    # "press Back again" check listens on the back dispatcher there.
+                    try:
+                        if find_class("android.os.Build$VERSION").SDK_INT >= 33:
+                            class BackCallback(dynamic_proxy(find_class("android.window.OnBackInvokedCallback"))):
+                                def __init__(self, toast, ctx, msg, sys_obj, dlg):
+                                    super().__init__()
+                                    self.ts = 0
+                                    self.toast = toast
+                                    self.ctx = ctx
+                                    self.msg = msg
+                                    self.sys = sys_obj
+                                    self.dlg = dlg
+
+                                def onBackInvoked(self):
+                                    try:
+                                        now = self.sys.currentTimeMillis()
+                                        if (now - self.ts) < 2000:
+                                            self.dlg.cancel()
+                                            return
+                                        self.ts = now
+                                        self.toast.makeText(self.ctx, self.msg, 0).show()
+                                    except Exception:
+                                        pass
+
+                            dialog.getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
+                                find_class("android.window.OnBackInvokedDispatcher").PRIORITY_OVERLAY,
+                                BackCallback(self.classes["Toast"], act, self.strings["exit_toast"], self.classes["System"], dialog))
+                    except Exception as e:
+                        self.log(f"Back callback error: {e}")
+
                 class Dismiss(dynamic_proxy(self.classes["OnDismiss"])):
                     def onDismiss(self, d):
                         try:

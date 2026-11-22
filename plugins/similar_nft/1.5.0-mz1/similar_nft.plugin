@@ -1497,6 +1497,7 @@ class SimilarSheet:
             d.setOnKeyListener(_KeyListener(self._on_key))
         if d is not None:
             d.show()
+        self._bind_back(d, root)
         self._animate_in()
         self._paint_filters()
         self._refresh_info()
@@ -1752,6 +1753,44 @@ class SimilarSheet:
         except Exception:
             pass
 
+    def _bind_back(self, d: Any, root: Any) -> None:
+        # On Android 13 and newer the app uses predictive back: the Back key never reaches the
+        # key listeners, so Back left the screen under this panel (or dropped the whole dialog
+        # at once). The same Back logic listens on the back dispatcher there.
+        self._back_cb = None
+        try:
+            if int(Build.VERSION.SDK_INT) < 33:
+                return
+            disp = d.getOnBackInvokedDispatcher() if d is not None else root.findOnBackInvokedDispatcher()
+            if disp is None:
+                return
+            panel = self
+
+            class _Back(dynamic_proxy(jclass("android.window.OnBackInvokedCallback"))):
+                def onBackInvoked(self):
+                    try:
+                        if panel.actions_view is not None:
+                            panel._hide_actions()
+                        else:
+                            panel.close()
+                    except Exception:
+                        panel.close()
+
+            cb = _Back()
+            disp.registerOnBackInvokedCallback(jclass("android.window.OnBackInvokedDispatcher").PRIORITY_OVERLAY, cb)
+            self._back_cb = (disp, cb)
+        except Exception as e:
+            _lg("back callback failed: %s" % e)
+
+    def _unbind_back(self) -> None:
+        bc = getattr(self, "_back_cb", None)
+        self._back_cb = None
+        if bc is not None:
+            try:
+                bc[0].unregisterOnBackInvokedCallback(bc[1])
+            except Exception:
+                pass
+
     def _on_key(self, key_code: int, event: Any) -> bool:
         if key_code == 4:
             try:
@@ -1777,6 +1816,7 @@ class SimilarSheet:
             if self.closed:
                 return
             self.closed = True
+            self._unbind_back()
             try:
                 if self.group is not None:
                     self._clear_blur()
