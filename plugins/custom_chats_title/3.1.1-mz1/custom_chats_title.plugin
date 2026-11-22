@@ -51,11 +51,6 @@ LOCALE_UTILS = "com.exteragram.messenger.utils.LocaleUtils"
 # 2.x allowed emoji markup in the title; saved values keep only the fallback text.
 LEGACY_EMOJI_TAG = re.compile(r'<emoji\s+(?:document_)?id="\d+"\s*>(.*?)</emoji>|<e:\d+:(.*?)>', re.IGNORECASE | re.DOTALL)
 
-LINKS = {
-    "tg": "https://t.me/l_limon_l",
-    "fakecrime": "https://fakecrime.bio/l_limon_l",
-    "ezbio": "https://e-z.bio/l_limon_l",
-}
 
 STRINGS: Dict[str, Dict[str, str]] = {
     "en": {
@@ -527,13 +522,6 @@ class CustomHeaderPlugin(BasePlugin):
         self.set_setting(LOGO_KEY, bool(enabled), reload_settings=True)
         self.refresh()
 
-    def open_link(self, name: str, view: Any = None):
-        url = LINKS[name]
-        try:
-            from org.telegram.messenger.browser import Browser
-            Browser.openUrl(view.getContext(), url)
-        except Exception:
-            copy_to_clipboard(url)
 
     def create_settings(self) -> List[Any]:
         items: List[Any] = [Header(text=self.tr("header"))]
@@ -563,16 +551,7 @@ class CustomHeaderPlugin(BasePlugin):
             ))
         items.append(Divider(text=self.tr("hint")))
 
-        items.append(Header(text=self.tr("about")))
-        for name, icon, accent in (("tg", "msg_discuss", True), ("fakecrime", "msg_info", False), ("ezbio", "msg_info", False)):
-            items.append(Text(
-                text=self.tr(name),
-                subtext=LINKS[name].split("://", 1)[1],
-                icon=icon,
-                accent=accent,
-                on_click=lambda view, name=name: self.open_link(name, view),
-            ))
-        items.append(Divider())
+
         return items
 
     # endregion

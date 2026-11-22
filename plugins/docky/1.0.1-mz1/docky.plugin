@@ -52,9 +52,9 @@ EXTENDED_ICON_URL_DARK = f"{CORE}/extended_white.png"
 EXTENDED_ICON_URL_LIGHT = f"{CORE}/extended_dark.png"
 NAV_UP_ICON_URL = f"{CORE}/up.png"
 NAV_DOWN_ICON_URL = f"{CORE}/down.png"
-ABOUT_AVATAR_URL = "https://t.me/i/userpic/320/AGeekApple.jpg"
+ABOUT_AVATAR_URL = ""
 SUPPORTERS_URL = f"{CORE}/vanguard_supporters.json"
-GITHUB_SPONSOR_URL = "https://github.com/sponsors/ageekapple"
+GITHUB_SPONSOR_URL = ""
 _CACHE_DIR = os.path.expanduser("~/.docky_cache")
 os.makedirs(_CACHE_DIR, exist_ok=True)
 HEADER_CACHE_REV = "v1"
@@ -1349,63 +1349,17 @@ class exteraFyPlugin(BasePlugin):
             pass
         return "User"
 
-    def _open_dotted_chat(self):
-        try:
-            if not self._action_debounce_ok("open_dotted_chat", 400):
-                return
-            get_messages_controller().openByUserName("DottedChat", get_last_fragment(), 1)
-        except Exception:
-            try:
-                self.open_url("https://t.me/DottedChat")
-            except Exception:
-                pass
+    def _open_dotted_chat(self, *args, **kwargs):
+        pass
 
-    def _open_extera_channel(self):
-        try:
-            if not self._action_debounce_ok("open_extera_channel", 400):
-                return
-            get_messages_controller().openByUserName("exteraDevPlugins", get_last_fragment(), 1)
-        except Exception:
-            try:
-                self.open_url("https://t.me/exteraDevPlugins")
-            except Exception:
-                pass
+    def _open_extera_channel(self, *args, **kwargs):
+        pass
 
-    def _open_docky_docs(self):
-        try:
-            if not self._action_debounce_ok("open_docky_docs", 400):
-                return
-            get_messages_controller().openByUserName("ApplePlugins", get_last_fragment(), 1)
-        except Exception:
-            try:
-                self.open_url("https://t.me/ApplePlugins")
-            except Exception:
-                pass
+    def _open_docky_docs(self, *args, **kwargs):
+        pass
 
-    def _open_github_sponsors(self):
-        try:
-            if not self._action_debounce_ok("open_github_sponsors", 400):
-                return
-            Browser = find_class("org.telegram.messenger.browser.Browser")
-            ctx = None
-            try:
-                act = getattr(self, "_settings_activity_ref", None)
-                if act is not None and hasattr(act, "getContext"):
-                    ctx = act.getContext()
-            except Exception:
-                ctx = None
-            if ctx is None:
-                try:
-                    frag = get_last_fragment()
-                    ctx = frag.getParentActivity() if frag and frag.getParentActivity() else None
-                except Exception:
-                    ctx = None
-            if Browser is not None and ctx is not None:
-                Browser.openUrl(ctx, GITHUB_SPONSOR_URL)
-                return
-            self.open_url(GITHUB_SPONSOR_URL)
-        except Exception:
-            pass
+    def _open_github_sponsors(self, *args, **kwargs):
+        pass
 
     def _open_username(self, username):
         try:
@@ -1533,11 +1487,8 @@ class exteraFyPlugin(BasePlugin):
         except Exception:
             self._supporters_refreshing = False
 
-    def _create_supporters_subfragment(self, parent_view=None):
-        try:
-            return [Header(text=self._tr("supporters_title"))]
-        except Exception:
-            return [Header(text="Supporters")]
+    def _create_supporters_subfragment(self, *args, **kwargs):
+        pass
 
     def _start_supporter_card_anim(self, view, idx):
         try:
@@ -1896,7 +1847,7 @@ class exteraFyPlugin(BasePlugin):
                 def onClick(self_obj, v):
                     self._open_extera_channel()
 
-            top_icon.setOnClickListener(_OpenExtera())
+            
             lp_top = FrameLayout.LayoutParams(AndroidUtilities.dp(24), AndroidUtilities.dp(24), Gravity.TOP | Gravity.END)
             lp_top.topMargin = AndroidUtilities.dp(10)
             lp_top.rightMargin = AndroidUtilities.dp(10)
@@ -1977,10 +1928,10 @@ class exteraFyPlugin(BasePlugin):
                 def onClick(self_obj, v):
                     self._open_docky_docs()
 
-            btn.setOnClickListener(_OpenDottedChat())
-            hero.setOnClickListener(_OpenDocs())
-            banner.setOnClickListener(_OpenDocs())
-            row.setOnClickListener(_OpenDocs())
+            
+            
+            
+            
             row.addView(btn, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT))
             row.addView(info, lp_info)
 
@@ -2332,7 +2283,7 @@ class exteraFyPlugin(BasePlugin):
                     except Exception:
                         pass
 
-            btn.setOnClickListener(_AboutOpen())
+            
 
             class _ExtendedOpen(dynamic_proxy(View.OnClickListener)):
                 def onClick(self_obj, v):
@@ -2347,7 +2298,7 @@ class exteraFyPlugin(BasePlugin):
                             except Exception:
                                 pass
 
-            extended_btn.setOnClickListener(_ExtendedOpen())
+            
             actions = LinearLayout(ctx)
             actions.setOrientation(LinearLayout.HORIZONTAL)
             actions.setGravity(Gravity.END | Gravity.CENTER_VERTICAL)

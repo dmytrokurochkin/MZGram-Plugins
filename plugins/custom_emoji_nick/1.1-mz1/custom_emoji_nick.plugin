@@ -71,7 +71,7 @@ STRINGS = {
         "howto": _mz_t("Відкрийте редагування свого імені або імені контакту і натисніть смайлик праворуч від поля. Емодзі відображаються у списку чатів, профілі, заголовку чату, імені автора в групах і в «Переслано від». Ім'я лише з емодзі теж можна.", "Open the editing of your name or a contact's name and tap the smiley to the right of the field. Emoji are shown in the chats list, profile, chat header, the author's name in groups and in \"Forwarded from\". A name made only of emoji is also allowed.", "Откройте редактирование своего имени или имени контакта и нажмите смайлик справа от поля. Эмодзи отображаются в списке чатов, профиле, заголовке чата, имени автора в группах и в «Переслано от». Имя из одних эмодзи тоже можно."),
         "diag": _mz_t("Діагностика", "Diagnostics", "Диагностика"),
         "copy_log": _mz_t("Скопіювати журнал", "Copy log", "Скопировать журнал"),
-        "copy_log_sub": _mz_t("Надішліть його авторові, якщо сталася помилка", "Send it to the author if there is an error", "Пришлите его автору при ошибке"),
+        "copy_log_sub": _mz_t("Скопіюйте для діагностики, якщо сталася помилка", "Copy for diagnostics if there is an error", "Скопируйте для диагностики при ошибке"),
     },
     "en": {
         "error": "Plugin error, see the log",
@@ -84,7 +84,7 @@ STRINGS = {
         "howto": "Open your name editor or a contact's name editor and tap the smiley next to the field. Emoji appear in the chat list, profile, chat header, sender names in groups and «Forwarded from». Emoji-only names work too.",
         "diag": "Diagnostics",
         "copy_log": "Copy log",
-        "copy_log_sub": "Send it to the author if something breaks",
+        "copy_log_sub": "Copy for diagnostics if there is an error",
     },
 }
 

@@ -81,8 +81,8 @@ class LocalizationManager:
         "ru": {
             "FONT_FAQ_TITLE": _mz_t("🎨 Як користуватися власними шрифтами", "🎨 How to use custom fonts", "🎨 Как использовать кастомные шрифты"),
             "FONT_FAQ_TEXT": (
-                _mz_t("⚠️ Наразі функція власних шрифтів експериментальна, тож...\n\n🐛 Якщо щось не працює, пишіть про баг у ArThirtyFour.t.me\n\n📝 Як додати власний шрифт?\n\n1️⃣ Оберіть «Власний шрифт» у селекторі шрифтів\n\n2️⃣ У полі «Посилання на власний шрифт» вставте пряме посилання на .ttf файл\n\n🔗 Приклади посилань:\n• https://example.com/font.ttf\n• https://fonts.gstatic.com/s/roboto/v30/font.ttf\n\n💡 І ОБОВ'ЯЗКОВО ТАМ МАЄ БУТИ .ttf У КІНЦІ\n\n3️⃣ Створіть демотиватор командою .dem\n\n⚡ Плагін автоматично завантажить шрифт і використовуватиме його!\n\n🚨 ВАЖЛИВО! ПРИ ПЕРШОМУ ВИКОРИСТАННІ АБО ЗМІНІ ШРИФТУ СТВОРЕННЯ ТРИВАТИМЕ ДОВШЕ, НІЖ ЗАЗВИЧАЙ\n\n💻 Автор радить завантажувати шрифти на GitHub\n\n🌐 Сайти, де можна знайти шрифти (з прямими посиланнями):\n• https://fontsaddict.com\n\n• https://en.bestfonts.pro\n\n", "⚠️ Currently, the custom fonts feature is experimental, so... \n\n🐛 If something doesn't work, report bugs to ArThirtyFour.t.me\n\n📝 How to add a custom font?\n\n1️⃣ Select 'Custom font' in the font selector\n\n2️⃣ In the 'Custom font link' field, paste a direct link to the .ttf file\n\n🔗 Example links:\n• https://example.com/font.ttf\n• https://fonts.gstatic.com/s/roboto/v30/font.ttf\n\n💡 AND THERE MUST BE .ttf AT THE END\n\n3️⃣ Create a demotivator with .dem command\n\n⚡ The plugin will automatically download the font and use it!\n\n🚨 IMPORTANT! ON FIRST USE/FONT CHANGE, IT WILL TAKE LONGER TO CREATE THAN USUAL\n\n💻 The author recommends uploading fonts to Github\n\n🌐 Sites where you can find fonts (with direct links):\n• https://fontsaddict.com\n\n• https://en.bestfonts.pro\n\n", ("⚠️ На данный момент функция кастомных шрифтов экспериментальна, так что... \n\n"
-                "🐛 Если что-то не работает, кидайте баг в ArThirtyFour.t.me\n\n"
+                _mz_t("⚠️ Наразі функція власних шрифтів експериментальна, тож...\n\n📝 Як додати власний шрифт?\n\n1️⃣ Оберіть «Власний шрифт» у селекторі шрифтів\n\n2️⃣ У полі «Посилання на власний шрифт» вставте пряме посилання на .ttf файл\n\n🔗 Приклади посилань:\n• https://example.com/font.ttf\n• https://fonts.gstatic.com/s/roboto/v30/font.ttf\n\n💡 І ОБОВ'ЯЗКОВО ТАМ МАЄ БУТИ .ttf У КІНЦІ\n\n3️⃣ Створіть демотиватор командою .dem\n\n⚡ Плагін автоматично завантажить шрифт і використовуватиме його!\n\n🚨 ВАЖЛИВО! ПРИ ПЕРШОМУ ВИКОРИСТАННІ АБО ЗМІНІ ШРИФТУ СТВОРЕННЯ ТРИВАТИМЕ ДОВШЕ, НІЖ ЗАЗВИЧАЙ\n\n💻 Рекомендовано завантажувати шрифти на GitHub\n\n🌐 Сайти, де можна знайти шрифти (з прямими посиланнями):\n• https://fontsaddict.com\n\n• https://en.bestfonts.pro\n\n", "⚠️ Currently, the custom fonts feature is experimental, so... \n\n📝 How to add a custom font?\n\n1️⃣ Select 'Custom font' in the font selector\n\n2️⃣ In the 'Custom font link' field, paste a direct link to the .ttf file\n\n🔗 Example links:\n• https://example.com/font.ttf\n• https://fonts.gstatic.com/s/roboto/v30/font.ttf\n\n💡 AND THERE MUST BE .ttf AT THE END\n\n3️⃣ Create a demotivator with .dem command\n\n⚡ The plugin will automatically download the font and use it!\n\n🚨 IMPORTANT! ON FIRST USE/FONT CHANGE, IT WILL TAKE LONGER TO CREATE THAN USUAL\n\n💻 Recommended to upload fonts to GitHub\n\n🌐 Sites where you can find fonts (with direct links):\n• https://fontsaddict.com\n\n• https://en.bestfonts.pro\n\n", ("⚠️ На данный момент функция кастомных шрифтов экспериментальна, так что... \n\n"
+                ""
                 "📝 Как добавить кастомный шрифт?\n\n"
                 "1️⃣ Выберите 'Кастомный шрифт' в селекторе шрифтов\n\n"
                 "2️⃣ В поле 'Ссылка на кастомный шрифт' вставьте прямую ссылку на .ttf файл\n\n"
@@ -93,7 +93,7 @@ class LocalizationManager:
                 "3️⃣ Создайте демотиватор командой .dem\n\n"
                 "⚡ Плагин автоматически скачает шрифт и будет использовать его!\n\n"
                 "🚨 ВАЖНО! ПРИ ПЕРВОМ ИСПОЛЬЗОВАНИИ/СМЕНЕ ШРИФТА БУДЕТ ДОЛЬШЕ СОЗДАВАТЬСЯ ЧЕМ ОБЫЧНО\n\n"
-                "💻 Автор рекомендует загружать шрифты на Github\n\n"
+                "💻 Рекомендуется загружать шрифты на GitHub\n\n"
                 "🌐 Сайты где можно найти шрифты (с прямыми ссылками):\n"
                 "• https://fontsaddict.com\n\n"
                 "• https://en.bestfonts.pro\n\n"))
@@ -104,7 +104,7 @@ class LocalizationManager:
             "FONT_FAQ_TITLE": "🎨 How to use custom fonts",
             "FONT_FAQ_TEXT": (
                 "⚠️ Currently, the custom fonts feature is experimental, so... \n\n"
-                "🐛 If something doesn't work, report bugs to ArThirtyFour.t.me\n\n"
+                ""
                 "📝 How to add a custom font?\n\n"
                 "1️⃣ Select 'Custom font' in the font selector\n\n"
                 "2️⃣ In the 'Custom font link' field, paste a direct link to the .ttf file\n\n"
@@ -115,7 +115,7 @@ class LocalizationManager:
                 "3️⃣ Create a demotivator with .dem command\n\n"
                 "⚡ The plugin will automatically download the font and use it!\n\n"
                 "🚨 IMPORTANT! ON FIRST USE/FONT CHANGE, IT WILL TAKE LONGER TO CREATE THAN USUAL\n\n"
-                "💻 The author recommends uploading fonts to Github\n\n"
+                "💻 Recommended to upload fonts to GitHub\n\n"
                 "🌐 Sites where you can find fonts (with direct links):\n"
                 "• https://fontsaddict.com\n\n"
                 "• https://en.bestfonts.pro\n\n"

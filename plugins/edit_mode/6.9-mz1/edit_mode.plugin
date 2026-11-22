@@ -368,9 +368,9 @@ def show_hzzz_guard_popup(reason_text):
 
                 tv = TextView(act)
                 tv.setText(
-                    _mz_t("Тобі ДУЖЕ пощастило, цей плагін був заражений шкідливим кодом \nшкідливий код міг запуститися, перевір сеанси і бажано перевстанови клієнт \nщоб прибрати це вікно, вимкни плагін. також можеш написати в чат каналу @uzuqo і сказати, звідки був завантажений шкідник \nпричина спрацювання: ", "You are VERY lucky, this plugin was infected with malware \nmalicious code may have run, check your sessions and it is best to reinstall the client \nto remove this window, disable the plugin. You can also write to the channel chat @uzuqo and say where the malware was downloaded from \ntrigger reason: ", ("тебе ОЧЕНЬ повезло, этот плагин был заражен раткой \n"
+                    _mz_t("Тобі ДУЖЕ пощастило, цей плагін був заражений шкідливим кодом \nшкідливий код міг запуститися, перевір сеанси і бажано перевстанови клієнт \nщоб прибрати це вікно, вимкни плагін. \nпричина спрацювання: ", "You are VERY lucky, this plugin was infected with malware \nmalicious code may have run, check your sessions and it is best to reinstall the client \nto remove this window, disable the plugin. \ntrigger reason: ", ("тебе ОЧЕНЬ повезло, этот плагин был заражен раткой \n"
                     "вредоносный код возможно запущен, проверь сессии и желательно  переустанови клиент \n"
-                    "чтобы убрать это окно, отключи плагин. также можешь написать в чат канала @uzuqo и сказать откуда был скачан вредонос \n"
+                    "чтобы убрать это окно, отключи плагин. \n"
                     "прична срабатывания: ")) + str(reason_text)
                 )
                 tv.setTextColor(COLOR_WHITE)
@@ -2845,47 +2845,7 @@ class EditModePlugin(BasePlugin):
             run_on_ui_thread(self._exit_edit_mode_completely)
         self._reload_settings_ui()
 
-    def _open_tg_link(self, username):
-        try:
-            context = ApplicationLoader.applicationContext
-            intent = Intent(Intent.ACTION_VIEW, Uri.parse(f"tg://resolve?domain={username}"))
-            intent.setPackage(context.getPackageName())
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(intent)
-        except Exception:
-            pass
-
-    def _show_welcome_dialog(self):
-        try:
-            current_fragment = get_last_fragment()
-            activity = current_fragment.getParentActivity() if current_fragment else self._get_activity()
-            if not activity:
-                return
-
-            builder = AlertDialogBuilder(activity)
-            builder.set_title(__name__)
-            builder.set_message(_mz_t("більше унікальних плагінів і проєктів у каналі", "more unique plugins and projects in the channel", "больше уникальных плагинов и проектов в канале"))
-
-            def on_hide(bld, which):
-                self.set_setting("welcome_shown", True)
-                bld.dismiss()
-
-            def on_channel(bld, which):
-                self.set_setting("welcome_shown", True)
-                self._open_tg_link("HzzzPlugins")
-                bld.dismiss()
-
-            builder.set_positive_button(_mz_t("перейти і більше не показувати", "open and don't show again", "перейти и больше не показывать"), on_channel)
-            builder.set_negative_button(_mz_t("Сховати", "Hide", "скрыть"), on_hide)
-            builder.show()
-        except Exception:
-            pass
-
     def create_settings(self):
-        if not self._welcome_shown and not self.get_setting("welcome_shown", False):
-            self._welcome_shown = True
-            run_on_ui_thread(self._show_welcome_dialog)
-
         self.set_setting("edit_mode_active", bool(self.edit_mode_active))
 
         items = [
@@ -2921,21 +2881,6 @@ class EditModePlugin(BasePlugin):
                 red=True,
                 on_click=lambda v: run_on_ui_thread(self._reset_all_rules)
             ),
-            Divider(),
-            Header(text=f"6.9-public-beta | thanks TikTokYou"),
-            Text(
-                text=_mz_t("канал: @HzzzPlugins", "channel: @HzzzPlugins", "канал: @HzzzPlugins"),
-                on_click=lambda v: self._open_tg_link("HzzzPlugins")
-            ),
-            Text(
-                text=_mz_t("зробив: @exoseo", "made by: @exoseo", "сделал: @exoseo"),
-                on_click=lambda v: self._open_tg_link("exoseo")
-            ),
-            Text(
-                    text=_mz_t("знайде всі таємниці: @xucxbot", "finds all secrets: @xucxbot", "найдет все тайны: @xucxbot"),
-                    accent=True,
-                    on_click=lambda v: self._open_tg_link("xucxbot")
-                ),
             Divider(),
             Divider(text=_mz_t("якщо плагін гальмує, ймовірно: ти або зробив забагато змін інтерфейсу, або він конфліктує з іншим плагіном, наприклад CherryHeader. вимкни плагіни, які змінюють ті елементи, що хочеш змінити сам", "if the plugin lags, most likely you made too many interface changes, or it conflicts with another plugin, for example CherryHeader. Disable the plugins that change the elements you want to change yourself", "если плагин лагает, то вероятно: либо ты сделал слишком много изменений интерфейса, либо он конфликтует с другим плагином, например, CherryHeader. отключи плагины, меняющие те элементы, которые ты сам хочешь изменить")),
         ]

@@ -2278,25 +2278,7 @@ class DynamicBackgroundsPlugin(BasePlugin):
             authors_row.setOrientation(_LL.HORIZONTAL)
             authors_row.setGravity(_G.CENTER)
 
-            def make_link(name, username):
-                tv = _TV(context)
-                tv.setText(name)
-                tv.setTextSize(_TypedValue.COMPLEX_UNIT_DIP, 13)
-                tv.setTextColor(_tc(_Theme.key_windowBackgroundWhiteBlueText))
-                tv.setClickable(True)
-                tv.setOnClickListener(OnClickListener(
-                    lambda v, u=username: self._open_profile(u)))
-                return tv
 
-            sep = _TV(context)
-            sep.setText("  •  ")
-            sep.setTextSize(_TypedValue.COMPLEX_UNIT_DIP, 13)
-            sep.setTextColor(_tc(_Theme.key_windowBackgroundWhiteGrayText))
-
-            authors_row.addView(make_link("@rei_plugins",  "rei_plugins"))
-            authors_row.addView(sep)
-            authors_row.addView(make_link("@optimist_opti", "optimist_opti"))
-            content.addView(authors_row, _LH.createLinear(-2, -2, _G.CENTER_HORIZONTAL, 0, 0, 0, 20))
 
             container.addView(content, _LH.createFrame(-1, -2, _G.CENTER))
             return container

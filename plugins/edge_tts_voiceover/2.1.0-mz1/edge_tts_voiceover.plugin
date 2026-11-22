@@ -369,13 +369,13 @@ class EdgeTTSVoiceoverPlugin(BasePlugin):
                 _mz_t(
                     "Не вдалося отримати список виділених повідомлень.\n"
                     f"Доступні ключі контексту: {list(context.keys())}\n\n"
-                    "Надішліть цей текст розробнику, щоб виправити плагін.",
+                    "Надішліть цей текст для діагностики помилки.",
                     "Couldn't get the list of selected messages.\n"
                     f"Available context keys: {list(context.keys())}\n\n"
-                    "Send this text to the developer so they can fix the plugin.",
+                    "Send this text for error diagnostics.",
                     "Не удалось получить список выделенных сообщений.\n"
                     f"Доступные ключи контекста: {list(context.keys())}\n\n"
-                    "Пришлите этот текст разработчику, чтобы поправить плагин.",
+                    "Пришлите этот текст для диагностики ошибки.",
                 ),
             )
             return
