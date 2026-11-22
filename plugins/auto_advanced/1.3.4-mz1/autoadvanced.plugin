@@ -46,7 +46,7 @@ class AutoSignaturePlugin(BasePlugin):
                 key="signature_text",
                 text=_mz_t("Текст підпису", "Signature text", "Текст подписи"),
                 default="",
-                subtext=_mz_t("Підтримується Markdown: [subscribe](t.me/coprux)", "Markdown is supported: [subscribe](t.me/coprux)", "Поддерживается Markdown: [subscribe](t.me/coprux)"),
+                subtext=_mz_t("Підтримується Markdown", "Markdown is supported", "Поддерживается Markdown"),
                 icon="msg_pen"
             ),
             Selector(

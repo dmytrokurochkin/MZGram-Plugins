@@ -1,8 +1,3 @@
-"""
-    Do you think the plugin is good, or did you find a bug?
-    Write to @shikaatux
-"""
-
 __id__ = "always-tabs-forums"
 __name__ = "Always tabs forums"
 __description__ = "Enable tab view in all forums"

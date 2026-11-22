@@ -11,7 +11,6 @@ def _mz_t(uk, en, ru=None):
         return ru
     return en
 
-# -*- coding: @gemeguardian -*-
 
 from base_plugin import BasePlugin, HookResult, HookStrategy
 from client_utils import run_on_queue, send_message, get_last_fragment, send_request, RequestCallback
@@ -32,7 +31,7 @@ __category__ = ["chats"]
 
 class AccountStatsPlugin(BasePlugin):
     """
-    Plugin for exteraGram that counts statistics for all chats accurately and efficiently.
+    Plugin for MZGram that counts statistics for all chats accurately and efficiently.
     """
 
     def __init__(self):
@@ -65,7 +64,6 @@ class AccountStatsPlugin(BasePlugin):
             Switch(key="show_archived", text=_mz_t("Архівовані діалоги", "Archived chats", "Архивированные диалоги"), default=True, on_change=lambda v: self._on_setting_change("show_archived", v)),
             Switch(key="show_blocked", text=_mz_t("Заблоковані", "Blocked", "Заблокированные"), default=True, on_change=lambda v: self._on_setting_change("show_blocked", v)),
             Switch(key="show_subcategories", text=_mz_t("Показувати підкатегорії (люди/боти)", "Show subcategories (people/bots)", "Показывать подкатегории (люди/боты)"), default=True, on_change=lambda v: self._on_setting_change("show_subcategories", v)),
-            Divider(_mz_t("Зроблено @gemeguardian", "Made by @gemeguardian", "Сделано @gemeguardian"))
         ]
         return settings
 

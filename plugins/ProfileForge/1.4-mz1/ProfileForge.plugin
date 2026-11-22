@@ -21,8 +21,6 @@ def _mz_t(uk, en, ru=None):
 #
 #   HysteriaPlugins — Profile Forge
 #
-# Please credit the author when using parts of this plugin's code
-# Author: @HysteriaPlugins
 #   © HysteriaPlugins 
 # ==================================================================
 
@@ -85,13 +83,11 @@ _SENTINEL = object()
 _TAG = "[ProfileForge]"
 _PLUGIN_NAME = "Profile Forge"
 _PLUGIN_VERSION = "1.4"
-_PLUGIN_AUTHOR = "@HysteriaPlugins"
 
 
 class ProfileForgePlugin(BasePlugin):
     """
     Profile banner customization: background, fonts, gradient nicknames.
-    Author: @HysteriaPlugins
     Version: 1.4
     """
 

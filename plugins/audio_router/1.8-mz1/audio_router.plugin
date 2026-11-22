@@ -310,11 +310,6 @@ class AudioRouterPlugin(BasePlugin):
                 icon="msg_link",
                 on_click=self._open_url("https://telegra.ph/Dokumentaciya-k-plaginu-Audio-Router-06-28"),
             ),
-            Text(
-                text=_mz_t("Канал автора", "Author's channel", "Канал автора"),
-                icon="msg_channel",
-                on_click=self._open_url("https://t.me/MaxExteraPlugins"),
-            ),
             Divider(),
             Header(text=_mz_t("Глобальний статус плагіна", "Global plugin status", "Глобальный статус плагина")),
             Switch(

@@ -312,7 +312,6 @@ class Plugin(BasePlugin):
     def on_plugin_load(self):
         self.log(f"{ASB} ============================")
         self.log(f"{ASB} ASB v10.0.0 loading...")
-        self.log(f"{ASB} Author: @avaikaW")
         self.log(f"{ASB} ============================")
         self._unhooks = []
         _cache_settings(self)
@@ -426,14 +425,14 @@ class Plugin(BasePlugin):
 
             Text(
                 text=(
-                    _mz_t("Плагін керування кнопками надсилання, голосового і відеоповідомлення. 4 режими. v10.0.0 @avaikaW", "Plugin for managing the send, voice and video message buttons. 4 modes. v10.0.0 @avaikaW", ("Плагин "
+                    _mz_t("Плагін керування кнопками надсилання, голосового і відеоповідомлення. 4 режими. v10.0.0", "Plugin for managing the send, voice and video message buttons. 4 modes. v10.0.0", ("Плагин "
                     "управления "
                     "кнопками "
                     "отправки, "
                     "голосового "
                     "и видеосообщения. "
                     "4 режима. "
-                    "v10.0.0 @avaikaW"))
+                    "v10.0.0"))
                 )
             ),
 
@@ -526,8 +525,4 @@ class Plugin(BasePlugin):
                 ),
                 on_change=self._on_mode_change,
             ),
-
-            Divider(),
-
-            Text(text="ASB v10.0.0 | @avaikaW", red=True),
         ]

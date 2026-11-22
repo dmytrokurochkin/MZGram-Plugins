@@ -210,7 +210,6 @@ _CCB_STRINGS = {
         "oldf_alpha_text": _mz_t("Прозорість тек", "Folder transparency", "Прозрачность папок"),
         "oldf_alpha_sub": _mz_t("0 залишає панель такою, як її малює клієнт, 100 повністю прозора.", "0 leaves the panel exactly as the client draws it, 100 is fully transparent.", "0 — обычная панель как без плагина, 100 — полностью прозрачная"),
         "oldf_restart_note": _mz_t("Іноді для застосування змін може знадобитися перезапуск.", "A restart may sometimes be required to apply changes.", "Иногда для применения изменений может потребоваться перезапуск."),
-        "authors_header": _mz_t("Автори початкових плагінів", "Original Plugin Authors", "Авторы исходных плагинов"),
         "settings_error": _mz_t("Помилка налаштувань", "Settings error", "Ошибка настроек"),
         "menu_custom_bg": _mz_t("Власний фон", "Custom Background", "Кастомный фон"),
         "menu_channel_banner": _mz_t("Банер каналу", "Channel Banner", "Баннер канала"),
@@ -347,7 +346,6 @@ _CCB_STRINGS = {
         "oldf_alpha_text": "Folder transparency",
         "oldf_alpha_sub": "0 leaves the panel exactly as the client draws it, 100 is fully transparent.",
         "oldf_restart_note": "A restart may sometimes be required to apply changes.",
-        "authors_header": "Original Plugin Authors",
         "settings_error": "Settings error",
         "menu_custom_bg": "Custom Background",
         "menu_channel_banner": "Channel Banner",
@@ -2192,33 +2190,7 @@ class ProfileHeaderImagePlugin(BasePlugin):
                     on_change=self._oldfolders_on_enable_changed,
                 ),
             ]
-            rows += [
-                Divider(text=t("authors_header")),
-                Text(
-                    text="@gemeguardian",
-                    subtext="Custom Profile",
-                    accent=True,
-                    on_click=lambda v: self._open_tg_link("gemeguardian"),
-                ),
-                Text(
-                    text="@RooniRN",
-                    subtext="Custom Top Banner",
-                    accent=True,
-                    on_click=lambda v: self._open_tg_link("RooniRN"),
-                ),
-                Text(
-                    text="@optimist_opti",
-                    subtext="Channel Banner",
-                    accent=True,
-                    on_click=lambda v: self._open_tg_link("optimist_opti"),
-                ),
-                Text(
-                    text="@Vernyak6",
-                    subtext="TransparentFolders",
-                    accent=True,
-                    on_click=lambda v: self._open_tg_link("Vernyak6"),
-                ),
-            ]
+
             return rows
         except Exception:
             return [Header("Combined Banner Profile"), Text(self._t("settings_error"))]

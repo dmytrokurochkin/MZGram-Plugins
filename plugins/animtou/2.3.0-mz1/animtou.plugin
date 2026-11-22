@@ -30,7 +30,7 @@ from org.telegram.ui.Stars import SuperRipple
 
 __id__ = "animtou"
 __name__ = "Animated touches"
-__description__ = "Adds a fun animation on every tap\n(idea by @itskotovski and @mishabotov)"
+__description__ = "Adds a fun animation on every tap."
 __author__ = "MZGram"
 __version__ = "2.3.0-mz1"
 __min_version__ = "12.5.1"
@@ -462,24 +462,6 @@ class animtouPlugin(BasePlugin):
         except Exception as e:
             _show_copyable_error("animtou: seekbar build error", e)
             return None
-
-    def _open_channel(self, _view=None):
-        try:
-            run_on_ui_thread(lambda: get_messages_controller().openByUserName("jxbplug", get_last_fragment(), 1))
-        except Exception as e:
-            _show_copyable_error("animtou: _open_channel error", e)
-
-    def _open_channel2(self, _view=None):
-        try:
-            run_on_ui_thread(lambda: get_messages_controller().openByUserName("zwyPlugins", get_last_fragment(), 2))
-        except Exception as e:
-            _show_copyable_error("animtou: _open_channel2 error", e)
-
-    def _open_idea_author(self, _view=None):
-        try:
-            run_on_ui_thread(lambda: get_messages_controller().openByUserName("mishabotov", get_last_fragment(), 1))
-        except Exception as e:
-            _show_copyable_error("animtou: _open_idea_author error", e)
 
     def create_settings(self):
         intensity_ui_default = round(self._cached_intensity / self.INTENSITY_SCALE)

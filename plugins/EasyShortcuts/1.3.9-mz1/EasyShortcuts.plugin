@@ -317,10 +317,6 @@ class MessageShortcuts(BasePlugin):
         self.L = self._get_current_locale()
         self._cached_ping = "calc..."
         
-        shortcuts = self.get_setting("shortcuts", [])
-        if not any(s.get("pattern") == ":cch" for s in shortcuts):
-            shortcuts.append({"pattern": ":cch", "replacement": "@meijinolife", "is_regex": False})
-            self.set_setting("shortcuts", shortcuts, reload_settings=False)
 
         self._refresh_shortcuts_cache()
         self._start_ping_monitor()
