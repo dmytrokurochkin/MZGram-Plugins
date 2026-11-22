@@ -2117,8 +2117,8 @@
       "version": "1.0-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/card_reading/1.0-mz1/card_reading.plugin",
-      "sha256": "ddc555bc67183cb6650cd66e68cb86e3e5bead67f757e9d468c104cd80d3c61b",
-      "size": 48017,
+      "sha256": "2c75ac5224ee486f43e9a444711c8403f15839e049c2ead33e88e3163c76c6ea",
+      "size": 45420,
       "description": "Card reading: tarot fortune telling via the chat menu or the .fortune command.",
       "description_i18n": {
         "en": "Card reading: tarot fortune telling via the chat menu or the .fortune command.",
