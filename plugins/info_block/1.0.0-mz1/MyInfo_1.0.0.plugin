@@ -66,7 +66,6 @@ class InfoPlugin(BasePlugin):
             "custom_sep_sub": _mz_t("Використовуйте '|' для розділення нижнього і верхнього", "Use '|' to separate lower and upper", "Используйте '|' для разделения нижнего и верхнего") if ru else "Use '|' to separate lower and upper",
             "command": _mz_t("Команда", "Command", "Команда") if ru else "Command",
             "sub_command": _mz_t("Типово: .info", "Default: .info", "По умолчанию: .info") if ru else "Default: .info",
-            "thanks": _mz_t("Створено та оновлюється завдяки @RnPlugins", "Created and updated by @RnPlugins", "Создано и обновляется благодаря @RnPlugins") if ru else "Created and updated by @RnPlugins",
             "collapse": _mz_t("Згорнути цитату", "Collapse quote", "Свернуть цитату") if ru else "Collapse quote",
             "collapse_sub": _mz_t("Цитата буде типово згорнута", "The quote will be collapsed by default", "Цитата будет по умолчанию свёрнута") if ru else "The quote will be collapsed by default",
             "addy_sub": _mz_t("Власний текст, наприклад: *Текст:* Це текст", "Your text, for example: *Text:* This is text", "Свой текст, например: *Текст:* Это текст") if ru else "Your text, for example: *Text:* This is text",

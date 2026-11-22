@@ -387,15 +387,4 @@ class ProtectFilterPlugin(BasePlugin):
             ),
             Divider(text="ᅠ"),
             Switch(key="notify_trigger", text=_mz_t("Сповіщати про спрацювання", "Notify when triggered", "Уведомлять о срабатывании"), default=True),
-            Divider(text="ᅠ"),
-            Text(
-                text=_mz_t("Зробив: @exoseo", "Made by: @exoseo", "Сделал: @exoseo"),
-                on_click=lambda v: self._open_tg_link("exoseo"),
-                link_alias="creator_link",
-            ),
-            Text(
-                text=_mz_t("Канал: @HzzzPlugins", "Channel: @HzzzPlugins", "Канал: @HzzzPlugins"),
-                on_click=lambda v: self._open_tg_link("HzzzPlugins"),
-                link_alias="channel_link",
-            ),
         ]

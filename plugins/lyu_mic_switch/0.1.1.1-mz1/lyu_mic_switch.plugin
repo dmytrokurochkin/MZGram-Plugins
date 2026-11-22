@@ -75,8 +75,6 @@ STRINGS = {
     "last_backup": (_mz_t(" · із запасного: %d с", " · on backup: %d s", " · с запасного: %d с"), " · on backup: %d s"),
     "hint": (_mz_t("Плагін записує звук одразу з двох мікрофонів і кожні ~10 мс залишає той, що звучить чисто. Мікрофон, закритий пальцем, глухне, особливо на високих частотах, тож запис плавно переходить на інший і повертається, щойно мікрофон знову відкритий. У Telegram іде звичайний звук, співрозмовник нічого не помітить. Дзвінки не змінюються. Потрібен телефон із стереозаписом; якщо його немає, запис іде як звичайно.", "The plugin records from two microphones at once and every ~10 ms keeps the one that sounds clear. A microphone covered by a finger gets muffled, especially at high frequencies, so recording smoothly moves to the other one and returns once the microphone is open again. Telegram gets normal audio, the other side notices nothing. Calls are not changed. Requires a phone with stereo recording; without it recording works as usual.", "Плагин пишет звук сразу с двух микрофонов и каждые ~10 мс оставляет тот, который звучит чисто. Закрытый пальцем микрофон глохнет, особенно на высоких частотах, — запись плавно переходит на другой и возвращается, когда микрофон снова открыт. В Telegram уходит обычный звук, собеседник ничего не заметит. Звонки не меняются. Нужен телефон со стереозаписью; если её нет, запись идёт как обычно."),
              "The plugin records from two microphones at once and every ~10 ms keeps the one that sounds clear. A microphone covered by a finger gets muffled, especially at high frequencies, so recording smoothly moves to the other one and returns once the microphone is open again. Telegram gets normal audio, the other side notices nothing. Calls are not changed. Requires a phone with stereo recording; without it recording works as usual."),
-    "group": (_mz_t("Мої плагіни", "My plugins", "Мои плагины"), "My plugins"),
-    "author": (_mz_t("Автор: @lyuto_bor", "Author: @lyuto_bor", "Автор: @lyuto_bor"), "Author: @lyuto_bor"),
 }
 
 CAREFUL, NORMAL, FAST = 0, 1, 2
@@ -510,31 +508,6 @@ class Click(dynamic_proxy(jclass("android.view.View$OnClickListener"))):
 
 # ----- Plugin ---------------------------------------------------------------------------
 
-LYU_GROUP_URL = ""
-LYU_AUTHOR_URL = ""
-
-
-def open_lyu_url(view, url):
-    # Links to the group and the author; Telegram itself opens t.me inside the client.
-    try:
-        from org.telegram.messenger.browser import Browser
-        context = view.getContext() if view is not None else None
-        if context is None:
-            from client_utils import get_last_fragment
-            fragment = get_last_fragment()
-            context = fragment.getParentActivity() if fragment is not None else None
-        if context is not None:
-            Browser.openUrl(context, url)
-    except Exception:
-        pass
-
-
-def open_lyu_group(view=None, *args):
-    open_lyu_url(view, LYU_GROUP_URL)
-
-
-def open_lyu_author(view=None, *args):
-    open_lyu_url(view, LYU_AUTHOR_URL)
 
 
 class MicSwitchPlugin(BasePlugin):

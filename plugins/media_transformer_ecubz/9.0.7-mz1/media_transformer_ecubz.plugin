@@ -49,8 +49,6 @@ STRINGS = {
         "support_header": _mz_t("Підтримка та розробка", "Support and development", "Поддержка и разработка"),
         "channel_title": _mz_t("Канал eCubz Plugins", "eCubz Plugins channel", "Канал eCubz Plugins"),
         "channel_desc": _mz_t("Оновлення та нові плагіни", "Updates and new plugins", "Обновления и новые плагины"),
-        "donate_title": _mz_t("Підтримати проєкт", "Support the project", "Поддержать проект"),
-        "donate_desc": _mz_t("Чайові та реквізити", "Tips and payment details", "Чаевые и реквизиты"),
         "usage_title": _mz_t("Як користуватися:", "How to use:", "Как пользоваться:"),
         "usage_text": _mz_t("1. Оберіть відео або аудіо в галереї.\n2. Утримуйте кнопку «НАДІСЛАТИ» і відкрийте «Перегляд і налаштування».\n3. Утримуйте палець на медіа та оберіть спосіб надсилання.", "1. Choose a video or audio in the gallery.\n2. Hold the «SEND» button and open «Preview and settings».\n3. Hold your finger on the media and choose how to send it.", "1. Выберите видео или аудио в галерее.\n2. Удерживайте кнопку «ОТПРАВИТЬ» и откройте «Просмотр и настройки».\n3. Удерживайте палец на медиа и выберите способ отправки."),
         "share_log": _mz_t("Поділитися логом налагодження", "Share debug log", "Поделиться логом отладки"),
@@ -73,8 +71,6 @@ STRINGS = {
         "support_header": "Support & Development",
         "channel_title": "eCubz Plugins Channel",
         "channel_desc": "Official updates & plugins",
-        "donate_title": "Support the Author",
-        "donate_desc": "Donations & tips",
         "usage_title": "How to use:",
         "usage_text": "1. Select video or audio in the gallery.\n2. Hold SEND button and open Preview and settings.\n3. Hold media and choose a send mode.",
         "share_log": "Share Debug Log",
@@ -171,11 +167,6 @@ class Plugin(BasePlugin):
             pass
         return False
 
-    def open_channel(self, view=None):
-        pass
-
-    def open_donate(self, view=None):
-        pass
 
     def create_settings(self):
         strings = get_strings()

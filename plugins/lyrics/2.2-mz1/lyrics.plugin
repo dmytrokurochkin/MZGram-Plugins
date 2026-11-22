@@ -75,91 +75,91 @@ class LocaleController:
             "FetchingLyrics": "Fetching Lyrics...",
             "LyricsNotFound": "Lyrics not found",
             "LyricsControllerNotLoaded": "An error occurred while loading an additional module. Press '%s' to try again.",
-            "UnsupportedVersion": "Your version of the ReachText plugin does not support this feature. Please update it."
+            "UnsupportedVersion": "Your version of the Reach Text plugin does not support this feature. Please update the Reach Text plugin from the MZGram plugin catalog."
         },
         "ru": {
             "ShowLyrics": "Показать текст",
             "FetchingLyrics": "Получаю текст...",
             "LyricsNotFound": "Текст не найден",
             "LyricsControllerNotLoaded": "Произошла ошибка во время загрузки дополнительного модуля. Нажмите '%s', чтобы попробовать снова.",
-            "UnsupportedVersion": "Ваша версия плагина ReachText не поддерживает эту функцию. Обновите ее."
+            "UnsupportedVersion": "Ваша версия плагина Reach Text не поддерживает эту функцию. Пожалуйста, обновите плагин Reach Text из каталога плагинов MZGram."
         },
         "de": {
             "ShowLyrics": "Songtext anzeigen",
             "FetchingLyrics": "Songtext wird abgerufen...",
             "LyricsNotFound": "Songtext nicht gefunden",
             "LyricsControllerNotLoaded": "Beim Laden eines zusätzlichen Moduls ist ein Fehler aufgetreten. Drücken Sie '%s', um es erneut zu versuchen.",
-            "UnsupportedVersion": "Ihre Version des ReachText-Plugins unterstützt diese Funktion nicht. Bitte aktualisieren Sie es über den offiziellen Telegram-Kanal @PESSDES_Plugins."
+            "UnsupportedVersion": "Ihre Version des Reach Text-Plugins unterstützt diese Funktion nicht. Bitte aktualisieren Sie das Reach Text-Plugin aus dem MZGram-Plugin-Katalog."
         },
         "es": {
             "ShowLyrics": "Mostrar letra",
             "FetchingLyrics": "Obteniendo la letra...",
             "LyricsNotFound": "Letra no encontrada",
             "LyricsControllerNotLoaded": "Ocurrió un error al cargar el módulo adicional. Presiona '%s' para intentarlo de nuevo.",
-            "UnsupportedVersion": "Tu versión del plugin ReachText no es compatible con esta función. Por favor, actualízala desde el canal oficial de Telegram @PESSDES_Plugins."
+            "UnsupportedVersion": "Tu versión del plugin Reach Text no es compatible con esta función. Por favor, actualiza el plugin Reach Text desde el catálogo de plugins de MZGram."
         },
         "fr": {
             "ShowLyrics": "Afficher les paroles",
             "FetchingLyrics": "Récupération des paroles...",
             "LyricsNotFound": "Paroles non trouvées",
             "LyricsControllerNotLoaded": "Une erreur s'est produite lors du chargement du module additionnel. Appuyez sur '%s' pour réessayer.",
-            "UnsupportedVersion": "Votre version du plugin ReachText ne prend pas en charge cette fonctionnalité. Veuillez la mettre à jour depuis le canal Telegram officiel @PESSDES_Plugins."
+            "UnsupportedVersion": "Votre version du plugin Reach Text ne prend pas en charge cette fonctionnalité. Veuillez mettre à jour le plugin Reach Text depuis le catalogue de plugins MZGram."
         },
         "it": {
             "ShowLyrics": "Mostra il testo",
             "FetchingLyrics": "Recupero il testo...",
             "LyricsNotFound": "Testo non trovato",
             "LyricsControllerNotLoaded": "Si è verificato un errore durante il caricamento del modulo aggiuntivo. Premi '%s' per riprovare.",
-            "UnsupportedVersion": "La tua versione del plugin ReachText non supporta questa funzionalità. Si prega di aggiornarla dal canale Telegram ufficiale @PESSDES_Plugins."
+            "UnsupportedVersion": "La tua versione del plugin Reach Text non supporta questa funzionalità. Si prega di aggiornare il plugin Reach Text dal catalogo dei plugin di MZGram."
         },
         "pt": {
             "ShowLyrics": "Mostrar a letra",
             "FetchingLyrics": "Buscando a letra...",
             "LyricsNotFound": "Letra não encontrada",
             "LyricsControllerNotLoaded": "Ocorreu um erro ao carregar o módulo adicional. Pressione '%s' para tentar novamente.",
-            "UnsupportedVersion": "Sua versão do plugin ReachText não suporta este recurso. Por favor, atualize-o a partir do canal oficial do Telegram @PESSDES_Plugins."
+            "UnsupportedVersion": "Sua versão do plugin Reach Text não suporta este recurso. Por favor, atualize o plugin Reach Text a partir do catálogo de plugins do MZGram."
         },
         "zh": {
             "ShowLyrics": "显示歌词",
             "FetchingLyrics": "正在获取歌词...",
             "LyricsNotFound": "未找到歌词",
             "LyricsControllerNotLoaded": "加载附加模块时出错。请按“%s”重试。",
-            "UnsupportedVersion": "您的 ReachText 插件版本不支持此功能。请从官方 Telegram 频道 @PESSDES_Plugins 更新。"
+            "UnsupportedVersion": "您的 Reach Text 插件版本不支持此功能。请从 MZGram 插件目录更新 Reach Text 插件。"
         },
         "ja": {
             "ShowLyrics": "歌詞を表示",
             "FetchingLyrics": "歌詞を取得中...",
             "LyricsNotFound": "歌詞が見つかりません",
             "LyricsControllerNotLoaded": "追加モジュールの読み込み中にエラーが発生しました。「%s」を押して再試行してください。",
-            "UnsupportedVersion": "お使いのReachTextプラグインのバージョンでは、この機能はサポートされていません。公式Telegramチャンネル@PESSDES_Pluginsから更新してください。"
+            "UnsupportedVersion": "お使いの Reach Text プラグインのバージョンでは、この機能はサポートされていません。MZGram プラグインカタログから Reach Text プラグインを更新してください。"
         },
         "uk": {
             "ShowLyrics": "Показати текст",
             "FetchingLyrics": "Отримання тексту...",
             "LyricsNotFound": "Текст не знайдено",
             "LyricsControllerNotLoaded": "Сталася помилка під час завантаження додаткового модуля. Натисніть '%s', щоб спробувати знову.",
-            "UnsupportedVersion": "Ваша версія плагіна ReachText не підтримує цю функцію. Оновіть її."
+            "UnsupportedVersion": "Ваша версія плагіна Reach Text не підтримує цю функцію. Будь ласка, оновіть плагін Reach Text з каталогу плагінів MZGram."
         },
         "pl": {
             "ShowLyrics": "Pokaż tekst",
             "FetchingLyrics": "Pobieranie tekstu...",
             "LyricsNotFound": "Nie znaleziono tekstu",
             "LyricsControllerNotLoaded": "Wystąpił błąd podczas ładowania dodatkowego modułu. Naciśnij '%s', aby spróbować ponownie.",
-            "UnsupportedVersion": "Twoja wersja wtyczki ReachText nie obsługuje tej funkcji. Zaktualizuj ją z oficjalnego kanału Telegram @PESSDES_Plugins."
+            "UnsupportedVersion": "Twoja wersja wtyczki Reach Text nie obsługuje tej funkcji. Zaktualizuj wtyczkę Reach Text z katalogu wtyczek MZGram."
         },
         "ko": {
             "ShowLyrics": "가사 보기",
             "FetchingLyrics": "가사 불러오는 중...",
             "LyricsNotFound": "가사를 찾을 수 없습니다",
             "LyricsControllerNotLoaded": "추가 모듈을 로드하는 중 오류가 발생했습니다. '%s' 버튼을 눌러 다시 시도하세요.",
-            "UnsupportedVersion": "사용 중인 ReachText 플러그인 버전이 이 기능을 지원하지 않습니다. 공식 텔레그램 채널 @PESSDES_Plugins에서 업데이트하세요."
+            "UnsupportedVersion": "사용 중인 Reach Text 플러그인 버전이 이 기능을 지원하지 않습니다. MZGram 플러그인 카탈로그에서 Reach Text 플러그인을 업데이트하세요."
         },
         "ar": {
             "ShowLyrics": "إظهار الكلمات",
             "FetchingLyrics": "جارٍ جلب الكلمات...",
             "LyricsNotFound": "لم يتم العثور على الكلمات",
             "LyricsControllerNotLoaded": "حدث خطأ أثناء تحميل الوحدة الإضافية. اضغط على '%s' للمحاولة مرة أخرى.",
-            "UnsupportedVersion": "إصدار المكون الإضافي ReachText الخاص بك لا يدعم هذه الميزة. يرجى تحديثه من قناة تيليجرام الرسمية @PESSDES_Plugins."
+            "UnsupportedVersion": "إصدار المكون الإضافي Reach Text الخاص بك لا يدعم هذه الميزة. يرجى تحديث المكون الإضافي Reach Text من كتالوج مكونات MZGram الإضافية."
         }
     }
 

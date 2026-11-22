@@ -84,9 +84,7 @@ class MuteAccountPlugin(BasePlugin):
         builder.set_title(_mz_t("Про плагін", "About the plugin", "О плагине"))
         builder.set_message(
             _mz_t("Плагін вимикає push-сповіщення й спливні вікна в застосунку лише для вибраних акаунтів, а для решти лишає їх. Повідомлення так само приходять і видно в списку чатів.", "Turns off push notifications and in-app popups only for the chosen accounts and keeps them for the rest. Messages still arrive and show in the chat list.", ("Плагин отключает push-уведомления и локальные всплытия только для выбранных аккаунтов, "
-            "оставляя их для остальных. Сообщения по-прежнему приходят и отображаются в списке чатов.\n\n"
-            "Автор: @bober41\n"
-            "Канал обновлений: @bobrplugins"))
+            "оставляя их для остальных. Сообщения по-прежнему приходят и отображаются в списке чатов."))
         )
         builder.set_positive_button("OK", lambda b, w: b.dismiss())
         builder.show()

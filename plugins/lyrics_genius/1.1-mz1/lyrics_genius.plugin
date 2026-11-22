@@ -195,55 +195,55 @@ class LocaleController:
     strings = {
         "en": {
             "ReachTextNotInstalled": "Reach Text is not installed.\nYou can install it by clicking on the button below.",
-            "UnsupportedVersion": "Your version of the ReachText plugin does not support this feature. Please update it."
+            "UnsupportedVersion": "Your version of the Reach Text plugin does not support this feature. Please update the Reach Text plugin from the MZGram plugin catalog."
         },
         "ru": {
             "ReachTextNotInstalled": "Reach Text не установлен.\nВы можете установить его, нажав на кнопку ниже.",
-            "UnsupportedVersion": "Ваша версия плагина ReachText не поддерживает эту функцию. Обновите ее."
+            "UnsupportedVersion": "Ваша версия плагина Reach Text не поддерживает эту функцию. Пожалуйста, обновите плагин Reach Text из каталога плагинов MZGram."
         },
         "de": {
             "ReachTextNotInstalled": "Reach Text ist nicht installiert.\nSie können es installieren, indem Sie auf die Schaltfläche unten klicken.",
-            "UnsupportedVersion": "Ihre Version des ReachText-Plugins unterstützt diese Funktion nicht. Bitte aktualisieren Sie es über den offiziellen Telegram-Kanal @PESSDES_Plugins."
+            "UnsupportedVersion": "Ihre Version des Reach Text-Plugins unterstützt diese Funktion nicht. Bitte aktualisieren Sie das Reach Text-Plugin aus dem MZGram-Plugin-Katalog."
         },
         "es": {
             "ReachTextNotInstalled": "Reach Text no está instalado.\nPuedes instalarlo haciendo clic en el botón de abajo.",
-            "UnsupportedVersion": "Tu versión del plugin ReachText no es compatible con esta función. Por favor, actualízala desde el canal oficial de Telegram @PESSDES_Plugins."
+            "UnsupportedVersion": "Tu versión del plugin Reach Text no es compatible con esta función. Por favor, actualiza el plugin Reach Text desde el catálogo de plugins de MZGram."
         },
         "fr": {
             "ReachTextNotInstalled": "Reach Text n'est pas installé.\nVous pouvez l'installer en cliquant sur le bouton ci-dessous.",
-            "UnsupportedVersion": "Votre version du plugin ReachText ne prend pas en charge cette fonctionnalité. Veuillez la mettre à jour depuis le canal Telegram officiel @PESSDES_Plugins."
+            "UnsupportedVersion": "Votre version du plugin Reach Text ne prend pas en charge cette fonctionnalité. Veuillez mettre à jour le plugin Reach Text depuis le catalogue de plugins MZGram."
         },
         "it": {
             "ReachTextNotInstalled": "Reach Text non è installato.\nPuoi installarlo cliccando sul pulsante qui sotto.",
-            "UnsupportedVersion": "La tua versione del plugin ReachText non supporta questa funzionalità. Si prega di aggiornarla dal canale Telegram ufficiale @PESSDES_Plugins."
+            "UnsupportedVersion": "La tua versione del plugin Reach Text non supporta questa funzionalità. Si prega di aggiornare il plugin Reach Text dal catalogo dei plugin di MZGram."
         },
         "pt": {
             "ReachTextNotInstalled": "O Reach Text não está instalado.\nVocê pode instalá-lo clicando no botão abaixo.",
-            "UnsupportedVersion": "Sua versão do plugin ReachText não suporta este recurso. Por favor, atualize-o a partir do canal oficial do Telegram @PESSDES_Plugins."
+            "UnsupportedVersion": "Sua versão do plugin Reach Text não suporta este recurso. Por favor, atualize o plugin Reach Text a partir do catálogo de plugins do MZGram."
         },
         "zh": {
             "ReachTextNotInstalled": "Reach Text 未安装。\n您可以点击下方的按钮进行安装。",
-            "UnsupportedVersion": "您的 ReachText 插件版本不支持此功能。请从官方 Telegram 频道 @PESSDES_Plugins 更新。"
+            "UnsupportedVersion": "您的 Reach Text 插件版本不支持此功能。请从 MZGram 插件目录更新 Reach Text 插件。"
         },
         "ja": {
             "ReachTextNotInstalled": "Reach Textがインストールされていません。\n下のボタンをクリックしてインストールできます。",
-            "UnsupportedVersion": "お使いのReachTextプラグインのバージョンでは、この機能はサポートされていません。公式Telegramチャンネル@PESSDES_Pluginsから更新してください。"
+            "UnsupportedVersion": "お使いの Reach Text プラグインのバージョンでは、この機能はサポートされていません。MZGram プラグインカタログから Reach Text プラグインを更新してください。"
         },
         "uk": {
             "ReachTextNotInstalled": "Reach Text не встановлено.\nВи можете встановити його, натиснувши кнопку нижче.",
-            "UnsupportedVersion": "Ваша версія плагіна ReachText не підтримує цю функцію. Оновіть її."
+            "UnsupportedVersion": "Ваша версія плагіна Reach Text не підтримує цю функцію. Будь ласка, оновіть плагін Reach Text з каталогу плагінів MZGram."
         },
         "pl": {
             "ReachTextNotInstalled": "Reach Text nie jest zainstalowany.\nMożesz go zainstalować, klikając przycisk poniżej.",
-            "UnsupportedVersion": "Twoja wersja wtyczki ReachText nie obsługuje tej funkcji. Zaktualizuj ją z oficjalnego kanału Telegram @PESSDES_Plugins."
+            "UnsupportedVersion": "Twoja wersja wtyczki Reach Text nie obsługuje tej funkcji. Zaktualizuj wtyczkę Reach Text z katalogu wtyczek MZGram."
         },
         "ko": {
             "ReachTextNotInstalled": "Reach Text가 설치되어 있지 않습니다.\n아래 버튼을 클릭하여 설치할 수 있습니다.",
-            "UnsupportedVersion": "사용 중인 ReachText 플러그인 버전이 이 기능을 지원하지 않습니다. 공식 텔레그램 채널 @PESSDES_Plugins에서 업데이트하세요."
+            "UnsupportedVersion": "사용 중인 Reach Text 플러그인 버전이 이 기능을 지원하지 않습니다. MZGram 플러그인 카탈로그에서 Reach Text 플러그인을 업데이트하세요."
         },
         "ar": {
             "ReachTextNotInstalled": "Reach Text غير مثبت.\nيمكنك تثبيته بالضغط على الزر أدناه.",
-            "UnsupportedVersion": "إصدار المكون الإضافي ReachText الخاص بك لا يدعم هذه الميزة. يرجى تحديثه من قناة تيليجرام الرسمية @PESSDES_Plugins."
+            "UnsupportedVersion": "إصدار المكون الإضافي Reach Text الخاص بك لا يدعم هذه الميزة. يرجى تحديث المكون الإضافي Reach Text من كتالوج مكونات MZGram الإضافية."
         }
     }
 
