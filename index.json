@@ -11172,8 +11172,8 @@
       "version": "1.0.0-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/termux_bridge/1.0.0-mz1/termux_bridge.plugin",
-      "sha256": "df07ad2240adbc531959da1d0e9101accdbc1712a5b40bdd6c9efb0dac34bca1",
-      "size": 95654,
+      "sha256": "d03e20aa793fa123e8551f5a82220bec7eca3759a196f3c5caf6999562a372ea",
+      "size": 93049,
       "description": "Running scripts on top of MZGram using termux. To use, download the plugin using the command from the settings.",
       "description_i18n": {
         "en": "Running scripts on top of MZGram using termux. To use, download the plugin using the command from the settings.",

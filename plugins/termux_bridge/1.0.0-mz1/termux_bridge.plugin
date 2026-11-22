@@ -184,7 +184,7 @@ try:
         f.write(d + "\n")
 except Exception:
     pass
-print("\033[38;5;78m✔ Готово!\033[0m Теперь просто введи:  \033[1mtgb\033[0m")
+print("\033[38;5;78m✔ Done!\033[0m Now just type:  \033[1mtgb\033[0m")
 '''
 
 CLIENT = r'''import contextlib
@@ -223,14 +223,14 @@ ANSI = re.compile(r"\033\[[0-9;]*m")
 API_USE = re.compile(r"\b(show|tg|notify|clip|Panel)\(|b\.send\(|\bjava\.")
 POSITIONS = ("top", "bottom", "center", "top_start", "top_end", "bottom_start", "bottom_end")
 COLORS = {
-    "yellow": "#FFD600", "желтый": "#FFD600", "жёлтый": "#FFD600",
-    "red": "#FF3B30", "красный": "#FF3B30",
-    "green": "#34C759", "зеленый": "#34C759", "зелёный": "#34C759",
-    "blue": "#0A84FF", "синий": "#0A84FF",
-    "pink": "#FF2D92", "розовый": "#FF2D92",
-    "orange": "#FF9500", "оранжевый": "#FF9500",
-    "purple": "#AF52DE", "фиолетовый": "#AF52DE",
-    "white": "#FFFFFF", "белый": "#FFFFFF",
+    "yellow": "#FFD600", "желтый": "#FFD600", "жёлтый": "#FFD600", "жовтий": "#FFD600",
+    "red": "#FF3B30", "красный": "#FF3B30", "червоний": "#FF3B30",
+    "green": "#34C759", "зеленый": "#34C759", "зелёный": "#34C759", "зелений": "#34C759",
+    "blue": "#0A84FF", "синий": "#0A84FF", "синій": "#0A84FF",
+    "pink": "#FF2D92", "розовый": "#FF2D92", "рожевий": "#FF2D92",
+    "orange": "#FF9500", "оранжевый": "#FF9500", "помаранчевий": "#FF9500",
+    "purple": "#AF52DE", "фиолетовый": "#AF52DE", "фіолетовий": "#AF52DE",
+    "white": "#FFFFFF", "белый": "#FFFFFF", "білий": "#FFFFFF",
 }
 state = {"pos": "bottom"}
 NS = {"__name__": "__tgb__"}
@@ -241,53 +241,53 @@ QUICK = []
 
 DOCS = {
     "": [
-        ("Что это", "Termux Bridge выводит результат скриптов из Termux поверх экрана exteraGram и даёт скриптам кнопки и панели. Схема: Termux → localhost → плагин → экран."),
-        ("Ввод", "Пиши Python (print(2+2)), shell-команды (ls) или встроенные команды (help). Результат появится в Telegram. !команда — принудительно shell."),
-        ("Оверлей", "Нажми на текст поверх экрана, и он исчезнет. Пример: show Привет --pos top --timeout 5"),
-        ("Кнопки", "btn Пинг = ping -c1 8.8.8.8 — на экране Telegram появится кнопка, нажатие запускает команду. Подробнее: docs ui"),
-        ("Нейросеть", "ai <запрос>: ИИ пишет скрипт, ты подтверждаешь запуск. Настройка в плагине, раздел «Нейросеть». Подробнее: docs ai"),
-        ("Не работает?", "status показывает диагностику. Включены ли плагин и «Сервер включён»? start запускает exteraGram в фоне."),
+        ("What is this", "Termux Bridge displays output from Termux scripts on top of the MZGram screen and provides interactive buttons and panels. Architecture: Termux -> localhost -> plugin -> screen."),
+        ("Input", "Enter Python (print(2+2)), shell commands (ls), or built-in commands (help). Output appears in Telegram. !command forces shell execution."),
+        ("Overlay", "Tap on overlay text on screen to dismiss it. Example: show Hello --pos top --timeout 5"),
+        ("Buttons", "btn Ping = ping -c1 8.8.8.8 adds a button on Telegram screen, tapping runs the command. Details: docs ui"),
+        ("AI", "ai <prompt>: AI writes a script, you confirm execution. Settings in plugin -> AI. Details: docs ai"),
+        ("Not working?", "status shows diagnostics. Are plugin and 'Server enabled' on? start launches MZGram in background."),
     ],
     "api": [
-        ("Функции", "java — доступ к любым Android-классам (docs java). show(текст, title=, pos=, fg=, bg=, size=, mono=, timeout=, max_lines=) показывает текст на экране. notify(текст, kind) — уведомление (info, success, error). clip(текст) — в буфер обмена. tg(код) выполняет код внутри Telegram. b.send(cmd, **kw) вызывает мост напрямую."),
-        ("Команды моста", "ping, diag, show, append, clear, ball, notify, clip, panel, set, close, exec, ai, ai_docs."),
-        ("Позиции", "top, bottom, center, top_start, top_end, bottom_start, bottom_end."),
-        ("Свой скрипт", "from tgbridge import Panel, show, notify, wait — работает из любого скрипта в Termux. Если импорт не находит модуль: sys.path.insert(0, os.path.expanduser('~/.tgbridge'))."),
-        ("Внутри Telegram", "Нужен переключатель «Разрешить exec». Доступны jclass, ui, fragment, show, append, clear, notify. Код, меняющий интерфейс, оборачивай в ui(lambda: ...)."),
+        ("Functions", "java — access to Android classes (docs java). show(text, title=, pos=, fg=, bg=, size=, mono=, timeout=, max_lines=) displays text on screen. notify(text, kind) — Telegram notification (info, success, error). clip(text) — copies to clipboard. tg(code) runs code inside Telegram. b.send(cmd, **kw) calls bridge directly."),
+        ("Bridge commands", "ping, diag, show, append, clear, ball, notify, clip, panel, set, close, exec, ai, ai_docs."),
+        ("Positions", "top, bottom, center, top_start, top_end, bottom_start, bottom_end."),
+        ("Custom script", "from tgbridge import Panel, show, notify, wait — works from any script in Termux. If import fails: sys.path.insert(0, os.path.expanduser('~/.tgbridge'))."),
+        ("Inside Telegram", "Requires 'Allow exec' switch in plugin settings. Available: jclass, ui, fragment, show, append, clear, notify. Wrap UI changes in ui(lambda: ...)."),
     ],
     "ui": [
-        ("Кнопки без кода", "btn Пинг = ping -c1 8.8.8.8 создаёт панель с кнопкой. Нажатие запускает команду и показывает вывод на экране. btn list — список, btn clear — убрать. Кнопки живут, пока открыт tgb."),
-        ("Панель из Python", "p = Panel('Пульт', pos='bottom_end'); p.button('Привет', lambda: notify('Привет!')); p.show()"),
-        ("Элементы", "text, button, toggle, slider, input и with p.row(): для ряда. p.toggle('Свет', lambda v: ...), p.slider('Громкость', 0, 100, 50, lambda v: ...), p.input('Имя', lambda s: ...)."),
-        ("Обновление", "p.set(id, text=, value=, enabled=, visible=) меняет элемент на лету, p.close() убирает панель. Панель двигается за заголовок, крестик закрывает."),
-        ("В скриптах", "В конце отдельного скрипта вызови wait(), иначе кнопки исчезнут вместе со скриптом. В оболочке tgb этого не нужно."),
+        ("No-code buttons", "btn Ping = ping -c1 8.8.8.8 creates a panel with a button. Tapping runs command and displays output on screen. btn list — list, btn clear — remove. Buttons persist while tgb is open."),
+        ("Python panel", "p = Panel('Remote', pos='bottom_end'); p.button('Hello', lambda: notify('Hello!')); p.show()"),
+        ("Elements", "text, button, toggle, slider, input and with p.row(): for row layout. p.toggle('Light', lambda v: ...), p.slider('Volume', 0, 100, 50, lambda v: ...), p.input('Name', lambda s: ...)."),
+        ("Updating", "p.set(id, text=, value=, enabled=, visible=) modifies element on the fly, p.close() closes panel. Drag title to move, tap cross to close."),
+        ("In scripts", "Call wait() at the end of standalone scripts, otherwise buttons disappear when script exits. Not needed in interactive tgb shell."),
     ],
     "java": [
-        ("Зачем", "Скрипт из Termux может создавать и настраивать любые Android-компоненты внутри Telegram: View, диалоги, сервисы. Нужен переключатель «Разрешить exec и Java» в настройках плагина."),
-        ("Основа", "act = java.activity(); tv = java.new('android.widget.TextView', act); tv.setText('Привет'); java.add_view(tv, x=40, y=200). Любой метод объекта вызывается как обычный Python-метод."),
-        ("Классы", "T = java.cls('android.widget.Toast'); T.makeText(act, 'hi', 1).show(). Константа: java.const('android.graphics.Color', 'WHITE'). Поля: java.get(obj, 'name'), java.set(obj, 'name', v)."),
-        ("Типы", "Python int и float подбираются автоматически. Для перегруженных методов: java.i(5), java.f(1.5), java.d(), java.l(), java.b(True), java.array('int', [1, 2])."),
-        ("Слушатели", "java.listener('android.view.View$OnClickListener', onClick=lambda v: ...) отдай в setOnClickListener. Нужен обработчик на каждый метод интерфейса. Если метод возвращает значение: returns={'onTouch': True}."),
-        ("Полезное", "java.dp(16) переводит dp в пиксели, java.info() — размеры экрана, java.toast(текст), java.vibrate(мс), java.remove_view(view), java.str(obj), java.list(obj)."),
-        ("Время жизни", "Добавленные view и слушатели исчезают, когда закрывается скрипт или tgb. keep=True в add_view оставляет view на экране."),
+        ("Why", "Scripts from Termux can create and configure any Android components inside Telegram: Views, dialogs, services. Requires 'Allow exec and Java' in plugin settings."),
+        ("Basics", "act = java.activity(); tv = java.new('android.widget.TextView', act); tv.setText('Hello'); java.add_view(tv, x=40, y=200). Any method is called like a regular Python method."),
+        ("Classes", "T = java.cls('android.widget.Toast'); T.makeText(act, 'hi', 1).show(). Constants: java.const('android.graphics.Color', 'WHITE'). Fields: java.get(obj, 'name'), java.set(obj, 'name', v)."),
+        ("Types", "Python int and float are matched automatically. For overloaded methods: java.i(5), java.f(1.5), java.d(), java.l(), java.b(True), java.array('int', [1, 2])."),
+        ("Listeners", "java.listener('android.view.View$OnClickListener', onClick=lambda v: ...) passed to setOnClickListener. Provide handlers for each interface method. If returns value: returns={'onTouch': True}."),
+        ("Utilities", "java.dp(16) converts dp to px, java.info() — screen sizes, java.toast(text), java.vibrate(ms), java.remove_view(view), java.str(obj), java.list(obj)."),
+        ("Lifetime", "Added views and listeners disappear when script or tgb closes. keep=True in add_view keeps view on screen."),
     ],
     "ai": [
-        ("Настройка", "Плагин → Нейросеть: эндпоинт (OpenAI-совместимый), API-ключ, модель. Кнопка «Проверить нейросеть» проверит связь."),
-        ("Использование", "ai таймер на 10 секунд по центру. Запрос → код → подтверждение y → запуск. ai reset забывает диалог."),
-        ("Безопасность", "Код всегда показывается и запускается только после твоего y. Ключ хранится в настройках плагина и не копируется в Termux."),
-        ("Документация для ИИ", "docs ai show покажет, что видит модель. В настройках плагина её можно скопировать. Свои правила добавь в «Доп. инструкции для ИИ»."),
+        ("Setup", "Plugin -> AI: endpoint (OpenAI compatible), API key, model. Tap 'Test the AI' button to verify connection."),
+        ("Usage", "ai 10 second timer in center of screen. Request -> code -> confirm y -> run. ai reset clears conversation."),
+        ("Security", "Code is always displayed and runs only after your confirmation. API key stays in plugin settings and is not stored in Termux."),
+        ("AI docs", "docs ai show displays what the model sees. Can be copied from plugin settings. Add custom rules in 'Extra AI instructions'."),
     ],
 }
 
 
 def short_err(err):
-    err = str(err or "ошибка").strip()
+    err = str(err or "error").strip()
     if "Traceback" in err:
         err = [x for x in err.splitlines() if x.strip()][-1]
     if "exec disabled" in err:
-        return "exec выключен: включи «Разрешить exec» в настройках плагина"
+        return "exec disabled: enable 'Allow exec' in the plugin settings"
     if err == "bad token":
-        return "неверный токен: заново нажми «Подключить Termux» в плагине"
+        return "invalid token: tap 'Connect Termux' in the plugin settings again"
     return err
 
 
@@ -319,23 +319,23 @@ def quiet(cmd):
 def launch_extera():
     if port_open():
         return True
-    print(MUT + "◌ запускаю exteraGram в фоне…" + R)
+    print(MUT + "◌ starting Telegram in background…" + R)
     started = quiet("am start --user 0 -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -p " + PKG)
     if not started:
         started = quiet("monkey -p " + PKG + " -c android.intent.category.LAUNCHER 1")
     if not started:
-        print(ERR + "✖ не удалось запустить " + PKG + R + MUT + "  (открой Telegram вручную)" + R)
+        print(ERR + "✖ failed to launch " + PKG + R + MUT + "  (open Telegram manually)" + R)
         return False
     for _ in range(60):
         if port_open():
             break
         time.sleep(0.5)
     else:
-        print(ERR + "✖ плагин не ответил за 30 секунд" + R)
+        print(ERR + "✖ plugin did not respond within 30 seconds" + R)
         return False
     time.sleep(1.0)
     quiet("am start --user 0 -n com.termux/com.termux.app.TermuxActivity")
-    print(OK + "✔ exteraGram запущен" + R)
+    print(OK + "✔ Telegram started" + R)
     return True
 
 
@@ -762,35 +762,35 @@ class Panel:
 def banner(b):
     try:
         b.send("ping")
-        st = OK + "● подключено" + R
+        st = OK + "● connected" + R
     except OSError:
-        st = ERR + "● плагин не отвечает" + R
+        st = ERR + "● plugin not responding" + R
     box([
         B + ACC + "◆ Telegram Bridge" + R + MUT + "  v" + VER + R,
         st + MUT + "  " + HOST + ":" + str(PORT) + R,
-        MUT + "help — список команд" + R,
+        MUT + "help — command list" + R,
     ])
 
 
 def show_help(b, rest):
     rows = [
-        ("<python-код>", "Python в Termux → экран Telegram"),
-        ("<команда>", "shell: ls, echo… (или !команда)"),
-        ("ai <запрос>", "нейросеть пишет и запускает скрипт"),
-        ("btn <текст> = <команда>", "кнопка на экране Telegram"),
-        ("show <текст>", "текст поверх экрана"),
-        ("notify <текст>", "уведомление в Telegram"),
-        ("copy <текст>", "в буфер обмена"),
-        ("ball [цвет] [размер]", "двигаемый шарик, ball off — убрать"),
-        ("run <файл.py>", "запустить файл, вывод на экран"),
-        ("tg <код>", "Python внутри Telegram (exec)"),
-        ("tgrun <файл.py>", "файл внутри Telegram (exec)"),
-        ("pos <место>", "top · bottom · center …"),
-        ("docs", "документация (api, ui, java, ai)"),
-        ("start", "запустить exteraGram в фоне"),
-        ("clear", "убрать оверлей"),
-        ("status", "диагностика"),
-        ("exit", "выйти"),
+        ("<python code>", "Python in Termux -> Telegram screen"),
+        ("<command>", "shell: ls, echo… (or !command)"),
+        ("ai <prompt>", "AI writes and executes script"),
+        ("btn <text> = <cmd>", "button on Telegram screen"),
+        ("show <text>", "text overlay on screen"),
+        ("notify <text>", "notification in Telegram"),
+        ("copy <text>", "copy to clipboard"),
+        ("ball [color] [size]", "draggable floating ball, ball off to remove"),
+        ("run <file.py>", "run file, output to screen"),
+        ("tg <code>", "Python inside Telegram (exec)"),
+        ("tgrun <file.py>", "file inside Telegram (exec)"),
+        ("pos <position>", "top · bottom · center …"),
+        ("docs", "documentation (api, ui, java, ai)"),
+        ("start", "launch Telegram app in background"),
+        ("clear", "clear overlay"),
+        ("status", "diagnostics"),
+        ("exit", "exit"),
     ]
     cols = shutil.get_terminal_size((48, 20)).columns
     w = max(len(r[0]) for r in rows)
@@ -807,10 +807,10 @@ def show_help(b, rest):
 
 def offline():
     box([
-        ERR + B + "✖ Плагин не отвечает" + R,
-        MUT + "1. Открой Telegram (exteraGram)" + R,
-        MUT + "2. Настройки → Плагины → Termux Bridge" + R,
-        MUT + "3. Включи плагин и «Сервер включён»" + R,
+        ERR + B + "✖ Plugin not responding" + R,
+        MUT + "1. Open Telegram (MZGram)" + R,
+        MUT + "2. Settings → Plugins → Termux Bridge" + R,
+        MUT + "3. Enable plugin and 'Server enabled'" + R,
     ], ERR)
 
 
@@ -836,18 +836,18 @@ def cmd_status(b, rest):
 
     ai_ok = bool(r.get("ai"))
     box([
-        row(True, "плагин %s · порт %s" % (r.get("version"), r.get("port"))),
-        row(bool(r.get("screen")), "экран Telegram", "" if r.get("screen") else "открой exteraGram"),
-        row(True if r.get("exec") else None, "exec и Java", "включены" if r.get("exec") else "выключены"),
-        row(ai_ok if not ai_ok or r.get("ai_key") else None, "нейросеть",
-            "не настроена" if not ai_ok else ("" if r.get("ai_key") else "ключ не задан")),
-        row(True, "панелей на экране: %s" % r.get("panels", 0)),
+        row(True, "plugin %s · port %s" % (r.get("version"), r.get("port"))),
+        row(bool(r.get("screen")), "Telegram screen", "" if r.get("screen") else "open Telegram"),
+        row(True if r.get("exec") else None, "exec and Java", "enabled" if r.get("exec") else "disabled"),
+        row(ai_ok if not ai_ok or r.get("ai_key") else None, "AI",
+            "not configured" if not ai_ok else ("" if r.get("ai_key") else "key not set")),
+        row(True, "panels on screen: %s" % r.get("panels", 0)),
     ])
 
 
 def cmd_start(b, rest):
     if port_open():
-        print(OK + "✔ exteraGram уже запущен" + R)
+        print(OK + "✔ Telegram already running" + R)
     else:
         launch_extera()
 
@@ -880,7 +880,7 @@ def cmd_copy(b, rest):
 
 def cmd_sh(b, command):
     if not command:
-        print(MUT + "использование: !<команда>" + R)
+        print(MUT + "usage: !<command>" + R)
         return
     b.send("clear")
     p = subprocess.Popen(
@@ -897,13 +897,13 @@ def cmd_sh(b, command):
         p.terminate()
         code = -2
     b.send("append", text="— exit %d —" % code, pos=state["pos"])
-    print(OK + "✔" + R if code == 0 else ERR + "✖ код выхода %d" % code + R)
+    print(OK + "✔" + R if code == 0 else ERR + "✖ exit code %d" % code + R)
 
 
 def cmd_run(b, rest):
     path = os.path.expanduser(rest.strip())
     if not os.path.isfile(path):
-        print(ERR + "✖ файл не найден" + R)
+        print(ERR + "✖ file not found" + R)
         return
     cmd_sh(b, "python3 " + shlex.quote(path))
 
@@ -941,7 +941,7 @@ def cmd_tg(b, code):
 def cmd_tgrun(b, rest):
     path = os.path.expanduser(rest.strip())
     if not os.path.isfile(path):
-        print(ERR + "✖ файл не найден" + R)
+        print(ERR + "✖ file not found" + R)
         return
     with open(path, encoding="utf-8") as f:
         cmd_tg(b, f.read())
@@ -951,16 +951,16 @@ def cmd_pos(b, rest):
     name = rest.strip()
     if name in POSITIONS:
         state["pos"] = name
-        print(OK + "✔ " + R + MUT + "позиция: " + name + R)
+        print(OK + "✔ " + R + MUT + "position: " + name + R)
     else:
-        print(MUT + "варианты: " + ", ".join(POSITIONS) + R)
+        print(MUT + "options: " + ", ".join(POSITIONS) + R)
 
 
 def cmd_ball(b, rest):
     opts = {}
     for a in rest.split():
         k = a.lower()
-        if k in ("off", "убрать", "выкл"):
+        if k in ("off", "убрать", "выкл", "прибрати", "вимк", "вимкнути"):
             reply(b.send("ball", off=True))
             return
         if k in COLORS:
@@ -996,12 +996,12 @@ def run_quick(label, command):
         out = (p.stdout + p.stderr).strip() or "✔"
         code = p.returncode
     except subprocess.TimeoutExpired:
-        out, code = "превышено время (30 с)", -1
+        out, code = "timed out (30s)", -1
     get_bridge().send("show", title=label + ("" if code == 0 else " ✖"), text=out, pos="top", timeout=8)
 
 
 def build_quick():
-    panel = Panel("Кнопки", pos="bottom_end", id="quick")
+    panel = Panel("Buttons", pos="bottom_end", id="quick")
     for i, (label, command) in enumerate(QUICK):
         panel.button(label, lambda l=label, c=command: run_quick(l, c), id="b%d" % i)
     panel.show()
@@ -1009,27 +1009,27 @@ def build_quick():
 
 def cmd_btn(b, rest):
     rest = rest.strip()
-    if rest in ("clear", "off", "убрать"):
+    if rest in ("clear", "off", "убрать", "прибрати", "очистити"):
         QUICK.clear()
         Panel(id="quick").close()
-        print(OK + "✔ " + R + MUT + "кнопки убраны" + R)
+        print(OK + "✔ " + R + MUT + "buttons removed" + R)
         return
     if not rest or rest == "list":
         for i, (label, command) in enumerate(QUICK, 1):
             print(ACC + str(i) + R + " " + TXT + label + R + MUT + "  →  " + command + R)
         if not QUICK:
-            print(MUT + "использование: btn <текст> = <команда>" + R)
+            print(MUT + "usage: btn <text> = <command>" + R)
         return
     if "=" in rest:
         label, command = [x.strip() for x in rest.split("=", 1)]
     else:
         label = command = rest
     if not label or not command:
-        print(ERR + "✖ нужен текст и команда: btn Пинг = ping -c1 8.8.8.8" + R)
+        print(ERR + "✖ label and command required: btn Ping = ping -c1 8.8.8.8" + R)
         return
     QUICK.append((label, command))
     build_quick()
-    print(OK + "✔ " + R + MUT + "кнопка добавлена: " + label + R)
+    print(OK + "✔ " + R + MUT + "button added: " + label + R)
 
 
 def cmd_docs(b, rest):
@@ -1040,7 +1040,7 @@ def cmd_docs(b, rest):
         return
     sections = DOCS.get(key)
     if sections is None:
-        print(MUT + "разделы: docs · docs api · docs ui · docs java · docs ai · docs ai show" + R)
+        print(MUT + "sections: docs · docs api · docs ui · docs java · docs ai · docs ai show" + R)
         return
     cols = max(30, shutil.get_terminal_size((48, 20)).columns - 4)
     for head, body in sections:
@@ -1082,7 +1082,7 @@ def exec_code(b, code):
         with contextlib.redirect_stdout(tee), contextlib.redirect_stderr(tee):
             exec(compile(code, "<ai>", "exec"), NS)
     except KeyboardInterrupt:
-        err = "прервано"
+        err = "interrupted"
     except Exception as e:
         err = "%s: %s" % (type(e).__name__, e)
     out = tee.buf.getvalue().strip()
@@ -1097,14 +1097,14 @@ def exec_code(b, code):
 
 def cmd_ai(b, rest):
     rest = rest.strip()
-    if rest in ("reset", "сброс"):
+    if rest in ("reset", "сброс", "скидання", "скинути"):
         HISTORY.clear()
-        print(OK + "✔ " + R + MUT + "диалог очищен" + R)
+        print(OK + "✔ " + R + MUT + "conversation cleared" + R)
         return
     if not rest:
-        print(MUT + "использование: ai <что сделать>   (ai reset — забыть диалог)" + R)
+        print(MUT + "usage: ai <prompt>   (ai reset — clear conversation)" + R)
         return
-    print(MUT + "◌ думаю…" + R)
+    print(MUT + "◌ thinking…" + R)
     r = b.send("ai", prompt=rest, history=HISTORY[-10:])
     if not r.get("ok"):
         reply(r)
@@ -1123,13 +1123,13 @@ def cmd_ai(b, rest):
     for line in lines[:40]:
         print(ACC + "▎" + R + MUT + line + R)
     if len(lines) > 40:
-        print(MUT + "… ещё %d строк" % (len(lines) - 40) + R)
+        print(MUT + "… %d more lines" % (len(lines) - 40) + R)
     try:
-        ans = input("\001" + ACC + "\002Выполнить? [y/N] \001" + R + "\002")
+        ans = input("\001" + ACC + "\002Execute? [y/N] \001" + R + "\002")
     except (EOFError, KeyboardInterrupt):
         print()
         return
-    if ans.strip().lower() in ("y", "yes", "д", "да"):
+    if ans.strip().lower() in ("y", "yes", "д", "да", "т", "так"):
         exec_code(b, code)
 
 
@@ -1230,7 +1230,7 @@ def main():
         try:
             dispatch(b, line)
             if argv[0] == "btn" and OPEN:
-                print(MUT + "кнопки активны, Ctrl+C — выйти" + R)
+                print(MUT + "buttons active, press Ctrl+C to exit" + R)
                 wait()
         except ConnectionRefusedError:
             offline()
