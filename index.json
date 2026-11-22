@@ -215,8 +215,8 @@
       "version": "2.0-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/ExteraRSS/2.0-mz1/ExteraRSS.plugin",
-      "sha256": "30e5fce47eed1e11eb1281e8576afe572d34f6a38c0781d8c3e6176fc232be12",
-      "size": 211351,
+      "sha256": "ab3ea297f8f3e55d6fe9feb44b27df9f039b5f83528b654d21d930cf8c4d3285",
+      "size": 211447,
       "description": "RSS + Telegram in one feed",
       "description_i18n": {
         "en": "RSS + Telegram in one feed",

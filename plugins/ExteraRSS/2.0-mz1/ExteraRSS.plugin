@@ -2865,6 +2865,7 @@ class Plugin(BasePlugin):
 
         self._main_scroll = sv
         self._overlay = overlay
+        self._sync_back_callback(overlay)  # the back handler was bound before _overlay was set
         self._main_frame = main_frame
         self._list_container = list_container
         self._mode = "feed"
