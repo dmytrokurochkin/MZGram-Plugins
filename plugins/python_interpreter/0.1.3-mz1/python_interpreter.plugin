@@ -400,13 +400,7 @@ class PythonInterpreterPlugin(BasePlugin):
                 icon="msg_list",
                 on_click=self._on_clear_history_click,
             ),
-            Divider(),
-            Header(text=_mz_t("Зв'язок з розробником", "Contact the developer", "Связь с разработчиком")),
-            Text(
-                text=_mz_t("Написати @Exorned", "Message @Exorned", "Написать @Exorned"),
-                icon="msg_info",
-                on_click=self._contact_dev,
-            ),
+
         ]
 
     def _parse_py_command(self, raw_text: str):

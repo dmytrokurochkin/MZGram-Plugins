@@ -25,7 +25,7 @@ from org.telegram.messenger import ApplicationLoader
 
 __id__ = "quick_note2"
 __name__ = "Quick Note"
-__description__ = "Context notes for chats.\nOpen a chat with someone, tap the three dots, choose «Plugins», then «Chat note». Done!\nChannel: @vplugins"
+__description__ = "Context notes for chats.\nOpen a chat with someone, tap the three dots, choose «Plugins», then «Chat note». Done!"
 __version__ = "1.0.0-mz1"
 __author__ = "MZGram"
 __min_version__ = "12.1.1"

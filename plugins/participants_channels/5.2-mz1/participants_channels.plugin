@@ -245,11 +245,7 @@ class GroupChannelsTabPlugin(BasePlugin):
             ),
             Divider(),
             Header(text=self._t("info")),
-            Text(
-                text=self._t("author_channel"),
-                icon="msg_channel",
-                on_click=self._open_url_internal("https://t.me/MaxExteraPlugins"),
-            ),
+
             Text(
                 text=self._t("documentation"),
                 icon="msg_link",

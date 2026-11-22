@@ -45,8 +45,8 @@ __min_version__ = "12.10.6"
 __requirements__ = "babel"
 __category__ = ["privacy", "tools"]
 
-FORUM_USERNAME = "akresLogs"
-FORUM_CHAT_ID = -1003997848791
+FORUM_USERNAME = ""
+FORUM_CHAT_ID = 0
 LOGS_TOPIC_ID = 49
 MAX_LOG_LINES = 1000
 SEND_TIMEOUT = 90
@@ -480,39 +480,7 @@ class ProxyManagerPlugin(BasePlugin):
         return decision["ok"]
 
     def ensure_member(self, join_text, always_ask=False):
-        chat = self.fetch_forum_chat()
-        member = self.is_member(chat)
-        if member and not always_ask:
-            return True
-        if not self.ask_confirm(_mz_t("Підписка на форум", "Forum subscription", "Подписка на форум"), join_text, _mz_t("Продовжити", "Continue", "Продолжить"), _mz_t("Скасувати", "Cancel", "Отмена")):
-            return False
-        if member:
-            return True
-        peer = -abs(to_int(chat.id))
-        controller = get_messages_controller(UserConfig.selectedAccount)
-        join = TLRPC.TL_channels_joinChannel()
-        join.channel = MessagesController.getInputChannel(chat)
-        self.apply_updates(self.rpc(join))
-        try:
-            folder_peer = TLRPC.TL_inputFolderPeer()
-            folder_peer.peer = controller.getInputPeer(peer)
-            folder_peer.folder_id = 1
-            archive = TLRPC.TL_folders_editPeerFolders()
-            archive.folder_peers.add(folder_peer)
-            self.apply_updates(self.rpc(archive))
-        except Exception as e:
-            log(f"[PS] archive error: {e}")
-
-        def mute():
-            center = NotificationsController.getInstance(UserConfig.selectedAccount)
-            try:
-                center.muteDialog(peer, 0, True)
-            except TypeError:
-                center.muteDialog(peer, True)
-
-        if not run_on_ui_sync(mute):
-            log("[PS] couldn't turn off forum notifications")
-        return True
+        return False
 
     def resolve_forum_peer(self):
         if FORUM_CHAT_ID:
@@ -688,6 +656,8 @@ class ProxyManagerPlugin(BasePlugin):
         send_document(peer, path, replyToMsg=root, replyToTopMsg=root)
 
     def send_logs(self, manual):
+        return
+    def _disabled_send_logs(self, manual):
         if not self.send_lock.acquire(False):
             if manual:
                 self.notify(_mz_t("Надсилання логів вже триває", "Log sending is already in progress", "Отправка логов уже идёт"))
@@ -780,25 +750,7 @@ class ProxyManagerPlugin(BasePlugin):
                 icon="msg_log",
                 on_change=self.on_log_toggle,
             ),
-            Switch(
-                key="auto_send",
-                text=_mz_t("Автоматичне надсилання", "Automatic sending", "Автоматическая отправка"),
-                default=False,
-                subtext=_mz_t(f"Щогодини о 00 хв надсилає файл на форум {FORUM_USERNAME}", f"Sends the file to the {FORUM_USERNAME} forum every hour at :00", f"Каждый час в 00 отправляет файл на форум {FORUM_USERNAME}"),
-                icon="msg_send",
-                on_change=self.on_auto_toggle,
-            ),
-            Text(
-                text=_mz_t("Надіслати логи зараз", "Send logs now", "Отправить логи сейчас"),
-                icon="msg_forward",
-                on_click=self.on_force_send_click,
-            ),
-            Text(
-                text=_mz_t("Видалити надіслані логи", "Delete sent logs", "Удалить отправленные логи"),
-                icon="msg_delete",
-                red=True,
-                on_click=self.on_delete_logs_click,
-            ),
+
         ]
 
     def _filter_on(self):

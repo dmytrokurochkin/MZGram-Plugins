@@ -82,7 +82,7 @@ locales = {
 		"info_template_create_guide":_mz_t("У налаштуваннях плагіна створіть шаблон\nВведіть зручну для вас назву шаблону\nУ текст шаблону додайте {0}, {1}, {2}... тощо\n\n{0} - це змінна. Може повторюватися кілька разів", "In the plugin settings, create a template\nEnter a template name that suits you\nAdd {0}, {1}, {2}... etc. to the template text\n\n{0} is a variable. It can repeat several times", "В настройках плагина создайте шаблон\nВведите удобное вам имя шаблона\nВ текст шаблона добавьте {0}, {1}, {2}... и т.д.\n\n{0} - Это переменная. Может повторяться несколько раз"),
 		"info_template_usage":_mz_t("Використання шаблону", "Using a template", "Использование шаблона"),
 		"info_template_usage_guide":_mz_t("Приклад: .ps назва_шаблону аргумент1\n\nКількість аргументів у команді залежить від кількості змінних у шаблоні", "Example: .ps template_name argument1\n\nThe number of arguments in the command depends on the number of variables in the template", "Пример: .ps имя_шаблона аргумент1\n\nКол-во аргументов в комманде зависит от кол-ва переменных в шаблоне"),
-		"info_template_author_help":_mz_t("Якщо все ще нічого не зрозуміло, можете звернутися по допомогу до автора @kelynnq або запитати в коментарях під постом.\nВідеогід: https://t.me/c/3477937021/237", "If nothing is clear yet, you can ask the author @kelynnq for help or ask in the comments under the post.\nVideo guide: https://t.me/c/3477937021/237", "Если всё еще ничего не понятно вы можете обратится за помощью к автору @kelynnq или попросить в комментариях под постом.\nВидео гайд: https://t.me/c/3477937021/237"),
+		"info_template_author_help":_mz_t("Якщо все ще нічого не зрозуміло, можете звернутися по допомогу до автора або запитати в коментарях під постом.\nВідеогід: https://t.me/c/3477937021/237", "If nothing is clear yet, you can ask the author for help or ask in the comments under the post.\nVideo guide: https://t.me/c/3477937021/237", "Если всё еще ничего не понятно вы можете обратится за помощью к автору или попросить в комментариях под постом.\nВидео гайд: https://t.me/c/3477937021/237"),
 		"error":_mz_t("Помилка", "Error", "Ошибка"),
 		"import_error_reply":_mz_t("Помилка: це не відповідь на повідомлення", "Error: this is not a reply to a message", "Ошибка: Это не ответ на сообщение"),
 		"found_error":_mz_t("Шаблон не знайдено", "Template not found", "Шаблон не найден"),
@@ -141,7 +141,7 @@ locales = {
 		"info_template_create_guide":"In the plugin settings, create a template\nEnter a template name that is convenient for you\nAdd {0}, {1}, {2}... etc. to the template text\n\n{0} is a variable. Can be repeated multiple times",
 		"info_template_usage":"Template usage",
 		"info_template_usage_guide":"Example: .ps template_name argument1\n\n The number of arguments in the command depends on the number of variables in the template",
-		"info_template_author_help":"If you still don't understand anything, you can contact the author @kelynnq for help or ask in the comments below the post.\nVideo guide: https://t.me/c/3477937021/237",
+		"info_template_author_help":"If you still don't understand anything, you can contact the author for help or ask in the comments below the post.\nVideo guide: https://t.me/c/3477937021/237",
 		"error":"Error",
 		"import_error_reply":"Error: There is no reply to the message",
 		"found_error":"Template not found",
@@ -206,14 +206,7 @@ class PostAssistantPlugin(BasePlugin):
 	def create_settings(self) -> List[Any]:
 		try:
 			items = []
-			items.append(Header(text=t("author")))
-			items.append(
-				Text(
-					text=t("my_channel"),
-					icon="msg_contacts_solar",
-					on_click=lambda view: self.open_channel("kelynplugins")
-				)
-			)
+
 			items.append(Header(text=t("main")))
 			items.append(
 				Switch(
@@ -634,7 +627,7 @@ class PostAssistantPlugin(BasePlugin):
 		return {
 			template_id: {
 				"name": "test",
-				"text": "👋Hello, {0}.\nHow are u?\n<q1>by @kelynplugins</q>"
+				"text": "👋Hello, {0}.\nHow are u?\n"
 			}
 		}
 

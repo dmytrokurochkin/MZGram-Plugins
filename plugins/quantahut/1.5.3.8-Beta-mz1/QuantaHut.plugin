@@ -1794,8 +1794,7 @@ class QuantaHut(BasePlugin):
     
     def _is_quanta_plugin(self, plugin):
         try:
-            author = str(plugin.getAuthor()).lower()
-            return "@luvztroy" in author
+            return "quanta" in str(plugin.getName()).lower() or "quanta" in str(getattr(plugin, "id", "")).lower()
         except:
             return False
     

@@ -179,13 +179,7 @@ class PlayerResumePlugin(BasePlugin):
         self._invoke_set_setting("pill_shape", pill_shape)
 
     def show_author_sheet(self):
-        try:
-            if getattr(self, "author_sheet_class", None) is not None:
-                self.author_sheet_class.getMethod("showFromCurrentActivity").invoke(None)
-            else:
-                self.log("Author sheet class not loaded")
-        except Exception as e:
-            self.log(f"Error showing author sheet: {e}")
+        pass
 
     def on_author_click(self, _=None):
         self.show_author_sheet()
@@ -269,15 +263,7 @@ class PlayerResumePlugin(BasePlugin):
                 )
             )
 
-        items.extend([
-            Header(text=_mz_t("Про автора", "About the author", "Об авторе")),
-            Text(
-                text=_mz_t("Автор", "Author", "Автор"),
-                subtext=_mz_t("Докладніше про розробника", "More about the developer", "Подробнее о разработчике"),
-                icon="msg_openprofile",
-                on_click=self.on_author_click,
-            ),
-        ])
+
         return items
 
     def on_plugin_load(self):

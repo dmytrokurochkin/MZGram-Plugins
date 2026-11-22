@@ -170,11 +170,7 @@ class PillTabsPlugin(BasePlugin):
                 icon="msg_link",
                 on_click=self._open_url("https://telegra.ph/Dokumentaciya-k-plaginu-Pill-Stack-on-the-Tab-06-26"),
             ),
-            Text(
-                text=_mz_t("Канал автора", "Author's channel", "Канал автора"),
-                icon="msg_channel",
-                on_click=self._open_url("https://t.me/MaxExteraPlugins"),
-            ),
+
             Divider(),
             Header(text=_mz_t("Заголовок", "Header", "Заголовок")),
             Switch(
