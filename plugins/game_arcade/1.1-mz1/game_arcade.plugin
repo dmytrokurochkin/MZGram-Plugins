@@ -523,9 +523,11 @@ class _2048Ultimate(BasePlugin):
                     
                     dialog.setOnKeyListener(KeyListener(classes["Toast"], act, inst.strings["exit_toast"], classes["System"]))
 
+                back_callback = None
+
                 class Dismiss(dynamic_proxy(classes["OnDismiss"])):
                     def onDismiss(self, d):
-                        nonlocal webview, layout, act, dialog, btn
+                        nonlocal webview, layout, act, dialog, btn, back_callback
                         try:
                             curr = w()
                             if curr is not None:
@@ -537,6 +539,12 @@ class _2048Ultimate(BasePlugin):
                                     dialog.setOnDismissListener(None)
                                 except Exception:
                                     pass
+                                if back_callback is not None:
+                                    try:
+                                        dialog.getOnBackInvokedDispatcher().unregisterOnBackInvokedCallback(back_callback)
+                                    except Exception:
+                                        pass
+                                    back_callback = None
 
                             if btn is not None:
                                 try:
@@ -603,6 +611,39 @@ class _2048Ultimate(BasePlugin):
 
                 dialog.setOnDismissListener(Dismiss())
                 dialog.show()
+
+                # On Android 13 and newer the app uses predictive back, so the Back key never
+                # reaches OnKeyListener and the game closed on the first press. The same
+                # "press Back again" check listens on the back dispatcher there.
+                if inst.get_setting("confirm_exit", True):
+                    try:
+                        if find_class("android.os.Build$VERSION").SDK_INT >= 33:
+                            class BackCallback(dynamic_proxy(find_class("android.window.OnBackInvokedCallback"))):
+                                def __init__(self, toast, ctx, msg, sys_obj, dlg):
+                                    super().__init__()
+                                    self.ts = 0
+                                    self.toast = toast
+                                    self.ctx = ctx
+                                    self.msg = msg
+                                    self.sys = sys_obj
+                                    self.dlg = dlg
+
+                                def onBackInvoked(self):
+                                    try:
+                                        now = self.sys.currentTimeMillis()
+                                        if (now - self.ts) < 2000:
+                                            self.dlg.cancel()
+                                            return
+                                        self.ts = now
+                                        self.toast.makeText(self.ctx, self.msg, 0).show()
+                                    except Exception:
+                                        pass
+
+                            back_callback = BackCallback(classes["Toast"], act, inst.strings["exit_toast"], classes["System"], dialog)
+                            dialog.getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
+                                find_class("android.window.OnBackInvokedDispatcher").PRIORITY_OVERLAY, back_callback)
+                    except Exception as e:
+                        log(f"[Arcade] Back callback error: {e}")
 
             except Exception as e:
                 err = str(e)

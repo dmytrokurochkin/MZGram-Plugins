@@ -4718,8 +4718,8 @@
       "version": "1.1-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/game_arcade/1.1-mz1/game_arcade.plugin",
-      "sha256": "6d272f951d8cbff3a902636b09da1e4f45cade12cac7f2b8de8b9f096bbc6c72",
-      "size": 27382,
+      "sha256": "4a72cf3d07d4b59b9417727f6dd691ec46e32c71cbeb79b8f20469e5080e9e24",
+      "size": 29866,
       "description": "Legendary games 2048, Flappy Bird and Chrome Dino right in the client. Made based on the Flappy Bird plugin, author",
       "description_i18n": {
         "en": "Legendary games 2048, Flappy Bird and Chrome Dino right in the client. Made based on the Flappy Bird plugin, author",
