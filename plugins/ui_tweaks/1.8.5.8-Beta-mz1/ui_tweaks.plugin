@@ -60,7 +60,7 @@ import uuid
 try:
     import quantahut
     from packaging.version import Version
-    if hasattr(quantahut, '__version__') and Version(str(quantahut.__version__)) < Version("1.5.2"):
+    if hasattr(quantahut, '__version__') and Version(str(quantahut.__version__).split("-")[0]) < Version("1.5.2"):
         raise Exception(f"QuantaHut {quantahut.__version__} is too old. Need 1.5.2+")
     from quantahut import export_plugin_settings
     from ui.quanta import MultiSelector, BottomSheet

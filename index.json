@@ -11423,8 +11423,8 @@
       "version": "1.8.5.8-Beta-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/ui_tweaks/1.8.5.8-Beta-mz1/ui_tweaks.plugin",
-      "sha256": "474f811374c0215da37f624301adfbb6f8c7e9cb669497aec84dae5e027c5232",
-      "size": 645925,
+      "sha256": "b50d6f63fa2b2b6f72a952129c03ec4e6aa1d67d469cd031fc54228b2ac42535",
+      "size": 645939,
       "description": "A collection of interface adjustments. Requires the QuantaHut plugin.",
       "description_i18n": {
         "en": "A collection of interface adjustments. Requires the QuantaHut plugin.",
