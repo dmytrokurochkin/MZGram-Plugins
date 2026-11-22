@@ -4,9 +4,8 @@ __description__ = (
     "Keeps round video messages playing in a floating window when you leave "
     "Telegram. Requires permission to display over other apps."
 )
-__author__ = "@itsbodyq"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "exteraplicons/3"
 __app_version__ = ">=12.5.1"
 __category__ = ["media"]
 __min_version__ = "12.5.1"

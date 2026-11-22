@@ -26,8 +26,7 @@ __id__ = "account_stats"
 __name__ = "Account statistics"
 __description__ = "Shows statistics for all account chats. Command: .stats"
 __version__ = "1.2-mz1"
-__author__ = "@gemeguardian"
-__icon__ = "sGemeGuardian/0"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["chats"]
 

@@ -15,7 +15,7 @@ __id__ = "attach_gallery_grid"
 __name__ = "Attach Gallery Grid"
 __description__ = "Attachment gallery, stickers & GIF grids: pinch-to-zoom columns, square proportional cells, smooth zoom animations, and instant selection circle scaling without delays."
 __version__ = "1.2.2-mz1"
-__author__ = "@qe4ank & Gemini Argon"
+__author__ = "MZGram"
 __min_version__ = "12.10.6"
 __app_version__ = ">=12.10.6"
 __category__ = ["appearance"]

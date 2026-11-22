@@ -13,7 +13,7 @@ def _mz_t(uk, en, ru=None):
 
 __id__ = "commands"
 __name__ = "Commands"
-__author__ = "@d1zzy412"
+__author__ = "MZGram"
 __version__ = "1.1.0-mz1"
 __description__ = """Chat commands (.help for details)"""
 
@@ -24,7 +24,6 @@ import operator
 from datetime import datetime, date
 from base_plugin import BasePlugin, HookResult, HookStrategy
 
-__icon__ = "Melscher5/4"
 __app_version__ = ">=12.5.1"
 __category__ = ["fun", "tools"]
 

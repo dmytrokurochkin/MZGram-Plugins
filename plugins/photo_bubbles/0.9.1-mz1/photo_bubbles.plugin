@@ -50,7 +50,7 @@ from ui.settings import Divider, Header, Selector, Switch, Text
 
 __id__ = "photo_bubbles"
 __name__ = "Photo Bubbles"
-__author__ = "@fanatkhimitsu"
+__author__ = "MZGram"
 __description__ = "Tints the message bubble of a photo with a gradient that repeats the layout of the colors in the photo. Works with albums too."
 __version__ = "0.9.1-mz1"
 __app_version__ = ">=12.10.6"

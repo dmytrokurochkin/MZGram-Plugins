@@ -37,11 +37,10 @@ from java import jclass, dynamic_proxy
 __name__ = "Extended Message Details"
 __description__ = "Expands the message details menu with technical metadata. Allows copying full JSON metadata with a long press. Tap 'Details' in the context menu."
 __version__ = "1.0.1-mz1"
-__author__ = "@thrzxd • @kotilnya"
+__author__ = "MZGram"
 __id__ = "extended_message_details"
 __app_version__ = ">=12.5.1"
 __category__ = ["chats", "tools"]
-__icon__ = "dvvsssvd_by_fStikBot/38"
 __requirements__ = ["mutagen"]
 
 

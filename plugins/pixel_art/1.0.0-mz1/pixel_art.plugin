@@ -15,8 +15,7 @@ __id__ = "pixel_art"
 __name__ = "PixelArt"
 __description__ = "Pixel art editor in an overlay. Usage: .art [size]"
 __version__ = "1.0.0-mz1"
-__author__ = "@kubick484"
-__icon__ = "toxano_modules/2"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["fun"]
 

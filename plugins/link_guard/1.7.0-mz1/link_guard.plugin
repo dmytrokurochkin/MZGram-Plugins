@@ -16,9 +16,8 @@ __name__ = "Link Guard"
 __description__ = (
     "Checks links before you open them: reveals the real domain, catches phishing and look-alike characters, strips trackers."
 )
-__author__ = "@Robobloxi"
+__author__ = "MZGram"
 __version__ = "1.7.0-mz1"
-__icon__ = "likguar/0"
 __app_version__ = ">=12.1.1"
 __category__ = ["privacy", "integrations"]
 

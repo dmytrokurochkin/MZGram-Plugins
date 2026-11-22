@@ -24,9 +24,8 @@ from ui.settings import Header, Divider, Switch, Input
 __id__ = "iphone_like_Portret"
 __name__ = "iPhone Like Portret"
 __description__ = "Portrait mode like iPhone based on MLKit. THE BLUR IS VISIBLE ONLY AFTER SENDING THE CIRCLE"
-__author__ = "@dekma0091 && @DefinitelyNotDekma"
+__author__ = "MZGram"
 __version__ = "1.4-mz1"
-__icon__ = "pixelcamera/8"
 __min_version__ = "12.10.6"
 __category__ = ["chats"]
 

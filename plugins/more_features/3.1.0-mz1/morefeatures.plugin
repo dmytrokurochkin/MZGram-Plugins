@@ -33,10 +33,9 @@ except (ImportError, ModuleNotFoundError):
 __id__ = "more_features"
 __name__ = "MoreFeatures"
 __description__ = "A collection of useful features, including call confirmation, hiding the video chat banner, and a device music controller."
-__author__ = "@anivdev + CactusLib"
+__author__ = "MZGram"
 __version__ = "3.1.0-mz1"
 __min_version__ = "11.9.0"
-__icon__ = "anivdev/0"
 __category__ = ["chats", "media", "appearance"]
 
 

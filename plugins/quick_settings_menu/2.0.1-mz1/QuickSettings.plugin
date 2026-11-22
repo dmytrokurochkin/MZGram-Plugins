@@ -26,10 +26,9 @@ from androidx.core.content import FileProvider
 __id__ = "quick_settings_menu"
 __name__ = "QuickSettings"
 __description__ = "Adds a menu for quick access to other plugins' settings."
-__author__ = "@bokudzhava"
+__author__ = "MZGram"
 __version__ = "2.0.1-mz1"
 __min_version__ = "11.12.0"
-__icon__ = "AnimatedEmojies/409"
 __category__ = ["tools"]
 
 QUICKSETTINGS_TEMP_DIR = "QuickSettingsTemp"

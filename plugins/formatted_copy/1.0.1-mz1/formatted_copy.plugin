@@ -22,9 +22,8 @@ from ui.settings import Header, Switch
 __id__ = 'formatted_copy'
 __name__ = 'formatted copy'
 __description__ = 'formatting of copied messages'
-__author__ = '@meatdisk'
+__author__ = "MZGram"
 __version__ = '1.0.1-mz1'
-__icon__ = 'exteraPlugins/1'
 __app_version__ = '>=12.10.6'
 __category__ = ["chats"]
 __sdk_version__ = '>=1.4.3.10'

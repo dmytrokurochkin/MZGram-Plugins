@@ -79,9 +79,8 @@ import datetime
 __id__ = "dchat_cleaner"
 __name__ = "Chat Cleaner"
 __description__ = "Plugin that deletes messages by date / Plugin for delete message from date"
-__author__ = "@ArThirtyFour | @KangelPlugins"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "Meowbahhkawaiistickers_by_fStikBot/2"
 __min_version__ = "11.12.0"
 __category__ = ["chats"]
 

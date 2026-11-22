@@ -13,7 +13,7 @@ def _mz_t(uk, en, ru=None):
 
 __id__ = "gift_id"
 __name__ = "Gift ID"
-__author__ = "@PESSDES_Plugins"
+__author__ = "MZGram"
 __version__ = "1.1-mz1"
 __description__ = """Shows the gift ID in its info"""
 
@@ -34,7 +34,6 @@ from client_utils import get_last_fragment
 from base_plugin import BasePlugin
 from java.util import ArrayList
 
-__icon__ = "VoiceToText7/4"
 __min_version__ = "11.12.0"
 __category__ = ["tools"]
 

@@ -29,9 +29,8 @@ from markdown_utils import parse_markdown
 __id__ = "info_block"
 __name__ = "Info Block"
 __description__ = """Your bio by command; setting by commands/in settings"""
-__author__ = "@RnPlugins"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "RnPluginsS/5"
 __min_version__ = "11.12.0"
 __category__ = ["chats"]
 

@@ -42,10 +42,9 @@ __description__ = (
     "Redesigns main settings list to match material concepts.\n\n"
     "> Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 or greater!"
 )
-__icon__ = "zwyPluginsIcons/8"
 __id__ = "material_settings_list"
 __version__ = "1.0.0-mz1"
-__author__ = "@zwylair"
+__author__ = "MZGram"
 __app_version__ = ">=12.10.6"
 __category__ = ["appearance"]
 

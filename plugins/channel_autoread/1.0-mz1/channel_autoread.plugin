@@ -15,7 +15,7 @@ __id__ = "channel_autoread"
 __name__ = "Channel Post Auto-Read"
 __description__ = "In channel discussions, automatically marks posts from the channel itself as read and removes their notification. Comments from real people are not touched."
 __version__ = "1.0-mz1"
-__author__ = "@van1lLove (idea: @zhka_h)"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["chats"]
 

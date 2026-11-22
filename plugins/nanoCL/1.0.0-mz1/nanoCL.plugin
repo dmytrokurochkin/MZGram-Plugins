@@ -41,9 +41,8 @@ DEFAULT_CONFIRM_AS_BULLETIN = True
 __id__ = "nanoCL"
 __name__ = "nanoCL"
 __description__ = "calendar with reminders (.cal)"
-__author__ = "@nanoPrograms"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "nanoCL/1"
 __min_version__ = "12.1.1"
 __category__ = ["tools"]
 

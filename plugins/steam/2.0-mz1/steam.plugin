@@ -306,9 +306,8 @@ __id__ = "steam"
 __name__ = "Steam"
 __version__ = "2.0-mz1"
 __description__ = "🎮 Shows the current game on Steam\n\n📋 Commands:\n• [.nowsteam/.snp] — current game\n• [.sprofile/.sp] — profile card\n• [.slibrary] — games library\n• [.sflibrary] — full library\n• [.sinv] — inventory (CS2 / TF2 / Dota 2)"
-__author__ = "@KangelPlugins & @MGEPlugins"
+__author__ = "MZGram"
 __min_version__ = "12.1.1"
-__icon__ = "Kangelcons_by_fStikBot/0"
 __load__ = True
 __category__ = ["integrations"]
 

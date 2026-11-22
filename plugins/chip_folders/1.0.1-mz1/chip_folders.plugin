@@ -16,9 +16,8 @@ __name__ = "Chip Folders"
 __description__ = """Chat folders bar in the Material 3 chip style, with smooth corner morphing.
 
 Material 3 chip style folders bar with smooth corner morphing."""
-__author__ = "@RnPlugins"
+__author__ = "MZGram"
 __version__ = "1.0.1-mz1"
-__icon__ = "RnDev/5"
 __app_version__ = ">=12.5.1"
 __category__ = ["appearance"]
 __sdk_version__ = ">=1.4.3.3"

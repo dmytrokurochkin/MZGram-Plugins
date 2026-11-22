@@ -34,10 +34,9 @@ DialogInterface = find_class("android.content.DialogInterface")
 __id__ = "dinorunner"
 __name__ = "Dino Runner"
 __description__ = "Google Dino game with obstacles, high scores and customization."
-__author__ = "@AyugramTop"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
 __min_version__ = "11.12.0"
-__icon__ = "Crocosaurus/11"
 __category__ = ["fun"]
 
 EMOJI_DEFAULTS = {

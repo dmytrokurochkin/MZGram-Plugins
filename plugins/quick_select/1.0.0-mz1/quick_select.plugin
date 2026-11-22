@@ -15,8 +15,7 @@ __id__ = "quick_select"
 __name__ = "Quick Select"
 __description__ = "Speeds up automatic chat scrolling with several selection options and removes the limit on selecting messages."
 __version__ = "1.0.0-mz1"
-__author__ = "@JavaScript_XD"
-__icon__ = "mostusefulstick_by_fStikBot/28"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["chats"]
 

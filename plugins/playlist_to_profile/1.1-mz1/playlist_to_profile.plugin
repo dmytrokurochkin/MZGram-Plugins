@@ -52,9 +52,8 @@ from java.lang import Integer
 __id__ = "playlist_to_profile"
 __name__ = "Playlist to Profile"
 __description__ = "Adds tracks from a playlist (YouTube, Spotify, SoundCloud...) to profile music"
-__author__ = "@rei_plugins (@optimist_opti)"
+__author__ = "MZGram"
 __version__ = "1.1-mz1"
-__icon__ = "rei_plugins/1"
 __app_version__ = ">=12.10.6"
 __category__ = ["media", "integrations"]
 __sdk_version__ = ">=1.4.4.3"

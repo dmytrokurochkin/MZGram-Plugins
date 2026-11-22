@@ -10,9 +10,8 @@ from org.telegram.messenger import MediaController
 __id__ = "roundseekbarpausefix"
 __name__ = "Round Seekbar Pause Fix"
 __description__ = "Keeps video messages paused after seeking."
-__author__ = "@Nikita218000"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = ""
 __min_version__ = "11.12.0"
 __category__ = ["media"]
 

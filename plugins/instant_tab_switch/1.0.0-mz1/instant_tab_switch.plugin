@@ -6,9 +6,8 @@ from java.lang import Class
 __id__ = "instant_tab_switch"
 __name__ = "Instant Tab Switch"
 __description__ = "Switches bottom bar tabs as soon as you drag your finger, without waiting for release."
-__author__ = "@akresik"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "Clawde/68"
 __min_version__ = "12.10.6"
 __category__ = ["appearance"]
 

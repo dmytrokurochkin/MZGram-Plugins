@@ -15,7 +15,7 @@ __id__ = "mute_person"
 __name__ = "Mute Person"
 __description__ = "Turns off notifications from a specific person in a chat, group or channel. Notifications from other members keep arriving as usual."
 __version__ = "2.0-mz1"
-__author__ = "@van1lLove"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["chats"]
 

@@ -1,9 +1,8 @@
 __id__ = "tbg"
 __name__ = "Chat Gradient/Blur Remover"
 __description__ = "Removes all gradients and blur in chat"
-__author__ = "@ka1Plugins"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "AnimatedEmojies/384"
 __min_version__ = "12.9.0"
 __category__ = ["appearance"]
 

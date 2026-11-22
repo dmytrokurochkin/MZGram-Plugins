@@ -32,9 +32,8 @@ import threading
 __id__ = "debug"
 __name__ = "Debug"
 __description__ = "Device & Plugin info [.dg]"
-__author__ = "@exteraDev"
+__author__ = "MZGram"
 __min_version__ = "11.9.0"
-__icon__ = "exteraDevPlugins/3"
 __category__ = ["tools"]
 
 class DebugPlugin(BasePlugin):

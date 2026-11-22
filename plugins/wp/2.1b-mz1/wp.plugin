@@ -17,9 +17,8 @@ CharSequence = jclass("java.lang.CharSequence")
 __id__ = "wp"
 __name__ = "WEB Proxy"
 __description__ = "A local web proxy with deep link support"
-__author__ = "@la_cringe | @dmkrjplug"
+__author__ = "MZGram"
 __version__ = "2.1b-mz1"
-__icon__ = "akresloh/0"
 __app_version__ = ">=12.9.0"
 __category__ = ["tools", "privacy"]
 __sdk_version__ = ">=1.4.5.1"

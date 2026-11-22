@@ -20,10 +20,9 @@ from android_utils import log
 __id__ = "pincolor_plugin"
 __name__ = "PinColor"
 __version__ = "1.0.0-mz1"
-__author__ = "@lendspele"
+__author__ = "MZGram"
 __description__ = "Highlights the background of pinned chats."
 __min_version__ = "11.12.0"
-__icon__ = "exteraPlugins/1"
 __category__ = ["appearance"]
 
 

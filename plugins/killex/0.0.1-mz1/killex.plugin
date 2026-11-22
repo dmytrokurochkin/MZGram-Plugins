@@ -148,9 +148,8 @@ __id__ = "killex"
 __name__ = "KillEx"
 __description__ = "KillEx - Hide your ex forever\n\nLocally hides selected Telegram profiles: it won't open the profile, links, username search or mentions\n\nIf you ever want to lift the ban, it won't be that easy"
 
-__author__ = "@contact_developer_bot"
+__author__ = "MZGram"
 __version__ = "0.0.1-mz1"
-__icon__ = "just_chillguy/8"
 __app_version__ = ">=12.5.1"
 __category__ = ["privacy", "chats"]
 __sdk_version__ = ">=1.4.3.3"

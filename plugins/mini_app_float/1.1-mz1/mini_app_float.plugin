@@ -30,10 +30,9 @@ from org.telegram.messenger import AndroidUtilities
 __id__ = "mini_app_float"
 __name__ = "Mini App Float"
 __description__ = "Minimizes mini apps and browser sites into a floating window"
-__author__ = "@PLOXOI_RRO & @TimPlugins"
+__author__ = "MZGram"
 __version__ = "1.1-mz1"
 __min_version__ = "12.10.6"
-__icon__ = "NewsEmoji/53"
 __category__ = ["tools", "appearance"]
 
 SHEET_CLASSES = [

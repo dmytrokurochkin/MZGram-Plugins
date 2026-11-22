@@ -57,10 +57,9 @@ __description__ = (
     "(see details in \"Help\" segment in the plugin settings).\n\n"
     "> Requires **[ZwyLib](https://t.me/zwyPlugins/48)** 2.0.0 or greater!"
 )
-__icon__ = "zwyPluginsIcons/4"
 __id__ = "zwyAdminTools"
 __version__ = "3.0.1-mz1"
-__author__ = "@zwylair"
+__author__ = "MZGram"
 __app_version__ = ">=12.10.6"
 __category__ = ["chats", "tools"]
 

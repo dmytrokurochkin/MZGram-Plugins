@@ -15,9 +15,8 @@ __id__ = "Combined_Custom_Banner"
 __name__ = "Combined Custom Banner"
 __version__ = "3.0.1-mz1"
 __min_version__ = "12.10.6"
-__author__ = "@KUNSESHBOY"
+__author__ = "MZGram"
 __description__ = "Plugin features: transparent folders, custom banners for chats and profiles, enhanced channel view in profiles with a banner from the channel avatar, blur, darkening and transparency effects for banners in chats."
-__icon__ = "c420220972_1776124547_6jmoz/25"
 __category__ = ["appearance", "chats"]
 import os
 import re

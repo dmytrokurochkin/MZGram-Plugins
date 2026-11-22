@@ -49,7 +49,7 @@ from ui.settings import Divider, Header, Switch
 __id__ = "contact_time"
 __name__ = "Contact Time"
 __description__ = "Shows the contact's local time in the profile, messages and last seen status."
-__author__ = "@engiPlugins"
+__author__ = "MZGram"
 __version__ = "1.1.0-mz1"
 __app_version__ = ">=12.8.1"
 __category__ = ["chats", "tools"]

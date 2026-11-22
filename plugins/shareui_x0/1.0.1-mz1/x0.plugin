@@ -37,10 +37,9 @@ from org.telegram.tgnet import TLRPC
 __id__ = "shareui_x0"
 __name__ = "Simple photo link"
 __description__ = "Uploads media files (photo, video, gif, document) to x0.at hosting and sends the received link to the chat. To use, reply to a message with a media file with the command .x0"
-__author__ = "@shrdevv"
+__author__ = "MZGram"
 __version__ = "1.0.1-mz1"
 __min_version__ = "11.12.0"
-__icon__ = "plugin232/12"
 __category__ = ["media", "integrations"]
 
 class Locales:

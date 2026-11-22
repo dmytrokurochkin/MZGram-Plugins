@@ -21,10 +21,9 @@ from org.telegram.tgnet import TLRPC
 __id__ = "long_quote_auto"
 __name__ = "LongQuoteAuto"
 __description__ = "Collapses a message into a quote when it has trigger words (crash logs), so long texts do not flood the chat."
-__author__ = "@KUNSESHBOY"
+__author__ = "MZGram"
 __min_version__ = "12.5.1"
 __version__ = "1.4.0-mz1"
-__icon__ = "SunnyAnime/3"
 __category__ = ["chats"]
 
 _TRIGGER_RE = re.compile(

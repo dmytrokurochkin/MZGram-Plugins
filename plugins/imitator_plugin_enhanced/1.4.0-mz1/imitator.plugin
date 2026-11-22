@@ -24,8 +24,7 @@ __id__ = "imitator_plugin_enhanced"
 __name__ = "Imitator"
 __description__ = "Imitates activity in a chat\n\nCommands:\n.im - open the menu\n.im <mode> - quick start\n.imstop - stop in this chat\n.imstopall - stop everywhere\n\nModes: typing, voice, video, game, photo, round, audio, document, location, contact, sticker, mixed"
 __version__ = "1.4.0-mz1"
-__author__ = "@Toxano_modules"
-__icon__ = "T_modules/0"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["fun", "chats"]
 # code copied from someone else

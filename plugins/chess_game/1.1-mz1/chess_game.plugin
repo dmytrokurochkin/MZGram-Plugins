@@ -24,7 +24,7 @@ from android_utils import run_on_ui_thread, OnClickListener, log
 __id__ = "chess_game"
 __name__ = "Chess"
 __description__ = "Chess inside Telegram: play against the bot (4 levels) or two players on one phone. Moves are hinted, with undo and game saving. Command .chess. Command .chesshelp shows all commands."
-__author__ = "@Hiromi_Higuruma0"
+__author__ = "MZGram"
 __version__ = "1.1-mz1"
 __app_version__ = ">=12.10.06"
 __category__ = ["fun"]

@@ -31,9 +31,8 @@ from client_utils import get_last_fragment
 __id__ = "boykisser_meow"
 __name__ = "Boykisser Corner"
 __description__ = "Meowing boykisser in the corner of the screen"
-__author__ = "@duckerer <--- Boykisser"
+__author__ = "MZGram"
 __version__ = "1.4.2-mz1"
-__icon__ = "animated_boykisser_by_fStikBot/12"
 __app_version__ = ">=12.5.1"
 __category__ = ["fun", "appearance"]
 __sdk_version__ = ">=1.4.3.3"

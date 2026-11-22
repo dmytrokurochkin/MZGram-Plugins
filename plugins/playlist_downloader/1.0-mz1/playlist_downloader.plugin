@@ -37,9 +37,8 @@ from ui.settings import Divider, Header, Switch, Text
 __id__ = "playlist_downloader"
 __name__ = "Playlist Downloader"
 __description__ = """Downloads every track from a chat's playlist in one tap, through Telegram's own file loader."""
-__author__ = "@ameerchik6"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "litsouls/16"
 __app_version__ = ">=12.8.1"
 __category__ = ["media"]
 __sdk_version__ = ">=1.4.0"

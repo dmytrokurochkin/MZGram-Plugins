@@ -1,9 +1,8 @@
 __id__ = "browser_shortcut"
 __name__ = "Browser Shortcut"
 __description__ = "Create a home screen shortcut with a custom name and icon that opens a URL in the client's in-app browser"
-__author__ = "Е-бать"
+__author__ = "MZGram"
 __version__ = "1.2-mz1"
-__icon__ = "NE_SMOTRI_SYUDA81/1"
 __app_version__ = ">=12.5.1"
 __category__ = ["tools"]
 __sdk_version__ = ">=1.4.4.3"

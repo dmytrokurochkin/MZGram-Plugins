@@ -15,7 +15,7 @@ __id__ = "neural_typing"
 __name__ = "Neural Typing"
 __description__ = "Incoming messages appear on screen gradually, as if a neural network generated them in real time (the streaming effect of an AI reply). Pure cosmetics on your side, the other person sees nothing."
 __version__ = "1.3.7-mz1"
-__author__ = "@van1lLove (idea: @calm_rio)"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["appearance"]
 

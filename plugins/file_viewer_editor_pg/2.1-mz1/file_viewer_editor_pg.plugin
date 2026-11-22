@@ -64,8 +64,7 @@ __id__ = "file_viewer_editor_pg"
 __name__ = "File Viewer & Editor"
 __description__ = "View and edit text files (.py, .json, .csv, etc.) right in Telegram. Use the `.openfile` command in reply to a message with a file."
 __version__ = "2.1-mz1"
-__author__ = "@JavaScript_XD"
-__icon__ = "ApplicationEmoji/141"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["tools"]
 

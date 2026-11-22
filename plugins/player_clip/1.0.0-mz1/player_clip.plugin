@@ -14,12 +14,11 @@ def _mz_t(uk, en, ru=None):
 __id__ = "player_clip"
 __name__ = "Player Clip"
 __description__ = "Clips for songs, like in streaming music apps: upload them yourself from your memory. Tap to add or start the video, long press to replace or reset the clip for a song."
-__author__ = "GPT-Sol-6.1, @OnlyOneShik, @Repentagon"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
 __app_version__ = ">=13.1.1"
 __category__ = ["appearance", "media", "fun"]
 __sdk_version__ = ">=1.4.6.1"
-__icon__ = "Zuioisus/31"
 __requirements__ = []
 
 import hashlib

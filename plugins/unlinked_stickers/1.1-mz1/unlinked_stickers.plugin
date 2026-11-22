@@ -29,9 +29,8 @@ from client_utils import get_last_fragment
 __id__ = "unlinked_stickers"
 __name__ = "Unlinked Stickers"
 __description__ = "Send stickers from any pack as your own uploaded documents, detached from the original sticker set. \n\nIdea's author: @mishabotov"
-__author__ = "@itNotMax - @MaxExteraPlugins"
+__author__ = "MZGram"
 __version__ = "1.1-mz1"
-__icon__ = "MaxExteraPluginsStickers/26"
 __min_version__ = "12.1.1"
 __app_version__ = ">=12.1.1"
 __category__ = ["media", "privacy"]

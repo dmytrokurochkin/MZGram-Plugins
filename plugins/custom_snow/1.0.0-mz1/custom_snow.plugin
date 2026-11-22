@@ -10,9 +10,8 @@ from ui.settings import Custom, Divider, Header, Selector, Switch, Text
 __id__ = "custom_snow"
 __name__ = "Custom Snow"
 __description__ = "Customize Telegram snow particles with sakura, matrix, rain, and autumn leaves."
-__author__ = "@mraniv & @anivplugins"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "LittleGirl56/9"
 __app_version__ = ">=12.5.1"
 __category__ = ["appearance"]
 __sdk_version__ = ">=1.4.0"

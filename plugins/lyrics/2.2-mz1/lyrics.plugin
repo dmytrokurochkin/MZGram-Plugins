@@ -2,9 +2,8 @@ __module_name__ = __name__
 __id__ = "lyrics"
 __name__ = "Reach Text"
 __description__ = 'Displays lyrics for your music directly in Telegram.\nAdds a "Show Lyrics" button to the audio player, with support for synchronized (karaoke-style) lyrics.\nPowered by LRCLib.net'
-__author__ = "@PESSDES_Plugins"
+__author__ = "MZGram"
 __min_version__ = "11.12.1"
-__icon__ = "VoiceToText7/12"
 __version__ = "2.2-mz1" 
 __category__ = ["media", "integrations"]
 

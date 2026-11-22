@@ -6,9 +6,8 @@ from hook_utils import find_class
 __id__ = "hide_admin_rank_chat"
 __name__ = "Hide Admin Rank (Chat)"
 __description__ = "Turns off tapping on the role next to chat messages."
-__author__ = "@ksuebes"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "SpottyAnimated/47"
 __app_version__ = ">=12.5.1"
 __category__ = ["chats"]
 

@@ -31,9 +31,8 @@ from org.telegram.tgnet.tl import TL_account
 __id__ = "itt"
 __name__ = "Invisible TikTok"
 __description__ = "So you don't have to send a buddy a ton of fucking TikTok links"
-__author__ = "@la_cringe | @dmkrjplug"
+__author__ = "MZGram"
 __version__ = "1.3.0-mz1"
-__icon__ = "stickersfailed/31"
 __min_version__ = "11.12.0"
 __category__ = ["integrations", "chats"]
 

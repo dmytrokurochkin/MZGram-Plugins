@@ -7,9 +7,8 @@ from java.util import Locale
 __id__ = "chatInputLines"
 __name__ = "Input Line"
 __description__ = "Adjusts max lines of the chat input field"
-__icon__ = "chaotianjiang/36"
 __version__ = "1.0.0-mz1"
-__author__ = "@ArThirtyFour | @KangelPlugins"
+__author__ = "MZGram"
 __min_version__ = "11.9.0"
 __category__ = ["appearance"]
 

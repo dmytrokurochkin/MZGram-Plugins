@@ -7,9 +7,8 @@ from java.lang import Integer as JInteger
 __id__ = "gifs_unlocker"
 __name__ = "GIFs Unlocker"
 __description__ = "Lets you send GIFs where they are forbidden, by sending them as a looped video without sound"
-__author__ = "@kchemi_projects"
+__author__ = "MZGram"
 __version__ = "1.1-mz1"
-__icon__ = "METAHERO_unofficial/12"
 __app_version__ = ">=12.8.1"
 __category__ = ["media"]
 __sdk_version__ = ">=1.4.3.10"

@@ -53,9 +53,8 @@ from ui.bulletin import BulletinHelper
 __id__ = "discord_rpc"
 __name__ = "Discord RPC"
 __description__ = "Adds Discord Rich Presence support and automatically updates your bio, showing what you are playing or listening to (use at your own risk)"
-__author__ = "@kexol / @kexolPlugins"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "UtyaDuck/16"
 __min_version__ = "11.12.0"
 __category__ = ["integrations"]
 

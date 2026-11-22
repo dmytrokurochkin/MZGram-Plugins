@@ -6,10 +6,9 @@ from java import jclass
 
 __name__ = "ArticleViewerFix"
 __description__ = "Turns off closing the in-app browser with a left-to-right swipe."
-__icon__ = "cats_for_conversation/17"
 __version__ = "1.0.0-mz1"
 __id__ = "articleViewerFix"
-__author__ = "@bleizix"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["appearance"]
 

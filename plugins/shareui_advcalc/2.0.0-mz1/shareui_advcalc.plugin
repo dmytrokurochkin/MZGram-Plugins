@@ -33,10 +33,9 @@ __name__ = "Advanced Calculator"
 __description__ = """**Advanced math, BMI, Currency, etc.**
 [Documentation](https://github.com/shareui/plugins/blob/main/assets/advcalcdocs.md)
 """
-__author__ = "@shareui(@doctashare)"
+__author__ = "MZGram"
 __version__ = "2.0.0-mz1"
 __min_version__ = "12.4.1"
-__icon__ = "plugin232/1"
 __requirements__ = "mpmath"
 __category__ = ["tools", "integrations"]
 

@@ -26,10 +26,9 @@ from org.telegram.tgnet import TLRPC
 __id__ = "auto_sort_chats_ecubz"
 __name__ = "🗂 Auto Sort Chats"
 __description__ = """Auto-sort chats by type. Groups: unread, private, groups, channels, bots, etc.\nv1.4: Full support for all tabs and folders. Optimized."""
-__author__ = "@eCubzPlugins - @eCubz"
+__author__ = "MZGram"
 __version__ = "1.4-mz1"
 __min_version__ = "10.0.0"
-__icon__ = "eCubzPlugin/1"
 __category__ = ["chats"]
 
 TYPE_UNREAD = "unread"

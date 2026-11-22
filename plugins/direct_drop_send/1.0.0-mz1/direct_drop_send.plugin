@@ -2,7 +2,7 @@ __id__ = "direct_drop_send"
 __name__ = "DragnDrop Send"
 __description__ = "Sends files and media dragged into the chat area from other apps. A very niche plugin: it needs drag and drop support in the system and the apps."
 __version__ = "1.0.0-mz1"
-__author__ = "@koshbko"
+__author__ = "MZGram"
 __app_version__ = ">=12.5.1"
 __category__ = ["chats", "media"]
 # in short, sort out this very niche thing yourselves

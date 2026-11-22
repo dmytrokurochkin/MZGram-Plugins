@@ -14,7 +14,7 @@ def _mz_t(uk, en, ru=None):
 __id__ = "camera_flip"
 __name__ = "Camera Flip"
 __description__ = "Switches the camera in a video message (circle) by swipe or double tap"
-__author__ = "@its240hz"
+__author__ = "MZGram"
 __version__ = "0.2.0-mz1"
 __app_version__ = ">=12.10.6"
 __category__ = ["media"]

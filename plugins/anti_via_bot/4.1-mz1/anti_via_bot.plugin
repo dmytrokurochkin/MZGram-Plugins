@@ -15,8 +15,7 @@ __id__ = "anti_via_bot"
 __name__ = "Anti-bot inline 🥷"
 __description__ = "Hides the 'via @bot' tag. Pulls media straight from the inline result and instantly sends it on your behalf."
 __version__ = "4.1-mz1"
-__author__ = "@project_BAJIbTEP"
-__icon__ = "ProjectBAJIbTEP/0"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["media", "privacy"]
 

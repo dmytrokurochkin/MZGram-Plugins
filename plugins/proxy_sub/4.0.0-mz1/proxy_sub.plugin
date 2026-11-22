@@ -39,10 +39,9 @@ from ui.settings import Divider, Header, Selector, Switch, Text
 __id__ = "proxy_sub"
 __name__ = "Proxy Sub"
 __description__ = "Loads MTProto and WebProxy proxy lists from a remote source and adds them to the client.\n\nFeatures:\n • Filter by protocols and countries with counters\n • Export proxies (MTProto, WebProxy, SOCKS) to Saved Messages as a message or a file\n • Writes the plugin's error logs and sends them to the akresLogs forum automatically every hour (optional)"
-__author__ = "@akresik"
+__author__ = "MZGram"
 __version__ = "4.0.0-mz1"
 __min_version__ = "12.10.6"
-__icon__ = "OliverEmoji/21"
 __requirements__ = "babel"
 __category__ = ["privacy", "tools"]
 

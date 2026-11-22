@@ -24,9 +24,8 @@ from ui.bulletin import BulletinHelper
 __id__ = "HiddenForwardNameCopy"
 __name__ = "Hidden Forward Name Copy"
 __description__ = "Shows a copy button when you tap the name on a forwarded message whose sender hid their profile."
-__author__ = "@Nikita218000"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "msg_copy"
 __min_version__ = "11.12.0"
 __category__ = ["chats"]
 

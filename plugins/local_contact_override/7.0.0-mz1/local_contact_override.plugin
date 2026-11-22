@@ -28,9 +28,8 @@ __name__ = "Local Contact Override"
 __description__ = (
     "Local names for people, bots, groups and channels. Only the display changes on your device. The editor opens from the profile or chat menu, all edits are collected in the plugin settings, with export and import."
 )
-__author__ = "@daxo_os"
+__author__ = "MZGram"
 __version__ = "7.0.0-mz1"
-__icon__ = "exteraPlugins/1"
 __app_version__ = ">=12.5.1"
 __category__ = ["appearance"]
 

@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "chat_colors"
 __name__ = "Chat Colors"
 __description__ = "**Custom color for selected chats** in the chat list."
-__author__ = "@lerowc & @lerowplug"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "voodoo/5"
 __min_version__ = "12.10.6"
 __category__ = ["appearance"]
 

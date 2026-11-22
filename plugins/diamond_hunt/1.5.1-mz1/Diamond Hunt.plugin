@@ -33,10 +33,9 @@ OnClickListenerInterface = find_class("android.view.View$OnClickListener")
 __id__ = "diamond_hunt"
 __name__ = "Diamond Hunt"
 __description__ = "Game: find all the hidden diamonds."
-__author__ = "@Ameba1i"
+__author__ = "MZGram"
 __version__ = "1.5.1-mz1"
 __min_version__ = "11.12.0"
-__icon__ = "AnimatedEmojies/15"
 __category__ = ["fun"]
 
 KEY_FIELD_SIZE = "diamond_hunt_field_size"

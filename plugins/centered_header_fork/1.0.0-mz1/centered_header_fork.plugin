@@ -19,9 +19,8 @@ from hook_utils import find_class, get_private_field, set_private_field
 __id__ = "centered_header_fork"
 __name__ = "Centered header (fork)"
 __description__ = "Centered header for chats"
-__author__ = "@ScorpiOVN_sc (@n0white)"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "VislBejbi9/17"
 __min_version__ = "12.1.1"
 __category__ = ["appearance"]
 

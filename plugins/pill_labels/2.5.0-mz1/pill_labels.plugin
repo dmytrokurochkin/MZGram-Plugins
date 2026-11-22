@@ -36,8 +36,7 @@ from java import jclass, jarray, dynamic_proxy, cast
 __id__ = "pill_labels"
 __name__ = "Pill Labels"
 __description__ = "Adds outlines around profile elements"
-__icon__ = "kittysforlife_by_fStikBot/19"
-__author__ = "@Persik_dll & claude"
+__author__ = "MZGram"
 __version__ = "2.5.0-mz1"
 __min_version__ = "12.10.6"
 __category__ = ["appearance"]

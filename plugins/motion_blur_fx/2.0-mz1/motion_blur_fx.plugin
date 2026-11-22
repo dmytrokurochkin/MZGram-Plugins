@@ -23,9 +23,8 @@ from ui.settings import Divider, Header, Selector, Switch, Text
 __id__ = "motion_blur_fx"
 __name__ = "Motion Blur"
 __description__ = "Directional motion blur: scroll, swipes, menus, folder swipe."
-__author__ = "@winrar738 && @dekma0091"
+__author__ = "MZGram"
 __version__ = "2.0-mz1"
-__icon__ = "exteraPlugins/1"
 __min_version__ = "12.5.1"
 __category__ = ["appearance"]
 

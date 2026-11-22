@@ -30,9 +30,8 @@ __name__ = "Real Metadata"
 __description__ = (
     "Shows the real metadata of media: container, duration, tracks, codecs, bitrate and EXIF (if present)."
 )
-__author__ = "hyponomic"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "msg_info"
 __min_version__ = "11.9.0"
 __category__ = ["media"]
 

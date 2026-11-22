@@ -14,10 +14,9 @@ def _mz_t(uk, en, ru=None):
 __id__ = "meow_reply"
 __name__ = "Meow Reply"
 __version__ = "1.0-mz1"
-__author__ = "@mefplugins/@dauntupoy & Gemini & Kimi k2.6 High"
+__author__ = "MZGram"
 __description__ = "Auto-responder with triggers and presets. Don't know how to use it? Open the plugin settings and tap the \"How to use?\" button"
 __min_version__ = "11.12.0"
-__icon__ = "gadalka333/0"
 __category__ = ["chats"]
 
 import json

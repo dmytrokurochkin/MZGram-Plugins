@@ -38,7 +38,7 @@ import time
 __id__ = "lyu_mic_switch"
 __name__ = "Backup Mic"
 __description__ = "If you cover the microphone with a finger while recording a video or voice message, recording continues from another microphone of the phone so you can still be heard."
-__author__ = "@lyuto_bor"
+__author__ = "MZGram"
 __version__ = "0.1.1.1-mz1"
 __icon__ = "exteraPlugins/1"
 __app_version__ = ">=12.10.6"

@@ -21,9 +21,8 @@ from org.telegram.messenger import DialogObject, MessagesController, UserConfig
 __id__ = "smart_auto_archiver"
 __name__ = "Auto Archive Chats"
 __description__ = "Archives inactive chats on a timer"
-__author__ = "@nainraft"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "exteraPlugins/1"
 __app_version__ = ">=12.10.6"
 __category__ = ["chats"]
 __min_version__ = "12.10.6"

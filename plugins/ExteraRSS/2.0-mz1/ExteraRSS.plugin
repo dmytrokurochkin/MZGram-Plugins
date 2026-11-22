@@ -139,9 +139,8 @@ except ImportError:
 __id__ = "ExteraRSS"
 __name__ = "ExteraRSS"
 __description__ = "RSS + Telegram in one feed"
-__author__ = "@RoflPlugins"
+__author__ = "MZGram"
 __version__ = "2.0-mz1"
-__icon__ = "RoflPlugins/16"
 __min_version__ = "11.12.0"
 __category__ = ["integrations"]
 

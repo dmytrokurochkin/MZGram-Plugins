@@ -81,9 +81,8 @@ __name__ = "Audio Downloader"
 __description__ = (
     "Downloads all music from the current chat or channel directly into the cache."
 )
-__author__ = "@pluginsc"
+__author__ = "MZGram"
 __version__ = "1.1.0-mz1"
-__icon__ = "open496/2"
 __min_version__ = "12.1.1"
 __category__ = ["media"]
 

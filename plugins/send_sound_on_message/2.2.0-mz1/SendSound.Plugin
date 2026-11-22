@@ -13,11 +13,10 @@ def _mz_t(uk, en, ru=None):
 
 __id__ = "send_sound_on_message"
 __name__ = "SendSound"
-__author__ = "@RoflPlugins"
+__author__ = "MZGram"
 __version__ = "2.2.0-mz1"
 __description__ = "Custom sounds and pictures when sending a message"
 
-__icon__ = "s/0"
 __min_version__ = "11.12.0"
 __category__ = ["appearance"]
 

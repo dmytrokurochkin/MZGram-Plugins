@@ -36,9 +36,8 @@
 __id__ = "higal"
 __name__ = "Hide Gallery"
 __description__ = "Blurs the whole gallery\n\nThanks for the optimization: @dekma0091"
-__author__ = "@ka1Plugins"
+__author__ = "MZGram"
 __version__ = "1.2-mz1"
-__icon__ = "animated_boykisser_by_fStikBot/31"
 __app_version__ = ">=12.10.6"
 __category__ = ["privacy", "media"]
 __sdk_version__ = ">=1.4.5.7"

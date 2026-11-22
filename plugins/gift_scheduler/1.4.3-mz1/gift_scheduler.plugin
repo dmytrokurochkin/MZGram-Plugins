@@ -40,9 +40,8 @@ __name__ = "Gift Scheduler"
 __description__ = (
     "Scheduled Telegram gifts: pick a gift, a recipient and a time, and the plugin sends it for you. You do not have to stay online or keep Telegram open: turn on the \"Background work\" section in plugin settings."
 )
-__author__ = "@MicusYo"
+__author__ = "MZGram"
 __version__ = "1.4.3-mz1"
-__icon__ = "Ie92iwue_by_fStikBot/0"
 __min_version__ = "12.10.6"
 __category__ = ["tools"]
 

@@ -1,9 +1,8 @@
 __id__ = "number_in_profile_randomizer_rn"
 __name__ = "Profile Number"
 __description__ = "Lets you hide your real phone number in the profile (useful for screenshots)"
-__author__ = "@RnPlugins"
+__author__ = "MZGram"
 __version__ = "1.0.2-mz1"
-__icon__ = "RnDev/12"
 __app_version__ = ">=12.5.1"
 __category__ = ["privacy"]
 __sdk_version__ = ">=1.4.3.3"

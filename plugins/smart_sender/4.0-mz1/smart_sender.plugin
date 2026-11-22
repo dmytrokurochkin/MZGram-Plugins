@@ -15,7 +15,7 @@ __id__ = "smart_sender"
 __name__ = "Smart Sender"
 __description__ = "Adds a 'when read' item to the send preview menu (MessageSendPreview). The message is sent automatically as soon as the other person reads your previous message in this chat."
 __version__ = "4.0-mz1"
-__author__ = "@van1lLove"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["chats"]
 

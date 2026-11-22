@@ -30,9 +30,8 @@ from ui.settings import (
 __id__ = "photo_picker_plus"
 __name__ = "Photo Picker Plus"
 __description__ = "Improves the official Telegram photo picker, adds informative pills, dates, a toolbar with custom folders"
-__author__ = "@dekma0091 && @DefinitelyNotDekma"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "pixelcamera/15"
 __min_version__ = "12.5.1"
 __category__ = ["media", "appearance"]
 

@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "miniapp_injector"
 __name__ = "MiniApp Injector"
 __description__ = ("DevTools console right inside Telegram mini apps, plus injection of your own JS links.\n\n• eruda console on top of any mini app: console, network and storage from the phone\n• Injection of your own links: paste any JS/CDN link, the plugin downloads it and injects it into the mini app\n• Works even under a strict CSP (evaluateJavascript channel). Everything is off by default.\n\nby huecoder")
-__author__ = "@huecoder"
+__author__ = "MZGram"
 __version__ = "1.0.1-mz1"
-__icon__ = "bma_by_W1fmaSnc23f0akxcmbot/0"
 __min_version__ = "11.9.0"
 __category__ = ["tools"]
 

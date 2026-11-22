@@ -13,7 +13,7 @@ def _mz_t(uk, en, ru=None):
 
 __id__ = "html_formatter"
 __name__ = "HTML Formatter"
-__author__ = "@fr1zeeDev"
+__author__ = "MZGram"
 __version__ = "1.1.0-mz1"
 __description__ = "Converts HTML markup to Telegram formatting"
 
@@ -24,7 +24,6 @@ from markdown_utils import parse_markdown
 from java.util import ArrayList
 
 __min_version__ = "11.9.0"
-__icon__ = "msg_edit"
 __category__ = ["chats"]
 
 class HTMLFormatterPlugin(BasePlugin):

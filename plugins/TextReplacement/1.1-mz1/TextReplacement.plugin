@@ -22,9 +22,8 @@ import re
 __id__ = "TextReplacement"
 __name__ = "Replacing the text style"
 __description__ = "Changes the style of your messages"
-__author__ = "@MorePlugins"
+__author__ = "MZGram"
 __version__ = "1.1-mz1"
-__icon__ = "NewsEmoji/14"
 __min_version__ = "11.9.0"
 __category__ = ["chats"]
 

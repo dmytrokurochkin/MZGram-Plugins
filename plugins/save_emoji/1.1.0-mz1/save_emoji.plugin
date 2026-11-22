@@ -9,8 +9,7 @@ from base_plugin import BasePlugin
 __id__ = "save_emoji"
 __name__ = "Save Emoji"
 __description__ = "Adds a button that saves emoji and stickers to the Downloads folder"
-__author__ = "@uipurple"
-__icon__ = "ui_purpleicons/3"
+__author__ = "MZGram"
 __version__ = "1.1.0-mz1"
 __app_version__ = ">=12.5.1"
 __category__ = ["media"]

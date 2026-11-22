@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "quiet_reactions"
 __name__ = "Quiet Reactions"
 __description__ = "Manage big fullscreen reactions, background effects, vibration and auto-read in groups and PMs."
-__author__ = "@RnPlugins"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "RnDev/20"
 __app_version__ = ">=12.5.1"
 __category__ = ["appearance", "chats"]
 __sdk_version__ = ">=1.4.3.3"

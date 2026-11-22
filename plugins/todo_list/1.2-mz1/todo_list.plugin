@@ -38,9 +38,8 @@ from typing import Any, List, Dict
 __id__ = "todo_list"
 __name__ = "Todo List"
 __description__ = "Interactive task lists in chat. Create: attachment menu → Todo List. Toggle: tap task in card. Edit: tap Edit button or long-press message → Todo List. Customize done/pending markers in settings."
-__author__ = "@itNotMax - @MaxExteraPlugins"
+__author__ = "MZGram"
 __version__ = "1.2-mz1"
-__icon__ = "MaxExteraPluginsStickers/21"
 __min_version__ = "12.5.1"
 __app_version__ = ">=12.5.1"
 __category__ = ["tools", "chats"]

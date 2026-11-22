@@ -49,9 +49,8 @@ __description__ = (
     "Hold a message containing a file, tap Plugins, and select Convert Anything. "
     "Then choose the output format and what to do with the converted file."
 )
-__author__ = "@MangoPlugins"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "mangoplugins/0"
 __app_version__ = ">=12.5.1"
 __category__ = ["tools", "media"]
 __min_version__ = "12.5.1"

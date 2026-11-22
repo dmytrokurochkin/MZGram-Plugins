@@ -23,7 +23,7 @@ from ui.settings import Switch
 __id__ = "IPhonePeek"
 __name__ = "IPhonePeek"
 __description__ = "iPhone-style media preview. Select a photo or video, then long-press the media."
-__author__ = "@lunaref"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
 __app_version__ = ">=12.5.1"
 __category__ = ["media"]

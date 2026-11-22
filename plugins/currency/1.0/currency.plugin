@@ -21,9 +21,8 @@ from java.util import Locale
 __id__ = "currency"
 __name__ = "Currency Converter"
 __description__ = "Converts currencies using the command .cr [amount] [currency code]"
-__author__ = "exteraDev, @mgebrat228"
+__author__ = "MZGram"
 __min_version__ = "11.9.0"
-__icon__ = "DMJDuckX2/45"
 __category__ = ["integrations", "tools"]
 
 FLAGS = {

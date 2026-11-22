@@ -26,10 +26,9 @@ from org.telegram.messenger import MessageObject, LocaleController, R, Applicati
 
 __name__ = "Own Messages Deleter"
 __description__ = "Deletes all your own messages in a chat or group."
-__icon__ = "Miku_u/11"
 __version__ = "1.0.0-mz1"
 __id__ = "msgsDeleter"
-__author__ = "@bleizix"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["chats"]
 

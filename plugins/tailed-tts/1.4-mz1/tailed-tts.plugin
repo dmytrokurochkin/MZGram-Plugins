@@ -24,9 +24,8 @@ import requests, urllib.parse, uuid, os, threading, traceback
 __id__ = "tailed-tts"
 __name__ = "text-to-speech"
 __description__ = "uses voicerss api to voice your text with .tts [text] command"
-__author__ = "@tailsjs"
+__author__ = "MZGram"
 __min_version__ = "11.9.0"
-__icon__ = "pomogitechezahuynya/3"
 __version__ = "1.4-mz1"
 __category__ = ["media", "integrations"]
 

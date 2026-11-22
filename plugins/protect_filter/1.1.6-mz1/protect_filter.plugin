@@ -36,9 +36,8 @@ from android.widget import Toast
 __id__ = "protect_filter"
 __name__ = "Protect Filter"
 __description__ = "Automatically blocks new chats by keywords. For example: threats/spam"
-__author__ = "@exoseo"
+__author__ = "MZGram"
 __version__ = "1.1.6-mz1"
-__icon__ = "UtyaDuckFull/25"
 __app_version__ = ">=12.5.1"
 __category__ = ["privacy", "chats"]
 __sdk_version__ = ">=1.4.3.3"

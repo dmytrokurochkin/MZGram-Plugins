@@ -35,10 +35,9 @@ __name__ = "Channel Inspector"
 __description__ = (
     "Data on private and public chats: invite details, member carousel, avatar viewer, statistics, commands .chinfo, .chstats and .avatars"
 )
-__author__ = "Daxo-Developer && @Daxo_OS"
+__author__ = "MZGram"
 __version__ = "2.2.0-mz1"
 __min_version__ = "12.10.6"
-__icon__ = "DaxoOS/1"
 __category__ = ["tools", "chats", "privacy"]
 
 MARK = "▸ Channel Inspector"

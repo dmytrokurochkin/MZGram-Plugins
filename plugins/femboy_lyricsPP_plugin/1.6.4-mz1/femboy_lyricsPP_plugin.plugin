@@ -22,10 +22,9 @@ def _mz_t(uk, en, ru=None):
 __id__ = "femboy_lyricsPP_plugin"
 __name__ = "Comfort Lyrics++"
 __description__ = "**Beautiful** plugin for viewing song lyrics right in the app, synced with the song.\n**To open the lyrics** tap the three dots in the player and the \"Show lyrics\" button. Double-tapping a line seeks the track to its timecode.\n\n**Full** control over the text, background, animations and color shimmer."
-__author__ = "@Beefba"
+__author__ = "MZGram"
 __version__ = "1.6.4-mz1"
 __min_version__ = "11.12.1"
-__icon__ = "CoolCheeseBeefba/0"
 __category__ = ["media", "integrations"]
 
 import colorsys

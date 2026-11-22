@@ -37,9 +37,8 @@ from ui.settings import (
 __id__ = "songlinker"
 __name__ = "Song Linker"
 __description__ = "Converts a link into hypertext."
-__author__ = "@kotilnyaplugins"
+__author__ = "MZGram"
 __version__ = "1.0.4-mz1"
-__icon__ = "Konataizumi0_by_fStikBot/6"
 __app_version__ = ">=12.10.6"
 __category__ = ["chats", "media", "integrations"]
 

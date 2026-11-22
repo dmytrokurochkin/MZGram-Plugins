@@ -21,9 +21,8 @@ from ui.alert import AlertDialogBuilder
 __id__ = "paranoia"
 __name__ = "Paranoia"
 __description__ = "Stops you from accidentally sending a command that starts with '.' but does not exist"
-__author__ = "@scorpiovn_sc"
+__author__ = "MZGram"
 __version__ = "1.2.0-mz1"
-__icon__ = "exteraPlugins/1"
 __app_version__ = ">=12.5.1"
 __category__ = ["chats"]
 __sdk_version__ = ">=1.4.4.3"

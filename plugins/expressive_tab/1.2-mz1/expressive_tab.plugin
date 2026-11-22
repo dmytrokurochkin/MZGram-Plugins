@@ -38,7 +38,7 @@ from ui.settings import Custom, Header, Selector, Switch, Text
 __id__ = "expressive_tab"
 __name__ = "Expressive Tab"
 __description__ = "Replaces the Exteragram bottom navigation with a Floating Toolbar in Material 3 Expressive style. RESTART EXTERAGRAM AFTER INSTALLING!"
-__author__ = "@Plus_Plugins"
+__author__ = "MZGram"
 __version__ = "1.2-mz1"
 __min_version__ = "12.5.1"
 __category__ = ["appearance"]

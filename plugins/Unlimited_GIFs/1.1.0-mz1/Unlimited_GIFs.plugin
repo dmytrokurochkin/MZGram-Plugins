@@ -53,8 +53,7 @@ __id__ = "Unlimited_GIFs"
 __name__ = "Unlimited GIFs"
 __description__ = "Removes the limit on the number of Saved GIFs via Xposed hooks"
 __version__ = "1.1.0-mz1"
-__author__ = "@ArThirtyFour | @KangelPlugins"
-__icon__ = "chaotianjiang/32"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["media"]
 

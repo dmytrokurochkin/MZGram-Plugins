@@ -13,9 +13,8 @@ from hook_utils import find_class
 __id__ = "shareui_dkta_fixed"
 __name__ = "Don't kill the download! [fixed]"
 __description__ = "[fixed by @maxExteraPlugins] Continues downloading files in the background when exiting the chat."
-__author__ = "@itNotMax - @MaxExteraPlugins, original: @shareui"
+__author__ = "MZGram"
 __version__ = "1.10-mz1"
-__icon__ = "MaxExteraPluginsStickers/27"
 __min_version__ = "12.2.10"
 __app_version__ = ">=12.2.10"
 __category__ = ["tools"]

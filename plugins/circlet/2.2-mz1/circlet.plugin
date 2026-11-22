@@ -39,10 +39,9 @@ from ui.settings import Divider, Header, Selector, Switch, Text
 
 __id__ = "circlet"
 __name__ = "Circlet"
-__author__ = "@zxplugins"
+__author__ = "MZGram"
 __version__ = "2.2-mz1"
 __min_version__ = "12.10.6"
-__icon__ = "UtyaDuckFull/49"
 __description__ = """Send a video as a round video message with a trim preview.
 
 Choose a video and see a live preview of the circle on the full screen. One finger moves the circle, two fingers change its size. Rotation, mirroring, «muted» and cropping from the Telegram editor are kept, and you can change them in the preview with buttons. If the video is longer than a minute, the selected part is sent; without trimming, the first minute is sent. Only then is it sent."""

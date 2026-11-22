@@ -39,9 +39,8 @@ from java import jclass
 __id__ = "open_street_map"
 __name__ = "OpenStreetMap"
 __description__ = "Adds OpenStreetMap instead of Google"
-__author__ = "@etodsk, @Knyaz_vsey_Tmy & ChatGPT"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "rebornexterayamap/0"
 __app_version__ = ">=12.10.6"
 __category__ = ["integrations"]
 __sdk_version__ = ">=1.4.5.6"

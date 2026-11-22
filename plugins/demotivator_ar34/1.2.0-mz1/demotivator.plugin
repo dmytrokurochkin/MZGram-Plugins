@@ -35,9 +35,8 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 __id__ = "demotivator_ar34"
 __name__ = "Demotivator"
 __description__ = "Creates a demotivator with the .dem <top> | <bottom> command (with a photo)"
-__author__ = "@ArThirtyFour | @KangelPlugins"
+__author__ = "MZGram"
 __min_version__ = "11.9.0"
-__icon__ = "amevoruettabletki/1"
 __version__ = "1.2.0-mz1"
 __category__ = ["media", "fun"]
 

@@ -15,9 +15,8 @@ __id__ = "game_arcade"
 __name__ = "Arcade Games"
 __version__ = "1.1-mz1"
 __min_version__ = "12.10.6"
-__author__ = "@Art_727 & @lerowplug"
+__author__ = "MZGram"
 __description__ = "Legendary games 2048, Flappy Bird and Chrome Dino right in the client. Based on the Flappy Bird plugin, author @hijut"
-__icon__ = "ArtPack99/34"
 __category__ = ["fun"]
 
 import gc

@@ -59,9 +59,8 @@ OWL_WEIGHT_OPTIONS = [1, 2, 4, 8]  # regular / more often / even more often / al
 __id__ = "card_reading"
 __name__ = "Card fortune telling"
 __description__ = "Card fortune telling). The \"Fortune\" button in the chat menu or the .гадать command"
-__author__ = "@lyzos"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "formyetgplugins_by_fStikBot/49"
 __min_version__ = "11.9.0"
 __category__ = ["fun"]
 

@@ -28,9 +28,8 @@ from ui.settings import Divider, Header, Input, Switch, Text
 __id__ = "antivirus_vt"
 __name__ = "Antivirus"
 __description__ = "Checks files via VirusTotal (by SHA-256 and optional upload)."
-__author__ = "hyponomic"
+__author__ = "MZGram"
 __version__ = "1.1.0-mz1"
-__icon__ = "msg_shield"
 __min_version__ = "11.9.0"
 __category__ = ["privacy", "integrations"]
 

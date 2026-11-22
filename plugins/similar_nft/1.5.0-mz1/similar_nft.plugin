@@ -38,10 +38,9 @@ __name__ = "Similar NFT"
 __description__ = (
     "Button 'Similar NFT' in the collectible gift window. Shows lots with the same model, backdrop or symbol: prices, floor, median, filters by currency, price and rarity, favourites."
 )
-__author__ = "Daxo-Developer && @Daxo_OS"
+__author__ = "MZGram"
 __version__ = "1.5.0-mz1"
 __min_version__ = "12.5.1"
-__icon__ = "exteraPlugins/1"
 __category__ = ["tools"]
 
 FILTER_KEYS = ("model", "backdrop", "pattern")

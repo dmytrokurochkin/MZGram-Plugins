@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "gradient_mini_player"
 __name__ = "Gradient Mini Player"
 __description__ = "Dynamic gradient from the cover colours: the standard Mini Player, the full-screen player and the notification colour. Smooth colour changes, light animation, transparency setting."
-__author__ = "@thelevikane"
+__author__ = "MZGram"
 __version__ = "3.4.0-mz1"
-__icon__ = "qwertysticks3/0"
 __app_version__ = ">=12.5.1"
 __category__ = ["appearance"]
 

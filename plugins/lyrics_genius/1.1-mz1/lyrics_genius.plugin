@@ -1,9 +1,8 @@
 __id__ = "lyrics_genius"
 __name__ = "Genius extension for Reach Text"
 __description__ = 'Adds genuis.com as a provider for lyrics for the Reach Text plugin'
-__author__ = "@PESSDES_Plugins"
+__author__ = "MZGram"
 __min_version__ = "11.12.1"
-__icon__ = "VoiceToText7/13"
 __version__ = "1.1-mz1" 
 __category__ = ["integrations", "media"]
 

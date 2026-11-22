@@ -15,7 +15,7 @@ __id__ = "direct_drop_send_fork"
 __name__ = "DragnDrop Send (Fork)"
 __description__ = "Two-way Drag&Drop: drag media and files (opens the native file menu and media editor) and move selected text (Fork)."
 __version__ = "2.0.24-mz1"
-__author__ = "original @koshbko, fork by @qe4ank, Gemini Argon"
+__author__ = "MZGram"
 __app_version__ = ">=12.10.6"
 __category__ = ["chats", "media"]
 

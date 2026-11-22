@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "whisper_transcribe"
 __name__ = "Transcriber"
 __description__ = "Replaces Telegram's transcription service with free state-of-the-art alternatives."
-__author__ = "@ginqusPlugins"
+__author__ = "MZGram"
 __version__ = "2.3.1-mz1"
-__icon__ = "ginqusExteraPlugins/1"
 __min_version__ = "12.1.1"
 __category__ = ["integrations", "media"]
 

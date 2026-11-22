@@ -26,9 +26,8 @@ from ui.settings import Selector
 __id__ = "plugins_menu"
 __name__ = "Title Actions"
 __description__ = "Action on tapping the exteraGram title"
-__author__ = "@RedPlugin"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "alegquin108/14"
 __app_version__ = ">=12.10.6"
 __category__ = ["tools"]
 

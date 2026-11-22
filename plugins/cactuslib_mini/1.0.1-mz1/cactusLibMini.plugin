@@ -20,7 +20,7 @@
 
 __id__ = "cactuslib_mini"
 __name__ = "CactusLib Mini"
-__author__ = "@CactusPlugins"
+__author__ = "MZGram"
 __description__ = "Mini version of CactusLib :D"
 __min_version__ = "12.2.10"
 __version__ = "1.0.1-mz1"

@@ -45,9 +45,8 @@ from ui.settings import Divider, Header, Input, Selector, Switch, Text
 __id__ = "voice_soundpad"
 __name__ = "Voice Soundpad"
 __description__ = "Plays and mixes sounds into voice messages, round videos, calls and voice chats. Commands: .sounds .soundpad"
-__author__ = "@TapeSix"
+__author__ = "MZGram"
 __version__ = "1.5.0-mz1"
-__icon__ = "Idi_gahuy/8"
 __app_version__ = ">=12.5.1"
 __category__ = ["media"]
 

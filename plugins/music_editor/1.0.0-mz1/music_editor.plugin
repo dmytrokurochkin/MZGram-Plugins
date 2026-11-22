@@ -16,10 +16,9 @@ __name__ = "Music Editor"
 __description__ = (
     "Music editor inside the built-in player: tags, cover, trim, speed and pitch, reverb, bass, EQ, 8D, bitrate. Open the player, then ⋮ and Track editor.\n\nChannel: @goodgamenicetry"
 )
-__author__ = "@ympuxyecoc"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
 __min_version__ = "12.10.6"
-__icon__ = "trackeditor_by_gxwai/0"
 __category__ = ["tools"]
 
 import math

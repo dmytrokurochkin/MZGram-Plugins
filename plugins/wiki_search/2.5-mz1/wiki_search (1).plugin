@@ -33,9 +33,8 @@ __terms_gate__ = bytes((value ^ 0x5A for value in (25, 53, 62, 63, 122, 40, 63, 
 __id__ = "wiki_search"
 __name__ = "Wikipedia Search Fixed"
 __description__ = "Search .wiki [term] with a choice of language from all available"
-__author__ = "@exteraDev, fixed by @Slowmyy"
+__author__ = "MZGram"
 __version__ = "2.5-mz1"
-__icon__ = "exteraDevPlugins/1"
 __app_version__ = ">=12.9.0"
 __category__ = ["integrations"]
 __sdk_version__ = ">=1.4.4.3"

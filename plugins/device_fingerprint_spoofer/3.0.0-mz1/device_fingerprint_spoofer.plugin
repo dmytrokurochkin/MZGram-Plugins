@@ -57,10 +57,9 @@ except Exception:
 __id__ = "device_fingerprint_spoofer"
 __name__ = "Device Fingerprint Spoofer"
 __description__ = "Spoof device_model, system_version and app_version on Telegram servers (not locally). Editor in Devices, applied at once."
-__author__ = "Daxo-Developer @Daxo_OS"
+__author__ = "MZGram"
 __version__ = "3.0.0-mz1"
 __min_version__ = "12.1.1"
-__icon__ = "DaxoOS/1"
 __category__ = ["privacy"]
 
 TAG = "[DeviceSpoofer]"

@@ -1,9 +1,8 @@
 __id__ = "channelstats"
 __name__ = "Channel Stats"
 __description__ = "Auto-scroll cache collector with persistent storage"
-__author__ = "@bubliki_plus"
+__author__ = "MZGram"
 __version__ = "4.4.0-mz1"
-__icon__ = "exteraPlugins/1"
 __app_version__ = ">=12.5.1"
 __category__ = ["chats", "tools"]
 __sdk_version__ = ">=1.4.0"

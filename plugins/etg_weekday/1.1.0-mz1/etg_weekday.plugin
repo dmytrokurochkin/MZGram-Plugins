@@ -17,9 +17,8 @@ from java import jclass
 __id__ = "etg_weekday"
 __name__ = "Day of the week"
 __description__ = "Adds the day of the week next to the date."
-__author__ = "@kissplugin"
+__author__ = "MZGram"
 __version__ = "1.1.0-mz1"
-__icon__ = "msg_calendar"
 __app_version__ = ">=12.5.1"
 __category__ = ["appearance"]
 __sdk_version__ = ">=1.4.3.3"

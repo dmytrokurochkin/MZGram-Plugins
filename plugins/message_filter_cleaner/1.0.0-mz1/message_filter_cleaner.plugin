@@ -28,8 +28,7 @@ __id__ = "message_filter_cleaner"
 __name__ = "Message Filter Cleaner"
 __description__ = "Delete messages by text filter."
 __version__ = "1.0.0-mz1"
-__author__ = "@Toolgool"
-__icon__ = "TLplugins/2"
+__author__ = "MZGram"
 __min_version__ = "12.2.10"
 __category__ = ["chats"]
 

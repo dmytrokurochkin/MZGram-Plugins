@@ -12,9 +12,8 @@ from ui.bulletin import BulletinHelper
 __id__ = "favstickers"
 __name__ = "Unlim favorite stickers"
 __description__ = "Remove limits on adding stickers to favorites"
-__author__ = "@DaShMore"
+__author__ = "MZGram"
 __version__ = "2.0.0-mz1"
-__icon__ = "plugins_covers/0"
 __min_version__ = "11.12.0"
 __category__ = ["media"]
 

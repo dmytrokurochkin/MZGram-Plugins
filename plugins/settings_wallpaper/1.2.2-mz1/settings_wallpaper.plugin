@@ -32,9 +32,8 @@ from org.telegram.messenger import Utilities
 __id__ = "settings_wallpaper"
 __name__ = "Pro Wallpaper"
 __description__ = "Photo behind the settings and contacts, darkening, blur and transparent blocks"
-__author__ = "@Kcharter"
+__author__ = "MZGram"
 __version__ = "1.2.2-mz1"
-__icon__ = "Tagsforsaved_by_TgEmodziBot/36"
 __min_version__ = "12.10.6"
 __category__ = ["appearance"]
 

@@ -31,9 +31,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "svg_inline"
 __name__ = "SVG Inline Renderer"
 __description__ = "Renders svg icons in a text message, and everyone with the plugin sees them. <svg>...</svg>"
-__author__ = "@YAYRIRZ"
+__author__ = "MZGram"
 __version__ = "1.5.12-mz1"
-__icon__ = "msg_photos"
 __app_version__ = ">=12.5.1"
 __category__ = ["chats", "appearance"]
 __sdk_version__ = ">=1.4.4.3"

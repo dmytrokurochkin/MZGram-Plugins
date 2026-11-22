@@ -24,8 +24,7 @@ __id__ = "SearchID"
 __name__ = "SearchID"
 __description__ = "Plugins can now also be searched by their ID"
 __version__ = "1.0.1-mz1"
-__author__ = "@jaxbastard"
-__icon__ = "DendziDzheksJaxbastard/4"
+__author__ = "MZGram"
 __min_version__ = "12.5.1"
 __category__ = ["tools"]
 

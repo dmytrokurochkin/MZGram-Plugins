@@ -27,9 +27,8 @@ __name__ = "SQL Viewer"
 __description__ = (
     "`.sql` to SQLite: reply to a file in the chat or use the path in the settings. Read only (SELECT and the like)."
 )
-__author__ = "hyponomic"
+__author__ = "MZGram"
 __version__ = "1.1.1-mz1"
-__icon__ = "exteraPlugins/1"
 __min_version__ = "11.12.0"
 __category__ = ["tools"]
 

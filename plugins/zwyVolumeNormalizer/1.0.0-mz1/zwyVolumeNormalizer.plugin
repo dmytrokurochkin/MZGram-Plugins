@@ -44,10 +44,9 @@ __description__ = (
     "Evens out the loudness of music played in Telegram: loud tracks are made quieter, quiet ones louder.\n\n"
     "> Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 or greater!"
 )
-__icon__ = "zwyPluginsIcons/10"
 __id__ = "zwyVolumeNormalizer"
 __version__ = "1.0.0-mz1"
-__author__ = "@zwylair"
+__author__ = "MZGram"
 __app_version__ = ">=12.10.6"
 __category__ = ["media"]
 

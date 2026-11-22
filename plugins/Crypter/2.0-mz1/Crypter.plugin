@@ -14,10 +14,9 @@ def _mz_t(uk, en, ru=None):
 __id__ = "Crypter"
 __name__ = "Crypter"
 __description__ = "Simple text encryptor with a password. Example: .cip [password] [text] \n update: improved encryption, fixed settings"
-__author__ = "@MRDimons"
+__author__ = "MZGram"
 __version__ = "2.0-mz1"
 __min_version__ = "11.12.0"
-__icon__ = "AnimatedEmojies/16"
 __category__ = ["privacy", "chats"]
 
 import re

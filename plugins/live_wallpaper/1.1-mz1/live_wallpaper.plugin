@@ -29,9 +29,8 @@ from org.telegram.messenger import ApplicationLoader
 __id__ = "live_wallpaper"
 __name__ = "LiveWallpaper"
 __description__ = "Live wallpapers in chats, instead of boring static ones"
-__author__ = "@swagnonher"
+__author__ = "MZGram"
 __version__ = "1.1-mz1"
-__icon__ = "Animasha26/22"
 __min_version__ = "11.12.0"
 __category__ = ["appearance"]
 

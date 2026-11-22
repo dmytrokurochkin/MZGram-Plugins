@@ -8,9 +8,8 @@ from org.telegram.messenger import ApplicationLoader
 __id__ = "local_gift_hider"
 __name__ = "Local Gift Hider"
 __description__ = "Locally hide gifts from your profile."
-__author__ = "@kvucoplugins"
+__author__ = "MZGram"
 __version__ = "1.1.4-mz1"
-__icon__ = "Jingliunation_by_fStikBot/93"
 __app_version__ = ">=12.5.1"
 __category__ = ["appearance"]
 __sdk_version__ = ">=1.4.0"

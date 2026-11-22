@@ -1,9 +1,8 @@
 __id__ = "topic_reopen_menu"
 __name__ = "Topic Reopen in Menu"
 __description__ = "Hides the annoying “Reopen topic” button and moves reopening the topic to the three-dot menu."
-__author__ = "@RnPlugins"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "RnDev/19"
 __app_version__ = ">=12.5.1"
 __category__ = ["appearance", "chats"]
 __sdk_version__ = ">=1.4.3.3"

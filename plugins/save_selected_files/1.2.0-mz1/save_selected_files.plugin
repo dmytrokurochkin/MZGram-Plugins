@@ -36,9 +36,8 @@ from ui.bulletin import BulletinHelper
 __id__ = "save_selected_files"
 __name__ = "Save Selected Files"
 __description__ = "Adds a save button to the action bar when you select files in a profile's media (Media and Files tabs), in search results and in cache management (Settings → Data and Storage → Storage Usage). Tap it and all selected files are saved."
-__author__ = "@akresik"
+__author__ = "MZGram"
 __version__ = "1.2.0-mz1"
-__icon__ = "Catz5Emoji/35"
 __min_version__ = "12.9.0"
 __category__ = ["tools", "media"]
 

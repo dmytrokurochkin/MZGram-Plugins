@@ -29,9 +29,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "color_inspector"
 __name__ = "Theme Color Editor"
 __description__ = "Color editor for every interface element: clear names, an eyedropper to find an element by tapping it, element highlight with a jump to the right screen, RGB shimmer and a \"ribbon\", HSV wheel, RGB/HEX, live preview, export and import."
-__author__ = "@resotez"
+__author__ = "MZGram"
 __version__ = "1.3.3-mz1"
-__icon__ = "exteraPlugins/1"
 __min_version__ = "12.10.6"
 __category__ = ["appearance"]
 

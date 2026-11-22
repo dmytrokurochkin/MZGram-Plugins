@@ -32,8 +32,7 @@ __id__ = "custom_fab"
 __name__ = "Custom FAB"
 __description__ = "Customize FAB (Floating Action Button): replace, hide or add a long-press action"
 __version__ = "2.3.8-mz1"
-__author__ = "@itsv1eds & @immat0x1 fork by @tsarkei"
-__icon__ = "exteraPluginsSup/3"
+__author__ = "MZGram"
 __min_version__ = "12.10.6"
 __category__ = ["appearance", "tools"]
 

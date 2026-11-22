@@ -27,7 +27,7 @@ from markdown_utils import parse_markdown
 __id__ = "shareui_modrinth"
 __name__ = "Modrinth Search"
 __version__ = "1.2.0-mz1"
-__author__ = "@shrdevv"
+__author__ = "MZGram"
 __description__ = """Plugin that searches for Minecraft mods on modrinth.com.
 Commands:
    .srcmod - search mods
@@ -36,7 +36,6 @@ Commands:
    .srcdata - search data packs
    .srcshd - search shaders"""
 __min_version__ = "11.12.1"
-__icon__ = "plugin232/11"
 __category__ = ["integrations"]
 
 MODRINTH_API_URL = "https://api.modrinth.com/v2/search"

@@ -1,8 +1,7 @@
 __id__ = "block_blast"
 __name__ = "Block Blast"
 __description__ = "Block Blast in exteragram! Creator's channel: @devavaika. The idea comes from Tetris game: @SaturnFake"
-__author__ = "@avaikaW"
-__icon__ = "OtagatO_by_fStikBot/25"
+__author__ = "MZGram"
 __min_version__ = "12.5.1"
 __version__ = "1.0.0-mz1"
 __category__ = ["fun"]

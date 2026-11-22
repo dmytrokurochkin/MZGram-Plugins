@@ -20,9 +20,8 @@ from hook_utils import find_class, get_private_field
 __id__ = "proxy_name_editor"
 __name__ = "Proxy name editor"
 __description__ = "Lets you change host:port in the proxy list to a custom name, locally"
-__author__ = "@kchemniy"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "GoodBoyResistance/10"
 __min_version__ = "11.12.0"
 __category__ = ["appearance"]
 

@@ -12,8 +12,7 @@ __id__ = "download_chat_wallpaper"
 __name__ = "Chat Wallpaper Downloader"
 __description__ = "Downloads a chat's or group's custom background\n\nHow to use: open a group or chat with a custom background, Three dots, Plugins, Download custom background.\n\nThe background file is saved to the device Downloads"
 __version__ = "1.0.0-mz1"
-__icon__ = "icons_for_plugins_shimenkov/0"
-__author__ = "@n_shimenkov"
+__author__ = "MZGram"
 __min_version__ = "12.5.1"
 __category__ = ["media", "appearance"]
 

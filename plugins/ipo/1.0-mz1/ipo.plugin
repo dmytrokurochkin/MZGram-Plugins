@@ -15,10 +15,9 @@ __id__ = "ipo"
 __name__ = "IPO"
 __description__ = "Tapping the plugin icon opens the sticker pack the icon comes from."
 __version__ = "1.0-mz1"
-__author__ = "@la_cringe"
+__author__ = "MZGram"
 __app_version__ = ">=12.10.6"
 __category__ = ["media"]
-__icon__ = "exteraPlugins/2"
 
 import traceback
 

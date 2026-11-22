@@ -37,9 +37,8 @@ import time
 __id__ = "voice_collector"
 __name__ = "Voice Collector"
 __description__ = "Saves voices and mp3 files to the library, and sends them as voice messages"
-__author__ = "@HzzzPlugins -> @exoseo"
+__author__ = "MZGram"
 __version__ = "0.9.3-mz1"
-__icon__ = "UtyaDuckFull/8"
 __app_version__ = ">=12.5.1"
 __category__ = ["media"]
 __sdk_version__ = ">=1.4.3.3"

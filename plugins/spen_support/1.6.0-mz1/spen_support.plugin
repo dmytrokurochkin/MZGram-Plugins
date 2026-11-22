@@ -23,9 +23,8 @@ from ui.settings import Header, Switch
 __id__ = "spen_support"
 __name__ = "Samsung S-Pen Support"
 __description__ = ("S Pen button support in chats.\n\n- Selecting text with the pen while holding the button\n- Selecting all text with a double tap\n- Selecting messages by swiping over the chat background\n- Pressing the button above the screen instead of touching")
-__author__ = "@huecoder"
+__author__ = "MZGram"
 __version__ = "1.6.0-mz1"
-__icon__ = "5879841310902324730"
 __app_version__ = ">=12.5.1"
 __category__ = ["chats", "tools"]
 __sdk_version__ = ">=1.4.4.3"

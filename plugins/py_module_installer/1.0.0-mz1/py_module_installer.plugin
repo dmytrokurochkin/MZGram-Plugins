@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "py_module_installer"
 __name__ = "ModuleInstaller"
 __description__ = "Installs Heroku/Hikka .py modules right from Telegram and shows their metadata and commands."
-__author__ = "@RnPlugins"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "RnDev/11"
 __app_version__ = ">=12.5.1"
 __category__ = ["tools", "integrations"]
 __sdk_version__ = ">=1.4.3.3"

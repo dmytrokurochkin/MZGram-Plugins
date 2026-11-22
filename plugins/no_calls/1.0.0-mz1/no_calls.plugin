@@ -22,9 +22,8 @@ from hook_utils import find_class
 __id__ = "no_calls"
 __name__ = "No Calls"
 __description__ = "Fully disables calls and video calls, group calls and voice chats (incoming and outgoing)."
-__author__ = "@exteraclaude"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "Main_BW7oyvliH04FCHk2Yu7iDGI54_by_StickersPackRobot/4"
 __min_version__ = "11.12.0"
 __category__ = ["privacy", "chats"]
 

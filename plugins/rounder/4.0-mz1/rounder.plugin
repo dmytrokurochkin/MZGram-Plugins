@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "rounder"
 __name__ = "Rounder"
 __description__ = "Allows you to send videos as round videos"
-__author__ = "@PESSDES_Plugins"
+__author__ = "MZGram"
 __min_version__ = "11.12.1"
-__icon__ = "VoiceToText7/7"
 __version__ = "4.0-mz1"
 __category__ = ["media"]
 

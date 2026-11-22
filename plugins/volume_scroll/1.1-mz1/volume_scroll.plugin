@@ -31,9 +31,8 @@ except Exception:
 __id__ = "volume_scroll"
 __name__ = "Volume Scroll"
 __description__ = "Scrolls any lists with the volume buttons: chat, dialogs, settings, profile. Double-tapping any volume button turns the mode on or off. Holding speeds up the scrolling."
-__author__ = "@YouPlugins"
+__author__ = "MZGram"
 __version__ = "1.1-mz1"
-__icon__ = "exteraBadges/4"
 __app_version__ = ">=12.5.1"
 __category__ = ["tools"]
 __sdk_version__ = ">=1.4.3.3"

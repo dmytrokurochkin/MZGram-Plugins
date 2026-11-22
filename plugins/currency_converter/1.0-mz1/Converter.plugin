@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "currency_converter"
 __name__ = "Currency Converter"
 __description__ = "Converts fiat and crypto currencies at current rates\n\nUsage: .conv <from> to <to> <amount>\n\nExamples:\n• .conv usd to rub 100\n• .conv btc to usd 1\n• .conv eth to rub 5\n\nSupports fiat and 20 cryptocurrencies (BTC, ETH, USDT, BNB, SOL, XRP, USDC, ADA, DOGE, TRX, TON, LINK, MATIC, DOT, DAI, LTC, SHIB, BCH, AVAX, UNI)"
-__author__ = "@oxd5f & @explugin"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "pyDevSticker/1"
 __min_version__ = "11.12.0"
 __category__ = ["tools", "integrations"]
 

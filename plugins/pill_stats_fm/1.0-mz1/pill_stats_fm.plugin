@@ -33,9 +33,8 @@ from ui.settings import Input, Switch
 __id__ = "pill_stats_fm"
 __name__ = "Pill Stats.FM"
 __description__ = "Widget that shows what you are listening to right now on stats.fm"
-__author__ = "@hoprik"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "hopriks_extera/0"
 __min_version__ = "12.5.1"
 __category__ = ["integrations", "media"]
 

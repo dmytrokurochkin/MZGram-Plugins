@@ -67,9 +67,8 @@ from ui.settings import Header, Selector, Switch, Text
 __id__ = "petpet"
 __name__ = "petpet"
 __description__ = "Creates a petpet gif from avatars, photos, stickers, or image URLs"
-__author__ = "@limeplug"
+__author__ = "MZGram"
 __version__ = "1.0.6-mz1"
-__icon__ = "masquernya/14"
 __app_version__ = ">=12.5.1"
 __category__ = ["fun", "media"]
 __sdk_version__ = ">=1.4.4.3"

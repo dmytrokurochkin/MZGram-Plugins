@@ -45,10 +45,9 @@ from android_utils import run_on_ui_thread
 __id__ = "edge_tts_voiceover"
 __name__ = "Edge TTS Voiceover"
 __description__ = "Voices messages through Microsoft Edge TTS and plays the sound locally on the device (an item in the message context menu)."
-__author__ = "@S0cket_UWU & Claude & @The_Wisest"
+__author__ = "MZGram"
 __version__ = "2.1.0-mz1"
 __min_version__ = "12.9.0"
-__icon__ = "exteraPlugins/1"
 __requirements__ = ["websocket-client", "certifi"]
 __category__ = ["media", "integrations"]
 

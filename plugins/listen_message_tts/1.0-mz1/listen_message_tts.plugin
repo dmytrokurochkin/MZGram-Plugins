@@ -14,10 +14,9 @@ def _mz_t(uk, en, ru=None):
 __id__ = "listen_message_tts"
 __name__ = "Listen to Message"
 __version__ = "1.0-mz1"
-__author__ = "MandreAI CLI"
+__author__ = "MZGram"
 __description__ = "Adds a Listen item to the message context menu. Uses the system TextToSpeech (Google, if installed), no external APIs."
 __min_version__ = "11.9.0"
-__icon__ = "exteraPlugins/0"
 __category__ = ["chats", "media"]
 
 from base_plugin import BasePlugin, MenuItemData, MenuItemType

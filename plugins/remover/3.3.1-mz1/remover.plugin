@@ -13,14 +13,13 @@ def _mz_t(uk, en, ru=None):
 
 __id__ = "remover"
 __name__ = "Advanced Eraser"
-__author__ = "@Sk0lovek_plugins"
+__author__ = "MZGram"
 __version__ = "3.3.1-mz1"
 __description__ = """Automatically removes the specified characters or whole words from all outgoing messages. Flexible black and white list settings."""
 
 # Compatible version
 # -*- coding: utf-8 -*-
 
-__icon__ = "Sk0lovekPlugins/2"
 __min_version__ = "11.12.0"
 __category__ = ["chats"]
 

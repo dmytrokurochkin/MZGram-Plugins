@@ -30,12 +30,11 @@ from java.util import Locale
 __id__ = "shareui_bettersearch"
 __name__ = "Better Search"
 __description__ = "Significantly improves search in the plugin list. Library source code: [shareui/plugins/assets/bettersearch.c](https://github.com/shareui/plugins/blob/main/assets/bettersearch.c)"
-__author__ = "@shareui(@doctashare)"
+__author__ = "MZGram"
 __version__ = "2.0.1-mz1"
 __app_version__ = ">=12.5.1"
 __category__ = ["tools"]
 __sdk_version__ = ">=1.4.3.2"
-__icon__ = "AgnesTachyon/1"
 
 class Locales:
     ru = {

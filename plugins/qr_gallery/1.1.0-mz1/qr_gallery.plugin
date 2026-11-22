@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "qr_gallery"
 __name__ = "QR Gallery"
 __description__ = "Adds a gallery button to every Telegram QR scanner (devices, QR login, web bots): pick a photo with a QR code instead of using the camera."
-__author__ = "@huecoder"
+__author__ = "MZGram"
 __version__ = "1.1.0-mz1"
-__icon__ = "qrgicon2_by_W1fmaSnc23f0akxcmbot/0"
 __min_version__ = "12.5.1"
 __category__ = ["tools"]
 

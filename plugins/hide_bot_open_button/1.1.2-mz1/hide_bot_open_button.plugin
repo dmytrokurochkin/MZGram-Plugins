@@ -6,9 +6,8 @@ __name__ = "Hide Bot Open Button"
 __description__ = (
     "Hides the “Open” (Mini Apps) button of bots in the chat list and global search."
 )
-__author__ = "@pluginsc"
+__author__ = "MZGram"
 __version__ = "1.1.2-mz1"
-__icon__ = "Open512/2"
 __app_version__ = ">=12.5.1"
 __category__ = ["appearance"]
 __sdk_version__ = ">=1.4.4.3"

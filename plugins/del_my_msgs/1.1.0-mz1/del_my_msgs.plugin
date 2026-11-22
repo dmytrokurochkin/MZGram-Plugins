@@ -29,9 +29,8 @@ from ui.bulletin import BulletinHelper
 __id__ = "del_my_msgs"
 __name__ = "Delete My Messages"
 __description__ = "Adds a button to the chat menu that deletes all your messages in the current chat (asks for confirmation)."
-__author__ = "@akresik"
+__author__ = "MZGram"
 __version__ = "1.1.0-mz1"
-__icon__ = "SpottyAndPersikAnimated/6"
 __min_version__ = "12.10.6"
 __category__ = ["chats"]
 

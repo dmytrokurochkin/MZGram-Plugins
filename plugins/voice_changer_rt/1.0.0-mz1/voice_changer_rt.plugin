@@ -35,9 +35,8 @@ SO_ARMV7 = "eNrMnQtAVNX28Pc+58wwMwwwKioi6sEnIo/hNQyICgoTkin5KDMLBmYQFGammUHxUQ1K
 __id__ = "voice_changer_rt"
 __name__ = "Voice Changer RT"
 __description__ = "Real-time voice changing for calls, video chats, round videos and voice messages."
-__author__ = "@mraniv & @anivplugins"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "ToxicDuck/34"
 __app_version__ = ">=12.5.1"
 __category__ = ["media"]
 __sdk_version__ = ">=1.4.0"

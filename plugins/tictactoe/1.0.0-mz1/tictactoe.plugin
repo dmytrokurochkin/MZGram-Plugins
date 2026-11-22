@@ -32,10 +32,9 @@ OnClickListenerInterface = find_class("android.view.View$OnClickListener")
 __id__ = "tictactoe"
 __name__ = "Tic-Tac-Toe"
 __description__ = "Play Tic-Tac-Toe against the AI. Access via 3dot chat menu."
-__author__ = "@exteraDev"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
 __min_version__ = "11.12.0"
-__icon__ = "exteraDevPlugins/10"
 __category__ = ["fun"]
 
 EMPTY, HUMAN, AI = 0, 1, 2

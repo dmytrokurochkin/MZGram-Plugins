@@ -21,9 +21,8 @@ from ui.settings import Switch, Divider
 __id__ = "dotastats"
 __name__ = "DotaStats"
 __description__ = "Provides information about your last dota matches or about a specific match. Guide in settings"
-__author__ = "@a352642 | @kingley_the_lord"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "dota_2/0"
 __min_version__ = "11.12.0"
 __category__ = ["integrations"]
 

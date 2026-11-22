@@ -20,10 +20,9 @@ from ui.bulletin import BulletinHelper
 __id__ = "delete_gifts"
 __name__ = "DeleteGifts"
 __description__ = "Port of the gift deletion function from the new Telegram update"
-__author__ = "@LuPlugins (@optimist_opti)"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
 __min_version__ = "12.10.6"
-__icon__ = "rei_plugins/3"
 __category__ = ["tools"]
 
 DELETE_CONSTRUCTOR = 0x3CDAF8AA

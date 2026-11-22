@@ -35,10 +35,9 @@ from android.graphics import Bitmap, Canvas, ColorMatrix, ColorMatrixColorFilter
 __id__ = "mikoto_nikki"
 __name__ = "Mikoto's Diary"
 __description__ = "Adaptation of a 2013 visual novel inside exteraGram"
-__author__ = "@KangelPlugins & @TomokoPlugins"
+__author__ = "MZGram"
 __version__ = "Release-mz1"
 __min_version__ = "11.12.0"
-__icon__ = "yunochkaaaaaaa/78"
 __category__ = ["fun"]
 
 DEFAULT_SHOW_IN_CHAT_ACTION = True

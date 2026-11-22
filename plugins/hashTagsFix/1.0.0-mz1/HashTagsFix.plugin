@@ -13,10 +13,9 @@ from java import jint
 
 __name__ = "HashTagsFix"
 __description__ = "A hashtag opens the “This chat” tab instead of “Public posts”"
-__icon__ = "cats_for_conversation/12"
 __version__ = "1.0.0-mz1"
 __id__ = "hashTagsFix"
-__author__ = "@bleizix"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["chats"]
 

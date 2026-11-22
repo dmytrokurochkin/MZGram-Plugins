@@ -32,7 +32,7 @@ from android.graphics import Bitmap, BitmapFactory
 __id__ = "gift_stats"
 __name__ = "Gift Stats"
 __description__ = "Gift stats: top gift senders in the profile/chat, anonymous ones separately, breakdown by gift"
-__author__ = "@alexeykasp"
+__author__ = "MZGram"
 __version__ = "1.6.16-mz1"
 __app_version__ = ">=12.8.1"
 __category__ = ["tools"]

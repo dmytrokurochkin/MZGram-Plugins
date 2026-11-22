@@ -9,10 +9,9 @@ from org.telegram.messenger import AccountInstance
 
 __name__ = "No Call Confirmation"
 __description__ = "Removes the annoying call confirmation popup."
-__icon__ = "Patrick_Bateman/48"
 __version__ = "1.0.0-mz1"
 __id__ = "NoCallConfirmation"
-__author__ = "@bleizix"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["chats"]
 

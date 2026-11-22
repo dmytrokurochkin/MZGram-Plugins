@@ -38,9 +38,8 @@ from org.telegram.ui.Components import LayoutHelper
 __id__ = "custom_emoji_nick"
 __name__ = "Custom Emoji Nick"
 __description__ = "Choosing custom emoji in a contact name"
-__author__ = "@shit_plugins"
+__author__ = "MZGram"
 __version__ = "1.1-mz1"
-__icon__ = "exteraPlugins/1"
 __app_version__ = ">=12.10.6"
 __category__ = ["appearance", "chats"]
 __sdk_version__ = ">=1.4.4.3"

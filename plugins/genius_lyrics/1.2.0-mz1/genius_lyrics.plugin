@@ -26,10 +26,9 @@ from ui.bulletin import BulletinHelper
 __id__ = "genius_lyrics"
 __name__ = "Genius Lyrics"
 __description__ = "Get song lyrics from Genius, use .lyrics [song name]."
-__author__ = "@ArThirtyFour | @KangelPlugins"
+__author__ = "MZGram"
 __min_version__ = "12.1.1"
 __version__ = "1.2.0-mz1"
-__icon__ = "amechan_wakuwaku_by_fStikBot/1"
 __category__ = ["media", "integrations"]
 
 API_TOKEN = '9JiBRxKAEgfssIWg3Yw8uxKyDO0HZr1IQS5qVYQiKMLwJ4d_9tEMxxYlm3w_mIML'

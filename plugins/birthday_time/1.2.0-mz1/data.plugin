@@ -21,9 +21,8 @@ __id__ = "birthday_time"
 __name__ = "BirthdayTime"
 __version__ = "1.2.0-mz1"
 __description__ = "Shows the number of days until your birthday."
-__author__ = "@extera_plugin"
+__author__ = "MZGram"
 __min_version__ = "11.9.0"
-__icon__ = "SpottyAnimated/39"
 __category__ = ["tools"]
 
 

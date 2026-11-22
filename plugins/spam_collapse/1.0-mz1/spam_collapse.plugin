@@ -9,9 +9,8 @@ from ui.settings import Switch, Selector, Divider
 __id__ = "spam_collapse"
 __name__ = "Spam Collapse"
 __description__ = "Collapses repeated spam messages"
-__author__ = "@dekma0091 && @DefinitelyNotDekma"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "pixelcamera/18"
 __min_version__ = "12.5.1"
 __category__ = ["chats"]
 

@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "folder_swipe"
 __name__ = "Folder Swipe"
 __description__ = "Switch folders by swiping, like on iPhone: a swipe from the middle of the chat list flips folders, and a swipe from the right edge does a chat action (read, pin, etc.)"
-__author__ = "Irlandec"
+__author__ = "MZGram"
 __version__ = "1.1.0-mz1"
-__icon__ = "FolderSwipeByIrlandec/0"
 __min_version__ = "12.10.6"
 __category__ = ["appearance", "tools", "chats"]
 

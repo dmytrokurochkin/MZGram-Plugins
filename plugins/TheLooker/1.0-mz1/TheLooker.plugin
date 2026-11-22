@@ -11,8 +11,7 @@ __id__ = "TheLooker"
 __name__ = "TheLooker"
 __description__ = "Plugin for peeking at which chat the interlocutor is in"
 __version__ = "1.0-mz1"
-__author__ = "@swagnonher"
-__icon__ = "Animasha26/22"
+__author__ = "MZGram"
 __category__ = ["privacy", "chats"]
 
 # DEX core embedded directly in the plugin (base64). No core downloads from the network.

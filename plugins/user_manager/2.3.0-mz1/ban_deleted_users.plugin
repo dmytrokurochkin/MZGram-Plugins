@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "user_manager"
 __name__ = "Member management"
 __description__ = "Plugin for managing chat and channel members with quick access from the chat menu and the .bandel command.\n\nAvailable actions:\n• Delete deleted accounts\n• Delete bots\n• Delete inactive users\n• Delete online users\n• Delete offline users\n• Delete new users (raids)\n\nUse the menu (3 dots) in the chat for quick access or the .bandel command."
-__author__ = "Raitorinkus"
+__author__ = "MZGram"
 __version__ = "2.3.0-mz1"
-__icon__ = "RTnKs/4"
 __min_version__ = "11.12.0"
 __category__ = ["chats"]
 

@@ -1,9 +1,8 @@
 __id__ = "advanced_search"
 __name__ = "Advanced Search"
 __description__ = "Advanced search in chats and documents with filters by date, user and media type"
-__author__ = "@dekma0091"
+__author__ = "MZGram"
 __version__ = "1.1-mz1"
-__icon__ = "pixelcamera/16"
 __min_version__ = "12.5.1"
 __category__ = ["chats"]
 

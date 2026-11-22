@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "reaction_finder"
 __name__ = "Top Reaction Finder"
 __description__ = "Finds the most popular message in a chat or dialog by the chosen reaction."
-__author__ = "@MKC_KOCMOC"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "msg_reactions_solar"
 __min_version__ = "12.2.10"
 __category__ = ["chats"]
 

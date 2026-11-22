@@ -25,9 +25,8 @@ from typing import Any, List
 __id__ = "pill_stack_to_header"
 __name__ = "Pill Stack to Header"
 __description__ = "Moves the Pill Stack from the search bar to the main screen panel.\n\n**Link to the documentation in the plugin settings!**"
-__author__ = "@itNotMax - @MaxExteraPlugins"
+__author__ = "MZGram"
 __version__ = "3.0-mz1"
-__icon__ = "MaxExteraPluginsStickers/18"
 __min_version__ = "12.1.1"
 __app_version__ = ">=12.1.1"
 __category__ = ["appearance"]

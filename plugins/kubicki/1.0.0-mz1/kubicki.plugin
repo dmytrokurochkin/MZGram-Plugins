@@ -15,8 +15,7 @@ __id__ = "kubicki"
 __name__ = "3D Cubes"
 __description__ = "3D cubes on screen. Usage: three dots, then Plugins, then 3D Cubes "
 __version__ = "1.0.0-mz1"
-__author__ = "@kubicki484"
-__icon__ = "sosixyisticker_by_fStikBot/113"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["fun"]
 

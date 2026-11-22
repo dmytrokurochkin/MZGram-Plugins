@@ -25,9 +25,8 @@ from ui.settings import Header, Switch, Selector, Text, Divider, Input
 __id__ = "participants_channels"
 __name__ = "Participants Channels"
 __description__ = "Adds a native Channels tab to group and channel profiles showing participants' personal channels.\n\nTap a channel = open channel.\nLong press = open owner profile."
-__author__ = "@itNotMax - @MaxExteraPlugins"
+__author__ = "MZGram"
 __version__ = "5.2-mz1"
-__icon__ = "MaxExteraPluginsStickers/19"
 __min_version__ = "12.10.6"
 __app_version__ = ">=12.1.1"
 __category__ = ["chats"]

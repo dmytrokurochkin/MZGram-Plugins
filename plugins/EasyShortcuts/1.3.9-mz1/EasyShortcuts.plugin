@@ -99,8 +99,7 @@ from client_utils import get_last_fragment, get_messages_controller, get_user_co
 __id__ = "EasyShortcuts"
 __name__ = "Easy Shortcuts"
 __description__ = "Ultimate text automation with triggers, collections."
-__author__ = "@meiji_dev • @meijinolife"
-__icon__ = "MeijiPlugins/2"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __version__ = "1.3.9-mz1"
 __category__ = ["chats", "tools"]

@@ -102,9 +102,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "auto_delete"
 __name__ = "Auto Delete"
 __description__ = "Auto-delete messages by time."
-__author__ = "~GRED~"
+__author__ = "MZGram"
 __version__ = "2.0.1-mz1"
-__icon__ = "exteraPlugins/0"
 __min_version__ = "11.12.0"
 __category__ = ["chats"]
 

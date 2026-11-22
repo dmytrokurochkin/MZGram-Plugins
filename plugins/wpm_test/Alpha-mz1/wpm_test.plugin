@@ -15,7 +15,7 @@ __name__ = "WPM Test"
 __description__ = "Typing speed test (words per minute)"
 __version__ = "Alpha-mz1"
 __id__ = "wpm_test"
-__author__ = "@XiaomiUltra17"
+__author__ = "MZGram"
 __category__ = ["fun", "tools"]
 
 import random

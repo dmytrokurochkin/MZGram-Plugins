@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "selall"
 __name__ = "Select All"
 __description__ = "Selects all media, GIFs, links and more in a profile"
-__author__ = "@ka1Plugins"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "ka1Plugins/2"
 __app_version__ = ">=12.10.6"
 __category__ = ["tools"]
 __sdk_version__ = ">=1.4.5.7"

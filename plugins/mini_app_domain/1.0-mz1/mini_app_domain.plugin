@@ -15,8 +15,7 @@ from hook_utils import find_class, get_private_field
 __id__ = "mini_app_domain"
 __name__ = "Mini App Domain"
 __description__ = "Shows the Mini App domain in the header."
-__author__ = "@itsbodyq"
-__icon__ = "exteraplicons/7"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
 __app_version__ = ">=12.5.1"
 __category__ = ["tools", "appearance"]

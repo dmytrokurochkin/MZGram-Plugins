@@ -17,9 +17,8 @@ __id__ = "flappy_bird_game"
 __name__ = "Flappy Bird"
 __version__ = "2.0-mz1"
 __min_version__ = "12.1.1"
-__author__ = "@souItag & @soulplugins"
+__author__ = "MZGram"
 __description__ = "The legendary Flappy Bird right in the client.\nSend .flappy or launch it via the side menu."
-__icon__ = "pack_1_10737418241_7085307553_by_sticker_bot/27"
 __category__ = ["fun"]
 
 from android.graphics import Color

@@ -23,7 +23,7 @@ from android_utils import run_on_ui_thread
 __name__ = "Square Liquid Glass"
 __description__ = "Reduces the corner radius of blurred backgrounds by half."
 __version__ = "1.0.0-mz1"
-__author__ = "@immat0x1 little bit edited with square settings by @la_cringe"
+__author__ = "MZGram"
 __id__ = "square_liquid_glass"
 __category__ = ["appearance"]
 

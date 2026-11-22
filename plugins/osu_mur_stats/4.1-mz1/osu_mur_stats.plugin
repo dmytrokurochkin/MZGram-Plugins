@@ -39,9 +39,8 @@ from org.telegram.tgnet import TLRPC
 __id__ = "osu_mur_stats"
 __name__ = "osu! Search"
 __description__ = 'Adds search for maps and profiles from the "osu.ppy.sh" site with flexible customization, and lets you download maps and music and send the file to the chat. Supports Russian/English. \n \nUsage commands: \n.osu <query>:<mode> - Search profiles. \n.map <query> - Search maps. \n.osz <query> - Download and send a map to the chat. \n.song <query> - Download and send the music from a map to the chat. \n \nInput data: \n<query> - nickname, title, id, link. \n<mode> - osu, mania, taiko, catch'
-__author__ = "@muralovty (@mur_live)"
+__author__ = "MZGram"
 __version__ = "4.1-mz1" 
-__icon__ = "OsuStickers/1"
 __min_version__ = "1.0"
 __category__ = ["integrations", "media"]
 

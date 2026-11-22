@@ -24,8 +24,7 @@ __description__ = (
 )
 __id__ = "equalizer"
 __version__ = "1.0.0-mz1"
-__author__ = "@stemulator"
-__icon__ = "equalize344/1"
+__author__ = "MZGram"
 __app_version__ = ">=12.10.6"
 __category__ = ["media", "tools"]
 

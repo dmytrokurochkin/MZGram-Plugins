@@ -22,10 +22,9 @@ from ui.settings import Header, Switch, Selector, Input, Divider
 __id__ = "reactions_total"
 __name__ = "Reactions Total"
 __description__ = "Total reactions in the row under the post, next to views and forwards"
-__author__ = "Daxo-Developer @Daxo_OS"
+__author__ = "MZGram"
 __version__ = "2.0.0-mz1"
 __min_version__ = "12.10.6"
-__icon__ = "DaxoOS/1"
 __category__ = ["appearance"]
 
 POS_LEFT, POS_RIGHT = 0, 1

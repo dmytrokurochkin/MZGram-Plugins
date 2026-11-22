@@ -85,9 +85,8 @@ except ImportError:
 __id__ = "rescue_call"
 __name__ = "RescueCall"
 __description__ = "Fake incoming call by timer or shake"
-__author__ = "@mraniv & @anivdev"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "ToxicDuck/33"
 __min_version__ = "12.5.1"
 __settings__ = False
 __requirements__ = ["exteragram-alib"]

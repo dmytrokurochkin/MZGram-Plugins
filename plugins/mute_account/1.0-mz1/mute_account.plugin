@@ -21,9 +21,8 @@ from client_utils import get_last_fragment
 __id__ = "mute_account"
 __name__ = "Mute Account"
 __description__ = "Turns off push notifications and in-app popups only for the chosen accounts. @bobrplugins"
-__author__ = "@bober41"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "bobrplugins/15"
 __app_version__ = ">=12.8.1"
 __category__ = ["chats"]
 __sdk_version__ = ">=1.4.3.10"

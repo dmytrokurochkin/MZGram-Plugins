@@ -14,10 +14,9 @@ def _mz_t(uk, en, ru=None):
 __id__ = "media_transformer_ecubz"
 __name__ = "Media Transformer"
 __version__ = "9.0.7-mz1"
-__author__ = "@eCubzBio - @eCubzPlugins"
+__author__ = "MZGram"
 __description__ = "Transforms videos into round videos and audio files into voice messages. Supports View Once, long-video splitting, send preview and the media editor."
 __min_version__ = "12.8.1"
-__icon__ = "eCubzPlugin/2"
 __category__ = ["media"]
 
 import base64

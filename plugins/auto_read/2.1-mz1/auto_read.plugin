@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = 'auto_read'
 __name__ = 'Auto Read'
 __description__ = 'Auto-read for selected chats.'
-__author__ = '~GRED~(@GREDpl)'
+__author__ = "MZGram"
 __version__ = '2.1-mz1'
-__icon__ = 'exteraPlugins/0'
 __min_version__ = '11.12.0'
 __category__ = ["chats", "privacy"]
 

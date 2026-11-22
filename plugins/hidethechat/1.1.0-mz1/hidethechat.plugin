@@ -17,8 +17,7 @@ __id__ = "hidethechat"
 __name__ = "Hide the chat"
 __description__ = "Hides chats from the list; you can paste a channel link in the settings."
 __version__ = "1.1.0-mz1"
-__author__ = "hyponomic"
-__icon__ = "msg_hide"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["privacy", "chats"]
 

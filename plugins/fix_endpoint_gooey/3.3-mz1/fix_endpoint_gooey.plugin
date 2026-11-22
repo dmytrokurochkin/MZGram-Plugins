@@ -50,10 +50,9 @@ from ui.settings import Divider, Header, Input, Selector, Text
 __id__ = "fix_endpoint_gooey"
 __name__ = "Notch Fix"
 __description__ = "changes the avatar endpoint in the profile"
-__icon__ = "feature_plugins/0"
 __version__ = "3.3-mz1"
 __min_version__ = "12.1.1"
-__author__ = "@nonPlugins"
+__author__ = "MZGram"
 __category__ = ["appearance"]
 
 # === data\constants.py ===

@@ -23,9 +23,8 @@ from org.telegram.messenger import AndroidUtilities
 __id__ = "color_picker_plugin"
 __name__ = "Color picker"
 __description__ = "Three dots in the chat → Plugins → Color picker: copies the HEX and RGB of any colour from the screen"
-__author__ = "@Y0uAreMyLove"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "msg_theme"
 __min_version__ = "12.10.6"
 __category__ = ["tools"]
 

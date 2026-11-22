@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "GWS"
 __name__ = "GIF with Sound"
 __description__ = "Sends a video as a GIF with sound"
-__author__ = "@la_cringe | @dmkrjplug"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "ZkrXOVX_by_sticbot/105"
 __app_version__ = ">=12.10.6"
 __category__ = ["media", "tools", "fun"]
 __sdk_version__ = ">=1.4.5.3"

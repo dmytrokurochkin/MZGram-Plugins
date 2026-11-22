@@ -30,10 +30,9 @@ def _mz_t(uk, en, ru=None):
 __id__ = "quick_back"
 __name__ = "Quick Back"
 __description__ = "Instant return to home screen or section start via back gestures"
-__icon__ = "nonPlugins/2"
 __version__ = "1.0-mz1"
 __min_version__ = "12.1.1"
-__author__ = "@nonPlugins"
+__author__ = "MZGram"
 
 # Quick Back
 # Plugin by @nonPlugins

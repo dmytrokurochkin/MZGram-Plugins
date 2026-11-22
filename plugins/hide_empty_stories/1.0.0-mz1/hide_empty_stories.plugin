@@ -3,12 +3,11 @@ __name__ = "Hide Empty Posts"
 __description__ = (
     "Hides the “Posts” and “Posts archive” tabs in your own profile when they are empty. The “Gifts” tab stays. Works automatically, no settings."
 )
-__author__ = "@countryrussia24 & Claude"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
 __min_version__ = "12.10.6"
 __app_version__ = ">=12.10.6"
 __category__ = ["appearance"]
-__icon__ = "exteraPlugins/1"
 
 from base_plugin import BasePlugin, MethodHook
 from client_utils import get_last_fragment

@@ -41,9 +41,8 @@ except NameError: StellaFPSMonitor=None
 __id__ = "stella"
 __name__ = "Stella"
 __description__ = "3D anime girl Stella right in Telegram\nFor those who don't have a girlfriend: now you do/nSupported by @knice_tech"
-__author__ = "@lyzos, @rei_plugins, @knice_tech"
+__author__ = "MZGram"
 __version__ = "3.0.0-mz1"
-__icon__ = "formyetgplugins_by_fStikBot/19"
 __min_version__ = "11.12.0"
 __category__ = ["fun", "appearance"]
 

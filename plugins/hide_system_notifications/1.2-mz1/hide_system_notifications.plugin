@@ -34,8 +34,7 @@ from ui.settings import Switch, Header, Text
 __id__ = "hide_system_notifications"
 __name__ = "Hide System Notifications"
 __description__ = "Hides system notifications in a chat (joining, changing the avatar, etc.)"
-__icon__ = "feature_plugins/5"
-__author__ = "@nonPlugins"
+__author__ = "MZGram"
 __version__ = "1.2-mz1"
 __min_version__ = "12.1.1"
 __category__ = ["chats"]

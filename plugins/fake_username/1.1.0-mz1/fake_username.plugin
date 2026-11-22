@@ -16,9 +16,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "fake_username"
 __name__ = "Fake Username"
 __description__ = "Visually changes your username only on your screen (profile and side menu)"
-__author__ = "@MKC_KOCMOC"
+__author__ = "MZGram"
 __version__ = "1.1.0-mz1"
-__icon__ = "msg_edit"
 __min_version__ = "12.2.10"
 __category__ = ["appearance"]
 

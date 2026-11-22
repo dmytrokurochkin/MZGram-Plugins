@@ -64,8 +64,7 @@ from ui.settings import Selector, Text, Switch, Header
 
 __id__ = "qmrrchh_plugins_manager"
 __name__ = "Plugins Manager"
-__author__ = "@qmrrchh"
-__icon__ = "remusic/4"
+__author__ = "MZGram"
 __version__ = "1.4.2-mz1"
 __min_version__ = "11.12.0"
 __description__ = "Manager of locally installed plugins.\nYou can find out all the commands by writing .phelp in any chat."

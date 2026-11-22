@@ -22,9 +22,8 @@ from java import jclass, jarray
 __id__ = "send_as_round_video"
 __name__ = "Send as Round Video"
 __description__ = "Adds a menu option to send any video as a round video note message (circle)."
-__author__ = "@anivdev & @mraniv"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "UtyaDuck/27"
 __min_version__ = "12.5.1"
 __sdk_version__ = ">=1.4.3.6"
 __category__ = ["media"]

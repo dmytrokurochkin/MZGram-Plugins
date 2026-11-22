@@ -26,9 +26,8 @@ from org.telegram.messenger import MessageObject, LocaleController, R, Applicati
 __id__ = "local_chat_cleaner"
 __name__ = "Local_Chat_Cleaner"
 __description__ = "🗑️ Hide spam from users locally! Tap a message → Plugin → Hide user"
-__author__ = "@Key_d1204"
+__author__ = "MZGram"
 __version__ = "0.1.0-mz1"
-__icon__ = "VariousAnimations9/054"
 __min_version__ = "11.12.0"
 __category__ = ["chats"]
 

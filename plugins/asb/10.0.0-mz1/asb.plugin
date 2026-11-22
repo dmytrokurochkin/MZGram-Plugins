@@ -17,7 +17,7 @@ __description__ = (
     "Always Send Button: manages the send button and the voice and video message buttons. 4 modes."
 )
 __version__ = "10.0.0-mz1"
-__author__ = "@avaikaW"
+__author__ = "MZGram"
 __app_version__ = ">=12.5.1"
 __category__ = ["chats", "media"]
 

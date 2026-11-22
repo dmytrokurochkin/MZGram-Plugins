@@ -41,9 +41,8 @@ __name__ = "Lang Maker"
 __description__ = (
     "Telegram language editor. Pick a base (English or Russian), edit the strings you need right in the plugin settings and apply the language with one button. AI translation (Groq) is optional."
 )
-__author__ = "@s1mclick"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "Scittlescope_by_fStikBot/40"
 __app_version__ = ">=12.9.0"
 __category__ = ["appearance", "integrations"]
 

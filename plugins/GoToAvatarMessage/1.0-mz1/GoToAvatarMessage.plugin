@@ -14,7 +14,7 @@ from ui.bulletin import BulletinHelper
 __id__ = "GoToAvatarMessage"
 __name__ = "Go To Avatar Message"
 __description__ = "Adds an item to the profile avatar viewer that jumps to the service message about the avatar change, like in Telegram Desktop\nWorks only in groups and channels"
-__author__ = "@nlvxm"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
 __app_version__ = ">=12.5.1"
 __category__ = ["chats", "media"]

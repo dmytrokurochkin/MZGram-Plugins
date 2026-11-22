@@ -21,9 +21,8 @@ from org.telegram.messenger import LocaleController
 __id__ = 'local_time_shift'
 __name__ = 'Local Time Shift'
 __description__ = 'Locally shifts message times, the exact last-seen time and other supported time labels in Telegram.'
-__author__ = '@timesplinter'
+__author__ = "MZGram"
 __version__ = '1.0.8-mz1'
-__icon__ = 'AnimatedEmojies/22'
 __app_version__ = '>=12.5.1'
 __category__ = ["appearance"]
 __sdk_version__ = '>=1.4.4.3'

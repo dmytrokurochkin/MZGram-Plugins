@@ -84,10 +84,9 @@ GEEKSTATS_INGEST_TOKEN = ""
 __id__ = "docky"
 __name__ = "Docky"
 __description__ = "A dock for favorite chats inside conversations, allowing quick access and preview without leaving the current chat.\n\n• Powered by [Dotted Plugins](https://t.me/exteraDevPlugins)"
-__author__ = "@AGeekApple"
+__author__ = "MZGram"
 __version__ = "1.0.1-mz1"
 __min_version__ = "12.2.10"
-__icon__ = "ApplePlugins/28"
 __priority__ = 100
 __category__ = ["chats"]
 

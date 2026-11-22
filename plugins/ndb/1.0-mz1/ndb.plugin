@@ -58,9 +58,8 @@ def _ndb_app_ru_or_uk():
 __id__ = "ndb"
 __name__ = "NavDrawerBackground"
 __description__ = "Custom account card background for **[navigation drawer](https://t.me/exteraSettings?s=navigationDrawer)**"
-__author__ = "@ka1Plugins"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "ka1Plugins/4"
 __app_version__ = ">=13.1.1"
 __category__ = ["appearance"]
 __sdk_version__ = ">=1.4.6.3"

@@ -50,9 +50,8 @@ from ui.settings import Custom, Divider, Header, Text
 __id__ = "customcrash"
 __name__ = "Custom Crash"
 __description__ = "Plugin for customizing the etg/ayu crash log"
-__author__ = "@binbash_0"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "binbashPlugins/2"
 __app_version__ = ">=12.5.1"
 __category__ = ["appearance", "tools"]
 __sdk_version__ = ">=1.4.3.3"

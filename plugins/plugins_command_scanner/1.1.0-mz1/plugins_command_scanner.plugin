@@ -47,9 +47,8 @@ except Exception:
 __id__ = "plugins_command_scanner"
 __name__ = "Plugin Commands Scanner"
 __description__ = "Displays an interactive popup menu of all plugin commands."
-__author__ = "@pluginsc"
+__author__ = "MZGram"
 __version__ = "1.1.0-mz1"
-__icon__ = "open496/1"
 __min_version__ = "12.1.1"
 __category__ = ["tools"]
 

@@ -37,9 +37,8 @@ __description__ = (
     "Opens from the side menu, the chat list header, the chat menu and a long press on Settings. "
     "History from before the install can be loaded."
 )
-__author__ = "@metawkaPlugins • @metawka"
+__author__ = "MZGram"
 __version__ = "1.11.4-mz1"
-__icon__ = "metawkaPlugins/1"
 __app_version__ = ">=12.10.6"
 __category__ = ["chats", "tools"]
 __min_version__ = ">=12.10.6"

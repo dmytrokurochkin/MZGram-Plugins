@@ -6,7 +6,7 @@ __name__ = "Big Reactions"
 __description__ = (
     "Every reaction is sent as a big one by default, with the full-screen effect animation, no need to hold it for 3 seconds."
 )
-__author__ = "@huecoder"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
 __min_version__ = "11.9.0"
 __category__ = ["chats", "appearance"]

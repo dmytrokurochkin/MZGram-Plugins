@@ -26,9 +26,8 @@ from ui.settings import Divider, Header, Input, Switch, Text
 __id__ = "ReplacingCharacters"
 __name__ = "Replacing Characters"
 __description__ = "Automatically applies custom text replacement rules before a message is sent."
-__author__ = "@Nikita218000"
+__author__ = "MZGram"
 __version__ = "1.2 recode-mz1"
-__icon__ = "IconForPlugins_by_TgEmodziBot/5"
 __min_version__ = "11.12.0"
 __category__ = ["chats", "tools"]
 

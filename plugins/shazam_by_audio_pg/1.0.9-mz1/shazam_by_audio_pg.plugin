@@ -15,7 +15,7 @@ __id__ = "shazam_by_audio_pg"
 __name__ = "Shazam (by audio)"
 __description__ = "Identifies music from an audio file or voice message (reply with .shazam). The result is shown in a dialog with details and links. Accuracy depends on the audio quality (it may be lower for voice messages)."
 __version__ = "1.0.9-mz1"
-__author__ = "@galaxy_conqueror"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["media", "integrations"]
 

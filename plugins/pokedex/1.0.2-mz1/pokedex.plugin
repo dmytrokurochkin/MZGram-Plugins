@@ -27,10 +27,9 @@ from org.telegram.tgnet import TLRPC
 
 __name__ = "Pokédex"
 __description__ = "Gets Pokémon information"
-__icon__ = "exteraPluginsSup/1"
 __version__ = "1.0.2-mz1"
 __id__ = "pokedex"
-__author__ = "@itsv1eds"
+__author__ = "MZGram"
 __min_version__ = "11.9.0"
 __category__ = ["integrations"]
 

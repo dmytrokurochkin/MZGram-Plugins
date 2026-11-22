@@ -91,9 +91,8 @@ def _gemini_request(method, url, json_payload=None, headers=None, timeout=20, us
 __id__ = "AI_TG_PLUS"
 __name__ = "Telegram AI Plus"
 __description__ = "Lets the AI features (editor, text compression) use Gemini, OpenAI and custom API endpoints"
-__author__ = "@dekma0091 && @DefinitelyNotDekma"
+__author__ = "MZGram"
 __version__ = "1.2-mz1"
-__icon__ = "pixelcamera/13"
 __min_version__ = "12.5.1"
 __category__ = ["integrations", "chats"]
 

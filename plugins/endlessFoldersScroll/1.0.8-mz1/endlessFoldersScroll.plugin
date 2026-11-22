@@ -31,10 +31,9 @@ __description__ = (
     "Swipe the folders until your fingers rub off!\n\n"
     "> Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.0 or greater!"
 )
-__icon__ = "zwyPluginsIcons/5"
 __version__ = "1.0.8-mz1"
 __id__ = "endlessFoldersScroll"
-__author__ = "@zwylair"
+__author__ = "MZGram"
 __min_version__ = "12.0.1"
 __category__ = ["chats"]
 

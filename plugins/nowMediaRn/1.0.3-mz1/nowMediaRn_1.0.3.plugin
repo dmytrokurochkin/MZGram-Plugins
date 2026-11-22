@@ -13,12 +13,11 @@ def _mz_t(uk, en, ru=None):
 
 __id__ = "nowMediaRn"
 __name__ = "nowMedia"
-__author__ = "@RooniPlugin"
+__author__ = "MZGram"
 __version__ = "1.0.3-mz1"
 __description__ = """‼️ This plugin needs a special app! ‼️
 A beautiful, customizable media card with the media playing in the system and broadcast to the profile. Open the settings before use. (Default command: .nm)"""
 
-__icon__ = "sPluginIDE/18"
 __min_version__ = "11.12.0"
 __category__ = ["media", "integrations"]
 

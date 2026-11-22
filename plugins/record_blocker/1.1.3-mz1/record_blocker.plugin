@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "record_blocker"
 __name__ = "Record Blocker"
 __description__ = "Full ban on manual recording of voice messages and round videos: the record button simply doesn't work. The plugin protects against accidentally recording or sending a voice message or round video with a mistaken tap on the button."
-__author__ = "@huecoder"
+__author__ = "MZGram"
 __version__ = "1.1.3-mz1"
-__icon__ = "rbicon_by_W1fmaSnc23f0akxcmbot/0"
 __min_version__ = "12.5.1"
 __category__ = ["media"]
 

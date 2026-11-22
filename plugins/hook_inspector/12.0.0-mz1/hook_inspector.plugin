@@ -20,9 +20,8 @@ def _mz_t(uk, en, ru=None):
 __id__          = "hook_inspector"
 __name__        = "Hook Inspector"
 __description__ = "Dev Tool: tap any UI element to see its class, theme editor keys, hooks and View attributes. Theme.getColor() with live colors and swatches."
-__author__      = "@lyzos"
+__author__ = "MZGram"
 __version__     = "12.0.0-mz1"
-__icon__        = "formyetgplugins_by_fStikBot/16"
 __min_version__ = "11.12.0"
 __category__ = ["tools"]
 

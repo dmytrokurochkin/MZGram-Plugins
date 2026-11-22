@@ -8,8 +8,7 @@ from java.util import Locale
 __id__ = "readall"
 __name__ = "Read All"
 __description__ = "Adds a «Read all» button to the drawer."
-__author__ = "@kvucoplugins"
-__icon__ = "kvucoplugins/2"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
 __app_version__ = ">=12.5.1"
 __category__ = ["chats"]

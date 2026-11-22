@@ -87,9 +87,8 @@ __name__ = "Mute in DMs"
 __description__ = (
     "Mutes the other person in a private chat: all incoming messages from them are deleted. Optionally sends notices about mute and unmute."
 )
-__author__ = "@shit_plugins"
+__author__ = "MZGram"
 __version__ = "1.2-mz1"
-__icon__ = "exteraPlugins/1"
 __app_version__ = ">=12.10.6"
 __category__ = ["chats"]
 __sdk_version__ = ">=1.4.4.3"

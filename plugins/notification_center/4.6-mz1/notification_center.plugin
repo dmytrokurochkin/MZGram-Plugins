@@ -45,9 +45,8 @@ from org.telegram.ui.Components import AvatarDrawable, BackupImageView, LayoutHe
 __id__ = "notification_center"
 __name__ = "Notification Center"
 __description__ = "Discord-style notification center: saves replies to your messages and mentions of you."
-__author__ = "@itNotMax - @MaxExteraPlugins"
+__author__ = "MZGram"
 __version__ = "4.6-mz1"
-__icon__ = "MaxExteraPluginsStickers/10"
 __min_version__ = "12.5.1"
 __app_version__ = ">=12.5.1"
 __category__ = ["chats"]

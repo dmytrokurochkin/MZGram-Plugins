@@ -25,8 +25,7 @@ from org.telegram.ui.ActionBar import Theme
 __id__ = "log_quote"
 __name__ = "Log Quote"
 __version__ = "1.1-mz1"
-__icon__ = "icqkolobki/6"
-__author__ = "@Vernyak6"
+__author__ = "MZGram"
 __description__ = "Adds a button to the input field. Tapping it turns the whole text into a collapsible quote"
 __min_version__ = "12.2.10"
 __category__ = ["chats"]

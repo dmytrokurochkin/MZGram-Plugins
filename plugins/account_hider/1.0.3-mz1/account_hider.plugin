@@ -15,9 +15,8 @@ __id__ = "account_hider"
 __name__ = "AccountHider"
 __category__ = ["privacy"]
 __description__ = "Hides accounts from lists. Hold “Account” in the settings, double-tap your profile in the navigation or hold the arrow in the side menu."
-__author__ = "@RnPlugins"
+__author__ = "MZGram"
 __version__ = "1.0.3-mz1"
-__icon__ = "RnDev/37"
 __app_version__ = ">=12.10.6"
 __sdk_version__ = ">=1.4.3.3"
 

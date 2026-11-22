@@ -26,10 +26,9 @@ import debugpy
 __id__ = "rounds_manager"
 __name__ = "Round video editor"
 __description__ = "Lets you edit a round video before sending, and adds features such as turning off the blur while recording"
-__author__ = "@timofey776"
+__author__ = "MZGram"
 __version__ = "2.4.0-mz1"
 __min_version__ = "11.11.0"
-__icon__ = "Mithay/117"
 __category__ = ["media"]
 
 

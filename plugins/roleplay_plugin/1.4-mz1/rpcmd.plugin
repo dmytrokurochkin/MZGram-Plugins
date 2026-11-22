@@ -26,10 +26,9 @@ import random
 __id__ = "roleplay_plugin"
 __name__ = "RolePlay Commands"
 __version__ = "1.4-mz1"
-__author__ = "@windukk and @shakyyra"
+__author__ = "MZGram"
 __description__ = "Plugin for roleplay commands. More information in the settings"
 __min_version__ = "11.9.0"
-__icon__ = "Pguliptpvrbeng/1" 
 __category__ = ["fun"]
 
 # --- Constants for settings keys ---

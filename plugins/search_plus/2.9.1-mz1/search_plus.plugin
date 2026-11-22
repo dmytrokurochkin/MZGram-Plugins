@@ -39,8 +39,7 @@ from ui.settings import Divider, Header, Input, Selector, Switch, Text
 
 __id__ = "search_plus"
 __name__ = "Search+"
-__author__ = "@zxplugins"
-__icon__ = "UtyaDuckFull/17"
+__author__ = "MZGram"
 __min_version__ = "12.10.6"
 __version__ = "2.9.1-mz1"
 __description__ = """Multi-search for several words with |, message type filter, search filters by person, period and type, finding people by ID, phone or @username where Telegram can't. Full feature description is in the plugin settings."""

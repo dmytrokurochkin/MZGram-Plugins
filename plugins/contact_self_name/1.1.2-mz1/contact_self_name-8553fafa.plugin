@@ -14,7 +14,7 @@ def _mz_t(uk, en, ru=None):
 __id__ = 'contact_self_name'
 __name__ = 'Contact Self Name'
 __description__ = 'Shows the contact\'s self-name and can locally replace its name in the interface. Requires a public username and internet.'
-__author__ = '@engiPlugins'
+__author__ = "MZGram"
 __version__ = '1.1.2-mz1'
 __app_version__ = '>=12.5.1'
 __category__ = ["appearance"]

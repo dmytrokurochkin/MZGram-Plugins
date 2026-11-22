@@ -46,9 +46,8 @@ from java import jclass
 __id__ = "tabCustom"
 __name__ = "𝖳𝖺𝖻 𝖢𝗎𝗌𝗍𝗈𝗆𝗂𝗓𝖾"
 __description__ = "**ᥙsᥱfᥙᥣ ρᥣᥙgiᥒ f᧐r ᥴɦᥲᥒgiᥒg ᴛɦᥱ ᥲρρᥱᥲrᥲᥒᥴᥱ ᧐f ᴛɦᥱ ᴛᥲδ**"
-__author__ = "@ModeelX"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "wtffffffffffDD/11"
 __min_version__ = "12.5.1"
 __category__ = ["appearance"]
 

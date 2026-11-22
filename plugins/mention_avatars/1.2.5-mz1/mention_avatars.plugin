@@ -30,9 +30,8 @@ __name__ = "MentionAvatars"
 __description__ = (
     "Shows the user's avatar next to their nickname when it is @mentioned in a message"
 )
-__author__ = "@limeplug"
+__author__ = "MZGram"
 __version__ = "1.2.5-mz1"
-__icon__ = "masquernya/13"
 __app_version__ = ">=12.10.6"
 __category__ = ["appearance"]
 __sdk_version__ = ">=1.4.5.3"

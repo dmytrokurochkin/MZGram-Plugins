@@ -31,11 +31,10 @@ from ui.settings import Header, Divider, Text
 __name__ = "Local Pin"
 __description__ = "Allows you to pin messages locally, even without pin permissions."
 __version__ = "1.6.1-mz1"
-__author__ = "@thrzxd • @kotilnya"
+__author__ = "MZGram"
 __id__ = "local_pin"
 __app_version__ = ">=12.5.1"
 __category__ = ["chats"]
-__icon__ = "fgsfds1/0"
 
 locales = {
     "en": {

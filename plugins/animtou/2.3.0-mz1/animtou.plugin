@@ -31,9 +31,8 @@ from org.telegram.ui.Stars import SuperRipple
 __id__ = "animtou"
 __name__ = "Animated touches"
 __description__ = "Adds a fun animation on every tap\n(idea by @itskotovski and @mishabotov)"
-__author__ = "@jaxbastard & @zwylair"
+__author__ = "MZGram"
 __version__ = "2.3.0-mz1"
-__icon__ = "RandomStikery324/35"
 __min_version__ = "12.5.1"
 __category__ = ["appearance"]
 

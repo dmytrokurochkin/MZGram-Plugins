@@ -23,9 +23,8 @@ from java import dynamic_proxy, jint, jlong
 __id__ = "ram_info_pill"
 __name__ = "RAM-Info Pill"
 __description__ = "Shows the used RAM and the battery level in the widget"
-__author__ = "@YouRooni"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "stypapypasasa/0"
 __min_version__ = "12.5.1"
 __category__ = ["tools"]
 

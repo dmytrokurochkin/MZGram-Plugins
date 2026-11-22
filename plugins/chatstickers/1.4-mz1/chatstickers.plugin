@@ -15,7 +15,7 @@ __id__ = "chatstickers"
 __name__ = "Chat Stickers"
 __description__ = "Chat stickers screen: all stickers sent in the chat, as a list or a grid, with a filter by packs, sorting and actions on long press."
 __version__ = "1.4-mz1"
-__author__ = "@van1lLove"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["media", "chats"]
 

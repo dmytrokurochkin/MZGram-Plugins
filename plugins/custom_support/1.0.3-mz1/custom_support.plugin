@@ -49,9 +49,8 @@ except Exception:
 __id__ = "custom_support"
 __name__ = "exteraGram SupportDevelopment"
 __description__ = "Custom BottomSheet for tg://support"
-__author__ = "@mackuma"
+__author__ = "MZGram"
 __version__ = "1.0.3-mz1"
-__icon__ = "tg_support/0"
 __min_version__ = "11.12.0"
 __category__ = ["appearance"]
 

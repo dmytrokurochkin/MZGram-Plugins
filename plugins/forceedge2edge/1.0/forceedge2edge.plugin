@@ -4,7 +4,7 @@ from hook_utils import find_class
 __id__ = "forceedge2edge"
 __name__ = "ForceEdge2Edge"
 __description__ = "Forces the app to be always on the edge"
-__author__ = "immat0x1"
+__author__ = "MZGram"
 __min_version__ = "12.2.3"
 __category__ = ["appearance"]
 

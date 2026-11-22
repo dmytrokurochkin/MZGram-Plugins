@@ -31,9 +31,8 @@ from ui.alert import AlertDialogBuilder
 __id__ = "message_tags"
 __name__ = "Local Tags"
 __description__ = "Add local tags to any message and search them per chat"
-__author__ = "@venerr"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "PusheenFull/37"
 __min_version__ = "12.5.1"
 __category__ = ["chats"]
 

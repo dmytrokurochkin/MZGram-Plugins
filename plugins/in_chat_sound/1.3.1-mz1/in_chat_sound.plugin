@@ -33,9 +33,8 @@ from android_utils import run_on_ui_thread
 __id__ = "in_chat_sound"
 __name__ = "In-Chat Sound"
 __description__ = "A pleasant short sound for a new message when you are already inside the chat (like on iPhone)"
-__author__ = "@offdxdr"
+__author__ = "MZGram"
 __version__ = "1.3.1-mz1"
-__icon__ = "theth8/0"
 __app_version__ = ">=12.1.1"
 __category__ = ["chats"]
 __sdk_version__ = ">=1.4.3.3"

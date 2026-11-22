@@ -22,9 +22,8 @@ from ui.settings import Header, Switch, Selector, Divider
 __id__ = "md3_loader"
 __name__ = "MD3 Loader"
 __description__ = "Replaces the standard circular download progress for photos and files with a Material 3 Expressive wavy indicator. In the centre: a cancel cross during the download and a download icon before it starts."
-__author__ = "@jettaxp & @jettax_plugins"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "jettaxpluginsicon/0"
 __min_version__ = "12.10.6"
 __app_version__ = ">=12.10.6"
 __category__ = ["appearance", "media"]

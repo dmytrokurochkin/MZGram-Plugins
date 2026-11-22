@@ -26,8 +26,7 @@ __id__ = "audio_router"
 __name__ = "Audio Router"
 __description__ = "Forcibly sets separate audio devices and flexibly controls silence."
 __version__ = "1.8-mz1"
-__author__ = "@itNotMax - @MaxExteraPlugins"
-__icon__ = "MaxExteraPluginsStickers/1"
+__author__ = "MZGram"
 __min_version__ = "12.5.1"
 __category__ = ["media"]
 

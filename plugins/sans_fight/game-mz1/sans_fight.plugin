@@ -28,9 +28,8 @@ __id__ = "sans_fight"
 __name__ = "Sans Fight"
 __version__ = "game-mz1"
 __minversion__ = "12.1.1"
-__author__ = "@kvucoPlugins"
+__author__ = "MZGram"
 __description__ = "Do you wanna have a bad time?\nSend .sans or launch the game via the side menu"
-__icon__ = "SansUndertalePack/0"
 __category__ = ["fun"]
 
 class SansFightUltimate(BasePlugin):

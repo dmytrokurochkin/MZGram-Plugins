@@ -31,9 +31,8 @@ from java import jclass, dynamic_proxy
 __id__ = "melodic_piano_typing"
 __name__ = "Melodic Piano Sequencer"
 __description__ = "Step-by-step melody game while typing, plus a 4-bar melody builder (4/4). Realistic piano timbres, optional cello and violin"
-__author__ = "@itzmahmudj"
+__author__ = "MZGram"
 __version__ = "1.8.0-mz1"
-__icon__ = "urphey/1"
 __min_version__ = "12.10.6"
 __category__ = ["fun"]
 

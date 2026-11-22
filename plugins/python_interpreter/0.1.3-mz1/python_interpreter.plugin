@@ -33,9 +33,8 @@ from org.telegram.messenger import FileLoader
 __id__ = "python_interpreter"
 __name__ = "Python Interpreter"
 __description__ = "Runs Python code with a command right in the chat or from files.\n\nTo see the commands, type >help\n\nBE SURE TO READ THE IMPORTANT INFORMATION IN THE PLUGIN SETTINGS."
-__author__ = "@Exorned, @ExerealPlugins"
+__author__ = "MZGram"
 __version__ = "0.1.3-mz1"
-__icon__ = "ExerealPlugins/2"
 __app_version__ = ">=12.5.1"
 __category__ = ["tools"]
 __sdk_version__ = ">=1.4.3.3"

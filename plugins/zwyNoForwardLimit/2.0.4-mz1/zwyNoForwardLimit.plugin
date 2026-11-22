@@ -47,10 +47,9 @@ __description__ = (
     "Removes the limit of 100 forward and delete messages.\n\n"
     "> Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 or greater!"
 )
-__icon__ = "zwyPluginsIcons/6"
 __id__ = "zwyNoForwardLimit"
 __version__ = "2.0.4-mz1"
-__author__ = "@zwylair"
+__author__ = "MZGram"
 __app_version__ = ">=12.10.6"
 __category__ = ["chats"]
 

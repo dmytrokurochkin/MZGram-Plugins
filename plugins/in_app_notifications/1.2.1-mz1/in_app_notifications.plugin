@@ -47,9 +47,8 @@ from com.exteragram.messenger.utils.system import VibratorUtils # type: ignore
 
 __id__ = 'in_app_notifications'
 __name__ = 'In-App Notifications'
-__icon__ = 'remusic/6'
 __description__ = 'Plugin with flexible settings that shows Telegram notifications locally inside the app.'
-__author__ = '@meeowPlugins'
+__author__ = "MZGram"
 __version__ = '1.2.1-mz1'
 __min_version__ = '12.0.1'
 __category__ = ["chats", "appearance"]

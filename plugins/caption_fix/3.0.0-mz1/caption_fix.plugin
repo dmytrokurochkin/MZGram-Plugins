@@ -1,7 +1,7 @@
 __id__          = "caption_fix"
 __name__        = "Caption Fix"
 __description__ = "Fixes the caption getting lost when you send a photo"
-__author__      = "резистор"
+__author__ = "MZGram"
 __version__     = "3.0.0-mz1"
 __min_version__ = "12.2.0"
 __category__ = ["media"]

@@ -15,8 +15,7 @@ __id__ = "altushka_clicker_pg"
 __name__ = "Altushka Clicker"
 __description__ = "tap on your very own diva"
 __version__ = "2.0-mz1"
-__author__ = "@JavaScript_XD"
-__icon__ = "epwpew/24"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
 __category__ = ["fun"]
 

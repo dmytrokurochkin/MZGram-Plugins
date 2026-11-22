@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "iconmover"
 __name__ = "Icon Mover"
 __description__ = "Custom moving and rotating of icons in the interface."
-__author__ = "@Darksourse399, @logicPlugins"
+__author__ = "MZGram"
 __version__ = "1.5.3-mz1"
-__icon__ = "nekostickerpack601/7" 
 __min_version__ = "11.12.0"
 __category__ = ["appearance"]
 

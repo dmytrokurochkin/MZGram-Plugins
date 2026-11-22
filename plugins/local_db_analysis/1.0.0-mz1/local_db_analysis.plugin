@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "local_db_analysis"
 __name__ = "Local DB analysis"
 __description__ = "Database analysis tool: scanning, search, identification, export [.localdb]"
-__author__ = "@kaufapuk"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "exteraPlugins/1"
 __min_version__ = "12.2.10"
 __category__ = ["tools"]
 

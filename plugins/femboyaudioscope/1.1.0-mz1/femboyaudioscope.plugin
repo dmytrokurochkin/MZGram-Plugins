@@ -26,9 +26,8 @@ from ui.settings import Divider, Header, Selector, Switch
 __id__ = "femboyaudioscope"
 __name__ = "AudioScope"
 __description__ = "Shows the format, codec, bitrate, sample rate, bit depth, channels, and tags of the current track from the player menu.\n**Usage:** Player menu -> Track information"
-__author__ = "@Beefba"
+__author__ = "MZGram"
 __version__ = "1.1.0-mz1"
-__icon__ = "Wypher4/28"
 __app_version__ = ">=12.5.1"
 __category__ = ["media"]
 __sdk_version__ = ">=1.4.4.3"

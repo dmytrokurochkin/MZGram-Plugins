@@ -17,11 +17,10 @@ __name__ = "re:extera v2"
 
 __description__ = "Enable ghost mode, save deleted messages and more!"
 
-__author__ = "@shiawasez | @shikaatuxplugins \noriginal author: @bleizixPlugins"
+__author__ = "MZGram"
 
 __version__ = "2.4.0-mz1"
 
-__icon__ = "myadestes_1_amashiro_natsuki_plus_nacho_neko/30"
 
 __min_version__ = "12.2.3"
 __category__ = ["privacy", "chats"]

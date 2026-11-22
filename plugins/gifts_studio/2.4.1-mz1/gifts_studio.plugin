@@ -40,7 +40,7 @@ __name__ = "Gifts Studio"
 __description__ = (
     "Customizes the Gifts tab in the profile: gifts per row, size, order, filters, edits of single gifts and flight mode. Only the display on your device changes. Studio opens from the profile menu or the side menu, the same options are in the plugin settings."
 )
-__author__ = "Daxo-Developer & @Daxo_OS"
+__author__ = "MZGram"
 __version__ = "2.4.1-mz1"
 __min_version__ = "12.5.1"
 __app_version__ = ">=12.5.1"

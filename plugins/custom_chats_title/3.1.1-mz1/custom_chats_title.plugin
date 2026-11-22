@@ -22,9 +22,8 @@ from ui.settings import Divider, Header, Input, Switch, Text
 __id__ = "custom_chats_title"
 __name__ = "Custom Header"
 __description__ = "Replaces the exteraGram / AyuGram title above the chat list with your own text. A separate title can be set for every account, or the original Telegram logo can be shown instead."
-__author__ = "@l_limon_l"
+__author__ = "MZGram"
 __version__ = "3.1.1-mz1"
-__icon__ = "limPlugIc/0"
 __app_version__ = ">=12.5.1"
 __category__ = ["appearance"]
 __sdk_version__ = ">=1.4.4.3"

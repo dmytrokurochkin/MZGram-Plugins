@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "monocolorui"
 __name__ = "MonoColor UI"
 __description__ = "Fully recolors your interface in one color: avatars, stories, chat lists, all in one shade."
-__author__ = "@limeplug"
+__author__ = "MZGram"
 __version__ = "1.7-mz1"
-__icon__ = "pokelimeplug/1"
 __app_version__ = ">=12.5.1"
 __category__ = ["appearance"]
 __sdk_version__ = ">=1.4.0"

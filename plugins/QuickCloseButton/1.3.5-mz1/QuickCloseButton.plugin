@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "QuickCloseButton"
 __name__ = "QuickCloseButton"
 __description__ = "Close and restart button in the top right corner of the main screen and in the side menu. Copies the restart button from AyuGram into exteraGram.\n\nTap: close\nLong press: restart"
-__author__ = "@KUNSESHBOY"
+__author__ = "MZGram"
 __version__ = "1.3.5-mz1"
-__icon__ = "lelelesky1337/3"
 __min_version__ = "12.10.6"
 __category__ = ["tools"]
 

@@ -39,9 +39,8 @@ except ImportError:
 __id__ = "round_client_detector"
 __name__ = "Round Video Client Detector"
 __description__ = "Shows which device (iOS, Android, PC) a round video was recorded on."
-__author__ = "@netconfiger"
+__author__ = "MZGram"
 __version__ = "3.3.1-mz1"
-__icon__ = "exteraPlugins/1"
 __app_version__ = ">=12.1.1"
 __category__ = ["media"]
 __sdk_version__ = ">=1.4.3.3"

@@ -14,9 +14,8 @@ def _mz_t(uk, en, ru=None):
 __id__ = "voice_relay"
 __name__ = "Voice Relay"
 __description__ = "Proxy for calls"
-__author__ = "@Altyplugins"
+__author__ = "MZGram"
 __version__ = "2.0.0-mz1"
-__icon__ = "bratpass/2"
 __min_version__ = "12.2.10"
 __category__ = ["privacy", "tools"]
 

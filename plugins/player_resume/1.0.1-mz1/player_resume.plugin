@@ -14,10 +14,9 @@ def _mz_t(uk, en, ru=None):
 __id__ = "player_resume"
 __name__ = "Player Resume"
 __description__ = "Collapses the player into a button by the FAB when closed"
-__author__ = "@RnPlugins"
+__author__ = "MZGram"
 __version__ = "1.0.1-mz1"
 __build__ = 65
-__icon__ = "RnDev/8"
 __app_version__ = ">=12.10.6"
 __category__ = ["media", "appearance"]
 __sdk_version__ = ">=1.4.3.3"

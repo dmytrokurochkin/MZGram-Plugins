@@ -43,9 +43,8 @@ from ui.bulletin import BulletinHelper
 __id__ = "shareui_exteragit"
 __name__ = "exteraGit"
 __version__ = "1.0.0 realease-mz1"
-__author__ = "@shareui"
+__author__ = "MZGram"
 __description__ = "Search GitHub and GitLab resources. Commands in the plugin settings."
-__icon__ = "plugin232/10"
 __min_version__ = "12.0.1"
 __category__ = ["integrations"]
 

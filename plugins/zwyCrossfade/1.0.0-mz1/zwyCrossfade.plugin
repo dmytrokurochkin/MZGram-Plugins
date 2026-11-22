@@ -39,10 +39,9 @@ __description__ = (
     "Smooth transition between music tracks: the ending track fades out while the next one fades in.\n\n"
     "> Requires **[ZwyLib](https://t.me/zwyPlugins/48)** v2.0.6 or greater!"
 )
-__icon__ = "zwyPluginsIcons/9"
 __id__ = "zwyCrossfade"
 __version__ = "1.0.0-mz1"
-__author__ = "@zwylair"
+__author__ = "MZGram"
 __app_version__ = ">=12.10.6"
 __category__ = ["media"]
 

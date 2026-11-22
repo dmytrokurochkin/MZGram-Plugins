@@ -19,9 +19,8 @@ from ui.settings import Switch, Input, Header, Divider
 __id__ = "VidMsgBtnOfst"
 __name__ = "Button offset in video messages"
 __description__ = "Lets you move the flash and camera switch buttons in video messages"
-__author__ = "@Vernyak6"
+__author__ = "MZGram"
 __version__ = "1.1.2-mz1"
-__icon__ = "icqkolobki/11"
 __min_version__ = "11.12.0"
 __category__ = ["appearance", "media"]
 

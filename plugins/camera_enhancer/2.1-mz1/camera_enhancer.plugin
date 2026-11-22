@@ -40,9 +40,8 @@ def tr(ru, en, uk=None):
 __id__ = "camera_enhancer"
 __name__ = "RVCE"
 __description__ = "Round video camera enhancer. Custom resolution, audio and video bitrate, HEVC, smooth switching"
-__author__ = "@dekma0091 && @DefinitelyNotDekma"
+__author__ = "MZGram"
 __version__ = "2.1-mz1"
-__icon__ = "pixelcamera/17"
 __min_version__ = "12.9.0"
 __category__ = ["media"]
 

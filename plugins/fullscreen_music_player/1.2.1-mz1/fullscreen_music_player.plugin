@@ -46,9 +46,8 @@ import sys
 __id__ = "fullscreen_music_player"
 __name__ = "Music Player"
 __description__ = "Full screen music player. If you update the plugin, restart Telegram."
-__author__ = "@hoprik"
+__author__ = "MZGram"
 __version__ = "1.2.1-mz1"
-__icon__ = "rottenprince_by_FStikBot/0"
 __min_version__ = "11.12.0"
 __category__ = ["media", "appearance"]
 

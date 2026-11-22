@@ -47,9 +47,8 @@ __id__ = "epicgames"
 __name__ = "Epic Games"
 __version__ = "1.0-mz1"
 __description__ = "🎮 Shows current game on Epic Games\n\n📋 Commands:\n• [.nowepic/.enp] — current game\n• [.elibrary] — games library\n• [.eflibrary] — full library\n\n🎨 Design - @reNightly, @qmrrchh THANKS"
-__author__ = "@Snaps_Game"
+__author__ = "MZGram"
 __min_version__ = "11.12.0"
-__icon__ = "EpicBySnaps_by_TgEmodziBot"
 __load__ = True
 __category__ = ["integrations"]
 

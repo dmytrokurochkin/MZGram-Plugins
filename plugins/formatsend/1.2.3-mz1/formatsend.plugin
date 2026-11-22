@@ -17,11 +17,10 @@ from java.util import ArrayList
 __id__ = "formatsend"
 __name__ = "FormatSend"
 __description__ = "Auto formatting of messages: bold, italic, spoiler, quote and more. Long-press the filter selection button."
-__author__ = "@jebebr & Kimi"
+__author__ = "MZGram"
 __version__ = "1.2.3-mz1"
 __app_version__ = ">=12.2.10"
 __category__ = ["chats"]
-__icon__ = "Spoilerexgram/0"
 
 STRINGS = {
     "settings_enable": {"uk": "Увімкнути FormatSend", "ru": "Включить FormatSend", "en": "Enable FormatSend"},

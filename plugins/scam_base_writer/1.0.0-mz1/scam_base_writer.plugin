@@ -28,9 +28,8 @@ from android.view import View
 __id__ = "scam_base_writer"
 __name__ = "GiD scam marker from the registry"
 __description__ = "Parses the @GID_ScamBase channel and marks scammers with a red line in the profile"
-__author__ = "0patient v Hoffman"
+__author__ = "MZGram"
 __version__ = "1.0.0-mz1"
-__icon__ = "ManekenyByAlewaaar/12"
 __min_version__ = "12.1.1"
 __category__ = ["privacy"]
 

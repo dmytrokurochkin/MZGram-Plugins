@@ -40,9 +40,8 @@ TOKEN_KEY = "hide_attach_buttons.token"
 __id__ = "hide_attach_buttons"
 __name__ = "HideAttachButtons"
 __description__ = "Hides the selected buttons of the bottom attach panel."
-__author__ = "@optimist_opti × @KUNSESHBOY"
+__author__ = "MZGram"
 __version__ = "1.0-mz1"
-__icon__ = "NE_SMOTRI_SYUDA81/5"
 __min_version__= "12.10.6"
 __category__ = ["appearance"]
 

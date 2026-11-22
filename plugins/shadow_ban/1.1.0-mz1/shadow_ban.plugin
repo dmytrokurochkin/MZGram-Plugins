@@ -35,9 +35,8 @@ __name__ = "Shadow Ban"
 __description__ = (
     "Hides messages of selected users for you only.\nAdd a person through their profile - they will not know.\n\n**New in 1.1.0:** word and symbol filter - hides any messages containing the given words/symbols."
 )
-__author__ = "@kester && @pulseplugin"
+__author__ = "MZGram"
 __version__ = "1.1.0-mz1"
-__icon__ = "pulseplugin/0"
 __app_version__ = ">=12.5.1"
 __category__ = ["chats"]
 __sdk_version__ = ">=1.4.3.3"
