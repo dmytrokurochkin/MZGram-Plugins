@@ -9045,8 +9045,8 @@
       "version": "1.0-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/quote_message_converter/1.0-mz1/quote.plugin",
-      "sha256": "36b9d4609f7d3d0c823b10be0dcd79d51f534584559ebedd6e3e16e5d9711ed9",
-      "size": 71929,
+      "sha256": "3e51f06e5d1c04d05121b0721b35e5162135d067b3427e9024eab3628e427971",
+      "size": 35351,
       "description": "Replaces messages starting with .qe with a random quote.",
       "description_i18n": {
         "en": "Replaces messages starting with .qe with a random quote.",
