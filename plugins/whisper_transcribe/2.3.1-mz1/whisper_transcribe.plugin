@@ -865,8 +865,6 @@ class TranscriberPlugin(BasePlugin):
                 Header(text=localization.get_string("header_info")),
                 Text(text=localization.get_string("info_model_choice"), icon="msg_replace", on_click=self.open_model_choice_alert),
                 Text(text=localization.get_string("info_pricing"), icon="menu_feature_paid", on_click=self.open_pricing_alert),
-                Header(text=localization.get_string("header_other")),
-                Text(text=localization.get_string("other_open_channel"), icon="msg_discuss", on_click=self.open_channel, accent=True),
             ]
         )
         return settings
@@ -1171,13 +1169,13 @@ class TranscriberPlugin(BasePlugin):
                 return
 
             if model == 0:
-                uri = "https://t.me/ginqusPlugins/8"
+                uri = "https://www.assemblyai.com/"
             elif model == 1:
-                uri = "https://t.me/ginqusPlugins/9"
+                uri = "https://console.deepgram.com/"
             elif model == 2:
-                uri = "https://t.me/ginqusPlugins/10"
+                uri = "https://console.mistral.ai/api-keys/"
             elif model == 3 or model == 4:
-                uri = "https://t.me/ginqusPlugins/11"
+                uri = "https://aistudio.google.com/app/apikey"
 
             Browser = find_class("org.telegram.messenger.browser.Browser")
             LaunchActivity = find_class("org.telegram.ui.LaunchActivity")
@@ -1190,17 +1188,7 @@ class TranscriberPlugin(BasePlugin):
             self.log(f"[Transcriber] Error opening token page: {e}")
 
     def open_channel(self, _):
-        try:
-            mc = get_messages_controller()
-            current_fragment = get_last_fragment()
-            if not current_fragment or not current_fragment.getParentActivity():
-                return
-            if mc and hasattr(mc, "openByUserName"):
-                mc.openByUserName("ginqusPlugins", current_fragment, 0)
-        except Exception as e:
-            error_prefix = localization.get_string("error_external_link")
-            self.show_error_with_button(str(e), error_prefix)
-            self.log(f"[Transcriber] Error opening channel: {e}")
+        pass
 
     def show_error_with_button(self, error_msg: str, prefix: str = ""):
         try:

@@ -13,8 +13,6 @@ def _mz_t(uk, en, ru=None):
 
 ###################
 #
-# LyricsPlus by @whyfantiq
-# t.me/whyfantiq
 #
 ###################
 
@@ -294,7 +292,7 @@ SEARCH_TIMEOUT_MESSAGE = _mz_t("Не вдалося знайти текст. С�
 
 LRCLIB_GET_URL = "https://lrclib.net/api/get"
 LRCLIB_SEARCH_URL = "https://lrclib.net/api/search"
-LRCLIB_USER_AGENT = "ExteraGram-LRCLIB-Lyrics-Editable/1.5 (@whyfantiq)"
+LRCLIB_USER_AGENT = "MZGram-LRCLIB-Lyrics/2.1"
 
 COLOR_BG = Color.BLACK
 COLOR_TEXT_ACTIVE = Color.WHITE
@@ -4030,10 +4028,6 @@ class Plugin(BasePlugin):
                 icon="msg_delete",
                 on_click=self._on_clear_lyrics_cache_click,
             ),
-            Text(
-                text=_mz_t("Підтримати", "Support", "Поддержать"),
-                on_click=self._on_support_click,
-            ),
         ]
 
     def _on_export_search_log_click(self, view) -> None:
@@ -4079,15 +4073,7 @@ class Plugin(BasePlugin):
             BulletinHelper.show_error(_mz_t("Не вдалося очистити кеш: ", "Couldn't clear the cache: ", "Не удалось очистить кэш: ") + str(e))
 
     def _on_support_click(self, view) -> None:
-        try:
-            from android.content import Intent
-            from android.net import Uri
-            from org.telegram.messenger import ApplicationLoader
-            intent = Intent(Intent.ACTION_VIEW, Uri.parse("tg://resolve?domain=fantikrsbot&start=lyricsplus_support"))
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            ApplicationLoader.applicationContext.startActivity(intent)
-        except Exception as e:
-            self.log("support link failed: " + str(e))
+        pass
 
     def cache_path(self) -> str:
         return os.path.join(self.dir_path(), "lrclib_lyrics_cache.json")

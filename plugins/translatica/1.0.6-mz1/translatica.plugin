@@ -1207,11 +1207,11 @@ class Translatica(BasePlugin):
             "cn": "额外"
         },
         "welcome_brief": {
-            "en": "Welcome, {name}!\n\nTo start, configure your API Key. Need help? Join our [Community](https://t.me/+AYowC0lrZitjNDQx).",
-            "pt": "Bem-vindo(a), {name}!\n\nPara começar, configure sua API Key. Precisa de ajuda? Entre na [Comunidade](https://t.me/+AYowC0lrZitjNDQx).",
-            "es": "¡Bienvenido(a), {name}!\n\nPara empezar, configura tu API Key. ¿Ayuda? Únete a la [Comunidad](https://t.me/+AYowC0lrZitjNDQx).",
-            "uk": "Привіт, {name}!\n\nДля початку налаштуйте API Key. Потрібна допомога? Приєднуйтесь до [Спільноти](https://t.me/+AYowC0lrZitjNDQx).", "ru": "Привет, {name}!\n\nДля начала настройте API Key. Нужна помощь? Вступайте в [Сообщество](https://t.me/+AYowC0lrZitjNDQx).",
-            "cn": "欢迎，{name}！\n\n请先配置 API Key。需要帮助？加入[社区](https://t.me/+AYowC0lrZitjNDQx)."
+            "en": "Welcome, {name}!\n\nTo start, configure your API Key.",
+            "pt": "Bem-vindo(a), {name}!\n\nPara começar, configure sua API Key.",
+            "es": "¡Bienvenido(a), {name}!\n\nPara empezar, configura tu API Key.",
+            "uk": "Привіт, {name}!\n\nДля початку налаштуйте API Key.", "ru": "Привет, {name}!\n\nДля начала настройте API Key.",
+            "cn": "欢迎，{name}！\n\n请先配置 API Key。"
         },
         "logs_disable_subtext": {
             "en": "Hides plugin logs and notifications",
@@ -2231,35 +2231,35 @@ class Translatica(BasePlugin):
             "pt": "Olá, {name}! O Translatica está pronto. Explore o mundo sem limites. Precisa de ajuda? [Junte-se a nós](https://t.me/+AYowC0lrZitjNDQx)",
             "es": "¡Hola, {name}! Translatica está listo. Explora el mundo sin límites. ¿Necesitas ayuda? [Únete a nosotros](https://t.me/+AYowC0lrZitjNDQx)",
             "uk": "Привіт, {name}! Translatica готовий. Досліджуйте світ без кордонів. Потрібна допомога? [Приєднуйтесь](https://t.me/+AYowC0lrZitjNDQx)", "ru": "Привет, {name}! Translatica готов. Исследуйте мир без границ. Нужна помощь? [Присоединяйтесь](https://t.me/+AYowC0lrZitjNDQx)",
-            "cn": "你好，{name}！Translatica 已准备就绪。无限探索世界。需要帮助？[加入我们](https://t.me/+AYowC0lrZitjNDQx)"
+            "cn": "你好，{name}！Translatica 已准备就绪。无限探索世界。"
         },
         "welcome_configured_2": {
-            "en": "Welcome back, {name}! Your translation superpower is active. Check out new features or get [support](https://t.me/+AYowC0lrZitjNDQx)",
-            "pt": "Bem-vindo(a) de volta, {name}! Seu superpoder de tradução está ativo. Confira novidades ou obtenha [suporte](https://t.me/+AYowC0lrZitjNDQx)",
+            "en": "Welcome back, {name}! Your translation superpower is active. Check out new features",
+            "pt": "Bem-vindo(a) de volta, {name}! Seu superpoder de tradução está ativo. Confira novidades",
             "es": "¡Bienvenido de nuevo, {name}! Tu superpoder de traducción está activo. Mira las novedades o obtén [soporte](https://t.me/+AYowC0lrZitjNDQx)",
-            "uk": "З поверненням, {name}! Ваша суперсила перекладу активна. Дізнайтеся про нові функції або отримайте [підтримку](https://t.me/+AYowC0lrZitjNDQx)", "ru": "С возвращением, {name}! Ваша суперсила перевода активна. Узнайте о новых функциях или получите [поддержку](https://t.me/+AYowC0lrZitjNDQx)",
-            "cn": "欢迎回来，{name}！您的翻译超能力已激活。查看新功能或获取[支持](https://t.me/+AYowC0lrZitjNDQx)"
+            "uk": "З поверненням, {name}! Ваша суперсила перекладу активна. Дізнайтеся про нові функції", "ru": "С возвращением, {name}! Ваша суперсила перевода активна. Узнайте о новых функциях",
+            "cn": "欢迎回来，{name}！您的翻译超能力已激活。查看新功能"
         },
         "welcome_configured_3": {
             "en": "Hi {name}! You're all set to communicate globally. Questions or feedback? We're [here](https://t.me/+AYowC0lrZitjNDQx)",
             "pt": "Oi {name}! Você está pronto para se comunicar globalmente. Dúvidas ou feedback? Estamos [aqui](https://t.me/+AYowC0lrZitjNDQx)",
             "es": "¡Hola {name}! Estás listo para comunicarte globalmente. ¿Preguntas o comentarios? Estamos [aquí](https://t.me/+AYowC0lrZitjNDQx)",
             "uk": "Привіт, {name}! Ви готові до глобального спілкування. Питання чи відгуки? Ми [тут](https://t.me/+AYowC0lrZitjNDQx)", "ru": "Привет, {name}! Вы готовы к глобальному общению. Вопросы или отзывы? Мы [здесь](https://t.me/+AYowC0lrZitjNDQx)",
-            "cn": "嗨 {name}！您已准备好进行全球交流。有问题或反馈？我们[在这里](https://t.me/+AYowC0lrZitjNDQx)"
+            "cn": "嗨 {name}！您已准备好进行全球交流。有问题或反馈？"
         },
         "welcome_configured_4": {
             "en": "Greetings, {name}! Enjoy seamless translations across languages. Join our [community](https://t.me/+AYowC0lrZitjNDQx) for tips",
             "pt": "Saudações, {name}! Aproveite traduções perfeitas entre idiomas. Entre na [comunidade](https://t.me/+AYowC0lrZitjNDQx) para dicas",
             "es": "¡Saludos, {name}! Disfruta de traducciones fluidas entre idiomas. Únete a nuestra [comunidad](https://t.me/+AYowC0lrZitjNDQx) para consejos",
             "uk": "Вітаємо, {name}! Насолоджуйтесь безшовним перекладом між мовами. Приєднуйтесь до нашої [спільноти](https://t.me/+AYowC0lrZitjNDQx) за порадами", "ru": "Приветствия, {name}! Наслаждайтесь бесшовным переводом между языками. Присоединяйтесь к нашему [сообществу](https://t.me/+AYowC0lrZitjNDQx) за советами",
-            "cn": "问候，{name}！享受跨语言的无缝翻译。[加入我们的社区](https://t.me/+AYowC0lrZitjNDQx)获取提示"
+            "cn": "问候，{name}！享受跨语言的无缝翻译。"
         },
         "welcome_configured_5": {
             "en": "Ready to go, {name}! Translatica is optimized for you. Share your experience [with us](https://t.me/+AYowC0lrZitjNDQx)",
             "pt": "Tudo pronto, {name}! O Translatica está otimizado para você. Compartilhe sua experiência [conosco](https://t.me/+AYowC0lrZitjNDQx)",
             "es": "¡Listo para empezar, {name}! Translatica está optimizado para ti. Comparte tu experiencia [con nosotros](https://t.me/+AYowC0lrZitjNDQx)",
             "uk": "Готово, {name}! Translatica оптимізовано для вас. Поділіться своїм досвідом [з нами](https://t.me/+AYowC0lrZitjNDQx)", "ru": "Готово, {name}! Translatica оптимизирован для вас. Поделитесь своим опытом [с нами](https://t.me/+AYowC0lrZitjNDQx)",
-            "cn": "准备好了，{name}！Translatica 已为您优化。[与我们分享](https://t.me/+AYowC0lrZitjNDQx)您的体验"
+            "cn": "准备好了，{name}！Translatica 已为您优化。"
         },
 
         # Traduções (Extended Settings)
@@ -5578,26 +5578,7 @@ class Translatica(BasePlugin):
 
 
 
-            # Dotted Plugins e Suporte
-            try:
-                items.append(Divider())
-                # Padrão Apple Plugins
-                items.append(Text(
-                    text="Dotted Plugins",
-                    icon="etg_settings",
-                    accent=True,
-                    link_alias="dotted_plugins",
-                    on_click=lambda view: run_on_ui_thread(lambda: self._open_by_username("exteraDevPlugins"))
-                ))
-                items.append(Text(
-                    text=self._t("support_title"),
-                    icon="msg_reactions",
-                    accent=True,
-                    link_alias="support",
-                    on_click=lambda view: self._show_support_sheet()
-                ))
-            except Exception:
-                pass
+
 
             return items
         except Exception:
@@ -6769,149 +6750,10 @@ class Translatica(BasePlugin):
 
     # Suporte Obter a API
     def _show_support_sheet(self):
-        try:
-            # API
-            from org.telegram.ui.ActionBar import BottomSheet, Theme
-            fragment = self.get_last_fragment_safe()
-            ctx = fragment.getParentActivity() if fragment and fragment.getParentActivity() else None
-            if not ctx:
-                return
-
-            sheet = BottomSheet(ctx, True)
-            container = LinearLayout(ctx)
-            container.setOrientation(LinearLayout.VERTICAL)
-
-            # Título
-            title_view = TextView(ctx)
-            title_view.setText(self._t("support_title"))
-            try:
-                title_view.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText))
-            except Exception:
-                pass
-            title_view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18)
-            title_view.setGravity(Gravity.START)
-            container.addView(title_view, self._layout_helper_create_linear(-1, -2, Gravity.TOP, 24, 16, 24, 8))
-
-            # Banner
-            try:
-                WebView = self._find_class_safe("android.webkit.WebView")
-                web_view = WebView(ctx)
-                web_view.getSettings().setJavaScriptEnabled(True)
-                web_view.setBackgroundColor(0x00000000)
-                web_view.getSettings().setCacheMode(web_view.getSettings().LOAD_CACHE_ELSE_NETWORK)
-                web_view.getSettings().setAppCacheEnabled(True)
-                web_view.getSettings().setDomStorageEnabled(True)
-                # Permitir acesso a arquivos locais no WebView para carregar imagens em cache
-                try:
-                    web_view.getSettings().setAllowFileAccess(True)
-                    web_view.getSettings().setAllowFileAccessFromFileURLs(True)
-                    web_view.getSettings().setAllowUniversalAccessFromFileURLs(True)
-                    web_view.getSettings().setLoadsImagesAutomatically(True)
-                except Exception:
-                    pass
-                try:
-                    context = ctx.getApplicationContext()
-                    cache_dir = context.getCacheDir().getAbsolutePath()
-                    web_view.getSettings().setAppCachePath(cache_dir)
-                except Exception:
-                    pass
-                _ = self._get_cached_image_src("https://i.postimg.cc/DZJxvkZ8/applebanner.png", "support_banner.png")
-                html = """
-                <html>
-                <head>
-                    <style>
-                        body { margin: 0; padding: 0; background-color: transparent; }
-                        img { width: 100%; height: auto; display: block; margin-bottom: -4px; }
-                    </style>
-                </head>
-                <body>
-                    <img src='support_banner.png' alt='Support Banner'>
-                </body>
-                </html>
-                """
-                base = "file://" + self._get_cache_dir_path() + "/"
-                web_view.loadDataWithBaseURL(base, html, "text/html", "UTF-8", None)
-                container.addView(web_view, self._layout_helper_create_linear(-1, 150, Gravity.CENTER, 24, 0, 24, 0))
-            except Exception:
-                pass
-
-            # Descrição
-            desc_view = TextView(ctx)
-            desc_view.setText(self._t("support_description"))
-            try:
-                desc_view.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText))
-            except Exception:
-                pass
-            desc_view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14)
-            desc_view.setGravity(Gravity.START)
-            container.addView(desc_view, self._layout_helper_create_linear(-1, -2, Gravity.TOP, 24, 0, 24, 0))
-
-            # Botão
-            button_container = FrameLayout(ctx)
-            try:
-                GradientDrawable = self._find_class_safe("android.graphics.drawable.GradientDrawable")
-                button_bg = GradientDrawable()
-                button_bg.setCornerRadius(8)
-                try:
-                    button_bg.setStroke(2, Theme.getColor(Theme.key_dialogTextBlue))
-                    button_bg.setColor(Theme.getColor(Theme.key_dialogBackground))
-                except Exception:
-                    button_bg.setStroke(2, 0xFF3B78FF)
-                    button_bg.setColor(0xFF1F1F1F)
-            except Exception:
-                button_bg = None
-
-            btn = TextView(ctx)
-            btn.setText(self._t("support_button"))
-            btn.setTextSize(16)
-            try:
-                btn.setTextColor(Theme.getColor(Theme.key_dialogTextBlue))
-            except Exception:
-                btn.setTextColor(0xFF3B78FF)
-            btn.setGravity(Gravity.CENTER)
-            btn.setPadding(16, 8, 16, 8)
-            if button_bg:
-                btn.setBackground(button_bg)
-            button_container.addView(btn, self._layout_helper_create_frame(-1, 48, Gravity.CENTER))
-
-            def _on_click(*args):
-                try:
-                    self._open_support_user()
-                except Exception:
-                    pass
-                try:
-                    sheet.dismiss()
-                except Exception:
-                    pass
-
-            btn.setOnClickListener(OnClickListener(_on_click))
-            container.addView(button_container, self._layout_helper_create_linear(-1, -2, Gravity.TOP, 24, 8, 24, 16))
-
-            sheet.setCustomView(container)
-            run_on_ui_thread(sheet.show)
-        except Exception:
-            pass
+        pass
 
     def _open_support_user(self, v=None):
-        try:
-            # Tenta abrir via MessagesController
-            try:
-                if self._open_by_username("AGeekApple"):
-                    return
-            except Exception:
-                pass
-            # Fallback via Intent
-            fragment = self.get_last_fragment_safe()
-            ctx = fragment.getParentActivity() if fragment and fragment.getParentActivity() else None
-            if not ctx:
-                return
-            from android.content import Intent
-            from android.net import Uri
-            intent = Intent(Intent.ACTION_VIEW)
-            intent.setData(Uri.parse("tg://resolve?domain=AGeekApple"))
-            ctx.startActivity(intent)
-        except Exception as e:
-            self._log(f"Erro ao abrir usuário de suporte: {e}")
+        pass
 
     # Helper de fragmento
     def get_last_fragment_safe(self):

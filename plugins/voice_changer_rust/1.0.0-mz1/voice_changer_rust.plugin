@@ -1323,14 +1323,6 @@ class VoiceChangerPlugin(BasePlugin):
             create_sub_fragment=self._create_add_page
         ))
 
-        settings_list.extend([
-            Divider(),
-            Text(
-                text="@mraniv & @anivdev",
-                subtext="Voice Changer v1.0",
-                icon="msg_info",
-            ),
-        ])
         return settings_list
 
     def _on_effect_change(self, idx):

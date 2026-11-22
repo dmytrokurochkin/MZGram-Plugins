@@ -22,14 +22,6 @@ from org.telegram.messenger import LocaleController
 from java.util import ArrayList, Locale
 import threading
 
-# ╔══════════════════════════════════════════════════════════════════════════╗
-# ║                         WIKIPEDIA SEARCH • 2.5                           ║
-# ║  Reuse is welcome only with visible credit to the listed plugin author.  ║
-# ║  Do not remove this notice, the metadata, or the attribution marker.     ║
-# ╚══════════════════════════════════════════════════════════════════════════╝
-# The encoded marker is deliberately executable code, not just a removable comment.
-__terms_gate__ = bytes((value ^ 0x5A for value in (25, 53, 62, 63, 122, 40, 63, 47, 41, 63, 122, 40, 63, 43, 47, 51, 40, 63, 41, 122, 57, 40, 63, 62, 51, 46, 122, 46, 53, 122, 26, 63, 34, 46, 63, 40, 59, 30, 63, 44, 118, 122, 60, 51, 34, 63, 62, 122, 56, 35, 122, 26, 9, 54, 53, 45, 55, 35, 35, 116))).decode("utf-8")
-
 __id__ = "wiki_search"
 __name__ = "Wikipedia Search Fixed"
 __description__ = "Search .wiki [term] with a choice of language from all available"

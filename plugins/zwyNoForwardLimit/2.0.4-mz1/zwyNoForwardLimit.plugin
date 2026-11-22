@@ -1,21 +1,3 @@
-"""
-If you used code snippets from my plugin in the development of your own, please credit @zwylair
-in your plugin’s description as a thank you for the contribution. Thanks ♥
-
-
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣤⣤⣀⠀⠀⠀⠀⣀⣠⣤⣤⣤⣄⡀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣿⠿⠛⠛⠛⠛⠛⢿⣷⣤⣾⠿⠛⠛⠙⠛⠛⠿⠗
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⡿⠁⠀⠀⠀⠀⠀⠀⠀⠙⡿⠁⠀⠀⠀⢀⣤⣀⠀⠀⢀⣤⣶⡆
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⣿⡇
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿⣧⣄
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⠀⣿⣷⣄⣀⣤⡄⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⠷
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣁⣤⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠘⠛⠛⠛⠻⣿⣿⣿⠋⠉⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠻⢿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠹⣿⡟⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⠟⢙⠛⠛⠀⠀⠀⠀⠀⠀⣀⣴⡿⠓⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⠈⠻⢿⣦⣄⠀⣠⣾⡿⠋⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⠿⠋⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀
-"""
 import lzma
 import base64
 import random
@@ -361,7 +343,7 @@ class S:
     scroll_speed = zwylib.SettingEntry("scroll_speed", DEFAULT_SCROLL_SPEED)
 L = zwylib.locales_controller.generate_locale_class({
     "en": {
-        "general_error": "An error occurred. Send copied info to @zwylair.",
+        "general_error": "An error occurred.",
         "forward_all_menu": "Forward all messages",
         "forward_all_popup_title": "Forward all messages",
         "forward_all_popup_text": "Are you sure you want to forward all {count} messages from this chat? This may take some time.",
@@ -379,7 +361,7 @@ L = zwylib.locales_controller.generate_locale_class({
         ),
     },
     "ru": {
-        "general_error": "Произошла ошибка. Отправьте скопированную инфу @zwylair.",
+        "general_error": "Произошла ошибка.",
         "forward_all_menu": "Переслать весь чат",
         "forward_all_popup_title": "Пересылка всех сообщений",
         "forward_all_popup_text": "Вы уверены, что хотите переслать все сообщения ({count} шт.) из этого чата? Это может занять некоторое время.",
@@ -397,7 +379,7 @@ L = zwylib.locales_controller.generate_locale_class({
         ),
     },
     "uk": {
-        "general_error": "Виникла помилка. Відправте скопійовану інфу @zwylair.",
+        "general_error": "Виникла помилка.",
         "forward_all_menu": "Переслати весь чат",
         "forward_all_popup_title": "Пересилка всіх повідомлень",
         "forward_all_popup_text": "Ви впевнені, що хочете переслати всі повідомлення ({count} шт.) з цього чату? Це може зайняти деякий час.",

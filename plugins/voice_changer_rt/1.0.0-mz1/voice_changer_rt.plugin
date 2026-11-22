@@ -1233,24 +1233,10 @@ class VoiceChangerRTPlugin(BasePlugin):
             create_sub_fragment=self._create_add_page,
         ))
 
-        settings.extend([
-            Divider(),
-            Text(
-                text="@mraniv & @anivplugins",
-                subtext=_tr("автор, нажмите чтобы подписаться", "author, click to subscribe", "автор, натисніть, щоб підписатися"),
-                icon="msg_info",
-                on_click=self._open_author_channel,
-            ),
-        ])
         return settings
 
     def _open_author_channel(self, view=None):
-        try:
-            Browser = find_class("org.telegram.messenger.browser.Browser")
-            context = view.getContext() if view and hasattr(view, "getContext") else jclass("org.telegram.messenger.ApplicationLoader").applicationContext
-            Browser.openUrl(context, "https://anivplugins.t.me")
-        except Exception as e:
-            self.log(f"open channel error: {e}")
+        pass
 
     def _editor_rows(self):
         return [

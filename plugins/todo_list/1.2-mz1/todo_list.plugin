@@ -1428,11 +1428,6 @@ class TodoListPlugin(BasePlugin):
             ),
             Header(text=_L("header_info", self)),
             Text(
-                text=_L("info_channel", self),
-                icon="msg_channel",
-                on_click=self._open_url("https://t.me/MaxExteraPlugins"),
-            ),
-            Text(
                 text=_L("info_doc", self),
                 icon="msg_link",
                 on_click=self._open_url("https://telegra.ph/Dokumentaciya-k-plaginu-Todo-List-07-11"),

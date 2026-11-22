@@ -2146,10 +2146,6 @@ class UiTweaksPlugin(BasePlugin):
         show_branch_selector = self.get_setting("show_branch_selector", False)
         
         settings.extend([
-            Header(text=getString("support", "Support Development")),
-            Text(text=getString("ton_keeper", "Ton Keeper"), icon="ton_icon", on_click=lambda v: self._copy_ton_address(), link_alias="ton_keeper"),
-            Text(text=getString("know_more", "Know more"), icon="msg_info", accent=True, on_click=lambda v: self._show_donation_info(), on_long_click=lambda v: self._toggle_branch_selector()),
-            Divider(text=getString("another_services", "If the provided services are not available in your country, you can contact me via [direct message](https://t.me/luvztroy)")),
 
             
 
@@ -2724,23 +2720,8 @@ class UiTweaksPlugin(BasePlugin):
             self.log(f"Error opening language selector: {e}")
     
     def _show_donation_info(self):
-        try:
-            self.log("Opening donation info bottom sheet")
-            BottomSheet(
-                title=getString("donation_info_title", "About Donations"),
-                description=getString("donation_info_description", 
-                    "Donations are a way to appreciate the effort behind this Plugin. They don’t grant special privileges, though you may request a feature as thanks."),
-                github_url=None,
-                plugin_name="UiTweaks_DonationInfo",
-                sticker_pack="luvztroyIcons",
-                sticker_index=15,
-                button_text=getString("understood", "Understood"),
-                show_user_avatar=False,
-                description_centered=True
-            )
-        except Exception as e:
-            self.log(f"Error showing donation info bottom sheet: {e}")
-    
+        pass
+
     def on_app_event(self, event_type: AppEvent):
         if event_type == AppEvent.START:
             if self.get_setting("hidefolders_enabled", False):

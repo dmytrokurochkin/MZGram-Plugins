@@ -553,42 +553,10 @@ class AudioCollectorPlugin(BasePlugin):
             log(f"AudioCollector rename error: {e}")
 
     def _open_tg_link(self, username: str):
-        try:
-            context = ApplicationLoader.applicationContext
-            intent = Intent(Intent.ACTION_VIEW, Uri.parse(f"tg://resolve?domain={username}"))
-            intent.setPackage(context.getPackageName())
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(intent)
-        except Exception as e:
-            log(f"AudioCollector open tg link error: {e}")
+        pass
 
     def _show_welcome_dialog(self):
-        try:
-            current_fragment = get_last_fragment()
-            if not current_fragment:
-                return
-            activity = current_fragment.getParentActivity()
-            if not activity:
-                return
-
-            builder = AlertDialogBuilder(activity)
-            builder.set_title(__name__)
-            builder.set_message(_mz_t("⚠️ Ти завантажив чудовий, неймовірно корисний плагін!", "⚠️ You downloaded an amazing, incredibly useful plugin!", "⚠️ Ты скачал прекрасный невероятно полезный плагин!"))
-
-            def on_hide(bld, which):
-                self.set_setting("welcome_shown", True)
-                bld.dismiss()
-
-            def on_channel(bld, which):
-                self.set_setting("welcome_shown", True)
-                self._open_tg_link("HzzzPlugins")
-                bld.dismiss()
-
-            builder.set_positive_button(_mz_t("Заходь у такий самий крутий канал 💅", "Join the same awesome channel 💅", "Залет в такой же крутой канал 💅"), on_channel)
-            builder.set_negative_button(_mz_t("Сховати", "Hide", "Скрыть"), on_hide)
-            builder.show()
-        except Exception as e:
-            log(f"AudioCollector welcome dialog error: {e}")
+        self.set_setting("welcome_shown", True)
 
     def create_settings(self) -> List[Any]:
         if not self._welcome_shown and not self.get_setting("welcome_shown", False):
@@ -633,17 +601,5 @@ class AudioCollectorPlugin(BasePlugin):
         settings.append(Divider(text="ᅠ"))
         settings.append(Divider(text=_mz_t("Використання: .gs у чаті | Можна надсилати також відповіддю", "Usage: .gs in a chat | You can also send it as a reply", "Использование: .gs в чате | Можно кидать в том числе и реплаем")))
 
-        settings.append(
-            Text(
-                text=_mz_t("Канал: @HzzzPlugins", "Channel: @HzzzPlugins", "Канал: @HzzzPlugins"),
-                on_click=lambda v: self._open_tg_link("HzzzPlugins"),
-            )
-        )
-        settings.append(
-            Text(
-                text=_mz_t("Зробив: @exoseo", "Made by: @exoseo", "Сделал: @exoseo"),
-                on_click=lambda v: self._open_tg_link("exoseo"),
-            )
-        )
 
         return settings

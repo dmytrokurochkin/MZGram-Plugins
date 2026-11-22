@@ -16,16 +16,6 @@ def _mz_t(uk, en, ru=None):
 import threading
 from typing import Any, List
 
-""" ... """
-"""
- _                       
-| |__    ____  ____  ____
-| '_ \  |_  / |_  / |_  /
-| | | |  / /   / /   / / 
-|_| |_| /___| /___| /___|
-                         
-"""
-""" ... """
 
 from java import dynamic_proxy, jarray, jclass, jfloat, jint
 from java.lang import Integer, Runnable, Thread, Runtime
@@ -91,7 +81,7 @@ CYCLE_HSV_V = 0.94
 
 PREVIEW_NAME = "h z z z"
 PREVIEW_STATUS = _mz_t("Був(ла) хтозна коли", "Last seen: no idea when", "Был(-а) хз когда")
-PREVIEW_AVATAR_URL = "https://t.me/i/userpic/320/exoseo.jpg"
+PREVIEW_AVATAR_URL = ""
 PREVIEW_GRADIENT = (
     0xFF2B0B8A,
     0xFF310969,
@@ -2654,59 +2644,10 @@ class VisualEcstasyPlugin(BasePlugin):
         )
 
     def _open_tg(self, username, view=None):
-        url = "https://t.me/" + username
-        try:
-            fragment = get_last_fragment()
-            ctx = None
-            if fragment is not None:
-                ctx = fragment.getParentActivity()
-            if ctx is None and view is not None:
-                ctx = view.getContext()
-            Browser = jclass("org.telegram.messenger.browser.Browser")
-            Browser.openUrl(ctx, url)
-        except Exception:
-            try:
-                Intent = jclass("android.content.Intent")
-                Uri = jclass("android.net.Uri")
-                ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-            except Exception:
-                pass
+        pass
 
     def _show_welcome_dialog(self):
-        try:
-            current_fragment = get_last_fragment()
-            if not current_fragment:
-                return
-            activity = current_fragment.getParentActivity()
-            if not activity:
-                return
-
-            builder = AlertDialogBuilder(activity)
-            builder.set_title(__name__)
-            builder.set_message(_mz_t("«Спокусливий опис каналу!»", "«Tempting channel description!»", "«Заманчивое описание канала!»"))
-
-            def on_hide(bld, which):
-                self.set_setting("welcome_shown", True)
-                bld.dismiss()
-                try:
-                    Toast.makeText(
-                        ApplicationLoader.applicationContext,
-                        _mz_t("куди спокусливіше =(", "how much more tempting =(", "куда заманчивее =("),
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                except Exception:
-                    pass
-
-            def on_channel(bld, which):
-                self.set_setting("welcome_shown", True)
-                self._open_tg("HzzzPlugins")
-                bld.dismiss()
-
-            builder.set_positive_button(_mz_t("🆘 Перейти туди", "🆘 Go there", "🆘 Перейти туда"), on_channel)
-            builder.set_negative_button(_mz_t("Приховати", "Hide", "Скрыть"), on_hide)
-            builder.show()
-        except Exception:
-            pass
+        self.set_setting("welcome_shown", True)
 
     def create_settings(self):
         if not self._welcome_shown and not self.get_setting("welcome_shown", False):
@@ -2753,16 +2694,6 @@ class VisualEcstasyPlugin(BasePlugin):
                 self._keep(self._slider_factory("vig_smooth", _mz_t("Різкість", "Sharpness", "Резкость"), DEFAULT_VIG_SMOOTH)),
                 Header(text=_mz_t("Кіношний ефект", "Cinematic effect", "Киношный эффект")),
                 self._keep(self._slider_factory("cine", _mz_t("Інтенсивність", "Intensity", "Интенсивность"), DEFAULT_CINE)),
-                Header(text="ᅠ"),
-                Text(
-                    text=_mz_t("Зробив: @exoseo", "Made by: @exoseo", "Сделал: @exoseo"),
-                    on_click=lambda v=None: self._open_tg("exoseo", v),
-                ),
-                Text(
-                    text=_mz_t("Канал: @HzzzPlugins", "Channel: @HzzzPlugins", "Канал: @HzzzPlugins"),
-                    accent=True,
-                    on_click=lambda v=None: self._open_tg("HzzzPlugins", v),
-                ),
             ]
         )
         return items
