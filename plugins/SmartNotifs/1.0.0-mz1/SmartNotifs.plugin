@@ -502,7 +502,7 @@ class TimeGuardPlugin(BasePlugin):
             Switch(key="sleep_change_bio", text=_mz_t("Змінювати «про себе» під час нагадування", "Change bio with the reminder", "Менять «о себе» при напоминании"),
                    subtext=_mz_t("Автоматично оновлює bio", "Automatically updates the bio", "Автоматически обновит bio"), default=False),
             Input(key="sleep_bio_text", text=_mz_t("Текст «про себе» для режиму сну", "Bio text for sleep mode", "Текст «о себе» для режима сна"),
-                  subtext=_mz_t("⚠️ Лише для exteraGram. В AyuGram зміна bio через API недоступна.", "⚠️ For exteraGram only. In AyuGram the bio cannot be changed through the API.", "⚠️ Только для exteraGram. В AyuGram смена bio недоступна через API."),
+                  subtext=_mz_t("⚠️ Лише для MZGram.", "⚠️ For MZGram only.", "⚠️ Только для MZGram."),
                   default=_mz_t("сплю 😴", "sleeping 😴", "сплю 😴")),
             Divider(),
 

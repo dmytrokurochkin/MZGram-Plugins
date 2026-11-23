@@ -358,7 +358,7 @@ class AlbumCoverDownloaderPlugin(BasePlugin):
                 v = ContentValues()
                 v.put(MediaStore.Images.Media.DISPLAY_NAME, fn)
                 v.put(MediaStore.Images.Media.MIME_TYPE, "image/png")
-                v.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/exteraGram")
+                v.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/MZGram")
                 v.put(MediaStore.Images.Media.IS_PENDING, JInt(1))
                 
                 if not (uri := res.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, v)):
@@ -373,7 +373,7 @@ class AlbumCoverDownloaderPlugin(BasePlugin):
                 v2.put(MediaStore.Images.Media.IS_PENDING, JInt(0))
                 res.update(uri, v2, None, None)
             else:
-                d = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "exteraGram")
+                d = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "MZGram")
                 d.mkdirs()
                 fos = FileOutputStream(File(d, fn))
                 sq.compress(Bitmap.CompressFormat.PNG, 100, fos)

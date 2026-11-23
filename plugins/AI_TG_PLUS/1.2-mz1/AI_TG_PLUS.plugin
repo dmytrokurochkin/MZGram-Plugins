@@ -61,7 +61,7 @@ def _get_gemini_proxy_ip():
 def _gemini_request(method, url, json_payload=None, headers=None, timeout=20, use_custom_dns=True):
     if not headers:
         headers = {}
-    headers.setdefault("User-Agent", "exteraGram-AI/1.2")
+    headers.setdefault("User-Agent", "MZGram-AI/1.2")
 
     if not use_custom_dns:
         if method == "POST":
@@ -345,7 +345,7 @@ class AIEditorGeminiPlugin(BasePlugin):
                 endpoint = endpoint[:-len("/chat/completions")]
 
             models_url = f"{endpoint}/models"
-            headers = {"User-Agent": "exteraGram-AI/1.2"}
+            headers = {"User-Agent": "MZGram-AI/1.2"}
             if api_key:
                 headers["Authorization"] = f"Bearer {api_key}"
 
@@ -542,7 +542,7 @@ class AIEditorGeminiPlugin(BasePlugin):
 
             headers = {
                 "Content-Type": "application/json",
-                "User-Agent": "exteraGram-AI/1.2"
+                "User-Agent": "MZGram-AI/1.2"
             }
             if api_key:
                 headers["Authorization"] = f"Bearer {api_key}"

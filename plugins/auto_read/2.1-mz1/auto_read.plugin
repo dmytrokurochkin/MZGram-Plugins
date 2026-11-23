@@ -470,9 +470,9 @@ class AutoReadPlugin(BasePlugin):
         if is_ayu:
             entries += [
                 Divider(),
-                Header(text=_mz_t("Режим привида (AyuGram)", "Ghost mode (AyuGram)", "Режим призрака (AyuGram)")),
+                Header(text=_mz_t("Режим привида", "Ghost mode", "Режим призрака")),
                 Switch(key="ghost_adapt", text=_mz_t("👻 Підлаштовуватися під привида", "👻 Adapt to the ghost", "👻 Подстраиваться под призрака"),
-                       subtext=_mz_t("для AyuGram", "for AyuGram", "для AyuGram"),
+                       subtext=_mz_t("за підтримки в застосунку", "if supported by the app", "при поддержке в приложении"),
                        default=False),
             ]
 
