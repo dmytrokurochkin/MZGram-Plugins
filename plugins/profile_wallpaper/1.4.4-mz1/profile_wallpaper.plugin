@@ -22,7 +22,7 @@ from android_utils import run_on_ui_thread
 
 __id__ = "profile_wallpaper"
 __name__ = "Profile Wallpaper"
-__description__ = "Custom background for your profile page: a gallery photo, blur, dimming and adjustable block transparency.\nFixed: launch error «getName» on some exteraGram versions."
+__description__ = "Custom background for your profile page: a gallery photo, blur, dimming and adjustable block transparency.\nFixed: launch error «getName» on some MZGram versions."
 __author__ = "MZGram"
 __version__ = "1.4.4-mz1"
 __min_version__ = "12.10.6"

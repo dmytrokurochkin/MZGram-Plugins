@@ -4541,7 +4541,7 @@ def _link_alias_collect_extera_settings_with_alias(self):
 
                 settings_list.append({
                     'plugin_id': None,
-                    'plugin_name': str(subtext) if subtext else ('AyuGram' if is_ayu else 'exteraGram'),
+                    'plugin_name': str(subtext) if subtext else 'MZGram',
                     'setting_name': str(title),
                     'link_alias': alias,
                     'search_key': alias.lower(),

@@ -515,7 +515,7 @@ class QuickSettingsPlugin(BasePlugin):
             if self.get_setting("show_chat_plugins_shortcut", True):
                 self.chat_plugins_activity_item = self.add_menu_item(MenuItemData(
                     menu_type=MenuItemType.CHAT_ACTION_MENU,
-                    text="exteraGram > Plugins",
+                    text="MZGram > Plugins",
                     icon="msg_plugins_solar",
                     priority=91,
                     on_click=lambda ctx: self._open_plugins_activity()

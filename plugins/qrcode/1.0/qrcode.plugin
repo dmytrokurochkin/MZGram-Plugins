@@ -33,7 +33,7 @@ __min_version__ = "11.9.0"
 __category__ = ["tools", "integrations"]
 
 QR_API_URL = "https://api.qrserver.com/v1/create-qr-code/"
-TEMP_IMAGES_DIR_NAME = "exteraGram Images"
+TEMP_IMAGES_DIR_NAME = "MZGram Images"
 QR_FORMATS = ["png", "jpeg", "jpg"]
 
 progress_dialog = None

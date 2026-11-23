@@ -34,8 +34,7 @@ from extera_utils.classes import Base, java_subclass, joverride, jfield, jgetmet
 
 __id__ = "shareui_fservice"
 __name__ = "Foreground service"
-__description__ = """Ensures reliable background notifications **on Chinese ROM**. 
-**Only for exteraGram!**"""
+__description__ = "Ensures reliable background notifications **on Chinese ROM**."
 __author__ = "MZGram"
 __version__ = "1.3.1-mz1"
 __app_version__ = ">=12.5.1"
@@ -66,10 +65,10 @@ class Locales:
         "MODE_HOOK_DESC": _mz_t("Перехоплює переходи у фон і утримує TCP-з'єднання.\nНайкращий баланс надійності й батареї.", "Intercepts background transitions and keeps the TCP connection open.\nBest balance between reliability and battery.", "Перехватывает переходы в фон и удерживает TCP-соединение.\nЛучший баланс надёжности и батареи."),
         "MODE_SERVICE_LABEL": _mz_t("Сервіс", "Service", "Service"),
         "MODE_SERVICE_DESC": _mz_t("Запускає сервіс переднього плану Android.\nСистема не може його завершити, найвища надійність.", "Starts an Android foreground service.\nThe OS cannot kill it, highest reliability.", "Запускает Android foreground service.\nОС не может его убить, максимальная надёжность."),
-        "MODE_AYUGRAM_LABEL": "AyuGram",
+        "MODE_AYUGRAM_LABEL": "AlarmManager",
         "MODE_AYUGRAM_DESC": _mz_t("AlarmManager перезапускає сервіс кожні 30 секунд.", "AlarmManager restarts the service every 30 seconds.", "AlarmManager перезапускает сервис каждые 30 секунд."),
         "AYUGRAM_TITLE": _mz_t("Сервіс переднього плану", "Foreground service", "Foreground service"),
-        "AYUGRAM_MESSAGE": _mz_t("Цей плагін несумісний з AyuGram, бо в AyuGram є аналогічна функція. Рекомендуємо видалити плагін і ввімкнути функцію в налаштуваннях.", "This plugin is incompatible with AyuGram because AyuGram has an equivalent feature built-in. It is recommended to remove the plugin and enable the feature in settings.", "Этот плагин несовместим с AyuGram, по причине того, что в AyuGram есть аналогичная функции. Рекомендуется удалить плагин, и активировать функцию в настройках."),
+        "AYUGRAM_MESSAGE": _mz_t("Цей плагін може дублювати вбудовану функцію фонових сповіщень. Якщо функція вже ввімкнена в налаштуваннях застосунку, видаліть плагін.", "This plugin may duplicate the app's built-in background notification feature. If the feature is already enabled in the app settings, uninstall the plugin.", "Этот плагин может дублировать встроенную функцию фоновых уведомлений. Если функция уже включена в настройках приложения, удалите плагин."),
         "AYUGRAM_OK": _mz_t("ОК", "OK", "ОК"),
         "INSTALL_NOTE": _mz_t("Після встановлення потрібно перезапустити застосунок.", "Restart required after installation.", "После установки необходимо перезапустить приложение."),
         "UPTIME_SWITCH": _mz_t("Відстежувати сервіс", "Calculate service uptime", "Отслеживать сервис"),
@@ -115,10 +114,10 @@ class Locales:
         "MODE_HOOK_DESC": "Intercepts background transitions and keeps the TCP connection open.\nBest balance between reliability and battery.",
         "MODE_SERVICE_LABEL": "Service",
         "MODE_SERVICE_DESC": "Starts an Android foreground service.\nThe OS cannot kill it, highest reliability.",
-        "MODE_AYUGRAM_LABEL": "AyuGram",
+        "MODE_AYUGRAM_LABEL": "AlarmManager",
         "MODE_AYUGRAM_DESC": "AlarmManager restarts the service every 30 seconds.",
         "AYUGRAM_TITLE": "Foreground service",
-        "AYUGRAM_MESSAGE": "This plugin is incompatible with AyuGram because AyuGram has an equivalent feature built-in. It is recommended to remove the plugin and enable the feature in settings.",
+        "AYUGRAM_MESSAGE": "This plugin may duplicate the app's built-in background notification feature. If the feature is already enabled in the app settings, uninstall the plugin.",
         "AYUGRAM_OK": "OK",
         "INSTALL_NOTE": "Restart required after installation.",
         "UPTIME_SWITCH": "Calculate service uptime",
@@ -616,7 +615,7 @@ def _ayugram_ensure_channel(ctx):
         from android.media import AudioAttributes
         channel = (
             NotificationChannelCompat.Builder(AYUGRAM_CHANNEL_ID, 3)
-            .setName("AyuGram Push Service")
+            .setName("Push Service")
             .setLightsEnabled(False)
             .setVibrationEnabled(False)
             .setSound(None, None)

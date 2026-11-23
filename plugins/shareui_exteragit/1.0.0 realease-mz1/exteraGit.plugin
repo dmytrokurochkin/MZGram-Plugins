@@ -287,10 +287,10 @@ class ExteraGitPlugin(BasePlugin):
         gitlab_group_cmd = self.get_setting("gitlab_group_cmd", "glgroup")
 
         command_map = {
-            f"{prefix} {github_repo_cmd}": ("github_repo", len(f"{prefix} {github_repo_cmd}"), f"Example: {prefix} {github_repo_cmd} exteraGram"),
+            f"{prefix} {github_repo_cmd}": ("github_repo", len(f"{prefix} {github_repo_cmd}"), f"Example: {prefix} {github_repo_cmd} MZGram"),
             f"{prefix} {github_user_cmd}": ("github_user", len(f"{prefix} {github_user_cmd}"), f"Example: {prefix} {github_user_cmd} torvalds"),
-            f"{prefix} {github_org_cmd}": ("github_org", len(f"{prefix} {github_org_cmd}"), f"Example: {prefix} {github_org_cmd} exteragram"),
-            f"{prefix} {gitlab_project_cmd}": ("gitlab_project", len(f"{prefix} {gitlab_project_cmd}"), f"Example: {prefix} {gitlab_project_cmd} exteraGram"),
+            f"{prefix} {github_org_cmd}": ("github_org", len(f"{prefix} {github_org_cmd}"), f"Example: {prefix} {github_org_cmd} mzgram"),
+            f"{prefix} {gitlab_project_cmd}": ("gitlab_project", len(f"{prefix} {gitlab_project_cmd}"), f"Example: {prefix} {gitlab_project_cmd} MZGram"),
             f"{prefix} {gitlab_user_cmd}": ("gitlab_user", len(f"{prefix} {gitlab_user_cmd}"), f"Example: {prefix} {gitlab_user_cmd} username"),
             f"{prefix} {gitlab_group_cmd}": ("gitlab_group", len(f"{prefix} {gitlab_group_cmd}"), f"Example: {prefix} {gitlab_group_cmd} community")
         }
@@ -587,7 +587,7 @@ class ExteraGitPlugin(BasePlugin):
 
     def _search_gitlab(self, query, search_type):
         loc = get_locale()
-        headers = {"User-Agent": "exteraGram-exteraGit/2.0"}
+        headers = {"User-Agent": "MZGram-exteraGit/2.0"}
 
         if search_type == "gitlab_project":
             return self._gitlab_search_project(query, headers, loc)
