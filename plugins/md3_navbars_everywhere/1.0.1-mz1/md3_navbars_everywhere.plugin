@@ -10,7 +10,7 @@ from extera_utils.classes import Base, java_subclass, joverride
 
 __id__ = "md3_navbars_everywhere"
 __name__ = "MD3 Navbars Everywhere"
-__description__ = "Applies MD3-styled navbars to attach menu, statistics and gifts preview screens. Requires exteraGram's MD3 navbar to be on."
+__description__ = "Applies MD3-styled navbars to attach menu, statistics and gifts preview screens. Requires MZGram's MD3 navbar to be on."
 __author__ = "MZGram"
 __version__ = "1.0.1-mz1"
 __app_version__ = ">=12.9.0"

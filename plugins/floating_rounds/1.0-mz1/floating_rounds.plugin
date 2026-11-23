@@ -59,7 +59,7 @@ PLUGIN_STRINGS = {
         PERMISSION_TITLE: "Плавающие видеосообщения",
         PERMISSION_MESSAGE: (
             "Чтобы показывать воспроизводимый кружок поверх других приложений, "
-            "разрешите exteraGram отображение поверх окон."
+            "разрешите MZGram отображение поверх окон."
         ),
         OPEN_SETTINGS: "Открыть настройки",
         CLOSE: "Закрыть",
@@ -72,7 +72,7 @@ PLUGIN_STRINGS = {
         PERMISSION_TITLE: "Плаваючі відеоповідомлення",
         PERMISSION_MESSAGE: (
             "Щоб показувати відтворюване відеоповідомлення поверх інших "
-            "програм, дозвольте exteraGram відображатися поверх інших вікон."
+            "програм, дозвольте MZGram відображатися поверх інших вікон."
         ),
         OPEN_SETTINGS: "Відкрити налаштування",
         CLOSE: "Закрити",
@@ -85,7 +85,7 @@ PLUGIN_STRINGS = {
         PERMISSION_TITLE: "Floating video messages",
         PERMISSION_MESSAGE: (
             "To keep the current video message visible over other apps, allow "
-            "exteraGram to display over other apps."
+            "MZGram to display over other apps."
         ),
         OPEN_SETTINGS: "Open Settings",
         CLOSE: "Close",

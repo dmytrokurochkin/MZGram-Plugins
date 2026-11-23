@@ -694,7 +694,7 @@ class ExtendedMessageDetailsPlugin(BasePlugin):
                                 if ts > 0:
                                     return ts
             except Exception as e:
-                self.log(f"Error fetching AyuGram deleted date: {e}")
+                self.log(f"Error fetching deleted date: {e}")
 
         dt = getattr(owner, "destroyTime", 0)
         if dt > 0:
@@ -759,7 +759,7 @@ class ExtendedMessageDetailsPlugin(BasePlugin):
                         if ts > 0:
                             return ts
             except Exception as e:
-                self.log(f"Error fetching AyuGram read date: {e}")
+                self.log(f"Error fetching read date: {e}")
 
         rd = getattr(owner, "read_date", 0)
         if rd > 0:

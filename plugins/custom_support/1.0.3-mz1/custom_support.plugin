@@ -47,7 +47,7 @@ except Exception:
 
 
 __id__ = "custom_support"
-__name__ = "exteraGram SupportDevelopment"
+__name__ = "Custom Support"
 __description__ = "Custom BottomSheet for tg://support"
 __author__ = "MZGram"
 __version__ = "1.0.3-mz1"

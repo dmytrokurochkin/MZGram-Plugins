@@ -989,7 +989,7 @@ class DeviceFingerprintSpoofer(BasePlugin):
             Divider(),
             Header(text=_mz_t("Версія застосунку", "App version", "Версия приложения")),
             _mk(Switch, key="spoof_app", text=_mz_t("Підміняти app_version", "Spoof app_version", "Подменять app_version"), default=True,
-                subtext=_mz_t("Приховує, що використовується exteraGram/AyuGram.", "Hides that exteraGram/AyuGram is in use.", "Скрывает, что используется exteraGram/AyuGram."),
+                subtext=_mz_t("Приховує, що використовується модифікований клієнт.", "Hides that a modified client is in use.", "Скрывает, что используется модифицированный клиент."),
                 on_change=self._on_changed),
             _mk(Input, key="app_version", text="app_version",
                 default=DEFAULT_APP_VERSION, subtext=_mz_t("Наприклад: 12.1.1", "For example: 12.1.1", "Например: 12.1.1"),
