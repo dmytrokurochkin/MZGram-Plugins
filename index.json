@@ -4655,12 +4655,12 @@
     },
     {
       "id": "fuck_now_playing",
-      "name": "Fuck Now Playing",
+      "name": "Hide Now Playing",
       "version": "1.0-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/fuck_now_playing/1.0-mz1/fuck_now_playing.plugin",
-      "sha256": "84e3c712e31bf9c933e168c42c833bb9909b80060650c5ac325f1ecf4d3c48e0",
-      "size": 12755,
+      "sha256": "72649af8fbc63ebc10dbd5f4ec5468be7be2424d3db7313acc4fd995dba165d0",
+      "size": 12768,
       "description": "Hides the now playing track card in profiles.",
       "description_i18n": {
         "en": "Hides the now playing track card in profiles.",
@@ -4678,7 +4678,21 @@
       },
       "permissions": [
         "hooks"
-      ]
+      ],
+      "name_i18n": {
+        "en": "Hide Now Playing",
+        "uk": "Без картки треку",
+        "ru": "Без карточки трека",
+        "pl": "Bez karty utworu",
+        "es": "Sin tarjeta de pista",
+        "de": "Ohne Titelkarte",
+        "fr": "Sans carte de morceau",
+        "pt-BR": "Sem cartão de faixa",
+        "tr": "Parça kartı olmadan",
+        "ar": "بدون بطاقة المسار",
+        "be": "Без карткі трэка",
+        "kk": "Трек картасынсыз"
+      }
     },
     {
       "id": "fullscreen_music_player",
@@ -5781,8 +5795,8 @@
       "version": "1.3.0-mz1",
       "min_app_version": "1.0.0",
       "file": "plugins/itt/1.3.0-mz1/itt.plugin",
-      "sha256": "6c8249fdbc6b6e6f4d4d9f5e4226dd94b41cf787c3929e996cf22e2c403dd82a",
-      "size": 35203,
+      "sha256": "7b3752563ace4b26ba95081be6bde845f4133bf6aaf7eece39f2b9ea9b9d816a",
+      "size": 35217,
       "description": "Replaces TikTok links with video embeds so the video plays right in the chat.",
       "description_i18n": {
         "en": "Replaces TikTok links with video embeds so the video plays directly in the chat preview.",

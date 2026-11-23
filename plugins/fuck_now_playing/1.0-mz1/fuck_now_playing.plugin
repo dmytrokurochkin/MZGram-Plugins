@@ -7,8 +7,8 @@ from dalvik.system import InMemoryDexClassLoader
 from org.telegram.messenger import ApplicationLoader
 
 __id__ = "fuck_now_playing"
-__name__ = "Fuck Now Playing"
-__description__ = "Hides the track card in profiles"
+__name__ = "Hide Now Playing"
+__description__ = "Hides the now playing track card in profiles."
 __author__ = "MZGram"
 __version__ = "1.0-mz1"
 __min_version__ = "12.5.1"
