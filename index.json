@@ -9137,35 +9137,6 @@
       ]
     },
     {
-      "id": "re_extera_dex",
-      "name": "DEX Loader",
-      "version": "2.4.0-mz1",
-      "min_app_version": "1.0.0",
-      "file": "plugins/re_extera_dex/2.4.0-mz1/re_extera_dex.plugin",
-      "sha256": "57b28c707274d23bc1491cf3b96c74fbf0f9d5e361cb4931a52cd1e4a23258cc",
-      "size": 11311,
-      "description": "Enable ghost mode, save deleted messages and more!",
-      "description_i18n": {
-        "en": "Enable ghost mode, save deleted messages and more!",
-        "uk": "Режим привида, збереження видалених повідомлень і не тільки!",
-        "ru": "Включите режим призрака, сохраните удаленные сообщения и многое другое!",
-        "pl": "Włącz tryb ducha, zapisuj usunięte wiadomości i wiele więcej!",
-        "es": "¡Habilite el modo fantasma, guarde mensajes eliminados y más!",
-        "de": "Aktivieren Sie den Geistermodus, speichern Sie gelöschte Nachrichten und mehr!",
-        "fr": "Activez le mode fantôme, enregistrez les messages supprimés et bien plus encore !",
-        "pt-BR": "Ative o modo fantasma, salve mensagens excluídas e muito mais!",
-        "tr": "Hayalet modunu etkinleştirin, silinen mesajları kaydedin ve daha fazlasını yapın!",
-        "ar": "تمكين وضع الشبح وحفظ الرسائل المحذوفة والمزيد!",
-        "be": "Уключыце рэжым прывіда, захавайце выдаленыя паведамленні і многае іншае!",
-        "kk": "Елес режимін қосыңыз, жойылған хабарларды сақтаңыз және т.б.!"
-      },
-      "permissions": [
-        "network",
-        "files",
-        "hooks"
-      ]
-    },
-    {
       "id": "reaction_finder",
       "name": "Top Reaction Finder",
       "version": "1.0.0-mz1",
