@@ -2585,7 +2585,7 @@
       "description": "Cleans tracking parameters out of the links you send. Needs the MZGram Lib plugin.",
       "description_i18n": {
         "en": "Cleans tracking parameters out of the links you send. Needs the MZGram Lib plugin.",
-        "uk": "Очищає надіслані посилання від параметрів відстеження. Потребує плагін MZGram Lib.",
+        "uk": "Очищає надіслані посилання від параметрів відстеження. Потребує плагіна MZGram Lib.",
         "ru": "Очищает отправленные ссылки от параметров отслеживания. Требуется плагин MZGram Lib.",
         "pl": "Usuwa parametry śledzące z wysyłanych linków. Wymaga wtyczki MZGram Lib.",
         "es": "Limpia los parámetros de seguimiento de los enlaces que envías. Requiere el plugin MZGram Lib.",
@@ -3784,7 +3784,7 @@
       "description": "Endless looping scroll through folders. Needs the MZGram Lib plugin.",
       "description_i18n": {
         "en": "Endless looping scroll through folders. Needs the MZGram Lib plugin.",
-        "uk": "Нескінченне циклічне прокручування тек чатів. Потребує плагін MZGram Lib.",
+        "uk": "Нескінченне циклічне прокручування тек чатів. Потребує плагіна MZGram Lib.",
         "ru": "Бесконечная циклическая прокрутка папок чатов. Требуется плагин MZGram Lib.",
         "pl": "Nieskończone zapętlone przewijanie folderów. Wymaga wtyczki MZGram Lib.",
         "es": "Desplazamiento cíclico infinito por las carpetas. Requiere el plugin MZGram Lib.",
@@ -3841,7 +3841,7 @@
       "description": "Equalizer for the music player: five bands, presets, bass boost, virtualizer, and volume boost. Needs the MZGram Lib plugin.",
       "description_i18n": {
         "en": "Equalizer for the music player: five bands, presets, bass boost, virtualizer, and volume boost. Needs the MZGram Lib plugin.",
-        "uk": "Еквалайзер для музичного плеєра: 5 смуг, пресети, посилення басів, віртуалізатор і гучність. Потребує плагін MZGram Lib.",
+        "uk": "Еквалайзер для музичного плеєра: 5 смуг, пресети, посилення басів, віртуалізатор і гучність. Потребує плагіна MZGram Lib.",
         "ru": "Эквалайзер для музыкального плеера: 5 полос, пресеты, усиление басов, виртуализатор и громкость. Требуется плагин MZGram Lib.",
         "pl": "Korektor odtwarzacza muzyki: 5 pasm, ustawienia wstępne, wzmocnienie basów i głośności. Wymaga wtyczki MZGram Lib.",
         "es": "Ecualizador para reproductor de música: 5 bandas, preajustes, refuerzo de graves y volumen. Requiere el plugin MZGram Lib.",
@@ -5019,7 +5019,7 @@
       "description": "Creates a web search link. Usage: .gt [query]. Needs the MZGram Lib plugin.",
       "description_i18n": {
         "en": "Creates a web search link. Usage: .gt [query]. Needs the MZGram Lib plugin.",
-        "uk": "Створює посилання на пошук. Використання: .gt [запит]. Потребує плагін MZGram Lib.",
+        "uk": "Створює посилання на пошук. Використання: .gt [запит]. Потребує плагіна MZGram Lib.",
         "ru": "Создает ссылку для поиска. Использование: .gt [запрос]. Требуется плагин MZGram Lib.",
         "pl": "Tworzy link do wyszukiwania. Użycie: .gt [zapytanie]. Wymaga wtyczki MZGram Lib.",
         "es": "Crea un enlace de búsqueda web. Uso: .gt [consulta]. Requiere el plugin MZGram Lib.",
@@ -6408,7 +6408,7 @@
       "description": "Redesigns the main settings list in Material style. Needs the MZGram Lib plugin.",
       "description_i18n": {
         "en": "Redesigns the main settings list in Material style. Needs the MZGram Lib plugin.",
-        "uk": "Перебудовує головний список налаштувань у стилі Material. Потребує плагін MZGram Lib.",
+        "uk": "Перебудовує головний список налаштувань у стилі Material. Потребує плагіна MZGram Lib.",
         "ru": "Перестраивает главный список настроек в стиле Material. Требуется плагин MZGram Lib.",
         "pl": "Przeprojektowuje główną listę ustawień w stylu Material. Wymaga wtyczki MZGram Lib.",
         "es": "Rediseña la lista principal de ajustes al estilo Material. Requiere el plugin MZGram Lib.",
@@ -9037,7 +9037,7 @@
       "description": "Sends replies as quotes with the full text of the message. Needs the MZGram Lib plugin.",
       "description_i18n": {
         "en": "Sends replies as quotes with the full text of the message. Needs the MZGram Lib plugin.",
-        "uk": "Надсилає відповідь як цитату з повним текстом повідомлення. Потребує плагін MZGram Lib.",
+        "uk": "Надсилає відповідь як цитату з повним текстом повідомлення. Потребує плагіна MZGram Lib.",
         "ru": "Отправляет ответ в виде цитаты с полным текстом сообщения. Требуется плагин MZGram Lib.",
         "pl": "Wysyła odpowiedź jako cytat z pełnym tekstem wiadomości. Wymaga wtyczki MZGram Lib.",
         "es": "Envía la respuesta como una cita con el texto completo del mensaje. Requiere el plugin MZGram Lib.",
@@ -10648,7 +10648,7 @@
       "description": "Organizes installed plugins into customizable folders.",
       "description_i18n": {
         "en": "Organizes installed plugins into customizable folders.",
-        "uk": "Впорядковує встановлені плагіни за настроюваними папками.",
+        "uk": "Впорядковує встановлені плагіни за власними папками.",
         "ru": "Упорядочивает установленные плагины по настраиваемым папкам.",
         "pl": "Organizuj zainstalowane wtyczki w konfigurowalnych folderach.",
         "es": "Organiza los plugins instalados en carpetas personalizables.",
@@ -11383,7 +11383,7 @@
       "description": "A collection of interface adjustments. Requires the QuantaHut plugin.",
       "description_i18n": {
         "en": "A collection of interface adjustments. Requires the QuantaHut plugin.",
-        "uk": "Колекція налаштувань інтерфейсу. Потребує плагін QuantaHut.",
+        "uk": "Колекція налаштувань інтерфейсу. Потребує плагіна QuantaHut.",
         "ru": "Коллекция настроек интерфейса. Требует плагин QuantaHut.",
         "pl": "Zbiór poprawek interfejsu. Wymaga wtyczki QuantaHut.",
         "es": "Una colección de ajustes de interfaz. Requiere el plugin QuantaHut.",
@@ -11477,7 +11477,7 @@
       "description": "Saves short user info (phone country, registration date) locally. Needs the MZGram Lib plugin.",
       "description_i18n": {
         "en": "Saves short user info (phone country, registration date) locally. Needs the MZGram Lib plugin.",
-        "uk": "Локально зберігає коротку інформацію про користувача (країну номера, дату реєстрації). Потребує плагін MZGram Lib.",
+        "uk": "Локально зберігає коротку інформацію про користувача (країну номера, дату реєстрації). Потребує плагіна MZGram Lib.",
         "ru": "Локально сохраняет краткую информацию о пользователе (страну номера, дату регистрации). Требуется плагин MZGram Lib.",
         "pl": "Zapisuje krótkie informacje o użytkowniku lokalnie. Wymaga wtyczki MZGram Lib.",
         "es": "Guarda información breve del usuario localmente. Requiere el plugin MZGram Lib.",
@@ -12000,7 +12000,7 @@
       "description": "Simplifies group administration with quick mute, kick, and ban commands. Needs the MZGram Lib plugin.",
       "description_i18n": {
         "en": "Simplifies group administration with quick mute, kick, and ban commands. Needs the MZGram Lib plugin.",
-        "uk": "Спрощує адміністрування груп швидкими командами блокування та вилучення. Потребує плагін MZGram Lib.",
+        "uk": "Спрощує адміністрування груп швидкими командами блокування та вилучення. Потребує плагіна MZGram Lib.",
         "ru": "Упрощает администрирование групп быстрыми командами блокировки и удаления. Требуется плагин MZGram Lib.",
         "pl": "Ułatwia administrowanie grupami dzięki szybkim poleceniom. Wymaga wtyczki MZGram Lib.",
         "es": "Simplifica la administración de grupos con comandos rápidos. Requiere el plugin MZGram Lib.",
@@ -12030,7 +12030,7 @@
       "description": "Smooth crossfade transition between music tracks. Needs the MZGram Lib plugin.",
       "description_i18n": {
         "en": "Smooth crossfade transition between music tracks. Needs the MZGram Lib plugin.",
-        "uk": "Плавний перехід кросфейду між музичними треками. Потребує плагін MZGram Lib.",
+        "uk": "Плавний перехід кросфейду між музичними треками. Потребує плагіна MZGram Lib.",
         "ru": "Плавный переход кроссфейда между музыкальными треками. Требуется плагин MZGram Lib.",
         "pl": "Płynne przejście crossfade między utworami muzycznymi. Wymaga wtyczki MZGram Lib.",
         "es": "Transición suave de fundido cruzado entre pistas de música. Requiere el plugin MZGram Lib.",
@@ -12058,7 +12058,7 @@
       "description": "Removes the 100-message limit on forwarding and deleting messages. Needs the MZGram Lib plugin.",
       "description_i18n": {
         "en": "Removes the 100-message limit on forwarding and deleting messages. Needs the MZGram Lib plugin.",
-        "uk": "Знімає обмеження у 100 повідомлень під час пересилання та видалення. Потребує плагін MZGram Lib.",
+        "uk": "Знімає обмеження у 100 повідомлень під час пересилання та видалення. Потребує плагіна MZGram Lib.",
         "ru": "Снимает ограничение в 100 сообщений при пересылке и удалении. Требуется плагин MZGram Lib.",
         "pl": "Usuwa limit 100 wiadomości podczas przekazywania i usuwania. Wymaga wtyczki MZGram Lib.",
         "es": "Elimina el límite de 100 mensajes al reenviar y eliminar. Requiere el plugin MZGram Lib.",
@@ -12087,7 +12087,7 @@
       "description": "Normalizes the volume of music tracks in the player. Needs the MZGram Lib plugin.",
       "description_i18n": {
         "en": "Normalizes the volume of music tracks in the player. Needs the MZGram Lib plugin.",
-        "uk": "Вирівнює гучність музичних треків у плеєрі. Потребує плагін MZGram Lib.",
+        "uk": "Вирівнює гучність музичних треків у плеєрі. Потребує плагіна MZGram Lib.",
         "ru": "Выравнивает громкость музыкальных треков в плеере. Требуется плагин MZGram Lib.",
         "pl": "Wyrównuje głośność odtwarzanych utworów muzycznych. Wymaga wtyczki MZGram Lib.",
         "es": "Normaliza el volumen de las pistas de música en el reproductor. Requiere el plugin MZGram Lib.",
