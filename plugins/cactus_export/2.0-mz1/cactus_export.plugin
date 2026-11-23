@@ -224,7 +224,7 @@ class PluginDumper(BasePlugin):
             "force_enable_sub_off": "Plugins will be added but remain disabled.",
             "not_imported": "Nothing was imported.",
             "error_empty": "Error: Empty dump",
-            "restart_needed": "Please restart exteraGram!"
+            "restart_needed": "Please restart MZGram!"
         },
         "ru": {
             "import_alert_title": _mz_t("Імпорт плагінів", "Import Plugins", "Импорт плагинов"),
@@ -254,7 +254,7 @@ class PluginDumper(BasePlugin):
             "force_enable_sub_off": _mz_t("Плагіни буде додано у вимкненому стані.", "Plugins will be added but remain disabled.", "Плагины будут добавлены в выключенном состоянии."),
             "not_imported": _mz_t("Нічого не було імпортовано.", "Nothing was imported.", "Ничего не было импортировано."),
             "error_empty": _mz_t("Помилка: порожній дамп", "Error: Empty dump", "Ошибка: Дамп пуст"),
-            "restart_needed": _mz_t("Потрібен перезапуск застосунку!", "Please restart exteraGram!", "Требуется перезапуск приложения!")
+            "restart_needed": _mz_t("Потрібен перезапуск застосунку!", "Please restart MZGram!", "Требуется перезапуск приложения!")
         }
     }
 

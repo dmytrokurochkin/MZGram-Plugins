@@ -591,7 +591,7 @@ class ChipFoldersPlugin(BasePlugin):
             on_change=self._on_structure_change("scroll_divider"),
         ))
         rows.append(Text(
-            text=t("Настройки папок exteraGram", "exteraGram folder settings", "Налаштування папок exteraGram"),
+            text=t("Настройки папок MZGram", "MZGram folder settings", "Налаштування папок MZGram"),
             subtext=t("Стиль заголовков, счетчики и прочее.",
                       "Title style, counters and more.", "Стиль заголовків, лічильники та інше."),
             icon="msg_folders",

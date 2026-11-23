@@ -555,7 +555,7 @@ class BubblePopPlugin(BasePlugin):
             return
 
         if not self._can_draw_overlay():
-            self._toast_err(_mz_t("Увімкніть «Поверх інших застосунків» для AyuGram/exteraGram у налаштуваннях телефону.", "Enable «Draw over other apps» for AyuGram/exteraGram in the phone settings.", "Включите «Поверх других приложений» для AyuGram/exteraGram в настройках телефона."))
+            self._toast_err(_mz_t("Увімкніть «Поверх інших застосунків» для MZGram у налаштуваннях телефону.", "Enable «Draw over other apps» for MZGram in the phone settings.", "Включите «Поверх других приложений» для MZGram в настройках телефона."))
             return
 
         try:

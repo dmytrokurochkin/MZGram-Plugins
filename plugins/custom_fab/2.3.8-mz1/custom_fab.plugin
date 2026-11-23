@@ -104,12 +104,12 @@ STRINGS = {
         "hide_search_sub": _mz_t("Коли пошук призначено на кнопку", "When search is assigned to the button", "Когда поиск назначен на кнопку"),
         "debug": _mz_t("Докладні логи", "Detailed logs", "Подробные логи"),
         "debug_sub": _mz_t("Записувати в лог кожну дію плагіна", "Write every plugin action to the log", "Писать в лог каждое действие плагина"),
-        "hint": _mz_t("Натискання і утримання налаштовуються окремо.\nСтандартна - натискання як в офіційному Telegram, Нічого - утримання не використовується.\nРежим привида - перемикач привида AyuGram.", "Tap and hold are set separately.\nDefault - tap as in official Telegram, Nothing - hold is not used.\nGhost mode - AyuGram ghost toggle.", ("Нажатие и зажатие настраиваются отдельно.\n"
+        "hint": _mz_t("Натискання і утримання налаштовуються окремо.\nСтандартна - натискання як в офіційному Telegram, Нічого - утримання не використовується.\nРежим привида - перемикач режиму привида.", "Tap and hold are set separately.\nDefault - tap as in official Telegram, Nothing - hold is not used.\nGhost mode - ghost mode toggle.", ("Нажатие и зажатие настраиваются отдельно.\n"
                 "Стандартное - нажатие как в офтг, Ничего - зажатие не используется.\n"
-                "Режим призрака - переключатель призрака AyuGram.")),
+                "Режим призрака - переключатель режима призрака.")),
         "no_chat": _mz_t("Вкажіть чат у налаштуваннях плагіна", "Choose a chat in the plugin settings", "Укажите чат в настройках плагина"),
         "restart": _mz_t("Щоб повернути стандартну дію, перезапустіть застосунок", "To restore the default action, restart the app", "Чтобы вернуть стандартное действие, перезапустите приложение"),
-        "no_ayu": _mz_t("Режим привида є лише в AyuGram", "Ghost mode is only available in AyuGram", "Режим призрака есть только в AyuGram"),
+        "no_ayu": _mz_t("Режим привида недоступний у цьому клієнті", "Ghost mode is not available in this client", "Режим призрака недоступен в этом клиенте"),
         "fab_off_title": _mz_t("Плаваючу кнопку вимкнено", "Floating button is off", "Плавающая кнопка выключена"),
         "fab_off": _mz_t("Custom FAB не працює, поки в налаштуваннях клієнта увімкнено «{}». Натисніть на рядок вище, щоб відкрити це налаштування.", "Custom FAB doesn't work while “{}” is enabled in the client settings. Tap the row above to open this setting.", "Custom FAB не работает, пока в настройках клиента включено «{}». Нажмите на строку выше, чтобы открыть эту настройку."),
         "fab_off_short": _mz_t("Плаваючу кнопку вимкнено, Custom FAB не працює", "Floating button is off, Custom FAB doesn't work", "Плавающая кнопка выключена, Custom FAB не работает"),
@@ -132,10 +132,10 @@ STRINGS = {
         "debug_sub": "Log every plugin action",
         "hint": "Tap and long press are set separately.\n"
                 "Default keeps the original tap, Nothing turns the long press off.\n"
-                "Ghost mode toggles AyuGram's ghost mode.",
+                "Ghost mode toggles ghost mode.",
         "no_chat": "Set a chat in the plugin settings",
         "restart": "Restart the app to restore the default action",
-        "no_ayu": "Ghost mode is only available in AyuGram",
+        "no_ayu": "Ghost mode is not available in this client",
         "fab_off_title": "Floating button is off",
         "fab_off": "Custom FAB stays off while \"{}\" is on in the app settings. Tap the line above to open that setting.",
         "fab_off_short": "Floating button is off, Custom FAB won't work",

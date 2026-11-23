@@ -182,18 +182,18 @@ def _client_problem():
     pkg, ver = _client_version()
     if pkg in BLOCKED_CLIENTS:
         return localized(
-            f"{__name__} не поддерживает {BLOCKED_CLIENTS[pkg]}. Нужен exteraGram {__min_version__} или новее.",
-            f"{__name__} does not support {BLOCKED_CLIENTS[pkg]}. exteraGram {__min_version__} or newer is required.",
-            f"{__name__} не підтримує {BLOCKED_CLIENTS[pkg]}. Потрібен exteraGram {__min_version__} або новіший.",
+            f"{__name__} не поддерживает {BLOCKED_CLIENTS[pkg]}. Нужен MZGram {__min_version__} или новее.",
+            f"{__name__} does not support {BLOCKED_CLIENTS[pkg]}. MZGram {__min_version__} or newer is required.",
+            f"{__name__} не підтримує {BLOCKED_CLIENTS[pkg]}. Потрібен MZGram {__min_version__} або новіший.",
         )
     have = _version_tuple(ver)
     need = _version_tuple(__min_version__)
     if have is None or need is None or have >= need:
         if NativeTimeline is None:
             return localized(
-                f"{__name__} {__version__} не нашёл нужные компоненты приложения. Нужен exteraGram {__min_version__} или новее.",
-                f"{__name__} {__version__} could not find required app components. exteraGram {__min_version__} or newer is required.",
-                f"{__name__} {__version__} не знайшов потрібні компоненти застосунку. Потрібен exteraGram {__min_version__} або новіший.",
+                f"{__name__} {__version__} не нашёл нужные компоненты приложения. Нужен MZGram {__min_version__} или новее.",
+                f"{__name__} {__version__} could not find required app components. MZGram {__min_version__} or newer is required.",
+                f"{__name__} {__version__} не знайшов потрібні компоненти застосунку. Потрібен MZGram {__min_version__} або новіший.",
             )
         return None
     return localized(

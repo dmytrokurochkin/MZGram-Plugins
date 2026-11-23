@@ -17,7 +17,7 @@ from base_plugin import BasePlugin, MethodHook
 
 __id__ = "bubble_chat_editor"
 __name__ = "Bubble Outline"
-__description__ = "Bubble outline (bubbleIn/Outline) for exteraGram 12.9.0. Outline only: chat colours stay as they are in the current theme."
+__description__ = "Outline for message bubbles. Only the outline changes, the chat colors of the current theme stay the same."
 __author__ = "MZGram"
 __version__ = "3.4.1-mz1"
 __app_version__ = ">=12.9.0"
