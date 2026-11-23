@@ -3,7 +3,7 @@ from hook_utils import find_class
 
 __id__ = "shareui_vanillamusicplayer"
 __name__ = "Vanilla Music Player"
-__description__ = "Replaces the exteraGram music player in profiles with the original Telegram player [only for exteraGram Beta 12.4.1]"
+__description__ = "Restores the original Telegram music player in user profiles."
 __author__ = "MZGram"
 __version__ = "1.0.1-mz1"
 __min_version__ = "12.4.1"

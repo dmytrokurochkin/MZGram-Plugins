@@ -1880,7 +1880,7 @@ class UiTweaksPlugin(BasePlugin):
             subtitle = TextView(context)
             subtitle.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteGrayText))
             subtitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14)
-            subtitle.setText("An experimental plugin for exteraGram based on python!")
+            subtitle.setText("An experimental plugin for MZGram based on python!")
             subtitle.setGravity(Gravity.CENTER)
             container.addView(subtitle, LayoutHelper.createFrame(-2, -2, Gravity.CENTER | Gravity.TOP, 60, 180, 60, 27))
             
@@ -1924,7 +1924,7 @@ class UiTweaksPlugin(BasePlugin):
         return [
             Header(text=getString("security_and_privacy", "Security & Privacy")),
             self.Quanta_switch("confirm_deeplinks", getString("confirm_deeplinks", "Confirm Telegram Deep Links"), False, lambda v: self._apply_hooks(), link_alias="confirm_deeplinks"),
-            self.Quanta_switch("confirm_ayugram_deeplinks", getString("confirm_ayugram_deeplinks", "Confirm AyuGram Deep Links"), False, lambda v: self._apply_hooks(), link_alias="confirm_ayugram_deeplinks"),
+            self.Quanta_switch("confirm_ayugram_deeplinks", getString("confirm_ayugram_deeplinks", "Confirm Custom Deep Links"), False, lambda v: self._apply_hooks(), link_alias="confirm_ayugram_deeplinks"),
             self.Quanta_switch("disable_auto_web_login", getString("disable_auto_web_login", "Disable Auto Web Login"), False, lambda v: self._apply_hooks(), link_alias="disable_auto_web_login"),
             self.Quanta_switch("custom_privacy", getString("custom_privacy", "Custom Privacy"), False, lambda v: self._apply_hooks(), link_alias="custom_privacy"),
 
@@ -10004,8 +10004,8 @@ class DeepLinkHook:
                 return
 
             builder = AlertDialogBuilder(activity)
-            builder.set_title(getString("ayugram_deeplink_title", "AyuGram Deep Link"))
-            builder.set_message(getString("ayugram_deeplink_message", "This AyuGram link may redirect to auto-playing content with blocked controls."))
+            builder.set_title(getString("ayugram_deeplink_title", "Deep Link Warning"))
+            builder.set_message(getString("ayugram_deeplink_message", "This link may redirect to auto-playing content with blocked controls."))
             builder.set_positive_button(getString("proceed_anyway", "Proceed Anyway"), lambda b, w: self.proceed_deeplink())
             builder.set_negative_button(getString("cancel", "Cancel"), lambda b, w: self.cancel_deeplink())
             builder.set_on_cancel_listener(lambda b: self.cancel_deeplink())

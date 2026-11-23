@@ -2021,7 +2021,7 @@ class SteamPlugin(BasePlugin):
             Header(text="Steam Plugin v2.0"),
             Text(
                 text="Steam Plugin",
-                subtext=_mz_t("Плагін для exteraGram: інтеграція зі Steam прямо в Telegram", "Plugin for exteraGram: Steam integration right in Telegram", "Плагин для exteraGram — интеграция со Steam прямо в Telegram") if is_ui_ru() else "Plugin for exteraGram — Steam integration directly in Telegram",
+                subtext=_mz_t("Плагін для MZGram: інтеграція зі Steam прямо в Telegram", "Plugin for MZGram: Steam integration right in Telegram", "Плагин для MZGram - интеграция со Steam прямо в Telegram") if is_ui_ru() else "Plugin for MZGram - Steam integration directly in Telegram",
                 icon="filled_info",
                 link_alias="plugin_name"
             ),

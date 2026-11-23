@@ -115,7 +115,7 @@ class ModrinthSearchPlugin(BasePlugin):
 
     # function to run the search through the Modrinth API
     def _perform_search(self, account: int, peer: int, query: str, project_type: str, loc: dict):
-        headers = {"User-Agent": "exteraGram-SearchByShareui"}
+        headers = {"User-Agent": "MZGram-SearchByShareui"}
         facets = f'[["project_type:{project_type}"]]'
         params = {
             "query": query,

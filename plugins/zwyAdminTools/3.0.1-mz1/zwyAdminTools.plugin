@@ -330,7 +330,7 @@ locales = {
         "help_ai_main": (
             "AI Checker automatically analyzes messages for compliance with rules, "
             "considering context and sarcasm. It can warn, ban, kick, or mute users.\n\n"
-            "For work it uses picked service in exteraGram's AI chat."
+            "For work it uses picked service in MZGram's AI chat."
         ),
         "waiting_ai_response": "Waiting for AI response...",
         "aicheck_cmd_usage": "aicheck command usage: at aicheck <user> <messages count>.",
@@ -647,7 +647,7 @@ locales = {
         "help_ai_main": (
             "ИИ-чекер анализирует сообщения на предмет нарушений, учитывая контекст и сарказм. "
             "Он может выдать предупреждение, бан, кик, или же заглушить пользователя.\n\n"
-            "Для его работы автоматически используется выбранный сервис в ИИ чате exteraGram."
+            "Для его работы автоматически используется выбранный сервис в ИИ чате MZGram."
         ),
         "waiting_ai_response": "Ожидание ответа от ИИ...",
         "aicheck_cmd_usage": "Использование команды aicheck: at aicheck <пользователь> <количество сообщений>",
@@ -958,7 +958,7 @@ locales = {
         "help_ai_main": (
             "ШІ-чекер аналізує повідомлення на відповідність правилам, враховуючи контекст та сарказм."
             "Він може видати попередження, бан, кік, або ж заглушити користувача.\n\n"
-            "Для його роботи автоматично використовується обраний сервіс в ШІ чаті exteraGram."
+            "Для його роботи автоматично використовується обраний сервіс в ШІ чаті MZGram."
         ),
         "waiting_ai_response": "Очікування відповіді від ШІ...",
         "aicheck_cmd_usage": "Використання команди aicheck: at aicheck <користувач> <кількість повідомлень>",
