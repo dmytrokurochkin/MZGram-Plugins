@@ -58,7 +58,7 @@ DEFAULT_CLIENT_SECRET_V2 = "3DuTNC4OjpAEhvmCOWdVmhM7znWJRLoznPyvp0gt"
 SAYOBOT_DOWNLOAD_URL = "https://txy1.sayobot.cn/download/osz/{}"
 SAYOBOT_NOVIDEO_DOWNLOAD_URL = "https://txy1.sayobot.cn/download/osz/{}/novideo"
 
-API_HEADERS = {"User-Agent": "exteraGram-OsuPlugin/3.17.5"}
+API_HEADERS = {"User-Agent": "MZGram-OsuPlugin/3.17.5"}
 
 class OsuPlugin(BasePlugin):
     strings = {

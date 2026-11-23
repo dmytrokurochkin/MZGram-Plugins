@@ -3,7 +3,7 @@ from hook_utils import find_class
 
 __id__ = "no_ayu_rofls"
 __name__ = "No Ayu Rofls"
-__description__ = "Disables AyuGram joke links."
+__description__ = "Disables joke links."
 __author__ = "MZGram"
 __version__ = "1.2-mz1"
 __app_version__ = ">=12.5.1"

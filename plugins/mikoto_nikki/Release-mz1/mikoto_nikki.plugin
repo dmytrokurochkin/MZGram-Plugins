@@ -34,7 +34,7 @@ from android.graphics import Bitmap, Canvas, ColorMatrix, ColorMatrixColorFilter
 
 __id__ = "mikoto_nikki"
 __name__ = "Mikoto's Diary"
-__description__ = "Adaptation of a 2013 visual novel inside exteraGram"
+__description__ = "Interactive adaptation of the 2013 visual novel directly in the app."
 __author__ = "MZGram"
 __version__ = "Release-mz1"
 __min_version__ = "11.12.0"

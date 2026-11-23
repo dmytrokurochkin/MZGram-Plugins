@@ -488,7 +488,7 @@ class PlayerVideoPlugin(BasePlugin):
         sheet = find_class(PLAYER_CLASS)
         layout = find_class(PLAYER_CLASS + "$PlayerLayout")
         if sheet is None or layout is None or find_class(EXPRESSIVE_CLASS) is None:
-            raise RuntimeError(_mz_t("Потрібен exteraGram з новим плеєром MusicPlayerSheet. Ця версія застосунку не підтримується.", "Needs exteraGram with the new MusicPlayerSheet player. This app version is not supported.", "Нужен exteraGram с новым плеером MusicPlayerSheet. Эта версия приложения не поддерживается."))
+            raise RuntimeError(_mz_t("Потрібен MZGram з новим плеєром MusicPlayerSheet. Ця версія застосунку не підтримується.", "Needs MZGram with the new MusicPlayerSheet player. This app version is not supported.", "Нужен MZGram с новым плеером MusicPlayerSheet. Эта версия приложения не поддерживается."))
         self.hook_all_constructors(sheet, after=lambda p: ui(lambda: self.attach(p.thisObject), 60))
         self.hook_all_methods(layout, "onLayout", after=self.layout_hook)
         self.hook_all_methods(layout, "layoutModeSegments", after=self.layout_hook)

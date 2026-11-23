@@ -41,7 +41,7 @@ from org.telegram.messenger import ApplicationLoader, NotificationCenter
 
 __id__ = "nes_emulator"
 __name__ = "NesEMU"
-__description__ = "NES (Dendy) emulator for exteraGram"
+__description__ = "Classic NES and Dendy game console emulator."
 __author__ = "MZGram"
 __version__ = "1.0.0-mz1"
 __app_version__ = ">=12.2.0"
